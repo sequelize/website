@@ -44,7 +44,7 @@ User.init({
 })();
 ```
 
-To learn more about how to use Sequelize, read the tutorials available in the left menu. Begin with [Getting Started](manual/getting-started.html).
+To learn more about how to use Sequelize, read the tutorials available in the left menu. Begin with [Getting Started](./getting-started.md).
 
 ## Supporting the project
 

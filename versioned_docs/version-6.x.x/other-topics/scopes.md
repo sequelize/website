@@ -2,7 +2,7 @@
 
 Scopes are used to help you reuse code. You can define commonly used queries, specifying options such as `where`, `include`, `limit`, etc.
 
-This guide concerns model scopes. You might also be interested in the [guide for association scopes](association-scopes.html), which are similar but not the same thing.
+This guide concerns model scopes. You might also be interested in the [guide for association scopes](../advanced-association-concepts/association-scopes.md), which are similar but not the same thing.
 
 ## Definition
 
@@ -51,7 +51,7 @@ Project.init({
 });
 ```
 
-You can also add scopes after a model has been defined by calling [`YourModel.addScope`](../class/src/model.js~Model.html#static-method-addScope). This is especially useful for scopes with includes, where the model in the include might not be defined at the time the other model is being defined.
+You can also add scopes after a model has been defined by calling [`YourModel.addScope`](pathname:///api/v6/class/src/model.js~Model.html#static-method-addScope). This is especially useful for scopes with includes, where the model in the include might not be defined at the time the other model is being defined.
 
 The default scope is always applied. This means, that with the model definition above, `Project.findAll()` will create the following query:
 

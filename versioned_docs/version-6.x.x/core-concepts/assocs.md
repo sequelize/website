@@ -61,7 +61,7 @@ As mentioned, usually the Sequelize associations are defined in pairs. In summar
 * To create a **One-To-One** relationship, the `hasOne` and `belongsTo` associations are used together;
 * To create a **One-To-Many** relationship, the `hasMany` and `belongsTo` associations are used together;
 * To create a **Many-To-Many** relationship, two `belongsToMany` calls are used together.
-  * Note: there is also a *Super Many-To-Many* relationship, which uses six associations at once, and will be discussed in the [Advanced Many-to-Many relationships guide](advanced-many-to-many.html).
+  * Note: there is also a *Super Many-To-Many* relationship, which uses six associations at once, and will be discussed in the [Advanced Many-to-Many relationships guide](../advanced-association-concepts/advanced-many-to-many.md).
 
 This will all be seen in detail next. The advantages of using these pairs instead of one single association will be discussed in the end of this chapter.
 
@@ -386,7 +386,7 @@ console.log('Amount of Sails:', awesomeCaptain.ship.amountOfSails);
 
 As shown above, Eager Loading is performed in Sequelize by using the `include` option. Observe that here only one query was performed to the database (which brings the associated data along with the instance).
 
-This was just a quick introduction to Eager Loading in Sequelize. There is a lot more to it, which you can learn at [the dedicated guide on Eager Loading](eager-loading.html).
+This was just a quick introduction to Eager Loading in Sequelize. There is a lot more to it, which you can learn at [the dedicated guide on Eager Loading](../advanced-association-concepts/eager-loading.md).
 
 ### Creating, updating and deleting
 
@@ -406,7 +406,7 @@ The above showed the basics on queries for fetching data involving associations.
 
 * Or use the *[special methods/mixins](#special-methods-mixins-added-to-instances)* available for associated models, which are explained later on this page.
 
-**Note:** The [`save()` instance method](../class/src/model.js~Model.html#instance-method-save) is not aware of associations. In other words, if you change a value from a *child* object that was eager loaded along a *parent* object, calling `save()` on the parent will completely ignore the change that happened on the child.
+**Note:** The [`save()` instance method](pathname:///api/v6/class/src/model.js~Model.html#instance-method-save) is not aware of associations. In other words, if you change a value from a *child* object that was eager loaded along a *parent* object, calling `save()` on the parent will completely ignore the change that happened on the child.
 
 ## Association Aliases & Custom Foreign Keys
 
@@ -487,7 +487,7 @@ console.log((await ship.getLeader()).toJSON());
 
 Aliases are especially useful when you need to define two different associations between the same models. For example, if we have the models `Mail` and `Person`, we may want to associate them twice, to represent the `sender` and `receiver` of the Mail. In this case we must use an alias for each association, since otherwise a call like `mail.getPerson()` would be ambiguous. With the `sender` and `receiver` aliases, we would have the two methods available and working: `mail.getSender()` and `mail.getReceiver()`, both of them returning a `Promise<Person>`.
 
-When defining an alias for a `hasOne` or `belongsTo` association, you should use the singular form of a word (such as `leader`, in the example above). On the other hand, when defining an alias for `hasMany` and `belongsToMany`, you should use the plural form. Defining aliases for Many-to-Many relationships (with `belongsToMany`) is covered in the [Advanced Many-to-Many Associations guide](advanced-many-to-many.html).
+When defining an alias for a `hasOne` or `belongsTo` association, you should use the singular form of a word (such as `leader`, in the example above). On the other hand, when defining an alias for `hasMany` and `belongsToMany`, you should use the plural form. Defining aliases for Many-to-Many relationships (with `belongsToMany`) is covered in the [Advanced Many-to-Many Associations guide](../advanced-association-concepts/advanced-many-to-many.md).
 
 ### Doing both things
 

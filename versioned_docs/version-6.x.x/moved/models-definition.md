@@ -1,6 +1,6 @@
 # [MOVED] Models Definition
 
-The contents of this page were moved to [Model Basics](model-basics.html).
+The contents of this page were moved to [Model Basics](../core-concepts/model-basics.md).
 
 The only exception is the guide on `sequelize.import`, which is deprecated and was removed from the docs. However, if you really need it, it was kept here.
 

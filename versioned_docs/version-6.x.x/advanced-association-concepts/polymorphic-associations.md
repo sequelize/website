@@ -56,7 +56,7 @@ To setup the polymorphic association for the example above (which is an example 
 * Define a string field called `commentableType` in the `Comment` model;
 * Define the `hasMany` and `belongsTo` association between `Image`/`Video` and `Comment`:
   * Disabling constraints (i.e. using `{ constraints: false }`), since the same foreign key is referencing multiple tables;
-  * Specifying the appropriate [association scopes](association-scopes.html);
+  * Specifying the appropriate [association scopes](./association-scopes.md);
 * To properly support lazy loading, define a new instance method on the `Comment` model called `getCommentable` which calls, under the hood, the correct mixin to fetch the appropriate commentable;
 * To properly support eager loading, define an `afterFind` hook on the `Comment` model that automatically populates the `commentable` field in every instance;
 * To prevent bugs/mistakes in eager loading, you can also delete the concrete fields `image` and `video` from Comment instances in the same `afterFind` hook, leaving only the abstract `commentable` field available.
@@ -134,7 +134,7 @@ Note that, in the code above:
 * The *Image -> Comment* association defined an association scope: `{ commentableType: 'image' }`
 * The *Video -> Comment* association defined an association scope: `{ commentableType: 'video' }`
 
-These scopes are automatically applied when using the association functions (as explained in the [Association Scopes](association-scopes.html) guide). Some examples are below, with their generated SQL statements:
+These scopes are automatically applied when using the association functions (as explained in the [Association Scopes](./association-scopes.md) guide). Some examples are below, with their generated SQL statements:
 
 * `image.getComments()`:
 
@@ -231,7 +231,7 @@ The setup for this goes as follows:
 * Define a string field called `taggableType` in the junction model;
 * Define the `belongsToMany` associations between the two models and `Tag`:
   * Disabling constraints (i.e. using `{ constraints: false }`), since the same foreign key is referencing multiple tables;
-  * Specifying the appropriate [association scopes](association-scopes.html);
+  * Specifying the appropriate [association scopes](./association-scopes.md);
 * Define a new instance method on the `Tag` model called `getTaggables` which calls, under the hood, the correct mixin to fetch the appropriate taggables.
 
 Implementation:

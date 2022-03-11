@@ -8,7 +8,7 @@ In this tutorial you will learn what models are in Sequelize and how to use them
 
 ## Concept
 
-Models are the essence of Sequelize. A model is an abstraction that represents a table in your database. In Sequelize, it is a class that extends [Model](../class/src/model.js~Model.html).
+Models are the essence of Sequelize. A model is an abstraction that represents a table in your database. In Sequelize, it is a class that extends [Model](pathname:///api/v6/class/src/model.js~Model.html).
 
 The model tells Sequelize several things about the entity it represents, such as the name of the table in the database and which columns it has (and their data types).
 
@@ -18,8 +18,8 @@ A model in Sequelize has a name. This name does not have to be the same name of 
 
 Models can be defined in two equivalent ways in Sequelize:
 
-* Calling [`sequelize.define(modelName, attributes, options)`](../class/src/sequelize.js~Sequelize.html#instance-method-define)
-* Extending [Model](../class/src/model.js~Model.html) and calling [`init(attributes, options)`](../class/src/model.js~Model.html#static-method-init)
+* Calling [`sequelize.define(modelName, attributes, options)`](pathname:///api/v6/class/src/sequelize.js~Sequelize.html#instance-method-define)
+* Extending [Model](pathname:///api/v6/class/src/model.js~Model.html) and calling [`init(attributes, options)`](pathname:///api/v6/class/src/model.js~Model.html#static-method-init)
 
 After a model is defined, it is available within `sequelize.models` by its model name.
 
@@ -27,7 +27,7 @@ To learn with an example, we will consider that we want to create a model to rep
 
 Both ways to define this model are shown below. After being defined, we can access our model with `sequelize.models.User`.
 
-### Using [`sequelize.define`](../class/src/sequelize.js~Sequelize.html#instance-method-define):
+### Using [`sequelize.define`](pathname:///api/v6/class/src/sequelize.js~Sequelize.html#instance-method-define):
 
 ```js
 const { Sequelize, DataTypes } = require('sequelize');
@@ -51,7 +51,7 @@ const User = sequelize.define('User', {
 console.log(User === sequelize.models.User); // true
 ```
 
-### Extending [Model](../class/src/model.js~Model.html)
+### Extending [Model](pathname:///api/v6/class/src/model.js~Model.html)
 
 ```js
 const { Sequelize, DataTypes, Model } = require('sequelize');
@@ -209,7 +209,7 @@ console.log("The table for the User model was just (re)created!");
 
 ### Synchronizing all models at once
 
-You can use [`sequelize.sync()`](../class/src/sequelize.js~Sequelize.html#instance-method-sync) to automatically synchronize all models. Example:
+You can use [`sequelize.sync()`](pathname:///api/v6/class/src/sequelize.js~Sequelize.html#instance-method-sync) to automatically synchronize all models. Example:
 
 ```js
 await sequelize.sync({ force: true });
@@ -243,7 +243,7 @@ sequelize.sync({ force: true, match: /_test$/ });
 
 ### Synchronization in production
 
-As shown above, `sync({ force: true })` and `sync({ alter: true })` can be destructive operations. Therefore, they are not recommended for production-level software. Instead, synchronization should be done with the advanced concept of [Migrations](migrations.html), with the help of the [Sequelize CLI](https://github.com/sequelize/cli).
+As shown above, `sync({ force: true })` and `sync({ alter: true })` can be destructive operations. Therefore, they are not recommended for production-level software. Instead, synchronization should be done with the advanced concept of [Migrations](../other-topics/migrations.md), with the help of the [Sequelize CLI](https://github.com/sequelize/cli).
 
 ## Timestamps
 
@@ -402,7 +402,7 @@ For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL 
 
 ### Others
 
-There are other data types, covered in a [separate guide](other-data-types.html).
+There are other data types, covered in a [separate guide](../other-topics/other-data-types.md).
 
 ## Column Options
 

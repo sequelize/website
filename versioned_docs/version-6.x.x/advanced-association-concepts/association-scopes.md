@@ -4,13 +4,13 @@ sidebar_position: 4
 
 # Association Scopes
 
-This section concerns association scopes, which are similar but not the same as [model scopes](scopes.html).
+This section concerns association scopes, which are similar but not the same as [model scopes](../other-topics/scopes.md).
 
 Association scopes can be placed both on the associated model (the target of the association) and on the through table for Many-to-Many relationships.
 
 ## Concept
 
-Similarly to how a [model scope](scopes.html) is automatically applied on the model static calls, such as `Model.scope('foo').findAll()`, an association scope is a rule (more precisely, a set of default attributes and options) that is automatically applied on instance calls from the model. Here, *instance calls* mean method calls that are called from an instance (rather than from the Model itself). Mixins are the main example of instance methods (`instance.getSomething`, `instance.setSomething`, `instance.addSomething` and `instance.createSomething`).
+Similarly to how a [model scope](../other-topics/scopes.md) is automatically applied on the model static calls, such as `Model.scope('foo').findAll()`, an association scope is a rule (more precisely, a set of default attributes and options) that is automatically applied on instance calls from the model. Here, *instance calls* mean method calls that are called from an instance (rather than from the Model itself). Mixins are the main example of instance methods (`instance.getSomething`, `instance.setSomething`, `instance.addSomething` and `instance.createSomething`).
 
 Association scopes behave just like model scopes, in the sense that both cause an automatic application of things like `where` clauses to finder calls; the difference being that instead of applying to static finder calls (which is the case for model scopes), the association scopes automatically apply to instance finder calls (such as mixins).
 
