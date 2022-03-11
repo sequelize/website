@@ -30,7 +30,7 @@ const config = {
             // this should always be the 'alpha' version
             // the stable version should be inside 'versioned_docs'
             current: {
-              label: '7 - alpha',
+              label: 'v7 - alpha',
               path: 'v7',
             },
             '6.x.x': {
