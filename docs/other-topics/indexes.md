@@ -1,6 +1,6 @@
 # Indexes
 
-Sequelize supports adding indexes to the model definition which will be created on [`sequelize.sync()`](pathname:///api/classes/Sequelize.html#sync).
+Sequelize supports adding indexes to the model definition which will be created on [`sequelize.sync()`](pathname:///api/v7/classes/Sequelize.html#sync).
 
 ```js
 const User = sequelize.define('User', { /* attributes */ }, {

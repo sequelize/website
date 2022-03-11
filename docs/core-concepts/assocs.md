@@ -406,7 +406,7 @@ The above showed the basics on queries for fetching data involving associations.
 
 * Or use the *[special methods/mixins](#special-methodsmixins-added-to-instances)* available for associated models, which are explained later on this page.
 
-**Note:** The [`save()` instance method](pathname:///api/classes/Model.html#save) is not aware of associations. In other words, if you change a value from a *child* object that was eager loaded along a *parent* object, calling `save()` on the parent will completely ignore the change that happened on the child.
+**Note:** The [`save()` instance method](pathname:///api/v7/classes/Model.html#save) is not aware of associations. In other words, if you change a value from a *child* object that was eager loaded along a *parent* object, calling `save()` on the parent will completely ignore the change that happened on the child.
 
 ## Association Aliases & Custom Foreign Keys
 

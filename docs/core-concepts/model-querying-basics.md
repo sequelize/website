@@ -20,7 +20,7 @@ const jane = await User.create({ firstName: "Jane", lastName: "Doe" });
 console.log("Jane's auto-generated ID:", jane.id);
 ```
 
-The [`Model.create()`](pathname:///api/classes/Model.html#create) method is a shorthand for building an unsaved instance with [`Model.build()`](pathname:///api/classes/Model.html#build) and saving the instance with [`instance.save()`](pathname:///api/classes/Model.html#save).
+The [`Model.create()`](pathname:///api/v7/classes/Model.html#create) method is a shorthand for building an unsaved instance with [`Model.build()`](pathname:///api/v7/classes/Model.html#build) and saving the instance with [`instance.save()`](pathname:///api/v7/classes/Model.html#save).
 
 It is also possible to define which attributes can be set in the `create` method. This can be especially useful if you create database entries based on a form which can be filled by a user. Using that would, for example, allow you to restrict the `User` model to set only an username but not an admin flag (i.e., `isAdmin`):
 
@@ -36,7 +36,7 @@ console.log(user.isAdmin); // false
 
 ## Simple SELECT queries
 
-You can read the whole table from the database with the [`findAll`](pathname:///api/classes/Model.html#findAll) method:
+You can read the whole table from the database with the [`findAll`](pathname:///api/v7/classes/Model.html#findAll) method:
 
 ```js
 // Find all users
@@ -75,7 +75,7 @@ Model.findAll({
 SELECT foo, bar AS baz, qux FROM ...
 ```
 
-You can use [`fn`](pathname:///api/index.html#fn) to do aggregations:
+You can use [`fn`](pathname:///api/v7/index.html#fn) to do aggregations:
 
 ```js
 import { fn, col } from '@sequelize/core';
@@ -137,7 +137,7 @@ SELECT id, foo, bar, qux FROM ...
 
 [//]: # (TODO: replace link to a guide that details every operator)
 
-The `where` option is used to filter the query. There are lots of operators to use for the `where` clause, available as Symbols from [`Op`](pathname:///api/index.html#Op).
+The `where` option is used to filter the query. There are lots of operators to use for the `where` clause, available as Symbols from [`Op`](pathname:///api/v7/index.html#Op).
 
 ### The basics
 
@@ -383,7 +383,7 @@ Post.findAll({
 // SELECT ... FROM "posts" AS "post" WHERE char_length("content") = 7
 ```
 
-Note the usage of the  [`fn`](pathname:///api/index.html#fn) and [`col`](pathname:///api/index.html#col) methods, which should be used to specify an SQL function call and a table column, respectively. These methods should be used instead of passing a plain string (such as `char_length(content)`) because Sequelize needs to treat this situation differently (for example, using other symbol escaping approaches).
+Note the usage of the  [`fn`](pathname:///api/v7/index.html#fn) and [`col`](pathname:///api/v7/index.html#col) methods, which should be used to specify an SQL function call and a table column, respectively. These methods should be used instead of passing a plain string (such as `char_length(content)`) because Sequelize needs to treat this situation differently (for example, using other symbol escaping approaches).
 
 What if you need something even more complex?
 

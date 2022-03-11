@@ -4,11 +4,11 @@ An instance of Sequelize uses something called **Query Interface** to communicat
 
 The methods from the query interface are therefore lower-level methods; you should use them only if you do not find another way to do it with higher-level APIs from Sequelize. They are, of course, still higher-level than running raw queries directly (i.e., writing SQL by hand).
 
-This guide shows a few examples, but for the full list of what it can do, and for detailed usage of each method, check the [QueryInterface API](pathname:///api/classes/QueryInterface.html).
+This guide shows a few examples, but for the full list of what it can do, and for detailed usage of each method, check the [QueryInterface API](pathname:///api/v7/classes/QueryInterface.html).
 
 ## Obtaining the query interface
 
-From now on, we will call `queryInterface` the singleton instance of the [QueryInterface](pathname:///api/classes/QueryInterface.html) class, which is available on your Sequelize instance:
+From now on, we will call `queryInterface` the singleton instance of the [QueryInterface](pathname:///api/v7/classes/QueryInterface.html) class, which is available on your Sequelize instance:
 
 ```js
 const { Sequelize, DataTypes } = require('@sequelize/core');
@@ -149,4 +149,4 @@ DROP TABLE `Person_backup`;
 
 ## Other
 
-As mentioned in the beginning of this guide, there is a lot more to the Query Interface available in Sequelize! Check the [QueryInterface API](pathname:///api/classes/QueryInterface.html) for a full list of what can be done.
+As mentioned in the beginning of this guide, there is a lot more to the Query Interface available in Sequelize! Check the [QueryInterface API](pathname:///api/v7/classes/QueryInterface.html) for a full list of what can be done.

@@ -8,7 +8,7 @@ In this tutorial you will learn what models are in Sequelize and how to use them
 
 ## Concept
 
-Models are the essence of Sequelize. A model is an abstraction that represents a table in your database. In Sequelize, it is a class that extends [Model](pathname:///api/classes/Model.html).
+Models are the essence of Sequelize. A model is an abstraction that represents a table in your database. In Sequelize, it is a class that extends [Model](pathname:///api/v7/classes/Model.html).
 
 The model tells Sequelize several things about the entity it represents, such as the name of the table in the database and which columns it has (and their data types).
 
@@ -18,8 +18,8 @@ A model in Sequelize has a name. This name does not have to be the same name of 
 
 Models can be defined in two equivalent ways in Sequelize:
 
-* Calling [`sequelize.define(modelName, attributes, options)`](pathname:///api/classes/Sequelize.html#define)
-* Extending [Model](pathname:///api/classes/Model.html) and calling [`init(attributes, options)`](pathname:///api/classes/Model.html#init)
+* Calling [`sequelize.define(modelName, attributes, options)`](pathname:///api/v7/classes/Sequelize.html#define)
+* Extending [Model](pathname:///api/v7/classes/Model.html) and calling [`init(attributes, options)`](pathname:///api/v7/classes/Model.html#init)
 
 After a model is defined, it is available within `sequelize.models` by its model name.
 
@@ -27,7 +27,7 @@ To learn with an example, we will consider that we want to create a model to rep
 
 Both ways to define this model are shown below. After being defined, we can access our model with `sequelize.models.User`.
 
-### Using [`sequelize.define`](pathname:///api/classes/Sequelize.html#define):
+### Using [`sequelize.define`](pathname:///api/v7/classes/Sequelize.html#define):
 
 ```js
 const { Sequelize, DataTypes } = require('@sequelize/core');
@@ -51,7 +51,7 @@ const User = sequelize.define('User', {
 console.log(User === sequelize.models.User); // true
 ```
 
-### Extending [Model](pathname:///api/classes/Model.html)
+### Extending [Model](pathname:///api/v7/classes/Model.html)
 
 ```js
 const { Sequelize, DataTypes, Model } = require('@sequelize/core');
@@ -194,7 +194,7 @@ sequelize.define('User', {
 
 When you define a model, you're telling Sequelize a few things about its table in the database. However, what if the table actually doesn't even exist in the database? What if it exists, but it has different columns, less columns, or any other difference?
 
-This is where model synchronization comes in. A model can be synchronized with the database by calling [`model.sync(options)`](pathname:///api/classes/Model.html#sync), an asynchronous function (that returns a Promise). With this call, Sequelize will automatically perform an SQL query to the database. Note that this changes only the table in the database, not the model in the JavaScript side.
+This is where model synchronization comes in. A model can be synchronized with the database by calling [`model.sync(options)`](pathname:///api/v7/classes/Model.html#sync), an asynchronous function (that returns a Promise). With this call, Sequelize will automatically perform an SQL query to the database. Note that this changes only the table in the database, not the model in the JavaScript side.
 
 * `User.sync()` - This creates the table if it doesn't exist (and does nothing if it already exists)
 * `User.sync({ force: true })` - This creates the table, dropping it first if it already existed
@@ -209,7 +209,7 @@ console.log("The table for the User model was just (re)created!");
 
 ### Synchronizing all models at once
 
-You can use [`sequelize.sync()`](pathname:///api/classes/Sequelize.html#sync) to automatically synchronize all models. Example:
+You can use [`sequelize.sync()`](pathname:///api/v7/classes/Sequelize.html#sync) to automatically synchronize all models. Example:
 
 ```js
 await sequelize.sync({ force: true });

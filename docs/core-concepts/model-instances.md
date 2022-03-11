@@ -30,7 +30,7 @@ const User = sequelize.define("user", {
 
 ## Creating an instance
 
-Although a model is a class, you should not create instances by using the `new` operator directly. Instead, the [`build`](pathname:///api/classes/Model.html#build) method should be used:
+Although a model is a class, you should not create instances by using the `new` operator directly. Instead, the [`build`](pathname:///api/v7/classes/Model.html#build) method should be used:
 
 ```js
 const jane = User.build({ name: "Jane" });
@@ -38,7 +38,7 @@ console.log(jane instanceof User); // true
 console.log(jane.name); // "Jane"
 ```
 
-However, the code above does not communicate with the database at all (note that it is not even asynchronous)! This is because the [`build`](pathname:///api/classes/Model.html#build) method only creates an object that *represents* data that *can* be mapped to a database. In order to really save (i.e. persist) this instance in the database, the [`save`](pathname:///api/classes/Model.html#save) method should be used:
+However, the code above does not communicate with the database at all (note that it is not even asynchronous)! This is because the [`build`](pathname:///api/v7/classes/Model.html#build) method only creates an object that *represents* data that *can* be mapped to a database. In order to really save (i.e. persist) this instance in the database, the [`save`](pathname:///api/v7/classes/Model.html#save) method should be used:
 
 ```js
 await jane.save();
@@ -49,7 +49,7 @@ Note, from the usage of `await` in the snippet above, that `save` is an asynchro
 
 ### A very useful shortcut: the `create` method
 
-Sequelize provides the [`create`](pathname:///api/classes/Model.html#create) method, which combines the `build` and `save` methods shown above into a single method:
+Sequelize provides the [`create`](pathname:///api/v7/classes/Model.html#create) method, which combines the `build` and `save` methods shown above into a single method:
 
 ```js
 const jane = await User.create({ name: "Jane" });
@@ -91,7 +91,7 @@ await jane.save();
 // Now the name was updated to "Ada" in the database!
 ```
 
-You can update several fields at once with the [`set`](pathname:///api/classes/Model.html#set) method:
+You can update several fields at once with the [`set`](pathname:///api/v7/classes/Model.html#set) method:
 
 ```js
 const jane = await User.create({ name: "Jane" });
@@ -105,7 +105,7 @@ await jane.save();
 // The database now has "Ada" and "blue" for name and favorite color
 ```
 
-Note that the `save()` here will also persist any other changes that have been made on this instance, not just those in the previous `set` call. If you want to update a specific set of fields, you can use [`update`](pathname:///api/classes/Model.html#update):
+Note that the `save()` here will also persist any other changes that have been made on this instance, not just those in the previous `set` call. If you want to update a specific set of fields, you can use [`update`](pathname:///api/v7/classes/Model.html#update):
 
 ```js
 const jane = await User.create({ name: "Jane" });
@@ -118,7 +118,7 @@ await jane.save()
 
 ## Deleting an instance
 
-You can delete an instance by calling [`destroy`](pathname:///api/classes/Model.html#destroy):
+You can delete an instance by calling [`destroy`](pathname:///api/v7/classes/Model.html#destroy):
 
 ```js
 const jane = await User.create({ name: "Jane" });
@@ -129,7 +129,7 @@ await jane.destroy();
 
 ## Reloading an instance
 
-You can reload an instance from the database by calling [`reload`](pathname:///api/classes/Model.html#reload):
+You can reload an instance from the database by calling [`reload`](pathname:///api/v7/classes/Model.html#reload):
 
 ```js
 const jane = await User.create({ name: "Jane" });
@@ -172,7 +172,7 @@ Also, if only a few attributes have changed when you call `save`, only those fie
 
 ## Incrementing and decrementing integer values
 
-In order to increment/decrement values of an instance without running into concurrency issues, Sequelize provides the [`increment`](pathname:///api/classes/Model.html#increment) and [`decrement`](pathname:///api/classes/Model.html#decrement) instance methods.
+In order to increment/decrement values of an instance without running into concurrency issues, Sequelize provides the [`increment`](pathname:///api/v7/classes/Model.html#increment) and [`decrement`](pathname:///api/v7/classes/Model.html#decrement) instance methods.
 
 ```js
 const jane = await User.create({ name: "Jane", age: 100 });

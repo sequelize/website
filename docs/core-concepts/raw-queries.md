@@ -4,7 +4,7 @@ sidebar_position: 7
 
 # Raw Queries
 
-As there are often use cases in which it is just easier to execute raw / already prepared SQL queries, you can use the [`sequelize.query`](pathname:///api/classes/Sequelize.html#query) method.
+As there are often use cases in which it is just easier to execute raw / already prepared SQL queries, you can use the [`sequelize.query`](pathname:///api/v7/classes/Sequelize.html#query) method.
 
 By default the function will return two arguments - a results array, and an object containing metadata (such as amount of affected rows, etc). Note that since this is a raw query, the metadata are dialect specific. Some dialects return the metadata "within" the results object (as properties on an array). However, two arguments will always be returned, but for MSSQL and MySQL it will be two references to the same object.
 
@@ -34,7 +34,7 @@ const projects = await sequelize.query('SELECT * FROM projects', {
 // Each element of `projects` is now an instance of Project
 ```
 
-See more options in the [query API reference](pathname:///api/classes/Sequelize.html#query). Some examples:
+See more options in the [query API reference](pathname:///api/v7/classes/Sequelize.html#query). Some examples:
 
 ```js
 const { QueryTypes } = require('@sequelize/core');
