@@ -3,9 +3,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "yarn build:typedoc && yarn build:docusaurus",
-    "build:typedoc": "typedoc",
-    "build:docusaurus": "docusaurus build",
+    "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -23,13 +21,10 @@
     "prism-react-renderer": "^1.2.1",
     "raw-loader": "^4.0.2",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "typedoc": "^0.22.10"
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.0.0-beta.14",
-    "@types/debug": "^4.1.7",
-    "@types/validator": "^13.7.1",
     "markdownlint": "^0.25.1",
     "typescript": "^4.5.2"
   },
