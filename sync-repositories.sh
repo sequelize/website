@@ -11,7 +11,7 @@ set -e
 
 # download v7 branch
 rm -rf .sequelize/v7
-rm -rf ../../static/api/v7
+rm -rf static/api/v7
 
 git clone -b feature/typedoc --single-branch "$MAIN_REPO_URL" --depth 1 .sequelize/v7
 cd .sequelize/v7
@@ -33,7 +33,7 @@ cd ../..
 
 # download v6 branch
 rm -rf .sequelize/v6
-rm -rf ../../static/api/v6
+rm -rf static/api/v6
 git clone -b v6 --single-branch "$MAIN_REPO_URL" --depth 1 .sequelize/v6
 cd .sequelize/v6
 
