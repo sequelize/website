@@ -88,6 +88,10 @@ const config = {
                 label: 'Sequelize 5',
                 href: 'pathname:///v5/identifiers.html',
               },
+              {
+                label: 'Sequelize 4',
+                href: 'pathname:///v4/identifiers.html',
+              },
             ],
           },
           { href: 'https://sequelize-slack.herokuapp.com/', label: 'Slack', position: 'right' },
