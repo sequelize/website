@@ -22,15 +22,21 @@ const config = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl: 'https://github.com/sequelize/sequelize/tree/main/documentation/',
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
           versions: {
             // the name of the version inside 'docs'
             // this should always be the 'alpha' version
             // the stable version should be inside 'versioned_docs'
             current: {
-              label: '7 (alpha)',
+              label: '7 - alpha',
+              path: 'v7',
             },
+            '6.x.x': {
+              label: 'v6 - stable',
+              path: 'v6'
+            }
           },
         },
         theme: {
