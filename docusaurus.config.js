@@ -65,12 +65,12 @@ const config = {
             }],
             dropdownActiveClassDisabled: true,
           },
-          {
-            type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: 'Guides',
-          },
+          // {
+          //   type: 'doc',
+          //   docId: 'intro',
+          //   position: 'left',
+          //   label: 'Guides',
+          // },
           {
             type: 'dropdown',
             label: 'API References',
