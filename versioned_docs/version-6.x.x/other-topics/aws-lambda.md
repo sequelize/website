@@ -461,7 +461,7 @@ presents a set of issues:
 1. Some operations like
    [`Model.findAndCountAll()`](pathname:///api/v6/class/src/model.js~Model.html#static-method-findAndCountAll)
    execute multiple queries asynchronously (e.g.
-   [`Model.count()`](..class/src/model.js~Model.html#static-method-count) and
+   [`Model.count()`](pathname:///api/v6/class/src/model.js~Model.html#static-method-count) and
    [`Model.findAll()`](pathname:///api/v6/class/src/model.js~Model.html#static-method-findAll)). Using a maximum of
    one connection forces the queries to be exectued serially (rather than in parallel using two
    connections). While this may be an acceptable performance compromise in order to

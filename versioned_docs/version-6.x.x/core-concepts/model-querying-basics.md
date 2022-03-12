@@ -133,7 +133,7 @@ SELECT id, foo, bar, qux FROM ...
 
 ## Applying WHERE clauses
 
-The `where` option is used to filter the query. There are lots of operators to use for the `where` clause, available as Symbols from [`Op`](../variable/index.html#static-variable-Op).
+The `where` option is used to filter the query. There are lots of operators to use for the `where` clause, available as Symbols from [`Op`](pathname:///api/v6/variable/index.html#static-variable-Op).
 
 ### The basics
 
@@ -428,7 +428,7 @@ WHERE (
 
 Range types can be queried with all supported operators.
 
-Keep in mind, the provided range value can [define the bound inclusion/exclusion](data-types.html#range-types) as well.
+Keep in mind, the provided range value can [define the bound inclusion/exclusion](../other-topics/other-data-types.md#ranges-postgresql-only) as well.
 
 ```js
 [Op.contains]: 2,            // @> '2'::integer  (PG range contains element operator)

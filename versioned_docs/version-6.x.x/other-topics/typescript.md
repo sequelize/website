@@ -15,7 +15,7 @@ In order to avoid clashes with different Node versions, the typings for Node are
 ## Usage
 
 **Important**: You must use `declare` on your class properties typings to ensure TypeScript does not emit those class properties.
-See [Caveat with Public Class Fields](./model-basics.html#caveat-with-public-class-fields)
+See [Caveat with Public Class Fields](../core-concepts/model-basics.md#caveat-with-public-class-fields)
 
 Sequelize Models accept two generic types to define what the model's Attributes & Creation Attributes are like:
 
