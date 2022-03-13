@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="http://docs.sequelizejs.com/docs/getting-started/">
+  <link rel="shortcut icon" href="../../favicon.ico">
+  
+  <title>Getting Started - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../../css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Getting Started";
+    var mkdocs_page_input_path = "docs/getting-started.md";
+    var mkdocs_page_url = "/docs/getting-started/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Getting Started</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../models-definition/">Definition</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../instances/">Instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../migrations/">Migrations</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/instance/">Instance</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Associations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/errors/">Errors</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../changelog/">Changelog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Documentation &raquo;</li>
+        
+      
+    
+    <li>Getting Started</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/docs/getting-started.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="installation">Installation</h2>
+<p>Sequelize is available via NPM.</p>
+<pre><code class="language-bash">$ npm install --save sequelize
+
+# And one of the following:
+$ npm install --save pg pg-hstore
+$ npm install --save mysql // For both mysql and mariadb dialects
+$ npm install --save sqlite3
+$ npm install --save tedious // MSSQL
+</code></pre>
+<h2 id="setting-up-a-connection">Setting up a connection</h2>
+<p>Sequelize will setup a connection pool on initialization so you should ideally only ever create one instance per database.</p>
+<pre><code class="language-js">var sequelize = new Sequelize('database', 'username', 'password', {
+  host: 'localhost',
+  dialect: 'mysql'|'mariadb'|'sqlite'|'postgres'|'mssql',
+
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000
+  },
+
+  // SQLite only
+  storage: 'path/to/database.sqlite'
+});
+
+// Or you can simply use a connection uri
+var sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname');
+</code></pre>
+<p>The Sequelize constructor takes a whole slew of options that are available via the <a href="http://sequelize.readthedocs.org/en/latest/api/sequelize/">API reference</a>.</p>
+<h2 id="your-first-model">Your first model</h2>
+<p>Models are defined with <code>sequelize.define('name', {attributes}, {options})</code>.</p>
+<pre><code class="language-js">var User = sequelize.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
+  },
+  lastName: {
+    type: Sequelize.STRING
+  }
+}, {
+  freezeTableName: true // Model tableName will be the same as the model name
+});
+
+User.sync({force: true}).then(function () {
+  // Table created
+  return User.create({
+    firstName: 'John',
+    lastName: 'Hancock'
+  });
+});
+</code></pre>
+<p>Many more options can be found in the <a href="http://sequelize.readthedocs.org/en/latest/api/model/">Model API reference</a></p>
+<h3 id="application-wide-model-options">Application wide model options</h3>
+<p>The Sequelize constructor takes a <code>define</code> option which will be used as the default options for all defined models.</p>
+<pre><code class="language-js">var sequelize = new Sequelize('connectionUri', {
+  define: {
+    timestamps: false // true by default
+  }
+});
+
+var User = sequelize.define('user', {}); // timestamps is false by default
+var Post = sequelize.define('post', {}, {
+  timestamps: true // timestamps will now be true
+});
+</code></pre>
+<h2 id="promises">Promises</h2>
+<p>Sequelize uses promises to control async control-flow. If you are unfamiliar with how promises work, now might be a good time to brush up on them, <a href="https://github.com/wbinnssmith/awesome-promises">here</a> and <a href="http://bluebirdjs.com/docs/why-promises.html">here</a></p>
+<p>Basically a promise represents a value which will be present at some point - "I promise you I will give you a result or an error at some point". This means that</p>
+<pre><code class="language-js">// DON'T DO THIS
+user = User.findOne()
+
+console.log(user.get('firstName'));
+</code></pre>
+<p><em>will never work!</em> This is because <code>user</code> is a promise object, not a data row from the DB. The right way to do it is:</p>
+<pre><code class="language-js">User.findOne().then(function (user) {
+    console.log(user.get('firstName'));
+});
+</code></pre>
+<p>Once you've got the hang of what promises are and how they work, use the <a href="http://bluebirdjs.com/docs/api-reference.html">bluebird API reference</a> as your go to tool. In particular, you'll probably be using <a href="http://bluebirdjs.com/docs/api/promise.all.html"><code>.all</code></a> a lot.  </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../schema/" class="btn btn-neutral float-right" title="Working with table schemas">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../.." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../.." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../schema/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

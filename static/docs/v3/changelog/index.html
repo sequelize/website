@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="http://docs.sequelizejs.com/changelog/">
+  <link rel="shortcut icon" href="../favicon.ico">
+  
+  <title>Changelog - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Changelog";
+    var mkdocs_page_input_path = "changelog.md";
+    var mkdocs_page_url = "/changelog/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../docs/getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../docs/schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../docs/models-definition/">Definition</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../docs/models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../docs/querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../docs/scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../docs/instances/">Instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../docs/associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../docs/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../docs/transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../docs/legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../docs/raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../docs/migrations/">Migrations</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/instance/">Instance</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Associations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../api/associations/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../api/associations/belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../api/associations/has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../api/associations/has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../api/associations/belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../api/errors/">Errors</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Changelog</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Misc &raquo;</li>
+        
+      
+    
+    <li>Changelog</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/changelog.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="future">Future</h1>
+<h1 id="v3311">v3.31.1</h1>
+<ul>
+<li>[FIXED] postgres/connection-manager: Only fetch OIDs once <a href="https://github.com/sequelize/sequelize/pull/8733">#8733</a></li>
+</ul>
+<h1 id="v3310">v3.31.0</h1>
+<ul>
+<li>[FIXED] Passing parameters to model getters <a href="https://github.com/sequelize/sequelize/issues/7404">#7404</a></li>
+<li>[FIXED] <code>changeColumn</code> generates incorrect query with ENUM type <a href="https://github.com/sequelize/sequelize/pull/7456">#7456</a></li>
+<li>[ADDED] <code>ARRAY(ENUM)</code> support for Postgres <a href="https://github.com/sequelize/sequelize/pull/8703">#8703</a></li>
+</ul>
+<h1 id="3303">3.30.3</h1>
+<ul>
+<li>[ADDED] Ability to run transactions on a read-replica by marking transactions as read only <a href="https://github.com/sequelize/sequelize/issues/7323">#7323</a></li>
+<li>[FIXED] Add quotes around column names for unique constraints in sqlite <a href="https://github.com/sequelize/sequelize/issues/4407">#4407</a></li>
+</ul>
+<h1 id="3302">3.30.2</h1>
+<ul>
+<li>[FIXED] <code>previous</code> method gave wrong value back <a href="https://github.com/sequelize/sequelize/pull/7189">#7189</a></li>
+<li>[FIXED] Fixes setAssociation with scope <a href="https://github.com/sequelize/sequelize/pull/7223">#7223</a></li>
+<li>[FIXED] Including a virtual field can give an empty query <a href="https://github.com/sequelize/sequelize/pull/7164">#7164</a></li>
+<li>[FIXED] Fixes creation of polymorphic belongsToMany associations in one step #7159 <a href="https://github.com/sequelize/sequelize/pull/7181">#7181</a></li>
+</ul>
+<h1 id="3301">3.30.1</h1>
+<ul>
+<li>[FIXED] <code>sourceKey</code> FOR <code>hasMany</code> now also works if a <code>where</code> was specified in an <code>include</code> <a href="https://github.com/sequelize/sequelize/issues/7141">#7141</a></li>
+<li>[CHANGED] Updated deprecated <code>node-uuid</code> package to <code>uuid</code> <a href="https://github.com/sequelize/sequelize/pull/7148">#7148</a></li>
+<li>[FIXED] Updating <code>VIRTUAL</code> field throw <code>ER_EMPTY_QUERY</code> <a href="https://github.com/sequelize/sequelize/issues/6356">#6356</a></li>
+</ul>
+<h1 id="3300">3.30.0</h1>
+<ul>
+<li>[FIXED] <code>removeColumn</code> method to support dropping primaryKey column (MSSQL) <a href="https://github.com/sequelize/sequelize/pull/7081">#7081</a></li>
+<li>[ADDED] Support <code>sourceKey</code> for <code>hasMany</code> relationships <a href="https://github.com/sequelize/sequelize/issues/4258">#4258</a></li>
+</ul>
+<h1 id="3290">3.29.0</h1>
+<ul>
+<li>[FIXED] Transaction Name too long, transaction savepoints for SQL Server <a href="https://github.com/sequelize/sequelize/pull/6972">#6972</a></li>
+</ul>
+<h1 id="3280">3.28.0</h1>
+<ul>
+<li>[FIXED] Soft-delete not returning number of affected rows on mssql <a href="https://github.com/sequelize/sequelize/pull/6916">#6916</a></li>
+<li>[ADDED] <code>afterConnect</code> hook</li>
+<li>[FIXED] Range integer parsing <a href="https://github.com/sequelize/sequelize/pull/6897">#6897</a></li>
+<li>[FIXED] Upsert return value for mysql <a href="https://github.com/sequelize/sequelize/pull/6963">#6963</a></li>
+</ul>
+<h1 id="3270">3.27.0</h1>
+<ul>
+<li>[FIXED] Incorrect column name for generateThroughJoin <a href="https://github.com/sequelize/sequelize/pull/6878">#6878</a></li>
+<li>[ADDED] Support condition objects in utility functions <a href="https://github.com/sequelize/sequelize/pull/6685">#6685</a></li>
+</ul>
+<h1 id="3260">3.26.0</h1>
+<ul>
+<li>[ADDED] Backport of mssql upsert <a href="https://github.com/sequelize/sequelize/pull/6875">#6875</a></li>
+</ul>
+<h1 id="3251">3.25.1</h1>
+<ul>
+<li>[FIXED] fix instance.set '1970-01-01' to null field <a href="https://github.com/sequelize/sequelize/pull/6839">#6839</a></li>
+<li>[FIXED] Can not execute raw SQL queries for sqlite3 <a href="https://github.com/sequelize/sequelize/pull/6865">#6865</a></li>
+</ul>
+<h1 id="3250">3.25.0</h1>
+<ul>
+<li>[FIXED] Set <code>timestamps</code> and <code>paranoid</code> options from through model on <code>belongsToMany</code> association</li>
+<li>[FIXED] Properly apply paranoid condition when <code>groupedLimit.on</code> association is <code>paranoid</code></li>
+<li>[FIXED] <code>restore</code> now uses <code>field</code> from <code>deletedAt</code></li>
+<li>[ADDED] <code>option.silent</code> for increment and decrement <a href="https://github.com/sequelize/sequelize/pull/6793">#6793</a></li>
+</ul>
+<h1 id="3247">3.24.7</h1>
+<ul>
+<li>[FIXED] MSSQL bulkInsertQuery when options and attributes are not passed [#6782]</li>
+</ul>
+<h1 id="3246">3.24.6</h1>
+<ul>
+<li>[FIXED] groupedLimit.through.where support</li>
+</ul>
+<h1 id="3245">3.24.5</h1>
+<ul>
+<li>[FIXED] GroupedLimit when foreignKey has a field alias</li>
+</ul>
+<h1 id="3244">3.24.4</h1>
+<ul>
+<li>[FIXED] - ORDER clause was not included in subquery if <code>order</code> option value was provided as plain string (not as an array value)</li>
+<li>[FIXED] Issue with belongsTo association and foreign keys <a href="https://github.com/sequelize/sequelize/issues/6400">#6400</a></li>
+<li>[FIXED] Check that parent exists before appending attributes <a href="https://github.com/sequelize/sequelize/issues/6472">#6472</a></li>
+<li>[FIXED] Default options for insert queries <a href="https://github.com/sequelize/sequelize/pull/6644">#6644</a></li>
+</ul>
+<h1 id="3243">3.24.3</h1>
+<ul>
+<li>[ADDED] Backport of grouped limit include support</li>
+<li>[ADDED] Export datatypes <a href="https://github.com/sequelize/sequelize/pull/6578">#6578</a></li>
+</ul>
+<h1 id="3242">3.24.2</h1>
+<ul>
+<li>[FIXED] Accept dates as string while using <code>typeValidation</code> <a href="https://github.com/sequelize/sequelize/issues/6453">#6453</a></li>
+</ul>
+<h1 id="3241">3.24.1</h1>
+<ul>
+<li>[FIXED] Add <code>parent</code>, <code>original</code> and <code>sql</code> properties to <code>UniqueConstraintError</code></li>
+</ul>
+<h1 id="3240">3.24.0</h1>
+<ul>
+<li>[ADDED] <code>restartIdentity</code> option for truncate in postgres <a href="https://github.com/sequelize/sequelize/issues/5356">#5356</a></li>
+</ul>
+<h1 id="3235">3.23.5</h1>
+<h1 id="3234">3.23.4</h1>
+<ul>
+<li>[FIXED] Fixed an issue where custom-named model fields break when offsetting, ordering, and including hasMany simultaneously. <a href="https://github.com/sequelize/sequelize/issues/5985">#5985</a></li>
+<li>[FIXED] Don't remove includes from count queries and unify findAndCount and count queries. <a href="https://github.com/sequelize/sequelize/issues/6123">#6123</a></li>
+<li>[FIXED] <code>Model.count</code> don't include attributes <a href="https://github.com/sequelize/sequelize/issues/5057">#5057</a></li>
+<li>[SECURITY] <code>GEOMETRY</code> and <code>GEOGRAPHY</code> SQL injection attacks <a href="https://github.com/sequelize/sequelize/issues/6194">#6194</a></li>
+</ul>
+<h1 id="3233">3.23.3</h1>
+<ul>
+<li>[FIXED] Pass ResourceLock instead of raw connection in MSSQL disconnect handling</li>
+</ul>
+<h1 id="3232">3.23.2</h1>
+<ul>
+<li>[FIXED] Type validation now works with non-strings due to updated validator@5.0.0 <a href="https://github.com/sequelize/sequelize/pull/5861">#5861</a></li>
+<li>[FIXED] Improved offset and limit support for SQL server 2008 <a href="https://github.com/sequelize/sequelize/pull/5616">#5616</a></li>
+<li>[FIXED] options object cloned in all Sequelize methods (so not modified within Sequelize)</li>
+</ul>
+<h1 id="3231">3.23.1</h1>
+<ul>
+<li>[FIXED] Postgres DECIMAL precision. (PostgreSQL) <a href="https://github.com/sequelize/sequelize/issues/4893">#4893</a></li>
+<li>[FIXED] removeColumn tries to delete non-existant foreign key constraint (mysql) <a href="https://github.com/sequelize/sequelize/issues/5808">#5808</a></li>
+<li>[FIXED] Relation constraints not being applied correctly <a href="https://github.com/sequelize/sequelize/issues/5865">#5865</a></li>
+</ul>
+<h1 id="3230">3.23.0</h1>
+<ul>
+<li>[FIXED] Invalid query generated when using LIKE + ANY <a href="https://github.com/sequelize/sequelize/issues/5736">#5736</a></li>
+<li>[FIXED] Method QueryInterface.bulkDelete no longer working when the model parameter is missing. (PostgreSQL) <a href="https://github.com/sequelize/sequelize/issues/5615">#5615</a></li>
+<li>[ADDED] Context and custom options for deep creation</li>
+<li>[FIXED] Dates with millisecond precision are inserted correctly in MySQL <a href="https://github.com/sequelize/sequelize/pull/5855">#5855</a></li>
+</ul>
+<h1 id="3220">3.22.0</h1>
+<ul>
+<li>[FIXED] Fix defaultValues getting overwritten on build</li>
+<li>[FIXED] Queue queries against tedious connections</li>
+<li>[ADDED] Enable type validation for all queries</li>
+</ul>
+<h1 id="3210">3.21.0</h1>
+<ul>
+<li>[FIXED] Confirmed that values modified in validation hooks are preserved <a href="https://github.com/sequelize/sequelize/issues/3534">#3534</a></li>
+<li>[FIXED] Support lower case type names in SQLite <a href="https://github.com/sequelize/sequelize/issues/5482">#5482</a></li>
+<li>[FIXED] Support calling <code>setAssociation</code> twice on <code>hasOne</code> <a href="https://github.com/sequelize/sequelize/issues/5315">#5315</a></li>
+<li>[INTERNALS] Removed dependency on wellknown in favor of terraformer-wkt-parser</li>
+<li>[ADDED] Benchmarking feature <a href="https://github.com/sequelize/sequelize/issues/2494">#2494</a></li>
+<li>[INTERNALS] Add <code>Utils.mergeDeep</code> - allows lodash to be updated to latest version</li>
+</ul>
+<h1 id="3200">3.20.0</h1>
+<ul>
+<li>[ADDED] rejectOnEmpty mode <a href="https://github.com/sequelize/sequelize/issues/272">#272</a> <a href="https://github.com/sequelize/sequelize/issues/5480">#5480</a></li>
+<li>[ADDED] <code>beforeCount</code> hook <a href="https://github.com/sequelize/sequelize/pull/5209">#5209</a></li>
+<li>[ADDED] <code>validationFailed</code> hook <a href="https://github.com/sequelize/sequelize/issues/1626">#1626</a></li>
+<li>[ADDED] Support for IEEE floating point literals in postgres and sqlite <a href="https://github.com/sequelize/sequelize/issues/5194">#5194</a></li>
+<li>[FIXED] <code>addColumn</code> with reference in mysql <a href="https://github.com/sequelize/sequelize/issues/5592">#5592</a></li>
+<li>[FIXED] <code>findAndCountAll</code> generates invalid SQL, subQuery moves to LEFT OUTER JOIN <a href="https://github.com/sequelize/sequelize/issues/5445">#5445</a></li>
+<li>[FIXED] <code>count</code> methods pollute the options.includes <a href="https://github.com/sequelize/sequelize/issues/4191">#4191</a></li>
+<li>[FIXED] Invalid SQL generated when using group option along with attributes <a href="https://github.com/sequelize/sequelize/issues/3009">#3009</a></li>
+<li>[FIXED] Mark index as <code>unique: true</code> when <code>type: 'UNIQUE'</code>. Fixes <a href="https://github.com/sequelize/sequelize/issues/5351">#5351</a></li>
+<li>[FIXED] Improper escaping of bound arrays of strings on Postgres, SQLite, and Microsoft SQL Server</li>
+</ul>
+<h1 id="3193">3.19.3</h1>
+<ul>
+<li>[FIXED] <code>updatedAt</code> and <code>createdAt</code> values are now set before validation <a href="https://github.com/sequelize/sequelize/pull/5367">#5367</a></li>
+<li>[FIXED] <code>describeTable</code> maintains proper enum casing in mysql <a href="https://github.com/sequelize/sequelize/pull/5321">#5321</a></li>
+<li>[FIXED] Parsing of dates in MySQL, when a named timezone is used <a href="https://github.com/sequelize/sequelize/issues/4208">#4208</a></li>
+<li>[FIXED] Truncating in Postgres, when table has a schema <a href="https://github.com/sequelize/sequelize/issues/4306">#4306</a></li>
+<li>[FIXED] Moved initialization of scopes later in the model init process. Fixes attribute exclusion in scopes, <a href="https://github.com/sequelize/sequelize/issues/4735">#4735</a> and <a href="https://github.com/sequelize/sequelize/issues/4925">#4925</a></li>
+<li>[FIXED] Multiple custom unique validation messages being overwritten by the first-defined message, <a href="https://github.com/sequelize/sequelize/issues/4920">#4920</a></li>
+</ul>
+<h1 id="3190">3.19.0</h1>
+<ul>
+<li>[ADDED] Geography support for postgres</li>
+<li>[FIXED] Migrations failed to add foreign key <a href="https://github.com/sequelize/sequelize/issues/966">#966</a></li>
+<li>[FIXED] Prevent race condition after transaction finished <a href="https://github.com/sequelize/sequelize/issues/5222">#5222</a></li>
+<li>[FIXED] Fixed Instance.reload issues (<a href="https://github.com/sequelize/sequelize/issues/4844">#4844</a> and <a href="https://github.com/sequelize/sequelize/issues/4452">#4452</a>)</li>
+<li>[FIXED] Fix upsert when primary key contains <code>.field</code> (internal API change for <code>queryInterface.upsert</code>) <a href="https://github.com/sequelize/sequelize/issues/4755">#4755</a></li>
+<li>[FIXED] Default value for <code>defaultScope</code> is now an empty object. This fixes calling <code>.scope('defaultScope')</code> when no scope is explicitly defined, see <a href="https://github.com/sequelize/sequelize/issues/5277">#5277</a></li>
+</ul>
+<h1 id="3180">3.18.0</h1>
+<ul>
+<li>[ADDED] Support silent: true in bulk update <a href="https://github.com/sequelize/sequelize/issues/5200">#5200</a></li>
+<li>[ADDED] <code>retry</code> object now part of global settings and can be overridden per call.  The default is 5 retries with a backoff function.  <code>retry</code> object can be passed to options with max: 0 to turn off this behavior.</li>
+<li>[ADDED] Sqlite now retries database queries that return SQL_BUSY as the status.</li>
+<li>[ADDED] Add <code>IF EXIST</code> to postgres alter enum <a href="https://github.com/sequelize/sequelize/pull/4464">#4464</a></li>
+<li>[FIXED] Postgres destroy with <code>where</code> fails on JSONB data <a href="https://github.com/sequelize/sequelize/issues/5092">#5092</a></li>
+<li>[FIXED] hasMany.separate with foreign keys having <code>field</code></li>
+</ul>
+<h1 id="3173">3.17.3</h1>
+<ul>
+<li>[FIXED] Regression with array values from security fix in 3.17.2</li>
+</ul>
+<h1 id="3172">3.17.2</h1>
+<ul>
+<li>[SECURITY] Force non-buffer blob values to string, https://github.com/nodejs/node/issues/4660</li>
+</ul>
+<h1 id="3171">3.17.1</h1>
+<ul>
+<li>[FIXED] Reverted benchmarking feature since it does not compile on Node v4.0</li>
+</ul>
+<h1 id="3170">3.17.0</h1>
+<ul>
+<li>[SECURITY] Fixed injection vulnerability for order/limit</li>
+<li>[FIXED] MySQL throws error when null GEOMETRY data results in empty buffer <a href="https://github.com/sequelize/sequelize/issues/4953">#4953</a></li>
+</ul>
+<h1 id="3160">3.16.0</h1>
+<ul>
+<li>[ADDED] PostgreSQL tsrange (Range of timestamp without time zone) data type support.</li>
+<li>[ADDED] hasOne scope support <a href="https://github.com/sequelize/sequelize/pull/5113">#5113</a></li>
+<li>[FIXED] attributes from multiple scopes does not merge  <a href="https://github.com/sequelize/sequelize/issues/4856">#4856</a></li>
+<li>[FIXED] Support Unicode strings in mssql <a href="https://github.com/sequelize/sequelize/issues/3752">#3752</a></li>
+<li>[FIXED] Do not inject include twice in <code>options.include</code> <a href="https://github.com/sequelize/sequelize/pull/5106">#5106</a></li>
+<li>[FIXED] Expand and validate include in <code>aggregate</code></li>
+</ul>
+<h1 id="3151">3.15.1</h1>
+<ul>
+<li>[FIXED] calling Model.update() modifies passed values  <a href="https://github.com/sequelize/sequelize/issues/4520">#4520</a></li>
+<li>[FIXED] Instance can be chained on .set() and other methods <a href="https://github.com/sequelize/sequelize/issues/4702">#4702</a></li>
+<li>[FIXED] includes nested from a <code>separate</code> include now work properly <a href="https://github.com/sequelize/sequelize/pull/5080">#5080</a></li>
+</ul>
+<h1 id="3150">3.15.0</h1>
+<ul>
+<li>[ADDED] Improve support for pg range type to handle unbound ranges, +/-infinity bounds and empty ranges</li>
+<li>[FIXED] Postgres issue when using named timezone  <a href="https://github.com/sequelize/sequelize/issues/4307">#4307</a></li>
+<li>[FIXED] Add support for Babel/ES6 imports <a href="https://github.com/sequelize/sequelize/issues/4881">#4881</a></li>
+</ul>
+<h1 id="3142">3.14.2</h1>
+<ul>
+<li>[FIXED] Model.aggregate methods now support attributes and where conditions with fields. <a href="https://github.com/sequelize/sequelize/issues/4935">#4935</a></li>
+<li>[FIXED] Don't overwrite options.foreignKey in associations <a href="https://github.com/sequelize/sequelize/pull/4927">#4927</a></li>
+<li>[FIXED] Support nested <code>$col</code> keys. <a href="https://github.com/sequelize/sequelize/issues/4849">#4849</a></li>
+</ul>
+<h1 id="3141">3.14.1</h1>
+<ul>
+<li>[FIXED] Issue with transaction options leaking and certain queries running outside of the transaction connection.</li>
+</ul>
+<h1 id="3140">3.14.0</h1>
+<ul>
+<li>[FIXED] Apply scopes to <code>aggregate</code> <a href="https://github.com/sequelize/sequelize/issues/4764">#4764</a></li>
+<li>[FIXED] Improved postgres enum schema handling <a href="https://github.com/sequelize/sequelize/issues/4796">#4796</a></li>
+<li>[ADDED/FIXED] Lower case <code>onDelete</code> option to allow the use of <code>onDelete: 'CASCADE', hooks: true</code>.</li>
+<li>[FIXED] Ignore attributes in <code>count</code> <a href="https://github.com/sequelize/sequelize/issues/4566">#4566</a></li>
+</ul>
+<h1 id="3130">3.13.0</h1>
+<ul>
+<li>[FIXED] timestamp columns are no longer undefined for associations loaded with <code>separate</code>. <a href="https://github.com/sequelize/sequelize/issues/4740">#4740</a></li>
+<li>[FIXED] Mark unscoped model as <code>.scoped</code>, to prevent injection of default scope on includes <a href="https://github.com/sequelize/sequelize/issues/4663">#4663</a></li>
+<li>[ADDED] <code>.previous</code> now returns and object of previous values when called without <code>key</code>. This brings the API in line with <code>.changed</code></li>
+</ul>
+<h1 id="3121">3.12.1</h1>
+<ul>
+<li>[FIXED] Mark postgres connection as invalid if the connection is reset <a href="https://github.com/sequelize/sequelize/pull/4661">#4661</a></li>
+<li>[FIXED] Remove usage of "limit" in cases where it's unnecessary, which fixes some of the cases mentioned in [#4404] (https://github.com/sequelize/sequelize/issues/4404)</li>
+<li>[SECURITY] Security concern with <code>$model.field$</code>, refactored to now require <code>$col: 'model.field'</code></li>
+</ul>
+<h1 id="3120">3.12.0</h1>
+<ul>
+<li>[ADDED] Preliminary support for <code>include.on</code>.</li>
+<li>[FIXED] Partial rollback of datatype validations by hiding it behind the <code>typeValidation</code> flag.</li>
+<li>[FIXED] Don't try to select the primary key for models without primary key <a href="https://github.com/sequelize/sequelize/issues/4607">#4607</a></li>
+<li>[FIXED] Apply <code>attributes</code> when including a scoped model. <a href="https://github.com/sequelize/sequelize/issues/4625">#4625</a></li>
+<li>[FIXED] Use bits instead of strings for mssql booleans. <a href="https://github.com/sequelize/sequelize/pull/4621">#4621</a></li>
+<li>[FIXED] BulkCreate validation fails for properties with <code>field</code> <a href="https://github.com/sequelize/sequelize/issues/3787">#3787</a></li>
+</ul>
+<h1 id="3110">3.11.0</h1>
+<ul>
+<li>[INTERNALS] Updated dependencies <a href="https://github.com/sequelize/sequelize/pull/4594">#4594</a><ul>
+<li>bluebird@2.10.1</li>
+<li>dottie@1.0.0</li>
+<li>wellknown@0.4.0</li>
+</ul>
+</li>
+<li>[INTERNALS] Updated devDependencies <a href="https://github.com/sequelize/sequelize/pull/4594">#4594</a><ul>
+<li>mysql@2.9.0</li>
+<li>coffee-script</li>
+</ul>
+</li>
+<li>[FIXED] Add limit to <code>findOne</code> when using queries like <code>{ id: { $gt ...</code> <a href="https://github.com/sequelize/sequelize/issues/4416">#4416</a></li>
+<li>[FIXED] Include all with scopes <a href="https://github.com/sequelize/sequelize/issues/4584">#4584</a></li>
+<li>[INTERNALS] Corrected spelling seperate -&gt; separate</li>
+<li>[ADDED] Added <code>include</code> and <code>exclude</code> to <code>options.attributes</code>. <a href="https://github.com/sequelize/sequelize/issues/4074">#4074</a></li>
+<li>[FIXED/INTERNALS] Only recurse on plain objects in <code>mapOptionFieldNames</code>. <a href="https://github.com/sequelize/sequelize/issues/4596">#4596</a></li>
+</ul>
+<h1 id="3100">3.10.0</h1>
+<ul>
+<li>[ADDED] support <code>search_path</code> for postgres with lots of schemas <a href="https://github.com/sequelize/sequelize/pull/4534">#4534</a></li>
+<li>[ADDED] Expose Association constructor as <code>Sequelize.Association</code></li>
+<li>[ADDED] beforeSync/afterSync/beforeBulkSync/afterBulksync hooks <a href="https://github.com/sequelize/sequelize/issues/4479">#4479</a></li>
+<li>[FIXED] Calling set with dot.separated key on a JSON/JSONB attribute will not flag the entire object as changed <a href="https://github.com/sequelize/sequelize/pull/4379">#4379</a></li>
+<li>[FIXED] instances returned from <code>bulkCreate</code> now has <code>isNewRecord: false</code> and should be updateable if using <code>returning: true</code> with dialects that support it.</li>
+<li>[FIXED] Find with Include with a where clause generates wrong SQL <a href="https://github.com/sequelize/sequelize/issues/3940">#3940</a></li>
+<li>[FIXED] ON DELETE constraint should default to CASCADE if foreignKey has allowNull: false] <a href="https://github.com/sequelize/sequelize/issues/2831">#2831</a></li>
+<li>[FIXED] sqlite file handle leak</li>
+</ul>
+<h1 id="390">3.9.0</h1>
+<ul>
+<li>[ADDED] beforeRestore/afterRestore hooks <a href="https://github.com/sequelize/sequelize/issues/4371">#4371</a></li>
+<li>[ADDED] Map raw fields back to attributes names when using <code>mapToModel</code> or <code>returning</code> <a href="https://github.com/sequelize/sequelize/pull/3995">#3995</a></li>
+<li>[ADDED] <code>skip</code> now supports filtering out modewl validators <a href="https://github.com/sequelize/sequelize/pull/4528">#4528</a></li>
+<li>[INTERNALS] <code>options</code> has been renamed to <code>$options</code> in instance.js <a href="https://github.com/sequelize/sequelize/pull/4429">#4429</a></li>
+<li>[FIXED] Reload doesn't synchronize a null include <a href="https://github.com/sequelize/sequelize/issues/4353">#4353</a></li>
+<li>[FIXED] commit/rollback multiple times on same transaction <a href="https://github.com/sequelize/sequelize/issues/4491">#4491</a></li>
+<li>[FIXED] memory leak / options mangle for scopes with include <a href="https://github.com/sequelize/sequelize/issues/4470">#4470</a></li>
+<li>[FIXED] custom <code>targetKey</code> for belongsTo on a target with a primary key will now correctly create foreign key constraints <a href="https://github.com/sequelize/sequelize/issues/4455">#4455</a></li>
+</ul>
+<h1 id="380">3.8.0</h1>
+<ul>
+<li>[ADDED] <code>version</code> on <code>Sequelize</code> returning the current npm/package.json version <a href="https://github.com/sequelize/sequelize/pull/4459">#4459</a></li>
+</ul>
+<h1 id="370">3.7.0</h1>
+<ul>
+<li>[ADDED] Define field dependencies for VIRTUAL types that are automatically pulled into <code>attributes</code> <a href="https://github.com/sequelize/sequelize/pull/4420">#4420</a></li>
+<li>[FIXED] Fall back to a default version when parsing the DB version fails <a href="https://github.com/sequelize/sequelize/issues/4368">#4368</a></li>
+<li>[FIXED] Fix a bug where passing null as the second parameter to <code>sequelize.where</code> would fail <a href="https://github.com/sequelize/sequelize/issues/4334">#4334</a></li>
+<li>[FIXED] An error is thrown if a column called <code>id</code> is added, but not marked as primary key, and no other pk is present. <a href="https://github.com/sequelize/sequelize/issues/4139">#4139</a></li>
+<li>[FIXED] Cast to boolean when querying JSON <a href="https://github.com/sequelize/sequelize/issues/4257">#4257</a></li>
+</ul>
+<h1 id="360">3.6.0</h1>
+<ul>
+<li>[ADDED] Model.findCreateFind: A more performant findOrCreate that will not work under a transaction (atleast not in postgres)</li>
+<li>[FIXED] Show indexes query on Postgres fails to return functional indexes <a href="https://github.com/sequelize/sequelize/issues/3911">#3911</a></li>
+<li>[FIXED] Custom field names in json queries</li>
+<li>[FIXED] JSON cast key using the equality operator. <a href="https://github.com/sequelize/sequelize/issues/3824">#3824</a></li>
+<li>[FIXED] Map column names with <code>.field</code> in scopes with includes. <a href="https://github.com/sequelize/sequelize/issues/4210">#4210</a></li>
+<li>[FIXED] <code>addScope</code> when the model does not have any initial scopes <a href="https://github.com/sequelize/sequelize/issues/4243">#4243</a></li>
+<li>[FIXED] Fixed destroy with limit in PG when the primary key is aliassed <a href="https://github.com/sequelize/sequelize/pull/4027">#4027</a></li>
+<li>[FIXED] Clone the options object in <code>increment</code>, <code>decrement</code>, <code>destroy</code>, <code>reload</code>, <code>restore</code>, and <code>save</code>. <a href="https://github.com/sequelize/sequelize/pull/4023">#4023</a></li>
+<li>[FIXED] Throw a <code>Sequelize.Error</code> when <code>authenticate</code> fails <a href="https://github.com/sequelize/sequelize/pull/4209">#4209</a></li>
+<li>[FIXED] BTM would remove any previously added association getters <a href="https://github.com/sequelize/sequelize/pull/4268">#4268</a></li>
+<li>[FIXED] Pass through connection mode options to sqlite
+<a href="https://github.com/sequelize/sequelize/issues/4288">#4288</a></li>
+<li>[INTERNALS] Updated dependencies <a href="https://github.com/sequelize/sequelize/pull/4332">#4332</a><ul>
+<li>toposort-class@1.0.1</li>
+<li>validator@4.0.4</li>
+<li>wkx@0.1.0</li>
+</ul>
+</li>
+<li>[INTERNALS] Updated devDependencies <a href="https://github.com/sequelize/sequelize/pull/4336">#4336</a><ul>
+<li>chai-spies@0.7.0</li>
+<li>dox@0.8.0</li>
+<li>mysql@2.8.0</li>
+</ul>
+</li>
+</ul>
+<h1 id="351">3.5.1</h1>
+<ul>
+<li>[FIXED] Fix bug with nested includes where a middle include results in a null value which breaks $findSeparate.</li>
+</ul>
+<h1 id="350">3.5.0</h1>
+<ul>
+<li>[ADDED] <code>include.separate</code> with <code>include.limit</code> support for HasMany associations.</li>
+<li>[ADDED] Added default validation based on attribute types. <a href="https://github.com/sequelize/sequelize/pull/3472">#3472</a>. The validation <em>cannot</em> be disabled. If you really want to completely disable it, you can remove the <code>validate</code> function from the corresponding datatype, but know that this permanently disables the validation.</li>
+<li>[ADDED] <code>describeTable</code>  now marks the primary key (Reroll of <a href="https://github.com/sequelize/sequelize/pull/3703">#3703</a>)</li>
+<li>[ADDED] Automatically determine the version of the database upon first connection <a href="https://github.com/sequelize/sequelize/pull/4192">#4192</a>. This will be useful going forward in order to provide support for older database versions.</li>
+<li>[ADDED] <code>addScope</code> <a href="https://github.com/sequelize/sequelize/issues/3963">#3963</a></li>
+<li>[FIXED] Fix findOrCreate regression trying to add a transaction even if there is none</li>
+<li>[FIXED] Fix save to be noop when nothing changed</li>
+<li>[FIXED] Call <code>conformOptions</code> on default scope <a href="https://github.com/sequelize/sequelize/issues/4157">#4157</a></li>
+<li>[FIXED] Call <code>conformOptions</code> on scopes returned by functions <a href="https://github.com/sequelize/sequelize/issues/3991">#3991</a></li>
+<li>[FIXED] Calling <code>validateIncludedElements</code> should not add an aliassed primary key multiple times <a href="https://github.com/sequelize/sequelize/issues/4127">#4127</a></li>
+<li>[FIXED] Handle scoped model in includes properly <a href="https://github.com/sequelize/sequelize/issues/3700">#3700</a></li>
+<li>[FIXED] Enum naming with schemas <a href="https://github.com/sequelize/sequelize/issues/3171">#3171</a> and <a href="https://github.com/sequelize/sequelize/issues/3563">#3563</a></li>
+<li>[FIXED] Prevent polution of the lodash object by using <code>runInContext</code> <a href="https://github.com/sequelize/sequelize/issues/2281">#2281</a></li>
+</ul>
+<h1 id="341">3.4.1</h1>
+<ul>
+<li>[FIXED] Fix belongs-to-many <code>countAssociations</code> - ambigious id when through model has id</li>
+</ul>
+<h1 id="340">3.4.0</h1>
+<ul>
+<li>[ADDED] <code>countAssociations</code> for hasMany and belongsToMany</li>
+<li>[ADDED] Geometry support for postgres</li>
+<li>[FIXED] Fix wrong count for <code>findAndCountAll</code> with required includes <a href="https://github.com/sequelize/sequelize/pull/4016">#4016</a></li>
+<li>[FIXED] Fix problems related to parsing of unique constraint errors <a href="https://github.com/sequelize/sequelize/issues/4017">#4017</a> and <a href="https://github.com/sequelize/sequelize/issues/4012">#4012</a></li>
+<li>[FIXED] Fix postgres path variable being surrounded by quotes to often in unique constraint errors <a href="https://github.com/sequelize/sequelize/pull/4034">#4034</a></li>
+<li>[FIXED] Fix <code>removeAttributes(id)</code> not setting <code>this.primaryKeys</code> to null</li>
+<li>[FIXED] Run validations on the through model during add, set and create for <code>belongsToMany</code></li>
+</ul>
+<h1 id="332">3.3.2</h1>
+<ul>
+<li>[FIXED] upsert no longer updates with default values each time <a href="https://github.com/sequelize/sequelize/pull/3994">#3994</a></li>
+</ul>
+<h1 id="331">3.3.1</h1>
+<ul>
+<li>[FIXED] regression in <code>attributes</code> support for 'reload' <a href="https://github.com/sequelize/sequelize/issues/3976">#3976</a></li>
+</ul>
+<h1 id="330">3.3.0</h1>
+<ul>
+<li>[FIXED] Fix <code>Promise#nodeify()</code> and <code>Promise#done()</code> not passing CLS context</li>
+<li>[FIXED] Creating and dropping enums in transaction, only for PostgreSQL <a href="https://github.com/sequelize/sequelize/issues/3782">#3782</a></li>
+<li>[FIXED] $or/$and inside a where clause always expects the input to be an array <a href="https://github.com/sequelize/sequelize/issues/3767">#3767</a></li>
+<li>[ADDED] Unique constraints may now include custom error messages</li>
+<li>[ADDED] It's possible now to remove a hook by name</li>
+<li>[ADDED] Hook name can be passed via the direct method <a href="https://github.com/sequelize/sequelize/issues/3901">#3901</a></li>
+</ul>
+<h1 id="320">3.2.0</h1>
+<ul>
+<li>[ADDED] Add support for new option <code>targetKey</code> in a belongs-to relationship for situations where the target key is not the id field.</li>
+<li>[ADDED] Add support for keyword <code>after</code> in options of a field (useful for migrations), only for MySQL. <a href="https://github.com/sequelize/sequelize/pull/3166">#3166</a></li>
+<li>[ADDED] There's a new sequelize.truncate function to truncate all tables defined through the sequelize models <a href="https://github.com/sequelize/sequelize/pull/2671">#2671</a></li>
+<li>[ADDED] Add support for MySQLs TINYTEXT, MEDIUMTEXT and LONGTEXT. <a href="https://github.com/sequelize/sequelize/pull/3836">#3836</a></li>
+<li>[ADDED] Provide warnings if you misuse data types. <a href="https://github.com/sequelize/sequelize/pull/3839">#3839</a></li>
+<li>[FIXED] Fix a case where Postgres arrays containing JSONB type was being generated as JSON type.</li>
+<li>[FIXED] Fix a case where <code>type</code> in <code>sequelize.query</code> was not being set to raw. <a href="https://github.com/sequelize/sequelize/pull/3800">#3800</a></li>
+<li>[FIXED] Fix an issue where include all was not being properly expanded for self-references <a href="https://github.com/sequelize/sequelize/issues/3804">#3804</a></li>
+<li>[FIXED] Fix instance.changed regression to not return false negatives for not changed null values <a href="https://github.com/sequelize/sequelize/issues/3812">#3812</a></li>
+<li>[FIXED] Fix isEmail validator to allow args: true <a href="https://github.com/sequelize/sequelize/issues/3770">#3770</a></li>
+<li>[FIXED] Fix all occasions where <code>options.logging</code> was not used correctly <a href="https://github.com/sequelize/sequelize/issues/3834">#3834</a></li>
+<li>[FIXED] Fix <code>Model#destroy()</code> to correctly use <code>options.transaction</code></li>
+<li>[FIXED] Fix <code>QueryInterface#showIndex()</code> to correctly pass on <code>options.transaction</code></li>
+</ul>
+<h1 id="311">3.1.1</h1>
+<ul>
+<li>[FIXED] Always quote aliases, even when quoteIdentifiers is false <a href="https://github.com/sequelize/sequelize/issues/1589">#1589</a></li>
+<li>[FIXED] No longer clones Instances in model finder options</li>
+<li>[FIXED] Fix regression in util.toDefaultValue not returning the data types <a href="https://github.com/sequelize/sequelize/pull/3733">#3733</a></li>
+</ul>
+<h1 id="310">3.1.0</h1>
+<ul>
+<li>[ADDED] It is now possible to defer constraints in PostgreSQL by added a property <code>deferrable</code> to the <code>references</code> object of a field.</li>
+<li>[FIXED] Fix an issue with the build in isIP validator returning false negatives <a href="https://github.com/sequelize/sequelize/pull/3756">#3756</a></li>
+</ul>
+<h1 id="301">3.0.1</h1>
+<ul>
+<li>[FIXED] <code>include.attributes = []</code> will no longer force the inclusion of the primary key, making it possible to write aggregates with includes.</li>
+<li>[CHANGED] The <code>references</code> property of model attributes has been transformed to an object: <code>{type: Sequelize.INTEGER, references: { model: SomeModel, key: 'some_key' }}</code>. The former format (<code>references</code> and <code>referecesKey</code>) still exists but is deprecated and will be removed in 4.0.</li>
+</ul>
+<h1 id="300">3.0.0</h1>
+<p>3.0.0 cleans up a lot of deprecated code, making it easier for us to develop and maintain features in the future.</p>
+<ul>
+<li>[ADDED] findById / findByPrimary takes a single value as argument representing the primary key to find.</li>
+<li>[CHANGED] belongsToMany relations MUST now be given a <code>through</code> argument.</li>
+<li>[CHANGED] findOne / findAll / findAndCount / findOrCreate now only takes a single options argument instead of a options and queryOptions argument. So set transaction, raw, etc on the first options argument.</li>
+<li>[CHANGED] The accessor for belongsToMany relationships is now either the <code>as</code> argument or the target model name pluralized.</li>
+<li>[REMOVED] N:M relationships can no longer be represented by 2 x hasMany</li>
+<li>[REMOVED] Model.create / Model.bulkCreate / Instance.save no longer takes an array of fields as its second argument, use <code>options.fields</code> instead.</li>
+<li>[REMOVED] Query Chainer has been removed</li>
+<li>[REMOVED] Migrations have been removed, use umzug instead</li>
+<li>[REMOVED] Model.findAllJoin has been removed</li>
+<li>[REMOVED] sequelize.query now only takes <code>sql and options</code> as arguments, the second and fourth argument <code>callee</code> and <code>replacements</code> have been removed and should be set via <code>options.instance</code> / <code>options.model</code> and  <code>options.replacements</code> instead.</li>
+<li>[REMOVED] <code>instance.isDirty</code> has been removed, use <code>instance.changed()</code> instead</li>
+<li>[REMOVED] <code>instance.values</code> has been removed, use <code>instance.get()</code> instead</li>
+<li>[REMOVED] <code>instance.primaryKeyValues</code> has been removed.</li>
+<li>[REMOVED] <code>instance.identifiers</code> has been removed, use <code>instance.where()</code> instead</li>
+<li>[REMOVED] <code>instance.isDeleted</code> has been removed, simply check the timestamp with <code>get('deletedAt')</code> instead</li>
+<li>[REMOVED] <code>instance.increment/decrement</code> now longer takes a number as it's second argument.</li>
+<li>[REMOVED/SECURITY] findOne no longer takes a string / integer / binary argument to represent a primaryKey. Use findById instead</li>
+<li>[REMOVED/SECURITY] <code>where: "raw query"</code> is no longer legal, you must now explicitely use <code>where: ["raw query", [replacements]]</code></li>
+<li>[FIXED] Fix showIndexQuery so appropriate indexes are returned when a schema is used</li>
+<li>[FIXED] Fix addIndexQuery error when the model has a schema</li>
+<li>[FIXED] Fix app crash in sqlite while running in special unique constraint errors <a href="https://github.com/sequelize/sequelize/pull/3730">#3730</a></li>
+<li>[FIXED] Fix bulkCreate: do not insert NULL for undefined values <a href="https://github.com/sequelize/sequelize/pull/3729">#3729</a></li>
+<li>[FIXED] Fix trying to roll back a comitted transaction if an error occured while comitting resulting in an unhandled rejection <a href="https://github.com/sequelize/sequelize/pull/3726">#3726</a></li>
+<li>[FIXED] Fix regression in beforeUpdate hook where <code>instance.changed()</code> would always be false <a href="https://github.com/sequelize/sequelize/pull/3727">#3727</a></li>
+<li>[FIXED] Fix trying to roll back a comitted transaction if an error occured while comitting</li>
+</ul>
+<h4 id="backwards-compatibility-changes">Backwards compatibility changes</h4>
+<ul>
+<li>Most of the changes in 3.0.0 are BC breaking, read the changelog for 3.0.0 carefully.</li>
+<li>The error that is thrown when a column is declared to be an enum but without any values used to "Values for ENUM haven't been defined" and is now "Values for ENUM have not been defined".</li>
+</ul>
+<h1 id="213">2.1.3</h1>
+<ul>
+<li>[BUG] Fix regression introduced in 2.1.2: updatedAt not set anymore <a href="https://github.com/sequelize/sequelize/pull/3667">#3667</a></li>
+<li>[BUG] Fix managed transactions not rolling back if no thenable was provided in the transaction block <a href="https://github.com/sequelize/sequelize/pull/3667">#3667</a></li>
+</ul>
+<h1 id="212">2.1.2</h1>
+<ul>
+<li>[BUG] <code>Model.create()/update()</code> no longer attempts to save undefined fields.</li>
+</ul>
+<h1 id="211">2.1.1</h1>
+<ul>
+<li>[BUG] .get() now passes along options correctly when using a custom getter</li>
+<li>[BUG] Fix managed transactions not rolling back if an error occured the transaction block <a href="https://github.com/sequelize/sequelize/pull/3661">#3661</a></li>
+<li>[BUG] Fix a node-webkit issue <a href="https://github.com/sequelize/sequelize/pull/3650">#3650</a></li>
+<li>[FEATURE] Lock modes in Postgres now support <code>OF table</code></li>
+<li>[FEATURE] New transaction lock modes <code>FOR KEY SHARE</code> and <code>NO KEY UPDATE</code> for Postgres 9.3+</li>
+<li>[FEATURE/REFACTOR] Rewritten scopes with complete support for includes and scopes across associations</li>
+</ul>
+<h1 id="210">2.1.0</h1>
+<ul>
+<li>[BUG] Enable standards conforming strings on connection in postgres. Adresses <a href="https://github.com/sequelize/sequelize/issues/3545">#3545</a></li>
+<li>[BUG] instance.removeAssociation(s) do not fire the select query twice anymore</li>
+<li>[BUG] Error messages thrown by the db in languages other than english do not crash the app anymore (mysql, mariadb and postgres only) <a href="https://github.com/sequelize/sequelize/pull/3567">#3567</a></li>
+<li>[FEATURE] <a href="https://github.com/sequelize/sequelize/issues/3471">JSONB</a></li>
+<li>[FEATURE] All querys can be logged individually by inserting <code>logging: fn</code> in the query option.</li>
+<li>[FEATURE] Partial index support for Postgres with <code>index.where</code></li>
+<li>[REFACTOR] <code>.changed()</code> now works proactively by setting a flag on <code>set</code> instead of matching reactively. Note that objects and arrays will not be checked for equality on set and will always result in a change if they are <code>set</code>.</li>
+<li>[DEPRECATED] The query-chainer is deprecated and will be removed in version 2.2. Please use promises instead.</li>
+<li>[REMOVED] Events are no longer supported.</li>
+<li>[INTERNALS] Updated dependencies.<ul>
+<li>bluebird@2.9.24</li>
+</ul>
+</li>
+</ul>
+<h4 id="backwards-compatibility-changes_1">Backwards compatibility changes</h4>
+<ul>
+<li>Events support have been removed so using <code>.on('success')</code> or <code>.success()</code> is no longer supported. Try using <code>.then()</code> instead.</li>
+<li>Trying to apply a scope that does not exist will always throw an error</li>
+</ul>
+<h1 id="206">2.0.6</h1>
+<ul>
+<li>[BUG] Don't update virtual attributes in Model.update. Fixes <a href="https://github.com/sequelize/sequelize/issues/2860">#2860</a></li>
+<li>[BUG] Fix for newlines in hstore <a href="https://github.com/sequelize/sequelize/issues/3383">#3383</a></li>
+<li>[BUG] Fix unique key handling in Model.update <a href="https://github.com/sequelize/sequelize/issues/3474">#3474</a></li>
+<li>[BUG] Fix issue with Model.create() using fields not specifying and non-incremental primary key <a href="https://github.com/sequelize/sequelize/issues/3458">#3458</a></li>
+<li>[FEATURE] <code>field</code> support for Model.update <a href="https://github.com/sequelize/sequelize/pull/3498">#3498</a></li>
+<li>[INTERNALS] Updated dependencies. Most notably we are moving up one major version on lodash. If you are using <code>sequelize.Utils._</code>, notice that the semantics for many matching functions have changed to include a check for <code>hasOwnProperty</code><ul>
+<li>dottie@0.3.1</li>
+<li>inflection@1.6.0</li>
+<li>lodash@3.5.0</li>
+<li>validator@3.34</li>
+<li>generic-pool@2.2.0</li>
+</ul>
+</li>
+<li>[INTERNALS] Updated devDependencies.<ul>
+<li>coffee-script@1.9.1</li>
+<li>dox@0.7.1</li>
+<li>mysql@2.6.2</li>
+</ul>
+</li>
+</ul>
+<h1 id="205">2.0.5</h1>
+<ul>
+<li>[FEATURE] Highly experimental support for nested creation <a href="https://github.com/sequelize/sequelize/pull/3386">#3386</a></li>
+</ul>
+<h1 id="204">2.0.4</h1>
+<ul>
+<li>[BUG] Fixed support for 2 x belongsToMany without foreignKey defined and association getter/adder <a href="https://github.com/sequelize/sequelize/issues/3185">#3185</a></li>
+<li>[BUG] No longer throws on <code>Model.hasHook()</code> if no hooks are defiend <a href="https://github.com/sequelize/sequelize/issues/3181">#3181</a></li>
+<li>[BUG] Fixed issue with <code>{$and: []}</code></li>
+<li>[BUG] Fixed issue with N:M relations with primary keys with field defined</li>
+</ul>
+<h1 id="203">2.0.3</h1>
+<ul>
+<li>[BUG] Support for plain strings, ints and bools on JSON insert</li>
+<li>[BUG] Fixed regression where <code>{$in: []}</code> would result in <code>IN ()</code> rather than <code>IN (NULL)</code> <a href="https://github.com/sequelize/sequelize/issues/3105">#3105</a> <a href="https://github.com/sequelize/sequelize/issues/3132">#3132</a></li>
+<li>[BUG] Fixed bug where 2 x <code>belongsToMany</code> with <code>foreignKey</code> but no <code>otherKey</code> defined would result in 3 keys instead of 2. <a href="https://github.com/sequelize/sequelize/issues/2991">#2991</a></li>
+<li>[BUG] Fixed regression with <code>where: sequelize.json()</code> <a href="https://github.com/sequelize/sequelize/issues/3138">#3138</a></li>
+<li>[BUG] Fixed support for <code>field</code> with <code>$or</code>/<code>$and</code> <a href="https://github.com/sequelize/sequelize/issues/3153">#3153</a></li>
+</ul>
+<h1 id="202">2.0.2</h1>
+<ul>
+<li>[BUG] Fixed regression with <code>DataTypes.ARRAY(DataTypes.STRING(length))</code> <a href="https://github.com/sequelize/sequelize/issues/3106">#3106</a></li>
+<li>[BUG] Fixed regression where <code>.or([{key: value}, {key: value, key2: value}])</code> would result in 3 <code>A OR B OR C</code> rather than <code>A OR (B AND C)</code> <a href="https://github.com/sequelize/sequelize/issues/3107">#3107</a></li>
+<li>[BUG] Fixed regression with <code>DataTypes.DECIMAL(10)</code> resulting in <code>10, undefined</code> <a href="https://github.com/sequelize/sequelize/issues/3119">#3119</a></li>
+<li>[BUG] Fixed issue with dangling <code>WHERE</code> query on <code>Model.update(values, {where: {}})</code> <a href="https://github.com/sequelize/sequelize/issues/3113">#3113</a></li>
+</ul>
+<h1 id="201">2.0.1</h1>
+<ul>
+<li>[BUG] Fixed issue with empty <code>include.where</code></li>
+<li>[BUG] Fixed issue with otherKey generation for self-association N:M</li>
+</ul>
+<h1 id="200">2.0.0</h1>
+<ul>
+<li>[BUG] Fixed <code>field</code> support for <code>increment</code> and <code>decrement</code>.</li>
+<li>[FEATURE/BUG] Raw queries always return all results (including affected rows etc). This means you should change all promise listeners on <code>sequelize.query</code> to use <code>.spread</code> instead of <code>.then</code>, unless you are passing a query type.</li>
+<li>[BUG] Support for composite primary keys in upsert <a href="https://github.com/sequelize/sequelize/pull/3065">#3065</a></li>
+<li>[BUG] Support for <code>field</code> in upsert</li>
+<li>[FEATURE] Support for setting an initial autoincrement option in mysql <a href="https://github.com/sequelize/sequelize/pull/3076">#3076</a></li>
+<li>[FEATURE] Test coverage for Node.js 0.12 and io.js 1.x</li>
+</ul>
+<h4 id="backwards-compatibility-changes_2">Backwards compatibility changes</h4>
+<ul>
+<li>The default query type for <code>sequelize.query</code> is now <code>RAW</code> - this means that two arguments (results and metadata) will be returned by default and you should use <code>.spread</code></li>
+<li>The 4th argument to <code>sequelize.query</code> has been deprecated in favor of <code>options.replacements</code></li>
+</ul>
+<h1 id="200-rc8">2.0.0-rc8</h1>
+<ul>
+<li>[FEATURE] CLS Support. CLS is also used to automatically pass the transaction to any calls within the callback chain when using <code>sequelize.transaction(function() ...</code>.</li>
+<li>[BUG] Fixed issue with paranoid deletes and <code>deletedAt</code> with a custom field.</li>
+<li>[BUG] No longer crahes on <code>where: []</code></li>
+<li>[FEATURE] Validations are now enabled by default for upsert.</li>
+<li>[FEATURE] Preliminary support for <code>include.through.where</code></li>
+<li>[SECURITY/BUG] Fixed injection issue in direction param for order</li>
+</ul>
+<h1 id="200-rc7">2.0.0-rc7</h1>
+<ul>
+<li>[FEATURE] Throw an error if no where clause is given to <code>Model.destroy()</code>.</li>
+<li>[BUG] Fixed issue with <code>order: sequelize.literal('string')</code></li>
+<li>[FEATURE] add <code>clone: true</code> support to <code>.get()</code>. Is needed when using <code>delete</code> on values from a <code>.get()</code> (<code>toJSON()</code>, <code>this.values</code>). (.get() is just a reference to the values for performance reasons when there's no custom getters or includes)</li>
+<li>[FEATURE] add <code>sequelize.escape(value)</code> convenience method</li>
+<li>[BUG] Fixes crash with <code>findAll({include: [Model], order: sequelize.literal()})</code></li>
+<li>[FEATURE] Now possible to pass <code>createdAt</code> and <code>updatedAt</code> values to <code>Model.create</code>/<code>Model.bulkCreate</code> when using silent: true (when importing datasets with existing timestamps)</li>
+<li>[FEATURE] <code>instance.update()</code> using default fields will now automatically also save and validate values provided via <code>beforeUpdate</code> hooks</li>
+<li>[BUG] Fixed bad SQL when updating a JSON attribute with a different <code>field</code></li>
+<li>[BUG] Fixed issue with creating and updating values of a <code>DataTypes.ARRAY(DataTypes.JSON)</code> attribute</li>
+<li>[BUG] <code>Model.bulkCreate([{}], {returning: true})</code> will now correctly result in instances with primary key values.</li>
+<li>[BUG] <code>instance.save()</code> with <code>fields: []</code> (as a result of <code>.changed()</code> being <code>[]</code>) will no result in a noop instead of an empty update query.</li>
+<li>[BUG] Fixed case where <code>findOrCreate</code> could return <code>[null, true]</code> when given a <code>defaults</code> value that triggered a unique constraint error.</li>
+</ul>
+<h4 id="backwards-compatibility-changes_3">Backwards compatibility changes</h4>
+<ul>
+<li><code>instance.update()</code> using default fields will now automatically also save and validate values provided via <code>beforeUpdate</code> hooks</li>
+<li>Sequelize no longer supports case insensitive mysql enums</li>
+<li><code>pg-hstore</code> has been moved to a devDependency, Postgres users will have to install <code>pg-hstore</code> manually alongside <code>pg</code>: <code>$ npm install pg pg-hstore</code></li>
+</ul>
+<h1 id="200-rc6">2.0.0-rc6</h1>
+<ul>
+<li>[BUG] Fixed issue with including by association reference and where</li>
+</ul>
+<h1 id="200-rc5">2.0.0-rc5</h1>
+<ul>
+<li>[BUG] Fixed issue with subquery creating <code>include.where</code> and a paranoid main model.#2749/#2769</li>
+<li>UniqueConstraintErrors will now extend from ValidationError making it possible to catch both with <code>.catch(ValidationError)</code></li>
+<li>[FEATURE] Adds <code>{save: false}</code> for belongsTo relationship setters. <code>user.setOrganization(organization, {save: false})</code> will then only set the foreign key value, but not trigger a save on <code>user</code>.</li>
+<li>[FEATURE] When updating an instance <code>_previousDataValues</code> will now be updated after <code>afterUpdate</code> hooks have been run rather than before allowing you to use <code>changed</code> in <code>afterUpdate</code></li>
+<li>[BUG] Sequelize will no longer fail on a postgres constraint error not defined by Sequelize</li>
+<li>[FEATURE] It's now possible to pass an association reference to include. <code>var Owner = Company.belongsTo(User, {as: 'owner'}; Company.findOne({include: [Owner]});</code></li>
+</ul>
+<h4 id="backwards-compatibility-changes_4">Backwards compatibility changes</h4>
+<ul>
+<li>When updating an instance <code>_previousDataValues</code> will now be updated after <code>afterUpdate</code> hooks have been run rather than before allowing you to use <code>changed</code> in <code>afterUpdate</code></li>
+</ul>
+<h1 id="200-rc4">2.0.0-rc4</h1>
+<ul>
+<li>[INTERNALS] Update <code>inflection</code> dependency to v1.5.3</li>
+<li>[FEATURE] Replaced string error messages for connection errors with error objects. <a href="https://github.com/sequelize/sequelize/pull/2576">#2576</a></li>
+<li>[FEATURE] Support for updating fields on duplicate key in bulk update (mysql only) <a href="https://github.com/sequelize/sequelize/pull/2692">#2692</a></li>
+<li>[FEATURE] Basic support for Microsoft SQL Server</li>
+<li>[INTERNALS] Deprecate migration logic. This is now implemented in <a href="https://github.com/sequelize/umzug">umzug</a> and the <a href="https://github.com/sequelize/cli">CLI</a>.</li>
+<li>[BUG] Fixed various inconsistencies with <code>Instance.update</code> and how it behaves together with <code>create</code>, <code>fields</code> and more.</li>
+<li>[BUG] Fixed crash/bug when using <code>include.where</code> together with <code>association.scope</code></li>
+<li>[BUG] Fixed support for <code>Instance.destroy()</code> and <code>field</code> for postgres.</li>
+</ul>
+<h4 id="backwards-compatibility-changes_5">Backwards compatibility changes</h4>
+<ul>
+<li>Some of the string error messages for connection errors have been replaced with actual error instances. Checking for connection errors should now be more consistent.</li>
+</ul>
+<h1 id="200-rc3">2.0.0-rc3</h1>
+<ul>
+<li>[FEATURE] Added the possibility of removing multiple associations in 1 call <a href="https://github.com/sequelize/sequelize/issues/2338">#2338</a></li>
+<li>[FEATURE] Undestroy method for paranoid models <a href="https://github.com/sequelize/sequelize/pull/2540">#2540</a></li>
+<li>[FEATURE] Support for UPSERT</li>
+<li>[BUG] Add support for <code>field</code> named the same as the attribute in <code>reload</code>, <code>bulkCreate</code> and <code>save</code> <a href="https://github.com/sequelize/sequelize/issues/2348">#2348</a></li>
+<li>[BUG] Copy the options object in association getters. <a href="https://github.com/sequelize/sequelize/issues/2311">#2311</a></li>
+<li>[BUG] <code>Model#destroy()</code> now supports <code>field</code>, this also fixes an issue with <code>N:M#removeAssociation</code> and <code>field</code></li>
+<li>[BUG] Customized error message can now be set for unique constraint that was created manually (not with sync, but e.g. with migrations) or that has fields with underscore naming. This was problem at least with postgres before.</li>
+<li>[BUG] Fixed a bug where plain objects like <code>{ in: [...] }</code> were not properly converted to SQL when combined with a sequelize method (<code>fn</code>, <code>where</code> etc.). Closes <a href="https://github.com/sequelize/sequelize/issues/2077">#2077</a></li>
+<li>[BUG] Made the default for array search in postgres exact comparison instead of overlap</li>
+<li>[BUG] Allow logging from individual functions even though the global logging setting is false. Closes <a href="https://github.com/sequelize/sequelize/issues/2571">#2571</a></li>
+<li>[BUG] Allow increment/decrement operations when using schemata</li>
+<li>[BUG] Allow createTable with schema</li>
+<li>[BUG] Fix some issues with findAndCount and include</li>
+<li>[INTERNALS] Update <code>inflection</code> dependency to v1.5.2</li>
+<li>[REMOVED] Remove query generation syntactic sugar provided by <code>node-sql</code>, as well as the dependency on that module</li>
+</ul>
+<h4 id="backwards-compatibility-changes_6">Backwards compatibility changes</h4>
+<ul>
+<li>When eager-loading a many-to-many association, the attributes of the through table are now accessible through an attribute named after the through model rather than the through table name singularized. i.e. <code>Task.find({include: Worker})</code> where the table name for through model <code>TaskWorker</code> is <code>TableTaskWorkers</code> used to produce <code>{ Worker: { ..., TableTaskWorker: {...} } }</code>. It now produces <code>{ Worker: { ..., TaskWorker: {...} } }</code>. Does not affect models where table name is auto-defined by Sequelize, or where table name is model name pluralized.</li>
+<li>When using <code>Model#find()</code> with an <code>order</code> clause, the table name is prepended to the <code>ORDER BY</code> SQL. e.g. <code>ORDER BY Task.id</code> rather than <code>ORDER BY id</code>. The change is to avoid ambiguous column names where there are eager-loaded associations with the same column names. A side effect is that code like <code>Task.findAll( { include: [ User ], order: [ [ 'Users.id', 'ASC' ] ] } )</code> will now throw an error. This should be achieved with <code>Task.findAll( { include: [ User ], order: [ [ User, 'id', 'ASC' ] ] } )</code> instead.</li>
+<li>Nested HSTORE objects are no longer supported. Use DataTypes.JSON instead.</li>
+<li>In PG <code>where: { arr: [1, 2] }</code> where the <code>arr</code> column is an array will now use strict comparison (<code>=</code>) instead of the overlap operator (<code>&amp;&amp;</code>). To obtain the old behaviour, use <code>where: { arr: { overlap: [1, 2] }}</code></li>
+<li>The default <code>fields</code> for <code>Instance#save</code> (when not a new record) is now an intersection of the model attributes and the changed attributes making saves more atomic while still allowing only defined attributes.</li>
+<li>Syntactic sugar for query generation was removed. You will no longer be able to call Model.dataset() to generate raw sql queries</li>
+</ul>
+<h1 id="200-rc2">2.0.0-rc2</h1>
+<ul>
+<li>[FEATURE] Added to posibility of using a sequelize object as key in <code>sequelize.where</code>. Also added the option of specifying a comparator</li>
+<li>[FEATURE] Added countercache functionality to hasMany associations <a href="https://github.com/sequelize/sequelize/pull/2375">#2375</a></li>
+<li>[FEATURE] Basic JSON support <a href="https://github.com/sequelize/sequelize/pull/2314">#2314</a></li>
+<li>[BUG] Fixes regression bug with multiple hasMany between the same models with different join tables. Closes <a href="https://github.com/sequelize/sequelize/issues/2316">#2316</a></li>
+<li>[BUG] Don't set autocommit in nested transactions <a href="https://github.com/sequelize/sequelize/issues/2418">#2418</a></li>
+<li>[BUG] Improved <code>field</code> support</li>
+</ul>
+<h1 id="200-rc1">2.0.0-rc1</h1>
+<ul>
+<li>[BUG] Fixed an issue with foreign key object syntax for hasOne and belongsTo</li>
+<li>[FEATURE] Added <code>field</code> and <code>name</code> to the object form of foreign key definitions</li>
+<li>[FEATURE] Added support for calling <code>Promise.done</code>, thus explicitly ending the promise chain by calling done with no arguments. Done with a function argument still continues the promise chain, to maintain BC.</li>
+<li>[FEATURE] Added <code>scope</code> to hasMany association definitions, provides default values to association setters/finders <a href="https://github.com/sequelize/sequelize/pull/2268">#2268</a></li>
+<li>[FEATURE] We now support transactions that automatically commit/rollback based on the result of the promise chain returned to the callback.</li>
+<li>[BUG] Only try to create indexes which don't already exist. Closes <a href="https://github.com/sequelize/sequelize/issues/2162">#2162</a></li>
+<li>[FEATURE] Hooks are passed options</li>
+<li>[FEATURE] Hooks need not return a result - undefined return is interpreted as a resolved promise</li>
+<li>[FEATURE] Added <code>find()</code> hooks</li>
+</ul>
+<h4 id="backwards-compatibility-changes_7">Backwards compatibility changes</h4>
+<ul>
+<li>The <code>fieldName</code> property, used in associations with a foreign key object <code>(A.hasMany(B, { foreignKey: { ... }})</code>, has been renamed to <code>name</code> to avoid confusion with <code>field</code>.</li>
+<li>The naming of the join table entry for N:M association getters is now singular (like includes)</li>
+<li>Signature of hooks has changed to pass options to all hooks. Any hooks previously defined like <code>Model.beforeCreate(values)</code> now need to be <code>Model.beforeCreate(values, options)</code> etc.</li>
+<li>Results returned by hooks are ignored - changes to results by hooks should be made by reference</li>
+<li><code>Model.destroy()</code> signature has been changed from <code>(where, options)</code> to <code>(options)</code>, options now take a where parameter.</li>
+<li><code>Model.update()</code> signature has been changed from <code>(values, where, options)</code> to <code>(values, options)</code>, options now take a where parameter.</li>
+<li>The syntax for <code>Model.findOrBuild</code> has changed, to be more in line with the rest of the library. <code>Model.findOrBuild(where, defaults);</code> becomes <code>Model.findOrBuild({ where: where, defaults: defaults });</code>.</li>
+</ul>
+<h1 id="v200-dev13">v2.0.0-dev13</h1>
+<p>We are working our way to the first 2.0.0 release candidate.</p>
+<ul>
+<li>[FEATURE] Added to option of setting a timezone offset in the sequelize constructor (<code>timezone</code> option). This timezone is used when initializing a connection (using <code>SET TIME ZONE</code> or equivalent), and when converting a timestamp string from the DB to a JS date with mysql (postgres stores the timezone, so for postgres we rely on what's in the DB).</li>
+<li>[FEATURE] Allow setting plural and singular name on the model (<code>options.name</code> in <code>sequelize.define</code>) and in associations (<code>options.as</code>) to circumvent issues with weird pluralization.</li>
+<li>[FEATURE] Added support for passing an <code>indexes</code> array in options to <code>sequelize.define</code>. <a href="https://github.com/sequelize/sequelize/issues/1485">#1485</a>. See API reference for details.</li>
+<li>[FEATURE/INTERNALS] Standardized the output from <code>QueryInterface.showIndex</code>.</li>
+<li>[FEATURE] Include deleted rows in find <a href="https://github.com/sequelize/sequelize/pull/2083">#2083</a></li>
+<li>[FEATURE] Make addSingular and addPlural for n:m associations (fx <code>addUser</code> and <code>addUsers</code> now both accept an array or an instance.</li>
+<li>[BUG] Hid <code>dottie.transform</code> on raw queries behind a flag (<code>nest</code>) <a href="https://github.com/sequelize/sequelize/pull/2064">#2064</a></li>
+<li>[BUG] Fixed problems with transaction parameter being removed / not passed on in associations <a href="https://github.com/sequelize/sequelize/issues/1789">#1789</a> and <a href="https://github.com/sequelize/sequelize/issues/1968">#1968</a></li>
+<li>[BUG] Fix problem with minConnections. <a href="https://github.com/sequelize/sequelize/issues/2048">#2048</a></li>
+<li>[BUG] Fix default scope being overwritten <a href="https://github.com/sequelize/sequelize/issues/2087">#2087</a></li>
+<li>[BUG] Fixed updatedAt timestamp not being set in bulk create when validate = true. <a href="https://github.com/sequelize/sequelize/issues/1962">#1962</a></li>
+<li>[INTERNALS] Replaced lingo with inflection</li>
+<li>[INTERNALS] Removed underscore.string dependency and moved a couple of helper functions from <code>Utils._</code> to <code>Utils</code></li>
+<li>[INTERNALS] Update dependencies<ul>
+<li>validator 3.2.0 -&gt; 3.16.1</li>
+<li>moment 2.5.0 -&gt; 2.7.0</li>
+<li>generic-pool 2.0.4 -&gt; 2.1.1</li>
+<li>sql 0.35.0 -&gt; 0.39.0</li>
+</ul>
+</li>
+<li>[INTERNALS] Use a transaction inside <code>findOrCreate</code>, and handle unique constraint errors if multiple calls are issues concurrently on the same transaction</li>
+</ul>
+<h4 id="backwards-compatibility-changes_8">Backwards compatibility changes</h4>
+<ul>
+<li>We are using a new inflection library, which should make pluralization and singularization in general more robust. However, a couple of pluralizations have changed as a result:<ul>
+<li>Person is now pluralized as people instead of persons</li>
+</ul>
+</li>
+<li>Accesors for models with underscored names are no longer camel cased automatically. For example, if you have a model with name <code>my_model</code>, and <code>my_other_model.hasMany(my_model)</code>, the getter will now be <code>instance_of_my_model.getMy_model</code> instead of <code>.getMyModel</code>.</li>
+<li>Removed support for setting sequelize.language. If your model names are not in english, use the name option provided by <code>sequelize.name</code> to defined singular and plural forms for your model.</li>
+<li>Model names are now used more verbatim in associations. This means that if you have a model named <code>Task</code> (plural T), or an association specifying <code>{ as: 'Task' }</code>, the tasks will be returned as <code>relatedModel.Tasks</code> instead of <code>relatedModel.tasks</code>. For more information and how to mitigate this, see https://github.com/sequelize/sequelize/wiki/Upgrading-to-2.0#inflection-replaces-lingo-and-changes-to-naming-conventions</li>
+<li>Removed the freezeAssociations option - use model and assocation names instead to provide the plural form yourself</li>
+<li>Removed sequelize.language option (not supported by inflection)</li>
+<li>Error handling has been refactored. Code that listens for :<ul>
+<li>All Error classes properly inherit from Error and a common SequelizeBaseError base</li>
+<li>Instance Validator returns a single instance of a ValidationError which contains an errors array property. This property contains individual error items for each failed validation.</li>
+<li>
+<p>ValidationError includes a <code>get(path)</code> method to find all broken validations for a path on an instance. To migrate existing error handling, switch from array indexing to using the get method:</p>
+<p>Old: <code>err.validateCustom[0]</code>
+New: <code>err.get('validateCustom')[0]</code>
+- The syntax for findOrCreate has changed, to be more in line with the rest of the library. <code>Model.findOrCreate(where, defaults);</code> becomes <code>Model.findOrCreate({ where: where, defaults: defaults });</code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="v200-dev12">v2.0.0-dev12</h1>
+<ul>
+<li>[FEATURE] You can now return a promise to a hook rather than use a callback</li>
+<li>[FEATURE] There is now basic support for assigning a field name to an attribute <code>name: {type: DataTypes.STRING, field: 'full_name'}</code></li>
+<li>[FEATURE] It's now possible to add multiple relations to a hasMany association, modelInstance.addRelations([otherInstanceA, otherInstanceB])</li>
+<li>[FEATURE] <code>define()</code> stores models in <code>sequelize.models</code> Object e.g. <code>sequelize.models.MyModel</code></li>
+<li>[FEATURE] The <code>set</code> / <code>add</code> / <code>has</code> methods for associations now allow you to pass the value of a primary key, instead of a full Instance object, like so: <code>user.addTask(15);</code>.</li>
+<li>[FEATURE] Support for FOR UPDATE and FOR SHARE statements <a href="https://github.com/sequelize/sequelize/pull/1777">#1777</a></li>
+<li>[FEATURE] n:m createAssocation now returns the target model instance instead of the join model instance</li>
+<li>[FEATURE] Extend the <code>foreignKey</code> option for associations to support a full data type definition, and not just a string</li>
+<li>[FEATURE] Extract CLI into <a href="https://github.com/sequelize/cli">separate projects</a>.</li>
+<li>[FEATURE] Sqlite now inserts dates with millisecond precision</li>
+<li>[FEATURE] Sequelize.VIRTUAL datatype which provides regular attribute functionality (set, get, etc) but never persists to database.</li>
+<li>[BUG] An error is now thrown if an association would create a naming conflict between the association and the foreign key when doing eager loading. Closes <a href="https://github.com/sequelize/sequelize/issues/1272">#1272</a></li>
+<li>[BUG] Fix logging options for sequelize.sync</li>
+<li>[BUG] find no longer applies limit: 1 if querying on a primary key, should fix a lot of subquery issues.</li>
+<li>[BUG] Transactions now use the pool so you will never go over your pool defined connection limit</li>
+<li>[BUG] Fix use of Sequelize.literal in eager loading and when renaming attributes <a href="https://github.com/sequelize/sequelize/pull/1916">#1916</a></li>
+<li>[BUG] Use the provided name for a unique index if one is given, instead of concating the column names together <a href="https://github.com/sequelize/sequelize/issues/1944">#1944</a></li>
+<li>[BUG] Create a composite primary key for doubled linked self reference <a href="https://github.com/sequelize/sequelize/issues/1891">#1891</a></li>
+<li>[INTERNALS] <code>bulkDeleteQuery</code> was removed from the MySQL / abstract query generator, since it was never used internally. Please use <code>deleteQuery</code> instead.</li>
+</ul>
+<h4 id="backwards-compatibility-changes_9">Backwards compatibility changes</h4>
+<ul>
+<li>Sequelize now returns promises instead of its custom event emitter from most calls. This affects methods that return multiple values (like <code>findOrCreate</code> or <code>findOrInitialize</code>). If your current callbacks do not accept the 2nd success parameter you might be seeing an array as the first param. Either use <code>.spread()</code> for these methods or add another argument to your callback: <code>.success(instance)</code> -&gt; <code>.success(instance, created)</code>.</li>
+<li><code>.success()</code>/<code>.done()</code> and any other non promise methods are now deprecated (we will keep the codebase around for a few versions though). on('sql') persists for debugging purposes.</li>
+<li>Model association calls (belongsTo/hasOne/hasMany) are no longer chainable. (this is to support being able to pass association references to include rather than model/as combinations)</li>
+<li><code>QueryInterface</code> no longer emits global events. This means you can no longer do things like <code>QueryInterface.on('showAllSchemas', function ...</code></li>
+<li><code>sequelize.showAllSchemas</code> now returns an array of schemas, instead of an array containinig an array of schemas</li>
+<li><code>sequelize.transaction()</code> now returns a promise rather than a instance of Sequelize.Transaction</li>
+<li><code>bulkCreate</code>, <code>bulkUpdate</code> and <code>bulkDestroy</code> (and aliases) now take both a <code>hooks</code> and an <code>individualHooks</code> option, <code>hooks</code> defines whether or not to run the main hooks, and <code>individualHooks</code> defines whether to run hooks for each instance affected.</li>
+<li>It is no longer possible to disable pooling, disable pooling will just result in a 1/1 pool.</li>
+</ul>
+<h1 id="v200-dev11">v2.0.0-dev11</h1>
+<h3 id="caution-this-release-contains-many-changes-and-is-highly-experimental">Caution: This release contains many changes and is highly experimental</h3>
+<ul>
+<li>[PERFORMANCE] increased build performance when using include, which speeds up findAll etc.</li>
+<li>[BUG] Made it possible to use HSTORE both in attribute: HSTORE and attribute: { type: HSTORE } form. Thanks to @tomchentw <a href="https://github.com/sequelize/sequelize/pull/1458">#1458</a></li>
+<li>[FEATURE] n:m now marks the columns of the through table as foreign keys and cascades them on delete and update by default.</li>
+<li>[FEATURE] 1:1 and 1:m marks columns as foreign keys, and sets them to cascade on update and set null on delete. If you are working with an existing DB which does not allow null values, be sure to override those options, or disable them completely by passing constraints: false to your assocation call (<code>M1.belongsTo(M2, { constraints: false})</code>).</li>
+<li>[BUG] Removed the hard dependency on pg, allowing users to use pg.js</li>
+<li>[BUG] Fixed a bug with foreign keys pointing to attributes that were not integers. Now your primaryKey can be a string, and associations will still work. Thanks to @fixe <a href="https://github.com/sequelize/sequelize/pull/1544">#1544</a></li>
+<li>[BUG] Fix a case where createdAt timestamp would not be set when updatedAt was disabled  Thanks to @fixe <a href="https://github.com/sequelize/sequelize/pull/1543">#1543</a></li>
+<li>[BUG] Fix a case where timestamps were not being write protected in <code>set</code> when underscored=true. janmeier <a href="https://github.com/sequelize/sequelize/pull/1523">#1523</a></li>
+<li>[FEATURE/BUG] Prefetching/includes now fully support schemas</li>
+<li>[FEATURE] Centralize logging. <a href="https://github.com/sequelize/sequelize/pull/1566">#1566</a></li>
+<li>[FEATURE/BUG] hstore values are now parsed on find/findAll. Thanks to @nunofgs <a href="https://github.com/sequelize/sequelize/pull/1560">#1560</a></li>
+<li>[FEATURE] Read cli options from a file. Thanks to @codeinvain  <a href="https://github.com/sequelize/sequelize/pull/1540">#1540</a></li>
+</ul>
+<h4 id="backwards-compatibility-changes_10">Backwards compatibility changes</h4>
+<ul>
+<li>The <code>notNull</code> validator has been removed, use the Schema's <code>allowNull</code> property.</li>
+<li>All Validation errors now return a sequelize.ValidationError which inherits from Error.</li>
+<li>selectedValues has been removed for performance reasons, if you depend on this, please open an issue and we will help you work around it.</li>
+<li>foreign keys will now correctly be based on the alias of the model</li>
+<li>if you have any 1:1 relations where both sides use an alias, you'll need to set the foreign key, or they'll each use a different foreign key based on their alias.</li>
+<li>foreign keys for non-id primary keys will now be named for the foreign key, i.e. pub_name rather than pub_id</li>
+<li>if you have non-id primary keys you should go through your associations and set the foreignKey option if relying on a incorrect _id foreign key</li>
+<li>syncOnAssocation has been removed. It only worked for n:m, and having a synchronous function (hasMany) that invokes an asynchronous function (sync) without returning an emitter does not make a lot of sense. If you (implicitly) depended on this feature, sequelize.sync is your friend. If you do not want to do a full sync, use custom through models for n:m (<code>M1.hasMany(M2, { through: M3})</code>) and sync the through model explicitly.</li>
+<li>Join tables will be no longer be paranoid (have a deletedAt timestamp added), even though other models are.</li>
+<li>All tables in select queries will now be aliased with the model names to be support schemas. This will affect people stuff like `where: {'table.attribute': value}</li>
+</ul>
+<h1 id="v1710">v1.7.10</h1>
+<ul>
+<li>[FEATURE] ilike support for postgres <a href="https://github.com/sequelize/sequelize/pull/2122">#2122</a></li>
+<li>[FEATURE] distinct option for count <a href="https://github.com/sequelize/sequelize/pull/2079">#2079</a></li>
+<li>[BUG] various fixes</li>
+</ul>
+<h1 id="v179">v1.7.9</h1>
+<ul>
+<li>[BUG] fixes issue with custom primary keys and N:M join tables <a href="https://github.com/sequelize/sequelize/pull/1923">#1929</a></li>
+</ul>
+<h1 id="v178">v1.7.8</h1>
+<ul>
+<li>[FEATURE] adds rlike support for mysql</li>
+</ul>
+<h1 id="v177">v1.7.7</h1>
+<ul>
+<li>[BUG] fixes issue where count/findAndCountAll would throw on empty rows <a href="https://github.com/sequelize/sequelize/pull/1849">#1849</a></li>
+</ul>
+<h1 id="v176">v1.7.6</h1>
+<ul>
+<li>[BUG] fixes issue where primary key is also foreign key <a href="https://github.com/sequelize/sequelize/pull/1818">#1818</a></li>
+</ul>
+<h1 id="v175">v1.7.5</h1>
+<ul>
+<li>[BUG] fixes bug with some methods relying on table information throwing strange errors <a href="https://github.com/sequelize/sequelize/pull/1686">#1686</a></li>
+</ul>
+<h1 id="v173">v1.7.3</h1>
+<ul>
+<li>[BUG] fixes foreign key types for hasMany</li>
+</ul>
+<h1 id="v172">v1.7.2</h1>
+<ul>
+<li>[BUG] fixes transactions support for 1-to-1 association setters.</li>
+</ul>
+<h1 id="v171">v1.7.1</h1>
+<ul>
+<li>[BUG] fixes issue where relations would not use transactions probably in adders/setters.</li>
+</ul>
+<h1 id="v170">v1.7.0</h1>
+<ul>
+<li>[FEATURE] covers more advanced include cases with limiting and filtering (specifically cases where a include would be in the subquery but its child include wouldnt be, for cases where a 1:1 association had a 1:M association as a nested include)</li>
+<li>[BUG] fixes issue where connection would timeout before calling COMMIT resulting in data never reaching the database <a href="https://github.com/sequelize/sequelize/pull/1429">#1429</a></li>
+</ul>
+<h1 id="v170-rc9">v1.7.0-rc9</h1>
+<ul>
+<li>[PERFORMANCE] fixes performance regression introduced in rc7</li>
+<li>[FEATURE] include all relations for a model <a href="https://github.com/sequelize/sequelize/pull/1421">#1421</a></li>
+<li>[BUG] N:M adder/getter with through model and custom primary keys now work</li>
+</ul>
+<h1 id="v170-rc8">v1.7.0-rc8</h1>
+<ul>
+<li>[BUG] fixes bug with required includes without wheres with subqueries</li>
+</ul>
+<h1 id="v170-rc7">v1.7.0-rc7</h1>
+<ul>
+<li>[BUG] ORDER BY statements when using includes should now be places in the appropriate sub/main query more intelligently.</li>
+<li>[BUG] using include.attributes with primary key attributes specified should no longer result in multiple primary key attributes being selected <a href="https://github.com/sequelize/sequelize/pull/1410">#1410</a></li>
+<li>[DEPENDENCIES] all dependencies, including Validator have been updated to the latest versions.</li>
+</ul>
+<h4 id="backwards-compatability-changes">Backwards compatability changes</h4>
+<ul>
+<li>.set() will no longer set values that are not a dynamic setter or defined in the model. This only breaks BC since .set() was introduced but restores original .updateAttributes functionality where it was possible to 'trust' user input.</li>
+</ul>
+<h1 id="v170-rc6">v1.7.0-rc6</h1>
+<ul>
+<li>[BUG] Encode binary strings as bytea in postgres, and fix a case where using a binary as key in an association would produce an error <a href="https://github.com/sequelize/sequelize/pull/1364">1364</a>. Thanks to @SohumB</li>
+</ul>
+<h1 id="v170-rc5">v1.7.0-rc5</h1>
+<ul>
+<li>[FEATURE] sync() now correctly returns with an error when foreign key constraints reference unknown tables</li>
+<li>[BUG] sync() no longer fails with foreign key constraints references own table (toposort self-dependency error)</li>
+<li>[FEATURE] makes it possible to specify exactly what timestamp attributes you want to utilize <a href="https://github.com/sequelize/sequelize/pull/1334">#1334</a></li>
+<li>[FEATURE] Support coffee script files in migrations. <a href="https://github.com/sequelize/sequelize/pull/1357">#1357</a></li>
+<li>[FEATURE] include.where now supports Sequelize.and()/.or(). <a href="https://github.com/sequelize/sequelize/pull/1361">#1361</a></li>
+</ul>
+<h1 id="v170-rc4">v1.7.0-rc4</h1>
+<ul>
+<li>[BUG] fixes issue with postgres sync and enums <a href="https://github.com/sequelize/sequelize/issues/1020">#1020</a></li>
+<li>[BUG] fixes various issues with limit and includes <a href="https://github.com/sequelize/sequelize/pull/1322">#1322</a></li>
+<li>[BUG] fixes issues with migrations/queryInterface createTable and enums</li>
+<li>[BUG] migration/queryInterface.addIndex() no longer fails on reserved keywords like 'from'</li>
+<li>[FEATURE] bulkCreate now supports a <code>ignoreDuplicates</code> option for MySQL, SQLite and MariaDB that will use <code>INSERT IGNORE</code></li>
+<li>[BUG] fixes regression bug with 1:M self associations</li>
+<li>[FEATURE] significant performance improvements for 1:1 and single primary key includes for 500+ rows <a href="https://github.com/sequelize/sequelize/pull/1333">#1333</a></li>
+</ul>
+<h4 id="backwards-compatability-changes_1">Backwards compatability changes</h4>
+<ul>
+<li>find/findAll will now always return primary keys regardless of <code>attributes</code> settings. (Motivation was to fix various issues with eager loading)</li>
+</ul>
+<h1 id="v170-rc3">v1.7.0-rc3</h1>
+<ul>
+<li>[FEATURE] dropAllTables now takes an option parameter with <code>skip</code> as an option <a href="https://github.com/sequelize/sequelize/pull/1280">#1280</a></li>
+<li>[FEATURE] implements .spread for eventemitters <a href="https://github.com/sequelize/sequelize/pull/1277">#1277</a></li>
+<li>[BUG] fixes some of the mysql connection error bugs <a href="https://github.com/sequelize/sequelize/pull/1282">#1282</a></li>
+<li>[Feature] Support for OR queries.</li>
+<li>[Feature] Support for HAVING queries. <a href="https://github.com/sequelize/sequelize/pull/1286">#1286</a></li>
+<li>[FEATURE] bulkUpdate and bulkDestroy now returns affected rows. <a href="https://github.com/sequelize/sequelize/pull/1293">#1293</a></li>
+<li>[BUG] fixes transaction memory leak issue</li>
+<li>[BUG] fixes security issue where it was possible to overwrite the id attribute when defined by sequelize (screwup - and fix - by mickhansen)</li>
+</ul>
+<h1 id="v170-rc2">v1.7.0-rc2</h1>
+<ul>
+<li>[BUG] fixes unixSocket connections for mariadb <a href="https://github.com/sequelize/sequelize/pull/1248">#1248</a></li>
+<li>[BUG] fixes a hangup issue for mysql <a href="https://github.com/sequelize/sequelize/pull/1244">#1244</a></li>
+<li>[BUG] improves handling of uncaught errors in eventemitter <a href="https://github.com/sequelize/sequelize/pull/1245">#1245</a></li>
+<li>[BUG] fixes bug with mysql replication and pool settings <a href="https://github.com/sequelize/sequelize/pull/1251">#1251</a></li>
+<li>[BUG] fixes bug where through models created by N:M associations would inherit hooks <a href="https://github.com/sequelize/sequelize/issues/1263">#1263</a></li>
+<li>[FEATURE] .col()/.literal()/etc now works with findAll <a href="https://github.com/sequelize/sequelize/issues/1249">#1249</a></li>
+<li>[BUG] now currectly handles connection timeouts as errors <a href="https://github.com/sequelize/sequelize/issues/1207">#1207</a></li>
+</ul>
+<h1 id="v200-alpha1">v2.0.0 (alpha1)</h1>
+<ul>
+<li>[FEATURE] async validations. <a href="https://github.com/sequelize/sequelize/pull/580">#580</a>. thanks to Interlock</li>
+</ul>
+<h1 id="v170-rc1">v1.7.0-rc1</h1>
+<ul>
+<li>[FEATURE] instance.createAssociationInstance functionality added <a href="https://github.com/sequelize/sequelize/pull/1213">#1213</a></li>
+<li>[BUG] fixes a few bugs with transactions in regards to associations</li>
+<li>[FEATURE] add error handling for transaction creation</li>
+<li>[FEATURE] <code>sequelize --undo</code> will now actually undo migrations. Its basically an alias for <code>sequelize --migrate --undo</code>. <a href="https://github.com/sequelize/sequelize/pull/1059">#1059</a></li>
+<li>[BUG] fix bug where <code>{where: {ne: null}}</code> would result in <code>!= NULL</code> instead of <code>IS NOT NULL</code> <a href="https://github.com/sequelize/sequelize/pull/1059">#1231</a></li>
+<li>[BUG] fixes a bug with validation skipping using the <code>fields</code> options. <a href="https://github.com/sequelize/sequelize/pull/1233">#1233</a></li>
+<li>[BUG] fixes a bug with postgres and setters <a href="https://github.com/sequelize/sequelize/issues/1234">#1234</a></li>
+<li>[BUG] fixes it so <code>field: {type: Sequelize.ENUM(value1, value2)}</code> works</li>
+</ul>
+<h4 id="backwards-compatability-changes_2">Backwards compatability changes</h4>
+<ul>
+<li>Hooks are no longer passing value hashes. Instead, they are now passing instances of the model.</li>
+<li>Hook callbacks no longer take two arguments (previously: <code>err, newValues</code>). They only take the error argument since values can be changed directly on the model instance.</li>
+</ul>
+<h1 id="v170-beta8">v1.7.0-beta8</h1>
+<ul>
+<li>[FEATURE] max()/min() now supports dates <a href="https://github.com/sequelize/sequelize/pull/1200">#1200</a></li>
+<li>[FEATURE] findAndCountAll now supports the include option</li>
+</ul>
+<h4 id="backwards-compatibility-changes_11">Backwards compatibility changes</h4>
+<ul>
+<li>You will now need to include the relevant subtables to query on them in finders (find/findAll)</li>
+<li>Subquery logic no longer depends on where objects with keys containing '.', instead where options on the include options <a href="https://github.com/sequelize/sequelize/pull/1199">#1199</a></li>
+</ul>
+<h1 id="v170-beta7">v1.7.0-beta7</h1>
+<ul>
+<li>[FEATURE] Nested eager loading / prefetching is now supported. <a href="http://sequelizejs.com/docs/latest/models#nested-eager-loading">Docs</a></li>
+<li>[FEATURE] Eager loading / prefetching now supports inner joins and extending the ON statement <a href="https://github.com/sequelize/sequelize/pull/1199">#1199</a></li>
+<li>[FEATURE] Eager loading / prefetching now returns the attributes of through models aswell <a href="https://github.com/sequelize/sequelize/pull/1198">#1198</a></li>
+<li>[FEATURE] New set/get/changed/previous feature <a href="https://github.com/sequelize/sequelize/pull/1182">#1182</a></li>
+<li>Various bug fixes</li>
+</ul>
+<h4 id="backwards-compatibility-changes_12">Backwards compatibility changes</h4>
+<p>None</p>
+<h1 id="v170-beta1">v1.7.0-beta1</h1>
+<ul>
+<li>[DEPENDENCIES] Upgraded validator for IPv6 support. <a href="https://github.com/sequelize/sequelize/pull/603">#603</a>. thanks to durango</li>
+<li>[DEPENDENCIES] replaced underscore by lodash. <a href="https://github.com/sequelize/sequelize/pull/594">#954</a>. thanks to durango</li>
+<li>[DEPENDENCIES] Upgraded pg to 2.0.0. <a href="https://github.com/sequelize/sequelize/pull/711">#711</a>. thanks to durango</li>
+<li>[DEPENDENCIES] Upgraded command to 2.0.0 and generic-pool to 2.0.4. thanks to durango</li>
+<li>[DEPENDENCIES] No longer require semver. thanks to durango</li>
+<li>[BUG] Fix string escape with postgresql on raw SQL queries. <a href="https://github.com/sequelize/sequelize/pull/586">#586</a>. thanks to zanamixx</li>
+<li>[BUG] "order by" is now after "group by". <a href="https://github.com/sequelize/sequelize/pull/585">#585</a>. thanks to mekanics</li>
+<li>[BUG] Added decimal support for min/max. <a href="https://github.com/sequelize/sequelize/pull/583">#583</a>. thanks to durango</li>
+<li>[BUG] Null dates don't break SQLite anymore. <a href="https://github.com/sequelize/sequelize/pull/572">#572</a>. thanks to mweibel</li>
+<li>[BUG] Correctly handle booleans in MySQL. <a href="https://github.com/sequelize/sequelize/pull/608">#608</a>. Thanks to terraflubb</li>
+<li>[BUG] Fixed empty where conditions in MySQL. <a href="https://github.com/sequelize/sequelize/pull/619">#619</a>. Thanks to terraflubb</li>
+<li>[BUG] Allow overriding of default columns. <a href="https://github.com/sequelize/sequelize/pull/635">#635</a>. Thanks to sevastos</li>
+<li>[BUG] Fix where params for belongsTo <a href="https://github.com/sequelize/sequelize/pull/658">#658</a>. Thanks to mweibel</li>
+<li>[BUG] Default ports are now declared in the connector manager, which means the default port for PG correctly becomes 5432. <a href="https://github.com/sequelize/sequelize/issues/633">#633</a>. durango</li>
+<li>[BUG] Columns with type BOOLEAN were always added to toJSON output, even if they were not selected <a href="https://gist.github.com/gchaincl/45aca14e93934bf4a05e">see</a>. janmeier</li>
+<li>[BUG] Hstore is now fully supported <a href="https://github.com/sequelize/sequelize/pull/695">#695</a>. thanks to tadman</li>
+<li>[BUG] Correct join table name for tables with custom names <a href="https://github.com/sequelize/sequelize/pull/698">#698</a>. thanks to jjclark1982</li>
+<li>[BUG] PostgreSQL should now be able to insert empty arrays with typecasting. <a href="https://github.com/sequelize/sequelize/pull/718">#718</a>. thanks to durango</li>
+<li>[BUG] Fields should be escaped by quoteIdentifier for max/min functions which allows SQL reserved keywords to be used. <a href="https://github.com/sequelize/sequelize/pull/719">#719</a>. thanks to durango</li>
+<li>[BUG] Fixed bug when trying to save objects with eagerly loaded attributes <a href="https://github.com/sequelize/sequelize/pull/716">#716</a>. thanks to iamjochen</li>
+<li>[BUG] Strings for .find() should be fixed. Also added support for string primary keys to be found easily. <a href="https://github.com/sequelize/sequelize/pull/737">#737</a>. thanks to durango</li>
+<li>[BUG] bulkCreate would have problems with a disparate field list <a href="https://github.com/sequelize/sequelize/pull/738">#738</a>. thanks to durango</li>
+<li>[BUG] Fixed problems with quoteIdentifiers and {raw: false} option on raw queries <a href="https://github.com/sequelize/sequelize/pull/751">#751</a>. thanks to janmeier</li>
+<li>[BUG] Fixed SQL escaping with sqlite and unified escaping <a href="https://github.com/sequelize/sequelize/pull/700">#700</a>. thanks to PiPeep</li>
+<li>[BUG] Fixed Postgres' pools <a href="https://github.com/sequelize/sequelize/commit/ff57af63c2eb395b4828a5984a22984acdc2a5e1">ff57af63</a></li>
+<li>[BUG] Fixed BLOB/TEXT columns having a default value declared in MySQL <a href="https://github.com/sequelize/sequelize/pull/793">#793</a>. thanks to durango</li>
+<li>[BUG] You can now use .find() on any single integer primary key when throwing just a number as an argument <a href="https://github.com/sequelize/sequelize/pull/796">#796</a>. thanks to durango</li>
+<li>[BUG] Adding unique to a column for Postgres in the migrator should be fixed <a href="https://github.com/sequelize/sequelize/pull/795">#795</a>. thanks to durango</li>
+<li>[BUG] For MySQL users, if their collation allows case insensitivity then allow enums to be case insensitive as well <a href="https://github.com/sequelize/sequelize/pull/794">#794</a>. thanks to durango</li>
+<li>[BUG] Custom primary key (not keys, just singular) should no longer be a problem for models when using any of the data retrievals with just a number or through associations <a href="https://github.com/sequelize/sequelize/pull/771">#771</a>. thanks to sdephold &amp; durango</li>
+<li>[BUG] Default schemas should now be utilized when describing tables <a href="https://github.com/sequelize/sequelize/pull/812">#812</a>. thanks to durango</li>
+<li>[BUG] Fixed eager loading for many-to-many associations. <a href="https://github.com/sequelize/sequelize/pull/834">#834</a>. thanks to lemon-tree</li>
+<li>[BUG] allowNull: true enums can now be null <a href="https://github.com/sequelize/sequelize/pull/857">#857</a>. thanks to durango</li>
+<li>[BUG] Fixes Postgres' ability to search within arrays. <a href="https://github.com/sequelize/sequelize/pull/879">#879</a>. thanks to durango</li>
+<li>[BUG] Find and finAll would modify the options objects, now the objects are cloned at the start of the method <a href="https://github.com/sequelize/sequelize/pull/884">#884</a> thanks to janmeier. Improved in <a href="https://github.com/sequelize/sequelize/pull/899">#899</a> thanks to hackwaly</li>
+<li>[BUG] Add support for typed arrays in SqlString.escape and SqlString.arrayToList <a href="https://github.com/sequelize/sequelize/pull/891">#891</a>. thanks to LJ1102</li>
+<li>[BUG] Postgres requires empty array to be explicitly cast on update <a href="https://github.com/sequelize/sequelize/pull/890">#890</a>. thanks to robraux</li>
+<li>[BUG] Added tests &amp; bugfixes for DAO-Factory.update and array of values in where clause <a href="https://github.com/sequelize/sequelize/pull/880">#880</a>. thanks to domasx2</li>
+<li>[BUG] sqlite no longer leaks a global <code>db</code> variable <a href="https://github.com/sequelize/sequelize/pull/900">#900</a>. thanks to xming</li>
+<li>[BUG] Fix for counts queries with no result <a href="https://github.com/sequelize/sequelize/pull/906">#906</a>. thanks to iamjochem</li>
+<li>[BUG] Allow include when the same table is referenced multiple times using hasMany <a href="https://github.com/sequelize/sequelize/pull/913">#913</a>. thanks to janmeier</li>
+<li>[BUG] Allow definition of defaultValue for the timestamp columns (createdAt, updatedAt, deletedAt) <a href="https://github.com/sequelize/sequelize/pull/930">#930</a>. Thank to durango</li>
+<li>[BUG] Don't delete foreign keys of many-to-many associations, if still needed. <a href="https://github.com/sequelize/sequelize/pull/961">#961</a>. thanks to sdepold</li>
+<li>[BUG] Update timestamps when incrementing and decrementing <a href="https://github.com/sequelize/sequelize/pull/1023">#1023</a>. durango</li>
+<li>[FEATURE] Validate a model before it gets saved. <a href="https://github.com/sequelize/sequelize/pull/601">#601</a>. thanks to durango</li>
+<li>[FEATURE] Schematics. <a href="https://github.com/sequelize/sequelize/pull/564">#564</a>. thanks to durango</li>
+<li>[FEATURE] Foreign key constraints. <a href="https://github.com/sequelize/sequelize/pull/595">#595</a>. thanks to optilude</li>
+<li>[FEATURE] Support for bulk insert (<code>&lt;DAOFactory&gt;.bulkCreate()</code>, update (<code>&lt;DAOFactory&gt;.update()</code>) and delete (<code>&lt;DAOFactory&gt;.destroy()</code>) <a href="https://github.com/sequelize/sequelize/pull/569">#569</a>. thanks to optilude</li>
+<li>[FEATURE] Add an extra <code>queryOptions</code> parameter to <code>DAOFactory.find</code> and <code>DAOFactory.findAll</code>. This allows a user to specify <code>{ raw: true }</code>, meaning that the raw result should be returned, instead of built DAOs. Usefull for queries returning large datasets, see <a href="https://github.com/sequelize/sequelize/pull/611">#611</a> janmeier</li>
+<li>[FEATURE] Added convenient data types. <a href="https://github.com/sequelize/sequelize/pull/616">#616</a>. Thanks to Costent</li>
+<li>[FEATURE] Binary is more verbose now. <a href="https://github.com/sequelize/sequelize/pull/612">#612</a>. Thanks to terraflubb</li>
+<li>[FEATURE] Promises/A support. <a href="https://github.com/sequelize/sequelize/pull/626">#626</a>. Thanks to kevinbeaty</li>
+<li>[FEATURE] Added Getters/Setters method for DAO. <a href="https://github.com/sequelize/sequelize/pull/538">#538</a>. Thanks to iamjochem</li>
+<li>[FEATURE] Added model wide validations. <a href="https://github.com/sequelize/sequelize/pull/640">#640</a>. Thanks to tremby</li>
+<li>[FEATURE] <code>findOrCreate</code> now returns an additional flag (<code>created</code>), that is true if a model was created, and false if it was found <a href="https://github.com/sequelize/sequelize/pull/648">#648</a>. janmeier</li>
+<li>[FEATURE] Field and table comments for MySQL and PG. <a href="https://github.com/sequelize/sequelize/pull/523">#523</a>. MySQL by iamjochen. PG by janmeier</li>
+<li>[FEATURE] BigInts can now be used for autoincrement/serial columns. <a href="https://github.com/sequelize/sequelize/pull/673">#673</a>. thanks to sevastos</li>
+<li>[FEATURE] Use moment for better postgres timestamp strings. <a href="https://github.com/sequelize/sequelize/pull/710">#710</a>. Thanks to seth-admittedly</li>
+<li>[FEATURE] Keep milliseconds in timestamps for postgres. <a href="https://github.com/sequelize/sequelize/pull/712">#712</a>. Thanks to seth-admittedly</li>
+<li>[FEATURE] You can now set lingo's language through Sequelize. <a href="https://github.com/sequelize/sequelize/pull/713">#713</a>. Thanks to durango</li>
+<li>[FEATURE] Added a <code>findAndCountAll</code>, useful for pagination. <a href="https://github.com/sequelize/sequelize/pull/533">#533</a>. Thanks to iamjochen</li>
+<li>[FEATURE] Made explicit migrations possible. <a href="https://github.com/sequelize/sequelize/pull/728">#728</a>. Thanks to freezy</li>
+<li>[FEATURE] Added support for where clauses containing !=, &lt; etc. and support for date ranges  <a href="https://github.com/sequelize/sequelize/pull/727">#727</a>. Thanks to durango</li>
+<li>[FEATURE] Added support for model instances being referenced <a href="https://github.com/sequelize/sequelize/pull/761">#761</a> thanks to sdepold</li>
+<li>[FEATURE] Added support for specifying the path to load a module for a dialect. <a href="https://github.com/sequelize/sequelize/pull/766">#766</a> thanks to sonnym.</li>
+<li>[FEATURE] Drop index if exists has been added to sqlite <a href="https://github.com/sequelize/sequelize/pull/776">#766</a> thanks to coderbuzz</li>
+<li>[FEATURE] bulkCreate() now has a third argument which gives you the ability to validate each row before attempting to bulkInsert <a href="https://github.com/sequelize/sequelize/pull/797">#797</a>. thanks to durango</li>
+<li>[FEATURE] Added <code>isDirty</code> to model instances. <a href="https://github.com/sequelize/sequelize/pull/798">#798</a>. Thanks to mstorgaard</li>
+<li>[FEATURE] Added possibility to use env variable for the database connection. <a href="https://github.com/sequelize/sequelize/pull/784">#784</a>. Thanks to sykopomp.</li>
+<li>[FEATURE] Blob support. janmeier</li>
+<li>[FEATURE] We can now define our own custom timestamp columns <a href="https://github.com/sequelize/sequelize/pull/856">#856</a>. thanks to durango</li>
+<li>[FEATURE] Scopes. <a href="https://github.com/sequelize/sequelize/pull/748">#748</a>. durango</li>
+<li>[FEATURE] Model#find() / Model#findAll() is now working with strings. <a href="https://github.com/sequelize/sequelize/pull/855">#855</a>. Thanks to whito.</li>
+<li>[FEATURE] Shortcut method for getting a defined model. <a href="https://github.com/sequelize/sequelize/pull/868">#868</a>. Thanks to jwilm.</li>
+<li>[FEATURE] Added Sequelize.fn() and Sequelize.col() to properly call columns and functions within Sequelize. <a href="https://github.com/sequelize/sequelize/pull/882">#882</a>. thanks to janmeier</li>
+<li>[FEATURE] Sequelize.import supports relative paths. <a href="https://github.com/sequelize/sequelize/pull/901">#901</a>. thanks to accerqueira.</li>
+<li>[FEATURE] Sequelize.import can now handle functions. <a href="https://github.com/sequelize/sequelize/pull/911">#911</a>. Thanks to davidrivera.</li>
+<li>[FEATURE] Uses sequelize.fn and sequelize.col functionality to allow you to use the value of another column or a function when updating. It also allows you to use a function as a default value when supported (in sqlite and postgres). <a href="https://github.com/sequelize/sequelize/pull/928">#928</a>. thanks to janmeier</li>
+<li>[FEATURE] Added possibility to pass options to node-mysql. <a href="https://github.com/sequelize/sequelize/pull/929">#929</a>. thanks to poying</li>
+<li>[FEATURE] Triggers for Postgres. <a href="https://github.com/sequelize/sequelize/pull/915">#915</a>. Thanks to jonathana.</li>
+<li>[FEATURE] Support for join tables. <a href="https://github.com/sequelize/sequelize/pull/877">#877</a>. Thanks to janmeier.</li>
+<li>[FEATURE] Support for hooks. <a href="https://github.com/sequelize/sequelize/pull/894">#894</a>. Thanks to durango.</li>
+<li>[FEATURE] Support for literals and casts. <a href="https://github.com/sequelize/sequelize/pull/950">#950</a>. Thanks to durango.</li>
+<li>[FEATURE] Model#findOrBuild. <a href="https://github.com/sequelize/sequelize/pull/960">#960</a>. Thanks to durango.</li>
+<li>[FEATURE] Support for MariaDB. <a href="https://github.com/sequelize/sequelize/pull/948">#948</a>. Thanks to reedog117 and janmeier.</li>
+<li>[FEATURE] Filter through associations. <a href="https://github.com/sequelize/sequelize/pull/991">#991</a>. Thanks to snit-ram.</li>
+<li>[FEATURE] Possibility to disable loging for .sync <a href="https://github.com/sequelize/sequelize/pull/937">#937</a>. Thanks to durango</li>
+<li>[FEATURE] Support for transactions. <a href="https://github.com/sequelize/sequelize/pull/1062">1062</a>.</li>
+<li>[REFACTORING] hasMany now uses a single SQL statement when creating and destroying associations, instead of removing each association seperately <a href="https://github.com/sequelize/sequelize/pull/690">690</a>. Inspired by <a href="https://github.com/sequelize/sequelize/issues/104">#104</a>. janmeier</li>
+<li>[REFACTORING] Consistent handling of offset across dialects. Offset is now always applied, and limit is set to max table size of not limit is given <a href="https://github.com/sequelize/sequelize/pull/725">#725</a>. janmeier</li>
+<li>[REFACTORING] Moved Jasmine to Buster and then Buster to Mocha + Chai. sdepold and durango</li>
+</ul>
+<h1 id="v160">v1.6.0</h1>
+<ul>
+<li>[DEPENDENCIES] upgrade mysql to alpha7. You <em>MUST</em> use this version or newer for DATETIMEs to work</li>
+<li>[DEPENDENCIES] upgraded most dependencies. most important: mysql was upgraded to 2.0.0-alpha-3</li>
+<li>[DEPENDENCIES] mysql is now an optional dependency. #355 (thanks to clkao)</li>
+<li>[REFACTORING] separated tests for dialects</li>
+<li>[REFACTORING] reduced number of sql queries used for adding an element to a N:M association. #449 (thanks to innofluence/janmeier)</li>
+<li>[REFACTORING] dropped support for synchronous migrations. added third parameter which needs to get called once the migration has been finished. also this adds support for asynchronous actions in migrations.</li>
+<li>[OTHERS] code was formatted to fit the latest code style guidelines (thanks to durango)</li>
+<li>[OTHERS] Explicitly target ./docs folder for generate-docs script. #444 (thanks to carsondarling)</li>
+<li>[OTHERS] Overwrite existing daoFactoryDefinition if there already has been one. (thanks to robraux)</li>
+<li>[BUG] fixed wrong version in sequelize binary</li>
+<li>[BUG] local options have higher priority than global options (thanks to guersam)</li>
+<li>[BUG] fixed where clause when passing an empty array (thanks to kbackowski)</li>
+<li>[BUG] fixed updateAttributes for models/tables without primary key (thanks to durango)</li>
+<li>[BUG] fixed the location of the foreign key when using belongsTo (thanks to ricardograca)</li>
+<li>[BUG] don't return timestamps if only specific attributes have been seleceted (thanks to ricardograca)</li>
+<li>[BUG] fixed removeColumn for sqlite</li>
+<li>[BUG] fixed date equality check for instances. (thanks to solotimes)</li>
+<li>[FEATURE] added association prefetching /eager loading for find and findAll. #465</li>
+<li>[FEATURE] it's now possible to use callbacks of async functions inside migrations (thanks to mphilpot)</li>
+<li>[FEATURE] improved comfort of sequelize.query. just pass an sql string to it and wait for the result</li>
+<li>[FEATURE] Migrations now understand NODE_ENV (thanks to gavri)</li>
+<li>[FEATURE] Performance improvements (thanks to Mick-Hansen and janmeier from innofluence)</li>
+<li>[FEATURE] Model.find and Model.findAll can now take a String with an ID. (thanks to ghernandez345)</li>
+<li>[FEATURE] Compatibility for JSON-like strings in Postgres (thanks to aslakhellesoy)</li>
+<li>[FEATURE] honor maxConcurrentQueries option (thanks to dchester)</li>
+<li>[FEATURE] added support for stored procedures (inspired by wuyuntao)</li>
+<li>[FEATURE] added possibility to use pg lib's native api (thanks to denysonique)</li>
+<li>[FEATURE] added possibility to define the attributes of received associations (thanks to joshm)</li>
+<li>[FEATURE] added findOrCreate, which returns a the already existing instance or creates one (thanks to eveiga)</li>
+<li>[FEATURE] minConnections option for MySQL pooling (thanks to dominiklessel)</li>
+<li>[FEATURE] added BIGINT data type which is treated like a string (thanks to adamsch1)</li>
+<li>[FEATURE] experimental support for read replication for mysql (thanks to Janzeh)</li>
+<li>[FEATURE] allow definition of a models table name (thanks to slamkajs)</li>
+<li>[FEATURE] allow usage of enums. #440 (thanks to KevinMartin)</li>
+<li>[FEATURE] allows updateAttributes to target specific fields only (thanks to Pasvaz)</li>
+<li>[FEATURE] timestamps are now stored as UTC. #461 (thanks to innofluence/janmeier)</li>
+<li>[FEATURE] results of raw queries are parsed with dottie. #468 (thanks to kozze89)</li>
+<li>[FEATURE] support for array serialization. pg only. #443 (thanks to clkao)</li>
+<li>[FEATURE] add increment and decrement methods on dao. #408 (thanks to janmeier/innofluence)</li>
+<li>[FEATURE] unified the result of describeTable</li>
+<li>[FEATURE] add support for decimals (thanks to alexyoung)</li>
+<li>[FEATURE] added DAO.reload(), which updates the attributes of the DAO in-place (as opposed to doing having to do a find() and returning a new model)</li>
+</ul>
+<h1 id="v150">v1.5.0</h1>
+<ul>
+<li>[REFACTORING] use underscore functions for Utils.isHash (thanks to Mick-Hansen/innofluence)</li>
+<li>[REFACTORING] removed the 'failure' event and replaced it with 'error'</li>
+<li>[BUG] fixed booleans for sqlite (thanks to vlmonk)</li>
+<li>[BUG] obsolete reference attribute for many-to-many associations are removed correctly</li>
+<li>[BUG] associations can be cleared via passing null to the set method</li>
+<li>[BUG] "fixed" quota handling (thanks to dgf)</li>
+<li>[BUG] fixed destroy in postgresql (thanks to robraux)</li>
+<li>[FEATURE] added possibility to set protocol and to remove port from postgresql connection uri (thanks to danielschwartz)</li>
+<li>[FEATURE] added possibility to not use a junction table for many-to-many associations on the same table (thanks to janmeier/innofluence)</li>
+<li>[FEATURE] results of the <code>import</code> method is now cached (thanks to janmeier/innofluence)</li>
+<li>[FEATURE] added possibility to check if a specific object or a whole bunch of objects is currently associated with another object (thanks to janmeier/innofluence)</li>
+<li>[FEATURE] added possibility to globally disable adding of NULL values to sql queries (thanks to janmeier/innofluence)</li>
+<li>[FEATURE] Model.create can now also be used to specify values for mass assignment (thanks to janmeier/innofluence)</li>
+<li>[FEATURE] QueryChainer will now provide the results of the added emitters in the order the emitters have been added (thanks to LaurentZuijdwijk and me ;))</li>
+<li>[FEATURE] QueryChainer can now be initialized with serial items</li>
+<li>[FEATURE] node 0.8 compatibility</li>
+<li>[FEATURE] added options to hasMany getters (thanks to janmeier/innofluence)</li>
+<li>[FEATURE] pooling option is now correctly passed to postgres (thanks to megshark)</li>
+</ul>
+<h1 id="v141">v1.4.1</h1>
+<ul>
+<li>[DEPRECATION] Added deprecation warning for node &lt; v0.6.</li>
+<li>[FEATURE] added selective saving of instances (thanks to kioopi)</li>
+<li>[FEATURE] added command to binary for creating a migration skeleton with current timestamp</li>
+<li>[FEATURE] added <code>complete</code> function for each finder method (thanks to sstoiana)</li>
+<li>[BUG] fixed quotation for sqlite statements (thanks to vlmonk)</li>
+<li>[BUG] fixed timestamp parsing in migratios (thanks to grn)</li>
+<li>[FEATURE] added consistent logging behaviour to postgres (thanks to reacuna)</li>
+</ul>
+<h1 id="v140">v1.4.0</h1>
+<ul>
+<li>[BUG] fixed booleans in sqlite (thanks to alexstrat)</li>
+<li>[BUG] fixed forced sync of many-to-many associations (thanks to SirUli)</li>
+<li>[FEATURE] objects are now compatible to JSON.stringify. (thanks to grayt0r)</li>
+<li>[FEATURE] When instantiating the sequelize object, you can now pass a function to logging. This allows you to customize the logging behavior. Default is now: console.log (thanks to kenperkins)</li>
+<li>[BUG] The default logging is still console.log but is wrapped after initialization as it crashes node &lt; 0.6.x.</li>
+<li>[FEATURE] postgresql support. (thanks to swoodtke)</li>
+<li>[FEATURE] connection-pooling for mysql. (thanks to megshark)</li>
+<li>[FEATURE] added possibility to define NOW as default value for date data-types. Use Sequelize.NOW as defaultValue</li>
+<li>[BUG] Fixed date handling in sqlite (thanks to iizukanao)</li>
+</ul>
+<h1 id="v137">v1.3.7</h1>
+<ul>
+<li>[BUG] fixed issue where multiple belongsTo or hasOne associations to the same table overwrite each other</li>
+<li>[BUG] fixed memory leaks (thanks to megshark)</li>
+</ul>
+<h1 id="v136">v1.3.6</h1>
+<ul>
+<li>[BUG] don't update an existing updatedAt-attribute if timestamps option for a DAO is false</li>
+</ul>
+<h1 id="v135">v1.3.5</h1>
+<ul>
+<li>[BUG] fixed missed DAO renaming in migrations (thanks to nov)</li>
+</ul>
+<h1 id="v134">v1.3.4</h1>
+<ul>
+<li>[REFACTORING] renamed Model/ModelFactory/ModelFactoryManager to DAO/DAOFactory/DAOFactoryManager</li>
+<li>[IMPROVEMENT] <code>npm test</code> will run the test suite (thanks to gabrielfalcao)</li>
+<li>[IMPROVEMENT] documentation about setting up local development environment (thanks to gabrielfalcao)</li>
+<li>[REFACTORING] removed updatedAt + createdAt from SequelizeMeta</li>
+</ul>
+<h1 id="v133">v1.3.3</h1>
+<ul>
+<li>[BUG] fixed sql-event emitter in all possible locations (thanks to megshark)</li>
+</ul>
+<h1 id="v132">v1.3.2</h1>
+<ul>
+<li>[FEATURE] sqlite is now emitting the 'sql'-event as well (thanks to megshark)</li>
+</ul>
+<h1 id="v131">v1.3.1</h1>
+<ul>
+<li>[REFACTORING] renamed ModelManager to ModelFactoryManager</li>
+<li>[IMPROVEMENT] decreased delay of CustomEventEmitter execution from 5ms to 1ms</li>
+<li>[IMPROVEMENT] improved performance of association handling (many-to-many) (thanks to magshark)</li>
+<li>[FEATURE] added possibility to specify name of the join table (thanks to magshark)</li>
+<li>[FEATURE] mysql is emitting a 'sql'-event when executing a query</li>
+<li>[BUG] correctly delete existing SequelizeMeta entry from database after undoing migration</li>
+<li>[BUG] fix path of migration files in executable (thanks to bcg)</li>
+</ul>
+<h1 id="v130">v1.3.0</h1>
+<ul>
+<li>[REFACTORING] Model#all is now a function and not a getter.</li>
+<li>[REFACTORING] Renamed ModelDefinition to ModelFactory</li>
+<li>[REFACTORING] Private method scoping; Attributes are still public</li>
+<li>[REFACTORING] Use the new util module for node 0.6.2</li>
+<li>[FEATURE] QueryChainer can now run serially</li>
+<li>[FEATURE] Association definition is chainable: Person.hasOne(House).hasMany(Address)</li>
+<li>[FEATURE] Validations (Thanks to <a href="https://github.com/hiddentao">hiddentao</a>)</li>
+<li>[FEATURE] jQuery-like event listeners: .success(callback) and .error(callback)</li>
+<li>[FEATURE] aliasing for select queries: Model.find({ where: 'id = 1', attributes: ['id', ['name', 'username']] }) ==&gt; will return the user's name as username</li>
+<li>[FEATURE] cross-database support. currently supported: mysql, sqlite</li>
+<li>[FEATURE] migrations</li>
+<li>[TEST] removed all expresso tests and converted them to jasmine</li>
+</ul>
+<h1 id="v121">v1.2.1</h1>
+<ul>
+<li>[REFACTORING] renamed the global options for sync, query and define on sequelize; before: options.queryOptions; now: options.query</li>
+<li>[FEATURE] allow definition of charset via global define option in sequelize or via charset option in sequelize.define</li>
+<li>[FEATURE] allow definition of mysql engine via global define option in sequelize or via engine option in sequelize.define; default is InnoDB now</li>
+<li>[FEATURE] find and findAll will now search in a list of values via: Model.findAll({where: { id: [1,2,3] }}); will return all models with id 1, 2 and 3</li>
+<li>[TEST] force latin1 charset for travis</li>
+</ul>
+<h1 id="v120">v1.2.0</h1>
+<ul>
+<li>[FEATURE] min/max function for models, which return the min/max value in a column</li>
+<li>[FEATURE] getModel for modelManager for getting a model without storing it in a variable; use it via sequelize.modelManager.getModel('User')</li>
+<li>[TEST] test suite refactoring for jasmine</li>
+</ul>
+<h1 id="v114">v1.1.4</h1>
+<ul>
+<li>[BUG] tables with identical prefix (e.g. wp_) can now be used in many-to-many associations</li>
+</ul>
+<h1 id="v113">v1.1.3</h1>
+<ul>
+<li>[BUG] scoped options in model =&gt; a model can now have the attribute options</li>
+<li>[FEATURE] added drop method for sequelize, that drops all currently registered tables</li>
+</ul>
+<h1 id="v112">v1.1.2</h1>
+<ul>
+<li>[BUG] prevent malfunction after being idle</li>
+</ul>
+<h1 id="v111">v1.1.1</h1>
+<ul>
+<li>[BUG] fixed memory leaks</li>
+<li>[FEATURE] added query queueing (adjustable via maxConcurrentQueries in config; default: 50)</li>
+</ul>
+<h1 id="v110">v1.1.0</h1>
+<ul>
+<li>[BUG] defaultValue 0 is now working</li>
+<li>[REMOVED] mysql-pool usage (will give it a new try later)</li>
+<li>[CHORE] updated node-mysql to 0.9.4</li>
+</ul>
+<h1 id="v102">v1.0.2</h1>
+<ul>
+<li>[BUG] Fixed where clause generation for models with explicit primary keys (allanca)</li>
+<li>[BUG] Set insertId for non-default auto increment fields (allanca)</li>
+</ul>
+<h1 id="v101">v1.0.1</h1>
+<ul>
+<li>[FEATURE] Added Model.count(callback), which returns the number of elements saved in the database</li>
+<li>[BUG] Fixed self associations</li>
+</ul>
+<h1 id="v100">v1.0.0</h1>
+<ul>
+<li>complete rewrite</li>
+<li>added new emitter syntax</li>
+<li>sql injection protection</li>
+<li>select now supports hash usage of where</li>
+<li>select now supports array usage of where</li>
+<li>added a lot of options to find/findAll</li>
+<li>Wrapped queries correctly using <code>foo</code></li>
+<li>using expresso 0.7.2</li>
+<li>moved config for test database into seperated config file</li>
+<li>Added method for adding and deleting single associations</li>
+</ul>
+<h1 id="v043">v0.4.3</h1>
+<ul>
+<li>renamed loadAssociatedData to fetchAssociations</li>
+<li>renamed Model#associatedData to fetchedAssociations</li>
+<li>added fetchAssociations to finder methods</li>
+<li>store data found by finder method in the associatedData hash + grep them from there if reload is not forced</li>
+<li>added option to sequelize constructor for disabling the pluralization of tablenames: disableTableNameModification</li>
+<li>allow array as value for chainQueries =&gt; Sequelize.chainQueries([save: [a,b,c]], callback)</li>
+<li>remove the usage of an array =&gt; Sequelize.chainQueries({save: a}, {destroy: b}, callback)</li>
+</ul>
+<h1 id="v042">v0.4.2</h1>
+<ul>
+<li>fixed bugs from 0.4.1</li>
+<li>added the model instance method loadAssociatedData which adds the hash Model#associatedData to an instance which contains all associated data</li>
+</ul>
+<h1 id="v041">v0.4.1</h1>
+<ul>
+<li>THIS UPDATE CHANGES TABLE STRUCTURES MASSIVELY!</li>
+<li>
+<p>MAKE SURE TO DROP YOUR CURRENT TABLES AND LET THEM CREATE AGAIN!</p>
+</li>
+<li>
+<p>names of many-to-many-association-tables are chosen from passed association names</p>
+</li>
+<li>foreign keys are chosen from passed association name</li>
+<li>added many-to-many association on the same model</li>
+<li>added hasManyAndBelongsTo</li>
+<li>added hasOneAndBelongsTo</li>
+<li>nodejs-mysql-native 0.4.2</li>
+</ul>
+<h1 id="v040">v0.4.0</h1>
+<ul>
+<li>added error handling when defining invalid database credentials</li>
+<li>Sequelize#sync, Sequelize#drop, model#sync, model#drop returns errors via callback</li>
+<li>code is now located under lib/sequelize to use it with nDistro</li>
+<li>added possibility to use non default mysql database (host/port)</li>
+<li>added error handling when defining invalid database port/host</li>
+<li>schema definitions can now contain default values and null allowance</li>
+<li>database credentials can now also contain an empty / no password</li>
+</ul>
+<h1 id="v030">v0.3.0</h1>
+<ul>
+<li>added possibility to define class and instance methods for models</li>
+<li>added import method for loading model definition from a file</li>
+</ul>
+<h1 id="v026">v0.2.6</h1>
+<ul>
+<li>refactored Sequelize to fit CommonJS module conventions</li>
+</ul>
+<h1 id="v025">v0.2.5</h1>
+<ul>
+<li>added BOOLEAN type</li>
+<li>added FLOAT type</li>
+<li>fixed DATE type issue</li>
+<li>fixed npm package</li>
+</ul>
+<h1 id="v024">v0.2.4</h1>
+<ul>
+<li>fixed bug when using cross associated tables (many to many associations)</li>
+</ul>
+<h1 id="v023">v0.2.3</h1>
+<ul>
+<li>added latest mysql connection library</li>
+<li>fixed id handling on save</li>
+<li>fixed text handling (varchar &gt; 255; text)</li>
+<li>using the inflection library for naming tables more convenient</li>
+<li>Sequelize.TEXT is now using MySQL datatype TEXT instead of varchar(4000)</li>
+</ul>
+<h1 id="v022">v0.2.2</h1>
+<ul>
+<li>released project as npm package</li>
+</ul>
+<h1 id="v021">v0.2.1</h1>
+<ul>
+<li>fixed date bug</li>
+</ul>
+<h1 id="v020">v0.2.0</h1>
+<ul>
+<li>added methods for setting associations</li>
+<li>added method for chaining an arbitraty amount of queries</li>
+</ul>
+<h1 id="v010">v0.1.0</h1>
+<ul>
+<li>first stable version</li>
+<li>implemented all basic functions</li>
+<li>associations are working</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../imprint/" class="btn btn-neutral float-right" title="Imprint">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../api/errors/" class="btn btn-neutral" title="Errors"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../api/errors/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../imprint/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

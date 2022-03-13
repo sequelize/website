@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="http://docs.sequelizejs.com/articles/getting-started/">
+  <link rel="shortcut icon" href="../../favicon.ico">
+  
+  <title>Getting started - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../../css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Getting started";
+    var mkdocs_page_input_path = "articles/getting-started.md";
+    var mkdocs_page_url = "/articles/getting-started/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../docs/models-definition/">Definition</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../docs/models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/instances/">Instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/migrations/">Migrations</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/instance/">Instance</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Associations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/errors/">Errors</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../changelog/">Changelog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Getting started</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/articles/getting-started.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="introduction">Introduction</h2>
+<p>This article explains the basic concepts of Sequelize. You will learn how to use the supported dialects, which types of database setup approaches are available, and how common scenarios can be achieved.</p>
+<h2 id="premise">Premise</h2>
+<p>We will skip the very basic things and directly dive into the Sequelize related stuff. Here is a list of things that have to be in place before you can start:</p>
+<ul>
+<li>Node.JS at v0.8 or higher</li>
+<li>One of the supported databases / SQLite bindings</li>
+<li>The credentials for the respective database</li>
+<li>A basic understanding of how databases are working</li>
+<li>Optional but recommended: Coffee :)</li>
+</ul>
+<h2 id="a-word-about-promises">A word about promises</h2>
+<p>Read about promises <a href="http://bluebirdjs.com/docs/why-promises.html">here</a>.</p>
+<h2 id="setting-up-a-project">Setting up a project</h2>
+<p>Now that your computer is prepared and your coffee sits next to your keyboard,
+we can finally get started. First things first: create a directory and initialize it with NPM!</p>
+<pre><code class="language-bash">$ mkdir my-project
+$ cd my-project
+$ npm init
+</code></pre>
+<p>NPM will ask you a couple of questions. Answer them or just hit the return key until it's satisfied.
+Once done, you can install Sequelize and the connector for your database of choice.</p>
+<pre><code class="language-bash">$ npm install --save sequelize
+$ npm install --save pg       # for postgres
+$ npm install --save mysql    # for mysql
+$ npm install --save sqlite3  # for sqlite
+$ npm install --save mariasql # for mariasql
+</code></pre>
+<h2 id="connecting-to-the-database">Connecting to the database</h2>
+<p>Open the created directory in your favorite text editor and add a new file called <code>app.js</code> with the following content:</p>
+<pre><code class="language-js">var Sequelize = require('sequelize')
+  , sequelize = new Sequelize('database_name', 'username', 'password', {
+      dialect: &quot;mysql&quot;, // or 'sqlite', 'postgres', 'mariadb', 'mssql'
+      port:    3306 // or 5432 (for postgres)
+    });
+
+sequelize
+  .authenticate()
+  .then(function(err) {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(function (err) {
+    console.log('Unable to connect to the database:', err);
+  });
+</code></pre>
+<h2 id="managing-the-schema-of-your-database">Managing the schema of your database</h2>
+<p>Sequelize supports two types of schema management. You can either define so-called migrations, which are programmatically changing your database's structure, or you can let Sequelize create the tables for you.</p>
+<p>While the first possibility of using <code>migrations</code> takes more time to setup, it's most likely the way to go if you want to deploy your application on many different server environments. This is because migrations are consistently changing your database according to the current state of the schema.</p>
+<p>However, the automated way of using Sequelize's function <code>sequelize.sync</code> will probably be a good choice on your local machine or if you just want to quickly spin up a prototype.</p>
+<p>As this article is for beginners, we will skip migrations for now and take a closer look at the automated way.</p>
+<h3 id="defining-a-model">Defining a model</h3>
+<p>In order to let Sequelize create schemas in the database, you need to describe what kind of data you want to store. This can be done with <code>sequelize.define</code>:</p>
+<pre><code class="language-js">var User = sequelize.define('user', {
+  username: Sequelize.STRING,
+  password: Sequelize.STRING
+});
+</code></pre>
+<p>This will define a user model that has a username and password. Furthermore, Sequelize will automatically add the columns <code>id</code>, <code>createdAt</code> and <code>updatedAt</code>. <code>createdAt</code> and <code>updatedAt</code> are controlled by Sequelize - when you <code>create</code> a model through Sequelize, <code>createdAt</code> will be set, and whenever you call <code>updateAttributes</code> / <code>save</code> on a model, <code>updatedAt</code> will be set.</p>
+<h3 id="synchronizing-the-schema">Synchronizing the schema</h3>
+<p>As we want to store data in the database, we need to create a representation of the model:</p>
+<pre><code class="language-js">sequelize
+  .sync({ force: true })
+  .then(function(err) {
+    console.log('It worked!');
+  }, function (err) {
+    console.log('An error occurred while creating the table:', err);
+  });
+</code></pre>
+<p>Once executed, the database will contain a table <code>Users</code> (note the plural) with the columns:</p>
+<ul>
+<li>id - INT(11)</li>
+<li>username - VARCHAR(255)</li>
+<li>password - VARCHAR(255)</li>
+<li>createdAt - DATETIME</li>
+<li>updatedAt - DATETIME</li>
+</ul>
+<p>Please note, that <code>{ force: true }</code> will drop the <code>Users</code> table and re-create it.</p>
+<h3 id="configuration">Configuration</h3>
+<p>You might not need the timestamps or you might not want the plural of the model's name as table name, right? Luckily there are configuration possibilities for that:</p>
+<pre><code class="language-js">var User = sequelize.define('user', {
+  username: Sequelize.STRING,
+  password: Sequelize.STRING
+}, {
+  tableName: 'my_user_table', // this will define the table's name
+  timestamps: false           // this will deactivate the timestamp columns
+})
+</code></pre>
+<p>And just in case you want to customize the timestamp field names, you can do it like this:</p>
+<pre><code class="language-js">var User = sequelize.define('user', {
+  username: Sequelize.STRING,
+  password: Sequelize.STRING
+}, {
+  updatedAt: 'last_update',
+  createdAt: 'date_of_creation'
+})
+</code></pre>
+<p>Furthermore you can introduce a <code>deletedAt</code> timestamp so models are not actually deleted when you call <code>destroy</code>. Adding a <code>deletedAt</code> timestamp is called making the model 'paranoid':</p>
+<pre><code class="language-js">var User = sequelize.define('user', {
+  username: Sequelize.STRING,
+  password: Sequelize.STRING
+}, {
+  paranoid: true
+});
+</code></pre>
+<h2 id="creating-and-persisting-instances">Creating and persisting instances</h2>
+<p>Sequelize allows the creation of instances in two ways. You can either <code>build</code> an object and <code>save</code> it afterwards. Or you can directly <code>create</code> an instance in the database:</p>
+<pre><code class="language-js">var user = User.build({
+  username: 'john-doe',
+  password: generatePasswordHash('i-am-so-great')
+})
+
+user.save().then(function() {
+  /* ... */
+})
+</code></pre>
+<p>This persists the instance in a two step way. If you want to do everything at once, use the following approach:</p>
+<pre><code class="language-js">User.create({
+  username: 'john-doe',
+  password: generatePasswordHash('i-am-so-great')
+}).then(function(user) {
+  /* ... */
+})
+</code></pre>
+<h2 id="reading-data-from-the-database">Reading data from the database</h2>
+<p>Every defined model has finder methods, with which you can read the database. Searching for a single item can be done with <code>Model.find</code>. Retrieval of multiple items needs the use of <code>Model.findAll</code>.</p>
+<pre><code class="language-js">User
+  .find({ where: { username: 'john-doe' } })
+  .then(function(err, johnDoe) {
+    if (!johnDoe) {
+      console.log('No user with the username &quot;john-doe&quot; has been found.');
+    } else {
+      console.log('Hello ' + johnDoe.username + '!');
+      console.log('All attributes of john:', johnDoe.get());
+    }
+  });
+</code></pre>
+<p>Please note that, if no user with the name "john-doe" has been found, there won't be any errors. This is intended, as there are no internal or authentication errors.</p>
+<h2 id="defining-associations">Defining associations</h2>
+<p>A very common use case is the definition of associations between two or even more models. Once declared, Sequelize will know how to query the database to get or set associated data. Furthermore it will be able to automatically create the respective foreign key columns for you.</p>
+<p>Before taking a closer look at the code, it is critical to understand some details about the three different association types.</p>
+<h3 id="one-to-one">One to one</h3>
+<p>An association between one source and one target is called "one to one" or 1:1 association. It consists of a source that <strong>has one</strong> target and a target that <strong>belongs to</strong> a source.</p>
+<p>Sequelize expects a foreign key in the target's schema. That means that there has to be an attribute respectively a column in the target's table.</p>
+<pre><code class="language-js">var Source = sequelize.define('source', {})
+  , Target = sequelize.define('target', {})
+
+Source.hasOne(Target)
+Target.belongsTo(Source)
+
+sequelize
+  .sync({ force: true })
+  .then(function() {
+    // Even if we didn't define any foreign key or something else,
+    // instances of Target will have a column SourceId!
+  });
+</code></pre>
+<h3 id="one-to-many">One to many</h3>
+<p>An association between one source and many target is called "one to many" or 1:N association. It consists of a source that <strong>has many</strong> targets and some targets which <strong>belong to</strong> a source.</p>
+<p>Sequelize expects a foreign key in the target's schema. That means that there has to be an attribute respectively a column in the target's table.</p>
+<pre><code class="language-js">var Source = sequelize.define('source', {})
+  , Target = sequelize.define('target', {})
+
+Source.hasMany(Target)
+Target.belongsTo(Source)
+
+sequelize
+  .sync({ force: true })
+  .then(function() {
+    // Even if we didn't define any foreign key or something else,
+    // instances of Target will have a column SourceId!
+  })
+</code></pre>
+<h3 id="many-to-many">Many to many</h3>
+<p>An association between many sources and many targets is called "many to many" or N:M association. It consists of sources which <strong>have many</strong> targets and some targets which <strong>have many</strong> sources.</p>
+<p>Sequelize expects a junction table which contains a foreign key to the source table and a foreign key to the target table. A row in the table connects a source with a target.</p>
+<pre><code class="language-js">var Source = sequelize.define('source', {})
+  , Target = sequelize.define('target', {})
+
+Source.hasMany(Target)
+Target.hasMany(Source)
+
+sequelize
+  .sync({ force: true })
+  .then(function() {
+    // Even if we didn't define any foreign key or something else,
+    // Sequelize will create a table SourcesTargets.
+  })
+</code></pre>
+<h3 id="gettingsetting-associations">Getting/Setting associations</h3>
+<p>Defining associations is nice, but won't give you any advantage if you cannot read or set associations. Of course Sequelize will add respective functions to your models. Depending on the type of association you will find different methods:</p>
+<pre><code class="language-js">var Source = sequelize.define('source', {})
+  , Target = sequelize.define('target', {});
+
+Source.hasOne(Target);
+Target.belongsTo(Source);
+
+sequelize.Promise.all([
+  Source.create({}),
+  Target.create({})
+]).spread(function (source, target) {
+  // Set the association
+  return source.setTarget(target).return(source);
+}).then(function(source) {
+  // Get the association
+  return source.getTarget();
+}).then(function(_target) {
+  console.log(_target.get({
+    plain: true
+  }))
+  /*
+    {
+      id: 1,
+      createdAt: Sun Dec 08 2013 11:46:42 GMT+0100 (CET),
+      updatedAt: Sun Dec 08 2013 11:46:42 GMT+0100 (CET),
+      SourceId: 1
+    }
+  */
+});
+</code></pre>
+<h3 id="clearing-associations">Clearing associations</h3>
+<p>Assuming we already defined the models (as in the previous code example) and synced the schema with the database, we can clear the associations like this:</p>
+<pre><code class="language-js">source.setTarget(null).then(function() {
+  return source.getTarget();
+}).then(function(target) {
+  console.log(target);
+});
+</code></pre>
+<h3 id="adding-removing-associations">Adding / removing associations</h3>
+<p>For 1:N and N:M associations it makes sense to not only set the associations, but also to add or remove associations. Furthermore checking for an association can be handy.</p>
+<pre><code class="language-js">var Source = sequelize.define('source', {})
+  , Target = sequelize.define('target', {});
+
+Source.hasMany(Target);
+Target.belongsTo(Source);
+
+return sequelize.Promise.all([
+  Source.create({}),
+  Target.create({});
+  Target.create({}),
+]).bind({}).spread(function (source, target1, target2) {
+  // Set the association
+  this.source = source;
+  this.target1 = target1;
+  this.target2 = target2;
+
+  return source.setTargets([target1, target2]);
+}).then(function() {
+  // Get the association
+  return this.source.getTargets();
+}).then(function(targets) {
+  console.log(targets.length) // = 2
+  // Remove an association
+  return this.source.removeTarget(this.target1);
+}).then(function() {
+  return source.getTargets();
+}).then(function(targets) {
+  console.log(targets.length) // = 1
+  // Check for an association
+  return this.source.hasTarget(this.target1);
+}).then(function(hasTarget) {
+  console.log(hasTarget) // false
+  // Adding an association
+  return this.source.addTarget(this.target1);
+}).then(function() {
+  return this.source.getTargets();
+}).then(function(targets) {
+  console.log(targets.length) // = 2
+  return this.source.hasTarget(this.target1);
+}).then(function(hasTarget) {
+  console.log(hasTarget) // true
+});
+</code></pre>
+<h2 id="a-combined-example">A combined example</h2>
+<p>Now that you know the basics of Sequelize, you might want to see everything in a single program:</p>
+<pre><code class="language-js">var Sequelize = require('sequelize')
+  , sequelize = new Sequelize('database_name', 'username', 'password')
+  , User      = sequelize.define('user', {
+                  username: Sequelize.STRING,
+                  password: Sequelize.STRING
+                });
+
+sequelize.sync({ force: true }).then(function() {
+  return User.create({ username: 'john', password: '1111' });
+}).then(function(user1) {
+  return User.find({ username: 'john' })
+}).then(function(user2) {
+  console.log(user2.get()); // Get returns a JSON representation of the user
+});
+</code></pre>
+<h2 id="whats-next">What's next?</h2>
+<p>As there are some more advanced features in Sequelize which are a bit inappropriate for this article, you can check the following resources for further advice:</p>
+<ul>
+<li><a href="/docs/latest/migrations">Migrations</a></li>
+<li><a href="/docs/latest/models#data-types">Data types</a></li>
+<li><a href="/docs/latest/models#configuration">Configuration of the model</a></li>
+<li><a href="/docs/latest/models#validations">Validations</a></li>
+<li><a href="/docs/latest/models#finders">Finders</a></li>
+<li><a href="/docs/latest/associations">Associations</a></li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
