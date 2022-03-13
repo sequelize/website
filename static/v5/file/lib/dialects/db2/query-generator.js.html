@@ -1,0 +1,837 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/dialects/db2/query-generator.js | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li data-ice="doc" style="margin-top: 15px;"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IndexHints">IndexHints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#associations">associations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-sqlite">dialects/sqlite</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-describeTable">describeTable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/association-error.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/base-error.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/bulk-record-error.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection-error.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database-error.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/eager-loading-error.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/empty-result-error.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/instance-error.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/optimistic-lock-error.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/query-error.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/sequelize-scope-error.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-connection">errors/connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/access-denied-error.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-acquire-timeout-error.js~ConnectionAcquireTimeoutError.html">ConnectionAcquireTimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-refused-error.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-timed-out-error.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-found-error.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-reachable-error.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/invalid-connection-error.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-database">errors/database</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/exclusion-constraint-error.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/foreign-key-constraint-error.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/timeout-error.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/unknown-constraint-error.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-validation">errors/validation</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation/unique-constraint-error.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="variable/index.html#static-variable-DataTypes">datatypes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ARRAY.html">ARRAY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV4.html">UUIDV4</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV1.html">UUIDV1</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUID.html">UUID</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TINYINT.html">TINYINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TIME.html">TIME</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TEXT.html">TEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~STRING.html">STRING</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~SMALLINT.html">SMALLINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~REAL.html">REAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~RANGE.html">RANGE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NUMBER.html">NUMBER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NOW.html">NOW</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MACADDR.html">MACADDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONB.html">JSONB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INTEGER.html">INTEGER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INET.html">INET</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~HSTORE.html">HSTORE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~FLOAT.html">FLOAT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ENUM.html">ENUM</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DOUBLE.html">DOUBLE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DECIMAL.html">DECIMAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATEONLY.html">DATEONLY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATE.html">DATE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CITEXT.html">CITEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CIDR.html">CIDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CHAR.html">CHAR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BLOB.html">BLOB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BIGINT.html">BIGINT</a></span></span></li></ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/dialects/db2/query-generator.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">"use strict";
+var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) =&gt; key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) =&gt; {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) =&gt; __defProps(a, __getOwnPropDescs(b));
+const _ = require("lodash");
+const Utils = require("../../utils");
+const DataTypes = require("../../data-types");
+const AbstractQueryGenerator = require("../abstract/query-generator");
+const randomBytes = require("crypto").randomBytes;
+const Op = require("../../operators");
+const throwMethodUndefined = function(methodName) {
+  throw new Error(`The method "${methodName}" is not defined! Please add it to your sql dialect.`);
+};
+class Db2QueryGenerator extends AbstractQueryGenerator {
+  constructor(options) {
+    super(options);
+    this.OperatorMap = __spreadProps(__spreadValues({}, this.OperatorMap), {
+      [Op.regexp]: "REGEXP_LIKE",
+      [Op.notRegexp]: "NOT REGEXP_LIKE"
+    });
+    this.autoGenValue = 1;
+  }
+  createSchema(schema) {
+    return [
+      "CREATE SCHEMA",
+      this.quoteIdentifier(schema),
+      ";"
+    ].join(" ");
+  }
+  dropSchema(schema) {
+    const query = `CALL SYSPROC.ADMIN_DROP_SCHEMA(${wrapSingleQuote(schema.trim())}, NULL, ? , ?)`;
+    const sql = { query };
+    sql.bind = [
+      { ParamType: "INOUT", Data: "ERRORSCHEMA" },
+      { ParamType: "INOUT", Data: "ERRORTABLE" }
+    ];
+    return sql;
+  }
+  showSchemasQuery() {
+    return `SELECT SCHEMANAME AS "schema_name" FROM SYSCAT.SCHEMATA WHERE (SCHEMANAME NOT LIKE 'SYS%') AND SCHEMANAME NOT IN ('NULLID', 'SQLJ', 'ERRORSCHEMA')`;
+  }
+  versionQuery() {
+    return "select service_level as VERSION from TABLE (sysproc.env_get_inst_info()) as A";
+  }
+  createTableQuery(tableName, attributes, options) {
+    const query = "CREATE TABLE &lt;%= table %&gt; (&lt;%= attributes %&gt;)", primaryKeys = [], foreignKeys = {}, attrStr = [], commentTemplate = " -- &lt;%= comment %&gt;, TableName = &lt;%= table %&gt;, ColumnName = &lt;%= column %&gt;;";
+    let commentStr = "";
+    for (const attr in attributes) {
+      if (Object.prototype.hasOwnProperty.call(attributes, attr)) {
+        let dataType = attributes[attr];
+        let match;
+        if (dataType.includes("COMMENT ")) {
+          const commentMatch = dataType.match(/^(.+) (COMMENT.*)$/);
+          if (commentMatch &amp;&amp; commentMatch.length &gt; 2) {
+            const commentText = commentMatch[2].replace(/COMMENT/, "").trim();
+            commentStr += _.template(commentTemplate, this._templateSettings)({
+              table: this.quoteIdentifier(tableName),
+              comment: this.escape(commentText),
+              column: this.quoteIdentifier(attr)
+            });
+            dataType = commentMatch[1];
+          }
+        }
+        if (_.includes(dataType, "PRIMARY KEY")) {
+          primaryKeys.push(attr);
+          if (_.includes(dataType, "REFERENCES")) {
+            match = dataType.match(/^(.+) (REFERENCES.*)$/);
+            attrStr.push(`${this.quoteIdentifier(attr)} ${match[1].replace(/PRIMARY KEY/, "")}`);
+            foreignKeys[attr] = match[2];
+          } else {
+            attrStr.push(`${this.quoteIdentifier(attr)} ${dataType.replace(/PRIMARY KEY/, "")}`);
+          }
+        } else if (_.includes(dataType, "REFERENCES")) {
+          match = dataType.match(/^(.+) (REFERENCES.*)$/);
+          attrStr.push(`${this.quoteIdentifier(attr)} ${match[1]}`);
+          foreignKeys[attr] = match[2];
+        } else {
+          if (options &amp;&amp; options.uniqueKeys) {
+            for (const ukey in options.uniqueKeys) {
+              if (options.uniqueKeys[ukey].fields.includes(attr) &amp;&amp; !_.includes(dataType, "NOT NULL")) {
+                dataType += " NOT NULL";
+                break;
+              }
+            }
+          }
+          attrStr.push(`${this.quoteIdentifier(attr)} ${dataType}`);
+        }
+      }
+    }
+    const values = {
+      table: this.quoteTable(tableName),
+      attributes: attrStr.join(", ")
+    }, pkString = primaryKeys.map((pk) =&gt; {
+      return this.quoteIdentifier(pk);
+    }).join(", ");
+    if (options &amp;&amp; options.uniqueKeys) {
+      _.each(options.uniqueKeys, (columns, indexName) =&gt; {
+        if (columns.customIndex) {
+          if (!_.isString(indexName)) {
+            indexName = `uniq_${tableName}_${columns.fields.join("_")}`;
+          }
+          values.attributes += `, CONSTRAINT ${this.quoteIdentifier(indexName)} UNIQUE (${columns.fields.map((field) =&gt; this.quoteIdentifier(field)).join(", ")})`;
+        }
+      });
+    }
+    if (pkString.length &gt; 0) {
+      values.attributes += `, PRIMARY KEY (${pkString})`;
+    }
+    for (const fkey in foreignKeys) {
+      if (Object.prototype.hasOwnProperty.call(foreignKeys, fkey)) {
+        values.attributes += `, FOREIGN KEY (${this.quoteIdentifier(fkey)}) ${foreignKeys[fkey]}`;
+      }
+    }
+    return `${_.template(query, this._templateSettings)(values).trim()};${commentStr}`;
+  }
+  describeTableQuery(tableName, schema) {
+    let sql = [
+      'SELECT NAME AS "Name", TBNAME AS "Table", TBCREATOR AS "Schema",',
+      'TRIM(COLTYPE) AS "Type", LENGTH AS "Length", SCALE AS "Scale",',
+      'NULLS AS "IsNull", DEFAULT AS "Default", COLNO AS "Colno",',
+      'IDENTITY AS "IsIdentity", KEYSEQ AS "KeySeq", REMARKS AS "Comment"',
+      "FROM",
+      "SYSIBM.SYSCOLUMNS",
+      "WHERE TBNAME =",
+      wrapSingleQuote(tableName)
+    ].join(" ");
+    if (schema) {
+      sql += ` AND TBCREATOR =${wrapSingleQuote(schema)}`;
+    } else {
+      sql += " AND TBCREATOR = USER";
+    }
+    return `${sql};`;
+  }
+  renameTableQuery(before, after) {
+    const query = "RENAME TABLE &lt;%= before %&gt; TO &lt;%= after %&gt;;";
+    return _.template(query, this._templateSettings)({
+      before: this.quoteTable(before),
+      after: this.quoteTable(after)
+    });
+  }
+  showTablesQuery() {
+    return `SELECT TABNAME AS "tableName", TRIM(TABSCHEMA) AS "tableSchema" FROM SYSCAT.TABLES WHERE TABSCHEMA = USER AND TYPE = 'T' ORDER BY TABSCHEMA, TABNAME`;
+  }
+  dropTableQuery(tableName) {
+    const query = "DROP TABLE &lt;%= table %&gt;";
+    const values = {
+      table: this.quoteTable(tableName)
+    };
+    return `${_.template(query, this._templateSettings)(values).trim()};`;
+  }
+  addColumnQuery(table, key, dataType) {
+    dataType.field = key;
+    const query = "ALTER TABLE &lt;%= table %&gt; ADD &lt;%= attribute %&gt;;", attribute = _.template("&lt;%= key %&gt; &lt;%= definition %&gt;", this._templateSettings)({
+      key: this.quoteIdentifier(key),
+      definition: this.attributeToSQL(dataType, {
+        context: "addColumn"
+      })
+    });
+    return _.template(query, this._templateSettings)({
+      table: this.quoteTable(table),
+      attribute
+    });
+  }
+  removeColumnQuery(tableName, attributeName) {
+    const query = "ALTER TABLE &lt;%= tableName %&gt; DROP COLUMN &lt;%= attributeName %&gt;;";
+    return _.template(query, this._templateSettings)({
+      tableName: this.quoteTable(tableName),
+      attributeName: this.quoteIdentifier(attributeName)
+    });
+  }
+  changeColumnQuery(tableName, attributes) {
+    const query = "ALTER TABLE &lt;%= tableName %&gt; &lt;%= query %&gt;;";
+    const attrString = [], constraintString = [];
+    for (const attributeName in attributes) {
+      const attrValue = attributes[attributeName];
+      let defs = [attrValue];
+      if (Array.isArray(attrValue)) {
+        defs = attrValue;
+      }
+      for (let i = 0; i &lt; defs.length; i++) {
+        const definition = defs[i];
+        if (definition.match(/REFERENCES/)) {
+          constraintString.push(_.template("&lt;%= fkName %&gt; FOREIGN KEY (&lt;%= attrName %&gt;) &lt;%= definition %&gt;", this._templateSettings)({
+            fkName: this.quoteIdentifier(`${attributeName}_foreign_idx`),
+            attrName: this.quoteIdentifier(attributeName),
+            definition: definition.replace(/.+?(?=REFERENCES)/, "")
+          }));
+        } else if (_.startsWith(definition, "DROP ")) {
+          attrString.push(_.template("&lt;%= attrName %&gt; &lt;%= definition %&gt;", this._templateSettings)({
+            attrName: this.quoteIdentifier(attributeName),
+            definition
+          }));
+        } else {
+          attrString.push(_.template("&lt;%= attrName %&gt; SET &lt;%= definition %&gt;", this._templateSettings)({
+            attrName: this.quoteIdentifier(attributeName),
+            definition
+          }));
+        }
+      }
+    }
+    let finalQuery = "";
+    if (attrString.length) {
+      finalQuery += `ALTER COLUMN ${attrString.join(" ALTER COLUMN ")}`;
+      finalQuery += constraintString.length ? " " : "";
+    }
+    if (constraintString.length) {
+      finalQuery += `ADD CONSTRAINT ${constraintString.join(" ADD CONSTRAINT ")}`;
+    }
+    return _.template(query, this._templateSettings)({
+      tableName: this.quoteTable(tableName),
+      query: finalQuery
+    });
+  }
+  renameColumnQuery(tableName, attrBefore, attributes) {
+    const query = "ALTER TABLE &lt;%= tableName %&gt; RENAME COLUMN &lt;%= before %&gt; TO &lt;%= after %&gt;;", newName = Object.keys(attributes)[0];
+    return _.template(query, this._templateSettings)({
+      tableName: this.quoteTable(tableName),
+      before: this.quoteIdentifier(attrBefore),
+      after: this.quoteIdentifier(newName)
+    });
+  }
+  addConstraintQuery(tableName, options) {
+    options = options || {};
+    if (options.onUpdate &amp;&amp; options.onUpdate.toUpperCase() === "CASCADE") {
+      delete options.onUpdate;
+    }
+    const constraintSnippet = this.getConstraintSnippet(tableName, options);
+    if (typeof tableName === "string") {
+      tableName = this.quoteIdentifiers(tableName);
+    } else {
+      tableName = this.quoteTable(tableName);
+    }
+    return `ALTER TABLE ${tableName} ADD ${constraintSnippet};`;
+  }
+  bulkInsertQuery(tableName, attrValueHashes, options, attributes) {
+    options = options || {};
+    attributes = attributes || {};
+    let query = "INSERT INTO &lt;%= table %&gt; (&lt;%= attributes %&gt;)&lt;%= output %&gt; VALUES &lt;%= tuples %&gt;;";
+    if (options.returning) {
+      query = "SELECT * FROM FINAL TABLE( INSERT INTO &lt;%= table %&gt; (&lt;%= attributes %&gt;)&lt;%= output %&gt; VALUES &lt;%= tuples %&gt;);";
+    }
+    const emptyQuery = "INSERT INTO &lt;%= table %&gt;", tuples = [], allAttributes = [], allQueries = [];
+    let outputFragment;
+    const valuesForEmptyQuery = [];
+    if (options.returning) {
+      outputFragment = "";
+    }
+    _.forEach(attrValueHashes, (attrValueHash) =&gt; {
+      const fields = Object.keys(attrValueHash);
+      const firstAttr = attributes[fields[0]];
+      if (fields.length === 1 &amp;&amp; firstAttr &amp;&amp; firstAttr.autoIncrement &amp;&amp; attrValueHash[fields[0]] === null) {
+        valuesForEmptyQuery.push(`(${this.autoGenValue++})`);
+        return;
+      }
+      _.forOwn(attrValueHash, (value, key) =&gt; {
+        if (allAttributes.indexOf(key) === -1) {
+          if (value === null &amp;&amp; attributes[key] &amp;&amp; attributes[key].autoIncrement)
+            return;
+          allAttributes.push(key);
+        }
+      });
+    });
+    if (valuesForEmptyQuery.length &gt; 0) {
+      allQueries.push(`${emptyQuery} VALUES ${valuesForEmptyQuery.join(",")}`);
+    }
+    if (allAttributes.length &gt; 0) {
+      _.forEach(attrValueHashes, (attrValueHash) =&gt; {
+        tuples.push(`(${allAttributes.map((key) =&gt; this.escape(attrValueHash[key]), void 0, { context: "INSERT" }).join(",")})`);
+      });
+      allQueries.push(query);
+    }
+    const replacements = {
+      table: this.quoteTable(tableName),
+      attributes: allAttributes.map((attr) =&gt; this.quoteIdentifier(attr)).join(","),
+      tuples,
+      output: outputFragment
+    };
+    const generatedQuery = _.template(allQueries.join(";"), this._templateSettings)(replacements);
+    return generatedQuery;
+  }
+  updateQuery(tableName, attrValueHash, where, options, attributes) {
+    const sql = super.updateQuery(tableName, attrValueHash, where, options, attributes);
+    options = options || {};
+    _.defaults(options, this.options);
+    if (!options.limit) {
+      sql.query = `SELECT * FROM FINAL TABLE (${sql.query});`;
+      return sql;
+    }
+    attrValueHash = Utils.removeNullValuesFromHash(attrValueHash, options.omitNull, options);
+    const modelAttributeMap = {};
+    const values = [];
+    const bind = [];
+    const bindParam = options.bindParam || this.bindParam(bind);
+    if (attributes) {
+      _.each(attributes, (attribute, key) =&gt; {
+        modelAttributeMap[key] = attribute;
+        if (attribute.field) {
+          modelAttributeMap[attribute.field] = attribute;
+        }
+      });
+    }
+    for (const key in attrValueHash) {
+      const value = attrValueHash[key];
+      if (value instanceof Utils.SequelizeMethod || options.bindParam === false) {
+        values.push(`${this.quoteIdentifier(key)}=${this.escape(value, modelAttributeMap &amp;&amp; modelAttributeMap[key] || void 0, { context: "UPDATE" })}`);
+      } else {
+        values.push(`${this.quoteIdentifier(key)}=${this.format(value, modelAttributeMap &amp;&amp; modelAttributeMap[key] || void 0, { context: "UPDATE" }, bindParam)}`);
+      }
+    }
+    let query;
+    const whereOptions = _.defaults({ bindParam }, options);
+    query = `UPDATE (SELECT * FROM ${this.quoteTable(tableName)} ${this.whereQuery(where, whereOptions)} FETCH NEXT ${this.escape(options.limit)} ROWS ONLY) SET ${values.join(",")}`;
+    query = `SELECT * FROM FINAL TABLE (${query});`;
+    return { query, bind };
+  }
+  upsertQuery(tableName, insertValues, updateValues, where, model) {
+    const targetTableAlias = this.quoteTable(`${tableName}_target`);
+    const sourceTableAlias = this.quoteTable(`${tableName}_source`);
+    const primaryKeysAttrs = [];
+    const identityAttrs = [];
+    const uniqueAttrs = [];
+    const tableNameQuoted = this.quoteTable(tableName);
+    for (const key in model.rawAttributes) {
+      if (model.rawAttributes[key].primaryKey) {
+        primaryKeysAttrs.push(model.rawAttributes[key].field || key);
+      }
+      if (model.rawAttributes[key].unique) {
+        uniqueAttrs.push(model.rawAttributes[key].field || key);
+      }
+      if (model.rawAttributes[key].autoIncrement) {
+        identityAttrs.push(model.rawAttributes[key].field || key);
+      }
+    }
+    for (const index of model._indexes) {
+      if (index.unique &amp;&amp; index.fields) {
+        for (const field of index.fields) {
+          const fieldName = typeof field === "string" ? field : field.name || field.attribute;
+          if (uniqueAttrs.indexOf(fieldName) === -1 &amp;&amp; model.rawAttributes[fieldName]) {
+            uniqueAttrs.push(fieldName);
+          }
+        }
+      }
+    }
+    const updateKeys = Object.keys(updateValues);
+    const insertKeys = Object.keys(insertValues);
+    const insertKeysQuoted = insertKeys.map((key) =&gt; this.quoteIdentifier(key)).join(", ");
+    const insertValuesEscaped = insertKeys.map((key) =&gt; this.escape(insertValues[key])).join(", ");
+    const sourceTableQuery = `VALUES(${insertValuesEscaped})`;
+    let joinCondition;
+    const clauses = where[Op.or].filter((clause) =&gt; {
+      let valid = true;
+      for (const key in clause) {
+        if (!clause[key]) {
+          valid = false;
+          break;
+        }
+      }
+      return valid;
+    });
+    const getJoinSnippet = (array) =&gt; {
+      return array.map((key) =&gt; {
+        key = this.quoteIdentifier(key);
+        return `${targetTableAlias}.${key} = ${sourceTableAlias}.${key}`;
+      });
+    };
+    if (clauses.length === 0) {
+      throw new Error("Primary Key or Unique key should be passed to upsert query");
+    } else {
+      for (const key in clauses) {
+        const keys = Object.keys(clauses[key]);
+        if (primaryKeysAttrs.indexOf(keys[0]) !== -1) {
+          joinCondition = getJoinSnippet(primaryKeysAttrs).join(" AND ");
+          break;
+        }
+      }
+      if (!joinCondition) {
+        joinCondition = getJoinSnippet(uniqueAttrs).join(" AND ");
+      }
+    }
+    const filteredUpdateClauses = updateKeys.filter((key) =&gt; {
+      if (identityAttrs.indexOf(key) === -1) {
+        return true;
+      }
+      return false;
+    }).map((key) =&gt; {
+      const value = this.escape(updateValues[key]);
+      key = this.quoteIdentifier(key);
+      return `${targetTableAlias}.${key} = ${value}`;
+    }).join(", ");
+    const updateSnippet = filteredUpdateClauses.length &gt; 0 ? `WHEN MATCHED THEN UPDATE SET ${filteredUpdateClauses}` : "";
+    const insertSnippet = `(${insertKeysQuoted}) VALUES(${insertValuesEscaped})`;
+    let query = `MERGE INTO ${tableNameQuoted} AS ${targetTableAlias} USING (${sourceTableQuery}) AS ${sourceTableAlias}(${insertKeysQuoted}) ON ${joinCondition}`;
+    query += ` ${updateSnippet} WHEN NOT MATCHED THEN INSERT ${insertSnippet};`;
+    return query;
+  }
+  truncateTableQuery(tableName) {
+    return `TRUNCATE TABLE ${this.quoteTable(tableName)} IMMEDIATE`;
+  }
+  deleteQuery(tableName, where, options = {}, model) {
+    const table = this.quoteTable(tableName);
+    const query = "DELETE FROM &lt;%= table %&gt;&lt;%= where %&gt;&lt;%= limit %&gt;";
+    where = this.getWhereConditions(where, null, model, options);
+    let limit = "";
+    if (options.offset &gt; 0) {
+      limit = ` OFFSET ${this.escape(options.offset)} ROWS`;
+    }
+    if (options.limit) {
+      limit += ` FETCH NEXT ${this.escape(options.limit)} ROWS ONLY`;
+    }
+    const replacements = {
+      limit,
+      table,
+      where
+    };
+    if (replacements.where) {
+      replacements.where = ` WHERE ${replacements.where}`;
+    }
+    return _.template(query, this._templateSettings)(replacements);
+  }
+  showIndexesQuery(tableName) {
+    let sql = 'SELECT NAME AS "name", TBNAME AS "tableName", UNIQUERULE AS "keyType", COLNAMES, INDEXTYPE AS "type" FROM SYSIBM.SYSINDEXES WHERE TBNAME = &lt;%= tableName %&gt;';
+    let schema = void 0;
+    if (_.isObject(tableName)) {
+      schema = tableName.schema;
+      tableName = tableName.tableName;
+    }
+    if (schema) {
+      sql = `${sql} AND TBCREATOR = &lt;%= schemaName %&gt;`;
+    }
+    sql = `${sql} ORDER BY NAME;`;
+    return _.template(sql, this._templateSettings)({
+      tableName: wrapSingleQuote(tableName),
+      schemaName: wrapSingleQuote(schema)
+    });
+  }
+  showConstraintsQuery(tableName, constraintName) {
+    let sql = `SELECT CONSTNAME AS "constraintName", TRIM(TABSCHEMA) AS "schemaName", TABNAME AS "tableName" FROM SYSCAT.TABCONST WHERE TABNAME = '${tableName}'`;
+    if (constraintName) {
+      sql += ` AND CONSTNAME LIKE '%${constraintName}%'`;
+    }
+    return `${sql} ORDER BY CONSTNAME;`;
+  }
+  removeIndexQuery(tableName, indexNameOrAttributes) {
+    const sql = "DROP INDEX &lt;%= indexName %&gt;";
+    let indexName = indexNameOrAttributes;
+    if (typeof indexName !== "string") {
+      indexName = Utils.underscore(`${tableName}_${indexNameOrAttributes.join("_")}`);
+    }
+    const values = {
+      tableName: this.quoteIdentifiers(tableName),
+      indexName: this.quoteIdentifiers(indexName)
+    };
+    return _.template(sql, this._templateSettings)(values);
+  }
+  attributeToSQL(attribute, options) {
+    if (!_.isPlainObject(attribute)) {
+      attribute = {
+        type: attribute
+      };
+    }
+    let template;
+    let changeNull = 1;
+    if (attribute.type instanceof DataTypes.ENUM) {
+      if (attribute.type.values &amp;&amp; !attribute.values)
+        attribute.values = attribute.type.values;
+      template = attribute.type.toSql();
+      template += ` CHECK (${this.quoteIdentifier(attribute.field)} IN(${attribute.values.map((value) =&gt; {
+        return this.escape(value);
+      }).join(", ")}))`;
+    } else {
+      template = attribute.type.toString();
+    }
+    if (options &amp;&amp; options.context === "changeColumn" &amp;&amp; attribute.type) {
+      template = `DATA TYPE ${template}`;
+    } else if (attribute.allowNull === false || attribute.primaryKey === true || attribute.unique) {
+      template += " NOT NULL";
+      changeNull = 0;
+    }
+    if (attribute.autoIncrement) {
+      let initialValue = 1;
+      if (attribute.initialAutoIncrement) {
+        initialValue = attribute.initialAutoIncrement;
+      }
+      template += ` GENERATED BY DEFAULT AS IDENTITY(START WITH ${initialValue}, INCREMENT BY 1)`;
+    }
+    if (attribute.type !== "TEXT" &amp;&amp; attribute.type._binary !== true &amp;&amp; Utils.defaultValueSchemable(attribute.defaultValue)) {
+      template += ` DEFAULT ${this.escape(attribute.defaultValue)}`;
+    }
+    if (attribute.unique === true) {
+      template += " UNIQUE";
+    }
+    if (attribute.primaryKey) {
+      template += " PRIMARY KEY";
+    }
+    if (attribute.references) {
+      if (options &amp;&amp; options.context === "addColumn" &amp;&amp; options.foreignKey) {
+        const attrName = this.quoteIdentifier(options.foreignKey);
+        const fkName = `${options.tableName}_${attrName}_fidx`;
+        template += `, CONSTRAINT ${fkName} FOREIGN KEY (${attrName})`;
+      }
+      template += ` REFERENCES ${this.quoteTable(attribute.references.model)}`;
+      if (attribute.references.key) {
+        template += ` (${this.quoteIdentifier(attribute.references.key)})`;
+      } else {
+        template += ` (${this.quoteIdentifier("id")})`;
+      }
+      if (attribute.onDelete) {
+        template += ` ON DELETE ${attribute.onDelete.toUpperCase()}`;
+      }
+      if (attribute.onUpdate &amp;&amp; attribute.onUpdate.toUpperCase() != "CASCADE") {
+        template += ` ON UPDATE ${attribute.onUpdate.toUpperCase()}`;
+      }
+    }
+    if (options &amp;&amp; options.context === "changeColumn" &amp;&amp; changeNull === 1 &amp;&amp; attribute.allowNull !== void 0) {
+      template = [template];
+      if (attribute.allowNull) {
+        template.push("DROP NOT NULL");
+      } else {
+        template.push("NOT NULL");
+      }
+    }
+    if (attribute.comment &amp;&amp; typeof attribute.comment === "string") {
+      template += ` COMMENT ${attribute.comment}`;
+    }
+    return template;
+  }
+  attributesToSQL(attributes, options) {
+    const result = {}, existingConstraints = [];
+    let key, attribute;
+    for (key in attributes) {
+      attribute = attributes[key];
+      if (attribute.references) {
+        if (existingConstraints.indexOf(attribute.references.model.toString()) !== -1) {
+          attribute.onDelete = "";
+          attribute.onUpdate = "";
+        } else if (attribute.unique &amp;&amp; attribute.unique === true) {
+          attribute.onDelete = "";
+          attribute.onUpdate = "";
+        } else {
+          existingConstraints.push(attribute.references.model.toString());
+        }
+      }
+      if (key &amp;&amp; !attribute.field &amp;&amp; typeof attribute === "object")
+        attribute.field = key;
+      result[attribute.field || key] = this.attributeToSQL(attribute, options);
+    }
+    return result;
+  }
+  createTrigger() {
+    throwMethodUndefined("createTrigger");
+  }
+  dropTrigger() {
+    throwMethodUndefined("dropTrigger");
+  }
+  renameTrigger() {
+    throwMethodUndefined("renameTrigger");
+  }
+  createFunction() {
+    throwMethodUndefined("createFunction");
+  }
+  dropFunction() {
+    throwMethodUndefined("dropFunction");
+  }
+  renameFunction() {
+    throwMethodUndefined("renameFunction");
+  }
+  _getForeignKeysQuerySQL(condition) {
+    return `SELECT R.CONSTNAME AS "constraintName", TRIM(R.TABSCHEMA) AS "constraintSchema", R.TABNAME AS "tableName", TRIM(R.TABSCHEMA) AS "tableSchema", LISTAGG(C.COLNAME,', ') WITHIN GROUP (ORDER BY C.COLNAME) AS "columnName", TRIM(R.REFTABSCHEMA) AS "referencedTableSchema", R.REFTABNAME AS "referencedTableName", TRIM(R.PK_COLNAMES) AS "referencedColumnName" FROM SYSCAT.REFERENCES R, SYSCAT.KEYCOLUSE C WHERE R.CONSTNAME = C.CONSTNAME AND R.TABSCHEMA = C.TABSCHEMA AND R.TABNAME = C.TABNAME${condition} GROUP BY R.REFTABSCHEMA, R.REFTABNAME, R.TABSCHEMA, R.TABNAME, R.CONSTNAME, R.PK_COLNAMES`;
+  }
+  getForeignKeysQuery(table, schemaName) {
+    const tableName = table.tableName || table;
+    schemaName = table.schema || schemaName;
+    let sql = "";
+    if (tableName) {
+      sql = ` AND R.TABNAME = ${wrapSingleQuote(tableName)}`;
+    }
+    if (schemaName) {
+      sql += ` AND R.TABSCHEMA = ${wrapSingleQuote(schemaName)}`;
+    }
+    return this._getForeignKeysQuerySQL(sql);
+  }
+  getForeignKeyQuery(table, columnName) {
+    const tableName = table.tableName || table;
+    const schemaName = table.schema;
+    let sql = "";
+    if (tableName) {
+      sql = ` AND R.TABNAME = ${wrapSingleQuote(tableName)}`;
+    }
+    if (schemaName) {
+      sql += ` AND R.TABSCHEMA = ${wrapSingleQuote(schemaName)}`;
+    }
+    if (columnName) {
+      sql += ` AND C.COLNAME = ${wrapSingleQuote(columnName)}`;
+    }
+    return this._getForeignKeysQuerySQL(sql);
+  }
+  getPrimaryKeyConstraintQuery(table, attributeName) {
+    const tableName = wrapSingleQuote(table.tableName || table);
+    return [
+      'SELECT TABNAME AS "tableName",',
+      'COLNAME AS "columnName",',
+      'CONSTNAME AS "constraintName"',
+      "FROM SYSCAT.KEYCOLUSE WHERE CONSTNAME LIKE 'PK_%'",
+      `AND COLNAME = ${wrapSingleQuote(attributeName)}`,
+      `AND TABNAME = ${tableName};`
+    ].join(" ");
+  }
+  dropForeignKeyQuery(tableName, foreignKey) {
+    return _.template("ALTER TABLE &lt;%= table %&gt; DROP &lt;%= key %&gt;", this._templateSettings)({
+      table: this.quoteTable(tableName),
+      key: this.quoteIdentifier(foreignKey)
+    });
+  }
+  dropConstraintQuery(tableName, constraintName) {
+    const sql = "ALTER TABLE &lt;%= table %&gt; DROP CONSTRAINT &lt;%= constraint %&gt;;";
+    return _.template(sql, this._templateSettings)({
+      table: this.quoteTable(tableName),
+      constraint: this.quoteIdentifier(constraintName)
+    });
+  }
+  setAutocommitQuery() {
+    return "";
+  }
+  setIsolationLevelQuery() {
+  }
+  generateTransactionId() {
+    return randomBytes(10).toString("hex");
+  }
+  startTransactionQuery(transaction) {
+    if (transaction.parent) {
+      return `SAVE TRANSACTION ${this.quoteIdentifier(transaction.name)};`;
+    }
+    return "BEGIN TRANSACTION;";
+  }
+  commitTransactionQuery(transaction) {
+    if (transaction.parent) {
+      return;
+    }
+    return "COMMIT TRANSACTION;";
+  }
+  rollbackTransactionQuery(transaction) {
+    if (transaction.parent) {
+      return `ROLLBACK TRANSACTION ${this.quoteIdentifier(transaction.name)};`;
+    }
+    return "ROLLBACK TRANSACTION;";
+  }
+  addLimitAndOffset(options) {
+    const offset = options.offset || 0;
+    let fragment = "";
+    if (offset &gt; 0) {
+      fragment += ` OFFSET ${this.escape(offset)} ROWS`;
+    }
+    if (options.limit) {
+      fragment += ` FETCH NEXT ${this.escape(options.limit)} ROWS ONLY`;
+    }
+    return fragment;
+  }
+  booleanValue(value) {
+    return value ? 1 : 0;
+  }
+  addUniqueFields(dataValues, rawAttributes, uniqno) {
+    uniqno = uniqno === void 0 ? 1 : uniqno;
+    for (const key in rawAttributes) {
+      if (rawAttributes[key].unique &amp;&amp; dataValues[key] === void 0) {
+        if (rawAttributes[key].type instanceof DataTypes.DATE) {
+          dataValues[key] = Utils.now("db2");
+        } else if (rawAttributes[key].type instanceof DataTypes.STRING) {
+          dataValues[key] = `unique${uniqno++}`;
+        } else if (rawAttributes[key].type instanceof DataTypes.INTEGER) {
+          dataValues[key] = uniqno++;
+        } else if (rawAttributes[key].type instanceof DataTypes.BOOLEAN) {
+          dataValues[key] = new DataTypes.BOOLEAN(false);
+        }
+      }
+    }
+    return uniqno;
+  }
+  quoteIdentifier(identifier, force) {
+    return Utils.addTicks(Utils.removeTicks(identifier, '"'), '"');
+  }
+}
+function wrapSingleQuote(identifier) {
+  if (identifier) {
+    return `'${identifier}'`;
+  }
+  return "";
+}
+module.exports = Db2QueryGenerator;
+//# sourceMappingURL=query-generator.js.map
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

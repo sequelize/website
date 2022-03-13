@@ -1,0 +1,431 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/dialects/sqlite/query-interface.js | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li data-ice="doc" style="margin-top: 15px;"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IndexHints">IndexHints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#associations">associations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-sqlite">dialects/sqlite</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-describeTable">describeTable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/association-error.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/base-error.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/bulk-record-error.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection-error.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database-error.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/eager-loading-error.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/empty-result-error.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/instance-error.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/optimistic-lock-error.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/query-error.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/sequelize-scope-error.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-connection">errors/connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/access-denied-error.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-acquire-timeout-error.js~ConnectionAcquireTimeoutError.html">ConnectionAcquireTimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-refused-error.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-timed-out-error.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-found-error.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-reachable-error.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/invalid-connection-error.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-database">errors/database</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/exclusion-constraint-error.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/foreign-key-constraint-error.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/timeout-error.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/unknown-constraint-error.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-validation">errors/validation</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation/unique-constraint-error.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="variable/index.html#static-variable-DataTypes">datatypes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ARRAY.html">ARRAY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV4.html">UUIDV4</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV1.html">UUIDV1</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUID.html">UUID</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TINYINT.html">TINYINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TIME.html">TIME</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TEXT.html">TEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~STRING.html">STRING</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~SMALLINT.html">SMALLINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~REAL.html">REAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~RANGE.html">RANGE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NUMBER.html">NUMBER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NOW.html">NOW</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MACADDR.html">MACADDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONB.html">JSONB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INTEGER.html">INTEGER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INET.html">INET</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~HSTORE.html">HSTORE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~FLOAT.html">FLOAT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ENUM.html">ENUM</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DOUBLE.html">DOUBLE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DECIMAL.html">DECIMAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATEONLY.html">DATEONLY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATE.html">DATE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CITEXT.html">CITEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CIDR.html">CIDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CHAR.html">CHAR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BLOB.html">BLOB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BIGINT.html">BIGINT</a></span></span></li></ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/dialects/sqlite/query-interface.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">'use strict';
+
+const _ = require('lodash');
+const Promise = require('../../promise');
+const sequelizeErrors = require('../../errors');
+const QueryTypes = require('../../query-types');
+
+/**
+ Returns an object that treats SQLite's inabilities to do certain queries.
+
+ @class QueryInterface
+ @static
+ @private
+ */
+
+/**
+  A wrapper that fixes SQLite's inability to remove columns from existing tables.
+  It will create a backup of the table, drop the table afterwards and create a
+  new table with the same name but without the obsolete column.
+
+  @param  {QueryInterface} qi
+  @param  {string} tableName     The name of the table.
+  @param  {string} attributeName The name of the attribute that we want to remove.
+  @param  {Object} options
+  @param  {boolean|Function} [options.logging] A function that logs the sql queries, or false for explicitly not logging these queries
+
+  @since 1.6.0
+  @private
+ */
+function removeColumn(qi, tableName, attributeName, options) {
+  options = options || {};
+
+  return qi.describeTable(tableName, options).then(fields =&gt; {
+    delete fields[attributeName];
+
+    const sql = qi.QueryGenerator.removeColumnQuery(tableName, fields);
+    const subQueries = sql.split(';').filter(q =&gt; q !== '');
+
+    return Promise.each(subQueries, subQuery =&gt; qi.sequelize.query(`${subQuery};`, Object.assign({ raw: true }, options)));
+  });
+}
+exports.removeColumn = removeColumn;
+
+/**
+  A wrapper that fixes SQLite's inability to change columns from existing tables.
+  It will create a backup of the table, drop the table afterwards and create a
+  new table with the same name but with a modified version of the respective column.
+
+  @param  {QueryInterface} qi
+  @param  {string} tableName The name of the table.
+  @param  {Object} attributes An object with the attribute's name as key and its options as value object.
+  @param  {Object} options
+  @param  {boolean|Function} [options.logging] A function that logs the sql queries, or false for explicitly not logging these queries
+
+  @since 1.6.0
+  @private
+ */
+function changeColumn(qi, tableName, attributes, options) {
+  const attributeName = Object.keys(attributes)[0];
+  options = options || {};
+
+  return qi.describeTable(tableName, options).then(fields =&gt; {
+    Object.assign(fields[attributeName], attributes[attributeName]);
+
+    const sql = qi.QueryGenerator.removeColumnQuery(tableName, fields);
+    const subQueries = sql.split(';').filter(q =&gt; q !== '');
+
+    return Promise.each(subQueries, subQuery =&gt; qi.sequelize.query(`${subQuery};`, Object.assign({ raw: true }, options)));
+  });
+}
+exports.changeColumn = changeColumn;
+
+/**
+  A wrapper that fixes SQLite's inability to rename columns from existing tables.
+  It will create a backup of the table, drop the table afterwards and create a
+  new table with the same name but with a renamed version of the respective column.
+
+  @param  {QueryInterface} qi
+  @param  {string} tableName The name of the table.
+  @param  {string} attrNameBefore The name of the attribute before it was renamed.
+  @param  {string} attrNameAfter The name of the attribute after it was renamed.
+  @param  {Object} options
+  @param  {boolean|Function} [options.logging] A function that logs the sql queries, or false for explicitly not logging these queries
+
+  @since 1.6.0
+  @private
+ */
+function renameColumn(qi, tableName, attrNameBefore, attrNameAfter, options) {
+  options = options || {};
+
+  return qi.describeTable(tableName, options).then(fields =&gt; {
+    fields[attrNameAfter] = _.clone(fields[attrNameBefore]);
+    delete fields[attrNameBefore];
+
+    const sql = qi.QueryGenerator.renameColumnQuery(tableName, attrNameBefore, attrNameAfter, fields);
+    const subQueries = sql.split(';').filter(q =&gt; q !== '');
+
+    return Promise.each(subQueries, subQuery =&gt; qi.sequelize.query(`${subQuery};`, Object.assign({ raw: true }, options)));
+  });
+}
+exports.renameColumn = renameColumn;
+
+/**
+ * @param {QueryInterface} qi
+ * @param {string} tableName
+ * @param {string} constraintName
+ * @param {Object} options
+ *
+ * @private
+ */
+function removeConstraint(qi, tableName, constraintName, options) {
+  let createTableSql;
+
+  return qi.showConstraint(tableName, constraintName)
+    .then(constraints =&gt; {
+      // sqlite can't show only one constraint, so we find here the one to remove
+      const constraint = constraints.find(constaint =&gt; constaint.constraintName === constraintName);
+
+      if (constraint) {
+        createTableSql = constraint.sql;
+        constraint.constraintName = qi.QueryGenerator.quoteIdentifier(constraint.constraintName);
+        let constraintSnippet = `, CONSTRAINT ${constraint.constraintName} ${constraint.constraintType} ${constraint.constraintCondition}`;
+
+        if (constraint.constraintType === 'FOREIGN KEY') {
+          const referenceTableName = qi.QueryGenerator.quoteTable(constraint.referenceTableName);
+          constraint.referenceTableKeys = constraint.referenceTableKeys.map(columnName =&gt; qi.QueryGenerator.quoteIdentifier(columnName));
+          const referenceTableKeys = constraint.referenceTableKeys.join(', ');
+          constraintSnippet += ` REFERENCES ${referenceTableName} (${referenceTableKeys})`;
+          constraintSnippet += ` ON UPDATE ${constraint.updateAction}`;
+          constraintSnippet += ` ON DELETE ${constraint.deleteAction}`;
+        }
+
+        createTableSql = createTableSql.replace(constraintSnippet, '');
+        createTableSql += ';';
+
+        return qi.describeTable(tableName, options);
+      }
+      throw new sequelizeErrors.UnknownConstraintError({
+        message: `Constraint ${constraintName} on table ${tableName} does not exist`,
+        constraint: constraintName,
+        table: tableName
+      });
+    })
+    .then(fields =&gt; {
+      const sql = qi.QueryGenerator._alterConstraintQuery(tableName, fields, createTableSql);
+      const subQueries = sql.split(';').filter(q =&gt; q !== '');
+
+      return Promise.each(subQueries, subQuery =&gt; qi.sequelize.query(`${subQuery};`, Object.assign({ raw: true }, options)));
+    });
+}
+exports.removeConstraint = removeConstraint;
+
+/**
+ * @param {QueryInterface} qi
+ * @param {string} tableName
+ * @param {Object} options
+ *
+ * @private
+ */
+function addConstraint(qi, tableName, options) {
+  const constraintSnippet = qi.QueryGenerator.getConstraintSnippet(tableName, options);
+  const describeCreateTableSql = qi.QueryGenerator.describeCreateTableQuery(tableName);
+  let createTableSql;
+
+  return qi.sequelize.query(describeCreateTableSql, Object.assign({}, options, { type: QueryTypes.SELECT, raw: true }))
+    .then(constraints =&gt; {
+      const sql = constraints[0].sql;
+      const index = sql.length - 1;
+      //Replace ending ')' with constraint snippet - Simulates String.replaceAt
+      //http://stackoverflow.com/questions/1431094
+      createTableSql = `${sql.substr(0, index)}, ${constraintSnippet})${sql.substr(index + 1)};`;
+
+      return qi.describeTable(tableName, options);
+    })
+    .then(fields =&gt; {
+      const sql = qi.QueryGenerator._alterConstraintQuery(tableName, fields, createTableSql);
+      const subQueries = sql.split(';').filter(q =&gt; q !== '');
+
+      return Promise.each(subQueries, subQuery =&gt; qi.sequelize.query(`${subQuery};`, Object.assign({ raw: true }, options)));
+    });
+}
+exports.addConstraint = addConstraint;
+
+/**
+ * @param {QueryInterface} qi
+ * @param {string} tableName
+ * @param {Object} options  Query Options
+ *
+ * @private
+ * @returns {Promise}
+ */
+function getForeignKeyReferencesForTable(qi, tableName, options) {
+  const database = qi.sequelize.config.database;
+  const query = qi.QueryGenerator.getForeignKeysQuery(tableName, database);
+  return qi.sequelize.query(query, options)
+    .then(result =&gt; {
+      return result.map(row =&gt; ({
+        tableName,
+        columnName: row.from,
+        referencedTableName: row.table,
+        referencedColumnName: row.to,
+        tableCatalog: database,
+        referencedTableCatalog: database
+      }));
+    });
+}
+
+exports.getForeignKeyReferencesForTable = getForeignKeyReferencesForTable;
+
+/**
+ * Describe a table structure
+ *
+ * This method returns an array of hashes containing information about all attributes in the table.
+ *
+ * ```js
+ * {
+ *    name: {
+ *      type:         'VARCHAR(255)', // this will be 'CHARACTER VARYING' for pg!
+ *      allowNull:    true,
+ *      defaultValue: null,
+ *      unique:       true,           // available for sqlite only
+ *      references:   {},             // available for sqlite only
+ *    },
+ *    isBetaMember: {
+ *      type:         'TINYINT(1)', // this will be 'BOOLEAN' for pg!
+ *      allowNull:    false,
+ *      defaultValue: false,
+ *      unique:       false,        // available for sqlite only
+ *      references:   {},           // available for sqlite only
+ *    }
+ * }
+ * ```
+ *
+ * @param {QueryInterface} qi
+ * @param {string} tableName table name
+ * @param {Object} [options] Query options
+ *
+ * @returns {Promise&lt;Object&gt;}
+ */
+function describeTable(qi, tableName, options) {
+  let schema = null;
+  let schemaDelimiter = null;
+
+  if (typeof options === 'string') {
+    schema = options;
+  } else if (typeof options === 'object' &amp;&amp; options !== null) {
+    schema = options.schema || null;
+    schemaDelimiter = options.schemaDelimiter || null;
+  }
+
+  if (typeof tableName === 'object' &amp;&amp; tableName !== null) {
+    schema = tableName.schema;
+    tableName = tableName.tableName;
+  }
+
+  const sql = qi.QueryGenerator.describeTableQuery(tableName, schema, schemaDelimiter);
+  options = Object.assign({}, options, { type: QueryTypes.DESCRIBE });
+
+  return qi.sequelize.query(sql, options).then(data =&gt; {
+    /*
+      * If no data is returned from the query, then the table name may be wrong.
+      * Query generators that use information_schema for retrieving table info will just return an empty result set,
+      * it will not throw an error like built-ins do (e.g. DESCRIBE on MySql).
+      */
+    if (_.isEmpty(data)) {
+      throw new Error(`No description found for "${tableName}" table. Check the table name and schema; remember, they _are_ case sensitive.`);
+    }
+
+    return qi.showIndex(tableName, options).then(indexes =&gt; {
+      for (const prop in data) {
+        data[prop].unique = false;
+      }
+      for (const index of indexes) {
+        for (const field of index.fields) {
+          if (index.unique !== undefined) {
+            data[field.attribute].unique = index.unique;
+          }
+        }
+      }
+
+      return qi.getForeignKeyReferencesForTable(tableName, options).then(foreignKeys =&gt; {
+        for (const foreignKey of foreignKeys) {
+          data[foreignKey.columnName].references = {
+            model: foreignKey.referencedTableName,
+            key: foreignKey.referencedColumnName
+          };
+        }
+        return data;
+      });
+    });
+  }).catch(e =&gt; {
+    if (e.original &amp;&amp; e.original.code === 'ER_NO_SUCH_TABLE') {
+      throw Error(`No description found for "${tableName}" table. Check the table name and schema; remember, they _are_ case sensitive.`);
+    }
+
+    throw e;
+  });
+}
+exports.describeTable = describeTable;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

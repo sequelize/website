@@ -1,0 +1,446 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/transaction.js | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li data-ice="doc" style="margin-top: 15px;"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IndexHints">IndexHints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#associations">associations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-sqlite">dialects/sqlite</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-describeTable">describeTable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/association-error.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/base-error.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/bulk-record-error.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection-error.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database-error.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/eager-loading-error.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/empty-result-error.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/instance-error.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/optimistic-lock-error.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/query-error.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/sequelize-scope-error.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-connection">errors/connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/access-denied-error.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-acquire-timeout-error.js~ConnectionAcquireTimeoutError.html">ConnectionAcquireTimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-refused-error.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-timed-out-error.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-found-error.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-reachable-error.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/invalid-connection-error.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-database">errors/database</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/exclusion-constraint-error.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/foreign-key-constraint-error.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/timeout-error.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/unknown-constraint-error.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-validation">errors/validation</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation/unique-constraint-error.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="variable/index.html#static-variable-DataTypes">datatypes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ARRAY.html">ARRAY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV4.html">UUIDV4</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV1.html">UUIDV1</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUID.html">UUID</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TINYINT.html">TINYINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TIME.html">TIME</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TEXT.html">TEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~STRING.html">STRING</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~SMALLINT.html">SMALLINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~REAL.html">REAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~RANGE.html">RANGE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NUMBER.html">NUMBER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NOW.html">NOW</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MACADDR.html">MACADDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONB.html">JSONB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INTEGER.html">INTEGER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INET.html">INET</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~HSTORE.html">HSTORE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~FLOAT.html">FLOAT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ENUM.html">ENUM</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DOUBLE.html">DOUBLE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DECIMAL.html">DECIMAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATEONLY.html">DATEONLY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATE.html">DATE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CITEXT.html">CITEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CIDR.html">CIDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CHAR.html">CHAR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BLOB.html">BLOB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BIGINT.html">BIGINT</a></span></span></li></ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/transaction.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">'use strict';
+
+const Promise = require('./promise');
+
+/**
+ * The transaction object is used to identify a running transaction.
+ * It is created by calling `Sequelize.transaction()`.
+ * To run a query under a transaction, you should pass the transaction in the options object.
+ *
+ * @class Transaction
+ * @see {@link Sequelize.transaction}
+ */
+class Transaction {
+  /**
+   * Creates a new transaction instance
+   *
+   * @param {Sequelize} sequelize A configured sequelize Instance
+   * @param {Object} options An object with options
+   * @param {string} [options.type] Sets the type of the transaction. Sqlite only
+   * @param {string} [options.isolationLevel] Sets the isolation level of the transaction.
+   * @param {string} [options.deferrable] Sets the constraints to be deferred or immediately checked. PostgreSQL only
+   */
+  constructor(sequelize, options) {
+    this.sequelize = sequelize;
+    this.savepoints = [];
+    this._afterCommitHooks = [];
+
+    // get dialect specific transaction options
+    const generateTransactionId = this.sequelize.dialect.QueryGenerator.generateTransactionId;
+
+    this.options = Object.assign({
+      type: sequelize.options.transactionType,
+      isolationLevel: sequelize.options.isolationLevel,
+      readOnly: false
+    }, options || {});
+
+    this.parent = this.options.transaction;
+
+    if (this.parent) {
+      this.id = this.parent.id;
+      this.parent.savepoints.push(this);
+      this.name = `${this.id}-sp-${this.parent.savepoints.length}`;
+    } else {
+      this.id = this.name = generateTransactionId();
+    }
+
+    delete this.options.transaction;
+  }
+
+  /**
+   * Commit the transaction
+   *
+   * @returns {Promise}
+   */
+  commit() {
+    if (this.finished) {
+      return Promise.reject(new Error(`Transaction cannot be committed because it has been finished with state: ${this.finished}`));
+    }
+
+    this._clearCls();
+
+    return this
+      .sequelize
+      .getQueryInterface()
+      .commitTransaction(this, this.options)
+      .finally(() =&gt; {
+        this.finished = 'commit';
+        if (!this.parent) {
+          return this.cleanup();
+        }
+        return null;
+      }).tap(
+        () =&gt; Promise.each(
+          this._afterCommitHooks,
+          hook =&gt; Promise.resolve(hook.apply(this, [this])))
+      );
+  }
+
+  /**
+   * Rollback (abort) the transaction
+   *
+   * @returns {Promise}
+   */
+  rollback() {
+    if (this.finished) {
+      return Promise.reject(new Error(`Transaction cannot be rolled back because it has been finished with state: ${this.finished}`));
+    }
+
+    if (!this.connection) {
+      return Promise.reject(new Error('Transaction cannot be rolled back because it never started'));
+    }
+
+    this._clearCls();
+
+    return this
+      .sequelize
+      .getQueryInterface()
+      .rollbackTransaction(this, this.options)
+      .finally(() =&gt; {
+        if (!this.parent) {
+          return this.cleanup();
+        }
+        return this;
+      });
+  }
+
+  prepareEnvironment(useCLS) {
+    let connectionPromise;
+
+    if (useCLS === undefined) {
+      useCLS = true;
+    }
+
+    if (this.parent) {
+      connectionPromise = Promise.resolve(this.parent.connection);
+    } else {
+      const acquireOptions = { uuid: this.id };
+      if (this.options.readOnly) {
+        acquireOptions.type = 'SELECT';
+      }
+      connectionPromise = this.sequelize.connectionManager.getConnection(acquireOptions);
+    }
+
+    return connectionPromise
+      .then(connection =&gt; {
+        this.connection = connection;
+        this.connection.uuid = this.id;
+      })
+      .then(() =&gt; {
+        return this.begin()
+          .then(() =&gt; this.setDeferrable())
+          .catch(setupErr =&gt; this.rollback().finally(() =&gt; {
+            throw setupErr;
+          }));
+      })
+      .tap(() =&gt; {
+        if (useCLS &amp;&amp; this.sequelize.constructor._cls) {
+          this.sequelize.constructor._cls.set('transaction', this);
+        }
+        return null;
+      });
+  }
+
+  setDeferrable() {
+    if (this.options.deferrable) {
+      return this
+        .sequelize
+        .getQueryInterface()
+        .deferConstraints(this, this.options);
+    }
+  }
+
+  begin() {
+    const queryInterface = this.sequelize.getQueryInterface();
+
+    if ( this.sequelize.dialect.supports.settingIsolationLevelDuringTransaction ) {
+      return queryInterface.startTransaction(this, this.options).then(() =&gt; {
+        return queryInterface.setIsolationLevel(this, this.options.isolationLevel, this.options);
+      });
+    }
+
+    return queryInterface.setIsolationLevel(this, this.options.isolationLevel, this.options).then(() =&gt; {
+      return queryInterface.startTransaction(this, this.options);
+    });
+  }
+
+  cleanup() {
+    const res = this.sequelize.connectionManager.releaseConnection(this.connection);
+    this.connection.uuid = undefined;
+    return res;
+  }
+
+  _clearCls() {
+    const cls = this.sequelize.constructor._cls;
+
+    if (cls) {
+      if (cls.get('transaction') === this) {
+        cls.set('transaction', null);
+      }
+    }
+  }
+
+  /**
+   * A hook that is run after a transaction is committed
+   *
+   * @param {Function} fn   A callback function that is called with the committed transaction
+   * @name afterCommit
+   * @memberof Sequelize.Transaction
+   */
+  afterCommit(fn) {
+    if (!fn || typeof fn !== 'function') {
+      throw new Error('"fn" must be a function');
+    }
+    this._afterCommitHooks.push(fn);
+  }
+
+  /**
+   * Types can be set per-transaction by passing `options.type` to `sequelize.transaction`.
+   * Default to `DEFERRED` but you can override the default type by passing `options.transactionType` in `new Sequelize`.
+   * Sqlite only.
+   *
+   * Pass in the desired level as the first argument:
+   *
+   * @example
+   * return sequelize.transaction({type: Sequelize.Transaction.TYPES.EXCLUSIVE}, transaction =&gt; {
+   *   // your transactions
+   * }).then(result =&gt; {
+   *   // transaction has been committed. Do something after the commit if required.
+   * }).catch(err =&gt; {
+   *   // do something with the err.
+   * });
+   *
+   * @property DEFERRED
+   * @property IMMEDIATE
+   * @property EXCLUSIVE
+   */
+  static get TYPES() {
+    return {
+      DEFERRED: 'DEFERRED',
+      IMMEDIATE: 'IMMEDIATE',
+      EXCLUSIVE: 'EXCLUSIVE'
+    };
+  }
+
+  /**
+   * Isolation levels can be set per-transaction by passing `options.isolationLevel` to `sequelize.transaction`.
+   * Sequelize uses the default isolation level of the database, you can override this by passing `options.isolationLevel` in Sequelize constructor options.
+   *
+   * Pass in the desired level as the first argument:
+   *
+   * @example
+   * return sequelize.transaction({isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE}, transaction =&gt; {
+   *   // your transactions
+   * }).then(result =&gt; {
+   *   // transaction has been committed. Do something after the commit if required.
+   * }).catch(err =&gt; {
+   *   // do something with the err.
+   * });
+   *
+   * @property READ_UNCOMMITTED
+   * @property READ_COMMITTED
+   * @property REPEATABLE_READ
+   * @property SERIALIZABLE
+   */
+  static get ISOLATION_LEVELS() {
+    return {
+      READ_UNCOMMITTED: 'READ UNCOMMITTED',
+      READ_COMMITTED: 'READ COMMITTED',
+      REPEATABLE_READ: 'REPEATABLE READ',
+      SERIALIZABLE: 'SERIALIZABLE'
+    };
+  }
+
+
+  /**
+   * Possible options for row locking. Used in conjunction with `find` calls:
+   *
+   * @example
+   * // t1 is a transaction
+   * Model.findAll({
+   *   where: ...,
+   *   transaction: t1,
+   *   lock: t1.LOCK...
+   * });
+   *
+   * @example &lt;caption&gt;Postgres also supports specific locks while eager loading by using OF:&lt;/caption&gt;
+   * UserModel.findAll({
+   *   where: ...,
+   *   include: [TaskModel, ...],
+   *   transaction: t1,
+   *   lock: {
+   *     level: t1.LOCK...,
+   *     of: UserModel
+   *   }
+   * });
+   *
+   * # UserModel will be locked but TaskModel won't!
+   *
+   * @example &lt;caption&gt;You can also skip locked rows:&lt;/caption&gt;
+   * // t1 is a transaction
+   * Model.findAll({
+   *   where: ...,
+   *   transaction: t1,
+   *   lock: true,
+   *   skipLocked: true
+   * });
+   * # The query will now return any rows that aren't locked by another transaction
+   *
+   * @returns {Object}
+   * @property UPDATE
+   * @property SHARE
+   * @property KEY_SHARE Postgres 9.3+ only
+   * @property NO_KEY_UPDATE Postgres 9.3+ only
+   */
+  static get LOCK() {
+    return {
+      UPDATE: 'UPDATE',
+      SHARE: 'SHARE',
+      KEY_SHARE: 'KEY SHARE',
+      NO_KEY_UPDATE: 'NO KEY UPDATE'
+    };
+  }
+
+  /**
+   * Please see {@link Transaction.LOCK}
+   */
+  get LOCK() {
+    return Transaction.LOCK;
+  }
+}
+
+module.exports = Transaction;
+module.exports.Transaction = Transaction;
+module.exports.default = Transaction;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

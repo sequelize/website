@@ -1,0 +1,57 @@
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web);
+
+div.logo img {
+  width: 200px;
+  height: 200px;
+  box-shadow: none !important;
+}
+
+div.sequelize {
+  color: #399af3;
+  font-size: 60px;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.center {
+  text-align: center;
+}
+
+.manual-root .content img {
+  box-shadow: none !important;
+  max-width: 300px;
+}
+
+.navigation {
+  margin-top: 40px !important;
+  padding-top: 0;
+  height: calc(100% - 40px);
+}
+
+.manual-toc a:hover {
+  color: #999 !important;
+}
+
+.manual-group {
+  font-weight: 600;
+  margin: 9.6px 0 3.2px 0;
+  color: black !important;
+  font-size: 17px;
+}
+
+.api-reference-link {
+  font-weight: bold;
+  padding: 0 20px;
+}
+.api-reference-link:hover {
+  color: rgb(3, 155, 229);
+}
+
+header a {
+  display: flex;
+  align-items: center;
+}
+
+a[href="/v5/source.html"],
+a[href^="file/lib/"] {
+  display: none;
+}

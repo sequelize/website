@@ -1,0 +1,485 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/dialects/abstract/connection-manager.js | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li data-ice="doc" style="margin-top: 15px;"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IndexHints">IndexHints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#associations">associations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-sqlite">dialects/sqlite</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-describeTable">describeTable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/association-error.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/base-error.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/bulk-record-error.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection-error.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database-error.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/eager-loading-error.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/empty-result-error.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/instance-error.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/optimistic-lock-error.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/query-error.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/sequelize-scope-error.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-connection">errors/connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/access-denied-error.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-acquire-timeout-error.js~ConnectionAcquireTimeoutError.html">ConnectionAcquireTimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-refused-error.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-timed-out-error.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-found-error.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-reachable-error.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/invalid-connection-error.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-database">errors/database</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/exclusion-constraint-error.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/foreign-key-constraint-error.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/timeout-error.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/unknown-constraint-error.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-validation">errors/validation</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation/unique-constraint-error.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="variable/index.html#static-variable-DataTypes">datatypes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ARRAY.html">ARRAY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV4.html">UUIDV4</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV1.html">UUIDV1</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUID.html">UUID</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TINYINT.html">TINYINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TIME.html">TIME</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TEXT.html">TEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~STRING.html">STRING</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~SMALLINT.html">SMALLINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~REAL.html">REAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~RANGE.html">RANGE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NUMBER.html">NUMBER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NOW.html">NOW</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MACADDR.html">MACADDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONB.html">JSONB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INTEGER.html">INTEGER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INET.html">INET</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~HSTORE.html">HSTORE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~FLOAT.html">FLOAT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ENUM.html">ENUM</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DOUBLE.html">DOUBLE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DECIMAL.html">DECIMAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATEONLY.html">DATEONLY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATE.html">DATE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CITEXT.html">CITEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CIDR.html">CIDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CHAR.html">CHAR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BLOB.html">BLOB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BIGINT.html">BIGINT</a></span></span></li></ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/dialects/abstract/connection-manager.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">'use strict';
+
+const { Pool, TimeoutError } = require('sequelize-pool');
+const _ = require('lodash');
+const semver = require('semver');
+const Promise = require('../../promise');
+const errors = require('../../errors');
+const { logger } = require('../../utils/logger');
+const debug = logger.debugContext('pool');
+
+/**
+ * Abstract Connection Manager
+ *
+ * Connection manager which handles pooling &amp; replication.
+ * Uses sequelize-pool for pooling
+ *
+ * @private
+ */
+class ConnectionManager {
+  constructor(dialect, sequelize) {
+    const config = _.cloneDeep(sequelize.config);
+
+    this.sequelize = sequelize;
+    this.config = config;
+    this.dialect = dialect;
+    this.versionPromise = null;
+    this.dialectName = this.sequelize.options.dialect;
+
+    if (config.pool === false) {
+      throw new Error('Support for pool:false was removed in v4.0');
+    }
+
+    config.pool = _.defaults(config.pool || {}, {
+      max: 5,
+      min: 0,
+      idle: 10000,
+      acquire: 60000,
+      evict: 1000,
+      validate: this._validate.bind(this)
+    });
+
+    this.initPools();
+  }
+
+  refreshTypeParser(dataTypes) {
+    _.each(dataTypes, dataType =&gt; {
+      if (Object.prototype.hasOwnProperty.call(dataType, 'parse')) {
+        if (dataType.types[this.dialectName]) {
+          this._refreshTypeParser(dataType);
+        } else {
+          throw new Error(`Parse function not supported for type ${dataType.key} in dialect ${this.dialectName}`);
+        }
+      }
+    });
+  }
+
+  /**
+   * Try to load dialect module from various configured options.
+   * Priority goes like dialectModulePath &gt; dialectModule &gt; require(default)
+   *
+   * @param {string} moduleName Name of dialect module to lookup
+   *
+   * @private
+   * @returns {Object}
+   */
+  _loadDialectModule(moduleName) {
+    try {
+      if (this.sequelize.config.dialectModulePath) {
+        return require(this.sequelize.config.dialectModulePath);
+      }
+      if (this.sequelize.config.dialectModule) {
+        return this.sequelize.config.dialectModule;
+      }
+      // This is needed so that bundlers (like webpack) know which library to include in the bundle
+      switch (moduleName) {
+        case 'pg': return require('pg');
+        case 'mysql2': return require('mysql2');
+        case 'mariadb': return require('mariadb');
+        case 'sqlite3': return require('sqlite3');
+        case 'tedious': return require('tedious');
+        default: return require(moduleName);
+      }
+    } catch (err) {
+      if (err.code === 'MODULE_NOT_FOUND') {
+        if (this.sequelize.config.dialectModulePath) {
+          throw new Error(`Unable to find dialect at ${this.sequelize.config.dialectModulePath}`);
+        }
+        throw new Error(`Please install ${moduleName} package manually`);
+      }
+
+      throw err;
+    }
+  }
+
+  /**
+   * Handler which executes on process exit or connection manager shutdown
+   *
+   * @private
+   * @returns {Promise}
+   */
+  _onProcessExit() {
+    if (!this.pool) {
+      return Promise.resolve();
+    }
+
+    return this.pool.drain().then(() =&gt; {
+      debug('connection drain due to process exit');
+      return this.pool.destroyAllNow();
+    });
+  }
+
+  /**
+   * Drain the pool and close it permanently
+   *
+   * @returns {Promise}
+   */
+  close() {
+    // Mark close of pool
+    this.getConnection = function getConnection() {
+      return Promise.reject(new Error('ConnectionManager.getConnection was called after the connection manager was closed!'));
+    };
+
+    return this._onProcessExit();
+  }
+
+  /**
+   * Initialize connection pool. By default pool autostart is set to false, so no connection will be
+   * be created unless `pool.acquire` is called.
+   */
+  initPools() {
+    const config = this.config;
+
+    if (!config.replication) {
+      this.pool = new Pool({
+        name: 'sequelize',
+        create: () =&gt; this._connect(config),
+        destroy: connection =&gt; {
+          return this._disconnect(connection)
+            .tap(() =&gt; { debug('connection destroy'); });
+        },
+        validate: config.pool.validate,
+        max: config.pool.max,
+        min: config.pool.min,
+        acquireTimeoutMillis: config.pool.acquire,
+        idleTimeoutMillis: config.pool.idle,
+        reapIntervalMillis: config.pool.evict
+      });
+
+      debug(`pool created with max/min: ${config.pool.max}/${config.pool.min}, no replication`);
+
+      return;
+    }
+
+    if (!Array.isArray(config.replication.read)) {
+      config.replication.read = [config.replication.read];
+    }
+
+    // Map main connection config
+    config.replication.write = _.defaults(config.replication.write, _.omit(config, 'replication'));
+
+    // Apply defaults to each read config
+    config.replication.read = config.replication.read.map(readConfig =&gt;
+      _.defaults(readConfig, _.omit(this.config, 'replication'))
+    );
+
+    // custom pooling for replication (original author @janmeier)
+    let reads = 0;
+    this.pool = {
+      release: client =&gt; {
+        if (client.queryType === 'read') {
+          this.pool.read.release(client);
+        } else {
+          this.pool.write.release(client);
+        }
+      },
+      acquire: (queryType, useMaster) =&gt; {
+        useMaster = useMaster === undefined ? false : useMaster;
+        if (queryType === 'SELECT' &amp;&amp; !useMaster) {
+          return this.pool.read.acquire();
+        }
+        return this.pool.write.acquire();
+      },
+      destroy: connection =&gt; {
+        this.pool[connection.queryType].destroy(connection);
+        debug('connection destroy');
+      },
+      destroyAllNow: () =&gt; {
+        return Promise.join(
+          this.pool.read.destroyAllNow(),
+          this.pool.write.destroyAllNow()
+        ).tap(() =&gt; { debug('all connections destroyed'); });
+      },
+      drain: () =&gt; {
+        return Promise.join(
+          this.pool.write.drain(),
+          this.pool.read.drain()
+        );
+      },
+      read: new Pool({
+        name: 'sequelize:read',
+        create: () =&gt; {
+          // round robin config
+          const nextRead = reads++ % config.replication.read.length;
+          return this._connect(config.replication.read[nextRead]).tap(connection =&gt; {
+            connection.queryType = 'read';
+          });
+        },
+        destroy: connection =&gt; this._disconnect(connection),
+        validate: config.pool.validate,
+        max: config.pool.max,
+        min: config.pool.min,
+        acquireTimeoutMillis: config.pool.acquire,
+        idleTimeoutMillis: config.pool.idle,
+        reapIntervalMillis: config.pool.evict
+      }),
+      write: new Pool({
+        name: 'sequelize:write',
+        create: () =&gt; {
+          return this._connect(config.replication.write).tap(connection =&gt; {
+            connection.queryType = 'write';
+          });
+        },
+        destroy: connection =&gt; this._disconnect(connection),
+        validate: config.pool.validate,
+        max: config.pool.max,
+        min: config.pool.min,
+        acquireTimeoutMillis: config.pool.acquire,
+        idleTimeoutMillis: config.pool.idle,
+        reapIntervalMillis: config.pool.evict
+      })
+    };
+
+    debug(`pool created with max/min: ${config.pool.max}/${config.pool.min}, with replication`);
+  }
+
+  /**
+   * Get connection from pool. It sets database version if it's not already set.
+   * Call pool.acquire to get a connection
+   *
+   * @param {Object}   [options]                 Pool options
+   * @param {string}   [options.type]            Set which replica to use. Available options are `read` and `write`
+   * @param {boolean}  [options.useMaster=false] Force master or write replica to get connection from
+   *
+   * @returns {Promise&lt;Connection&gt;}
+   */
+  getConnection(options) {
+    options = options || {};
+
+    let promise;
+    if (this.sequelize.options.databaseVersion === 0) {
+      if (this.versionPromise) {
+        promise = this.versionPromise;
+      } else {
+        promise = this.versionPromise = this._connect(this.config.replication.write || this.config)
+          .then(connection =&gt; {
+            const _options = {};
+
+            _options.transaction = { connection }; // Cheat .query to use our private connection
+            _options.logging = () =&gt; {};
+            _options.logging.__testLoggingFn = true;
+
+            //connection might have set databaseVersion value at initialization,
+            //avoiding a useless round trip
+            if (this.sequelize.options.databaseVersion === 0) {
+              return this.sequelize.databaseVersion(_options).then(version =&gt; {
+                const parsedVersion = _.get(semver.coerce(version), 'version') || version;
+                this.sequelize.options.databaseVersion = semver.valid(parsedVersion)
+                  ? parsedVersion
+                  : this.defaultVersion;
+                this.versionPromise = null;
+                return this._disconnect(connection);
+              });
+            }
+
+            this.versionPromise = null;
+            return this._disconnect(connection);
+          }).catch(err =&gt; {
+            this.versionPromise = null;
+            throw err;
+          });
+      }
+    } else {
+      promise = Promise.resolve();
+    }
+
+    return promise.then(() =&gt; {
+      return this.pool.acquire(options.type, options.useMaster)
+        .catch(error =&gt; {
+          if (error instanceof TimeoutError) throw new errors.ConnectionAcquireTimeoutError(error);
+          throw error;
+        });
+    }).tap(() =&gt; { debug('connection acquired'); });
+  }
+
+  /**
+   * Release a pooled connection so it can be utilized by other connection requests
+   *
+   * @param {Connection} connection
+   *
+   * @returns {Promise}
+   */
+  releaseConnection(connection) {
+    return Promise.try(() =&gt; {
+      this.pool.release(connection);
+      debug('connection released');
+    });
+  }
+
+  /**
+   * Call dialect library to get connection
+   *
+   * @param {*} config Connection config
+   * @private
+   * @returns {Promise&lt;Connection&gt;}
+   */
+  _connect(config) {
+    return this.sequelize.runHooks('beforeConnect', config)
+      .then(() =&gt; this.dialect.connectionManager.connect(config))
+      .then(connection =&gt; this.sequelize.runHooks('afterConnect', connection, config).return(connection));
+  }
+
+  /**
+   * Call dialect library to disconnect a connection
+   *
+   * @param {Connection} connection
+   * @private
+   * @returns {Promise}
+   */
+  _disconnect(connection) {
+    return this.sequelize.runHooks('beforeDisconnect', connection)
+      .then(() =&gt; this.dialect.connectionManager.disconnect(connection))
+      .then(() =&gt; this.sequelize.runHooks('afterDisconnect', connection));
+  }
+
+  /**
+   * Determine if a connection is still valid or not
+   *
+   * @param {Connection} connection
+   *
+   * @returns {boolean}
+   */
+  _validate(connection) {
+    if (!this.dialect.connectionManager.validate) {
+      return true;
+    }
+
+    return this.dialect.connectionManager.validate(connection);
+  }
+}
+
+module.exports = ConnectionManager;
+module.exports.ConnectionManager = ConnectionManager;
+module.exports.default = ConnectionManager;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

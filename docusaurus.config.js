@@ -61,10 +61,10 @@ const config = {
             type: "docsVersionDropdown",
             position: "left",
             dropdownItemsAfter: [
-              // {
-              //   href: "pathname:///v5",
-              //   label: "v5",
-              // },
+              {
+                href: "pathname:///v5",
+                label: "v5",
+              },
               // {
               //   href: "pathname:///v4",
               //   label: "v4",
@@ -95,10 +95,10 @@ const config = {
                 label: "Sequelize 6",
                 href: "pathname:///api/v6/identifiers.html",
               },
-              // {
-              //   label: 'Sequelize 5',
-              //   href: 'pathname:///v5/identifiers.html',
-              // },
+              {
+                label: 'Sequelize 5',
+                href: 'pathname:///v5/identifiers.html',
+              },
               // {
               //   label: 'Sequelize 4',
               //   href: 'pathname:///v4/identifiers.html',
