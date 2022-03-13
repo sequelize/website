@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://sequelize.org/v3/docs/articles/express/">
+  <link rel="shortcut icon" href="/v3/favicon.ico">
+  
+  <title>Express - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="/v3/css/theme.css" />
+  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="/v3/css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Express";
+    var mkdocs_page_input_path = "articles/express.md";
+    var mkdocs_page_url = "/articles/express/";
+  </script>
+  
+  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/docs/models-definition/">Definition</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/docs/models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/instances/">Instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/migrations/">Migrations</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/instance/">Instance</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Associations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/errors/">Errors</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/changelog/">Changelog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="/v3">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="/v3">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Express</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/articles/express.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <script type="text/javascript">
+    fromGithub = function (partialId, ext) {
+        ext = ext || '';
+
+        var $partial = $("#" + partialId)
+        $.get("https://cdn.rawgit.com/sequelize/express-example/master/" + partialId.replace("_", "/") + ext, function (code) {
+
+            if (ext === '.js') {
+                code = hljs.highlight('js', code).value;
+            } 
+
+            code = '<div class="highlight"><pre>' + code + '</pre></div>';
+
+            $partial.replaceWith(code);
+        }, 'html');
+    }
+</script>
+<h2 id="introduction">Introduction</h2>
+<p>This article explains the usage of Sequelize with the MVC framework Express.You will learn how and where to define models and how to load them when needed.</p>
+<h2 id="a-minimal-express-application">A minimal express application</h2>
+<p>In order to create a minimal express application, we need to install express first and scaffold a project. We can do this via the following commands:</p>
+<pre><code class="language-bash">$ mkdir example-app
+$ cd example-app
+$ npm install express express-generator
+$ node_modules/.bin/express . -f
+$ npm install
+$ ./bin/www
+</code></pre>
+<p>You should now be able to see a tiny welcome page on <code>http://localhost:3000</code></p>
+<h2 id="adding-sequelize-to-the-application">Adding Sequelize to the application</h2>
+<p>Now that we have the express application in place, we can start adding Sequelize to it. What we need for that are the following packages: sequelize, sequelize-cli, sqlite3. Please note, that for the sake of simplicity this tutorial will use SQLite.</p>
+<pre><code class="language-bash">$ npm install --save sequelize@2.0.0-rc1 sequelize-cli sqlite3
+</code></pre>
+<p>This will install the respective packages and uses the upcoming major release of sequelize. We can now let the sequelize CLI initialize the project's directory:</p>
+<pre><code class="language-bash">$ node_modules/.bin/sequelize init
+</code></pre>
+<p>Running this command will create the folders <code>config</code>, <code>migrations</code> and <code>models</code>.</p>
+<h2 id="implementing-a-todo-app">Implementing a todo app</h2>
+<p>As an example application we will create a very basic and simple todo tool, which allows the creation of users and the management of their tasks.</p>
+<h3 id="binwww">bin/www</h3>
+<p>In order to create a maintainable application, we will put all the database logic into the <code>models</code> folder. When the application gets fired up, sequelize will sync the models with the database and afterwards start the server. This way we don't clutter the application while making use of sequelize's features.</p>
+<div id="bin_www"></div>
+<script>$(function () { fromGithub("bin_www") })</script>
+
+<h3 id="modelsindexjs">models/index.js</h3>
+<p>This file has been generated with the sequelize CLI and collects all the models from the <code>models</code> directory and associates them if needed.</p>
+<div id="models_index"></div>
+<script>$(function () { fromGithub("models_index", '.js') })</script>
+
+<h3 id="modelsuserjs">models/user.js</h3>
+<p>All models of our application are located as separate files in the <code>models</code> folder. If you want to add a new model, just add it to this folder and everything will work automagically. Also you can use the sequelize CLI's <code>sequelize model:create</code>.</p>
+<p><strong>Notice</strong> that the <code>associate</code> method receives a parameter <code>models</code>, which contains every declared model within the models directory.</p>
+<div id="models_user"></div>
+<script>$(function () { fromGithub("models_user", '.js') })</script>
+
+<h3 id="modelstaskjs">models/task.js</h3>
+<p>The other needed model is <code>Task</code>. It relates to the <code>User</code>.</p>
+<div id="models_task"></div>
+<script>$(function () { fromGithub("models_task", '.js') })</script>
+
+<h3 id="routesindexjs">routes/index.js</h3>
+<p>The file <code>routes/index.js</code> contains the logic for a request against the main homepage. It loads the models module and uses it to load all the users and tasks from the database.</p>
+<div id="routes_index"></div>
+<script>$(function () { fromGithub("routes_index", '.js') })</script>
+<p>This will allow us to iterate over the users in the view file. We will skip the rest of the route files for this article.</p>
+<h3 id="viewsindexjade">views/index.jade</h3>
+<p>As we passed the users to the view and include the tasks for each user, we can access the data in the view's template file. Besides listing the users and tasks, there are also forms for creating new instances.</p>
+<div id="views_index"></div>
+<script>$(function () { fromGithub("views_index", '.jade') })</script>
+
+<h2 id="whats-next">What's next?</h2>
+<p>This article shows a basic approach of how to integrate Sequelize into an ExpressJS application. It allows the very easy management of models by adding new files to a specific folder. Starting the application will automatically sync the schema with the database.</p>
+<p>If you don't want to have automatic schema synchronization and instead want migrations, just add a respective step to your deployment script. When you use the CLI for the model generation, you will gain the migration scripts for free as well.</p>
+<p>You can find the complete application code <a href="https://github.com/sequelize/express-example">on Github</a>. Feel free to add pull requests to it.</p>
+<p>Besides the use of Sequelize as model backend in your ExpressJS application, you might also want to turn your server into a restful API. If that is the case, check out <a href="https://github.com/sequelize/sequelize-restful">the repository on Github</a></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="/v3/js/theme_extra.js" defer></script>
+    <script src="/v3/js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="/v3/search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

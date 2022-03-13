@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://sequelize.org/v3/docs/articles/heroku/">
+  <link rel="shortcut icon" href="/v3/favicon.ico">
+  
+  <title>Heroku - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="/v3/css/theme.css" />
+  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="/v3/css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Heroku";
+    var mkdocs_page_input_path = "articles/heroku.md";
+    var mkdocs_page_url = "/articles/heroku/";
+  </script>
+  
+  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/docs/models-definition/">Definition</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/docs/models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/instances/">Instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/migrations/">Migrations</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/instance/">Instance</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Associations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/errors/">Errors</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/changelog/">Changelog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="/v3">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="/v3">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Heroku</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/articles/heroku.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="introduction">Introduction</h2>
+<p>This section covers the use of Sequelize on Heroku. It will explain how to get started with Heroku and what is necessary to setup a proper environment. We will use MySQL on the development machine and PostgreSQL on the remote servers.</p>
+<h2 id="getting-started-with-heroku">Getting started with Heroku</h2>
+<p>Before we can roll out any software on the Heroku cluster, we need to sign up and have to connect our development environment. Here are the most basic steps:</p>
+<ul>
+<li><a href="https://api.heroku.com/signup/devcenter">Sign up</a> for a Heroku account.</li>
+<li><a href="https://toolbelt.heroku.com/">Install</a> the Heroku Toolbelt. This tool will let you create applications and is a handy way to configure them on the command line.</li>
+<li>Use the new binary to login. Run the following command on command line:<code>heroku login</code></li>
+</ul>
+<p>And that's it. You should now be able to do things like <code>heroku apps</code>. This should list all applications you've currently created on the Heroku cluster. If you've just created a new account, this should show you an empty list. <a href="https://devcenter.heroku.com/articles/quickstart">You can get further information about the registration process here</a>.</p>
+<h2 id="a-minimal-express-application">A minimal express application</h2>
+<p>In order to create a minimal express application, we need to install express first. We can do this via the following commands:</p>
+<pre><code class="language-bash">$ mkdir example-app
+$ cd example-app
+$ npm install express
+$ node_modules/.bin/express . -f
+$ npm install
+$ node app.js
+</code></pre>
+<p>So now we have a default express application. If you point your browser to <code>http://localhost:8080</code>, you will see a tiny page welcoming you.</p>
+<p>Next step: Deploy the application to Heroku.</p>
+<h2 id="deployment-to-heroku">Deployment to Heroku</h2>
+<p>First of all, we need to add the right version of Node.JS and NPM to the <code>package.json</code>. The file should look similar to this:</p>
+<pre><code class="language-js">{
+  &quot;name&quot;: &quot;application-name&quot;,
+  &quot;version&quot;: &quot;0.0.1&quot;,
+  &quot;private&quot;: true,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node app.js&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;express&quot;: &quot;3.1.1&quot;,
+    &quot;jade&quot;: &quot;*&quot;
+  },
+  &quot;engines&quot;: {
+    &quot;node&quot;: &quot;0.8.x&quot;,
+    &quot;npm&quot;: &quot;1.1.x&quot;
+  }
+}
+</code></pre>
+<p>Now we can create a Heroku application and deploy to it:</p>
+<pre><code class="language-bash">$ echo &quot;web: node app.js&quot; &gt; Procfile
+$ echo &quot;node_modules&quot; &gt; .gitignore
+$ git init
+$ git add .
+$ git commit -m &quot;initial commit&quot;
+$ heroku create
+$ git push heroku master
+$ heroku ps:scale web=1
+$ heroku open
+</code></pre>
+<p>You should now see a browser with the same application as on your local machine.</p>
+<h2 id="spawning-a-database-on-heroku">Spawning a database on Heroku</h2>
+<p>In order to get a database on Heroku we can use their CLI. Just run the following command and take a closer look at it's output:</p>
+<pre><code class="language-bash">$ heroku addons:add heroku-postgresql:dev
+</code></pre>
+<p>This will result in something like this:</p>
+<pre><code class="language-bash">Adding heroku-postgresql:dev on fast-dusk-7858... done, v5 (free)
+Attached as HEROKU_POSTGRESQL_BRONZE_URL
+Database has been created and is available
+ ! This database is empty. If upgrading, you can transfer
+ ! data from another database with pgbackups:restore.
+Use `heroku addons:docs heroku-postgresql:dev` to view documentation.
+</code></pre>
+<p>What we will need is the color (sounds strange right?) of the database. In this case we just created a <code>bronze</code> one. That means, that we will have an environment variable <code>HEROKU_POSTGRESQL_BRONZE_URL</code> containing the URI of the database.</p>
+<p>If you are interested in the URI, you can just run this command:</p>
+<pre><code class="language-bash">$ heroku config:get HEROKU_POSTGRESQL_BRONZE_URL
+$ # =&gt; postgres://pfforbjhkrletg:aic5oO6Cran1g3hk6mJa5QqNZB@ec2-23-21-91-97.compute-1.amazonaws.com:5432/dek11b2j1g3mfb
+</code></pre>
+<h2 id="adding-sequelize-to-the-application">Adding Sequelize to the application</h2>
+<p>The following commands will install <code>sequelize</code>, the needed PostgreSQL library as well as the MySQL bindings. Also we will create a folder <code>models</code>, that will contain the model definitions.</p>
+<pre><code class="language-bash">$ npm install --save sequelize pg mysql
+$ mkdir models
+</code></pre>
+<h3 id="appjs">app.js</h3>
+<p>In order to create a maintainable application, we will put all the database logic into the <code>models</code> folder. The application's main file will then just sync the models with the database and run the server. This way we don't clutter the application.</p>
+<pre><code class="language-js">var express = require('express')
+  , routes  = require('./routes')
+  , user    = require('./routes/user')
+  , http    = require('http')
+  , path    = require('path')
+  , db      = require('./models');
+
+var app = express();
+
+// all environments
+app.set('port', process.env.PORT || 3000);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+
+// development only
+if ('development' === app.get('env')) {
+  app.use(express.errorHandler());
+}
+
+app.get('/', routes.index);
+app.get('/users', user.list);
+
+db.sequelize.sync().then(function() {
+  http.createServer(app).listen(app.get('port'), function(){
+    console.log('Express server listening on port ' + app.get('port'));
+  });
+});
+</code></pre>
+<h3 id="modelsindexjs">models/index.js</h3>
+<p>The idea of this file is to configure a connection to the database and to collect all model definitions. Once everything is in place we will store the stuff in a singleton. This will make it possible to load the file whenever we need database access without running into issues with duplicated database access.</p>
+<p>This file will also differ between the local machine and the Heroku server.</p>
+<pre><code class="language-js">if (!global.hasOwnProperty('db')) {
+  var Sequelize = require('sequelize')
+    , sequelize = null
+
+  if (process.env.HEROKU_POSTGRESQL_BRONZE_URL) {
+    // the application is executed on Heroku ... use the postgres database
+    sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
+      dialect:  'postgres',
+      protocol: 'postgres',
+      port:     match[4],
+      host:     match[3],
+      logging:  true //false
+    })
+  } else {
+    // the application is executed on the local machine ... use mysql
+    sequelize = new Sequelize('example-app-db', 'root', null)
+  }
+
+  global.db = {
+    Sequelize: Sequelize,
+    sequelize: sequelize,
+    User:      sequelize.import(__dirname + '/user') 
+    // add your other models here
+  }
+
+  /*
+    Associations can be defined here. E.g. like this:
+    global.db.User.hasMany(global.db.SomethingElse)
+  */
+}
+
+module.exports = global.db
+</code></pre>
+<h3 id="modelsuserjs">models/user.js</h3>
+<p>All the other models of our application will be located as separate files in the <code>models</code> folder. We will use the <code>import</code>-method of Sequelize to load those files.</p>
+<pre><code class="language-js">module.exports = function(sequelize, DataTypes) {
+  return sequelize.define(&quot;User&quot;, {
+    username: DataTypes.STRING
+  })
+}
+</code></pre>
+<h2 id="running-migrations">Running Migrations</h2>
+<p>To run migrations on Heroku you must have the following entry in your config/config.json file:</p>
+<pre><code class="language-js">&quot;production&quot;: {
+  &quot;use_env_variable&quot;: &quot;DATABASE_URL&quot;
+}
+</code></pre>
+<p>Which also means you must make sure your Heroku environment has <a href="https://devcenter.heroku.com/articles/heroku-postgresql#establish-primary-db">a promoted database.</a> Then from the command line run</p>
+<pre><code class="language-bash">$ heroku run bash
+$ sequelize -m
+</code></pre>
+<h2 id="tldr">tl;dr</h2>
+<p>This article explains a straight-forward but maintainable approach for hosting an express application on Heroku. If you don't want to read all the stuff mentioned, just execute the following stuff and have fun.</p>
+<pre><code class="language-bash">$ mkdir example-app
+$ cd example-app
+$ npm install express
+$ node_modules/.bin/express . -f
+$ npm install
+$ curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/459c923dd0a14841c932bb95ff3be8a8170bd563/package.json &gt; package.json
+$ echo &quot;web: node app.js&quot; &gt; Procfile
+$ echo &quot;node_modules&quot; &gt; .gitignore
+$ npm install --save sequelize pg mysql
+$ mkdir models
+$ git init
+$ git add .
+$ git commit -m &quot;initial commit&quot;
+$ heroku create
+$ git push heroku master
+$ heroku ps:scale web=1
+$ heroku addons:add heroku-postgresql:dev
+$ curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/6db41e130a8b901cd0843bf52390b7cb11db5f15/app.js &gt; app.js
+$ curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/26c5a94d74db4a242464b02aa8e0ae4b3bac6880/models-index.js &gt; models/index.js
+$ curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/3b37b0e5d459b2e4b3833a63a018b600a1001795/models-user.js &gt; models/user.js
+$ clear
+
+$ # Now run the following command and change HEROKU_POSTGRESQL_BRONZE_URL in
+$ # the file &quot;models/index.js&quot; to its result:
+$ heroku config|grep HEROKU_POSTGRESQL|cut -d : -f 1
+
+$ git add .
+$ git commit -m &quot;sequelize application&quot;
+$ git push heroku master
+$ heroku open
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="/v3/js/theme_extra.js" defer></script>
+    <script src="/v3/js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="/v3/search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

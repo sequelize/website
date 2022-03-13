@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://sequelize.org/v3/docs/api/instance/">
+  <link rel="shortcut icon" href="/v3/favicon.ico">
+  
+  <title>Instance - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="/v3/css/theme.css" />
+  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="/v3/css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Instance";
+    var mkdocs_page_input_path = "api/instance.md";
+    var mkdocs_page_url = "/api/instance/";
+  </script>
+  
+  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/docs/models-definition/">Definition</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/docs/models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/instances/">Instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/migrations/">Migrations</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/model/">Model</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Instance</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#isnewrecord-boolean">isNewRecord -&gt; Boolean</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#model-model">Model() -&gt; Model</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sequelize-sequelize">sequelize() -&gt; Sequelize</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#where-object">where() -&gt; Object</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getdatavaluekey-any">getDataValue(key) -&gt; any</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setdatavaluekey-value">setDataValue(key, value)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getkey-options-objectany">get([key], [options]) -&gt; Object|any</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setkey-value-options">set(key, value, [options])</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#changedkey-booleanarray">changed([key]) -&gt; Boolean|Array</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#previouskey-anyarrayany">previous([key]) -&gt; any|Array.&lt;any&gt;</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#saveoptions-promisethiserrorsvalidationerror">save([options]) -&gt; Promise.&lt;this|Errors.ValidationError&gt;</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reloadoptions-promisethis">reload([options]) -&gt; Promise.&lt;this&gt;</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#validateoptions-promiseerrorsvalidationerrorundefined">validate([options]) -&gt; Promise.&lt;Errors.ValidationError|undefined&gt;</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#updateupdates-options-promisethis">update(updates, options) -&gt; Promise.&lt;this&gt;</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#destroyoptions-promiseundefined">destroy([options={}]) -&gt; Promise.&lt;undefined&gt;</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#restoreoptions-promiseundefined">restore([options={}]) -&gt; Promise.&lt;undefined&gt;</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#incrementfields-options-promisethis">increment(fields, [options]) -&gt; Promise.&lt;this&gt;</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#decrementfields-options-promise">decrement(fields, [options]) -&gt; Promise</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#equalsother-boolean">equals(other) -&gt; Boolean</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#equalsoneofothers-boolean">equalsOneOf(others) -&gt; Boolean</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tojson-object">toJSON() -&gt; object</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Associations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/errors/">Errors</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/changelog/">Changelog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="/v3">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="/v3">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>API &raquo;</li>
+        
+      
+    
+    <li>Instance</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/instance.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p><a name="instance"></a></p>
+<h1 id="class-instance">Class Instance</h1>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L85">View code</a></p>
+<p>This class represents an single instance, a database row. You might see it referred to as both Instance and instance. You should not
+instantiate the Instance class directly, instead you access it using the finder and creation methods on the model.</p>
+<p>Instance instances operate with the concept of a <code>dataValues</code> property, which stores the actual values represented by the instance.
+By default, the values from dataValues can also be accessed directly from the Instance, that is:</p>
+<pre><code class="language-js">instance.field
+// is the same as
+instance.get('field')
+// is the same as
+instance.getDataValue('field')
+</code></pre>
+<p>However, if getters and/or setters are defined for <code>field</code> they will be invoked, instead of returning the value from <code>dataValues</code>.
+Accessing properties directly or using <code>get</code> is preferred for regular use, <code>getDataValue</code> should only be used for custom getters.</p>
+<p><strong>See:</strong></p>
+<ul>
+<li><a href="./sequelize#define">Sequelize#define</a></li>
+</ul>
+<hr />
+<p><a name="isnewrecord"></a></p>
+<h2 id="isnewrecord-boolean"><code>isNewRecord</code> -&gt; <code>Boolean</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L98">View code</a></p>
+<p>Returns true if this instance has not yet been persisted to the database</p>
+<hr />
+<p><a name="model"></a></p>
+<h2 id="model-model"><code>Model()</code> -&gt; <code>Model</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L107">View code</a></p>
+<p>Returns the Model the instance was created from.</p>
+<p><strong>See:</strong></p>
+<ul>
+<li><a href="./model">Model</a></li>
+</ul>
+<hr />
+<p><a name="sequelize"></a></p>
+<h2 id="sequelize-sequelize"><code>sequelize()</code> -&gt; <code>Sequelize</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L116">View code</a></p>
+<p>A reference to the sequelize instance</p>
+<p><strong>See:</strong></p>
+<ul>
+<li><a href="./sequelize">Sequelize</a></li>
+</ul>
+<hr />
+<p><a name="where"></a></p>
+<h2 id="where-object"><code>where()</code> -&gt; <code>Object</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L126">View code</a></p>
+<p>Get an object representing the query for this instance, use with <code>options.where</code></p>
+<hr />
+<p><a name="getdatavalue"></a></p>
+<h2 id="getdatavaluekey-any"><code>getDataValue(key)</code> -&gt; <code>any</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L150">View code</a></p>
+<p>Get the value of the underlying data value</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="setdatavalue"></a></p>
+<h2 id="setdatavaluekey-value"><code>setDataValue(key, value)</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L160">View code</a></p>
+<p>Update the underlying data value</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
+<td>value</td>
+<td>any</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="get"></a></p>
+<h2 id="getkey-options-objectany"><code>get([key], [options])</code> -&gt; <code>Object|any</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L179">View code</a></p>
+<p>If no key is given, returns all values of the instance, also invoking virtual getters.</p>
+<p>If key is given and a field or virtual getter is present for the key it will call that getter - else it will return the value for key.</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[key]</td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
+<td>[options]</td>
+<td>Object</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.plain=false]</td>
+<td>Boolean</td>
+<td>If set to true, included instances will be returned as plain objects</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="set"></a></p>
+<h2 id="setkey-value-options"><code>set(key, value, [options])</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L249">View code</a></p>
+<p>Set is used to update values on the instance (the sequelize representation of the instance that is, remember that nothing will be persisted before you actually call <code>save</code>).
+In its most basic form <code>set</code> will update a value stored in the underlying <code>dataValues</code> object. However, if a custom setter function is defined for the key, that function
+will be called instead. To bypass the setter, you can pass <code>raw: true</code> in the options object.</p>
+<p>If set is called with an object, it will loop over the object, and call set recursively for each key, value pair. If you set raw to true, the underlying dataValues will either be
+set directly to the object passed, or used to extend dataValues, if dataValues already contain values.</p>
+<p>When set is called, the previous value of the field is stored and sets a changed flag(see <code>changed</code>).</p>
+<p>Set can also be used to build instances for associations, if you have values for those.
+When using set with associations you need to make sure the property key matches the alias of the association
+while also making sure that the proper include options have been set (from .build() or .find())</p>
+<p>If called with a dot.separated key on a JSON/JSONB attribute it will set the value nested and flag the entire object as changed.</p>
+<p><strong>See:</strong></p>
+<ul>
+<li><a href="./model#find">Model#find</a></li>
+</ul>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>String &#124; Object</td>
+<td></td>
+</tr>
+<tr>
+<td>value</td>
+<td>any</td>
+<td></td>
+</tr>
+<tr>
+<td>[options]</td>
+<td>Object</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.raw=false]</td>
+<td>Boolean</td>
+<td>If set to true, field and virtual setters will be ignored</td>
+</tr>
+<tr>
+<td>[options.reset=false]</td>
+<td>Boolean</td>
+<td>Clear all previously set data values</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Aliases:</strong> setAttributes</p>
+<hr />
+<p><a name="changed"></a></p>
+<h2 id="changedkey-booleanarray"><code>changed([key])</code> -&gt; <code>Boolean|Array</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L401">View code</a></p>
+<p>If changed is called with a string it will return a boolean indicating whether the value of that key in <code>dataValues</code> is different from the value in <code>_previousDataValues</code>.</p>
+<p>If changed is called without an argument, it will return an array of keys that have changed.</p>
+<p>If changed is called without an argument and no keys have changed, it will return <code>false</code>.</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[key]</td>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="previous"></a></p>
+<h2 id="previouskey-anyarrayany"><code>previous([key])</code> -&gt; <code>any|Array.&lt;any&gt;</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L425">View code</a></p>
+<p>Returns the previous value for key from <code>_previousDataValues</code>.</p>
+<p>If called without a key, returns the previous values for all values which have changed</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[key]</td>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="save"></a></p>
+<h2 id="saveoptions-promisethiserrorsvalidationerror"><code>save([options])</code> -&gt; <code>Promise.&lt;this|Errors.ValidationError&gt;</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L493">View code</a></p>
+<p>Validate this instance, and if the validation passes, persist it to the database. It will only save changed fields, and do nothing if no fields have changed.</p>
+<p>On success, the callback will be called with this instance. On validation error, the callback will be called with an instance of <code>Sequelize.ValidationError</code>.
+This error will have a property for each of the fields for which validation failed, with the error message for that field.</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[options]</td>
+<td>Object</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.fields]</td>
+<td>Array.&lt;string&gt;</td>
+<td>An optional array of strings, representing database columns. If fields is provided, only those columns will be validated and saved.</td>
+</tr>
+<tr>
+<td>[options.silent=false]</td>
+<td>Boolean</td>
+<td>If true, the updatedAt timestamp will not be updated.</td>
+</tr>
+<tr>
+<td>[options.validate=true]</td>
+<td>Boolean</td>
+<td>If false, validations won't be run.</td>
+</tr>
+<tr>
+<td>[options.logging=false]</td>
+<td>Function</td>
+<td>A function that gets executed while running the query to log the sql.</td>
+</tr>
+<tr>
+<td>[options.transaction]</td>
+<td>Transaction</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.searchPath=DEFAULT]</td>
+<td>String</td>
+<td>An optional parameter to specify the schema search_path (Postgres only)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="reload"></a></p>
+<h2 id="reloadoptions-promisethis"><code>reload([options])</code> -&gt; <code>Promise.&lt;this&gt;</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L740">View code</a></p>
+<p>Refresh the current instance in-place, i.e. update the object with current data from the DB and return the same object.
+This is different from doing a <code>find(Instance.id)</code>, because that would create and return a new instance. With this method,
+all references to the Instance are updated with the new data and no new objects are created.</p>
+<p><strong>See:</strong></p>
+<ul>
+<li><a href="./model#find">Model#find</a></li>
+</ul>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[options]</td>
+<td>Object</td>
+<td>Options that are passed on to <code>Model.find</code></td>
+</tr>
+<tr>
+<td>[options.logging=false]</td>
+<td>Function</td>
+<td>A function that gets executed while running the query to log the sql.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="validate"></a></p>
+<h2 id="validateoptions-promiseerrorsvalidationerrorundefined"><code>validate([options])</code> -&gt; <code>Promise.&lt;Errors.ValidationError|undefined&gt;</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L776">View code</a></p>
+<p>Validate the attribute of this instance according to validation rules set in the model definition.</p>
+<p>Emits null if and only if validation successful; otherwise an Error instance containing { field name : [error msgs] } entries.</p>
+<p><strong>See:</strong></p>
+<ul>
+<li><a href="./instancevalidator">InstanceValidator</a></li>
+</ul>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[options]</td>
+<td>Object</td>
+<td>Options that are passed to the validator</td>
+</tr>
+<tr>
+<td>[options.skip]</td>
+<td>Array</td>
+<td>An array of strings. All properties that are in this array will not be validated</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="update"></a></p>
+<h2 id="updateupdates-options-promisethis"><code>update(updates, options)</code> -&gt; <code>Promise.&lt;this&gt;</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L796">View code</a></p>
+<p>This is the same as calling <code>set</code> and then calling <code>save</code> but it only saves the
+exact values passed to it, making it more atomic and safer.</p>
+<p><strong>See:</strong></p>
+<ul>
+<li><a href="./instance#set">Instance#set</a></li>
+<li><a href="./instance#save">Instance#save</a></li>
+</ul>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>updates</td>
+<td>Object</td>
+<td>See <code>set</code></td>
+</tr>
+<tr>
+<td>options</td>
+<td>Object</td>
+<td>See <code>save</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Aliases:</strong> updateAttributes</p>
+<hr />
+<p><a name="destroy"></a></p>
+<h2 id="destroyoptions-promiseundefined"><code>destroy([options={}])</code> -&gt; <code>Promise.&lt;undefined&gt;</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L835">View code</a></p>
+<p>Destroy the row corresponding to this instance. Depending on your setting for paranoid, the row will either be completely deleted, or have its deletedAt timestamp set to the current time.</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[options={}]</td>
+<td>Object</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.force=false]</td>
+<td>Boolean</td>
+<td>If set to true, paranoid models will actually be deleted</td>
+</tr>
+<tr>
+<td>[options.logging=false]</td>
+<td>Function</td>
+<td>A function that gets executed while running the query to log the sql.</td>
+</tr>
+<tr>
+<td>[options.transaction]</td>
+<td>Transaction</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.searchPath=DEFAULT]</td>
+<td>String</td>
+<td>An optional parameter to specify the schema search_path (Postgres only)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="restore"></a></p>
+<h2 id="restoreoptions-promiseundefined"><code>restore([options={}])</code> -&gt; <code>Promise.&lt;undefined&gt;</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L882">View code</a></p>
+<p>Restore the row corresponding to this instance. Only available for paranoid models.</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[options={}]</td>
+<td>Object</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.logging=false]</td>
+<td>Function</td>
+<td>A function that gets executed while running the query to log the sql.</td>
+</tr>
+<tr>
+<td>[options.transaction]</td>
+<td>Transaction</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="increment"></a></p>
+<h2 id="incrementfields-options-promisethis"><code>increment(fields, [options])</code> -&gt; <code>Promise.&lt;this&gt;</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L934">View code</a></p>
+<p>Increment the value of one or more columns. This is done in the database, which means it does not use the values currently stored on the Instance. The increment is done using a</p>
+<pre><code class="language-sql">SET column = column + X
+</code></pre>
+<p>query. To get the correct value after an increment into the Instance you should do a reload.</p>
+<pre><code class="language-js">instance.increment('number') // increment number by 1
+instance.increment(['number', 'count'], { by: 2 }) // increment number and count by 2
+instance.increment({ answer: 42, tries: 1}, { by: 2 }) // increment answer by 42, and tries by 1.
+                                                       // `by` is ignored, since each column has its own value
+</code></pre>
+<p><strong>See:</strong></p>
+<ul>
+<li><a href="./instance#reload">Instance#reload</a></li>
+</ul>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fields</td>
+<td>String &#124; Array &#124; Object</td>
+<td>If a string is provided, that column is incremented by the value of <code>by</code> given in options. If an array is provided, the same is true for each column. If and object is provided, each column is incremented by the value given.</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td>Object</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.by=1]</td>
+<td>Integer</td>
+<td>The number to increment by</td>
+</tr>
+<tr>
+<td>[options.logging=false]</td>
+<td>Function</td>
+<td>A function that gets executed while running the query to log the sql.</td>
+</tr>
+<tr>
+<td>[options.transaction]</td>
+<td>Transaction</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.searchPath=DEFAULT]</td>
+<td>String</td>
+<td>An optional parameter to specify the schema search_path (Postgres only)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="decrement"></a></p>
+<h2 id="decrementfields-options-promise"><code>decrement(fields, [options])</code> -&gt; <code>Promise</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L997">View code</a></p>
+<p>Decrement the value of one or more columns. This is done in the database, which means it does not use the values currently stored on the Instance. The decrement is done using a</p>
+<pre><code class="language-sql">SET column = column - X
+</code></pre>
+<p>query. To get the correct value after an decrement into the Instance you should do a reload.</p>
+<pre><code class="language-js">instance.decrement('number') // decrement number by 1
+instance.decrement(['number', 'count'], { by: 2 }) // decrement number and count by 2
+instance.decrement({ answer: 42, tries: 1}, { by: 2 }) // decrement answer by 42, and tries by 1.
+                                                       // `by` is ignored, since each column has its own value
+</code></pre>
+<p><strong>See:</strong></p>
+<ul>
+<li><a href="./instance#reload">Instance#reload</a></li>
+</ul>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fields</td>
+<td>String &#124; Array &#124; Object</td>
+<td>If a string is provided, that column is decremented by the value of <code>by</code> given in options. If an array is provided, the same is true for each column. If and object is provided, each column is decremented by the value given</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td>Object</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.by=1]</td>
+<td>Integer</td>
+<td>The number to decrement by</td>
+</tr>
+<tr>
+<td>[options.logging=false]</td>
+<td>Function</td>
+<td>A function that gets executed while running the query to log the sql.</td>
+</tr>
+<tr>
+<td>[options.transaction]</td>
+<td>Transaction</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.searchPath=DEFAULT]</td>
+<td>String</td>
+<td>An optional parameter to specify the schema search_path (Postgres only)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="equals"></a></p>
+<h2 id="equalsother-boolean"><code>equals(other)</code> -&gt; <code>Boolean</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L1019">View code</a></p>
+<p>Check whether all values of this and <code>other</code> Instance are the same</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>other</td>
+<td>Instance</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="equalsoneof"></a></p>
+<h2 id="equalsoneofothers-boolean"><code>equalsOneOf(others)</code> -&gt; <code>Boolean</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L1043">View code</a></p>
+<p>Check if this is equal to one of <code>others</code> by calling equals</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>others</td>
+<td>Array</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="tojson"></a></p>
+<h2 id="tojson-object"><code>toJSON()</code> -&gt; <code>object</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/instance.js#L1061">View code</a></p>
+<p>Convert the instance to a JSON representation. Proxies to calling <code>get</code> with no keys. This means get all values gotten from the DB, and apply all custom getters.</p>
+<p><strong>See:</strong></p>
+<ul>
+<li><a href="./instance#get">Instance#get</a></li>
+</ul>
+<hr />
+<p><em>This document is automatically generated based on source code comments. Please do not edit it directly, as your changes will be ignored. Please write on <a href="irc://irc.freenode.net/#sequelizejs">IRC</a>, open an issue or a create a pull request if you feel something can be improved. For help on how to write source code documentation see <a href="http://usejsdoc.org">JSDoc</a> and <a href="https://github.com/tj/dox">dox</a></em></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="/v3/api/associations/" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="/v3/api/model/" class="btn btn-neutral" title="Model"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="/v3/api/model/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="/v3/api/associations/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="/v3/js/theme_extra.js" defer></script>
+    <script src="/v3/js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="/v3/search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

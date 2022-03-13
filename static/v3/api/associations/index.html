@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://sequelize.org/v3/docs/api/associations/">
+  <link rel="shortcut icon" href="/v3/favicon.ico">
+  
+  <title>Overview - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="/v3/css/theme.css" />
+  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="/v3/css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Overview";
+    var mkdocs_page_input_path = "api/associations/index.md";
+    var mkdocs_page_url = "/api/associations/";
+  </script>
+  
+  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/docs/models-definition/">Definition</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/docs/models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/instances/">Instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/migrations/">Migrations</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/instance/">Instance</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">Associations</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Overview</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#hasonetarget-options">hasOne(target, [options])</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#belongstotarget-options">belongsTo(target, [options])</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hasmanytarget-options">hasMany(target, [options])</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#belongstomanytarget-options">belongsToMany(target, [options])</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="./belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="./has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="./has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="./belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/errors/">Errors</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/changelog/">Changelog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="/v3">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="/v3">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>API &raquo;</li>
+        
+      
+        
+          <li>Associations &raquo;</li>
+        
+      
+    
+    <li>Overview</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/associations/index.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p><a name="associations"></a></p>
+<h1 id="mixin-associations">Mixin Associations</h1>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/mixin.js#L89">View code</a></p>
+<p>Creating associations in sequelize is done by calling one of the belongsTo / hasOne / hasMany / belongsToMany functions on a model (the source), and providing another model as the first argument to the function (the target).</p>
+<ul>
+<li>hasOne - adds a foreign key to the target and singular association mixins to the source.</li>
+<li>belongsTo - add a foreign key and singular association mixins to the source.</li>
+<li>hasMany - adds a foreign key to target and plural association mixins to the source.</li>
+<li>belongsToMany - creates an N:M association with a join table and adds plural association mixins to the source. The junction table is created with sourceId and targetId.</li>
+</ul>
+<p>Creating an association will add a foreign key constraint to the attributes. All associations use <code>CASCADE</code> on update and <code>SET NULL</code> on delete, except for n:m, which also uses <code>CASCADE</code> on delete.</p>
+<p>When creating associations, you can provide an alias, via the <code>as</code> option. This is useful if the same model is associated twice, or you want your association to be called something other than the name of the target model.</p>
+<p>As an example, consider the case where users have many pictures, one of which is their profile picture. All pictures have a <code>userId</code>, but in addition the user model also has a <code>profilePictureId</code>, to be able to easily load the user's profile picture.</p>
+<pre><code class="language-js">User.hasMany(Picture)
+User.belongsTo(Picture, { as: 'ProfilePicture', constraints: false })
+
+user.getPictures() // gets you all pictures
+user.getProfilePicture() // gets you only the profile picture
+
+User.findAll({
+  where: ...,
+  include: [
+    { model: Picture }, // load all pictures
+    { model: Picture, as: 'ProfilePicture' }, // load the profile picture. Notice that the spelling must be the exact same as the one in the association
+  ]
+})
+</code></pre>
+<p>To get full control over the foreign key column added by sequelize, you can use the <code>foreignKey</code> option. It can either be a string, that specifies the name, or and object type definition,
+equivalent to those passed to <code>sequelize.define</code>.</p>
+<pre><code class="language-js">User.hasMany(Picture, { foreignKey: 'uid' })
+</code></pre>
+<p>The foreign key column in Picture will now be called <code>uid</code> instead of the default <code>userId</code>.</p>
+<pre><code class="language-js">User.hasMany(Picture, {
+  foreignKey: {
+    name: 'uid',
+    allowNull: false
+  }
+})
+</code></pre>
+<p>This specifies that the <code>uid</code> column cannot be null. In most cases this will already be covered by the foreign key constraints, which sequelize creates automatically, but can be useful in case where the foreign keys are disabled, e.g. due to circular references (see <code>constraints: false</code> below).</p>
+<p>When fetching associated models, you can limit your query to only load some models. These queries are written in the same way as queries to <code>find</code>/<code>findAll</code>. To only get pictures in JPG, you can do:</p>
+<pre><code class="language-js">user.getPictures({
+  where: {
+    format: 'jpg'
+  }
+})
+</code></pre>
+<p>There are several ways to update and add new associations. Continuing with our example of users and pictures:</p>
+<pre><code class="language-js">user.addPicture(p) // Add a single picture
+user.setPictures([p1, p2]) // Associate user with ONLY these two picture, all other associations will be deleted
+user.addPictures([p1, p2]) // Associate user with these two pictures, but don't touch any current associations
+</code></pre>
+<p>You don't have to pass in a complete object to the association functions, if your associated model has a single primary key:</p>
+<pre><code class="language-js">user.addPicture(req.query.pid) // Here pid is just an integer, representing the primary key of the picture
+</code></pre>
+<p>In the example above we have specified that a user belongs to his profile picture. Conceptually, this might not make sense, but since we want to add the foreign key to the user model this is the way to do it.</p>
+<p>Note how we also specified <code>constraints: false</code> for profile picture. This is because we add a foreign key from user to picture (profilePictureId), and from picture to user (userId). If we were to add foreign keys to both, it would create a cyclic dependency, and sequelize would not know which table to create first, since user depends on picture, and picture depends on user. These kinds of problems are detected by sequelize before the models are synced to the database, and you will get an error along the lines of <code>Error: Cyclic dependency found. 'users' is dependent of itself</code>. If you encounter this, you should either disable some constraints, or rethink your associations completely.</p>
+<hr />
+<p><a name="hasone"></a></p>
+<h2 id="hasonetarget-options"><code>hasOne(target, [options])</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/mixin.js#L131">View code</a></p>
+<p>Creates an association between this (the source) and the provided target. The foreign key is added on the target.</p>
+<p>Example: <code>User.hasOne(Profile)</code>. This will add userId to the profile table.</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>target</td>
+<td>Model</td>
+<td></td>
+</tr>
+<tr>
+<td>[options]</td>
+<td>object</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.hooks=false]</td>
+<td>boolean</td>
+<td>Set to true to run before-/afterDestroy hooks when an associated model is deleted because of a cascade. For example if <code>User.hasOne(Profile, {onDelete: 'cascade', hooks:true})</code>, the before-/afterDestroy hooks for profile will be called when a user is deleted. Otherwise the profile will be deleted without invoking any hooks</td>
+</tr>
+<tr>
+<td>[options.as]</td>
+<td>string</td>
+<td>The alias of this model, in singular form. See also the <code>name</code> option passed to <code>sequelize.define</code>. If you create multiple associations between the same tables, you should provide an alias to be able to distinguish between them. If you provide an alias when creating the association, you should provide the same alias when eager loading and when getting associated models. Defaults to the singularized name of target</td>
+</tr>
+<tr>
+<td>[options.foreignKey]</td>
+<td>string &#124; object</td>
+<td>The name of the foreign key in the target table or an object representing the type definition for the foreign column (see <code>Sequelize.define</code> for syntax). When using an object, you can add a <code>name</code> property to set the name of the column. Defaults to the name of source + primary key of source</td>
+</tr>
+<tr>
+<td>[options.onDelete='SET&nbsp;NULL &#124; CASCADE']</td>
+<td>string</td>
+<td>SET NULL if foreignKey allows nulls, CASCADE if otherwise</td>
+</tr>
+<tr>
+<td>[options.onUpdate='CASCADE']</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.constraints=true]</td>
+<td>boolean</td>
+<td>Should on update and on delete constraints be enabled on the foreign key.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="belongsto"></a></p>
+<h2 id="belongstotarget-options"><code>belongsTo(target, [options])</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/mixin.js#L149">View code</a></p>
+<p>Creates an association between this (the source) and the provided target. The foreign key is added on the source.</p>
+<p>Example: <code>Profile.belongsTo(User)</code>. This will add userId to the profile table.</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>target</td>
+<td>Model</td>
+<td></td>
+</tr>
+<tr>
+<td>[options]</td>
+<td>object</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.hooks=false]</td>
+<td>boolean</td>
+<td>Set to true to run before-/afterDestroy hooks when an associated model is deleted because of a cascade. For example if <code>User.hasOne(Profile, {onDelete: 'cascade', hooks:true})</code>, the before-/afterDestroy hooks for profile will be called when a user is deleted. Otherwise the profile will be deleted without invoking any hooks</td>
+</tr>
+<tr>
+<td>[options.as]</td>
+<td>string</td>
+<td>The alias of this model, in singular form. See also the <code>name</code> option passed to <code>sequelize.define</code>. If you create multiple associations between the same tables, you should provide an alias to be able to distinguish between them. If you provide an alias when creating the association, you should provide the same alias when eager loading and when getting associated models. Defaults to the singularized name of target</td>
+</tr>
+<tr>
+<td>[options.foreignKey]</td>
+<td>string &#124; object</td>
+<td>The name of the foreign key in the source table or an object representing the type definition for the foreign column (see <code>Sequelize.define</code> for syntax). When using an object, you can add a <code>name</code> property to set the name of the column. Defaults to the name of target + primary key of target</td>
+</tr>
+<tr>
+<td>[options.targetKey]</td>
+<td>string</td>
+<td>The name of the field to use as the key for the association in the target table. Defaults to the primary key of the target table</td>
+</tr>
+<tr>
+<td>[options.onDelete='SET&nbsp;NULL &#124; NO&nbsp;ACTION']</td>
+<td>string</td>
+<td>SET NULL if foreignKey allows nulls, NO ACTION if otherwise</td>
+</tr>
+<tr>
+<td>[options.onUpdate='CASCADE']</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.constraints=true]</td>
+<td>boolean</td>
+<td>Should on update and on delete constraints be enabled on the foreign key.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="hasmany"></a></p>
+<h2 id="hasmanytarget-options"><code>hasMany(target, [options])</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/mixin.js#L166">View code</a></p>
+<p>Creates a 1:m association between this (the source) and the provided target. The foreign key is added on the target.</p>
+<p>Example: <code>User.hasMany(Profile)</code>. This will add userId to the profile table.</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>target</td>
+<td>Model</td>
+<td></td>
+</tr>
+<tr>
+<td>[options]</td>
+<td>object</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.hooks=false]</td>
+<td>boolean</td>
+<td>Set to true to run before-/afterDestroy hooks when an associated model is deleted because of a cascade. For example if <code>User.hasOne(Profile, {onDelete: 'cascade', hooks:true})</code>, the before-/afterDestroy hooks for profile will be called when a user is deleted. Otherwise the profile will be deleted without invoking any hooks</td>
+</tr>
+<tr>
+<td>[options.as]</td>
+<td>string &#124; object</td>
+<td>The alias of this model. If you provide a string, it should be plural, and will be singularized using node.inflection. If you want to control the singular version yourself, provide an object with <code>plural</code> and <code>singular</code> keys. See also the <code>name</code> option passed to <code>sequelize.define</code>. If you create multiple associations between the same tables, you should provide an alias to be able to distinguish between them. If you provide an alias when creating the association, you should provide the same alias when eager loading and when getting associated models. Defaults to the pluralized name of target</td>
+</tr>
+<tr>
+<td>[options.foreignKey]</td>
+<td>string &#124; object</td>
+<td>The name of the foreign key in the target table or an object representing the type definition for the foreign column (see <code>Sequelize.define</code> for syntax). When using an object, you can add a <code>name</code> property to set the name of the column. Defaults to the name of source + primary key of source</td>
+</tr>
+<tr>
+<td>[options.scope]</td>
+<td>object</td>
+<td>A key/value set that will be used for association create and find defaults on the target. (sqlite not supported for N:M)</td>
+</tr>
+<tr>
+<td>[options.onDelete='SET&nbsp;NULL &#124; CASCADE']</td>
+<td>string</td>
+<td>SET NULL if foreignKey allows nulls, CASCADE if otherwise</td>
+</tr>
+<tr>
+<td>[options.onUpdate='CASCADE']</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.constraints=true]</td>
+<td>boolean</td>
+<td>Should on update and on delete constraints be enabled on the foreign key.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="belongstomany"></a></p>
+<h2 id="belongstomanytarget-options"><code>belongsToMany(target, [options])</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/mixin.js#L245">View code</a></p>
+<p>Create an N:M association with a join table.</p>
+<pre><code class="language-js">User.belongsToMany(Project, { through: 'UserProjects' })
+Project.belongsToMany(User, { through: 'UserProjects' })
+</code></pre>
+<p>Defining <code>through</code> is required. Sequelize would previously attempt to auto generate names but that would not always lead to the most logical setups.</p>
+<p>If you define a through model with custom attributes, these attributes can be set when adding / setting new associations in two ways. Consider users and projects from before with a join table that stores whether the project has been started yet:</p>
+<pre><code class="language-js">var UserProjects = sequelize.define('UserProjects', {
+  started: Sequelize.BOOLEAN
+})
+User.belongsToMany(Project, { through: UserProjects })
+Project.belongsToMany(User, { through: UserProjects })
+</code></pre>
+<pre><code class="language-js">jan.addProject(homework, { started: false }) // The homework project is not started yet
+jan.setProjects([makedinner, doshopping], { started: true}) // Both shopping and dinner has been started
+</code></pre>
+<p>If you want to set several target instances, but with different attributes you have to set the attributes on the instance, using a property with the name of the through model:</p>
+<pre><code class="language-js">p1.UserProjects = {
+  started: true
+}
+user.setProjects([p1, p2], {started: false}) // The default value is false, but p1 overrides that.
+</code></pre>
+<p>Similarly, when fetching through a join table with custom attributes, these attributes will be available as an object with the name of the through model.</p>
+<pre><code class="language-js">user.getProjects().then(function (projects) {
+  var p1 = projects[0]
+  p1.UserProjects.started // Is this project started yet?
+})
+</code></pre>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>target</td>
+<td>Model</td>
+<td></td>
+</tr>
+<tr>
+<td>[options]</td>
+<td>object</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.hooks=false]</td>
+<td>boolean</td>
+<td>Set to true to run before-/afterDestroy hooks when an associated model is deleted because of a cascade. For example if <code>User.hasOne(Profile, {onDelete: 'cascade', hooks:true})</code>, the before-/afterDestroy hooks for profile will be called when a user is deleted. Otherwise the profile will be deleted without invoking any hooks</td>
+</tr>
+<tr>
+<td>[options.through]</td>
+<td>Model &#124; string &#124; object</td>
+<td>The name of the table that is used to join source and target in n:m associations. Can also be a sequelize model if you want to define the junction table yourself and add extra attributes to it.</td>
+</tr>
+<tr>
+<td>[options.through.model]</td>
+<td>Model</td>
+<td>The model used to join both sides of the N:M association.</td>
+</tr>
+<tr>
+<td>[options.through.scope]</td>
+<td>object</td>
+<td>A key/value set that will be used for association create and find defaults on the through model. (Remember to add the attributes to the through model)</td>
+</tr>
+<tr>
+<td>[options.through.unique=true]</td>
+<td>boolean</td>
+<td>If true a unique key will be generated from the foreign keys used (might want to turn this off and create specific unique keys when using scopes)</td>
+</tr>
+<tr>
+<td>[options.as]</td>
+<td>string &#124; object</td>
+<td>The alias of this association. If you provide a string, it should be plural, and will be singularized using node.inflection. If you want to control the singular version yourself, provide an object with <code>plural</code> and <code>singular</code> keys. See also the <code>name</code> option passed to <code>sequelize.define</code>. If you create multiple associations between the same tables, you should provide an alias to be able to distinguish between them. If you provide an alias when creating the association, you should provide the same alias when eager loading and when getting associated models. Defaults to the pluralized name of target</td>
+</tr>
+<tr>
+<td>[options.foreignKey]</td>
+<td>string &#124; object</td>
+<td>The name of the foreign key in the join table (representing the source model) or an object representing the type definition for the foreign column (see <code>Sequelize.define</code> for syntax). When using an object, you can add a <code>name</code> property to set the name of the column. Defaults to the name of source + primary key of source</td>
+</tr>
+<tr>
+<td>[options.otherKey]</td>
+<td>string &#124; object</td>
+<td>The name of the foreign key in the join table (representing the target model) or an object representing the type definition for the other column (see <code>Sequelize.define</code> for syntax). When using an object, you can add a <code>name</code> property to set the name of the column. Defaults to the name of target + primary key of target</td>
+</tr>
+<tr>
+<td>[options.scope]</td>
+<td>object</td>
+<td>A key/value set that will be used for association create and find defaults on the target. (sqlite not supported for N:M)</td>
+</tr>
+<tr>
+<td>[options.timestamps=sequelize.options.timestamps]</td>
+<td>boolean</td>
+<td>Should the join model have timestamps</td>
+</tr>
+<tr>
+<td>[options.onDelete='SET&nbsp;NULL &#124; CASCADE']</td>
+<td>string</td>
+<td>Cascade if this is a n:m, and set null if it is a 1:m</td>
+</tr>
+<tr>
+<td>[options.onUpdate='CASCADE']</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>[options.constraints=true]</td>
+<td>boolean</td>
+<td>Should on update and on delete constraints be enabled on the foreign key.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>This document is automatically generated based on source code comments. Please do not edit it directly, as your changes will be ignored. Please write on <a href="irc://irc.freenode.net/#sequelizejs">IRC</a>, open an issue or a create a pull request if you feel something can be improved. For help on how to write source code documentation see <a href="http://usejsdoc.org">JSDoc</a> and <a href="https://github.com/tj/dox">dox</a></em></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="./belongs-to/" class="btn btn-neutral float-right" title="BelongsTo (1:1)">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="/v3/api/instance/" class="btn btn-neutral" title="Instance"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="/v3/api/instance/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="./belongs-to/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="/v3/js/theme_extra.js" defer></script>
+    <script src="/v3/js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="/v3/search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

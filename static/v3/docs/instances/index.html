@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://sequelize.org/v3/docs/docs/instances/">
+  <link rel="shortcut icon" href="/v3/favicon.ico">
+  
+  <title>Instances - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="/v3/css/theme.css" />
+  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="/v3/css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Instances";
+    var mkdocs_page_input_path = "docs/instances.md";
+    var mkdocs_page_url = "/v3/docs/instances/";
+  </script>
+  
+  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/docs/models-definition/">Definition</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/docs/models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Instances</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/docs/migrations/">Migrations</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/instance/">Instance</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Associations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="/v3/api/associations/belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/api/errors/">Errors</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/changelog/">Changelog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="/v3/imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="/v3">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="/v3">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Documentation &raquo;</li>
+        
+      
+    
+    <li>Instances</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/docs/instances.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="building-a-non-persistent-instance">Building a non-persistent instance</h2>
+<p>In order to create instances of defined classes just do as follows&period; You might recognize the syntax if you coded Ruby in the past&period; Using the <code>build</code>-method will return an unsaved object&comma; which you explicitly have to save&period;</p>
+<pre><code class="language-js">var project = Project.build({
+  title: 'my awesome project',
+  description: 'woot woot. this will make me a rich man'
+})
+ 
+var task = Task.build({
+  title: 'specify the project idea',
+  description: 'bla',
+  deadline: new Date()
+})
+</code></pre>
+<p>Built instances will automatically get default values when they were defined&colon;</p>
+<pre><code class="language-js">// first define the model
+var Task = sequelize.define('task', {
+  title: Sequelize.STRING,
+  rating: { type: Sequelize.STRING, defaultValue: 3 }
+})
+ 
+// now instantiate an object
+var task = Task.build({title: 'very important task'})
+ 
+task.title  // ==&gt; 'very important task'
+task.rating // ==&gt; 3
+</code></pre>
+<p>To get it stored in the database&comma; use the <code>save</code>-method and catch the events ... if needed&colon;</p>
+<pre><code class="language-js">project.save().then(function() {
+  // my nice callback stuff
+})
+ 
+task.save().catch(function(error) {
+  // mhhh, wth!
+})
+ 
+// you can also build, save and access the object with chaining:
+Task
+  .build({ title: 'foo', description: 'bar', deadline: new Date() })
+  .save()
+  .then(function(anotherTask) {
+    // you can now access the currently saved task with the variable anotherTask... nice!
+  }).catch(function(error) {
+    // Ooops, do some error-handling
+  })
+</code></pre>
+<h2 id="creating-persistent-instances">Creating persistent instances</h2>
+<p>Besides constructing objects&comma; that needs an explicit save call to get stored in the database&comma; there is also the possibility to do all those steps with one single command&period; It's called <code>create</code>.</p>
+<pre><code class="language-js">Task.create({ title: 'foo', description: 'bar', deadline: new Date() }).then(function(task) {
+  // you can now access the newly created task via the variable task
+})
+</code></pre>
+<p>It is also possible to define which attributes can be set via the create method&period; This can be especially very handy if you create database entries based on a form which can be filled by a user&period; Using that would for example allow you to restrict the <code>User</code> model to set only a username and an address but not an admin flag&colon;</p>
+<pre><code class="language-js">User.create({ username: 'barfooz', isAdmin: true }, { fields: [ 'username' ] }).then(function(user) {
+  // let's assume the default of isAdmin is false:
+  console.log(user.get({
+    plain: true
+  })) // =&gt; { username: 'barfooz', isAdmin: false }
+})
+</code></pre>
+<h2 id="updating-saving-persisting-an-instance">Updating / Saving / Persisting an instance</h2>
+<p>Now lets change some values and save changes to the database&period;&period;&period; There are two ways to do that&colon;</p>
+<pre><code class="language-js">// way 1
+task.title = 'a very different title now'
+task.save().then(function() {})
+ 
+// way 2
+task.update({
+  title: 'a very different title now'
+}).then(function() {})
+</code></pre>
+<p>It's also possible to define which attributes should be saved when calling <code>save</code>&comma; by passing an array of column names&period; This is useful when you set attributes based on a previously defined object&period; E&period;g&period; if you get the values of an object via a form of a web app&period; Furthermore this is used internally for <code>update</code>&period; This is how it looks like&colon;</p>
+<pre><code class="language-js">task.title = 'foooo'
+task.description = 'baaaaaar'
+task.save({fields: ['title']}).then(function() {
+ // title will now be 'foooo' but description is the very same as before
+})
+ 
+// The equivalent call using update looks like this:
+task.update({ title: 'foooo', description: 'baaaaaar'}, {fields: ['title']}).then(function() {
+ // title will now be 'foooo' but description is the very same as before
+})
+</code></pre>
+<p>When you call <code>save</code> without changing any attribute, this method will execute nothing;</p>
+<h2 id="destroying-deleting-persistent-instances">Destroying / Deleting persistent instances</h2>
+<p>Once you created an object and got a reference to it&comma; you can delete it from the database&period; The relevant method is <code>destroy</code>&colon;</p>
+<pre><code class="language-js">Task.create({ title: 'a task' }).then(function(task) {
+  // now you see me...
+  return task.destroy();
+}).then(function() {
+ // now i'm gone :)
+})
+</code></pre>
+<p>If the <code>paranoid</code> options is true, the object will not be deleted, instead the <code>deletedAt</code> column will be set to the current timestamp. To force the deletion, you can pass <code>force: true</code> to the destroy call:</p>
+<pre><code class="language-js">task.destroy({ force: true })
+</code></pre>
+<h2 id="working-in-bulk-creating-updating-and-destroying-multiple-rows-at-once">Working in bulk (creating, updating and destroying multiple rows at once)</h2>
+<p>In addition to updating a single instance, you can also create, update, and delete multiple instances at once. The functions you are looking for are called</p>
+<ul>
+<li><code>Model.bulkCreate</code></li>
+<li><code>Model.update</code></li>
+<li><code>Model.destroy</code></li>
+</ul>
+<p>Since you are working with multiple models, the callbacks will not return DAO instances. BulkCreate will return an array of model instances/DAOs, they will however, unlike <code>create</code>, not have the resulting values of autoIncrement attributes.<code>update</code> and <code>destroy</code> will return the number of affected rows.</p>
+<p>First lets look at bulkCreate</p>
+<pre><code class="language-js">User.bulkCreate([
+  { username: 'barfooz', isAdmin: true },
+  { username: 'foo', isAdmin: true },
+  { username: 'bar', isAdmin: false }
+]).then(function() { // Notice: There are no arguments here, as of right now you'll have to...
+  return User.findAll();
+}).then(function(users) {
+  console.log(users) // ... in order to get the array of user objects
+})
+</code></pre>
+<p>To update several rows at once:</p>
+<pre><code class="language-js">Task.bulkCreate([
+  {subject: 'programming', status: 'executing'},
+  {subject: 'reading', status: 'executing'},
+  {subject: 'programming', status: 'finished'}
+]).then(function() {
+  return Task.update(
+    { status: 'inactive' }, /* set attributes' value */,
+    { where: { subject: 'programming' }} /* where criteria */
+  );
+}).spread(function(affectedCount, affectedRows) {
+  // .update returns two values in an array, therefore we use .spread
+  // Notice that affectedRows will only be defined in dialects which support returning: true
+
+  // affectedCount will be 2
+  return Task.findAll();
+}).then(function(tasks) {
+  console.log(tasks) // the 'programming' tasks will both have a status of 'inactive'
+})
+</code></pre>
+<p>And delete them:</p>
+<pre><code class="language-js">Task.bulkCreate([
+  {subject: 'programming', status: 'executing'},
+  {subject: 'reading', status: 'executing'},
+  {subject: 'programming', status: 'finished'}
+]).then(function() {
+  return Task.destroy({
+    where: {
+      subject: 'programming'
+    },
+    truncate: true /* this will ignore where and truncate the table instead */
+  });
+}).then(function(affectedRows) {
+  // affectedRows will be 2
+  return Task.findAll();
+}).then(function(tasks) {
+  console.log(tasks) // no programming, just reading :(
+})
+</code></pre>
+<p>If you are accepting values directly from the user, it might be beneficial to limit the columns that you want to actually insert.<code>bulkCreate()</code>accepts an options object as the second parameter. The object can have a <code>fields</code> parameter, &lpar;an array&rpar; to let it know which fields you want to build explicitly</p>
+<pre><code class="language-js">User.bulkCreate([
+  { username: 'foo' },
+  { username: 'bar', admin: true}
+], { fields: ['username'] }).then(function() {
+  // nope bar, you can't be admin!
+})
+</code></pre>
+<p><code>bulkCreate</code> was originally made to be a mainstream&sol;fast way of inserting records&comma; however&comma; sometimes you want the luxury of being able to insert multiple rows at once without sacrificing model validations even when you explicitly tell Sequelize which columns to sift through&period; You can do by adding a <code>validate: true</code> property to the options object.</p>
+<pre><code class="language-js">var Tasks = sequelize.define('task', {
+  name: {
+    type: Sequelize.STRING,
+    validate: {
+      notNull: { args: true, msg: 'name cannot be null' }
+    }
+  },
+  code: {
+    type: Sequelize.STRING,
+    validate: {
+      len: [3, 10]
+    }
+  }
+})
+ 
+Tasks.bulkCreate([
+  {name: 'foo', code: '123'},
+  {code: '1234'},
+  {name: 'bar', code: '1'}
+], { validate: true }).catch(function(errors) {
+  /* console.log(errors) would look like:
+  [
+    { record:
+    ...
+    errors:
+      { name: 'SequelizeValidationError',
+        message: 'Validation error',
+        errors: [Object] } },
+    { record:
+      ...
+      errors:
+        { name: 'SequelizeValidationError',
+        message: 'Validation error',
+        errors: [Object] } }
+  ]
+  */
+})
+</code></pre>
+<h2 id="values-of-an-instance">Values of an instance</h2>
+<p>If you log an instance you will notice&comma; that there is a lot of additional stuff&period; In order to hide such stuff and reduce it to the very interesting information&comma; you can use the<code>get</code>-attribute&period; Calling it with the option <code>plain</code> = true will only return the values of an instance&period;</p>
+<pre><code class="language-js">Person.create({
+  name: 'Rambow',
+  firstname: 'John'
+}).then(function(john) {
+  console.log(john.get({
+    plain: true
+  }))
+})
+ 
+// result:
+ 
+// { name: 'Rambow',
+//   firstname: 'John',
+//   id: 1,
+//   createdAt: Tue, 01 May 2012 19:12:16 GMT,
+//   updatedAt: Tue, 01 May 2012 19:12:16 GMT
+// }
+</code></pre>
+<p><strong>Hint&colon;</strong>You can also transform an instance into JSON by using <code>JSON.stringify(instance)</code>&period; This will basically return the very same as <code>values</code>&period;</p>
+<h2 id="reloading-instances">Reloading instances</h2>
+<p>If you need to get your instance in sync&comma; you can use the method<code>reload</code>&period; It will fetch the current data from the database and overwrite the attributes of the model on which the method has been called on&period;</p>
+<pre><code class="language-js">Person.findOne({ where: { name: 'john' } }).then(function(person) {
+  person.name = 'jane'
+  console.log(person.name) // 'jane'
+ 
+  person.reload().then(function() {
+    console.log(person.name) // 'john'
+  })
+})
+</code></pre>
+<h2 id="incrementing-certain-values-of-an-instance">Incrementing certain values of an instance</h2>
+<p>In order to increment values of an instance without running into concurrency issues&comma; you may use <code>increment</code>&period;</p>
+<p>First of all you can define a field and the value you want to add to it&period;</p>
+<pre><code class="language-js">User.findById(1).then(function(user) {
+  return user.increment('my-integer-field', {by: 2})
+}).then(/* ... */)
+</code></pre>
+<p>Second&comma; you can define multiple fields and the value you want to add to them&period;</p>
+<pre><code class="language-js">User.findById(1).then(function(user) {
+  return user.increment([ 'my-integer-field', 'my-very-other-field' ], {by: 2})
+}).then(/* ... */)
+</code></pre>
+<p>Third&comma; you can define an object containing fields and its increment values&period;</p>
+<pre><code class="language-js">User.findById(1).then(function(user) {
+  return user.increment({
+    'my-integer-field':    2,
+    'my-very-other-field': 3
+  })
+}).then(/* ... */)
+</code></pre>
+<h2 id="decrementing-certain-values-of-an-instance">Decrementing certain values of an instance</h2>
+<p>In order to decrement values of an instance without running into concurrency issues&comma; you may use <code>decrement</code>&period;</p>
+<p>First of all you can define a field and the value you want to add to it&period;</p>
+<pre><code class="language-js">User.findById(1).then(function(user) {
+  return user.decrement('my-integer-field', {by: 2})
+}).then(/* ... */)
+</code></pre>
+<p>Second&comma; you can define multiple fields and the value you want to add to them&period;</p>
+<pre><code class="language-js">User.findById(1).then(function(user) {
+  return user.decrement([ 'my-integer-field', 'my-very-other-field' ], {by: 2})
+}).then(/* ... */)
+</code></pre>
+<p>Third&comma; you can define an object containing fields and its decrement values&period;</p>
+<pre><code class="language-js">User.findById(1).then(function(user) {
+  return user.decrement({
+    'my-integer-field':    2,
+    'my-very-other-field': 3
+  })
+}).then(/* ... */)
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="/v3/docs/associations/" class="btn btn-neutral float-right" title="Relations / Associations">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="/v3/docs/scopes/" class="btn btn-neutral" title="Scopes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="/v3/docs/scopes/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="/v3/docs/associations/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="/v3/js/theme_extra.js" defer></script>
+    <script src="/v3/js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="/v3/search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
