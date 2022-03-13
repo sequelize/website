@@ -11,7 +11,7 @@ This website is built using [Docusaurus 2](https://docusaurus.io/).
 yarn
 
 # download the sequelize repository (used for including tested code snippets & generating jsdoc)
-./sync-repositories.sh
+yarn sync
 ```
 
 ### Local Development
