@@ -1,167 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>http://docs.sequelizejs.com/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/changelog/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/changelog/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/imprint/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/imprint/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/datatypes/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/datatypes/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/deferrable/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/deferrable/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/errors/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/errors/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/hooks/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/hooks/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/instance/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/instance/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/model/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/model/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/sequelize/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/sequelize/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/transaction/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/transaction/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/associations/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/associations/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/associations/belongs-to-many/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/associations/belongs-to-many/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/associations/belongs-to/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/associations/belongs-to/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/associations/has-many/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/associations/has-many/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/api/associations/has-one/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/api/associations/has-one/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/articles/express/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/articles/express/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/articles/getting-started/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/articles/getting-started/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/articles/heroku/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/articles/heroku/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/associations/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/associations/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/getting-started/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/getting-started/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/hooks/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/hooks/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/instances/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/instances/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/legacy/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/legacy/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/migrations/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/migrations/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/models-definition/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/models-definition/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/models-usage/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/models-usage/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/querying/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/querying/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/raw-queries/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/raw-queries/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/schema/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/schema/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/scopes/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/scopes/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/transactions/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/transactions/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://docs.sequelizejs.com/docs/usage/</loc>
+         <loc>https://sequelize.org/docs/v3/docs/docs/usage/</loc>
          <lastmod>2022-02-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
