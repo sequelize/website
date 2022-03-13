@@ -54,6 +54,24 @@ Collection.init({
 
 And if your model has no primary key at all you can use `Model.removeAttribute('id');`
 
+Instances without primary keys can still be retrieved using `Model.findOne` and `Model.findAll`.  
+While it's currently possible to use their instance methods (`instance.save`, `instance.update`, etc…), doing this will lead to subtle bugs,
+and is planned for removal in a future major update.
+
+:::info
+
+If your model has no primary keys, you need to use the static equivalent of the following instance methods, and provide your own `where` parameter:
+
+- `instance.save`: `Model.update`
+- `instance.update`: `Model.update`
+- `instance.reload`: `Model.findOne`
+- `instance.destroy`: `Model.destroy`
+- `instance.restore`: `Model.restore`
+- `instance.decrement`: `Model.decrement`
+- `instance.increment`: `Model.increment`
+
+:::
+
 ## Foreign keys
 
 ```js
