@@ -14,9 +14,7 @@ module.exports = {
     'plugin:mdx/recommended',
   ],
   rules: {
-    // sequelize needs to support node >= 12.
-    // Object.hasOwn, Array#at, String#replaceAll are available in node >= 16.
-    // `node:` protocol is available in node >= 14.
+    // there are not supported enough in recent browsers to justify enforcing their usage
     'prefer-object-has-own': 'off',
     'unicorn/prefer-at': 'off',
     'unicorn/prefer-string-replace-all': 'off',
@@ -65,8 +63,5 @@ module.exports = {
   ],
   settings: {
     'mdx/code-blocks': true,
-    // optional, if you want to disable language mapper, set it to `false`
-    // if you want to override the default language mapper inside, you can provide your own
-    'mdx/language-mapper': {},
   },
 };
