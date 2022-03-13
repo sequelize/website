@@ -42,7 +42,7 @@ git clone -b v6 --single-branch "$MAIN_REPO_URL" --depth 1 .sequelize/v6
 
 pushd "$DOCS_DIR/v6"
 yarn # Install branch deps & build
-yarn docs # Generate v7 typedocs
+yarn docs # Generate v6 typedocs
 mv esdoc "$API_DIR/v6" # Move compiled api reference
 popd
 
