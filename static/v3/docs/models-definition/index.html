@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://sequelize.org/v3/docs/docs/models-definition/">
+  <link rel="shortcut icon" href="/v3/favicon.ico">
+  
+  <title>Definition - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="/v3/css/theme.css" />
+  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="/v3/css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Definition";
+    var mkdocs_page_input_path = "docs/models-definition.md";
+    var mkdocs_page_url = "/docs/models-definition/";
+  </script>
+  
+  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">Models</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Definition</a>
+    <ul class="current">
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../instances/">Instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../migrations/">Migrations</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/instance/">Instance</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Associations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/errors/">Errors</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../changelog/">Changelog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Documentation &raquo;</li>
+        
+      
+        
+          <li>Models &raquo;</li>
+        
+      
+    
+    <li>Definition</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/docs/models-definition.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="definition">Definition</h2>
+<p>To define mappings between a model and a table, use the <code>define</code> method. Sequelize will then automatically add the attributes <code>createdAt</code> and <code>updatedAt</code> to it. So you will be able to know when the database entry went into the db and when it was updated the last time. If you do not want timestamps on your models, only want some timestamps, or you are working with an existing database where the columns are named something else, jump straight on to <a href="#configuration">configuration </a>to see how to do that.</p>
+<pre><code class="language-js">var Project = sequelize.define('project', {
+  title: Sequelize.STRING,
+  description: Sequelize.TEXT
+})
+
+var Task = sequelize.define('task', {
+  title: Sequelize.STRING,
+  description: Sequelize.TEXT,
+  deadline: Sequelize.DATE
+})
+</code></pre>
+<p>You can also set some options on each column:</p>
+<pre><code class="language-js">var Foo = sequelize.define('foo', {
+ // instantiating will automatically set the flag to true if not set
+ flag: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true},
+
+ // default values for dates =&gt; current time
+ myDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
+
+ // setting allowNull to false will add NOT NULL to the column, which means an error will be
+ // thrown from the DB when the query is executed if the column is null. If you want to check that a value
+ // is not null before querying the DB, look at the validations section below.
+ title: { type: Sequelize.STRING, allowNull: false},
+
+ // Creating two objects with the same value will throw an error. The unique property can be either a
+ // boolean, or a string. If you provide the same string for multiple columns, they will form a
+ // composite unique key.
+ someUnique: {type: Sequelize.STRING, unique: true},
+ uniqueOne: { type: Sequelize.STRING,  unique: 'compositeIndex'},
+ uniqueTwo: { type: Sequelize.INTEGER, unique: 'compositeIndex'}
+
+ // The unique property is simply a shorthand to create a unique index.
+ someUnique: {type: Sequelize.STRING, unique: true}
+ // It's exactly the same as creating the index in the model's options.
+ {someUnique: {type: Sequelize.STRING}},
+ {indexes: [{unique: true, fields: ['someUnique']}]}
+
+ // Go on reading for further information about primary keys
+ identifier: { type: Sequelize.STRING, primaryKey: true},
+
+ // autoIncrement can be used to create auto_incrementing integer columns
+ incrementMe: { type: Sequelize.INTEGER, autoIncrement: true },
+
+ // Comments can be specified for each field for MySQL and PG
+ hasComment: { type: Sequelize.INTEGER, comment: &quot;I'm a comment!&quot; },
+
+ // You can specify a custom field name via the &quot;field&quot; attribute:
+ fieldWithUnderscores: { type: Sequelize.STRING, field: &quot;field_with_underscores&quot; },
+
+ // It is possible to create foreign keys:
+ bar_id: {
+   type: Sequelize.INTEGER,
+
+   references: {
+     // This is a reference to another model
+     model: Bar,
+
+     // This is the column name of the referenced model
+     key: 'id',
+
+     // This declares when to check the foreign key constraint. PostgreSQL only.
+     deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+   }
+ }
+})
+</code></pre>
+<p>The comment option can also be used on a table, see <a href="#configuration">model configuration</a></p>
+<h2 id="data-types">Data types</h2>
+<p>Below are some of the datatypes supported by sequelize. For a full and updated list, see <a href="../api/datatypes">DataTypes</a>.</p>
+<pre><code class="language-js">Sequelize.STRING                      // VARCHAR(255)
+Sequelize.STRING(1234)                // VARCHAR(1234)
+Sequelize.STRING.BINARY               // VARCHAR BINARY
+Sequelize.TEXT                        // TEXT
+Sequelize.TEXT('tiny')                // TINYTEXT
+
+Sequelize.INTEGER                     // INTEGER
+Sequelize.BIGINT                      // BIGINT
+Sequelize.BIGINT(11)                  // BIGINT(11)
+
+Sequelize.FLOAT                       // FLOAT
+Sequelize.FLOAT(11)                   // FLOAT(11)
+Sequelize.FLOAT(11, 12)               // FLOAT(11,12)
+
+Sequelize.REAL                        // REAL        PostgreSQL only.
+Sequelize.REAL(11)                    // REAL(11)    PostgreSQL only.
+Sequelize.REAL(11, 12)                // REAL(11,12) PostgreSQL only.
+
+Sequelize.DOUBLE                      // DOUBLE
+Sequelize.DOUBLE(11)                  // DOUBLE(11)
+Sequelize.DOUBLE(11, 12)              // DOUBLE(11,12)
+
+Sequelize.DECIMAL                     // DECIMAL
+Sequelize.DECIMAL(10, 2)              // DECIMAL(10,2)
+
+Sequelize.DATE                        // DATETIME for mysql / sqlite, TIMESTAMP WITH TIME ZONE for postgres
+Sequelize.DATE(6)                     // DATETIME(6) for mysql 5.6.4+. Fractional seconds support with up to 6 digits of precision
+Sequelize.DATEONLY                    // DATE without time.
+Sequelize.BOOLEAN                     // TINYINT(1)
+
+Sequelize.ENUM('value 1', 'value 2')  // An ENUM with allowed values 'value 1' and 'value 2'
+
+Sequelize.ARRAY(Sequelize.TEXT)       // Defines an array. PostgreSQL only.
+Sequelize.ARRAY(Sequelize.ENUM)       // Defines an array of enum. PostgreSQL only.
+
+Sequelize.JSON                        // JSON column. PostgreSQL only.
+Sequelize.JSONB                       // JSONB column. PostgreSQL only.
+
+Sequelize.BLOB                        // BLOB (bytea for PostgreSQL)
+Sequelize.BLOB('tiny')                // TINYBLOB (bytea for PostgreSQL. Other options are medium and long)
+
+Sequelize.UUID                        // UUID datatype for PostgreSQL and SQLite, CHAR(36) BINARY for MySQL (use defaultValue: Sequelize.UUIDV1 or Sequelize.UUIDV4 to make sequelize generate the ids automatically)
+
+Sequelize.RANGE(Sequelize.INTEGER)    // Defines int4range range. PostgreSQL only.
+Sequelize.RANGE(Sequelize.BIGINT)     // Defined int8range range. PostgreSQL only.
+Sequelize.RANGE(Sequelize.DATE)       // Defines tstzrange range. PostgreSQL only.
+Sequelize.RANGE(Sequelize.DATEONLY)   // Defines daterange range. PostgreSQL only.
+Sequelize.RANGE(Sequelize.DECIMAL)    // Defines numrange range. PostgreSQL only.
+
+Sequelize.ARRAY(Sequelize.RANGE(Sequelize.DATE)) // Defines array of tstzrange ranges. PostgreSQL only.
+
+Sequelize.GEOMETRY                    // Spatial column.  PostgreSQL (with PostGIS) or MySQL only.
+Sequelize.GEOMETRY('POINT')           // Spatial column with geometry type.  PostgreSQL (with PostGIS) or MySQL only.
+Sequelize.GEOMETRY('POINT', 4326)     // Spatial column with geometry type and SRID.  PostgreSQL (with PostGIS) or MySQL only.
+</code></pre>
+<p>The BLOB data type allows you to insert data both as strings and as buffers. When you do a find or findAll on a model which has a BLOB column. that data will always be returned as a buffer.</p>
+<p>If you are working with the PostgreSQL TIMESTAMP WITHOUT TIME ZONE and you need to parse it to a different timezone, please use the pg library's own parser:</p>
+<pre><code class="language-js">require('pg').types.setTypeParser(1114, function(stringValue) {
+  return new Date(stringValue + &quot;+0000&quot;);
+  // e.g., UTC offset. Use any offset that you would like.
+});
+</code></pre>
+<p>In addition to the type mentioned above, integer, bigint, float and double also support unsigned and zerofill properties, which can be combined in any order:
+Be aware that this does not apply for PostgreSQL!</p>
+<pre><code class="language-js">Sequelize.INTEGER.UNSIGNED              // INTEGER UNSIGNED
+Sequelize.INTEGER(11).UNSIGNED          // INTEGER(11) UNSIGNED
+Sequelize.INTEGER(11).ZEROFILL          // INTEGER(11) ZEROFILL
+Sequelize.INTEGER(11).ZEROFILL.UNSIGNED // INTEGER(11) UNSIGNED ZEROFILL
+Sequelize.INTEGER(11).UNSIGNED.ZEROFILL // INTEGER(11) UNSIGNED ZEROFILL
+</code></pre>
+<p><em>The examples above only show integer, but the same can be done with bigint and float</em></p>
+<p>Usage in object notation:</p>
+<pre><code class="language-js">// for enums:
+sequelize.define('model', {
+  states: {
+    type:   Sequelize.ENUM,
+    values: ['active', 'pending', 'deleted']
+  }
+})
+</code></pre>
+<h2 id="deferrable">Deferrable</h2>
+<p>When you specify a foreign key column it is optionally possible to declare the deferrable
+type in PostgreSQL. The following options are available:</p>
+<pre><code class="language-js">// Defer all foreign key constraint check to the end of a transaction
+Sequelize.Deferrable.INITIALLY_DEFERRED
+
+// Immediately check the foreign key constraints
+Sequelize.Deferrable.INITIALLY_IMMEDIATE
+
+// Don't defer the checks at all
+Sequelize.Deferrable.NOT
+</code></pre>
+<p>The last option is the default in PostgreSQL and won't allow you to dynamically change
+the rule in a transaction. See <a href="transactions/#options">the transaction section</a> for further information.</p>
+<h2 id="getters-setters">Getters &amp; setters</h2>
+<p>It is possible to define 'object-property' getters and setter functions on your models, these can be used both for 'protecting' properties that map to database fields and for defining 'pseudo' properties.</p>
+<p>Getters and Setters can be defined in 2 ways (you can mix and match these 2 approaches):</p>
+<ul>
+<li>as part of a single property definition</li>
+<li>as part of a model options</li>
+</ul>
+<p><strong>N.B:</strong> If a getter or setter is defined in both places then the function found in the relevant property definition will always take precedence.</p>
+<h3 id="defining-as-part-of-a-property">Defining as part of a property</h3>
+<pre><code class="language-js">var Employee = sequelize.define('employee', {
+  name:  {
+    type     : Sequelize.STRING,
+    allowNull: false,
+    get      : function()  {
+      var title = this.getDataValue('title');
+      // 'this' allows you to access attributes of the instance
+      return this.getDataValue('name') + ' (' + title + ')';
+    },
+  },
+  title: {
+    type     : Sequelize.STRING,
+    allowNull: false,
+    set      : function(val) {
+      this.setDataValue('title', val.toUpperCase());
+    }
+  }
+});
+
+Employee
+  .create({ name: 'John Doe', title: 'senior engineer' })
+  .then(function(employee) {
+    console.log(employee.get('name')); // John Doe (SENIOR ENGINEER)
+    console.log(employee.get('title')); // SENIOR ENGINEER
+  })
+</code></pre>
+<h3 id="defining-as-part-of-the-model-options">Defining as part of the model options</h3>
+<p>Below is an example of defining the getters and setters in the model options. The <code>fullName</code> getter,  is an example of how you can define pseudo properties on your models - attributes which are not actually part of your database schema. In fact, pseudo properties can be defined in two ways: using model getters, or by using a column with the <a href="../api/datatypes#virtual"><code>VIRTUAL</code> datatype</a>. Virtual datatypes can have validations, while getters for virtual attributes cannot.</p>
+<p>Note that the <code>this.firstname</code> and <code>this.lastname</code> references in the <code>fullName</code> getter function will trigger a call to the respective getter functions. If you do not want that then use the <code>getDataValue()</code> method to access the raw value (see below).</p>
+<pre><code class="language-js">var Foo = sequelize.define('foo', {
+  firstname: Sequelize.STRING,
+  lastname: Sequelize.STRING
+}, {
+  getterMethods   : {
+    fullName       : function()  { return this.firstname + ' ' + this.lastname }
+  },
+
+  setterMethods   : {
+    fullName       : function(value) {
+        var names = value.split(' ');
+
+        this.setDataValue('firstname', names.slice(0, -1).join(' '));
+        this.setDataValue('lastname', names.slice(-1).join(' '));
+    },
+  }
+});
+</code></pre>
+<h3 id="helper-functions-for-use-inside-getter-and-setter-definitions">Helper functions for use inside getter and setter definitions</h3>
+<ul>
+<li>retrieving an underlying property value - always use <code>this.getDataValue()</code></li>
+</ul>
+<pre><code class="language-js">/* a getter for 'title' property */
+function() {
+    return this.getDataValue('title');
+}
+</code></pre>
+<ul>
+<li>setting an underlying property value - always use <code>this.setDataValue()</code></li>
+</ul>
+<pre><code class="language-js">/* a setter for 'title' property */
+function(title) {
+    return this.setDataValue('title', title.toString().toLowerCase());
+}
+</code></pre>
+<p><strong>N.B:</strong> It is important to stick to using the <code>setDataValue()</code> and <code>getDataValue()</code> functions (as opposed to accessing the underlying "data values" property directly) - doing so protects your custom getters and setters from changes in the underlying model implementations.</p>
+<h2 id="validations">Validations</h2>
+<p>Model validations, allow you to specify format/content/inheritance validations for each attribute of the model.</p>
+<p>Validations are automatically run on <code>create</code>, <code>update</code> and <code>save</code>. You can also call <code>validate()</code> to manually validate an instance.</p>
+<p>The validations are implemented by <a href="https://github.com/chriso/validator.js">validator.js</a>.</p>
+<pre><code class="language-js">var ValidateMe = sequelize.define('foo', {
+  foo: {
+    type: Sequelize.STRING,
+    validate: {
+      is: [&quot;^[a-z]+$&quot;,'i'],     // will only allow letters
+      is: /^[a-z]+$/i,          // same as the previous example using real RegExp
+      not: [&quot;[a-z]&quot;,'i'],       // will not allow letters
+      isEmail: true,            // checks for email format (foo@bar.com)
+      isUrl: true,              // checks for url format (http://foo.com)
+      isIP: true,               // checks for IPv4 (129.89.23.1) or IPv6 format
+      isIPv4: true,             // checks for IPv4 (129.89.23.1)
+      isIPv6: true,             // checks for IPv6 format
+      isAlpha: true,            // will only allow letters
+      isAlphanumeric: true,     // will only allow alphanumeric characters, so &quot;_abc&quot; will fail
+      isNumeric: true,          // will only allow numbers
+      isInt: true,              // checks for valid integers
+      isFloat: true,            // checks for valid floating point numbers
+      isDecimal: true,          // checks for any numbers
+      isLowercase: true,        // checks for lowercase
+      isUppercase: true,        // checks for uppercase
+      notNull: true,            // won't allow null
+      isNull: true,             // only allows null
+      notEmpty: true,           // don't allow empty strings
+      equals: 'specific value', // only allow a specific value
+      contains: 'foo',          // force specific substrings
+      notIn: [['foo', 'bar']],  // check the value is not one of these
+      isIn: [['foo', 'bar']],   // check the value is one of these
+      notContains: 'bar',       // don't allow specific substrings
+      len: [2,10],              // only allow values with length between 2 and 10
+      isUUID: 4,                // only allow uuids
+      isDate: true,             // only allow date strings
+      isAfter: &quot;2011-11-05&quot;,    // only allow date strings after a specific date
+      isBefore: &quot;2011-11-05&quot;,   // only allow date strings before a specific date
+      max: 23,                  // only allow values
+      min: 23,                  // only allow values &gt;= 23
+      isArray: true,            // only allow arrays
+      isCreditCard: true,       // check for valid credit card numbers
+
+      // custom validations are also possible:
+      isEven: function(value) {
+        if(parseInt(value) % 2 != 0) {
+          throw new Error('Only even values are allowed!')
+        // we also are in the model's context here, so this.otherField
+        // would get the value of otherField if it existed
+        }
+      }
+    }
+  }
+});
+</code></pre>
+<p>Note that where multiple arguments need to be passed to the built-in validation functions, the arguments to be passed must be in an array. But if a single array argument is to be passed, for instance an array of acceptable strings for <code>isIn</code>, this will be interpreted as multiple string arguments instead of one array argument. To work around this pass a single-length array of arguments, such as <code>[['one', 'two']]</code> as shown above.</p>
+<p>To use a custom error message instead of that provided by validator.js, use an object instead of the plain value or array of arguments, for example a validator which needs no argument can be given a custom message with</p>
+<pre><code class="language-js">isInt: {
+  msg: &quot;Must be an integer number of pennies&quot;
+}
+</code></pre>
+<p>or if arguments need to also be passed add an<code>args</code>property:</p>
+<pre><code class="language-js">isIn: {
+  args: [['en', 'zh']],
+  msg: &quot;Must be English or Chinese&quot;
+}
+</code></pre>
+<p>When using custom validator functions the error message will be whatever message the thrown<code>Error</code>object holds.</p>
+<p>See <a href="https://github.com/chriso/validator.js">the validator.js project</a> for more details on the built in validation methods.</p>
+<p><strong>Hint: </strong>You can also define a custom function for the logging part. Just pass a function. The first parameter will be the string that is logged.</p>
+<h3 id="validators-and-allownull">Validators and <code>allowNull</code></h3>
+<p>If a particular field of a model is set to allow null (with <code>allowNull: true</code>) and that value has been set to <code>null</code> , its validators do not run. This means you can, for instance, have a string field which validates its length to be at least 5 characters, but which also allows<code>null</code>.</p>
+<h3 id="model-validations">Model validations</h3>
+<p>Validations can also be defined to check the model after the field-specific validators. Using this you could, for example, ensure either neither of <code>latitude</code> and <code>longitude</code> are set or both, and fail if one but not the other is set.</p>
+<p>Model validator methods are called with the model object's context and are deemed to fail if they throw an error, otherwise pass. This is just the same as with custom field-specific validators.</p>
+<p>Any error messages collected are put in the validation result object alongside the field validation errors, with keys named after the failed validation method's key in the <code>validate</code> option object. Even though there can only be one error message for each model validation method at any one time, it is presented as a single string error in an array, to maximize consistency with the field errors.</p>
+<p>An example:</p>
+<pre><code class="language-js">var Pub = Sequelize.define('pub', {
+  name: { type: Sequelize.STRING },
+  address: { type: Sequelize.STRING },
+  latitude: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+    defaultValue: null,
+    validate: { min: -90, max: 90 }
+  },
+  longitude: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+    defaultValue: null,
+    validate: { min: -180, max: 180 }
+  },
+}, {
+  validate: {
+    bothCoordsOrNone: function() {
+      if ((this.latitude === null) !== (this.longitude === null)) {
+        throw new Error('Require either both latitude and longitude or neither')
+      }
+    }
+  }
+})
+</code></pre>
+<p>In this simple case an object fails validation if either latitude or longitude is given, but not both. If we try to build one with an out-of-range latitude and no longitude, <code>raging_bullock_arms.validate()</code> might return</p>
+<pre><code class="language-js">{
+  'latitude': ['Invalid number: latitude'],
+  'bothCoordsOrNone': ['Require either both latitude and longitude or neither']
+}
+</code></pre>
+<h2 id="configuration">Configuration</h2>
+<p>You can also influence the way Sequelize handles your column names:</p>
+<pre><code class="language-js">var Bar = sequelize.define('bar', { /* bla */ }, {
+  // don't add the timestamp attributes (updatedAt, createdAt)
+  timestamps: false,
+
+  // don't delete database entries but set the newly added attribute deletedAt
+  // to the current date (when deletion was done). paranoid will only work if
+  // timestamps are enabled
+  paranoid: true,
+
+  // don't use camelcase for automatically added attributes but underscore style
+  // so updatedAt will be updated_at
+  underscored: true,
+
+  // disable the modification of table names; By default, sequelize will automatically
+  // transform all passed model names (first parameter of define) into plural.
+  // if you don't want that, set the following
+  freezeTableName: true,
+
+  // define the table's name
+  tableName: 'my_very_custom_table_name'
+})
+</code></pre>
+<p>If you want sequelize to handle timestamps, but only want some of them, or want your timestamps to be called something else, you can override each column individually:</p>
+<pre><code class="language-js">var Foo = sequelize.define('foo',  { /* bla */ }, {
+  // don't forget to enable timestamps!
+  timestamps: true,
+
+  // I don't want createdAt
+  createdAt: false,
+
+  // I want updatedAt to actually be called updateTimestamp
+  updatedAt: 'updateTimestamp'
+
+  // And deletedAt to be called destroyTime (remember to enable paranoid for this to work)
+  deletedAt: 'destroyTime',
+  paranoid: true
+})
+</code></pre>
+<p>You can also change the database engine, e.g. to MyISAM. InnoDB is the default.</p>
+<pre><code class="language-js">var Person = sequelize.define('person', { /* attributes */ }, {
+  engine: 'MYISAM'
+})
+
+// or globally
+var sequelize = new Sequelize(db, user, pw, {
+  define: { engine: 'MYISAM' }
+})
+</code></pre>
+<p>Finally you can specify a comment for the table in MySQL and PG</p>
+<pre><code class="language-js">var Person = sequelize.define('person', { /* attributes */ }, {
+  comment: &quot;I'm a table comment!&quot;
+})
+</code></pre>
+<h2 id="import">Import</h2>
+<p>You can also store your model definitions in a single file using the <code>import</code> method. The returned object is exactly the same as defined in the imported file's function. Since <code>v1:5.0</code> of Sequelize the import is cached, so you won't run into troubles when calling the import of a file twice or more often.</p>
+<pre><code class="language-js">// in your server file - e.g. app.js
+var Project = sequelize.import(__dirname + &quot;/path/to/models/project&quot;)
+
+// The model definition is done in /path/to/models/project.js
+// As you might notice, the DataTypes are the very same as explained above
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define(&quot;project&quot;, {
+    name: DataTypes.STRING,
+    description: DataTypes.TEXT
+  })
+}
+</code></pre>
+<p>The <code>import</code> method can also accept a callback as an argument.</p>
+<pre><code class="language-js">sequelize.import('project', function(sequelize, DataTypes) {
+  return sequelize.define(&quot;project&quot;, {
+    name: DataTypes.STRING,
+    description: DataTypes.TEXT
+  })
+})
+</code></pre>
+<h2 id="database-synchronization">Database synchronization</h2>
+<p>When starting a new project you won't have a database structure and using Sequelize you won't need to. Just specify your model structures and let the library do the rest. Currently supported is the creation and deletion of tables:</p>
+<pre><code class="language-js">// Create the tables:
+Project.sync()
+Task.sync()
+
+// Force the creation!
+Project.sync({force: true}) // this will drop the table first and re-create it afterwards
+
+// drop the tables:
+Project.drop()
+Task.drop()
+
+// event handling:
+Project.[sync|drop]().then(function() {
+  // ok ... everything is nice!
+}).catch(function(error) {
+  // oooh, did you enter wrong database credentials?
+})
+</code></pre>
+<p>Because synchronizing and dropping all of your tables might be a lot of lines to write, you can also let Sequelize do the work for you:</p>
+<pre><code class="language-js">// Sync all models that aren't already in the database
+sequelize.sync()
+
+// Force sync all models
+sequelize.sync({force: true})
+
+// Drop all tables
+sequelize.drop()
+
+// emit handling:
+sequelize.[sync|drop]().then(function() {
+  // woot woot
+}).catch(function(error) {
+  // whooops
+})
+</code></pre>
+<p>Because <code>.sync({ force: true })</code> is destructive operation, you can use <code>match</code> option as an additional safety check.
+<code>match</code> option tells sequelize to match a regex against the database name before syncing - a safety check for cases
+where <code>force: true</code> is used in tests but not live code.</p>
+<pre><code class="language-js">// This will run .sync() only if database name ends with '_test'
+sequelize.sync({ force: true, match: /_test$/ });
+</code></pre>
+<h2 id="expansion-of-models">Expansion of models</h2>
+<p>Sequelize allows you to pass custom methods to a model and its instances. Just do the following:</p>
+<pre><code class="language-js">var Foo = sequelize.define('foo', { /* attributes */}, {
+  classMethods: {
+    method1: function(){ return 'smth' }
+  },
+  instanceMethods: {
+    method2: function() { return 'foo' }
+  }
+})
+
+// Example:
+Foo.method1()
+Foo.build().method2()
+</code></pre>
+<p>Of course you can also access the instance's data and generate virtual getters:</p>
+<pre><code class="language-js">var User = sequelize.define('user', { firstname: Sequelize.STRING, lastname: Sequelize.STRING }, {
+  instanceMethods: {
+    getFullname: function() {
+      return [this.firstname, this.lastname].join(' ')
+    }
+  }
+})
+
+// Example:
+User.build({ firstname: 'foo', lastname: 'bar' }).getFullname() // 'foo bar'
+</code></pre>
+<p>You can also set custom methods to all of your models during the instantiation:</p>
+<pre><code class="language-js">var sequelize = new Sequelize('database', 'username', 'password', {
+  // Other options during the initialization could be here
+  define: {
+    classMethods: {
+      method1: function() {},
+      method2: function() {}
+    },
+    instanceMethods: {
+      method3: function() {}
+    }
+  }
+})
+
+// Example:
+var Foo = sequelize.define('foo', { /* attributes */});
+Foo.method1()
+Foo.method2()
+Foo.build().method3()
+</code></pre>
+<h3 id="indexes">Indexes</h3>
+<p>Sequelize supports adding indexes to the model definition which will be created during <code>Model.sync()</code> or <code>sequelize.sync</code>.</p>
+<pre><code class="language-js">sequelize.define('user', {}, {
+  indexes: [
+    // Create a unique index on email
+    {
+      unique: true,
+      fields: ['email']
+    },
+
+    // Creates a gin index on data with the jsonb_path_ops operator
+    {
+      fields: ['data'],
+      using: 'gin',
+      operator: 'jsonb_path_ops'
+    },
+
+    // By default index name will be [table]_[fields]
+    // Creates a multi column partial index
+    {
+      name: 'public_by_author',
+      fields: ['author', 'status'],
+      where: {
+        status: 'public'
+      }
+    },
+
+    // A BTREE index with a ordered field
+    {
+      name: 'title_index',
+      method: 'BTREE',
+      fields: ['author', {attribute: 'title', collate: 'en_US', order: 'DESC', length: 5}]
+    }
+  ]
+})
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../models-usage/" class="btn btn-neutral float-right" title="Usage">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../schema/" class="btn btn-neutral" title="Working with table schemas"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../schema/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../models-usage/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="/v3/js/theme_extra.js" defer></script>
+    <script src="/v3/js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

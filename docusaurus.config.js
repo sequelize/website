@@ -90,13 +90,17 @@ const config = {
                 label: 'Sequelize 6',
                 href: 'pathname:///api/v6/identifiers.html',
               },
+              // {
+              //   label: 'Sequelize 5',
+              //   href: 'pathname:///v5/identifiers.html',
+              // },
+              // {
+              //   label: 'Sequelize 4',
+              //   href: 'pathname:///v4/identifiers.html',
+              // },
               {
-                label: 'Sequelize 5',
-                href: 'pathname:///v5/identifiers.html',
-              },
-              {
-                label: 'Sequelize 4',
-                href: 'pathname:///v4/identifiers.html',
+                label: 'Sequelize 3',
+                href: 'pathname:////v3/api/sequelize',
               },
             ],
           },

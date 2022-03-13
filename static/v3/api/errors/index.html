@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://sequelize.org/v3/docs/api/errors/">
+  <link rel="shortcut icon" href="/v3/favicon.ico">
+  
+  <title>Errors - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="/v3/css/theme.css" />
+  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="/v3/css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Errors";
+    var mkdocs_page_input_path = "api/errors.md";
+    var mkdocs_page_url = "/api/errors/";
+  </script>
+  
+  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../docs/models-definition/">Definition</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../docs/models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/instances/">Instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../docs/migrations/">Migrations</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../instance/">Instance</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Associations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../associations/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../associations/belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../associations/has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../associations/has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../associations/belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Errors</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#new-baseerror">new BaseError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-validationerrormessage-errors">new ValidationError(message, [errors])</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#errors">errors</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getpath">get(path)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-databaseerror">new DatabaseError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#parent">parent</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sql">sql</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#message">message()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fields">fields()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#value">value()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#index">index()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-timeouterror">new TimeoutError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-uniqueconstrainterror">new UniqueConstraintError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-foreignkeyconstrainterror">new ForeignKeyConstraintError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-exclusionconstrainterror">new ExclusionConstraintError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-validationerroritemmessage-type-path-value">new ValidationErrorItem(message, type, path, value)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-connectionerror">new ConnectionError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#parent_1">parent</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-connectionrefusederror">new ConnectionRefusedError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-accessdeniederror">new AccessDeniedError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-hostnotfounderror">new HostNotFoundError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-hostnotreachableerror">new HostNotReachableError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-invalidconnectionerror">new InvalidConnectionError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-connectiontimedouterror">new ConnectionTimedOutError()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#new-instanceerror">new InstanceError()</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../changelog/">Changelog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>API &raquo;</li>
+        
+      
+    
+    <li>Errors</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/errors.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p><a name="errors"></a></p>
+<h1 id="class-errors">Class Errors</h1>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L11">View code</a></p>
+<p>Sequelize provides a host of custom error classes, to allow you to do easier debugging. All of these errors are exposed on the sequelize object and the sequelize constructor.
+All sequelize errors inherit from the base JS error object.</p>
+<hr />
+<p><a name="baseerror"></a></p>
+<h2 id="new-baseerror"><code>new BaseError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L20">View code</a></p>
+<p>The Base Error all Sequelize Errors inherit from.
+<strong>Aliases:</strong> Error</p>
+<hr />
+<p><a name="validationerror"></a></p>
+<h2 id="new-validationerrormessage-errors"><code>new ValidationError(message, [errors])</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L41">View code</a></p>
+<p>Validation Error. Thrown when the sequelize validation has failed. The error contains an <code>errors</code> property,
+which is an array with 1 or more ValidationErrorItems, one for each validation that failed.</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>Error message</td>
+</tr>
+<tr>
+<td>[errors]</td>
+<td>Array</td>
+<td>Array of ValidationErrorItem objects describing the validation errors</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Extends:</strong> BaseError</p>
+<hr />
+<p><a name="errors"></a></p>
+<h2 id="errors"><code>errors</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L49">View code</a></p>
+<p>An array of ValidationErrorItems</p>
+<hr />
+<p><a name="get"></a></p>
+<h2 id="getpath"><code>get(path)</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L70">View code</a></p>
+<p>Gets all validation error items for the path / field specified.</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>The path to be checked for error items</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="databaseerror"></a></p>
+<h2 id="new-databaseerror"><code>new DatabaseError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L84">View code</a></p>
+<p>A base class for all database related errors.</p>
+<p><strong>Extends:</strong> BaseError</p>
+<hr />
+<p><a name="parent"></a></p>
+<h2 id="parent"><code>parent</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L92">View code</a></p>
+<p>The database specific error which triggered this one</p>
+<hr />
+<p><a name="sql"></a></p>
+<h2 id="sql"><code>sql</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L98">View code</a></p>
+<p>The SQL that triggered the error</p>
+<hr />
+<p><a name="message"></a></p>
+<h2 id="message"><code>message()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L104">View code</a></p>
+<p>The message from the DB.</p>
+<hr />
+<p><a name="fields"></a></p>
+<h2 id="fields"><code>fields()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L109">View code</a></p>
+<p>The fields of the unique constraint</p>
+<hr />
+<p><a name="value"></a></p>
+<h2 id="value"><code>value()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L114">View code</a></p>
+<p>The value(s) which triggered the error</p>
+<hr />
+<p><a name="index"></a></p>
+<h2 id="index"><code>index()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L119">View code</a></p>
+<p>The name of the index that triggered the error</p>
+<hr />
+<p><a name="timeouterror"></a></p>
+<h2 id="new-timeouterror"><code>new TimeoutError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L127">View code</a></p>
+<p>Thrown when a database query times out because of a deadlock</p>
+<p><strong>Extends:</strong> DatabaseError</p>
+<hr />
+<p><a name="uniqueconstrainterror"></a></p>
+<h2 id="new-uniqueconstrainterror"><code>new UniqueConstraintError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L138">View code</a></p>
+<p>Thrown when a unique constraint is violated in the database</p>
+<p><strong>Extends:</strong> DatabaseError</p>
+<hr />
+<p><a name="foreignkeyconstrainterror"></a></p>
+<h2 id="new-foreignkeyconstrainterror"><code>new ForeignKeyConstraintError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L157">View code</a></p>
+<p>Thrown when a foreign key constraint is violated in the database</p>
+<p><strong>Extends:</strong> DatabaseError</p>
+<hr />
+<p><a name="exclusionconstrainterror"></a></p>
+<h2 id="new-exclusionconstrainterror"><code>new ExclusionConstraintError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L177">View code</a></p>
+<p>Thrown when an exclusion constraint is violated in the database</p>
+<p><strong>Extends:</strong> DatabaseError</p>
+<hr />
+<p><a name="validationerroritem"></a></p>
+<h2 id="new-validationerroritemmessage-type-path-value"><code>new ValidationErrorItem(message, type, path, value)</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L201">View code</a></p>
+<p>Validation Error Item
+Instances of this class are included in the <code>ValidationError.errors</code> property.</p>
+<p><strong>Params:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>An error message</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>The type of the validation error</td>
+</tr>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>The field that triggered the validation error</td>
+</tr>
+<tr>
+<td>value</td>
+<td>string</td>
+<td>The value that generated the error</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a name="connectionerror"></a></p>
+<h2 id="new-connectionerror"><code>new ConnectionError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L213">View code</a></p>
+<p>A base class for all connection related errors.</p>
+<p><strong>Extends:</strong> BaseError</p>
+<hr />
+<p><a name="parent"></a></p>
+<h2 id="parent_1"><code>parent</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L220">View code</a></p>
+<p>The connection specific error which triggered this one</p>
+<hr />
+<p><a name="connectionrefusederror"></a></p>
+<h2 id="new-connectionrefusederror"><code>new ConnectionRefusedError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L230">View code</a></p>
+<p>Thrown when a connection to a database is refused</p>
+<p><strong>Extends:</strong> ConnectionError</p>
+<hr />
+<p><a name="accessdeniederror"></a></p>
+<h2 id="new-accessdeniederror"><code>new AccessDeniedError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L241">View code</a></p>
+<p>Thrown when a connection to a database is refused due to insufficient privileges</p>
+<p><strong>Extends:</strong> ConnectionError</p>
+<hr />
+<p><a name="hostnotfounderror"></a></p>
+<h2 id="new-hostnotfounderror"><code>new HostNotFoundError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L252">View code</a></p>
+<p>Thrown when a connection to a database has a hostname that was not found</p>
+<p><strong>Extends:</strong> ConnectionError</p>
+<hr />
+<p><a name="hostnotreachableerror"></a></p>
+<h2 id="new-hostnotreachableerror"><code>new HostNotReachableError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L263">View code</a></p>
+<p>Thrown when a connection to a database has a hostname that was not reachable</p>
+<p><strong>Extends:</strong> ConnectionError</p>
+<hr />
+<p><a name="invalidconnectionerror"></a></p>
+<h2 id="new-invalidconnectionerror"><code>new InvalidConnectionError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L274">View code</a></p>
+<p>Thrown when a connection to a database has invalid values for any of the connection parameters</p>
+<p><strong>Extends:</strong> ConnectionError</p>
+<hr />
+<p><a name="connectiontimedouterror"></a></p>
+<h2 id="new-connectiontimedouterror"><code>new ConnectionTimedOutError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L285">View code</a></p>
+<p>Thrown when a connection to a database times out</p>
+<p><strong>Extends:</strong> ConnectionError</p>
+<hr />
+<p><a name="instanceerror"></a></p>
+<h2 id="new-instanceerror"><code>new InstanceError()</code></h2>
+<p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L296">View code</a></p>
+<p>Thrown when a some problem occurred with Instance methods (see message for details)</p>
+<p><strong>Extends:</strong> BaseError</p>
+<hr />
+<p><em>This document is automatically generated based on source code comments. Please do not edit it directly, as your changes will be ignored. Please write on <a href="irc://irc.freenode.net/#sequelizejs">IRC</a>, open an issue or a create a pull request if you feel something can be improved. For help on how to write source code documentation see <a href="http://usejsdoc.org">JSDoc</a> and <a href="https://github.com/tj/dox">dox</a></em></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../changelog/" class="btn btn-neutral float-right" title="Changelog">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../deferrable/" class="btn btn-neutral" title="Deferrable"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../deferrable/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../changelog/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="/v3/js/theme_extra.js" defer></script>
+    <script src="/v3/js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

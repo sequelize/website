@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://sequelize.org/v3/docs/docs/hooks/">
+  <link rel="shortcut icon" href="/v3/favicon.ico">
+  
+  <title>Hooks - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="/v3/css/theme.css" />
+  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="/v3/css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Hooks";
+    var mkdocs_page_input_path = "docs/hooks.md";
+    var mkdocs_page_url = "/docs/hooks/";
+  </script>
+  
+  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../models-definition/">Definition</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../instances/">Instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Hooks</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../migrations/">Migrations</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/instance/">Instance</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Associations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/errors/">Errors</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../changelog/">Changelog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Documentation &raquo;</li>
+        
+      
+    
+    <li>Hooks</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/docs/hooks.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p>Hooks (also known as callbacks or lifecycle events), are functions which are called before and after calls in sequelize are executed. For example, if you want to always set a value on a model before saving it, you can add a <code>beforeUpdate</code> hook.</p>
+<p>For a full list of hooks, see <a href="/api/hooks">Hooks API</a>.</p>
+<h2 id="order-of-operations">Order of Operations</h2>
+<pre><code>(1)
+  beforeBulkCreate(instances, options, fn)
+  beforeBulkDestroy(options, fn)
+  beforeBulkUpdate(options, fn)
+(2)
+  beforeValidate(instance, options, fn)
+(-)
+  validate
+(3)
+  afterValidate(instance, options, fn)
+  - or -
+  validationFailed(instance, options, error, fn)
+(4)
+  beforeCreate(instance, options, fn)
+  beforeDestroy(instance, options, fn)
+  beforeUpdate(instance, options, fn)
+(-)
+  create
+  destroy
+  update
+(5)
+  afterCreate(instance, options, fn)
+  afterDestroy(instance, options, fn)
+  afterUpdate(instance, options, fn)
+(6)
+  afterBulkCreate(instances, options, fn)
+  afterBulkDestroy(options, fn)
+  afterBulkUpdate(options, fn)
+</code></pre>
+<h2 id="declaring-hooks">Declaring Hooks</h2>
+<p>Arguments to hooks are passed by reference. This means, that you can change the values, and this will be reflected in the insert / update statement. A hook may contain async actions - in this case the hook function should return a promise.</p>
+<p>There are currently three ways to programmatically add hooks:</p>
+<pre><code class="language-js">// Method 1 via the .define() method
+var User = sequelize.define('user', {
+  username: DataTypes.STRING,
+  mood: {
+    type: DataTypes.ENUM,
+    values: ['happy', 'sad', 'neutral']
+  }
+}, {
+  hooks: {
+    beforeValidate: function(user, options) {
+      user.mood = 'happy'
+    },
+    afterValidate: function(user, options) {
+      user.username = 'Toni'
+    }
+  }
+})
+
+// Method 2 via the .hook() method
+User.hook('beforeValidate', function(user, options) {
+  user.mood = 'happy'
+})
+
+User.hook('afterValidate', function(user, options) {
+  return sequelize.Promise.reject(&quot;I'm afraid I can't let you do that!&quot;)
+})
+
+// Method 3 via the direct method
+User.beforeCreate(function(user, options) {
+  return hashPassword(user.password).then(function (hashedPw) {
+    user.password = hashedPw;
+  });
+})
+
+User.afterValidate('myHookAfter', function(user, options, fn) {
+  user.username = 'Toni'
+})
+</code></pre>
+<h2 id="removing-hooks">Removing hooks</h2>
+<p>Only a hook with name param can be removed.</p>
+<pre><code class="language-js">var Book = sequelize.define('book', {
+  title: DataTypes.STRING
+})
+
+Book.addHook('afterCreate', 'notifyUsers', function(book, options) {
+  // ...
+})
+
+Book.removeHook('afterCreate', 'notifyUsers')
+</code></pre>
+<h2 id="global-universal-hooks">Global / universal hooks</h2>
+<p>Global hooks are hooks which are run for all models. They can define behaviours that you want for all your models, and are especially useful for plugins. They can be defined in two ways, which have slightly different semantics:</p>
+<h3 id="sequelizeoptionsdefine-default-hook">Sequelize.options.define (default hook)</h3>
+<pre><code class="language-js">var sequelize = new Sequelize(..., {
+    define: {
+        hooks: {
+            beforeCreate: function () {
+                // Do stuff
+            }
+        }
+    }
+});
+</code></pre>
+<p>This adds a default hook to all models, which is run if the model does not define its own <code>beforeCreate</code> hook:</p>
+<pre><code class="language-js">var User = sequelize.define('user');
+var Project = sequelize.define('project', {}, {
+    hooks: {
+        beforeCreate: function () {
+            // Do other stuff
+        }
+    }
+});
+
+User.create() // Runs the global hook
+Project.create() // Runs its own hook (because the global hook is overwritten)
+</code></pre>
+<h3 id="sequelizeaddhook-permanent-hook">Sequelize.addHook (permanent hook)</h3>
+<pre><code class="language-js">sequelize.addHook('beforeCreate', function () {
+    // Do stuff
+});
+</code></pre>
+<p>This hooks is always run before create, regardless of whether the model specifies its own <code>beforeCreate</code> hook:</p>
+<pre><code class="language-js">var User = sequelize.define('user');
+var Project = sequelize.define('project', {}, {
+    hooks: {
+        beforeCreate: function () {
+            // Do other stuff
+        }
+    }
+});
+
+User.create() // Runs the global hook
+Project.create() // Runs its own hook, followed by the global hook
+</code></pre>
+<p>Local hooks are always run before global hooks.</p>
+<h3 id="instance-hooks">Instance hooks</h3>
+<p>The following hooks will emit whenever you're editing a single object</p>
+<pre><code>beforeValidate
+afterValidate or validationFailed
+beforeCreate / beforeUpdate  / beforeDestroy
+afterCreate / afterUpdate / afterDestroy
+</code></pre>
+<pre><code class="language-js">// ...define ...
+User.beforeCreate(function(user) {
+  if (user.accessLevel &gt; 10 &amp;&amp; user.username !== &quot;Boss&quot;) {
+    throw new Error(&quot;You can't grant this user an access level above 10!&quot;)
+  }
+})
+</code></pre>
+<p>This example will return an error:</p>
+<pre><code class="language-js">User.create({username: 'Not a Boss', accessLevel: 20}).catch(function(err) {
+  console.log(err) // You can't grant this user an access level above 10!
+})
+</code></pre>
+<p>The following example would return successful:</p>
+<pre><code class="language-js">User.create({username: 'Boss', accessLevel: 20}).then(function(user) {
+  console.log(user) // user object with username as Boss and accessLevel of 20
+})
+</code></pre>
+<h3 id="model-hooks">Model hooks</h3>
+<p>Sometimes you'll be editing more than one record at a time by utilizing the <code>bulkCreate, update, destroy</code> methods on the model. The following will emit whenever you're using one of those methods.</p>
+<pre><code>beforeBulkCreate / beforeBulkUpdate / beforeBulkDestroy
+afterBulkCreate / afterBulkUpdate / afterBulkDestroy
+</code></pre>
+<p>If you want to emit hooks for each individual record, along with the bulk hooks you can pass <code>individualHooks: true</code> to the call.</p>
+<pre><code class="language-js">Model.destroy({ where: {accessLevel: 0}, individualHooks: true})
+// Will select all records that are about to be deleted and emit before- + after- Destroy on each instance
+
+Model.update({username: 'Toni'}, { where: {accessLevel: 0}, individualHooks: true})
+// Will select all records that are about to be updated and emit before- + after- Update on each instance
+</code></pre>
+<p>Some model hooks have two or three parameters sent to each hook depending on it's type.</p>
+<pre><code class="language-js">Model.beforeBulkCreate(function(records, fields) {
+  // records = the first argument sent to .bulkCreate
+  // fields = the second argument sent to .bulkCreate
+})
+
+Model.bulkCreate([
+  {username: 'Toni'}, // part of records argument
+  {username: 'Tobi'} // part of records argument
+], ['username'] /* part of fields argument */)
+
+Model.beforeBulkUpdate(function(attributes, where) {
+  // attributes = first argument sent to Model.update
+  // where = second argument sent to Model.update
+})
+
+Model.update({gender: 'Male'} /*attributes argument*/, { where: {username: 'Tom'}} /*where argument*/)
+
+Model.beforeBulkDestroy(function(whereClause) {
+  // whereClause = first argument sent to Model.destroy
+})
+
+Model.destroy({ where: {username: 'Tom'}} /*whereClause argument*/)
+</code></pre>
+<p>If you use <code>Model.bulkCreate(...)</code> with the <code>updatesOnDuplicate</code> option, changes made in the hook to fields that aren't given in the <code>updatesOnDuplicate</code> array will not be persisted to the database. However it is possible to change the updatesOnDuplicate option inside the hook if this is what you want.</p>
+<pre><code>// Bulk updating existing users with updatesOnDuplicate option
+Users.bulkCreate([{ id: 1, isMemeber: true}, 
+                 { id: 2, isMember: false}], 
+                 { updatesOnDuplicate: ['isMember']})
+
+User.beforeBulkCreate(function (users, options) {
+  users.forEach(function (user) {
+    if (user.isMember) {
+      user.memberSince = new Date()
+    }
+  })
+
+  // Add memberSince to updatesOnDuplicate otherwise the memberSince date wont be
+  // saved to the database
+  options.updatesOnDuplicate.push('memberSince')
+})
+</code></pre>
+<h2 id="associations">Associations</h2>
+<p>For the most part hooks will work the same for instances when being associated except a few things</p>
+<ol>
+<li>When using add/set functions the beforeUpdate/afterUpdate hooks will run.</li>
+<li>The only way to call beforeDestroy/afterDestroy hooks are on associations with <code>onDelete: 'cascade'</code> and the option <code>hooks: true</code>. For instance:</li>
+</ol>
+<pre><code class="language-js">var Projects = sequelize.define('projects', {
+  title: DataTypes.STRING
+})
+
+var Tasks = sequelize.define('tasks', {
+  title: DataTypes.STRING
+})
+
+Projects.hasMany(Tasks, { onDelete: 'cascade', hooks: true })
+Tasks.belongsTo(Projects)
+</code></pre>
+<p>This code will run beforeDestroy/afterDestroy on the Tasks table. Sequelize, by default, will try to optimize your queries as much as possible. When calling cascade on delete, Sequelize will simply execute a</p>
+<pre><code class="language-sql">DELETE FROM `table` WHERE associatedIdentifier = associatedIdentifier.primaryKey
+</code></pre>
+<p>However, adding <code>hooks: true</code> explicitly tells Sequelize that optimization is not of your concern and will perform a <code>SELECT</code> on the associated objects and destroy each instance one by one in order to be able to call the hooks with the right parameters.</p>
+<p>If your association is of type <code>n:m</code>, you may be interested in firing hooks on the through model when using the <code>remove</code> call. Internally, sequelize is using <code>Model.destroy</code> resulting in calling the <code>bulkDestroy</code> instead of the <code>before/afterDestroy</code> hooks on each through instance.</p>
+<p>This can be simply solved by passing <code>{individualHooks: true}</code> to the <code>remove</code> call, resulting on each hook to be called on each removed through instance object.</p>
+<h2 id="a-note-about-transactions">A Note About Transactions</h2>
+<p>Note that many model operations in Sequelize allow you to specify a transaction in the options parameter of the method. If a transaction <em>is</em> specified in the original call, it will be present in the options parameter passed to the hook function. For example, consider the following snippet:</p>
+<pre><code class="language-js">// Here we use the promise-style of async hooks rather than
+// the callback.
+User.hook('afterCreate', function(user, options) {
+  // 'transaction' will be available in options.transaction
+
+  // This operation will be part of the same transaction as the
+  // original User.create call.
+  return User.update({
+    mood: 'sad'
+  }, {
+    where: {
+      id: user.id
+    },
+    transaction: options.transaction
+  });
+});
+
+
+sequelize.transaction(function(t) {
+  User.create({
+    username: 'someguy',
+    mood: 'happy',
+    transaction: t
+  });
+});
+</code></pre>
+<p>If we had not included the transaction option in our call to <code>User.update</code> in the preceding code, no change would have occurred, since our newly created user does not exist in the database until the pending transaction has been committed.</p>
+<h3 id="internal-transactions">Internal Transactions</h3>
+<p>It is very important to recognize that sequelize may make use of transactions internally for certain operations such as <code>Model.findOrCreate</code>. If your hook functions execute read or write operations that rely on the object's presence in the database, or modify the object's stored values like the example in the preceding section, you should always specify <code>{ transaction: options.transaction }</code>.</p>
+<p>If the hook has been called in the process of a transacted operation, this makes sure that your dependent read/write is a part of that same transaction. If the hook is not transacted, you have simply specified <code>{ transaction: null }</code> and can expect the default behaviour.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../transactions/" class="btn btn-neutral float-right" title="Transactions">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../associations/" class="btn btn-neutral" title="Relations / Associations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../associations/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../transactions/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="/v3/js/theme_extra.js" defer></script>
+    <script src="/v3/js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

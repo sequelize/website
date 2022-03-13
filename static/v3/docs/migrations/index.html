@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://sequelize.org/v3/docs/docs/migrations/">
+  <link rel="shortcut icon" href="/v3/favicon.ico">
+  
+  <title>Migrations - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="/v3/css/theme.css" />
+  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="/v3/css/custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Migrations";
+    var mkdocs_page_input_path = "docs/migrations.md";
+    var mkdocs_page_url = "/docs/migrations/";
+  </script>
+  
+  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../schema/">Working with table schemas</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../models-definition/">Definition</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../models-usage/">Usage</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../querying/">Querying</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../scopes/">Scopes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../instances/">Instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../associations/">Relations / Associations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transactions/">Transactions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../legacy/">Working with legacy tables</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../raw-queries/">Raw queries</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Migrations</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/sequelize/">Sequelize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/model/">Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/instance/">Instance</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Associations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/belongs-to/">BelongsTo (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/has-one/">HasOne (1:1)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/has-many/">HasMany (1:m)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../api/associations/belongs-to-many/">BelongsToMany (n:m)</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/hooks/">Hooks</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/transaction/">Transaction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/datatypes/">Datatypes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/deferrable/">Deferrable</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api/errors/">Errors</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Misc</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../changelog/">Changelog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../imprint/">Imprint</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Documentation &raquo;</li>
+        
+      
+    
+    <li>Migrations</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/docs/migrations.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p>Sequelize <code>2.0.0</code> introduces a new CLI which is based on <a href="http://gulpjs.com/">gulp</a> and combines <a href="https://github.com/sequelize/cli">sequelize-cli</a> and <a href="https://github.com/sequelize/gulp-sequelize">gulp-sequelize</a>. The CLI ships support for migrations and project bootstrapping. With migrations you can transfer your existing database into another state and vice versa: Those state transitions are saved in migration files, which describe the way how to get to the new state and how to revert the changes in order to get back to the old state.</p>
+<h2 id="the-cli">The CLI</h2>
+<p>In order to use the CLI you need to install the respective package:</p>
+<pre><code class="language-bash">$ npm install --save sequelize-cli
+</code></pre>
+<p>As with any npm package, you can use the global flag (<code>-g</code>) to install the CLI globally. If you have installed the CLI without the global flag, use <code>node_modules/.bin/sequelize [command]</code> instead of <code>sequelize [command]</code>.</p>
+<p>The CLI currently supports the following commands:</p>
+<pre><code class="language-bash">$ sequelize db:migrate        # Run pending migrations.
+$ sequelize db:migrate:undo   # Revert the last migration run.
+$ sequelize help              # Display this help text.
+$ sequelize init              # Initializes the project.
+$ sequelize migration:create  # Generates a new migration file.
+$ sequelize version           # Prints the version number.
+</code></pre>
+<p>Further and more detailed information about the available commands
+can be obtained via the help command:</p>
+<pre><code class="language-bash">$ sequelize help:init
+$ sequelize help:db:migrate
+$ sequelize help:db:migrate:undo
+# etc
+</code></pre>
+<p>The latter one for example will print out the following output:</p>
+<pre><code class="language-bash">Sequelize [CLI: v0.0.2, ORM: v1.7.5]
+
+COMMANDS
+    sequelize db:migrate:undo -- Revert the last migration run.
+
+DESCRIPTION
+    Revert the last migration run.
+
+OPTIONS
+    --env           The environment to run the command in. Default: development
+    --options-path  The path to a JSON file with additional options. Default: none
+    --coffee        Enables coffee script support. Default: false
+    --config        The path to the config file. Default: config/config.json
+</code></pre>
+<h2 id="skeleton">Skeleton</h2>
+<p>The following skeleton shows a typical migration file. All migrations are expected to be located in a folder called <code>migrations</code> at the very top of the project. The sequelize binary can generate a migration skeleton. See the above section for more details.</p>
+<pre><code class="language-js">module.exports = {
+  up: function(queryInterface, Sequelize) {
+    // logic for transforming into the new state
+  },
+ 
+  down: function(queryInterface, Sequelize) {
+    // logic for reverting the changes
+  }
+}
+</code></pre>
+<p>The passed <code>queryInterface</code> object can be used to modify the database. The <code>Sequelize</code> object stores the available data types such as <code>STRING</code> or <code>INTEGER</code>. Function <code>up</code> or <code>down</code> should return a <code>Promise</code>. Here is some code:</p>
+<pre><code class="language-js">module.exports = {
+  up: function(queryInterface, Sequelize) {
+    return queryInterface.dropAllTables();
+  }
+}
+</code></pre>
+<p>The available methods of the queryInterface object are the following.</p>
+<h2 id="functions">Functions</h2>
+<p>Using the <code>queryInterface</code> object describe before, you will have access to most of already introduced functions. Furthermore there are some other methods, which are designed to actually change the database schema.</p>
+<h3 id="createtabletablename-attributes-options">createTable(tableName, attributes, options)</h3>
+<p>This method allows creation of new tables. It is allowed to pass simple or complex attribute definitions. You can define the encoding of the table and the table's engine via options</p>
+<pre><code class="language-js">queryInterface.createTable(
+  'nameOfTheNewTable',
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    createdAt: {
+      type: Sequelize.DATE
+    },
+    updatedAt: {
+      type: Sequelize.DATE
+    },
+    attr1: Sequelize.STRING,
+    attr2: Sequelize.INTEGER,
+    attr3: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+      allowNull: false
+    },
+    //foreign key usage
+    attr4: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'another_table_name',
+            key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+    }
+  },
+  {
+    engine: 'MYISAM', // default: 'InnoDB'
+    charset: 'latin1' // default: null
+  }
+)
+</code></pre>
+<h3 id="droptabletablename-options">dropTable(tableName, options)</h3>
+<p>This method allows deletion of an existing table.</p>
+<pre><code class="language-js">queryInterface.dropTable('nameOfTheExistingTable')
+</code></pre>
+<h3 id="dropalltablesoptions">dropAllTables(options)</h3>
+<p>This method allows deletion of all existing tables in the database.</p>
+<pre><code class="language-js">queryInterface.dropAllTables()
+</code></pre>
+<h3 id="renametablebefore-after-options">renameTable(before, after, options)</h3>
+<p>This method allows renaming of an existing table.</p>
+<pre><code class="language-js">queryInterface.renameTable('Person', 'User')
+</code></pre>
+<h3 id="showalltablesoptions">showAllTables(options)</h3>
+<p>This method returns the name of all existing tables in the database.</p>
+<pre><code class="language-js">queryInterface.showAllTables().then(function(tableNames) {})
+</code></pre>
+<h3 id="describetabletablename-options">describeTable(tableName, options)</h3>
+<p>This method returns an array of hashes containing information about all attributes in the table.</p>
+<pre><code class="language-js">queryInterface.describeTable('Person').then(function(attributes) {
+  /*
+    attributes will be something like:
+ 
+    {
+      name: {
+        type:         'VARCHAR(255)', // this will be 'CHARACTER VARYING' for pg!
+        allowNull:    true,
+        defaultValue: null
+      },
+      isBetaMember: {
+        type:         'TINYINT(1)', // this will be 'BOOLEAN' for pg!
+        allowNull:    false,
+        defaultValue: false
+      }
+    }
+  */
+})
+</code></pre>
+<h3 id="addcolumntablename-attributename-datatypeoroptions-options">addColumn(tableName, attributeName, dataTypeOrOptions, options)</h3>
+<p>This method allows adding columns to an existing table. The data type can be simple or complex.</p>
+<pre><code class="language-js">queryInterface.addColumn(
+  'nameOfAnExistingTable',
+  'nameOfTheNewAttribute',
+  Sequelize.STRING
+)
+ 
+// or
+ 
+queryInterface.addColumn(
+  'nameOfAnExistingTable',
+  'nameOfTheNewAttribute',
+  {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+)
+</code></pre>
+<h3 id="removecolumntablename-attributename-options">removeColumn(tableName, attributeName, options)</h3>
+<p>This method allows deletion of a specific column of an existing table.</p>
+<pre><code class="language-js">queryInterface.removeColumn('Person', 'signature')
+</code></pre>
+<h3 id="changecolumntablename-attributename-datatypeoroptions-options">changeColumn(tableName, attributeName, dataTypeOrOptions, options)</h3>
+<p>This method changes the meta data of an attribute. It is possible to change the default value, allowance of null or the data type. Please make sure, that you are completely describing the new data type.</p>
+<pre><code class="language-js">queryInterface.changeColumn(
+  'nameOfAnExistingTable',
+  'nameOfAnExistingAttribute',
+  {
+    type: Sequelize.FLOAT,
+    allowNull: false,
+    defaultValue: 0.0
+  }
+)
+</code></pre>
+<h3 id="renamecolumntablename-attrnamebefore-attrnameafter-options">renameColumn(tableName, attrNameBefore, attrNameAfter, options)</h3>
+<p>This methods allows renaming attributes.</p>
+<pre><code class="language-js">queryInterface.renameColumn('Person', 'signature', 'sig')
+</code></pre>
+<h3 id="addindextablename-attributes-options">addIndex(tableName, attributes, options)</h3>
+<p>This methods creates indexes for specific attributes of a table. The index name will be automatically generated if it is not passed via in the options (see below).</p>
+<pre><code class="language-js">// This example will create the index person_firstname_lastname
+queryInterface.addIndex('Person', ['firstname', 'lastname'])
+
+// This example will create a unique index with the name SuperDuperIndex using the optional 'options' field.
+// Possible options:
+// - indicesType: UNIQUE|FULLTEXT|SPATIAL
+// - indexName: The name of the index. Default is __
+// - parser: For FULLTEXT columns set your parser
+// - indexType: Set a type for the index, e.g. BTREE. See the documentation of the used dialect
+// - logging: A function that receives the sql query, e.g. console.log
+queryInterface.addIndex(
+  'Person',
+  ['firstname', 'lastname'],
+  {
+    indexName: 'SuperDuperIndex',
+    indicesType: 'UNIQUE'
+  }
+)
+</code></pre>
+<h3 id="removeindextablename-indexnameorattributes-options">removeIndex(tableName, indexNameOrAttributes, options)</h3>
+<p>This method deletes an existing index of a table.</p>
+<pre><code class="language-js">queryInterface.removeIndex('Person', 'SuperDuperIndex')
+ 
+// or
+ 
+queryInterface.removeIndex('Person', ['firstname', 'lastname'])
+</code></pre>
+<h2 id="programmatic-use">Programmatic use</h2>
+<p>Sequelize has a <a href="https://github.com/sequelize/umzug">sister library</a> for programmatically handling execution and logging of migration tasks.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../api/sequelize/" class="btn btn-neutral float-right" title="Sequelize">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../raw-queries/" class="btn btn-neutral" title="Raw queries"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sequelize/sequelize/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../raw-queries/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../api/sequelize/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="/v3/js/theme_extra.js" defer></script>
+    <script src="/v3/js/theme.js" defer></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
