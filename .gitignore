@@ -6,8 +6,6 @@
 
 # v6 & v7 esdoc/typedoc
 /static/api
-# v3 - v5 files
-/static/v*
 
 # Generated files
 .docusaurus
