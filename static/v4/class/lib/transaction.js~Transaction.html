@@ -1,0 +1,1035 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v4/../../">
+  <title data-ice="title">Transaction |  Sequelize | The node.js ORM for PostgreSQL, MySQL, SQLite and MSSQL API Document</title>
+  <link type="text/css" rel="stylesheet" href="/v4/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v4/css/prettify-tomorrow.css">
+  <script src="/v4/script/prettify/prettify.js"></script>
+  
+  
+  <script src="/v4/script/manual.js"></script>
+<script data-ice="userScript" src="/v4/user/script/0-script.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/0-style.css">
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/1-theme.css">
+<link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header><a href="/v4//"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+  <a href="/v4/./">Home</a>
+  
+  <a href="/v4/identifiers.html">Reference</a>
+  <a href="/v4/source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/sequelize/sequelize.git" class="repo-url-github">Repository</a><a href="http://sequelize-slack.herokuapp.com/" class="slack-link"><img class="slack-logo" src="/v4/manual/asset/slack.svg">Join us on Slack</a>
+  <div class="search-box">
+  <span>
+    <img src="/v4/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">associations</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">errors</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="/v4/function/index.html#static-function-isImmutable">isImmutable</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode"></code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">class</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="/v4/file/lib/transaction.js.html#lineNumber13">source</a></span></span>
+</div>
+
+<div class="self-detail detail">
+  <h1 data-ice="name">Transaction</h1>
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  <div class="description" data-ice="description"><p>The transaction object is used to identify a running transaction. It is created by calling <code>Sequelize.transaction()</code>.</p>
+<p>To run a query under a transaction, you should pass the transaction in the options object.</p>
+</div>
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-transaction">Sequelize.transaction</a></span></span></li></ul></div>
+
+  
+
+  
+
+  
+</div>
+
+<div data-ice="staticMemberSummary"><h2>Static Member Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Members</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html#static-get-ISOLATION_LEVELS">ISOLATION_LEVELS</a></span></span><span data-ice="signature">: {"READ_UNCOMMITTED": <span>string</span>, "READ_COMMITTED": <span>string</span>, "REPEATABLE_READ": <span>string</span>, "SERIALIZABLE": <span>string</span>}</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Isolations levels can be set per-transaction by passing <code>options.isolationLevel</code> to <code>sequelize.transaction</code>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html#static-get-LOCK">LOCK</a></span></span><span data-ice="signature">: <span>Object</span>: {"UPDATE": <span>string</span>, "SHARE": <span>string</span>, "KEY_SHARE": <span>string</span>, "NO_KEY_UPDATE": <span>string</span>}</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Possible options for row locking.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html#static-get-TYPES">TYPES</a></span></span><span data-ice="signature">: {"DEFERRED": <span>string</span>, "IMMEDIATE": <span>string</span>, "EXCLUSIVE": <span>string</span>}</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Types can be set per-transaction by passing <code>options.type</code> to <code>sequelize.transaction</code>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(sequelize: <span><a href="/v4/class/lib/sequelize.js~Sequelize.html">Sequelize</a></span>, options: <span>Object</span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html#instance-get-LOCK">LOCK</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html#instance-method-afterCommit">afterCommit</a></span></span><span data-ice="signature">(fn: <span>Function</span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>A hook that is run after a transaction is committed</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html#instance-method-commit">commit</a></span></span><span data-ice="signature">(): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Commit the transaction</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html#instance-method-rollback">rollback</a></span></span><span data-ice="signature">(): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Rollback (abort) the transaction</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+<div data-ice="staticMemberDetails"><h2 data-ice="title">Static Public Members</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-get-ISOLATION_LEVELS">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span data-ice="name">ISOLATION_LEVELS</span><span data-ice="signature">: {"READ_UNCOMMITTED": <span>string</span>, "READ_COMMITTED": <span>string</span>, "REPEATABLE_READ": <span>string</span>, "SERIALIZABLE": <span>string</span>}</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/transaction.js.html#lineNumber262">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Isolations levels can be set per-transaction by passing <code>options.isolationLevel</code> to <code>sequelize.transaction</code>.
+Default to <code>REPEATABLE_READ</code> but you can override the default isolation level by passing <code>options.isolationLevel</code> in <code>new Sequelize</code>.</p>
+<p>Pass in the desired level as the first argument:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">return sequelize.transaction({isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE}, transaction =&gt; {
+
+ // your transactions
+
+}).then(result =&gt; {
+  // transaction has been committed. Do something after the commit if required.
+}).catch(err =&gt; {
+  // do something with the err.
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">READ_UNCOMMITTED</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">READ_COMMITTED</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">REPEATABLE_READ</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SERIALIZABLE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-get-LOCK">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span data-ice="name">LOCK</span><span data-ice="signature">: <span>Object</span>: {"UPDATE": <span>string</span>, "SHARE": <span>string</span>, "KEY_SHARE": <span>string</span>, "NO_KEY_UPDATE": <span>string</span>}</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/transaction.js.html#lineNumber304">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Possible options for row locking. Used in conjunction with <code>find</code> calls:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">t1 // is a transaction
+Model.findAll({
+  where: ...,
+  transaction: t1,
+  lock: t1.LOCK...
+});</code>
+</code></pre>
+<p>Postgres also supports specific locks while eager loading by using OF:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">UserModel.findAll({
+  where: ...,
+  include: [TaskModel, ...],
+  transaction: t1,
+  lock: {
+    level: t1.LOCK...,
+    of: UserModel
+  }
+});</code>
+</code></pre>
+<p>UserModel will be locked but TaskModel won't!</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">UPDATE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SHARE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">KEY_SHARE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Postgres 9.3+ only</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">NO_KEY_UPDATE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Postgres 9.3+ only</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Object</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties"><div data-ice="properties">
+  <h4 data-ice="title">Return Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">UPDATE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SHARE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">KEY_SHARE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Postgres 9.3+ only</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">NO_KEY_UPDATE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Postgres 9.3+ only</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-get-TYPES">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span data-ice="name">TYPES</span><span data-ice="signature">: {"DEFERRED": <span>string</span>, "IMMEDIATE": <span>string</span>, "EXCLUSIVE": <span>string</span>}</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/transaction.js.html#lineNumber232">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Types can be set per-transaction by passing <code>options.type</code> to <code>sequelize.transaction</code>.
+Default to <code>DEFERRED</code> but you can override the default type by passing <code>options.transactionType</code> in <code>new Sequelize</code>.
+Sqlite only.</p>
+<p>Pass in the desired level as the first argument:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">return sequelize.transaction({type: Sequelize.Transaction.TYPES.EXCLUSIVE}, transaction =&gt; {
+
+ // your transactions
+
+}).then(result =&gt; {
+  // transaction has been committed. Do something after the commit if required.
+}).catch(err =&gt; {
+  // do something with the err.
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">DEFERRED</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">IMMEDIATE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">EXCLUSIVE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+
+<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-constructor-constructor">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">constructor</span><span data-ice="signature">(sequelize: <span><a href="/v4/class/lib/sequelize.js~Sequelize.html">Sequelize</a></span>, options: <span>Object</span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/transaction.js.html#lineNumber22">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">sequelize</td>
+      <td data-ice="type"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A configured sequelize Instance</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>An object with options</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.autocommit</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Sets the autocommit property of the transaction.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.type</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>default: true</li></ul></td>
+      <td data-ice="description"><p>Sets the type of the transaction.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.isolationLevel</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>default: true</li></ul></td>
+      <td data-ice="description"><p>Sets the isolation level of the transaction.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.deferrable</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Sets the constraints to be deferred or immediately checked.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-LOCK">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span data-ice="name">LOCK</span><span data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/transaction.js.html#lineNumber316">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/transaction.js~Transaction.html#static-get-LOCK">Transaction.LOCK</a></span></span></li></ul></div>
+  
+</div>
+</div>
+<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-afterCommit">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">afterCommit</span><span data-ice="signature">(fn: <span>Function</span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/transaction.js.html#lineNumber203">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>A hook that is run after a transaction is committed</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">fn</td>
+      <td data-ice="type"><span>Function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A callback function that is called with the committed transaction</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-commit">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">commit</span><span data-ice="signature">(): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/transaction.js.html#lineNumber57">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Commit the transaction</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-rollback">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">rollback</span><span data-ice="signature">(): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/transaction.js.html#lineNumber87">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Rollback (abort) the transaction</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="/v4/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+
+
+<script src="/v4/script/pretty-print.js"></script>
+
+
+
+<script src="/v4/script/patch-for-local.js"></script>
+
+
+</body></html>

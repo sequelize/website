@@ -1,0 +1,555 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v4/../../">
+  <title data-ice="title">Tutorial |  Sequelize | The node.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link type="text/css" rel="stylesheet" href="/v4/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v4/css/prettify-tomorrow.css">
+  <script src="/v4/script/prettify/prettify.js"></script>
+  
+  
+  <script src="/v4/script/manual.js"></script>
+<script data-ice="userScript" src="/v4/user/script/0-script.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/0-style.css">
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/1-theme.css">
+<link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header><a href="/v4//"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+  <a href="/v4/./">Home</a>
+  
+  <a href="/v4/identifiers.html">Reference</a>
+  <a href="/v4/source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/sequelize/sequelize.git" class="repo-url-github">Repository</a><a href="http://sequelize-slack.herokuapp.com/" class="slack-link"><img class="slack-logo" src="/v4/manual/asset/slack.svg">Join us on Slack</a>
+  <div class="search-box">
+  <span>
+    <img src="/v4/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual" data-toc-name="installation">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="■■" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html" data-ice="link">Getting started</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#installation" data-ice="link">Installation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#setting-up-a-connection" data-ice="link">Setting up a connection</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#test-the-connection" data-ice="link">Test the connection</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#your-first-model" data-ice="link">Your first model</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#your-first-query" data-ice="link">Your first query</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#application-wide-model-options" data-ice="link">Application wide model options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#promises" data-ice="link">Promises</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="■■" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html" data-ice="link">Basic usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#options" data-ice="link">Options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#read-replication" data-ice="link">Read replication</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#dialects" data-ice="link">Dialects</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#mysql" data-ice="link">MySQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#sqlite" data-ice="link">SQLite</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#mssql" data-ice="link">MSSQL</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#executing-raw-sql-queries" data-ice="link">Executing raw SQL queries</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="tutorial">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■■" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html" data-ice="link">Model definition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#timestamps" data-ice="link">Timestamps</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#data-types" data-ice="link">Data types</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#array-enum-" data-ice="link">Array(ENUM)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#range-types" data-ice="link">Range types</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#deferrable" data-ice="link">Deferrable</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#getters-setters" data-ice="link">Getters &amp; setters</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#defining-as-part-of-a-property" data-ice="link">Defining as part of a property</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#defining-as-part-of-the-model-options" data-ice="link">Defining as part of the model options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#helper-functions-for-use-inside-getter-and-setter-definitions" data-ice="link">Helper functions for use inside getter and setter definitions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#validations" data-ice="link">Validations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#validators-and-allownull-" data-ice="link">Validators and allowNull</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#model-validations" data-ice="link">Model validations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#configuration" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#import" data-ice="link">Import</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#optimistic-locking" data-ice="link">Optimistic Locking</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#database-synchronization" data-ice="link">Database synchronization</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#expansion-of-models" data-ice="link">Expansion of models</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#indexes" data-ice="link">Indexes</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■■" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html" data-ice="link">Model usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#data-retrieval-finders" data-ice="link">Data retrieval / Finders</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-find-search-for-one-specific-element-in-the-database" data-ice="link">find - Search for one specific element in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-findorcreate-search-for-a-specific-element-or-create-it-if-not-available" data-ice="link">findOrCreate - Search for a specific element or create it if not available</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-findandcountall-search-for-multiple-elements-in-the-database-returns-both-data-and-total-count" data-ice="link">findAndCountAll - Search for multiple elements in the database, returns both data and total count</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-findall-search-for-multiple-elements-in-the-database" data-ice="link">findAll - Search for multiple elements in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#complex-filtering-or-not-queries" data-ice="link">Complex filtering / OR / NOT queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#manipulating-the-dataset-with-limit-offset-order-and-group" data-ice="link">Manipulating the dataset with limit, offset, order and group</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#raw-queries" data-ice="link">Raw queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-count-count-the-occurrences-of-elements-in-the-database" data-ice="link">count - Count the occurrences of elements in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-max-get-the-greatest-value-of-a-specific-attribute-within-a-specific-table" data-ice="link">max - Get the greatest value of a specific attribute within a specific table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-min-get-the-least-value-of-a-specific-attribute-within-a-specific-table" data-ice="link">min - Get the least value of a specific attribute within a specific table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-sum-sum-the-value-of-specific-attributes" data-ice="link">sum - Sum the value of specific attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#eager-loading" data-ice="link">Eager loading</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#top-level-where-with-eagerly-loaded-models" data-ice="link">Top level where with eagerly loaded models</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#including-everything" data-ice="link">Including everything</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#including-soft-deleted-records" data-ice="link">Including soft deleted records</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#ordering-eager-loaded-associations" data-ice="link">Ordering Eager Loaded Associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#nested-eager-loading" data-ice="link">Nested eager loading</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■■■" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html" data-ice="link">Querying</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#attributes" data-ice="link">Attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#where" data-ice="link">Where</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#basics" data-ice="link">Basics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#operators" data-ice="link">Operators</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#range-operators" data-ice="link">Range Operators</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#combinations" data-ice="link">Combinations</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#operators-aliases" data-ice="link">Operators Aliases</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#operators-security" data-ice="link">Operators security</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#json" data-ice="link">JSON</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#mssql" data-ice="link">MSSQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#jsonb" data-ice="link">JSONB</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#nested-object" data-ice="link">Nested object</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#nested-key" data-ice="link">Nested key</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#containment" data-ice="link">Containment</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#relations-associations" data-ice="link">Relations / Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#pagination-limiting" data-ice="link">Pagination / Limiting</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#ordering" data-ice="link">Ordering</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#table-hint" data-ice="link">Table Hint</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html" data-ice="link">Instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#building-a-non-persistent-instance" data-ice="link">Building a non-persistent instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#creating-persistent-instances" data-ice="link">Creating persistent instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#updating-saving-persisting-an-instance" data-ice="link">Updating / Saving / Persisting an instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#destroying-deleting-persistent-instances" data-ice="link">Destroying / Deleting persistent instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#working-in-bulk-creating-updating-and-destroying-multiple-rows-at-once-" data-ice="link">Working in bulk (creating, updating and destroying multiple rows at once)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#values-of-an-instance" data-ice="link">Values of an instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#reloading-instances" data-ice="link">Reloading instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#incrementing" data-ice="link">Incrementing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#decrementing" data-ice="link">Decrementing</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■■■" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#one-to-one-associations" data-ice="link">One-To-One associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#belongsto" data-ice="link">BelongsTo</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#foreign-keys" data-ice="link">Foreign keys</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#target-keys" data-ice="link">Target keys</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#hasone" data-ice="link">HasOne</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#difference-between-hasone-and-belongsto" data-ice="link">Difference between HasOne and BelongsTo</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#one-to-many-associations-hasmany-" data-ice="link">One-To-Many associations (hasMany)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#belongs-to-many-associations" data-ice="link">Belongs-To-Many associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#scopes" data-ice="link">Scopes</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#1-m" data-ice="link">1:m</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#n-m" data-ice="link">n:m</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#naming-strategy" data-ice="link">Naming strategy</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#associating-objects" data-ice="link">Associating objects</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#check-associations" data-ice="link">Check associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#foreign-keys" data-ice="link">Foreign Keys</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#enforcing-a-foreign-key-reference-without-constraints" data-ice="link">Enforcing a foreign key reference without constraints</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#creating-with-associations" data-ice="link">Creating with associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#creating-elements-of-a-belongsto-has-many-or-hasone-association" data-ice="link">Creating elements of a "BelongsTo", "Has Many" or "HasOne" association</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#creating-elements-of-a-belongsto-association-with-an-alias" data-ice="link">Creating elements of a "BelongsTo" association with an alias</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#creating-elements-of-a-hasmany-or-belongstomany-association" data-ice="link">Creating elements of a "HasMany" or "BelongsToMany" association</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html" data-ice="link">Transactions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#managed-transaction-auto-callback-" data-ice="link">Managed transaction (auto-callback)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#throw-errors-to-rollback" data-ice="link">Throw errors to rollback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#automatically-pass-transactions-to-all-queries" data-ice="link">Automatically pass transactions to all queries</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#concurrent-partial-transactions" data-ice="link">Concurrent/Partial transactions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#without-cls-enabled" data-ice="link">Without CLS enabled</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#isolation-levels" data-ice="link">Isolation levels</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#unmanaged-transaction-then-callback-" data-ice="link">Unmanaged transaction (then-callback)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#options" data-ice="link">Options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#usage-with-other-sequelize-methods" data-ice="link">Usage with other sequelize methods</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#after-commit-hook" data-ice="link">After commit hook</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■" data-link="manual/tutorial/scopes.html"><a href="/v4/manual/tutorial/scopes.html" data-ice="link">Scopes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/scopes.html"><a href="/v4/manual/tutorial/scopes.html#definition" data-ice="link">Definition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/scopes.html"><a href="/v4/manual/tutorial/scopes.html#usage" data-ice="link">Usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/scopes.html"><a href="/v4/manual/tutorial/scopes.html#merging" data-ice="link">Merging</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/scopes.html"><a href="/v4/manual/tutorial/scopes.html#associations" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html" data-ice="link">Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#order-of-operations" data-ice="link">Order of Operations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#declaring-hooks" data-ice="link">Declaring Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#removing-hooks" data-ice="link">Removing hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#global-universal-hooks" data-ice="link">Global / universal hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#sequelize-options-define-default-hook-" data-ice="link">Sequelize.options.define (default hook)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#sequelize-addhook-permanent-hook-" data-ice="link">Sequelize.addHook (permanent hook)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#instance-hooks" data-ice="link">Instance hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#model-hooks" data-ice="link">Model hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#associations" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#a-note-about-transactions" data-ice="link">A Note About Transactions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#internal-transactions" data-ice="link">Internal Transactions</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■" data-link="manual/tutorial/raw-queries.html"><a href="/v4/manual/tutorial/raw-queries.html" data-ice="link">Raw queries</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/raw-queries.html"><a href="/v4/manual/tutorial/raw-queries.html#replacements" data-ice="link">Replacements</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/raw-queries.html"><a href="/v4/manual/tutorial/raw-queries.html#bind-parameter" data-ice="link">Bind Parameter</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■■■" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html" data-ice="link">Migrations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#the-cli" data-ice="link">The CLI</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#installing-cli" data-ice="link">Installing CLI</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#bootstrapping" data-ice="link">Bootstrapping</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#configuration" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#creating-first-model-and-migration-" data-ice="link">Creating first Model (and Migration)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#running-migrations" data-ice="link">Running Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#undoing-migrations" data-ice="link">Undoing Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#creating-first-seed" data-ice="link">Creating First Seed</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#running-seeds" data-ice="link">Running Seeds</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#undoing-seeds" data-ice="link">Undoing Seeds</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#advance-topics" data-ice="link">Advance Topics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#migration-skeleton" data-ice="link">Migration Skeleton</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#the-sequelizerc-file" data-ice="link">The .sequelizerc File</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#dynamic-configuration" data-ice="link">Dynamic Configuration</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#using-environment-variables" data-ice="link">Using Environment Variables</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#specifying-dialect-options" data-ice="link">Specifying Dialect Options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#production-usages" data-ice="link">Production Usages</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#storage" data-ice="link">Storage</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#migration-storage" data-ice="link">Migration Storage</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#seed-storage" data-ice="link">Seed Storage</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#configuration-connection-string" data-ice="link">Configuration Connection String</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#connecting-over-ssl" data-ice="link">Connecting over SSL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#programmatic-use" data-ice="link">Programmatic use</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#query-interface" data-ice="link">Query Interface</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html" data-ice="link">Upgrade to V4</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#changelog" data-ice="link">Changelog</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#breaking-changes" data-ice="link">Breaking Changes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#node" data-ice="link">Node</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#general" data-ice="link">General</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#config-options" data-ice="link">Config / Options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#data-types" data-ice="link">Data Types</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#transactions-cls" data-ice="link">Transactions / CLS</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#raw-queries" data-ice="link">Raw Queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#others" data-ice="link">Others</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="advanced">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-advanced" data-section-count="■■" data-link="manual/advanced/legacy.html"><a href="/v4/manual/advanced/legacy.html" data-ice="link">Working with legacy tables</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/advanced/legacy.html"><a href="/v4/manual/advanced/legacy.html#tables" data-ice="link">Tables</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/advanced/legacy.html"><a href="/v4/manual/advanced/legacy.html#fields" data-ice="link">Fields</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/advanced/legacy.html"><a href="/v4/manual/advanced/legacy.html#primary-keys" data-ice="link">Primary keys</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/advanced/legacy.html"><a href="/v4/manual/advanced/legacy.html#foreign-keys" data-ice="link">Foreign keys</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="reference">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="■■■■■" data-link="identifiers.html"><a href="/v4/identifiers.html" data-ice="link">Reference</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="/v4/identifiers.html#class" data-ice="link">Class</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="/v4/identifiers.html#function" data-ice="link">Function</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="/v4/identifiers.html#variable" data-ice="link">Variable</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="faq">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-faq" data-section-count="■" data-link="manual/faq/whos-using.html"><a href="/v4/manual/faq/whos-using.html" data-ice="link">Who's using sequelize?</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-faq" data-section-count="■" data-link="manual/faq/imprint.html"><a href="/v4/manual/faq/imprint.html" data-ice="link">Imprint</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/faq/imprint.html"><a href="/v4/manual/faq/imprint.html#author-s-" data-ice="link">AUTHOR(S)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/faq/imprint.html"><a href="/v4/manual/faq/imprint.html#inhaltliche-verantwortung" data-ice="link">INHALTLICHE VERANTWORTUNG</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown">
+  <div class="manual-breadcrumb-list">
+    <a href="/v4/./manual/./index.html">Manual</a>
+    <span>»</span>
+    <span data-ice="title">Tutorial</span>
+  </div>
+  <div data-ice="content"><h1 id="instances">Instances</h1>
+<h2 id="building-a-non-persistent-instance">Building a non-persistent instance</h2>
+<p>In order to create instances of defined classes just do as follows. You might recognize the syntax if you coded Ruby in the past. Using the <code>build</code>-method will return an unsaved object, which you explicitly have to save.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const project = Project.build({
+  title: 'my awesome project',
+  description: 'woot woot. this will make me a rich man'
+})
+
+const task = Task.build({
+  title: 'specify the project idea',
+  description: 'bla',
+  deadline: new Date()
+})</code>
+</code></pre>
+<p>Built instances will automatically get default values when they were defined:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// first define the model
+const Task = sequelize.define('task', {
+  title: Sequelize.STRING,
+  rating: { type: Sequelize.STRING, defaultValue: 3 }
+})
+
+// now instantiate an object
+const task = Task.build({title: 'very important task'})
+
+task.title  // ==&gt; 'very important task'
+task.rating // ==&gt; 3</code>
+</code></pre>
+<p>To get it stored in the database, use the <code>save</code>-method and catch the events ... if needed:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">project.save().then(() =&gt; {
+  // my nice callback stuff
+})
+
+task.save().catch(error =&gt; {
+  // mhhh, wth!
+})
+
+// you can also build, save and access the object with chaining:
+Task
+  .build({ title: 'foo', description: 'bar', deadline: new Date() })
+  .save()
+  .then(anotherTask =&gt; {
+    // you can now access the currently saved task with the variable anotherTask... nice!
+  })
+  .catch(error =&gt; {
+    // Ooops, do some error-handling
+  })</code>
+</code></pre>
+<h2 id="creating-persistent-instances">Creating persistent instances</h2>
+<p>While an instance created with <code>.build()</code> requires an explicit <code>.save()</code> call to be stored in the database, <code>.create()</code> omits that requirement altogether and automatically stores your instance's data once called.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Task.create({ title: 'foo', description: 'bar', deadline: new Date() }).then(task =&gt; {
+  // you can now access the newly created task via the variable task
+})</code>
+</code></pre>
+<p>It is also possible to define which attributes can be set via the create method. This can be especially very handy if you create database entries based on a form which can be filled by a user. Using that would for example allow you to restrict the <code>User</code> model to set only a username and an address but not an admin flag:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.create({ username: 'barfooz', isAdmin: true }, { fields: [ 'username' ] }).then(user =&gt; {
+  // let's assume the default of isAdmin is false:
+  console.log(user.get({
+    plain: true
+  })) // =&gt; { username: 'barfooz', isAdmin: false }
+})</code>
+</code></pre>
+<h2 id="updating-saving-persisting-an-instance">Updating / Saving / Persisting an instance</h2>
+<p>Now lets change some values and save changes to the database... There are two ways to do that:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// way 1
+task.title = 'a very different title now'
+task.save().then(() =&gt; {})
+
+// way 2
+task.update({
+  title: 'a very different title now'
+}).then(() =&gt; {})</code>
+</code></pre>
+<p>It's also possible to define which attributes should be saved when calling <code>save</code>, by passing an array of column names. This is useful when you set attributes based on a previously defined object. E.g. if you get the values of an object via a form of a web app. Furthermore this is used internally for <code>update</code>. This is how it looks like:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">task.title = 'foooo'
+task.description = 'baaaaaar'
+task.save({fields: ['title']}).then(() =&gt; {
+ // title will now be 'foooo' but description is the very same as before
+})
+
+// The equivalent call using update looks like this:
+task.update({ title: 'foooo', description: 'baaaaaar'}, {fields: ['title']}).then(() =&gt; {
+ // title will now be 'foooo' but description is the very same as before
+})</code>
+</code></pre>
+<p>When you call <code>save</code> without changing any attribute, this method will execute nothing;</p>
+<h2 id="destroying-deleting-persistent-instances">Destroying / Deleting persistent instances</h2>
+<p>Once you created an object and got a reference to it, you can delete it from the database. The relevant method is <code>destroy</code>:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Task.create({ title: 'a task' }).then(task =&gt; {
+  // now you see me...
+  return task.destroy();
+}).then(() =&gt; {
+ // now i'm gone :)
+})</code>
+</code></pre>
+<p>If the <code>paranoid</code> options is true, the object will not be deleted, instead the <code>deletedAt</code> column will be set to the current timestamp. To force the deletion, you can pass <code>force: true</code> to the destroy call:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">task.destroy({ force: true })</code>
+</code></pre>
+<h2 id="working-in-bulk-creating-updating-and-destroying-multiple-rows-at-once-">Working in bulk (creating, updating and destroying multiple rows at once)</h2>
+<p>In addition to updating a single instance, you can also create, update, and delete multiple instances at once. The functions you are looking for are called</p>
+<ul>
+<li><code>Model.bulkCreate</code></li>
+<li><code>Model.update</code></li>
+<li><code>Model.destroy</code></li>
+</ul>
+<p>Since you are working with multiple models, the callbacks will not return DAO instances. BulkCreate will return an array of model instances/DAOs, they will however, unlike <code>create</code>, not have the resulting values of autoIncrement attributes.<code>update</code> and <code>destroy</code> will return the number of affected rows.</p>
+<p>First lets look at bulkCreate</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.bulkCreate([
+  { username: 'barfooz', isAdmin: true },
+  { username: 'foo', isAdmin: true },
+  { username: 'bar', isAdmin: false }
+]).then(() =&gt; { // Notice: There are no arguments here, as of right now you'll have to...
+  return User.findAll();
+}).then(users =&gt; {
+  console.log(users) // ... in order to get the array of user objects
+})</code>
+</code></pre>
+<p>To update several rows at once:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Task.bulkCreate([
+  {subject: 'programming', status: 'executing'},
+  {subject: 'reading', status: 'executing'},
+  {subject: 'programming', status: 'finished'}
+]).then(() =&gt; {
+  return Task.update(
+    { status: 'inactive' }, /* set attributes' value */
+    { where: { subject: 'programming' }} /* where criteria */
+  );
+}).spread((affectedCount, affectedRows) =&gt; {
+  // .update returns two values in an array, therefore we use .spread
+  // Notice that affectedRows will only be defined in dialects which support returning: true
+
+  // affectedCount will be 2
+  return Task.findAll();
+}).then(tasks =&gt; {
+  console.log(tasks) // the 'programming' tasks will both have a status of 'inactive'
+})</code>
+</code></pre>
+<p>And delete them:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Task.bulkCreate([
+  {subject: 'programming', status: 'executing'},
+  {subject: 'reading', status: 'executing'},
+  {subject: 'programming', status: 'finished'}
+]).then(() =&gt; {
+  return Task.destroy({
+    where: {
+      subject: 'programming'
+    },
+    truncate: true /* this will ignore where and truncate the table instead */
+  });
+}).then(affectedRows =&gt; {
+  // affectedRows will be 2
+  return Task.findAll();
+}).then(tasks =&gt; {
+  console.log(tasks) // no programming, just reading :(
+})</code>
+</code></pre>
+<p>If you are accepting values directly from the user, it might be beneficial to limit the columns that you want to actually insert.<code>bulkCreate()</code>accepts an options object as the second parameter. The object can have a <code>fields</code> parameter, (an array) to let it know which fields you want to build explicitly</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.bulkCreate([
+  { username: 'foo' },
+  { username: 'bar', admin: true}
+], { fields: ['username'] }).then(() =&gt; {
+  // nope bar, you can't be admin!
+})</code>
+</code></pre>
+<p><code>bulkCreate</code> was originally made to be a mainstream/fast way of inserting records, however, sometimes you want the luxury of being able to insert multiple rows at once without sacrificing model validations even when you explicitly tell Sequelize which columns to sift through. You can do by adding a <code>validate: true</code> property to the options object.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const Tasks = sequelize.define('task', {
+  name: {
+    type: Sequelize.STRING,
+    validate: {
+      notNull: { args: true, msg: 'name cannot be null' }
+    }
+  },
+  code: {
+    type: Sequelize.STRING,
+    validate: {
+      len: [3, 10]
+    }
+  }
+})
+
+Tasks.bulkCreate([
+  {name: 'foo', code: '123'},
+  {code: '1234'},
+  {name: 'bar', code: '1'}
+], { validate: true }).catch(errors =&gt; {
+  /* console.log(errors) would look like:
+  [
+    { record:
+    ...
+    name: 'SequelizeBulkRecordError',
+    message: 'Validation error',
+    errors:
+      { name: 'SequelizeValidationError',
+        message: 'Validation error',
+        errors: [Object] } },
+    { record:
+      ...
+      name: 'SequelizeBulkRecordError',
+      message: 'Validation error',
+      errors:
+        { name: 'SequelizeValidationError',
+        message: 'Validation error',
+        errors: [Object] } }
+  ]
+  */
+})</code>
+</code></pre>
+<h2 id="values-of-an-instance">Values of an instance</h2>
+<p>If you log an instance you will notice, that there is a lot of additional stuff. In order to hide such stuff and reduce it to the very interesting information, you can use the<code>get</code>-attribute. Calling it with the option <code>plain</code> = true will only return the values of an instance.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Person.create({
+  name: 'Rambow',
+  firstname: 'John'
+}).then(john =&gt; {
+  console.log(john.get({
+    plain: true
+  }))
+})
+
+// result:
+
+// { name: 'Rambow',
+//   firstname: 'John',
+//   id: 1,
+//   createdAt: Tue, 01 May 2012 19:12:16 GMT,
+//   updatedAt: Tue, 01 May 2012 19:12:16 GMT
+// }</code>
+</code></pre>
+<p><strong>Hint:</strong>You can also transform an instance into JSON by using <code>JSON.stringify(instance)</code>. This will basically return the very same as <code>values</code>.</p>
+<h2 id="reloading-instances">Reloading instances</h2>
+<p>If you need to get your instance in sync, you can use the method<code>reload</code>. It will fetch the current data from the database and overwrite the attributes of the model on which the method has been called on.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Person.findOne({ where: { name: 'john' } }).then(person =&gt; {
+  person.name = 'jane'
+  console.log(person.name) // 'jane'
+
+  person.reload().then(() =&gt; {
+    console.log(person.name) // 'john'
+  })
+})</code>
+</code></pre>
+<h2 id="incrementing">Incrementing</h2>
+<p>In order to increment values of an instance without running into concurrency issues, you may use <code>increment</code>.</p>
+<p>First of all you can define a field and the value you want to add to it.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.findById(1).then(user =&gt; {
+  return user.increment('my-integer-field', {by: 2})
+}).then(user =&gt; {
+  // Postgres will return the updated user by default (unless disabled by setting { returning: false })
+  // In other dialects, you'll want to call user.reload() to get the updated instance...
+})</code>
+</code></pre>
+<p>Second, you can define multiple fields and the value you want to add to them.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.findById(1).then(user =&gt; {
+  return user.increment([ 'my-integer-field', 'my-very-other-field' ], {by: 2})
+}).then(/* ... */)</code>
+</code></pre>
+<p>Third, you can define an object containing fields and its increment values.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.findById(1).then(user =&gt; {
+  return user.increment({
+    'my-integer-field':    2,
+    'my-very-other-field': 3
+  })
+}).then(/* ... */)</code>
+</code></pre>
+<h2 id="decrementing">Decrementing</h2>
+<p>In order to decrement values of an instance without running into concurrency issues, you may use <code>decrement</code>.</p>
+<p>First of all you can define a field and the value you want to add to it.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.findById(1).then(user =&gt; {
+  return user.decrement('my-integer-field', {by: 2})
+}).then(user =&gt; {
+  // Postgres will return the updated user by default (unless disabled by setting { returning: false })
+  // In other dialects, you'll want to call user.reload() to get the updated instance...
+})</code>
+</code></pre>
+<p>Second, you can define multiple fields and the value you want to add to them.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.findById(1).then(user =&gt; {
+  return user.decrement([ 'my-integer-field', 'my-very-other-field' ], {by: 2})
+}).then(/* ... */)</code>
+</code></pre>
+<p>Third, you can define an object containing fields and its decrement values.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.findById(1).then(user =&gt; {
+  return user.decrement({
+    'my-integer-field':    2,
+    'my-very-other-field': 3
+  })
+}).then(/* ... */)</code>
+</code></pre>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="/v4/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+
+
+<script src="/v4/script/pretty-print.js"></script>
+
+
+
+<script src="/v4/script/patch-for-local.js"></script>
+
+
+</body></html>

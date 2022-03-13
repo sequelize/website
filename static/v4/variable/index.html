@@ -1,0 +1,1273 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v4/../">
+  <title data-ice="title">Variable |  Sequelize | The node.js ORM for PostgreSQL, MySQL, SQLite and MSSQL API Document</title>
+  <link type="text/css" rel="stylesheet" href="/v4/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v4/css/prettify-tomorrow.css">
+  <script src="/v4/script/prettify/prettify.js"></script>
+  
+  
+  <script src="/v4/script/manual.js"></script>
+<script data-ice="userScript" src="/v4/user/script/0-script.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/0-style.css">
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/1-theme.css">
+<link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header><a href="/v4//"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+  <a href="/v4/./">Home</a>
+  
+  <a href="/v4/identifiers.html">Reference</a>
+  <a href="/v4/source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/sequelize/sequelize.git" class="repo-url-github">Repository</a><a href="http://sequelize-slack.herokuapp.com/" class="slack-link"><img class="slack-logo" src="/v4/manual/asset/slack.svg">Join us on Slack</a>
+  <div class="search-box">
+  <span>
+    <img src="/v4/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">associations</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">errors</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="/v4/function/index.html#static-function-isImmutable">isImmutable</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">Variable</h1>
+<div data-ice="summaries"><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Summary</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>A convenience class holding commonly used data types.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Deferrable">Deferrable</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>A collection of properties related to deferrable constraints.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Op">Op</a></span></span><span data-ice="signature">: {"eq": <span>*</span>, "ne": <span>*</span>, "gte": <span>*</span>, "gt": <span>*</span>, "lte": <span>*</span>, "lt": <span>*</span>, "not": <span>*</span>, "is": <span>*</span>, "in": <span>*</span>, "notIn": <span>*</span>, "like": <span>*</span>, "notLike": <span>*</span>, "iLike": <span>*</span>, "notILike": <span>*</span>, "regexp": <span>*</span>, "notRegexp": <span>*</span>, "iRegexp": <span>*</span>, "notIRegexp": <span>*</span>, "between": <span>*</span>, "notBetween": <span>*</span>, "overlap": <span>*</span>, "contains": <span>*</span>, "contained": <span>*</span>, "adjacent": <span>*</span>, "strictLeft": <span>*</span>, "strictRight": <span>*</span>, "noExtendRight": <span>*</span>, "noExtendLeft": <span>*</span>, "and": <span>*</span>, "or": <span>*</span>, "any": <span>*</span>, "all": <span>*</span>, "values": <span>*</span>, "col": <span>*</span>, "placeholder": <span>*</span>, "join": <span>*</span>, "raw": <span>*</span>}</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Operator symbols to be used when querying data</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>An enum of query types used by <code>sequelize.query</code></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-TableHints">TableHints</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>An enum of table hints to be used in mssql for querying with table hints</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="details"><h2 data-ice="title">Static Public </h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-DataTypes">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">DataTypes</span><span data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/data-types.js.html#lineNumber950">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>A convenience class holding commonly used data types. The datatypes are used when defining a new model using <code>Sequelize.define</code>, like this:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">sequelize.define('model', {
+  column: DataTypes.INTEGER
+})</code>
+</code></pre>
+<p>When defining a model you can just as easily pass a string as type, but often using the types defined here is beneficial. For example, using <code>DataTypes.BLOB</code>, mean
+that that column will be returned as an instance of <code>Buffer</code> when being fetched by sequelize.</p>
+<p>To provide a length for the data type, you can invoke it like a function: <code>INTEGER(2)</code></p>
+<p>Some data types have special properties that can be accessed in order to change the data type.
+For example, to get an unsigned integer with zerofill you can do <code>DataTypes.INTEGER.UNSIGNED.ZEROFILL</code>.
+The order you access the properties in do not matter, so <code>DataTypes.INTEGER.ZEROFILL.UNSIGNED</code> is fine as well.</p>
+<ul>
+<li>All number types (<code>INTEGER</code>, <code>BIGINT</code>, <code>FLOAT</code>, <code>DOUBLE</code>, <code>REAL</code>, <code>DECIMAL</code>) expose the properties <code>UNSIGNED</code> and <code>ZEROFILL</code></li>
+<li>The <code>CHAR</code> and <code>STRING</code> types expose the <code>BINARY</code> property</li>
+</ul>
+<p>Three of the values provided here (<code>NOW</code>, <code>UUIDV1</code> and <code>UUIDV4</code>) are special default values, that should not be used to define types. Instead they are used as shorthands for
+defining default values. For example, to get a uuid field with a default value generated following v1 of the UUID standard:</p>
+<pre><code class="lang-js`"><code class="source-code prettyprint">sequelize.define('model',` {
+  uuid: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV1,
+    primaryKey: true
+  }
+})</code>
+</code></pre>
+<p>There may be times when you want to generate your own UUID conforming to some other algorithm. This is accomplished
+using the defaultValue property as well, but instead of specifying one of the supplied UUID types, you return a value
+from a function.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">sequelize.define('model', {
+  uuid: {
+    type: DataTypes.UUID,
+    defaultValue: function() {
+      return generateMyId()
+    },
+    primaryKey: true
+  }
+})</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">STRING</td>
+      <td data-ice="type"><span><span>function</span><span>(length=255: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A variable length string</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">CHAR</td>
+      <td data-ice="type"><span><span>function</span><span>(length=255: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A fixed length string.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">TEXT</td>
+      <td data-ice="type"><span><span>function</span><span>(length: <span>string</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>An unlimited length text column. Available lengths: <code>tiny</code>, <code>medium</code>, <code>long</code></p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">TINYINT</td>
+      <td data-ice="type"><span><span>function</span><span>(length: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A 8 bit integer.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SMALLINT</td>
+      <td data-ice="type"><span><span>function</span><span>(length: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A 16 bit integer.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">MEDIUMINT</td>
+      <td data-ice="type"><span><span>function</span><span>(length: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A 24 bit integer.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">INTEGER</td>
+      <td data-ice="type"><span><span>function</span><span>(length=255: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A 32 bit integer.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">BIGINT</td>
+      <td data-ice="type"><span><span>function</span><span>(length: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A 64 bit integer. Note: an attribute defined as <code>BIGINT</code> will be treated like a <code>string</code> due this <a href="https://github.com/brianc/node-postgres/pull/353">feature from node-postgres</a> to prevent precision loss. To have this attribute as a <code>number</code>, this is a possible <a href="https://github.com/sequelize/sequelize/issues/2383#issuecomment-58006083">workaround</a>.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">FLOAT</td>
+      <td data-ice="type"><span><span>function</span><span>(length: <span>integer</span>, decimals: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Floating point number (4-byte precision).</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">DOUBLE</td>
+      <td data-ice="type"><span><span>function</span><span>(length: <span>integer</span>, decimals: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Floating point number (8-byte precision).</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">DECIMAL</td>
+      <td data-ice="type"><span><span>function</span><span>(precision: <span>integer</span>, scale: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Decimal number.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">REAL</td>
+      <td data-ice="type"><span><span>function</span><span>(length: <span>integer</span>, decimals: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Floating point number (4-byte precision).</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">BOOLEAN</td>
+      <td data-ice="type"><span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A boolean / tinyint column, depending on dialect</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">BLOB</td>
+      <td data-ice="type"><span><span>function</span><span>(length: <span>string</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Binary storage. Available lengths: <code>tiny</code>, <code>medium</code>, <code>long</code></p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">ENUM</td>
+      <td data-ice="type"><span><span>function</span><span>(values: <span><span>string</span><span>[]</span></span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>An enumeration. <code>DataTypes.ENUM('value', 'another value')</code>.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">DATE</td>
+      <td data-ice="type"><span><span>function</span><span>(length: <span>integer</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A datetime column</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">DATEONLY</td>
+      <td data-ice="type"><span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A date only column (no timestamp)</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">TIME</td>
+      <td data-ice="type"><span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A time column</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">NOW</td>
+      <td data-ice="type"><span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A default value of the current timestamp</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">UUID</td>
+      <td data-ice="type"><span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A column storing a unique universal identifier. Use with <code>UUIDV1</code> or <code>UUIDV4</code> for default values.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">UUIDV1</td>
+      <td data-ice="type"><span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A default unique universal identifier generated following the UUID v1 standard</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">UUIDV4</td>
+      <td data-ice="type"><span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A default unique universal identifier generated following the UUID v4 standard</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">HSTORE</td>
+      <td data-ice="type"><span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A key / value store column. Only available in Postgres.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">JSON</td>
+      <td data-ice="type"><span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A JSON string column. Available in MySQL, Postgres and SQLite</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">JSONB</td>
+      <td data-ice="type"><span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A binary storage JSON column. Only available in Postgres.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">ARRAY</td>
+      <td data-ice="type"><span><span>function</span><span>(type: <span><a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a></span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>An array of <code>type</code>, e.g. <code>DataTypes.ARRAY(DataTypes.DECIMAL)</code>. Only available in Postgres.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">RANGE</td>
+      <td data-ice="type"><span><span>function</span><span>(type: <span><a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a></span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Range types are data types representing a range of values of some element type (called the range's subtype).
+Only available in Postgres. See <a href="http://www.postgresql.org/docs/9.4/static/rangetypes.html">the Postgres documentation</a> for more details</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">GEOMETRY</td>
+      <td data-ice="type"><span><span>function</span><span>(type: <span>string</span>, srid: <span>string</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A column storing Geometry information. It is only available in PostgreSQL (with PostGIS) or MySQL.
+In MySQL, allowable Geometry types are <code>POINT</code>, <code>LINESTRING</code>, <code>POLYGON</code>.</p>
+<p>GeoJSON is accepted as input and returned as output.
+In PostGIS, the GeoJSON is parsed using the PostGIS function <code>ST_GeomFromGeoJSON</code>.
+In MySQL it is parsed using the function <code>GeomFromText</code>.
+Therefore, one can just follow the <a href="http://geojson.org/geojson-spec.html">GeoJSON spec</a> for handling geometry objects.  See the following examples:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// Create a new point:
+const point = { type: 'Point', coordinates: [39.807222,-76.984722]};
+
+User.create({username: 'username', geometry: point });
+
+// Create a new linestring:
+const line = { type: 'LineString', 'coordinates': [ [100.0, 0.0], [101.0, 1.0] ] };
+
+User.create({username: 'username', geometry: line });
+
+// Create a new polygon:
+const polygon = { type: 'Polygon', coordinates: [
+                [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0],
+                  [100.0, 1.0], [100.0, 0.0] ]
+                ]};
+
+User.create({username: 'username', geometry: polygon });
+
+// Create a new point with a custom SRID:
+const point = {
+  type: 'Point',
+  coordinates: [39.807222,-76.984722],
+  crs: { type: 'name', properties: { name: 'EPSG:4326'} }
+};
+
+User.create({username: 'username', geometry: point })</code>
+</code></pre>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">GEOGRAPHY</td>
+      <td data-ice="type"><span><span>function</span><span>(type: <span>string</span>, srid: <span>string</span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A geography datatype represents two dimensional spacial objects in an elliptic coord system.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">VIRTUAL</td>
+      <td data-ice="type"><span><span>function</span><span>(returnType: <span><a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a></span>, fields: <span><span>string</span><span>[]</span></span>)</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A virtual value that is not stored in the DB. This could for example be useful if you want to provide a default value in your model that is returned to the user but not stored in the DB.</p>
+<p>You could also use it to validate a value before permuting and storing it. Checking password length before hashing it for example:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">sequelize.define('user', {
+  password_hash: DataTypes.STRING,
+  password: {
+    type: DataTypes.VIRTUAL,
+    set: function (val) {
+       // Remember to set the data value, otherwise it won't be validated
+       this.setDataValue('password', val);
+       this.setDataValue('password_hash', this.salt + val);
+     },
+     validate: {
+        isLongEnough: function (val) {
+          if (val.length &lt; 7) {
+            throw new Error("Please choose a longer password")
+         }
+      }
+    }
+  }
+})</code>
+</code></pre>
+<p>In the above code the password is stored plainly in the password field so it can be validated, but is never stored in the DB.</p>
+<p>VIRTUAL also takes a return type and dependency fields as arguments
+If a virtual attribute is present in <code>attributes</code> it will automatically pull in the extra fields as well.
+Return type is mostly useful for setups that rely on types like GraphQL.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  active: {
+    type: new DataTypes.VIRTUAL(DataTypes.BOOLEAN, ['createdAt']),
+    get: function() {
+      return this.get('createdAt') &gt; Date.now() - (7 * 24 * 60 * 60 * 1000)
+    }
+  }
+}</code>
+</code></pre>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-Deferrable">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">Deferrable</span><span data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/deferrable.js.html#lineNumber43">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>A collection of properties related to deferrable constraints. It can be used to
+make foreign key constraints deferrable and to set the constraints within a
+transaction. This is only supported in PostgreSQL.</p>
+<p>The foreign keys can be configured like this. It will create a foreign key
+that will check the constraints immediately when the data was inserted.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">sequelize.define('Model', {
+  foreign_id: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: OtherModel,
+      key: 'id',
+      deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+    }
+  }
+});</code>
+</code></pre>
+<p>The constraints can be configured in a transaction like this. It will
+trigger a query once the transaction has been started and set the constraints
+to be checked at the very end of the transaction.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">sequelize.transaction({
+  deferrable: Sequelize.Deferrable.SET_DEFERRED
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">INITIALLY_DEFERRED</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Defer constraints checks to the end of transactions.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">INITIALLY_IMMEDIATE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Trigger the constraint checks immediately</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">NOT</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Set the constraints to not deferred. This is the default in PostgreSQL and it make it impossible to dynamically defer the constraints within a transaction.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SET_DEFERRED</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SET_IMMEDIATE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-Op">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">Op</span><span data-ice="signature">: {"eq": <span>*</span>, "ne": <span>*</span>, "gte": <span>*</span>, "gt": <span>*</span>, "lte": <span>*</span>, "lt": <span>*</span>, "not": <span>*</span>, "is": <span>*</span>, "in": <span>*</span>, "notIn": <span>*</span>, "like": <span>*</span>, "notLike": <span>*</span>, "iLike": <span>*</span>, "notILike": <span>*</span>, "regexp": <span>*</span>, "notRegexp": <span>*</span>, "iRegexp": <span>*</span>, "notIRegexp": <span>*</span>, "between": <span>*</span>, "notBetween": <span>*</span>, "overlap": <span>*</span>, "contains": <span>*</span>, "contained": <span>*</span>, "adjacent": <span>*</span>, "strictLeft": <span>*</span>, "strictRight": <span>*</span>, "noExtendRight": <span>*</span>, "noExtendLeft": <span>*</span>, "and": <span>*</span>, "or": <span>*</span>, "any": <span>*</span>, "all": <span>*</span>, "values": <span>*</span>, "col": <span>*</span>, "placeholder": <span>*</span>, "join": <span>*</span>, "raw": <span>*</span>}</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/operators.js.html#lineNumber45">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Operator symbols to be used when querying data</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">eq</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">ne</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">gte</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">gt</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">lte</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">lt</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">not</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">is</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">in</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">notIn</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">like</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">notLike</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">iLike</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">notILike</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">regexp</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">notRegexp</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">iRegexp</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">notIRegexp</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">between</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">notBetween</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">overlap</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">contains</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">contained</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">adjacent</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">strictLeft</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">strictRight</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">noExtendRight</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">noExtendLeft</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">and</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">or</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">any</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">all</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">values</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">col</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">placeholder</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">join</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/model.js~Model.html#instance-method-where">Model#where</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-QueryTypes">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">QueryTypes</span><span data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/query-types.js.html#lineNumber23">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>An enum of query types used by <code>sequelize.query</code></p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SELECT</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">INSERT</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">UPDATE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">BULKUPDATE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">BULKDELETE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">DELETE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">UPSERT</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">VERSION</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SHOWTABLES</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SHOWINDEXES</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">DESCRIBE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">RAW</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">FOREIGNKEYS</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SHOWCONSTRAINTS</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-query">Sequelize#query</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-TableHints">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">TableHints</span><span data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/table-hints.js.html#lineNumber22">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>An enum of table hints to be used in mssql for querying with table hints</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">NOLOCK</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">READUNCOMMITTED</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">UPDLOCK</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">REPEATABLEREAD</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SERIALIZABLE</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">READCOMMITTED</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">TABLOCK</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">TABLOCKX</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">PAGLOCK</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">ROWLOCK</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">NOWAIT</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">READPAST</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">XLOCK</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">SNAPSHOT</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">NOEXPAND</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="/v4/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+
+
+<script src="/v4/script/pretty-print.js"></script>
+
+
+
+<script src="/v4/script/patch-for-local.js"></script>
+
+
+</body></html>

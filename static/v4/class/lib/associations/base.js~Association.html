@@ -1,0 +1,421 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v4/../../../">
+  <title data-ice="title">Association |  Sequelize | The node.js ORM for PostgreSQL, MySQL, SQLite and MSSQL API Document</title>
+  <link type="text/css" rel="stylesheet" href="/v4/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v4/css/prettify-tomorrow.css">
+  <script src="/v4/script/prettify/prettify.js"></script>
+  
+  
+  <script src="/v4/script/manual.js"></script>
+<script data-ice="userScript" src="/v4/user/script/0-script.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/0-style.css">
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/1-theme.css">
+<link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header><a href="/v4//"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+  <a href="/v4/./">Home</a>
+  
+  <a href="/v4/identifiers.html">Reference</a>
+  <a href="/v4/source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/sequelize/sequelize.git" class="repo-url-github">Repository</a><a href="http://sequelize-slack.herokuapp.com/" class="slack-link"><img class="slack-logo" src="/v4/manual/asset/slack.svg">Join us on Slack</a>
+  <div class="search-box">
+  <span>
+    <img src="/v4/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">associations</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">errors</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="/v4/function/index.html#static-function-isImmutable">isImmutable</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode"></code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">class</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="/v4/file/lib/associations/base.js.html#lineNumber82">source</a></span></span>
+</div>
+
+<div class="self-detail detail">
+  <h1 data-ice="name">Association</h1>
+
+  
+
+  
+  
+  
+  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclass:</h4><div><span><a href="/v4/class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span>, <span><a href="/v4/class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span>, <span><a href="/v4/class/lib/associations/has-many.js~HasMany.html">HasMany</a></span>, <span><a href="/v4/class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></div></div>
+  
+  
+  
+  
+  
+
+  
+  
+  <div class="description" data-ice="description"><p>Creating associations in sequelize is done by calling one of the belongsTo / hasOne / hasMany / belongsToMany functions on a model (the source), and providing another model as the first argument to the function (the target).</p>
+<ul>
+<li>hasOne - adds a foreign key to the target and singular association mixins to the source.</li>
+<li>belongsTo - add a foreign key and singular association mixins to the source.</li>
+<li>hasMany - adds a foreign key to target and plural association mixins to the source.</li>
+<li>belongsToMany - creates an N:M association with a join table and adds plural association mixins to the source. The junction table is created with sourceId and targetId.</li>
+</ul>
+<p>Creating an association will add a foreign key constraint to the attributes. All associations use <code>CASCADE</code> on update and <code>SET NULL</code> on delete, except for n:m, which also uses <code>CASCADE</code> on delete.</p>
+<p>When creating associations, you can provide an alias, via the <code>as</code> option. This is useful if the same model is associated twice, or you want your association to be called something other than the name of the target model.</p>
+<p>As an example, consider the case where users have many pictures, one of which is their profile picture. All pictures have a <code>userId</code>, but in addition the user model also has a <code>profilePictureId</code>, to be able to easily load the user's profile picture.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.hasMany(Picture)
+User.belongsTo(Picture, { as: 'ProfilePicture', constraints: false })
+
+user.getPictures() // gets you all pictures
+user.getProfilePicture() // gets you only the profile picture
+
+User.findAll({
+  where: ...,
+  include: [
+    { model: Picture }, // load all pictures
+    { model: Picture, as: 'ProfilePicture' }, // load the profile picture.
+    // Notice that the spelling must be the exact same as the one in the association
+  ]
+})</code>
+</code></pre>
+<p>To get full control over the foreign key column added by sequelize, you can use the <code>foreignKey</code> option. It can either be a string, that specifies the name, or and object type definition,
+equivalent to those passed to <code>sequelize.define</code>.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.hasMany(Picture, { foreignKey: 'uid' })</code>
+</code></pre>
+<p>The foreign key column in Picture will now be called <code>uid</code> instead of the default <code>userId</code>.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.hasMany(Picture, {
+  foreignKey: {
+    name: 'uid',
+    allowNull: false
+  }
+})</code>
+</code></pre>
+<p>This specifies that the <code>uid</code> column cannot be null. In most cases this will already be covered by the foreign key constraints, which sequelize creates automatically, but can be useful in case where the foreign keys are disabled, e.g. due to circular references (see <code>constraints: false</code> below).</p>
+<p>When fetching associated models, you can limit your query to only load some models. These queries are written in the same way as queries to <code>find</code>/<code>findAll</code>. To only get pictures in JPG, you can do:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">user.getPictures({
+  where: {
+    format: 'jpg'
+  }
+})</code>
+</code></pre>
+<p>There are several ways to update and add new associations. Continuing with our example of users and pictures:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">user.addPicture(p) // Add a single picture
+user.setPictures([p1, p2]) // Associate user with ONLY these two picture, all other associations will be deleted
+user.addPictures([p1, p2]) // Associate user with these two pictures, but don't touch any current associations</code>
+</code></pre>
+<p>You don't have to pass in a complete object to the association functions, if your associated model has a single primary key:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">user.addPicture(req.query.pid) // Here pid is just an integer, representing the primary key of the picture</code>
+</code></pre>
+<p>In the example above we have specified that a user belongs to his profile picture. Conceptually, this might not make sense, but since we want to add the foreign key to the user model this is the way to do it.</p>
+<p>Note how we also specified <code>constraints: false</code> for profile picture. This is because we add a foreign key from user to picture (profilePictureId), and from picture to user (userId). If we were to add foreign keys to both, it would create a cyclic dependency, and sequelize would not know which table to create first, since user depends on picture, and picture depends on user. These kinds of problems are detected by sequelize before the models are synced to the database, and you will get an error along the lines of <code>Error: Cyclic dependency found. 'users' is dependent of itself</code>. If you encounter this, you should either disable some constraints, or rethink your associations completely.</p>
+</div>
+  
+
+  
+
+  
+
+  
+
+  
+</div>
+
+
+
+
+<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/associations/base.js~Association.html#instance-member-associationType">associationType</a></span></span><span data-ice="signature">: <span>string</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The type of the association.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/associations/base.js~Association.html#instance-member-source">source</a></span></span><span data-ice="signature">: <span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/associations/base.js~Association.html#instance-member-target">target</a></span></span><span data-ice="signature">: <span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-associationType">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">associationType</span><span data-ice="signature">: <span>string</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/associations/base.js.html#lineNumber101">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>The type of the association. One of <code>HasMany</code>, <code>BelongsTo</code>, <code>HasOne</code>, <code>BelongsToMany</code></p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-source">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">source</span><span data-ice="signature">: <span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/associations/base.js.html#lineNumber88">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-target">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">target</span><span data-ice="signature">: <span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/associations/base.js.html#lineNumber92">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="/v4/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+
+
+<script src="/v4/script/pretty-print.js"></script>
+
+
+
+<script src="/v4/script/patch-for-local.js"></script>
+
+
+</body></html>

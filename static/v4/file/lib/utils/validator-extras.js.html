@@ -1,0 +1,97 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v4/../../../">
+  <title data-ice="title">lib/utils/validator-extras.js |  Sequelize | The node.js ORM for PostgreSQL, MySQL, SQLite and MSSQL API Document</title>
+  <link type="text/css" rel="stylesheet" href="/v4/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v4/css/prettify-tomorrow.css">
+  <script src="/v4/script/prettify/prettify.js"></script>
+  
+  
+  <script src="/v4/script/manual.js"></script>
+<script data-ice="userScript" src="/v4/user/script/0-script.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/0-style.css">
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/1-theme.css">
+<link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header><a href="/v4//"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+  <a href="/v4/./">Home</a>
+  
+  <a href="/v4/identifiers.html">Reference</a>
+  <a href="/v4/source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/sequelize/sequelize.git" class="repo-url-github">Repository</a><a href="http://sequelize-slack.herokuapp.com/" class="slack-link"><img class="slack-logo" src="/v4/manual/asset/slack.svg">Join us on Slack</a>
+  <div class="search-box">
+  <span>
+    <img src="/v4/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">associations</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">errors</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="/v4/function/index.html#static-function-isImmutable">isImmutable</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/utils/validator-extras.js</h1>
+<pre class="source-code line-number raw-source-code"></pre>
+<p data-ice="emptySourceCode">Sorry, this documentation does not provide source code.</p>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="/v4/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+
+
+<script src="/v4/script/pretty-print.js"></script>
+
+
+
+<script src="/v4/script/patch-for-local.js"></script>
+
+
+</body></html>
