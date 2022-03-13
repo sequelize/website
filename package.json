@@ -11,7 +11,8 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "lint-docs": "markdownlint docs",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "sync": "bash ./sync-repositories.sh"
   },
   "dependencies": {
     "@docusaurus/core": "^2.0.0-beta.17",
