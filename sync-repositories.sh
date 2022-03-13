@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MAIN_REPO_URL=git@github.com:sequelize/sequelize.git
+MAIN_REPO_URL=https://github.com/sequelize/sequelize.git
 
 set -e
 
