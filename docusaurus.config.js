@@ -65,10 +65,10 @@ const config = {
                 href: "pathname:///v5",
                 label: "v5",
               },
-              // {
-              //   href: "pathname:///v4",
-              //   label: "v4",
-              // },
+              {
+                href: "pathname:///v4",
+                label: "v4",
+              },
               {
                 href: 'pathname:///v3',
                 label: 'v3',
@@ -99,10 +99,10 @@ const config = {
                 label: 'Sequelize 5',
                 href: 'pathname:///v5/identifiers.html',
               },
-              // {
-              //   label: 'Sequelize 4',
-              //   href: 'pathname:///v4/identifiers.html',
-              // },
+              {
+                label: 'Sequelize 4',
+                href: 'pathname:///v4/identifiers.html',
+              },
               {
                 label: 'Sequelize 3',
                 href: 'pathname:///v3/api/sequelize',
