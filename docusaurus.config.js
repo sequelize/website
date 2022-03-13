@@ -1,28 +1,29 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require("prism-react-renderer/themes/github");
+const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Sequelize',
-  tagline: 'Promise-based ORM',
-  url: 'https://sequelize.org',
-  baseUrl: '/',
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  organizationName: 'sequelize',
-  projectName: 'sequelize',
+  title: "Sequelize",
+  tagline: "Promise-based ORM",
+  url: "https://sequelize.org",
+  baseUrl: "/",
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
+  organizationName: "sequelize",
+  projectName: "sequelize",
 
   presets: [
     [
-      'classic',
+      "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/sequelize/sequelize/tree/main/documentation/',
+          sidebarPath: require.resolve("./sidebars.js"),
+          editUrl:
+            "https://github.com/sequelize/sequelize/tree/main/documentation/",
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           versions: {
@@ -30,45 +31,49 @@ const config = {
             // this should always be the 'alpha' version
             // the stable version should be inside 'versioned_docs'
             current: {
-              label: 'v7 - alpha',
-              path: 'v7',
+              label: "v7 - alpha",
+              path: "v7",
             },
-            '6.x.x': {
-              label: 'v6 - stable',
-              path: 'v6'
-            }
+            "6.x.x": {
+              label: "v6 - stable",
+              path: "v6",
+            },
           },
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
       },
     ],
   ],
 
   themeConfig:
-  /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     {
       navbar: {
-        title: 'Sequelize',
+        title: "Sequelize",
         logo: {
-          alt: 'Sequelize Logo',
-          src: 'img/logo.svg',
+          alt: "Sequelize Logo",
+          src: "img/logo.svg",
         },
         items: [
           {
-            type: 'docsVersionDropdown',
-            position: 'left',
-            dropdownItemsAfter: [{
-              href: 'pathname:///v5',
-              label: 'v5'
-            }, {
-              href: 'pathname:///v4',
-              label: 'v4'
-            }, {
-              href: 'pathname:///v3',
-              label: 'v3'
-            }],
+            type: "docsVersionDropdown",
+            position: "left",
+            dropdownItemsAfter: [
+              // {
+              //   href: "pathname:///v5",
+              //   label: "v5",
+              // },
+              // {
+              //   href: "pathname:///v4",
+              //   label: "v4",
+              // },
+              {
+                href: "pathname:///v3",
+                label: "v3",
+              },
+            ],
             dropdownActiveClassDisabled: true,
           },
           // {
@@ -78,17 +83,17 @@ const config = {
           //   label: 'Guides',
           // },
           {
-            type: 'dropdown',
-            label: 'API References',
-            position: 'left',
+            type: "dropdown",
+            label: "API References",
+            position: "left",
             items: [
               {
-                label: 'Sequelize 7',
-                href: 'pathname:///api/v7',
+                label: "Sequelize 7",
+                href: "pathname:///api/v7",
               },
               {
-                label: 'Sequelize 6',
-                href: 'pathname:///api/v6/identifiers.html',
+                label: "Sequelize 6",
+                href: "pathname:///api/v6/identifiers.html",
               },
               // {
               //   label: 'Sequelize 5',
@@ -99,62 +104,66 @@ const config = {
               //   href: 'pathname:///v4/identifiers.html',
               // },
               {
-                label: 'Sequelize 3',
-                href: 'pathname:////v3/api/sequelize',
+                label: "Sequelize 3",
+                href: "pathname:///v3/api/sequelize",
               },
             ],
           },
-          { href: 'https://sequelize-slack.herokuapp.com/', label: 'Slack', position: 'right' },
           {
-            href: 'https://github.com/sequelize/sequelize',
-            label: 'GitHub',
-            position: 'right',
+            href: "https://sequelize-slack.herokuapp.com/",
+            label: "Slack",
+            position: "right",
+          },
+          {
+            href: "https://github.com/sequelize/sequelize",
+            label: "GitHub",
+            position: "right",
           },
         ],
       },
       footer: {
-        style: 'dark',
+        style: "dark",
         links: [
           {
-            title: 'Docs',
+            title: "Docs",
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/v6/intro',
+                label: "Tutorial",
+                to: "/docs/v6/intro",
               },
             ],
           },
           {
-            title: 'Community',
+            title: "Community",
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/sequelize.js',
+                label: "Stack Overflow",
+                href: "https://stackoverflow.com/questions/tagged/sequelize.js",
               },
               {
-                label: 'Slack',
-                href: 'https://sequelize-slack.herokuapp.com/',
+                label: "Slack",
+                href: "https://sequelize-slack.herokuapp.com/",
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/SequelizeJS',
+                label: "Twitter",
+                href: "https://twitter.com/SequelizeJS",
               },
             ],
           },
           {
-            title: 'More',
+            title: "More",
             items: [
               // {
               //   label: 'Blog',
               //   to: '/blog',
               // },
               {
-                label: 'GitHub',
-                href: 'https://github.com/sequelize/sequelize',
+                label: "GitHub",
+                href: "https://github.com/sequelize/sequelize",
               },
               {
-                label: 'Changelog',
-                href: 'https://github.com/sequelize/sequelize/releases',
+                label: "Changelog",
+                href: "https://github.com/sequelize/sequelize/releases",
               },
             ],
           },
