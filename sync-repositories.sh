@@ -47,39 +47,6 @@ mv esdoc "$API_DIR/v6" # Move compiled api reference
 popd
 
 # ======================================
-#  Sequelize v3 - v5 (copy static site as-is) - archives
+#  Sequelize v5 and lower
+#  The files are living inside the static directory and will just be copied over to the build directory at build time
 # ======================================
-
-rm -rf .sequelize/archives
-git clone "$MAIN_REPO_URL" .sequelize/archives
-cd .sequelize/archives
-
-#VERSIONS=("v5" "v4" "v3")
-VERSIONS=("v3")
-
-build_branch () {
-  VERSION=$1
-
-  git checkout "$VERSION"
-
-  # old versions used npm instead of yarn
-  npm install
-  npm run docs
-  git stash
-  rm -rf ../"$VERSION"
-
-  if [ "$VERSION" == "v3" ];then
-    mkdocs build --clean
-    rm -rf ../../static/"$VERSION"
-    mv ./site ../../static/"$VERSION"
-  else
-    rm -rf ../../static/"$VERSION"
-    mv ./esdoc ../../static/"$VERSION"
-  fi
-}
-
-git clone "$MAIN_REPO_URL"
-
-for version in "${VERSIONS[@]}"; do
-    build_branch "$version"
-done
