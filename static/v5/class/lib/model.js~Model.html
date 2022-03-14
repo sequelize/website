@@ -3702,7 +3702,7 @@ Model.decrement({ answer: 42, tries: -1}, { by: 2, where: { foo: 'bar' } });</co
       <td data-ice="name" class="code" data-depth="1">options.lock</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
-      <td data-ice="description"><p>Lock the selected rows. Possible options are transaction.LOCK.UPDATE and transaction.LOCK.SHARE. Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model locks with joins. See <a href="/v5/transaction#lock">transaction.LOCK for an example</a></p>
+      <td data-ice="description"><p>Lock the selected rows. Possible options are transaction.LOCK.UPDATE and transaction.LOCK.SHARE. Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model locks with joins. See <a href="/v5/class/lib/transaction.js~Transaction.html#static-get-LOCK">transaction.LOCK for an example</a></p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
@@ -4939,8 +4939,8 @@ Model.increment({ answer: 42, tries: -1}, { by: 2, where: { foo: 'bar' } });</co
   <div data-ice="description"><p>Initialize a model, representing a table in the DB, with attributes and options.</p>
 <p>The table columns are defined by the hash that is given as the first argument.
 Each attribute of the hash represents a column.</p>
-<p>For more about <a href="/v5//manual/tutorial/models-definition.html#validations">Validations</a></p>
-<p>More examples, <a href="/v5//manual/tutorial/models-definition.html">Model Definition</a></p>
+<p>For more about <a href="/v5/manual/models-definition.html#validations">Validations</a></p>
+<p>More examples, <a href="/v5/manual/models-definition.html">Model Definition</a></p>
 </div>
 
   

@@ -615,7 +615,7 @@ Please note: <code>tedious@^6.0.0</code> requires you to nest MSSQL specific opt
     </div>
 <div class="manual-card-wrap" data-ice="cards">
       <div class="manual-card">
-        <div data-ice="card"><h1>Datatypes</h1><p>Below are some of the datatypes supported by sequelize. For a full and updated list, see <a href="/v5//master/variable/index.html#static-variable-DataTypes">DataTypes</a>.</p><pre><code class="lang-js"><code class="source-code prettyprint">Sequelize.STRING                      // VARCHAR(255)
+        <div data-ice="card"><h1>Datatypes</h1><p>Below are some of the datatypes supported by sequelize. For a full and updated list, see <a href="/v5/variable/index.html#static-variable-DataTypes">DataTypes</a>.</p><pre><code class="lang-js"><code class="source-code prettyprint">Sequelize.STRING                      // VARCHAR(255)
 Sequelize.STRING(1234)                // VARCHAR(1234)
 Sequelize.STRING.BINARY               // VARCHAR BINARY
 Sequelize.TEXT                        // TEXT
@@ -994,7 +994,7 @@ Employee
     console.log(employee.get('name')); // John Doe (SENIOR ENGINEER)
     console.log(employee.get('title')); // SENIOR ENGINEER
   })</code>
-</code></pre><h3>Defining as part of the model options</h3><p>Below is an example of defining the getters and setters in the model options.</p><p>The <code>fullName</code> getter, is an example of how you can define pseudo properties on your models - attributes which are not actually part of your database schema. In fact, pseudo properties can be defined in two ways: using model getters, or by using a column with the <a href="/v5//variable/index.html#static-variable-DataTypes"><code>VIRTUAL</code> datatype</a>. Virtual datatypes can have validations, while getters for virtual attributes cannot.</p><p>Note that the <code>this.firstname</code> and <code>this.lastname</code> references in the <code>fullName</code> getter function will trigger a call to the respective getter functions. If you do not want that then use the <code>getDataValue()</code> method to access the raw value (see below).</p><pre><code class="lang-js"><code class="source-code prettyprint">class Foo extends Model {
+</code></pre><h3>Defining as part of the model options</h3><p>Below is an example of defining the getters and setters in the model options.</p><p>The <code>fullName</code> getter, is an example of how you can define pseudo properties on your models - attributes which are not actually part of your database schema. In fact, pseudo properties can be defined in two ways: using model getters, or by using a column with the <a href="/v5/variable/index.html#static-variable-DataTypes"><code>VIRTUAL</code> datatype</a>. Virtual datatypes can have validations, while getters for virtual attributes cannot.</p><p>Note that the <code>this.firstname</code> and <code>this.lastname</code> references in the <code>fullName</code> getter function will trigger a call to the respective getter functions. If you do not want that then use the <code>getDataValue()</code> method to access the raw value (see below).</p><pre><code class="lang-js"><code class="source-code prettyprint">class Foo extends Model {
   get fullName() {
     return this.firstname + ' ' + this.lastname;
   }
