@@ -14,7 +14,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
 <body class="layout-container manual-root manual-index" data-ice="rootContainer">
 
-<header><a href="/v4//"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+<header><a href="/v4/"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
   <a href="/v4/./">Home</a>
   
   <a href="/v4/identifiers.html">Reference</a>
@@ -338,7 +338,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 
 // Or you can simply use a connection uri
 const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname');</code>
-</code></pre><p>The Sequelize constructor takes a whole slew of options that are available via the <a href="/v4//class/lib/sequelize.js~Sequelize.html">API reference</a>.</p><h2>Test the connection</h2><p>You can use the <code>.authenticate()</code> function like this to test the connection.</p><pre><code class="lang-js"><code class="source-code prettyprint">sequelize
+</code></pre><p>The Sequelize constructor takes a whole slew of options that are available via the <a href="/v4/class/lib/sequelize.js~Sequelize.html">API reference</a>.</p><h2>Test the connection</h2><p>You can use the <code>.authenticate()</code> function like this to test the connection.</p><pre><code class="lang-js"><code class="source-code prettyprint">sequelize
   .authenticate()
   .then(() =&gt; {
     console.log('Connection has been established successfully.');
@@ -363,10 +363,10 @@ User.sync({force: true}).then(() =&gt; {
     lastName: 'Hancock'
   });
 });</code>
-</code></pre><p>You can read more about creating models at <a href="/v4//class/lib/model.js~Model.html">Model API reference</a></p><h2>Your first query</h2><pre><code class="lang-js"><code class="source-code prettyprint">User.findAll().then(users =&gt; {
+</code></pre><p>You can read more about creating models at <a href="/v4/class/lib/model.js~Model.html">Model API reference</a></p><h2>Your first query</h2><pre><code class="lang-js"><code class="source-code prettyprint">User.findAll().then(users =&gt; {
   console.log(users)
 })</code>
-</code></pre><p>You can read more about finder functions on models like <code>.findAll()</code> at <a href="/v4//manual/tutorial/models-usage.html#data-retrieval-finders">Data retrieval</a> or how to do specific queries like <code>WHERE</code> and <code>JSONB</code> at <a href="/v4//manual/tutorial/querying.html">Querying</a>.</p><h3>Application wide model options</h3><p>The Sequelize constructor takes a <code>define</code> option which will be used as the default options for all defined models.</p><pre><code class="lang-js"><code class="source-code prettyprint">const sequelize = new Sequelize('connectionUri', {
+</code></pre><p>You can read more about finder functions on models like <code>.findAll()</code> at <a href="/v4/manual/tutorial/models-usage.html#data-retrieval-finders">Data retrieval</a> or how to do specific queries like <code>WHERE</code> and <code>JSONB</code> at <a href="/v4/manual/tutorial/querying.html">Querying</a>.</p><h3>Application wide model options</h3><p>The Sequelize constructor takes a <code>define</code> option which will be used as the default options for all defined models.</p><pre><code class="lang-js"><code class="source-code prettyprint">const sequelize = new Sequelize('connectionUri', {
   define: {
     timestamps: false // true by default
   }
@@ -412,9 +412,9 @@ console.log(user.get('firstName'));</code>
   // Look to the next section for possible options
 })</code>
 </code></pre><h2>Options</h2><p>Besides the host and the port, Sequelize comes with a whole bunch of options. Here they are:</p><ul>
-<li>See <a href="/v4//class/lib/sequelize.js~Sequelize.html">Sequelize API</a></li>
-<li>See <a href="/v4//manual/tutorial/models-definition.html#configuration">Model Definition</a></li>
-<li>See <a href="/v4//manual/tutorial/transactions.html">Transactions</a></li>
+<li>See <a href="/v4/class/lib/sequelize.js~Sequelize.html">Sequelize API</a></li>
+<li>See <a href="/v4/manual/tutorial/models-definition.html#configuration">Model Definition</a></li>
+<li>See <a href="/v4/manual/tutorial/transactions.html">Transactions</a></li>
 </ul><pre><code class="lang-js"><code class="source-code prettyprint">const sequelize = new Sequelize('database', 'username', 'password', {
   // the sql dialect of the database
   // currently supported: 'mysql', 'sqlite', 'postgres', 'mssql'
@@ -504,7 +504,7 @@ console.log(user.get('firstName'));</code>
   dialect: 'mysql'
 })</code>
 </code></pre><p><strong>Note:</strong> You can pass options directly to dialect library by setting the
-<code>dialectOptions</code> parameter. See <a href="/v4//docs/latest/usage#options">Options</a>
+<code>dialectOptions</code> parameter. See <a href="/v4/manual/installation/usage#options">Options</a>
 for examples (currently only mysql is supported).</p><h3>SQLite</h3><p>For SQLite compatibility you'll need<code>sqlite3@~3.0.0</code>. Configure Sequelize like this:</p><pre><code class="lang-js"><code class="source-code prettyprint">const sequelize = new Sequelize('database', 'username', 'password', {
   // sqlite! now!
   dialect: 'sqlite',
@@ -523,8 +523,8 @@ const sequelize = new Sequelize('sqlite:relativePath/dbname.db')</code>
   dialect: 'mssql'
 })</code>
 </code></pre><h2>Executing raw SQL queries</h2><p>As there are often use cases in which it is just easier to execute raw / already prepared SQL queries, you can utilize the function <code>sequelize.query</code>.</p><ul>
-<li>See <a href="/v4//class/lib/sequelize.js~Sequelize.html#instance-method-query">Sequelize.query API</a></li>
-<li>See <a href="/v4//variable/index.html#static-variable-QueryTypes">Query Types</a></li>
+<li>See <a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-query">Sequelize.query API</a></li>
+<li>See <a href="/v4/variable/index.html#static-variable-QueryTypes">Query Types</a></li>
 </ul><p>Here is how it works:</p><pre><code class="lang-js"><code class="source-code prettyprint">// Arguments for raw queries
 sequelize.query('your query', [, options])
 
@@ -673,7 +673,7 @@ const Task = sequelize.define('task', {
    }
  }
 })</code>
-</code></pre><p>The comment option can also be used on a table, see <a href="/v4//manual/tutorial/models-definition.html#configuration">model configuration</a></p><h2>Timestamps</h2><p>By default, Sequelize will add the attributes <code>createdAt</code> and <code>updatedAt</code> to your model so you will be able to know when the database entry went into the db and when it was updated last.</p><p>Note that if you are using Sequelize migrations you will need to add the <code>createdAt</code> and <code>updatedAt</code> fields to your migration definition:</p><pre><code class="lang-js"><code class="source-code prettyprint">module.exports = {
+</code></pre><p>The comment option can also be used on a table, see <a href="/v4/manual/tutorial/models-definition.html#configuration">model configuration</a></p><h2>Timestamps</h2><p>By default, Sequelize will add the attributes <code>createdAt</code> and <code>updatedAt</code> to your model so you will be able to know when the database entry went into the db and when it was updated last.</p><p>Note that if you are using Sequelize migrations you will need to add the <code>createdAt</code> and <code>updatedAt</code> fields to your migration definition:</p><pre><code class="lang-js"><code class="source-code prettyprint">module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable('my-table', {
       id: {
@@ -691,7 +691,7 @@ const Task = sequelize.define('task', {
     return queryInterface.dropTable('my-table');
   },
 }</code>
-</code></pre><p>If you do not want timestamps on your models, only want some timestamps, or you are working with an existing database where the columns are named something else, jump straight on to <a href="/v4//manual/tutorial/models-definition.html#configuration">configuration </a>to see how to do that.</p><h2>Data types</h2><p>Below are some of the datatypes supported by sequelize. For a full and updated list, see <a href="/v4//variable/index.html#static-variable-DataTypes">DataTypes</a>.</p><pre><code class="lang-js"><code class="source-code prettyprint">Sequelize.STRING                      // VARCHAR(255)
+</code></pre><p>If you do not want timestamps on your models, only want some timestamps, or you are working with an existing database where the columns are named something else, jump straight on to <a href="/v4/manual/tutorial/models-definition.html#configuration">configuration </a>to see how to do that.</p><h2>Data types</h2><p>Below are some of the datatypes supported by sequelize. For a full and updated list, see <a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a>.</p><pre><code class="lang-js"><code class="source-code prettyprint">Sequelize.STRING                      // VARCHAR(255)
 Sequelize.STRING(1234)                // VARCHAR(1234)
 Sequelize.STRING.BINARY               // VARCHAR BINARY
 Sequelize.TEXT                        // TEXT
@@ -818,7 +818,7 @@ Sequelize.Deferrable.INITIALLY_IMMEDIATE
 // Don't defer the checks at all
 Sequelize.Deferrable.NOT</code>
 </code></pre><p>The last option is the default in PostgreSQL and won't allow you to dynamically change
-the rule in a transaction. See <a href="/v4//manual/tutorial/transactions.html#options">the transaction section</a> for further information.</p><h2>Getters &amp; setters</h2><p>It is possible to define 'object-property' getters and setter functions on your models, these can be used both for 'protecting' properties that map to database fields and for defining 'pseudo' properties.</p><p>Getters and Setters can be defined in 2 ways (you can mix and match these 2 approaches):</p><ul>
+the rule in a transaction. See <a href="/v4/manual/tutorial/transactions.html#options">the transaction section</a> for further information.</p><h2>Getters &amp; setters</h2><p>It is possible to define 'object-property' getters and setter functions on your models, these can be used both for 'protecting' properties that map to database fields and for defining 'pseudo' properties.</p><p>Getters and Setters can be defined in 2 ways (you can mix and match these 2 approaches):</p><ul>
 <li>as part of a single property definition</li>
 <li>as part of a model options</li>
 </ul><p><strong>N.B:</strong> If a getter or setter is defined in both places then the function found in the relevant property definition will always take precedence.</p><h3>Defining as part of a property</h3><pre><code class="lang-js"><code class="source-code prettyprint">const Employee = sequelize.define('employee', {
@@ -846,7 +846,7 @@ Employee
     console.log(employee.get('name')); // John Doe (SENIOR ENGINEER)
     console.log(employee.get('title')); // SENIOR ENGINEER
   })</code>
-</code></pre><h3>Defining as part of the model options</h3><p>Below is an example of defining the getters and setters in the model options. The <code>fullName</code> getter,  is an example of how you can define pseudo properties on your models - attributes which are not actually part of your database schema. In fact, pseudo properties can be defined in two ways: using model getters, or by using a column with the <a href="/v4//variable/index.html#static-variable-DataTypes"><code>VIRTUAL</code> datatype</a>. Virtual datatypes can have validations, while getters for virtual attributes cannot.</p><p>Note that the <code>this.firstname</code> and <code>this.lastname</code> references in the <code>fullName</code> getter function will trigger a call to the respective getter functions. If you do not want that then use the <code>getDataValue()</code> method to access the raw value (see below).</p><pre><code class="lang-js"><code class="source-code prettyprint">const Foo = sequelize.define('foo', {
+</code></pre><h3>Defining as part of the model options</h3><p>Below is an example of defining the getters and setters in the model options. The <code>fullName</code> getter,  is an example of how you can define pseudo properties on your models - attributes which are not actually part of your database schema. In fact, pseudo properties can be defined in two ways: using model getters, or by using a column with the <a href="/v4/variable/index.html#static-variable-DataTypes"><code>VIRTUAL</code> datatype</a>. Virtual datatypes can have validations, while getters for virtual attributes cannot.</p><p>Note that the <code>this.firstname</code> and <code>this.lastname</code> references in the <code>fullName</code> getter function will trigger a call to the respective getter functions. If you do not want that then use the <code>getDataValue()</code> method to access the raw value (see below).</p><pre><code class="lang-js"><code class="source-code prettyprint">const Foo = sequelize.define('foo', {
   firstname: Sequelize.STRING,
   lastname: Sequelize.STRING
 }, {
@@ -1032,7 +1032,7 @@ module.exports = (sequelize, DataTypes) =&gt; {
 </code></pre><p>This is solved by passing in Meteor's version of <code>require</code>. So, while this probably fails ...</p><pre><code class="lang-js"><code class="source-code prettyprint">const AuthorModel = db.import('./path/to/models/project');</code>
 </code></pre><p>... this should succeed ...</p><pre><code class="lang-js"><code class="source-code prettyprint">const AuthorModel = db.import('project', require('./path/to/models/project'));</code>
 </code></pre><h2>Optimistic Locking</h2><p>Sequelize has built-in support for optimistic locking through a model instance version count.
-Optimistic locking is disabled by default and can be enabled by setting the <code>version</code> property to true in a specific model definition or global model configuration.  See <a href="/v4//manual/tutorial/models-definition.html#configuration">model configuration</a> for more details.</p><p>Optimistic locking allows concurrent access to model records for edits and prevents conflicts from overwriting data.  It does this by checking whether another process has made changes to a record since it was read and throws an OptimisticLockError when a conflict is detected.</p><h2>Database synchronization</h2><p>When starting a new project you won't have a database structure and using Sequelize you won't need to. Just specify your model structures and let the library do the rest. Currently supported is the creation and deletion of tables:</p><pre><code class="lang-js"><code class="source-code prettyprint">// Create the tables:
+Optimistic locking is disabled by default and can be enabled by setting the <code>version</code> property to true in a specific model definition or global model configuration.  See <a href="/v4/manual/tutorial/models-definition.html#configuration">model configuration</a> for more details.</p><p>Optimistic locking allows concurrent access to model records for edits and prevents conflicts from overwriting data.  It does this by checking whether another process has made changes to a record since it was read and throws an OptimisticLockError when a conflict is detected.</p><h2>Database synchronization</h2><p>When starting a new project you won't have a database structure and using Sequelize you won't need to. Just specify your model structures and let the library do the rest. Currently supported is the creation and deletion of tables:</p><pre><code class="lang-js"><code class="source-code prettyprint">// Create the tables:
 Project.sync()
 Task.sync()
 
@@ -1127,7 +1127,7 @@ User.build({ firstname: 'foo', lastname: 'bar' }).getFullname() // 'foo bar'</co
 <div class="manual-card-wrap" data-ice="cards">
       <h1 data-ice="label" class="manual-color manual-color-tutorial" data-section-count="■■■■"><span data-ice="label-inner">Model usage</span></h1>
       <div class="manual-card">
-        <div data-ice="card"><h1>Model usage</h1><h2>Data retrieval / Finders</h2><p>Finder methods are intended to query data from the database. They do <em>not</em> return plain objects but instead return model instances. Because finder methods return model instances you can call any model instance member on the result as described in the documentation for <a href="/v4//manual/tutorial/instances.html"><em>instances</em></a>.</p><p>In this document we'll explore what finder methods can do:</p><h3><code>find</code> - Search for one specific element in the database</h3><pre><code class="lang-js"><code class="source-code prettyprint">// search for known ids
+        <div data-ice="card"><h1>Model usage</h1><h2>Data retrieval / Finders</h2><p>Finder methods are intended to query data from the database. They do <em>not</em> return plain objects but instead return model instances. Because finder methods return model instances you can call any model instance member on the result as described in the documentation for <a href="/v4/manual/tutorial/instances.html"><em>instances</em></a>.</p><p>In this document we'll explore what finder methods can do:</p><h3><code>find</code> - Search for one specific element in the database</h3><pre><code class="lang-js"><code class="source-code prettyprint">// search for known ids
 Project.findById(123).then(project =&gt; {
   // project will be an instance of Project and stores the content of the table entry
   // with id 123. if such an entry is not defined you will get null
@@ -1779,7 +1779,7 @@ Post.findAll({
 
 [Op.col]: 'user.organization_id' // = "user"."organization_id", with dialect specific column identifiers, PG in this example</code>
 </code></pre><h4>Range Operators</h4><p>Range types can be queried with all supported operators.</p><p>Keep in mind, the provided range value can
-<a href="/v4//manual/tutorial/models-definition.html#range-types">define the bound inclusion/exclusion</a>
+<a href="/v4/manual/tutorial/models-definition.html#range-types">define the bound inclusion/exclusion</a>
 as well.</p><pre><code class="lang-js"><code class="source-code prettyprint">// All the above equality and inequality operators plus the following:
 
 [Op.contains]: 2           // @&gt; '2'::integer (PG range contains element operator)
@@ -2374,7 +2374,7 @@ Project.belongsToMany(User, { through: UserProjects })</code>
   }]
 });</code>
 </code></pre><p>Belongs-To-Many creates a unique key when primary key is not present on through model. This unique key name can be overridden using <strong>uniqueKey</strong> option.</p><pre><code class="lang-js"><code class="source-code prettyprint">Project.belongsToMany(User, { through: UserProjects, uniqueKey: 'my_custom_unique' })</code>
-</code></pre><h2>Scopes</h2><p>This section concerns association scopes. For a definition of association scopes vs. scopes on associated models, see <a href="/v4//manual/tutorial/scopes.html">Scopes</a>.</p><p>Association scopes allow you to place a scope (a set of default attributes for <code>get</code> and <code>create</code>) on the association. Scopes can be placed both on the associated model (the target of the association), and on the through table for n:m relations.</p><h4>1:m</h4><p>Assume we have tables Comment, Post, and Image. A comment can be associated to either an image or a post via <code>commentable_id</code> and <code>commentable</code> - we say that Post and Image are <code>Commentable</code></p><pre><code class="lang-js"><code class="source-code prettyprint">const Comment = this.sequelize.define('comment', {
+</code></pre><h2>Scopes</h2><p>This section concerns association scopes. For a definition of association scopes vs. scopes on associated models, see <a href="/v4/manual/tutorial/scopes.html">Scopes</a>.</p><p>Association scopes allow you to place a scope (a set of default attributes for <code>get</code> and <code>create</code>) on the association. Scopes can be placed both on the associated model (the target of the association), and on the through table for n:m relations.</p><h4>1:m</h4><p>Assume we have tables Comment, Post, and Image. A comment can be associated to either an image or a post via <code>commentable_id</code> and <code>commentable</code> - we say that Post and Image are <code>Commentable</code></p><pre><code class="lang-js"><code class="source-code prettyprint">const Comment = this.sequelize.define('comment', {
   title: Sequelize.STRING,
   commentable: Sequelize.STRING,
   commentable_id: Sequelize.INTEGER
@@ -3012,7 +3012,7 @@ AND users.active = true</code>
     commentable: 'post'
   }
 });</code>
-</code></pre><p>When calling <code>post.getComments()</code>, this will automatically add <code>WHERE commentable = 'post'</code>. Similarly, when adding new comments to a post, <code>commentable</code> will automagically be set to <code>'post'</code>. The association scope is meant to live in the background without the programmer having to worry about it - it cannot be disabled. For a more complete polymorphic example, see <a href="/v4//manual/tutorial/associations.html#scopes">Association scopes</a></p><p>Consider then, that Post has a default scope which only shows active posts: <code>where: { active: true }</code>. This scope lives on the associated model (Post), and not on the association like the <code>commentable</code> scope did. Just like the default scope is applied when calling <code>Post.findAll()</code>, it is also applied when calling <code>User.getPosts()</code> - this will only return the active posts for that user.</p><p>To disable the default scope, pass <code>scope: null</code> to the getter: <code>User.getPosts({ scope: null })</code>. Similarly, if you want to apply other scopes, pass an array like you would to <code>.scope</code>:</p><pre><code class="lang-js"><code class="source-code prettyprint">User.getPosts({ scope: ['scope1', 'scope2']});</code>
+</code></pre><p>When calling <code>post.getComments()</code>, this will automatically add <code>WHERE commentable = 'post'</code>. Similarly, when adding new comments to a post, <code>commentable</code> will automagically be set to <code>'post'</code>. The association scope is meant to live in the background without the programmer having to worry about it - it cannot be disabled. For a more complete polymorphic example, see <a href="/v4/manual/tutorial/associations.html#scopes">Association scopes</a></p><p>Consider then, that Post has a default scope which only shows active posts: <code>where: { active: true }</code>. This scope lives on the associated model (Post), and not on the association like the <code>commentable</code> scope did. Just like the default scope is applied when calling <code>Post.findAll()</code>, it is also applied when calling <code>User.getPosts()</code> - this will only return the active posts for that user.</p><p>To disable the default scope, pass <code>scope: null</code> to the getter: <code>User.getPosts({ scope: null })</code>. Similarly, if you want to apply other scopes, pass an array like you would to <code>.scope</code>:</p><pre><code class="lang-js"><code class="source-code prettyprint">User.getPosts({ scope: ['scope1', 'scope2']});</code>
 </code></pre><p>If you want to create a shortcut method to a scope on an associated model, you can pass the scoped model to the association. Consider a shortcut to get all deleted posts for a user:</p><pre><code class="lang-js"><code class="source-code prettyprint">const Post = sequelize.define('post', attributes, {
   defaultScope: {
     where: {
@@ -3588,7 +3588,7 @@ use the <code>--url</code> option to pass in a connection string. For example:</
         }
     }
 }</code>
-</code></pre><h3>Programmatic use</h3><p>Sequelize has a <a href="https://github.com/sequelize/umzug">sister library</a> for programmatically handling execution and logging of migration tasks.</p><h2>Query Interface</h2><p>Using <code>queryInterface</code> object described before you can change database schema. To see full list of public methods it supports check <a href="/v4//class/lib/query-interface.js~QueryInterface.html">QueryInterface API</a></p></div>
+</code></pre><h3>Programmatic use</h3><p>Sequelize has a <a href="https://github.com/sequelize/umzug">sister library</a> for programmatically handling execution and logging of migration tasks.</p><h2>Query Interface</h2><p>Using <code>queryInterface</code> object described before you can change database schema. To see full list of public methods it supports check <a href="/v4/class/lib/query-interface.js~QueryInterface.html">QueryInterface API</a></p></div>
         <a data-ice="link" href="/v4/manual/tutorial/migrations.html"></a>
       </div>
     </div>

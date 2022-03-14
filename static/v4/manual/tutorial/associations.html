@@ -14,7 +14,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
 <body class="layout-container manual-root" data-ice="rootContainer">
 
-<header><a href="/v4//"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+<header><a href="/v4/"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
   <a href="/v4/./">Home</a>
   
   <a href="/v4/identifiers.html">Reference</a>
@@ -459,7 +459,7 @@ Project.belongsToMany(User, { through: UserProjects })</code>
 <pre><code class="lang-js"><code class="source-code prettyprint">Project.belongsToMany(User, { through: UserProjects, uniqueKey: 'my_custom_unique' })</code>
 </code></pre>
 <h2 id="scopes">Scopes</h2>
-<p>This section concerns association scopes. For a definition of association scopes vs. scopes on associated models, see <a href="/v4//manual/tutorial/scopes.html">Scopes</a>.</p>
+<p>This section concerns association scopes. For a definition of association scopes vs. scopes on associated models, see <a href="/v4/manual/tutorial/scopes.html">Scopes</a>.</p>
 <p>Association scopes allow you to place a scope (a set of default attributes for <code>get</code> and <code>create</code>) on the association. Scopes can be placed both on the associated model (the target of the association), and on the through table for n:m relations.</p>
 <h4 id="1-m">1:m</h4>
 <p>Assume we have tables Comment, Post, and Image. A comment can be associated to either an image or a post via <code>commentable_id</code> and <code>commentable</code> - we say that Post and Image are <code>Commentable</code></p>

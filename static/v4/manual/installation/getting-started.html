@@ -14,7 +14,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
 <body class="layout-container manual-root" data-ice="rootContainer">
 
-<header><a href="/v4//"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+<header><a href="/v4/"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
   <a href="/v4/./">Home</a>
   
   <a href="/v4/identifiers.html">Reference</a>
@@ -294,7 +294,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 // Or you can simply use a connection uri
 const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname');</code>
 </code></pre>
-<p>The Sequelize constructor takes a whole slew of options that are available via the <a href="/v4//class/lib/sequelize.js~Sequelize.html">API reference</a>.</p>
+<p>The Sequelize constructor takes a whole slew of options that are available via the <a href="/v4/class/lib/sequelize.js~Sequelize.html">API reference</a>.</p>
 <h2 id="test-the-connection">Test the connection</h2>
 <p>You can use the <code>.authenticate()</code> function like this to test the connection.</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">sequelize
@@ -326,13 +326,13 @@ User.sync({force: true}).then(() =&gt; {
   });
 });</code>
 </code></pre>
-<p>You can read more about creating models at <a href="/v4//class/lib/model.js~Model.html">Model API reference</a></p>
+<p>You can read more about creating models at <a href="/v4/class/lib/model.js~Model.html">Model API reference</a></p>
 <h2 id="your-first-query">Your first query</h2>
 <pre><code class="lang-js"><code class="source-code prettyprint">User.findAll().then(users =&gt; {
   console.log(users)
 })</code>
 </code></pre>
-<p>You can read more about finder functions on models like <code>.findAll()</code> at <a href="/v4//manual/tutorial/models-usage.html#data-retrieval-finders">Data retrieval</a> or how to do specific queries like <code>WHERE</code> and <code>JSONB</code> at <a href="/v4//manual/tutorial/querying.html">Querying</a>.</p>
+<p>You can read more about finder functions on models like <code>.findAll()</code> at <a href="/v4/manual/tutorial/models-usage.html#data-retrieval-finders">Data retrieval</a> or how to do specific queries like <code>WHERE</code> and <code>JSONB</code> at <a href="/v4/manual/tutorial/querying.html">Querying</a>.</p>
 <h3 id="application-wide-model-options">Application wide model options</h3>
 <p>The Sequelize constructor takes a <code>define</code> option which will be used as the default options for all defined models.</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">const sequelize = new Sequelize('connectionUri', {

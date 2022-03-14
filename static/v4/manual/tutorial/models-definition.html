@@ -14,7 +14,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
 <body class="layout-container manual-root" data-ice="rootContainer">
 
-<header><a href="/v4//"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+<header><a href="/v4/"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
   <a href="/v4/./">Home</a>
   
   <a href="/v4/identifiers.html">Reference</a>
@@ -316,7 +316,7 @@ const Task = sequelize.define('task', {
  }
 })</code>
 </code></pre>
-<p>The comment option can also be used on a table, see <a href="/v4//manual/tutorial/models-definition.html#configuration">model configuration</a></p>
+<p>The comment option can also be used on a table, see <a href="/v4/manual/tutorial/models-definition.html#configuration">model configuration</a></p>
 <h2 id="timestamps">Timestamps</h2>
 <p>By default, Sequelize will add the attributes <code>createdAt</code> and <code>updatedAt</code> to your model so you will be able to know when the database entry went into the db and when it was updated last.</p>
 <p>Note that if you are using Sequelize migrations you will need to add the <code>createdAt</code> and <code>updatedAt</code> fields to your migration definition:</p>
@@ -339,9 +339,9 @@ const Task = sequelize.define('task', {
   },
 }</code>
 </code></pre>
-<p>If you do not want timestamps on your models, only want some timestamps, or you are working with an existing database where the columns are named something else, jump straight on to <a href="/v4//manual/tutorial/models-definition.html#configuration">configuration </a>to see how to do that.</p>
+<p>If you do not want timestamps on your models, only want some timestamps, or you are working with an existing database where the columns are named something else, jump straight on to <a href="/v4/manual/tutorial/models-definition.html#configuration">configuration </a>to see how to do that.</p>
 <h2 id="data-types">Data types</h2>
-<p>Below are some of the datatypes supported by sequelize. For a full and updated list, see <a href="/v4//variable/index.html#static-variable-DataTypes">DataTypes</a>.</p>
+<p>Below are some of the datatypes supported by sequelize. For a full and updated list, see <a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a>.</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">Sequelize.STRING                      // VARCHAR(255)
 Sequelize.STRING(1234)                // VARCHAR(1234)
 Sequelize.STRING.BINARY               // VARCHAR BINARY
@@ -494,7 +494,7 @@ Sequelize.Deferrable.INITIALLY_IMMEDIATE
 Sequelize.Deferrable.NOT</code>
 </code></pre>
 <p>The last option is the default in PostgreSQL and won't allow you to dynamically change
-the rule in a transaction. See <a href="/v4//manual/tutorial/transactions.html#options">the transaction section</a> for further information.</p>
+the rule in a transaction. See <a href="/v4/manual/tutorial/transactions.html#options">the transaction section</a> for further information.</p>
 <h2 id="getters-setters">Getters &amp; setters</h2>
 <p>It is possible to define 'object-property' getters and setter functions on your models, these can be used both for 'protecting' properties that map to database fields and for defining 'pseudo' properties.</p>
 <p>Getters and Setters can be defined in 2 ways (you can mix and match these 2 approaches):</p>
@@ -531,7 +531,7 @@ Employee
   })</code>
 </code></pre>
 <h3 id="defining-as-part-of-the-model-options">Defining as part of the model options</h3>
-<p>Below is an example of defining the getters and setters in the model options. The <code>fullName</code> getter,  is an example of how you can define pseudo properties on your models - attributes which are not actually part of your database schema. In fact, pseudo properties can be defined in two ways: using model getters, or by using a column with the <a href="/v4//variable/index.html#static-variable-DataTypes"><code>VIRTUAL</code> datatype</a>. Virtual datatypes can have validations, while getters for virtual attributes cannot.</p>
+<p>Below is an example of defining the getters and setters in the model options. The <code>fullName</code> getter,  is an example of how you can define pseudo properties on your models - attributes which are not actually part of your database schema. In fact, pseudo properties can be defined in two ways: using model getters, or by using a column with the <a href="/v4/variable/index.html#static-variable-DataTypes"><code>VIRTUAL</code> datatype</a>. Virtual datatypes can have validations, while getters for virtual attributes cannot.</p>
 <p>Note that the <code>this.firstname</code> and <code>this.lastname</code> references in the <code>fullName</code> getter function will trigger a call to the respective getter functions. If you do not want that then use the <code>getDataValue()</code> method to access the raw value (see below).</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">const Foo = sequelize.define('foo', {
   firstname: Sequelize.STRING,
@@ -769,7 +769,7 @@ module.exports = (sequelize, DataTypes) =&gt; {
 </code></pre>
 <h2 id="optimistic-locking">Optimistic Locking</h2>
 <p>Sequelize has built-in support for optimistic locking through a model instance version count.
-Optimistic locking is disabled by default and can be enabled by setting the <code>version</code> property to true in a specific model definition or global model configuration.  See <a href="/v4//manual/tutorial/models-definition.html#configuration">model configuration</a> for more details.</p>
+Optimistic locking is disabled by default and can be enabled by setting the <code>version</code> property to true in a specific model definition or global model configuration.  See <a href="/v4/manual/tutorial/models-definition.html#configuration">model configuration</a> for more details.</p>
 <p>Optimistic locking allows concurrent access to model records for edits and prevents conflicts from overwriting data.  It does this by checking whether another process has made changes to a record since it was read and throws an OptimisticLockError when a conflict is detected.</p>
 <h2 id="database-synchronization">Database synchronization</h2>
 <p>When starting a new project you won't have a database structure and using Sequelize you won't need to. Just specify your model structures and let the library do the rest. Currently supported is the creation and deletion of tables:</p>

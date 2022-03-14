@@ -14,7 +14,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
 <body class="layout-container manual-root" data-ice="rootContainer">
 
-<header><a href="/v4//"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+<header><a href="/v4/"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
   <a href="/v4/./">Home</a>
   
   <a href="/v4/identifiers.html">Reference</a>
@@ -281,9 +281,9 @@
 <h2 id="options">Options</h2>
 <p>Besides the host and the port, Sequelize comes with a whole bunch of options. Here they are:</p>
 <ul>
-<li>See <a href="/v4//class/lib/sequelize.js~Sequelize.html">Sequelize API</a></li>
-<li>See <a href="/v4//manual/tutorial/models-definition.html#configuration">Model Definition</a></li>
-<li>See <a href="/v4//manual/tutorial/transactions.html">Transactions</a></li>
+<li>See <a href="/v4/class/lib/sequelize.js~Sequelize.html">Sequelize API</a></li>
+<li>See <a href="/v4/manual/tutorial/models-definition.html#configuration">Model Definition</a></li>
+<li>See <a href="/v4/manual/tutorial/transactions.html">Transactions</a></li>
 </ul>
 <pre><code class="lang-js"><code class="source-code prettyprint">const sequelize = new Sequelize('database', 'username', 'password', {
   // the sql dialect of the database
@@ -388,7 +388,7 @@
 })</code>
 </code></pre>
 <p><strong>Note:</strong> You can pass options directly to dialect library by setting the
-<code>dialectOptions</code> parameter. See <a href="/v4//docs/latest/usage#options">Options</a>
+<code>dialectOptions</code> parameter. See <a href="/v4/manual/installation/usage#options">Options</a>
 for examples (currently only mysql is supported).</p>
 <h3 id="sqlite">SQLite</h3>
 <p>For SQLite compatibility you'll need<code>sqlite3@~3.0.0</code>. Configure Sequelize like this:</p>
@@ -421,8 +421,8 @@ const sequelize = new Sequelize('sqlite:relativePath/dbname.db')</code>
 <h2 id="executing-raw-sql-queries">Executing raw SQL queries</h2>
 <p>As there are often use cases in which it is just easier to execute raw / already prepared SQL queries, you can utilize the function <code>sequelize.query</code>.</p>
 <ul>
-<li>See <a href="/v4//class/lib/sequelize.js~Sequelize.html#instance-method-query">Sequelize.query API</a></li>
-<li>See <a href="/v4//variable/index.html#static-variable-QueryTypes">Query Types</a></li>
+<li>See <a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-query">Sequelize.query API</a></li>
+<li>See <a href="/v4/variable/index.html#static-variable-QueryTypes">Query Types</a></li>
 </ul>
 <p>Here is how it works:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">// Arguments for raw queries

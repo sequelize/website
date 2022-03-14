@@ -14,7 +14,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
 <body class="layout-container manual-root" data-ice="rootContainer">
 
-<header><a href="/v4//"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+<header><a href="/v4/"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
   <a href="/v4/./">Home</a>
   
   <a href="/v4/identifiers.html">Reference</a>
@@ -391,7 +391,7 @@ AND users.active = true</code>
   }
 });</code>
 </code></pre>
-<p>When calling <code>post.getComments()</code>, this will automatically add <code>WHERE commentable = 'post'</code>. Similarly, when adding new comments to a post, <code>commentable</code> will automagically be set to <code>'post'</code>. The association scope is meant to live in the background without the programmer having to worry about it - it cannot be disabled. For a more complete polymorphic example, see <a href="/v4//manual/tutorial/associations.html#scopes">Association scopes</a></p>
+<p>When calling <code>post.getComments()</code>, this will automatically add <code>WHERE commentable = 'post'</code>. Similarly, when adding new comments to a post, <code>commentable</code> will automagically be set to <code>'post'</code>. The association scope is meant to live in the background without the programmer having to worry about it - it cannot be disabled. For a more complete polymorphic example, see <a href="/v4/manual/tutorial/associations.html#scopes">Association scopes</a></p>
 <p>Consider then, that Post has a default scope which only shows active posts: <code>where: { active: true }</code>. This scope lives on the associated model (Post), and not on the association like the <code>commentable</code> scope did. Just like the default scope is applied when calling <code>Post.findAll()</code>, it is also applied when calling <code>User.getPosts()</code> - this will only return the active posts for that user.</p>
 <p>To disable the default scope, pass <code>scope: null</code> to the getter: <code>User.getPosts({ scope: null })</code>. Similarly, if you want to apply other scopes, pass an array like you would to <code>.scope</code>:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">User.getPosts({ scope: ['scope1', 'scope2']});</code>
