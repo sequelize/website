@@ -1,0 +1,769 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/utils.js | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li data-ice="doc" style="margin-top: 15px;"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IndexHints">IndexHints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#associations">associations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-sqlite">dialects/sqlite</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-describeTable">describeTable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/association-error.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/base-error.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/bulk-record-error.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection-error.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database-error.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/eager-loading-error.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/empty-result-error.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/instance-error.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/optimistic-lock-error.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/query-error.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/sequelize-scope-error.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-connection">errors/connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/access-denied-error.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-acquire-timeout-error.js~ConnectionAcquireTimeoutError.html">ConnectionAcquireTimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-refused-error.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-timed-out-error.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-found-error.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-reachable-error.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/invalid-connection-error.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-database">errors/database</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/exclusion-constraint-error.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/foreign-key-constraint-error.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/timeout-error.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/unknown-constraint-error.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-validation">errors/validation</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation/unique-constraint-error.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="variable/index.html#static-variable-DataTypes">datatypes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ARRAY.html">ARRAY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV4.html">UUIDV4</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV1.html">UUIDV1</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUID.html">UUID</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TINYINT.html">TINYINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TIME.html">TIME</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TEXT.html">TEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~STRING.html">STRING</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~SMALLINT.html">SMALLINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~REAL.html">REAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~RANGE.html">RANGE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NUMBER.html">NUMBER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NOW.html">NOW</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MACADDR.html">MACADDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONB.html">JSONB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INTEGER.html">INTEGER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INET.html">INET</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~HSTORE.html">HSTORE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~FLOAT.html">FLOAT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ENUM.html">ENUM</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DOUBLE.html">DOUBLE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DECIMAL.html">DECIMAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATEONLY.html">DATEONLY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATE.html">DATE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CITEXT.html">CITEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CIDR.html">CIDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CHAR.html">CHAR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BLOB.html">BLOB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BIGINT.html">BIGINT</a></span></span></li></ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/utils.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">'use strict';
+
+const DataTypes = require('./data-types');
+const SqlString = require('./sql-string');
+const _ = require('lodash');
+const uuidv1 = require('uuid').v1;
+const uuidv4 = require('uuid').v4;
+const Promise = require('./promise');
+const operators = require('./operators');
+const operatorsSet = new Set(_.values(operators));
+
+let inflection = require('inflection');
+
+exports.classToInvokable = require('./utils/classToInvokable').classToInvokable;
+
+exports.Promise = Promise;
+
+function useInflection(_inflection) {
+  inflection = _inflection;
+}
+exports.useInflection = useInflection;
+
+function camelizeIf(str, condition) {
+  let result = str;
+
+  if (condition) {
+    result = camelize(str);
+  }
+
+  return result;
+}
+exports.camelizeIf = camelizeIf;
+
+function underscoredIf(str, condition) {
+  let result = str;
+
+  if (condition) {
+    result = underscore(str);
+  }
+
+  return result;
+}
+exports.underscoredIf = underscoredIf;
+
+function isPrimitive(val) {
+  const type = typeof val;
+  return type === 'string' || type === 'number' || type === 'boolean';
+}
+exports.isPrimitive = isPrimitive;
+
+// Same concept as _.merge, but don't overwrite properties that have already been assigned
+function mergeDefaults(a, b) {
+  return _.mergeWith(a, b, objectValue =&gt; {
+    // If it's an object, let _ handle it this time, we will be called again for each property
+    if (!_.isPlainObject(objectValue) &amp;&amp; objectValue !== undefined) {
+      return objectValue;
+    }
+  });
+}
+exports.mergeDefaults = mergeDefaults;
+
+// An alternative to _.merge, which doesn't clone its arguments
+// Cloning is a bad idea because options arguments may contain references to sequelize
+// models - which again reference database libs which don't like to be cloned (in particular pg-native)
+function merge() {
+  const result = {};
+
+  for (const obj of arguments) {
+    _.forOwn(obj, (value, key) =&gt; {
+      if (value !== undefined) {
+        if (!result[key]) {
+          result[key] = value;
+        } else if (_.isPlainObject(value) &amp;&amp; _.isPlainObject(result[key])) {
+          result[key] = merge(result[key], value);
+        } else if (Array.isArray(value) &amp;&amp; Array.isArray(result[key])) {
+          result[key] = value.concat(result[key]);
+        } else {
+          result[key] = value;
+        }
+      }
+    });
+  }
+
+  return result;
+}
+exports.merge = merge;
+
+function spliceStr(str, index, count, add) {
+  return str.slice(0, index) + add + str.slice(index + count);
+}
+exports.spliceStr = spliceStr;
+
+function camelize(str) {
+  return str.trim().replace(/[-_\s]+(.)?/g, (match, c) =&gt; c.toUpperCase());
+}
+exports.camelize = camelize;
+
+function underscore(str) {
+  return inflection.underscore(str);
+}
+exports.underscore = underscore;
+
+function singularize(str) {
+  return inflection.singularize(str);
+}
+exports.singularize = singularize;
+
+function pluralize(str) {
+  return inflection.pluralize(str);
+}
+exports.pluralize = pluralize;
+
+function format(arr, dialect) {
+  const timeZone = null;
+  // Make a clone of the array beacuse format modifies the passed args
+  return SqlString.format(arr[0], arr.slice(1), timeZone, dialect);
+}
+exports.format = format;
+
+function formatNamedParameters(sql, parameters, dialect) {
+  const timeZone = null;
+  return SqlString.formatNamedParameters(sql, parameters, timeZone, dialect);
+}
+exports.formatNamedParameters = formatNamedParameters;
+
+function cloneDeep(obj, onlyPlain) {
+  obj = obj || {};
+  return _.cloneDeepWith(obj, elem =&gt; {
+    // Do not try to customize cloning of arrays or POJOs
+    if (Array.isArray(elem) || _.isPlainObject(elem)) {
+      return undefined;
+    }
+
+    // If we specified to clone only plain objects &amp; arrays, we ignore everyhing else
+    // In any case, don't clone stuff that's an object, but not a plain one - fx example sequelize models and instances
+    if (onlyPlain || typeof elem === 'object') {
+      return elem;
+    }
+
+    // Preserve special data-types like `fn` across clones. _.get() is used for checking up the prototype chain
+    if (elem &amp;&amp; typeof elem.clone === 'function') {
+      return elem.clone();
+    }
+  });
+}
+exports.cloneDeep = cloneDeep;
+
+/* Expand and normalize finder options */
+function mapFinderOptions(options, Model) {
+  if (options.attributes &amp;&amp; Array.isArray(options.attributes)) {
+    options.attributes = Model._injectDependentVirtualAttributes(options.attributes);
+    options.attributes = options.attributes.filter(v =&gt; !Model._virtualAttributes.has(v));
+  }
+
+  mapOptionFieldNames(options, Model);
+
+  return options;
+}
+exports.mapFinderOptions = mapFinderOptions;
+
+/* Used to map field names in attributes and where conditions */
+function mapOptionFieldNames(options, Model) {
+  if (Array.isArray(options.attributes)) {
+    options.attributes = options.attributes.map(attr =&gt; {
+      // Object lookups will force any variable to strings, we don't want that for special objects etc
+      if (typeof attr !== 'string') return attr;
+      // Map attributes to aliased syntax attributes
+      if (Model.rawAttributes[attr] &amp;&amp; attr !== Model.rawAttributes[attr].field) {
+        return [Model.rawAttributes[attr].field, attr];
+      }
+      return attr;
+    });
+  }
+
+  if (options.where &amp;&amp; _.isPlainObject(options.where)) {
+    options.where = mapWhereFieldNames(options.where, Model);
+  }
+
+  return options;
+}
+exports.mapOptionFieldNames = mapOptionFieldNames;
+
+function mapWhereFieldNames(attributes, Model) {
+  if (attributes) {
+    getComplexKeys(attributes).forEach(attribute =&gt; {
+      const rawAttribute = Model.rawAttributes[attribute];
+
+      if (rawAttribute &amp;&amp; rawAttribute.field !== rawAttribute.fieldName) {
+        attributes[rawAttribute.field] = attributes[attribute];
+        delete attributes[attribute];
+      }
+
+      if (_.isPlainObject(attributes[attribute])
+        &amp;&amp; !(rawAttribute &amp;&amp; (
+          rawAttribute.type instanceof DataTypes.HSTORE
+          || rawAttribute.type instanceof DataTypes.JSON))) { // Prevent renaming of HSTORE &amp; JSON fields
+        attributes[attribute] = mapOptionFieldNames({
+          where: attributes[attribute]
+        }, Model).where;
+      }
+
+      if (Array.isArray(attributes[attribute])) {
+        attributes[attribute].forEach((where, index) =&gt; {
+          if (_.isPlainObject(where)) {
+            attributes[attribute][index] = mapWhereFieldNames(where, Model);
+          }
+        });
+      }
+
+    });
+  }
+
+  return attributes;
+}
+exports.mapWhereFieldNames = mapWhereFieldNames;
+
+/* Used to map field names in values */
+function mapValueFieldNames(dataValues, fields, Model) {
+  const values = {};
+
+  for (const attr of fields) {
+    if (dataValues[attr] !== undefined &amp;&amp; !Model._virtualAttributes.has(attr)) {
+      // Field name mapping
+      if (Model.rawAttributes[attr] &amp;&amp; Model.rawAttributes[attr].field &amp;&amp; Model.rawAttributes[attr].field !== attr) {
+        values[Model.rawAttributes[attr].field] = dataValues[attr];
+      } else {
+        values[attr] = dataValues[attr];
+      }
+    }
+  }
+
+  return values;
+}
+exports.mapValueFieldNames = mapValueFieldNames;
+
+function isColString(value) {
+  return typeof value === 'string' &amp;&amp; value[0] === '$' &amp;&amp; value[value.length - 1] === '$';
+}
+exports.isColString = isColString;
+
+function canTreatArrayAsAnd(arr) {
+  return arr.some(arg =&gt; _.isPlainObject(arg) || arg instanceof Where);
+}
+exports.canTreatArrayAsAnd = canTreatArrayAsAnd;
+
+function combineTableNames(tableName1, tableName2) {
+  return tableName1.toLowerCase() &lt; tableName2.toLowerCase() ? tableName1 + tableName2 : tableName2 + tableName1;
+}
+exports.combineTableNames = combineTableNames;
+
+function toDefaultValue(value, dialect) {
+  if (typeof value === 'function') {
+    const tmp = value();
+    if (tmp instanceof DataTypes.ABSTRACT) {
+      return tmp.toSql();
+    }
+    return tmp;
+  }
+  if (value instanceof DataTypes.UUIDV1) {
+    return uuidv1();
+  }
+  if (value instanceof DataTypes.UUIDV4) {
+    return uuidv4();
+  }
+  if (value instanceof DataTypes.NOW) {
+    return now(dialect);
+  }
+  if (_.isPlainObject(value) || Array.isArray(value)) {
+    return _.clone(value);
+  }
+  return value;
+}
+exports.toDefaultValue = toDefaultValue;
+
+/**
+ * Determine if the default value provided exists and can be described
+ * in a db schema using the DEFAULT directive.
+ *
+ * @param  {*} value Any default value.
+ * @returns {boolean} yes / no.
+ * @private
+ */
+function defaultValueSchemable(value) {
+  if (value === undefined) { return false; }
+
+  // TODO this will be schemable when all supported db
+  // have been normalized for this case
+  if (value instanceof DataTypes.NOW) { return false; }
+
+  if (value instanceof DataTypes.UUIDV1 || value instanceof DataTypes.UUIDV4) { return false; }
+
+  return typeof value !== 'function';
+}
+exports.defaultValueSchemable = defaultValueSchemable;
+
+function removeNullValuesFromHash(hash, omitNull, options) {
+  let result = hash;
+
+  options = options || {};
+  options.allowNull = options.allowNull || [];
+
+  if (omitNull) {
+    const _hash = {};
+
+    _.forIn(hash, (val, key) =&gt; {
+      if (options.allowNull.includes(key) || key.endsWith('Id') || val !== null &amp;&amp; val !== undefined) {
+        _hash[key] = val;
+      }
+    });
+
+    result = _hash;
+  }
+
+  return result;
+}
+exports.removeNullValuesFromHash = removeNullValuesFromHash;
+
+function stack() {
+  const orig = Error.prepareStackTrace;
+  Error.prepareStackTrace = (_, stack) =&gt; stack;
+  const err = new Error();
+  Error.captureStackTrace(err, stack);
+  const errStack = err.stack;
+  Error.prepareStackTrace = orig;
+  return errStack;
+}
+exports.stack = stack;
+
+const dialects = new Set(['mariadb', 'mysql', 'postgres', 'sqlite', 'mssql']);
+
+function now(dialect) {
+  const d = new Date();
+  if (!dialects.has(dialect)) {
+    d.setMilliseconds(0);
+  }
+  return d;
+}
+exports.now = now;
+
+// Note: Use the `quoteIdentifier()` and `escape()` methods on the
+// `QueryInterface` instead for more portable code.
+
+const TICK_CHAR = '`';
+exports.TICK_CHAR = TICK_CHAR;
+
+function addTicks(s, tickChar) {
+  tickChar = tickChar || TICK_CHAR;
+  return tickChar + removeTicks(s, tickChar) + tickChar;
+}
+exports.addTicks = addTicks;
+
+function removeTicks(s, tickChar) {
+  tickChar = tickChar || TICK_CHAR;
+  return s.replace(new RegExp(tickChar, 'g'), '');
+}
+exports.removeTicks = removeTicks;
+
+/**
+ * Receives a tree-like object and returns a plain object which depth is 1.
+ *
+ * - Input:
+ *
+ *  {
+ *    name: 'John',
+ *    address: {
+ *      street: 'Fake St. 123',
+ *      coordinates: {
+ *        longitude: 55.6779627,
+ *        latitude: 12.5964313
+ *      }
+ *    }
+ *  }
+ *
+ * - Output:
+ *
+ *  {
+ *    name: 'John',
+ *    address.street: 'Fake St. 123',
+ *    address.coordinates.latitude: 55.6779627,
+ *    address.coordinates.longitude: 12.5964313
+ *  }
+ *
+ * @param {Object} value an Object
+ * @returns {Object} a flattened object
+ * @private
+ */
+function flattenObjectDeep(value) {
+  if (!_.isPlainObject(value)) return value;
+  const flattenedObj = {};
+
+  function flattenObject(obj, subPath) {
+    Object.keys(obj).forEach(key =&gt; {
+      const pathToProperty = subPath ? `${subPath}.${key}` : key;
+      if (typeof obj[key] === 'object' &amp;&amp; obj[key] !== null) {
+        flattenObject(obj[key], pathToProperty);
+      } else {
+        flattenedObj[pathToProperty] = _.get(obj, key);
+      }
+    });
+    return flattenedObj;
+  }
+
+  return flattenObject(value, undefined);
+}
+exports.flattenObjectDeep = flattenObjectDeep;
+
+/**
+ * Utility functions for representing SQL functions, and columns that should be escaped.
+ * Please do not use these functions directly, use Sequelize.fn and Sequelize.col instead.
+ * @private
+ */
+class SequelizeMethod {}
+exports.SequelizeMethod = SequelizeMethod;
+
+class Fn extends SequelizeMethod {
+  constructor(fn, args) {
+    super();
+    this.fn = fn;
+    this.args = args;
+  }
+  clone() {
+    return new Fn(this.fn, this.args);
+  }
+}
+exports.Fn = Fn;
+
+class Col extends SequelizeMethod {
+  constructor(col, ...args) {
+    super();
+    if (args.length &gt; 0) {
+      col = args;
+    }
+    this.col = col;
+  }
+}
+exports.Col = Col;
+
+class Cast extends SequelizeMethod {
+  constructor(val, type, json) {
+    super();
+    this.val = val;
+    this.type = (type || '').trim();
+    this.json = json || false;
+  }
+}
+exports.Cast = Cast;
+
+class Literal extends SequelizeMethod {
+  constructor(val) {
+    super();
+    this.val = val;
+  }
+}
+exports.Literal = Literal;
+
+class Json extends SequelizeMethod {
+  constructor(conditionsOrPath, value) {
+    super();
+    if (_.isObject(conditionsOrPath)) {
+      this.conditions = conditionsOrPath;
+    } else {
+      this.path = conditionsOrPath;
+      if (value) {
+        this.value = value;
+      }
+    }
+  }
+}
+exports.Json = Json;
+
+class Where extends SequelizeMethod {
+  constructor(attribute, comparator, logic) {
+    super();
+    if (logic === undefined) {
+      logic = comparator;
+      comparator = '=';
+    }
+
+    this.attribute = attribute;
+    this.comparator = comparator;
+    this.logic = logic;
+  }
+}
+exports.Where = Where;
+
+//Collection of helper methods to make it easier to work with symbol operators
+
+/**
+ * getOperators
+ *
+ * @param  {Object} obj
+ * @returns {Array&lt;Symbol&gt;} All operators properties of obj
+ * @private
+ */
+function getOperators(obj) {
+  return Object.getOwnPropertySymbols(obj).filter(s =&gt; operatorsSet.has(s));
+}
+exports.getOperators = getOperators;
+
+/**
+ * getComplexKeys
+ *
+ * @param  {Object} obj
+ * @returns {Array&lt;string|Symbol&gt;} All keys including operators
+ * @private
+ */
+function getComplexKeys(obj) {
+  return getOperators(obj).concat(Object.keys(obj));
+}
+exports.getComplexKeys = getComplexKeys;
+
+/**
+ * getComplexSize
+ *
+ * @param  {Object|Array} obj
+ * @returns {number}      Length of object properties including operators if obj is array returns its length
+ * @private
+ */
+function getComplexSize(obj) {
+  return Array.isArray(obj) ? obj.length : getComplexKeys(obj).length;
+}
+exports.getComplexSize = getComplexSize;
+
+/**
+ * Returns true if a where clause is empty, even with Symbols
+ *
+ * @param  {Object} obj
+ * @returns {boolean}
+ * @private
+ */
+function isWhereEmpty(obj) {
+  return !!obj &amp;&amp; _.isEmpty(obj) &amp;&amp; getOperators(obj).length === 0;
+}
+exports.isWhereEmpty = isWhereEmpty;
+
+/**
+ * Returns ENUM name by joining table and column name
+ *
+ * @param {string} tableName
+ * @param {string} columnName
+ * @returns {string}
+ * @private
+ */
+function generateEnumName(tableName, columnName) {
+  return `enum_${tableName}_${columnName}`;
+}
+exports.generateEnumName = generateEnumName;
+
+/**
+ * Returns an new Object which keys are camelized
+ *
+ * @param {Object} obj
+ * @returns {string}
+ * @private
+ */
+function camelizeObjectKeys(obj) {
+  const newObj = new Object();
+  Object.keys(obj).forEach(key =&gt; {
+    newObj[camelize(key)] = obj[key];
+  });
+  return newObj;
+}
+exports.camelizeObjectKeys = camelizeObjectKeys;
+
+/**
+ * Assigns own and inherited enumerable string and symbol keyed properties of source
+ * objects to the destination object.
+ *
+ * https://lodash.com/docs/4.17.4#defaults
+ *
+ * **Note:** This method mutates `object`.
+ *
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @returns {Object} Returns `object`.
+ * @private
+ */
+function defaults(object, ...sources) {
+  object = Object(object);
+
+  sources.forEach(source =&gt; {
+    if (source) {
+      source = Object(source);
+
+      getComplexKeys(source).forEach(key =&gt; {
+        const value = object[key];
+        if (
+          value === undefined ||
+            _.eq(value, Object.prototype[key]) &amp;&amp;
+            !Object.prototype.hasOwnProperty.call(object, key)
+
+        ) {
+          object[key] = source[key];
+        }
+      });
+    }
+  });
+
+  return object;
+}
+exports.defaults = defaults;
+
+/**
+ *
+ * @param {Object} index
+ * @param {Array}  index.fields
+ * @param {string} [index.name]
+ * @param {string|Object} tableName
+ *
+ * @returns {Object}
+ * @private
+ */
+function nameIndex(index, tableName) {
+  if (tableName.tableName) tableName = tableName.tableName;
+
+  if (!Object.prototype.hasOwnProperty.call(index, 'name')) {
+    const fields = index.fields.map(
+      field =&gt; typeof field === 'string' ? field : field.name || field.attribute
+    );
+    index.name = underscore(`${tableName}_${fields.join('_')}`);
+  }
+
+  return index;
+}
+exports.nameIndex = nameIndex;
+
+/**
+ * Checks if 2 arrays intersect.
+ *
+ * @param {Array} arr1
+ * @param {Array} arr2
+ * @private
+ */
+function intersects(arr1, arr2) {
+  return arr1.some(v =&gt; arr2.includes(v));
+}
+exports.intersects = intersects;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

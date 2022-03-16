@@ -1,0 +1,1330 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v5/../">
+  <title data-ice="title">Manual | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="/v5/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v5/css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="/v5/./inject/css/0-style.css"><link rel="stylesheet" href="/v5/./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="/v5/./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="/v5/identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="/v5/source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+
+    <div class="manual-group">
+      <a href="/v5/index.html" style="color: black">Home</a>
+    </div>
+  
+      <div class="manual-group" style="pointer-events: none">
+        Core Concepts
+      </div>
+    <div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html" data-ice="link">Getting started</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#installing" data-ice="link">Installing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#setting-up-a-connection" data-ice="link">Setting up a connection</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#note--setting-up-sqlite" data-ice="link">Note: setting up SQLite</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#note--connection-pool--production-" data-ice="link">Note: connection pool (production)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#testing-the-connection" data-ice="link">Testing the connection</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#closing-the-connection" data-ice="link">Closing the connection</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#modeling-a-table" data-ice="link">Modeling a table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#changing-the-default-model-options" data-ice="link">Changing the default model options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#synchronizing-the-model-with-the-database" data-ice="link">Synchronizing the model with the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#synchronizing-all-models-at-once" data-ice="link">Synchronizing all models at once</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#note-for-production" data-ice="link">Note for production</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#querying" data-ice="link">Querying</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#promises-and-async-await" data-ice="link">Promises and async/await</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html" data-ice="link">Dialects</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#mysql" data-ice="link">MySQL</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#mariadb" data-ice="link">MariaDB</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#sqlite" data-ice="link">SQLite</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#mssql" data-ice="link">MSSQL</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html" data-ice="link">Datatypes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#array-enum-" data-ice="link">Array(ENUM)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#range-types" data-ice="link">Range types</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#special-cases" data-ice="link">Special Cases</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#extending-datatypes" data-ice="link">Extending datatypes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#ranges" data-ice="link">Ranges</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html" data-ice="link">Model definition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#timestamps" data-ice="link">Timestamps</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#deferrable" data-ice="link">Deferrable</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#getters--amp--setters" data-ice="link">Getters &amp; setters</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#defining-as-part-of-a-property" data-ice="link">Defining as part of a property</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#defining-as-part-of-the-model-options" data-ice="link">Defining as part of the model options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#helper-functions-for-use-inside-getter-and-setter-definitions" data-ice="link">Helper functions for use inside getter and setter definitions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#validations" data-ice="link">Validations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#per-attribute-validations" data-ice="link">Per-attribute validations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#per-attribute-validators-and--code-allownull--code-" data-ice="link">Per-attribute validators and allowNull</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#model-wide-validations" data-ice="link">Model-wide validations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#configuration" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#import" data-ice="link">Import</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#optimistic-locking" data-ice="link">Optimistic Locking</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#database-synchronization" data-ice="link">Database synchronization</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#expansion-of-models" data-ice="link">Expansion of models</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#indexes" data-ice="link">Indexes</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html" data-ice="link">Model usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#data-retrieval---finders" data-ice="link">Data retrieval / Finders</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-find--code----search-for-one-specific-element-in-the-database" data-ice="link">find - Search for one specific element in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-findorcreate--code----search-for-a-specific-element-or-create-it-if-not-available" data-ice="link">findOrCreate - Search for a specific element or create it if not available</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-findandcountall--code----search-for-multiple-elements-in-the-database--returns-both-data-and-total-count" data-ice="link">findAndCountAll - Search for multiple elements in the database, returns both data and total count</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-findall--code----search-for-multiple-elements-in-the-database" data-ice="link">findAll - Search for multiple elements in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#complex-filtering---or---not-queries" data-ice="link">Complex filtering / OR / NOT queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#manipulating-the-dataset-with-limit--offset--order-and-group" data-ice="link">Manipulating the dataset with limit, offset, order and group</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#raw-queries" data-ice="link">Raw queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-count--code----count-the-occurrences-of-elements-in-the-database" data-ice="link">count - Count the occurrences of elements in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-max--code----get-the-greatest-value-of-a-specific-attribute-within-a-specific-table" data-ice="link">max - Get the greatest value of a specific attribute within a specific table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-min--code----get-the-least-value-of-a-specific-attribute-within-a-specific-table" data-ice="link">min - Get the least value of a specific attribute within a specific table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-sum--code----sum-the-value-of-specific-attributes" data-ice="link">sum - Sum the value of specific attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#eager-loading" data-ice="link">Eager loading</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#top-level-where-with-eagerly-loaded-models" data-ice="link">Top level where with eagerly loaded models</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#including-everything" data-ice="link">Including everything</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#including-soft-deleted-records" data-ice="link">Including soft deleted records</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#ordering-eager-loaded-associations" data-ice="link">Ordering Eager Loaded Associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#nested-eager-loading" data-ice="link">Nested eager loading</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#use-right-join-for-association" data-ice="link">Use right join for association</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html" data-ice="link">Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#order-of-operations" data-ice="link">Order of Operations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#declaring-hooks" data-ice="link">Declaring Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#removing-hooks" data-ice="link">Removing hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#global---universal-hooks" data-ice="link">Global / universal hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#default-hooks--sequelize-options-define-" data-ice="link">Default Hooks (Sequelize.options.define)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#permanent-hooks--sequelize-addhook-" data-ice="link">Permanent Hooks (Sequelize.addHook)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#connection-hooks" data-ice="link">Connection Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#instance-hooks" data-ice="link">Instance hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#model-hooks" data-ice="link">Model hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#associations" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#a-note-about-transactions" data-ice="link">A Note About Transactions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#internal-transactions" data-ice="link">Internal Transactions</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/querying.html"><a href="/v5/manual/querying.html" data-ice="link">Querying</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#attributes" data-ice="link">Attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#where" data-ice="link">Where</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#basics" data-ice="link">Basics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#operators" data-ice="link">Operators</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#range-operators" data-ice="link">Range Operators</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#combinations" data-ice="link">Combinations</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#operators-aliases" data-ice="link">Operators Aliases</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#operators-security" data-ice="link">Operators security</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#json" data-ice="link">JSON</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#mssql" data-ice="link">MSSQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#jsonb" data-ice="link">JSONB</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#nested-object" data-ice="link">Nested object</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#nested-key" data-ice="link">Nested key</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#containment" data-ice="link">Containment</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#relations---associations" data-ice="link">Relations / Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#pagination---limiting" data-ice="link">Pagination / Limiting</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#ordering" data-ice="link">Ordering</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#table-hint" data-ice="link">Table Hint</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#index-hints" data-ice="link">Index Hints</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/instances.html"><a href="/v5/manual/instances.html" data-ice="link">Instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#building-a-non-persistent-instance" data-ice="link">Building a non-persistent instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#creating-persistent-instances" data-ice="link">Creating persistent instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#updating---saving---persisting-an-instance" data-ice="link">Updating / Saving / Persisting an instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#destroying---deleting-persistent-instances" data-ice="link">Destroying / Deleting persistent instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#restoring-soft-deleted-instances" data-ice="link">Restoring soft-deleted instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#working-in-bulk--creating--updating-and-destroying-multiple-rows-at-once-" data-ice="link">Working in bulk (creating, updating and destroying multiple rows at once)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#values-of-an-instance" data-ice="link">Values of an instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#reloading-instances" data-ice="link">Reloading instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#incrementing" data-ice="link">Incrementing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#decrementing" data-ice="link">Decrementing</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/associations.html"><a href="/v5/manual/associations.html" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#basic-concepts" data-ice="link">Basic Concepts</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#source--amp--target" data-ice="link">Source &amp; Target</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#foreign-keys" data-ice="link">Foreign Keys</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#underscored-option" data-ice="link">underscored option</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#cyclic-dependencies--amp--disabling-constraints" data-ice="link">Cyclic dependencies &amp; Disabling constraints</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#enforcing-a-foreign-key-reference-without-constraints" data-ice="link">Enforcing a foreign key reference without constraints</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#one-to-one-associations" data-ice="link">One-To-One associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongsto" data-ice="link">BelongsTo</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#foreign-keys" data-ice="link">Foreign keys</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#target-keys" data-ice="link">Target keys</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#hasone" data-ice="link">HasOne</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#source-keys" data-ice="link">Source keys</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#difference-between-hasone-and-belongsto" data-ice="link">Difference between HasOne and BelongsTo</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#one-to-many-associations--hasmany-" data-ice="link">One-To-Many associations (hasMany)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongs-to-many-associations" data-ice="link">Belongs-To-Many associations</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#source-and-target-keys" data-ice="link">Source and target keys</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#naming-strategy" data-ice="link">Naming strategy</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#associating-objects" data-ice="link">Associating objects</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#check-associations" data-ice="link">Check associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#advanced-concepts" data-ice="link">Advanced Concepts</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#scopes" data-ice="link">Scopes</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#1-n" data-ice="link">1:n</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#n-m" data-ice="link">n:m</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#creating-with-associations" data-ice="link">Creating with associations</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongsto---hasmany---hasone-association" data-ice="link">BelongsTo / HasMany / HasOne association</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongsto-association-with-an-alias" data-ice="link">BelongsTo association with an alias</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#hasmany---belongstomany-association" data-ice="link">HasMany / BelongsToMany association</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html" data-ice="link">Raw queries</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html#-quot-dotted-quot--attributes" data-ice="link">"Dotted" attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html#replacements" data-ice="link">Replacements</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html#bind-parameter" data-ice="link">Bind Parameter</a></li>
+</ul>
+  </div>
+
+      <div class="manual-group" style="pointer-events: none">
+        Other Topics
+      </div>
+    <div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html" data-ice="link">Transactions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#managed-transaction--auto-callback-" data-ice="link">Managed transaction (auto-callback)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#throw-errors-to-rollback" data-ice="link">Throw errors to rollback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#automatically-pass-transactions-to-all-queries" data-ice="link">Automatically pass transactions to all queries</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#concurrent-partial-transactions" data-ice="link">Concurrent/Partial transactions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#without-cls-enabled" data-ice="link">Without CLS enabled</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#isolation-levels" data-ice="link">Isolation levels</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#unmanaged-transaction--then-callback-" data-ice="link">Unmanaged transaction (then-callback)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#usage-with-other-sequelize-methods" data-ice="link">Usage with other sequelize methods</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#after-commit-hook" data-ice="link">After commit hook</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#locks" data-ice="link">Locks</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html" data-ice="link">Scopes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#definition" data-ice="link">Definition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#usage" data-ice="link">Usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#merging" data-ice="link">Merging</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#merging-includes" data-ice="link">Merging includes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#associations" data-ice="link">Associations</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/read-replication.html"><a href="/v5/manual/read-replication.html" data-ice="link">Read replication</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html" data-ice="link">Migrations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#the-cli" data-ice="link">The CLI</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#installing-cli" data-ice="link">Installing CLI</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#bootstrapping" data-ice="link">Bootstrapping</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#configuration" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#creating-first-model--and-migration-" data-ice="link">Creating first Model (and Migration)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#running-migrations" data-ice="link">Running Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#undoing-migrations" data-ice="link">Undoing Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#creating-first-seed" data-ice="link">Creating First Seed</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#running-seeds" data-ice="link">Running Seeds</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#undoing-seeds" data-ice="link">Undoing Seeds</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#advance-topics" data-ice="link">Advance Topics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#migration-skeleton" data-ice="link">Migration Skeleton</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#the--code--sequelizerc--code--file" data-ice="link">The .sequelizerc File</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#dynamic-configuration" data-ice="link">Dynamic Configuration</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#using-babel" data-ice="link">Using Babel</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#using-environment-variables" data-ice="link">Using Environment Variables</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#specifying-dialect-options" data-ice="link">Specifying Dialect Options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#production-usages" data-ice="link">Production Usages</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#storage" data-ice="link">Storage</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#migration-storage" data-ice="link">Migration Storage</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#seed-storage" data-ice="link">Seed Storage</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#configuration-connection-string" data-ice="link">Configuration Connection String</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#passing-dialect-specific-options" data-ice="link">Passing Dialect Specific Options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#programmatic-use" data-ice="link">Programmatic use</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#query-interface" data-ice="link">Query Interface</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/resources.html"><a href="/v5/manual/resources.html" data-ice="link">Resources</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/resources.html"><a href="/v5/manual/resources.html#addons--amp--plugins" data-ice="link">Addons &amp; Plugins</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#acl" data-ice="link">ACL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#auto-code-generation--amp--scaffolding" data-ice="link">Auto Code Generation &amp; Scaffolding</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#autoloader" data-ice="link">Autoloader</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#caching" data-ice="link">Caching</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#filters" data-ice="link">Filters</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#fixtures---mock-data" data-ice="link">Fixtures / mock data</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#hierarchies" data-ice="link">Hierarchies</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#historical-records---time-travel" data-ice="link">Historical records / Time travel</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#migrations" data-ice="link">Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#slugification" data-ice="link">Slugification</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#tokens" data-ice="link">Tokens</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#miscellaneous" data-ice="link">Miscellaneous</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html" data-ice="link">TypeScript</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html#installation" data-ice="link">Installation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html#usage" data-ice="link">Usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html#usage-of--code-sequelize-define--code-" data-ice="link">Usage of sequelize.define</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html" data-ice="link">Upgrade to v5</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#breaking-changes" data-ice="link">Breaking Changes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#support-for-node-6-and-up" data-ice="link">Support for Node 6 and up</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#secure-operators" data-ice="link">Secure Operators</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#typescript-support" data-ice="link">Typescript Support</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#pooling" data-ice="link">Pooling</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#model" data-ice="link">Model</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#datatypes" data-ice="link">Datatypes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#hooks" data-ice="link">Hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#sequelize" data-ice="link">Sequelize</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#query-interface" data-ice="link">Query Interface</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#others" data-ice="link">Others</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#dialect-specific" data-ice="link">Dialect Specific</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#mssql" data-ice="link">MSSQL</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#mysql" data-ice="link">MySQL</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#mariadb" data-ice="link">MariaDB</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#packages" data-ice="link">Packages</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#changelog" data-ice="link">Changelog</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-17" data-ice="link">5.0.0-beta.17</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-16" data-ice="link">5.0.0-beta.16</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-15" data-ice="link">5.0.0-beta.15</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-14" data-ice="link">5.0.0-beta.14</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-13" data-ice="link">5.0.0-beta.13</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-12" data-ice="link">5.0.0-beta.12</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-11" data-ice="link">5.0.0-beta.11</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-10" data-ice="link">5.0.0-beta.10</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-9" data-ice="link">5.0.0-beta.9</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-8" data-ice="link">5.0.0-beta.8</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-7" data-ice="link">5.0.0-beta.7</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-6" data-ice="link">5.0.0-beta.6</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-5" data-ice="link">5.0.0-beta.5</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-4" data-ice="link">5.0.0-beta.4</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-3" data-ice="link">5.0.0-beta.3</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-2" data-ice="link">5.0.0-beta.2</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-1" data-ice="link">5.0.0-beta.1</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta" data-ice="link">5.0.0-beta</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html" data-ice="link">Working with legacy tables</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#tables" data-ice="link">Tables</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#fields" data-ice="link">Fields</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#primary-keys" data-ice="link">Primary keys</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#foreign-keys" data-ice="link">Foreign keys</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/whos-using.html"><a href="/v5/manual/whos-using.html" data-ice="link">Who's using sequelize?</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/legal.html"><a href="/v5/manual/legal.html" data-ice="link">Legal Notice</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legal.html"><a href="/v5/manual/legal.html#license" data-ice="link">License</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legal.html"><a href="/v5/manual/legal.html#author-s-" data-ice="link">AUTHOR(S)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legal.html"><a href="/v5/manual/legal.html#inhaltliche-verantwortung" data-ice="link">INHALTLICHE VERANTWORTUNG</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="associations">Associations</h1><p>This section describes the various association types in sequelize. There are four type of
+associations available in Sequelize</p>
+<ol>
+<li>BelongsTo</li>
+<li>HasOne</li>
+<li>HasMany</li>
+<li>BelongsToMany</li>
+</ol>
+<h2 id="basic-concepts">Basic Concepts</h2><h3 id="source--amp--target">Source &amp; Target</h3><p>Let's first begin with a basic concept that you will see used in most associations, <strong>source</strong> and <strong>target</strong> model. Suppose you are trying to add an association between two Models. Here we are adding a <code>hasOne</code> association between <code>User</code> and <code>Project</code>.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class User extends Model {}
+User.init({
+  name: Sequelize.STRING,
+  email: Sequelize.STRING
+}, {
+  sequelize,
+  modelName: 'user'
+});
+
+class Project extends Model {}
+Project.init({
+  name: Sequelize.STRING
+}, {
+  sequelize,
+  modelName: 'project'
+});
+
+User.hasOne(Project);</code>
+</code></pre>
+<p><code>User</code> model (the model that the function is being invoked on) is the <strong>source</strong>. <code>Project</code> model (the model being passed as an argument) is the <strong>target</strong>.</p>
+<h3 id="foreign-keys">Foreign Keys</h3><p>When you create associations between your models in sequelize, foreign key references with constraints will automatically be created. The setup below:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class Task extends Model {}
+Task.init({ title: Sequelize.STRING }, { sequelize, modelName: 'task' });
+class User extends Model {}
+User.init({ username: Sequelize.STRING }, { sequelize, modelName: 'user' });
+
+User.hasMany(Task); // Will add userId to Task model
+Task.belongsTo(User); // Will also add userId to Task model</code>
+</code></pre>
+<p>Will generate the following SQL:</p>
+<pre><code class="lang-sql"><code class="source-code prettyprint">CREATE TABLE IF NOT EXISTS "users" (
+  "id" SERIAL,
+  "username" VARCHAR(255),
+  "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+  PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "tasks" (
+  "id" SERIAL,
+  "title" VARCHAR(255),
+  "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "userId" INTEGER REFERENCES "users" ("id") ON DELETE
+  SET
+    NULL ON UPDATE CASCADE,
+    PRIMARY KEY ("id")
+);</code>
+</code></pre>
+<p>The relation between <code>tasks</code> and <code>users</code> model injects the <code>userId</code> foreign key on <code>tasks</code> table, and marks it as a reference to the <code>users</code> table. By default <code>userId</code> will be set to <code>NULL</code> if the referenced user is deleted, and updated if the id of the <code>userId</code> updated. These options can be overridden by passing <code>onUpdate</code> and <code>onDelete</code> options to the association calls. The validation options are <code>RESTRICT, CASCADE, NO ACTION, SET DEFAULT, SET NULL</code>.</p>
+<p>For 1:1 and 1:m associations the default option is <code>SET NULL</code> for deletion, and <code>CASCADE</code> for updates. For n:m, the default for both is <code>CASCADE</code>. This means, that if you delete or update a row from one side of an n:m association, all the rows in the join table referencing that row will also be deleted or updated.</p>
+<h4 id="underscored-option">underscored option</h4><p>Sequelize allow setting <code>underscored</code> option for Model. When <code>true</code> this option will set the
+<code>field</code> option on all attributes to the underscored version of its name. This also applies to
+foreign keys generated by associations.</p>
+<p>Let's modify last example to use <code>underscored</code> option.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class Task extends Model {}
+Task.init({
+  title: Sequelize.STRING
+}, {
+  underscored: true,
+  sequelize,
+  modelName: 'task'
+});
+
+class User extends Model {}
+User.init({
+  username: Sequelize.STRING
+}, {
+  underscored: true,
+  sequelize,
+  modelName: 'user'
+});
+
+// Will add userId to Task model, but field will be set to `user_id`
+// This means column name will be `user_id`
+User.hasMany(Task);
+
+// Will also add userId to Task model, but field will be set to `user_id`
+// This means column name will be `user_id`
+Task.belongsTo(User);</code>
+</code></pre>
+<p>Will generate the following SQL:</p>
+<pre><code class="lang-sql"><code class="source-code prettyprint">CREATE TABLE IF NOT EXISTS "users" (
+  "id" SERIAL,
+  "username" VARCHAR(255),
+  "created_at" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL,
+  PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "tasks" (
+  "id" SERIAL,
+  "title" VARCHAR(255),
+  "created_at" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "user_id" INTEGER REFERENCES "users" ("id") ON DELETE
+  SET
+    NULL ON UPDATE CASCADE,
+    PRIMARY KEY ("id")
+);</code>
+</code></pre>
+<p>With the underscored option attributes injected to model are still camel cased but <code>field</code> option is set to their underscored version.</p>
+<h4 id="cyclic-dependencies--amp--disabling-constraints">Cyclic dependencies &amp; Disabling constraints</h4><p>Adding constraints between tables means that tables must be created in the database in a certain order, when using <code>sequelize.sync</code>. If <code>Task</code> has a reference to <code>User</code>, the <code>users</code> table must be created before the <code>tasks</code> table can be created. This can sometimes lead to circular references, where sequelize cannot find an order in which to sync. Imagine a scenario of documents and versions. A document can have multiple versions, and for convenience, a document has a reference to its current version.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class Document extends Model {}
+Document.init({
+  author: Sequelize.STRING
+}, { sequelize, modelName: 'document' });
+class Version extends Model {}
+Version.init({
+  timestamp: Sequelize.DATE
+}, { sequelize, modelName: 'version' });
+
+Document.hasMany(Version); // This adds documentId attribute to version
+Document.belongsTo(Version, {
+  as: 'Current',
+  foreignKey: 'currentVersionId'
+}); // This adds currentVersionId attribute to document</code>
+</code></pre>
+<p>However, the code above will result in the following error: <code>Cyclic dependency found. documents is dependent of itself. Dependency chain: documents -&gt; versions =&gt; documents</code>.</p>
+<p>In order to alleviate that, we can pass <code>constraints: false</code> to one of the associations:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Document.hasMany(Version);
+Document.belongsTo(Version, {
+  as: 'Current',
+  foreignKey: 'currentVersionId',
+  constraints: false
+});</code>
+</code></pre>
+<p>Which will allow us to sync the tables correctly:</p>
+<pre><code class="lang-sql"><code class="source-code prettyprint">CREATE TABLE IF NOT EXISTS "documents" (
+  "id" SERIAL,
+  "author" VARCHAR(255),
+  "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "currentVersionId" INTEGER,
+  PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "versions" (
+  "id" SERIAL,
+  "timestamp" TIMESTAMP WITH TIME ZONE,
+  "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "documentId" INTEGER REFERENCES "documents" ("id") ON DELETE
+  SET
+    NULL ON UPDATE CASCADE,
+    PRIMARY KEY ("id")
+);</code>
+</code></pre>
+<h4 id="enforcing-a-foreign-key-reference-without-constraints">Enforcing a foreign key reference without constraints</h4><p>Sometimes you may want to reference another table, without adding any constraints, or associations. In that case you can manually add the reference attributes to your schema definition, and mark the relations between them.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class Trainer extends Model {}
+Trainer.init({
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING
+}, { sequelize, modelName: 'trainer' });
+
+// Series will have a trainerId = Trainer.id foreign reference key
+// after we call Trainer.hasMany(series)
+class Series extends Model {}
+Series.init({
+  title: Sequelize.STRING,
+  subTitle: Sequelize.STRING,
+  description: Sequelize.TEXT,
+  // Set FK relationship (hasMany) with `Trainer`
+  trainerId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: Trainer,
+      key: 'id'
+    }
+  }
+}, { sequelize, modelName: 'series' });
+
+// Video will have seriesId = Series.id foreign reference key
+// after we call Series.hasOne(Video)
+class Video extends Model {}
+Video.init({
+  title: Sequelize.STRING,
+  sequence: Sequelize.INTEGER,
+  description: Sequelize.TEXT,
+  // set relationship (hasOne) with `Series`
+  seriesId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: Series, // Can be both a string representing the table name or a Sequelize model
+      key: 'id'
+    }
+  }
+}, { sequelize, modelName: 'video' });
+
+Series.hasOne(Video);
+Trainer.hasMany(Series);</code>
+</code></pre>
+<h2 id="one-to-one-associations">One-To-One associations</h2><p>One-To-One associations are associations between exactly two models connected by a single foreign key.</p>
+<h3 id="belongsto">BelongsTo</h3><p>BelongsTo associations are associations where the foreign key for the one-to-one relation exists on the <strong>source model</strong>.</p>
+<p>A simple example would be a <strong>Player</strong> being part of a <strong>Team</strong> with the foreign key on the player.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class Player extends Model {}
+Player.init({/* attributes */}, { sequelize, modelName: 'player' });
+class Team extends Model {}
+Team.init({/* attributes */}, { sequelize, modelName: 'team' });
+
+Player.belongsTo(Team); // Will add a teamId attribute to Player to hold the primary key value for Team</code>
+</code></pre>
+<h4 id="foreign-keys">Foreign keys</h4><p>By default the foreign key for a belongsTo relation will be generated from the target model name and the target primary key name.</p>
+<p>The default casing is <code>camelCase</code>. If the source model is configured with <code>underscored: true</code> the foreignKey will be created with field <code>snake_case</code>.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class User extends Model {}
+User.init({/* attributes */}, { sequelize, modelName: 'user' })
+class Company extends Model {}
+Company.init({/* attributes */}, { sequelize, modelName: 'company' });
+
+// will add companyId to user
+User.belongsTo(Company);
+
+class User extends Model {}
+User.init({/* attributes */}, { underscored: true, sequelize, modelName: 'user' })
+class Company extends Model {}
+Company.init({
+  uuid: {
+    type: Sequelize.UUID,
+    primaryKey: true
+  }
+}, { sequelize, modelName: 'company' });
+
+// will add companyUuid to user with field company_uuid
+User.belongsTo(Company);</code>
+</code></pre>
+<p>In cases where <code>as</code> has been defined it will be used in place of the target model name.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class User extends Model {}
+User.init({/* attributes */}, { sequelize, modelName: 'user' })
+class UserRole extends Model {}
+UserRole.init({/* attributes */}, { sequelize, modelName: 'userRole' });
+
+User.belongsTo(UserRole, {as: 'role'}); // Adds roleId to user rather than userRoleId</code>
+</code></pre>
+<p>In all cases the default foreign key can be overwritten with the <code>foreignKey</code> option.
+When the foreign key option is used, Sequelize will use it as-is:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class User extends Model {}
+User.init({/* attributes */}, { sequelize, modelName: 'user' })
+class Company extends Model {}
+Company.init({/* attributes */}, { sequelize, modelName: 'company' });
+
+User.belongsTo(Company, {foreignKey: 'fk_company'}); // Adds fk_company to User</code>
+</code></pre>
+<h4 id="target-keys">Target keys</h4><p>The target key is the column on the target model that the foreign key column on the source model points to. By default the target key for a belongsTo relation will be the target model's primary key. To define a custom column, use the <code>targetKey</code> option.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class User extends Model {}
+User.init({/* attributes */}, { sequelize, modelName: 'user' })
+class Company extends Model {}
+Company.init({/* attributes */}, { sequelize, modelName: 'company' });
+
+User.belongsTo(Company, {foreignKey: 'fk_companyname', targetKey: 'name'}); // Adds fk_companyname to User</code>
+</code></pre>
+<h3 id="hasone">HasOne</h3><p>HasOne associations are associations where the foreign key for the one-to-one relation exists on the <strong>target model</strong>.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class User extends Model {}
+User.init({/* ... */}, { sequelize, modelName: 'user' })
+class Project extends Model {}
+Project.init({/* ... */}, { sequelize, modelName: 'project' })
+
+// One-way associations
+Project.hasOne(User)
+
+/*
+  In this example hasOne will add an attribute projectId to the User model!
+  Furthermore, Project.prototype will gain the methods getUser and setUser according
+  to the first parameter passed to define. If you have underscore style
+  enabled, the added attribute will be project_id instead of projectId.
+
+  The foreign key will be placed on the users table.
+
+  You can also define the foreign key, e.g. if you already have an existing
+  database and want to work on it:
+*/
+
+Project.hasOne(User, { foreignKey: 'initiator_id' })
+
+/*
+  Because Sequelize will use the model's name (first parameter of define) for
+  the accessor methods, it is also possible to pass a special option to hasOne:
+*/
+
+Project.hasOne(User, { as: 'Initiator' })
+// Now you will get Project.getInitiator and Project.setInitiator
+
+// Or let's define some self references
+class Person extends Model {}
+Person.init({ /* ... */}, { sequelize, modelName: 'person' })
+
+Person.hasOne(Person, {as: 'Father'})
+// this will add the attribute FatherId to Person
+
+// also possible:
+Person.hasOne(Person, {as: 'Father', foreignKey: 'DadId'})
+// this will add the attribute DadId to Person
+
+// In both cases you will be able to do:
+Person.setFather
+Person.getFather
+
+// If you need to join a table twice you can double join the same table
+Team.hasOne(Game, {as: 'HomeTeam', foreignKey : 'homeTeamId'});
+Team.hasOne(Game, {as: 'AwayTeam', foreignKey : 'awayTeamId'});
+
+Game.belongsTo(Team);</code>
+</code></pre>
+<p>Even though it is called a HasOne association, for most 1:1 relations you usually want the BelongsTo association since BelongsTo will add the foreignKey on the source where hasOne will add on the target.</p>
+<h4 id="source-keys">Source keys</h4><p>The source key is the attribute on the source model that the foreign key attribute on the target model points to. By default the source key for a <code>hasOne</code> relation will be the source model's primary attribute. To use a custom attribute, use the <code>sourceKey</code> option.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class User extends Model {}
+User.init({/* attributes */}, { sequelize, modelName: 'user' })
+class Company extends Model {}
+Company.init({/* attributes */}, { sequelize, modelName: 'company' });
+
+// Adds companyName attribute to User
+// Use name attribute from Company as source attribute
+Company.hasOne(User, {foreignKey: 'companyName', sourceKey: 'name'});</code>
+</code></pre>
+<h3 id="difference-between-hasone-and-belongsto">Difference between HasOne and BelongsTo</h3><p>In Sequelize 1:1 relationship can be set using HasOne and BelongsTo. They are suitable for different scenarios. Lets study this difference using an example.</p>
+<p>Suppose we have two tables to link <strong>Player</strong> and <strong>Team</strong>. Lets define their models.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class Player extends Model {}
+Player.init({/* attributes */}, { sequelize, modelName: 'player' })
+class Team extends Model {}
+Team.init({/* attributes */}, { sequelize, modelName: 'team' });</code>
+</code></pre>
+<p>When we link two models in Sequelize we can refer them as pairs of <strong>source</strong> and <strong>target</strong> models. Like this</p>
+<p>Having <strong>Player</strong> as the <strong>source</strong> and <strong>Team</strong> as the <strong>target</strong></p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Player.belongsTo(Team);
+//Or
+Player.hasOne(Team);</code>
+</code></pre>
+<p>Having <strong>Team</strong> as the <strong>source</strong> and <strong>Player</strong> as the <strong>target</strong></p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Team.belongsTo(Player);
+//Or
+Team.hasOne(Player);</code>
+</code></pre>
+<p>HasOne and BelongsTo insert the association key in different models from each other. HasOne inserts the association key in <strong>target</strong> model whereas BelongsTo inserts the association key in the <strong>source</strong> model.</p>
+<p>Here is an example demonstrating use cases of BelongsTo and HasOne.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class Player extends Model {}
+Player.init({/* attributes */}, { sequelize, modelName: 'player' })
+class Coach extends Model {}
+Coach.init({/* attributes */}, { sequelize, modelName: 'coach' })
+class Team extends Model {}
+Team.init({/* attributes */}, { sequelize, modelName: 'team' });</code>
+</code></pre>
+<p>Suppose our <code>Player</code> model has information about its team as <code>teamId</code> column. Information about each Team's <code>Coach</code> is stored in the <code>Team</code> model as <code>coachId</code> column. These both scenarios requires different kind of 1:1 relation because foreign key relation is present on different models each time.</p>
+<p>When information about association is present in <strong>source</strong> model we can use <code>belongsTo</code>. In this case <code>Player</code> is suitable for <code>belongsTo</code> because it has <code>teamId</code> column.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Player.belongsTo(Team)  // `teamId` will be added on Player / Source model</code>
+</code></pre>
+<p>When information about association is present in <strong>target</strong> model we can use <code>hasOne</code>. In this case <code>Coach</code> is suitable for <code>hasOne</code> because <code>Team</code> model store information about its <code>Coach</code> as <code>coachId</code> field.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Coach.hasOne(Team)  // `coachId` will be added on Team / Target model</code>
+</code></pre>
+<h2 id="one-to-many-associations--hasmany-">One-To-Many associations (hasMany)</h2><p>One-To-Many associations are connecting one source with multiple targets. The targets however are again connected to exactly one specific source.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class User extends Model {}
+User.init({/* ... */}, { sequelize, modelName: 'user' })
+class Project extends Model {}
+Project.init({/* ... */}, { sequelize, modelName: 'project' })
+
+// OK. Now things get more complicated (not really visible to the user :)).
+// First let's define a hasMany association
+Project.hasMany(User, {as: 'Workers'})</code>
+</code></pre>
+<p>This will add the attribute <code>projectId</code> to User. Depending on your setting for underscored the column in the table will either be called <code>projectId</code> or <code>project_id</code>. Instances of Project will get the accessors <code>getWorkers</code> and <code>setWorkers</code>.</p>
+<p>Sometimes you may need to associate records on different columns, you may use <code>sourceKey</code> option:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class City extends Model {}
+City.init({ countryCode: Sequelize.STRING }, { sequelize, modelName: 'city' });
+class Country extends Model {}
+Country.init({ isoCode: Sequelize.STRING }, { sequelize, modelName: 'country' });
+
+// Here we can connect countries and cities base on country code
+Country.hasMany(City, {foreignKey: 'countryCode', sourceKey: 'isoCode'});
+City.belongsTo(Country, {foreignKey: 'countryCode', targetKey: 'isoCode'});</code>
+</code></pre>
+<p>So far we dealt with a one-way association. But we want more! Let's define it the other way around by creating a many to many association in the next section.</p>
+<h2 id="belongs-to-many-associations">Belongs-To-Many associations</h2><p>Belongs-To-Many associations are used to connect sources with multiple targets. Furthermore the targets can also have connections to multiple sources.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Project.belongsToMany(User, {through: 'UserProject'});
+User.belongsToMany(Project, {through: 'UserProject'});</code>
+</code></pre>
+<p>This will create a new model called UserProject with the equivalent foreign keys <code>projectId</code> and <code>userId</code>. Whether the attributes are camelcase or not depends on the two models joined by the table (in this case User and Project).</p>
+<p>Defining <code>through</code> is <strong>required</strong>. Sequelize would previously attempt to autogenerate names but that would not always lead to the most logical setups.</p>
+<p>This will add methods <code>getUsers</code>, <code>setUsers</code>, <code>addUser</code>,<code>addUsers</code> to <code>Project</code>, and <code>getProjects</code>, <code>setProjects</code>, <code>addProject</code>, and <code>addProjects</code> to <code>User</code>.</p>
+<p>Sometimes you may want to rename your models when using them in associations. Let's define users as workers and projects as tasks by using the alias (<code>as</code>) option. We will also manually define the foreign keys to use:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.belongsToMany(Project, { as: 'Tasks', through: 'worker_tasks', foreignKey: 'userId' })
+Project.belongsToMany(User, { as: 'Workers', through: 'worker_tasks', foreignKey: 'projectId' })</code>
+</code></pre>
+<p><code>foreignKey</code> will allow you to set <strong>source model</strong> key in the <strong>through</strong> relation.
+<code>otherKey</code> will allow you to set <strong>target model</strong> key in the <strong>through</strong> relation.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.belongsToMany(Project, { as: 'Tasks', through: 'worker_tasks', foreignKey: 'userId', otherKey: 'projectId'})</code>
+</code></pre>
+<p>Of course you can also define self references with belongsToMany:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Person.belongsToMany(Person, { as: 'Children', through: 'PersonChildren' })
+// This will create the table PersonChildren which stores the ids of the objects.
+</code>
+</code></pre>
+<h4 id="source-and-target-keys">Source and target keys</h4><p>If you want to create a belongs to many relationship that does not use the default primary key some setup work is required.
+You must set the <code>sourceKey</code> (optionally <code>targetKey</code>) appropriately for the two ends of the belongs to many. Further you must also ensure you have appropriate indexes created on your relationships. For example:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const User = this.sequelize.define('User', {
+  id: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
+    field: 'user_id'
+  },
+  userSecondId: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    defaultValue: DataTypes.UUIDV4,
+    field: 'user_second_id'
+  }
+}, {
+  tableName: 'tbl_user',
+  indexes: [
+    {
+      unique: true,
+      fields: ['user_second_id']
+    }
+  ]
+});
+
+const Group = this.sequelize.define('Group', {
+  id: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
+    field: 'group_id'
+  },
+  groupSecondId: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    defaultValue: DataTypes.UUIDV4,
+    field: 'group_second_id'
+  }
+}, {
+  tableName: 'tbl_group',
+  indexes: [
+    {
+      unique: true,
+      fields: ['group_second_id']
+    }
+  ]
+});
+
+User.belongsToMany(Group, {
+  through: 'usergroups',
+  sourceKey: 'userSecondId'
+});
+Group.belongsToMany(User, {
+  through: 'usergroups',
+  sourceKey: 'groupSecondId'
+});</code>
+</code></pre>
+<p>If you want additional attributes in your join table, you can define a model for the join table in sequelize, before you define the association, and then tell sequelize that it should use that model for joining, instead of creating a new one:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class User extends Model {}
+User.init({}, { sequelize, modelName: 'user' })
+class Project extends Model {}
+Project.init({}, { sequelize, modelName: 'project' })
+class UserProjects extends Model {}
+UserProjects.init({
+  status: DataTypes.STRING
+}, { sequelize, modelName: 'userProjects' })
+
+User.belongsToMany(Project, { through: UserProjects })
+Project.belongsToMany(User, { through: UserProjects })</code>
+</code></pre>
+<p>To add a new project to a user and set its status, you pass extra <code>options.through</code> to the setter, which contains the attributes for the join table</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">user.addProject(project, { through: { status: 'started' }})</code>
+</code></pre>
+<p>By default the code above will add projectId and userId to the UserProjects table, and <em>remove any previously defined primary key attribute</em> - the table will be uniquely identified by the combination of the keys of the two tables, and there is no reason to have other PK columns. To enforce a primary key on the <code>UserProjects</code> model you can add it manually.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class UserProjects extends Model {}
+UserProjects.init({
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  status: DataTypes.STRING
+}, { sequelize, modelName: 'userProjects' })</code>
+</code></pre>
+<p>With Belongs-To-Many you can query based on <strong>through</strong> relation and select specific attributes. For example using <code>findAll</code> with <strong>through</strong></p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.findAll({
+  include: [{
+    model: Project,
+    through: {
+      attributes: ['createdAt', 'startedAt', 'finishedAt'],
+      where: {completed: true}
+    }
+  }]
+});</code>
+</code></pre>
+<p>Belongs-To-Many creates a unique key when primary key is not present on through model. This unique key name can be overridden using <strong>uniqueKey</strong> option.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Project.belongsToMany(User, { through: UserProjects, uniqueKey: 'my_custom_unique' })</code>
+</code></pre>
+<h2 id="naming-strategy">Naming strategy</h2><p>By default sequelize will use the model name (the name passed to <code>sequelize.define</code>) to figure out the name of the model when used in associations. For example, a model named <code>user</code> will add the functions <code>get/set/add User</code> to instances of the associated model, and a property named <code>.user</code> in eager loading, while a model named <code>User</code> will add the same functions, but a property named <code>.User</code> (notice the upper case U) in eager loading.</p>
+<p>As we've already seen, you can alias models in associations using <code>as</code>. In single associations (has one and belongs to), the alias should be singular, while for many associations (has many) it should be plural. Sequelize then uses the <a href="https://www.npmjs.org/package/inflection">inflection</a> library to convert the alias to its singular form. However, this might not always work for irregular or non-english words. In this case, you can provide both the plural and the singular form of the alias:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">User.belongsToMany(Project, { as: { singular: 'task', plural: 'tasks' }})
+// Notice that inflection has no problem singularizing tasks, this is just for illustrative purposes.</code>
+</code></pre>
+<p>If you know that a model will always use the same alias in associations, you can provide it when creating the model</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class Project extends Model {}
+Project.init(attributes, {
+  name: {
+    singular: 'task',
+    plural: 'tasks',
+  },
+  sequelize,
+  modelName: 'project'
+})
+
+User.belongsToMany(Project);</code>
+</code></pre>
+<p>This will add the functions <code>add/set/get Tasks</code> to user instances.</p>
+<p>Remember, that using <code>as</code> to change the name of the association will also change the name of the foreign key. When using <code>as</code>, it is safest to also specify the foreign key.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Invoice.belongsTo(Subscription)
+Subscription.hasMany(Invoice)</code>
+</code></pre>
+<p>Without <code>as</code>, this adds <code>subscriptionId</code> as expected. However, if you were to say <code>Invoice.belongsTo(Subscription, { as: 'TheSubscription' })</code>, you will have both <code>subscriptionId</code> and <code>theSubscriptionId</code>, because sequelize is not smart enough to figure that the calls are two sides of the same relation. 'foreignKey' fixes this problem;</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Invoice.belongsTo(Subscription, { as: 'TheSubscription', foreignKey: 'subscription_id' })
+Subscription.hasMany(Invoice, { foreignKey: 'subscription_id' })</code>
+</code></pre>
+<h2 id="associating-objects">Associating objects</h2><p>Because Sequelize is doing a lot of magic, you have to call <code>Sequelize.sync</code> after setting the associations! Doing so will allow you the following:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Project.hasMany(Task)
+Task.belongsTo(Project)
+
+Project.create()...
+Task.create()...
+Task.create()...
+
+// save them... and then:
+project.setTasks([task1, task2]).then(() =&gt; {
+  // saved!
+})
+
+// ok, now they are saved... how do I get them later on?
+project.getTasks().then(associatedTasks =&gt; {
+  // associatedTasks is an array of tasks
+})
+
+// You can also pass filters to the getter method.
+// They are equal to the options you can pass to a usual finder method.
+project.getTasks({ where: 'id &gt; 10' }).then(tasks =&gt; {
+  // tasks with an id greater than 10 :)
+})
+
+// You can also only retrieve certain fields of a associated object.
+project.getTasks({attributes: ['title']}).then(tasks =&gt; {
+  // retrieve tasks with the attributes "title" and "id"
+})</code>
+</code></pre>
+<p>To remove created associations you can just call the set method without a specific id:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// remove the association with task1
+project.setTasks([task2]).then(associatedTasks =&gt; {
+  // you will get task2 only
+})
+
+// remove 'em all
+project.setTasks([]).then(associatedTasks =&gt; {
+  // you will get an empty array
+})
+
+// or remove 'em more directly
+project.removeTask(task1).then(() =&gt; {
+  // it's gone
+})
+
+// and add 'em again
+project.addTask(task1).then(() =&gt; {
+  // it's back again
+})</code>
+</code></pre>
+<p>You can of course also do it vice versa:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// project is associated with task1 and task2
+task2.setProject(null).then(() =&gt; {
+  // and it's gone
+})</code>
+</code></pre>
+<p>For hasOne/belongsTo it's basically the same:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Task.hasOne(User, {as: "Author"})
+Task.setAuthor(anAuthor)</code>
+</code></pre>
+<p>Adding associations to a relation with a custom join table can be done in two ways (continuing with the associations defined in the previous chapter):</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// Either by adding a property with the name of the join table model to the object, before creating the association
+project.UserProjects = {
+  status: 'active'
+}
+u.addProject(project)
+
+// Or by providing a second options.through argument when adding the association, containing the data that should go in the join table
+u.addProject(project, { through: { status: 'active' }})
+
+
+// When associating multiple objects, you can combine the two options above. In this case the second argument
+// will be treated as a defaults object, that will be used if no data is provided
+project1.UserProjects = {
+    status: 'inactive'
+}
+
+u.setProjects([project1, project2], { through: { status: 'active' }})
+// The code above will record inactive for project one, and active for project two in the join table</code>
+</code></pre>
+<p>When getting data on an association that has a custom join table, the data from the join table will be returned as a DAO instance:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">u.getProjects().then(projects =&gt; {
+  const project = projects[0]
+
+  if (project.UserProjects.status === 'active') {
+    // .. do magic
+
+    // since this is a real DAO instance, you can save it directly after you are done doing magic
+    return project.UserProjects.save()
+  }
+})</code>
+</code></pre>
+<p>If you only need some of the attributes from the join table, you can provide an array with the attributes you want:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// This will select only name from the Projects table, and only status from the UserProjects table
+user.getProjects({ attributes: ['name'], joinTableAttributes: ['status']})</code>
+</code></pre>
+<h2 id="check-associations">Check associations</h2><p>You can also check if an object is already associated with another one (N:M only). Here is how you'd do it:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// check if an object is one of associated ones:
+Project.create({ /* */ }).then(project =&gt; {
+  return User.create({ /* */ }).then(user =&gt; {
+    return project.hasUser(user).then(result =&gt; {
+      // result would be false
+      return project.addUser(user).then(() =&gt; {
+        return project.hasUser(user).then(result =&gt; {
+          // result would be true
+        })
+      })
+    })
+  })
+})
+
+// check if all associated objects are as expected:
+// let's assume we have already a project and two users
+project.setUsers([user1, user2]).then(() =&gt; {
+  return project.hasUsers([user1]);
+}).then(result =&gt; {
+  // result would be true
+  return project.hasUsers([user1, user2]);
+}).then(result =&gt; {
+  // result would be true
+})</code>
+</code></pre>
+<h2 id="advanced-concepts">Advanced Concepts</h2><h3 id="scopes">Scopes</h3><p>This section concerns association scopes. For a definition of association scopes vs. scopes on associated models, see <a href="/v5/./manual/scopes.html">Scopes</a>.</p>
+<p>Association scopes allow you to place a scope (a set of default attributes for <code>get</code> and <code>create</code>) on the association. Scopes can be placed both on the associated model (the target of the association), and on the through table for n:m relations.</p>
+<h4 id="1-n">1:n</h4><p>Assume we have models Comment, Post, and Image. A comment can be associated to either an image or a post via <code>commentableId</code> and <code>commentable</code> - we say that Post and Image are <code>Commentable</code></p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class Post extends Model {}
+Post.init({
+  title: Sequelize.STRING,
+  text: Sequelize.STRING
+}, { sequelize, modelName: 'post' });
+
+class Image extends Model {}
+Image.init({
+  title: Sequelize.STRING,
+  link: Sequelize.STRING
+}, { sequelize, modelName: 'image' });
+
+class Comment extends Model {
+  getItem(options) {
+    return this[
+      'get' +
+        this.get('commentable')
+          [0]
+          .toUpperCase() +
+        this.get('commentable').substr(1)
+    ](options);
+  }
+}
+
+Comment.init({
+  title: Sequelize.STRING,
+  commentable: Sequelize.STRING,
+  commentableId: Sequelize.INTEGER
+}, { sequelize, modelName: 'comment' });
+
+Post.hasMany(Comment, {
+  foreignKey: 'commentableId',
+  constraints: false,
+  scope: {
+    commentable: 'post'
+  }
+});
+
+Comment.belongsTo(Post, {
+  foreignKey: 'commentableId',
+  constraints: false,
+  as: 'post'
+});
+
+Image.hasMany(Comment, {
+  foreignKey: 'commentableId',
+  constraints: false,
+  scope: {
+    commentable: 'image'
+  }
+});
+
+Comment.belongsTo(Image, {
+  foreignKey: 'commentableId',
+  constraints: false,
+  as: 'image'
+});</code>
+</code></pre>
+<p><code>constraints: false</code> disables references constraints, as <code>commentableId</code> column references several tables, we cannot add a <code>REFERENCES</code> constraint to it.</p>
+<p>Note that the Image -&gt; Comment and Post -&gt; Comment relations define a scope, <code>commentable: 'image'</code> and <code>commentable: 'post'</code> respectively. This scope is automatically applied when using the association functions:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">image.getComments()
+// SELECT "id", "title", "commentable", "commentableId", "createdAt", "updatedAt" FROM "comments" AS
+// "comment" WHERE "comment"."commentable" = 'image' AND "comment"."commentableId" = 1;
+
+image.createComment({
+  title: 'Awesome!'
+})
+// INSERT INTO "comments" ("id","title","commentable","commentableId","createdAt","updatedAt") VALUES
+// (DEFAULT,'Awesome!','image',1,'2018-04-17 05:36:40.454 +00:00','2018-04-17 05:36:40.454 +00:00')
+// RETURNING *;
+
+image.addComment(comment);
+// UPDATE "comments" SET "commentableId"=1,"commentable"='image',"updatedAt"='2018-04-17 05:38:43.948
+// +00:00' WHERE "id" IN (1)</code>
+</code></pre>
+<p>The <code>getItem</code> utility function on <code>Comment</code> completes the picture - it simply converts the <code>commentable</code> string into a call to either <code>getImage</code> or <code>getPost</code>, providing an abstraction over whether a comment belongs to a post or an image. You can pass a normal options object as a parameter to <code>getItem(options)</code> to specify any where conditions or includes.</p>
+<h4 id="n-m">n:m</h4><p>Continuing with the idea of a polymorphic model, consider a tag table - an item can have multiple tags, and a tag can be related to several items.</p>
+<p>For brevity, the example only shows a Post model, but in reality Tag would be related to several other models.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class ItemTag extends Model {}
+ItemTag.init({
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  tagId: {
+    type: Sequelize.INTEGER,
+    unique: 'item_tag_taggable'
+  },
+  taggable: {
+    type: Sequelize.STRING,
+    unique: 'item_tag_taggable'
+  },
+  taggableId: {
+    type: Sequelize.INTEGER,
+    unique: 'item_tag_taggable',
+    references: null
+  }
+}, { sequelize, modelName: 'item_tag' });
+
+class Tag extends Model {}
+Tag.init({
+  name: Sequelize.STRING,
+  status: Sequelize.STRING
+}, { sequelize, modelName: 'tag' });
+
+Post.belongsToMany(Tag, {
+  through: {
+    model: ItemTag,
+    unique: false,
+    scope: {
+      taggable: 'post'
+    }
+  },
+  foreignKey: 'taggableId',
+  constraints: false
+});
+
+Tag.belongsToMany(Post, {
+  through: {
+    model: ItemTag,
+    unique: false
+  },
+  foreignKey: 'tagId',
+  constraints: false
+});</code>
+</code></pre>
+<p>Notice that the scoped column (<code>taggable</code>) is now on the through model (<code>ItemTag</code>).</p>
+<p>We could also define a more restrictive association, for example, to get all pending tags for a post by applying a scope of both the through model (<code>ItemTag</code>) and the target model (<code>Tag</code>):</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Post.belongsToMany(Tag, {
+  through: {
+    model: ItemTag,
+    unique: false,
+    scope: {
+      taggable: 'post'
+    }
+  },
+  scope: {
+    status: 'pending'
+  },
+  as: 'pendingTags',
+  foreignKey: 'taggableId',
+  constraints: false
+});
+
+post.getPendingTags();</code>
+</code></pre>
+<pre><code class="lang-sql"><code class="source-code prettyprint">SELECT
+  "tag"."id",
+  "tag"."name",
+  "tag"."status",
+  "tag"."createdAt",
+  "tag"."updatedAt",
+  "item_tag"."id" AS "item_tag.id",
+  "item_tag"."tagId" AS "item_tag.tagId",
+  "item_tag"."taggable" AS "item_tag.taggable",
+  "item_tag"."taggableId" AS "item_tag.taggableId",
+  "item_tag"."createdAt" AS "item_tag.createdAt",
+  "item_tag"."updatedAt" AS "item_tag.updatedAt"
+FROM
+  "tags" AS "tag"
+  INNER JOIN "item_tags" AS "item_tag" ON "tag"."id" = "item_tag"."tagId"
+  AND "item_tag"."taggableId" = 1
+  AND "item_tag"."taggable" = 'post'
+WHERE
+  ("tag"."status" = 'pending');</code>
+</code></pre>
+<p><code>constraints: false</code> disables references constraints on the <code>taggableId</code> column. Because the column is polymorphic, we cannot say that it <code>REFERENCES</code> a specific table.</p>
+<h3 id="creating-with-associations">Creating with associations</h3><p>An instance can be created with nested association in one step, provided all elements are new.</p>
+<h4 id="belongsto---hasmany---hasone-association">BelongsTo / HasMany / HasOne association</h4><p>Consider the following models:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class Product extends Model {}
+Product.init({
+  title: Sequelize.STRING
+}, { sequelize, modelName: 'product' });
+class User extends Model {}
+User.init({
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING
+}, { sequelize, modelName: 'user' });
+class Address extends Model {}
+Address.init({
+  type: Sequelize.STRING,
+  line1: Sequelize.STRING,
+  line2: Sequelize.STRING,
+  city: Sequelize.STRING,
+  state: Sequelize.STRING,
+  zip: Sequelize.STRING,
+}, { sequelize, modelName: 'address' });
+
+Product.User = Product.belongsTo(User);
+User.Addresses = User.hasMany(Address);
+// Also works for `hasOne`</code>
+</code></pre>
+<p>A new <code>Product</code>, <code>User</code>, and one or more <code>Address</code> can be created in one step in the following way:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">return Product.create({
+  title: 'Chair',
+  user: {
+    firstName: 'Mick',
+    lastName: 'Broadstone',
+    addresses: [{
+      type: 'home',
+      line1: '100 Main St.',
+      city: 'Austin',
+      state: 'TX',
+      zip: '78704'
+    }]
+  }
+}, {
+  include: [{
+    association: Product.User,
+    include: [ User.Addresses ]
+  }]
+});</code>
+</code></pre>
+<p>Here, our user model is called <code>user</code>, with a lowercase u - This means that the property in the object should also be <code>user</code>. If the name given to <code>sequelize.define</code> was <code>User</code>, the key in the object should also be <code>User</code>. Likewise for <code>addresses</code>, except it's pluralized being a <code>hasMany</code> association.</p>
+<h4 id="belongsto-association-with-an-alias">BelongsTo association with an alias</h4><p>The previous example can be extended to support an association alias.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const Creator = Product.belongsTo(User, { as: 'creator' });
+
+return Product.create({
+  title: 'Chair',
+  creator: {
+    firstName: 'Matt',
+    lastName: 'Hansen'
+  }
+}, {
+  include: [ Creator ]
+});</code>
+</code></pre>
+<h4 id="hasmany---belongstomany-association">HasMany / BelongsToMany association</h4><p>Let's introduce the ability to associate a product with many tags. Setting up the models could look like:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class Tag extends Model {}
+Tag.init({
+  name: Sequelize.STRING
+}, { sequelize, modelName: 'tag' });
+
+Product.hasMany(Tag);
+// Also works for `belongsToMany`.</code>
+</code></pre>
+<p>Now we can create a product with multiple tags in the following way:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Product.create({
+  id: 1,
+  title: 'Chair',
+  tags: [
+    { name: 'Alpha'},
+    { name: 'Beta'}
+  ]
+}, {
+  include: [ Tag ]
+})</code>
+</code></pre>
+<p>And, we can modify this example to support an alias as well:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const Categories = Product.hasMany(Tag, { as: 'categories' });
+
+Product.create({
+  id: 1,
+  title: 'Chair',
+  categories: [
+    { id: 1, name: 'Alpha' },
+    { id: 2, name: 'Beta' }
+  ]
+}, {
+  include: [{
+    association: Categories,
+    as: 'categories'
+  }]
+})</code>
+</code></pre>
+<hr>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

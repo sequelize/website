@@ -1,0 +1,452 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/dialects/postgres/connection-manager.js | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li data-ice="doc" style="margin-top: 15px;"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IndexHints">IndexHints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#associations">associations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-sqlite">dialects/sqlite</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-describeTable">describeTable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/association-error.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/base-error.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/bulk-record-error.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection-error.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database-error.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/eager-loading-error.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/empty-result-error.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/instance-error.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/optimistic-lock-error.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/query-error.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/sequelize-scope-error.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-connection">errors/connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/access-denied-error.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-acquire-timeout-error.js~ConnectionAcquireTimeoutError.html">ConnectionAcquireTimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-refused-error.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-timed-out-error.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-found-error.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-reachable-error.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/invalid-connection-error.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-database">errors/database</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/exclusion-constraint-error.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/foreign-key-constraint-error.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/timeout-error.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/unknown-constraint-error.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-validation">errors/validation</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation/unique-constraint-error.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="variable/index.html#static-variable-DataTypes">datatypes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ARRAY.html">ARRAY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV4.html">UUIDV4</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV1.html">UUIDV1</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUID.html">UUID</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TINYINT.html">TINYINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TIME.html">TIME</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TEXT.html">TEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~STRING.html">STRING</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~SMALLINT.html">SMALLINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~REAL.html">REAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~RANGE.html">RANGE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NUMBER.html">NUMBER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NOW.html">NOW</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MACADDR.html">MACADDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONB.html">JSONB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INTEGER.html">INTEGER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INET.html">INET</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~HSTORE.html">HSTORE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~FLOAT.html">FLOAT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ENUM.html">ENUM</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DOUBLE.html">DOUBLE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DECIMAL.html">DECIMAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATEONLY.html">DATEONLY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATE.html">DATE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CITEXT.html">CITEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CIDR.html">CIDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CHAR.html">CHAR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BLOB.html">BLOB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BIGINT.html">BIGINT</a></span></span></li></ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/dialects/postgres/connection-manager.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">'use strict';
+
+const _ = require('lodash');
+const AbstractConnectionManager = require('../abstract/connection-manager');
+const { logger } = require('../../utils/logger');
+const debug = logger.debugContext('connection:pg');
+const Promise = require('../../promise');
+const sequelizeErrors = require('../../errors');
+const semver = require('semver');
+const dataTypes = require('../../data-types');
+const moment = require('moment-timezone');
+
+class ConnectionManager extends AbstractConnectionManager {
+  constructor(dialect, sequelize) {
+    sequelize.config.port = sequelize.config.port || 5432;
+    super(dialect, sequelize);
+
+    const pgLib = this._loadDialectModule('pg');
+    this.lib = this.sequelize.config.native ? pgLib.native : pgLib;
+
+    this._clearDynamicOIDs();
+    this._clearTypeParser();
+    this.refreshTypeParser(dataTypes.postgres);
+  }
+
+  // Expose this as a method so that the parsing may be updated when the user has added additional, custom types
+  _refreshTypeParser(dataType) {
+    const arrayParserBuilder = parser =&gt; {
+      return value =&gt; this.lib.types.arrayParser.create(value, parser).parse();
+    };
+    const rangeParserBuilder = parser =&gt; {
+      return value =&gt; dataType.parse(value, { parser });
+    };
+
+    // Set range parsers
+    if (dataType.key.toLowerCase() === 'range') {
+      for (const name in this.nameOidMap) {
+        const entry = this.nameOidMap[name];
+        if (! entry.rangeOid) continue;
+
+        const rangeParser = rangeParserBuilder(this.getTypeParser(entry.oid));
+        const arrayRangeParser = arrayParserBuilder(rangeParser);
+
+        this.oidParserMap.set(entry.rangeOid, rangeParser);
+        if (! entry.arrayRangeOid) continue;
+        this.oidParserMap.set(entry.arrayRangeOid, arrayRangeParser);
+      }
+      return;
+    }
+
+    // Create parsers for normal or enum data types
+    const parser = value =&gt; dataType.parse(value);
+    const arrayParser = arrayParserBuilder(parser);
+
+    // Set enum parsers
+    if (dataType.key.toLowerCase() === 'enum') {
+      this.enumOids.oids.forEach(oid =&gt; {
+        this.oidParserMap.set(oid, parser);
+      });
+      this.enumOids.arrayOids.forEach(arrayOid =&gt; {
+        this.oidParserMap.set(arrayOid, arrayParser);
+      });
+      return;
+    }
+
+    // Set parsers for normal data types
+    dataType.types.postgres.forEach(name =&gt; {
+      if (! this.nameOidMap[name]) return;
+      this.oidParserMap.set(this.nameOidMap[name].oid, parser);
+
+      if (! this.nameOidMap[name].arrayOid) return;
+      this.oidParserMap.set(this.nameOidMap[name].arrayOid, arrayParser);
+    });
+  }
+
+  _clearTypeParser() {
+    this.oidParserMap = new Map();
+  }
+
+  getTypeParser(oid, ...args) {
+    if (this.oidParserMap.get(oid)) return this.oidParserMap.get(oid);
+
+    return this.lib.types.getTypeParser(oid, ...args);
+  }
+
+  connect(config) {
+    config.user = config.username;
+    const connectionConfig = _.pick(config, [
+      'user', 'password', 'host', 'database', 'port'
+    ]);
+
+    connectionConfig.types = {
+      getTypeParser: ConnectionManager.prototype.getTypeParser.bind(this)
+    };
+
+    if (config.dialectOptions) {
+      _.merge(connectionConfig,
+        _.pick(config.dialectOptions, [
+        // see [http://www.postgresql.org/docs/9.3/static/runtime-config-logging.html#GUC-APPLICATION-NAME]
+          'application_name',
+          // choose the SSL mode with the PGSSLMODE environment variable
+          // object format: [https://github.com/brianc/node-postgres/blob/master/lib/connection.js#L79]
+          // see also [http://www.postgresql.org/docs/9.3/static/libpq-ssl.html]
+          'ssl',
+          // In addition to the values accepted by the corresponding server,
+          // you can use "auto" to determine the right encoding from the
+          // current locale in the client (LC_CTYPE environment variable on Unix systems)
+          'client_encoding',
+          // !! DO NOT SET THIS TO TRUE !!
+          // (unless you know what you're doing)
+          // see [http://www.postgresql.org/message-id/flat/bc9549a50706040852u27633f41ib1e6b09f8339d845@mail.gmail.com#bc9549a50706040852u27633f41ib1e6b09f8339d845@mail.gmail.com]
+          'binary',
+          // This should help with backends incorrectly considering idle clients to be dead and prematurely disconnecting them.
+          // this feature has been added in pg module v6.0.0, check pg/CHANGELOG.md
+          'keepAlive',
+          // Times out queries after a set time in milliseconds. Added in pg v7.3
+          'statement_timeout'
+        ]));
+    }
+
+    return new Promise((resolve, reject) =&gt; {
+      let responded = false;
+
+      const connection = new this.lib.Client(connectionConfig);
+
+      const parameterHandler = message =&gt; {
+        switch (message.parameterName) {
+          case 'server_version':
+            if (this.sequelize.options.databaseVersion === 0) {
+              const version = semver.coerce(message.parameterValue).version;
+              this.sequelize.options.databaseVersion = semver.valid(version)
+                ? version
+                : this.defaultVersion;
+            }
+            break;
+          case 'standard_conforming_strings':
+            connection['standard_conforming_strings'] = message.parameterValue;
+            break;
+        }
+      };
+
+      const endHandler = () =&gt; {
+        debug('connection timeout');
+        if (!responded) {
+          reject(new sequelizeErrors.ConnectionTimedOutError(new Error('Connection timed out')));
+        }
+      };
+
+      // If we didn't ever hear from the client.connect() callback the connection timeout
+      // node-postgres does not treat this as an error since no active query was ever emitted
+      connection.once('end', endHandler);
+
+      if (!this.sequelize.config.native) {
+        // Receive various server parameters for further configuration
+        connection.connection.on('parameterStatus', parameterHandler);
+      }
+
+      connection.connect(err =&gt; {
+        responded = true;
+
+        if (!this.sequelize.config.native) {
+          // remove parameter handler
+          connection.connection.removeListener('parameterStatus', parameterHandler);
+        }
+
+        if (err) {
+          if (err.code) {
+            switch (err.code) {
+              case 'ECONNREFUSED':
+                reject(new sequelizeErrors.ConnectionRefusedError(err));
+                break;
+              case 'ENOTFOUND':
+                reject(new sequelizeErrors.HostNotFoundError(err));
+                break;
+              case 'EHOSTUNREACH':
+                reject(new sequelizeErrors.HostNotReachableError(err));
+                break;
+              case 'EINVAL':
+                reject(new sequelizeErrors.InvalidConnectionError(err));
+                break;
+              default:
+                reject(new sequelizeErrors.ConnectionError(err));
+                break;
+            }
+          } else {
+            reject(new sequelizeErrors.ConnectionError(err));
+          }
+        } else {
+          debug('connection acquired');
+          connection.removeListener('end', endHandler);
+          resolve(connection);
+        }
+      });
+    }).tap(connection =&gt; {
+      let query = '';
+
+      if (this.sequelize.options.standardConformingStrings !== false &amp;&amp; connection['standard_conforming_strings'] !== 'on') {
+        // Disable escape characters in strings
+        // see https://github.com/sequelize/sequelize/issues/3545 (security issue)
+        // see https://www.postgresql.org/docs/current/static/runtime-config-compatible.html#GUC-STANDARD-CONFORMING-STRINGS
+        query += 'SET standard_conforming_strings=on;';
+      }
+
+      if (this.sequelize.options.clientMinMessages !== false) {
+        query += `SET client_min_messages TO ${this.sequelize.options.clientMinMessages};`;
+      }
+
+      if (!this.sequelize.config.keepDefaultTimezone) {
+        const isZone = !!moment.tz.zone(this.sequelize.options.timezone);
+        if (isZone) {
+          query += `SET TIME ZONE '${this.sequelize.options.timezone}';`;
+        } else {
+          query += `SET TIME ZONE INTERVAL '${this.sequelize.options.timezone}' HOUR TO MINUTE;`;
+        }
+      }
+
+      if (query) {
+        return connection.query(query);
+      }
+    }).tap(connection =&gt; {
+      if (Object.keys(this.nameOidMap).length === 0 &amp;&amp;
+        this.enumOids.oids.length === 0 &amp;&amp;
+        this.enumOids.arrayOids.length === 0) {
+        return this._refreshDynamicOIDs(connection);
+      }
+    }).tap(connection =&gt; {
+      // Don't let a Postgres restart (or error) to take down the whole app
+      connection.on('error', error =&gt; {
+        connection._invalid = true;
+        debug(`connection error ${error.code || error.message}`);
+        this.pool.destroy(connection);
+      });
+    });
+  }
+
+  disconnect(connection) {
+    if (connection._ending) {
+      debug('connection tried to disconnect but was already at ENDING state');
+      return Promise.resolve();
+    }
+
+    return Promise.fromCallback(callback =&gt; connection.end(callback));
+  }
+
+  validate(connection) {
+    return !connection._invalid &amp;&amp; !connection._ending;
+  }
+
+  _refreshDynamicOIDs(connection) {
+    const databaseVersion = this.sequelize.options.databaseVersion;
+    const supportedVersion = '8.3.0';
+
+    // Check for supported version
+    if ( (databaseVersion &amp;&amp; semver.gte(databaseVersion, supportedVersion)) === false) {
+      return Promise.resolve();
+    }
+
+    // Refresh dynamic OIDs for some types
+    // These include Geometry / Geography / HStore / Enum / Citext / Range
+    return (connection || this.sequelize).query(
+      'WITH ranges AS (' +
+      '  SELECT pg_range.rngtypid, pg_type.typname AS rngtypname,' +
+      '         pg_type.typarray AS rngtyparray, pg_range.rngsubtype' +
+      '    FROM pg_range LEFT OUTER JOIN pg_type ON pg_type.oid = pg_range.rngtypid' +
+      ')' +
+      'SELECT pg_type.typname, pg_type.typtype, pg_type.oid, pg_type.typarray,' +
+      '       ranges.rngtypname, ranges.rngtypid, ranges.rngtyparray' +
+      '  FROM pg_type LEFT OUTER JOIN ranges ON pg_type.oid = ranges.rngsubtype' +
+      ' WHERE (pg_type.typtype IN(\'b\', \'e\'));'
+    ).then(results =&gt; {
+      let result = Array.isArray(results) ? results.pop() : results;
+
+      // When searchPath is prepended then two statements are executed and the result is
+      // an array of those two statements. First one is the SET search_path and second is
+      // the SELECT query result.
+      if (Array.isArray(result)) {
+        if (result[0].command === 'SET') {
+          result = result.pop();
+        }
+      }
+
+      const newNameOidMap = {};
+      const newEnumOids = { oids: [], arrayOids: [] };
+
+      for (const row of result.rows) {
+        // Mapping enums, handled separatedly
+        if (row.typtype === 'e') {
+          newEnumOids.oids.push(row.oid);
+          if (row.typarray) newEnumOids.arrayOids.push(row.typarray);
+          continue;
+        }
+
+        // Mapping base types and their arrays
+        newNameOidMap[row.typname] = { oid: row.oid };
+        if (row.typarray) newNameOidMap[row.typname].arrayOid = row.typarray;
+
+        // Mapping ranges(of base types) and their arrays
+        if (row.rngtypid) {
+          newNameOidMap[row.typname].rangeOid = row.rngtypid;
+          if (row.rngtyparray) newNameOidMap[row.typname].arrayRangeOid = row.rngtyparray;
+        }
+      }
+
+      // Replace all OID mappings. Avoids temporary empty OID mappings.
+      this.nameOidMap = newNameOidMap;
+      this.enumOids = newEnumOids;
+
+      this.refreshTypeParser(dataTypes.postgres);
+    });
+  }
+
+  _clearDynamicOIDs() {
+    this.nameOidMap = {};
+    this.enumOids = { oids: [], arrayOids: [] };
+  }
+}
+
+module.exports = ConnectionManager;
+module.exports.ConnectionManager = ConnectionManager;
+module.exports.default = ConnectionManager;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

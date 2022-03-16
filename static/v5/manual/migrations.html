@@ -1,0 +1,897 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v5/../">
+  <title data-ice="title">Manual | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="/v5/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v5/css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="/v5/./inject/css/0-style.css"><link rel="stylesheet" href="/v5/./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="/v5/./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="/v5/identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="/v5/source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+
+    <div class="manual-group">
+      <a href="/v5/index.html" style="color: black">Home</a>
+    </div>
+  
+      <div class="manual-group" style="pointer-events: none">
+        Core Concepts
+      </div>
+    <div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html" data-ice="link">Getting started</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#installing" data-ice="link">Installing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#setting-up-a-connection" data-ice="link">Setting up a connection</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#note--setting-up-sqlite" data-ice="link">Note: setting up SQLite</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#note--connection-pool--production-" data-ice="link">Note: connection pool (production)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#testing-the-connection" data-ice="link">Testing the connection</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#closing-the-connection" data-ice="link">Closing the connection</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#modeling-a-table" data-ice="link">Modeling a table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#changing-the-default-model-options" data-ice="link">Changing the default model options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#synchronizing-the-model-with-the-database" data-ice="link">Synchronizing the model with the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#synchronizing-all-models-at-once" data-ice="link">Synchronizing all models at once</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#note-for-production" data-ice="link">Note for production</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#querying" data-ice="link">Querying</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#promises-and-async-await" data-ice="link">Promises and async/await</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html" data-ice="link">Dialects</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#mysql" data-ice="link">MySQL</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#mariadb" data-ice="link">MariaDB</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#sqlite" data-ice="link">SQLite</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#mssql" data-ice="link">MSSQL</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html" data-ice="link">Datatypes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#array-enum-" data-ice="link">Array(ENUM)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#range-types" data-ice="link">Range types</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#special-cases" data-ice="link">Special Cases</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#extending-datatypes" data-ice="link">Extending datatypes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#ranges" data-ice="link">Ranges</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html" data-ice="link">Model definition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#timestamps" data-ice="link">Timestamps</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#deferrable" data-ice="link">Deferrable</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#getters--amp--setters" data-ice="link">Getters &amp; setters</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#defining-as-part-of-a-property" data-ice="link">Defining as part of a property</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#defining-as-part-of-the-model-options" data-ice="link">Defining as part of the model options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#helper-functions-for-use-inside-getter-and-setter-definitions" data-ice="link">Helper functions for use inside getter and setter definitions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#validations" data-ice="link">Validations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#per-attribute-validations" data-ice="link">Per-attribute validations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#per-attribute-validators-and--code-allownull--code-" data-ice="link">Per-attribute validators and allowNull</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#model-wide-validations" data-ice="link">Model-wide validations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#configuration" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#import" data-ice="link">Import</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#optimistic-locking" data-ice="link">Optimistic Locking</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#database-synchronization" data-ice="link">Database synchronization</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#expansion-of-models" data-ice="link">Expansion of models</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#indexes" data-ice="link">Indexes</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html" data-ice="link">Model usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#data-retrieval---finders" data-ice="link">Data retrieval / Finders</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-find--code----search-for-one-specific-element-in-the-database" data-ice="link">find - Search for one specific element in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-findorcreate--code----search-for-a-specific-element-or-create-it-if-not-available" data-ice="link">findOrCreate - Search for a specific element or create it if not available</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-findandcountall--code----search-for-multiple-elements-in-the-database--returns-both-data-and-total-count" data-ice="link">findAndCountAll - Search for multiple elements in the database, returns both data and total count</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-findall--code----search-for-multiple-elements-in-the-database" data-ice="link">findAll - Search for multiple elements in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#complex-filtering---or---not-queries" data-ice="link">Complex filtering / OR / NOT queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#manipulating-the-dataset-with-limit--offset--order-and-group" data-ice="link">Manipulating the dataset with limit, offset, order and group</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#raw-queries" data-ice="link">Raw queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-count--code----count-the-occurrences-of-elements-in-the-database" data-ice="link">count - Count the occurrences of elements in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-max--code----get-the-greatest-value-of-a-specific-attribute-within-a-specific-table" data-ice="link">max - Get the greatest value of a specific attribute within a specific table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-min--code----get-the-least-value-of-a-specific-attribute-within-a-specific-table" data-ice="link">min - Get the least value of a specific attribute within a specific table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-sum--code----sum-the-value-of-specific-attributes" data-ice="link">sum - Sum the value of specific attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#eager-loading" data-ice="link">Eager loading</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#top-level-where-with-eagerly-loaded-models" data-ice="link">Top level where with eagerly loaded models</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#including-everything" data-ice="link">Including everything</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#including-soft-deleted-records" data-ice="link">Including soft deleted records</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#ordering-eager-loaded-associations" data-ice="link">Ordering Eager Loaded Associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#nested-eager-loading" data-ice="link">Nested eager loading</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#use-right-join-for-association" data-ice="link">Use right join for association</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html" data-ice="link">Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#order-of-operations" data-ice="link">Order of Operations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#declaring-hooks" data-ice="link">Declaring Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#removing-hooks" data-ice="link">Removing hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#global---universal-hooks" data-ice="link">Global / universal hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#default-hooks--sequelize-options-define-" data-ice="link">Default Hooks (Sequelize.options.define)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#permanent-hooks--sequelize-addhook-" data-ice="link">Permanent Hooks (Sequelize.addHook)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#connection-hooks" data-ice="link">Connection Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#instance-hooks" data-ice="link">Instance hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#model-hooks" data-ice="link">Model hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#associations" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#a-note-about-transactions" data-ice="link">A Note About Transactions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#internal-transactions" data-ice="link">Internal Transactions</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/querying.html"><a href="/v5/manual/querying.html" data-ice="link">Querying</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#attributes" data-ice="link">Attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#where" data-ice="link">Where</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#basics" data-ice="link">Basics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#operators" data-ice="link">Operators</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#range-operators" data-ice="link">Range Operators</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#combinations" data-ice="link">Combinations</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#operators-aliases" data-ice="link">Operators Aliases</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#operators-security" data-ice="link">Operators security</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#json" data-ice="link">JSON</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#mssql" data-ice="link">MSSQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#jsonb" data-ice="link">JSONB</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#nested-object" data-ice="link">Nested object</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#nested-key" data-ice="link">Nested key</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#containment" data-ice="link">Containment</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#relations---associations" data-ice="link">Relations / Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#pagination---limiting" data-ice="link">Pagination / Limiting</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#ordering" data-ice="link">Ordering</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#table-hint" data-ice="link">Table Hint</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#index-hints" data-ice="link">Index Hints</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/instances.html"><a href="/v5/manual/instances.html" data-ice="link">Instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#building-a-non-persistent-instance" data-ice="link">Building a non-persistent instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#creating-persistent-instances" data-ice="link">Creating persistent instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#updating---saving---persisting-an-instance" data-ice="link">Updating / Saving / Persisting an instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#destroying---deleting-persistent-instances" data-ice="link">Destroying / Deleting persistent instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#restoring-soft-deleted-instances" data-ice="link">Restoring soft-deleted instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#working-in-bulk--creating--updating-and-destroying-multiple-rows-at-once-" data-ice="link">Working in bulk (creating, updating and destroying multiple rows at once)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#values-of-an-instance" data-ice="link">Values of an instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#reloading-instances" data-ice="link">Reloading instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#incrementing" data-ice="link">Incrementing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#decrementing" data-ice="link">Decrementing</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/associations.html"><a href="/v5/manual/associations.html" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#basic-concepts" data-ice="link">Basic Concepts</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#source--amp--target" data-ice="link">Source &amp; Target</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#foreign-keys" data-ice="link">Foreign Keys</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#underscored-option" data-ice="link">underscored option</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#cyclic-dependencies--amp--disabling-constraints" data-ice="link">Cyclic dependencies &amp; Disabling constraints</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#enforcing-a-foreign-key-reference-without-constraints" data-ice="link">Enforcing a foreign key reference without constraints</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#one-to-one-associations" data-ice="link">One-To-One associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongsto" data-ice="link">BelongsTo</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#foreign-keys" data-ice="link">Foreign keys</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#target-keys" data-ice="link">Target keys</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#hasone" data-ice="link">HasOne</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#source-keys" data-ice="link">Source keys</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#difference-between-hasone-and-belongsto" data-ice="link">Difference between HasOne and BelongsTo</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#one-to-many-associations--hasmany-" data-ice="link">One-To-Many associations (hasMany)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongs-to-many-associations" data-ice="link">Belongs-To-Many associations</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#source-and-target-keys" data-ice="link">Source and target keys</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#naming-strategy" data-ice="link">Naming strategy</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#associating-objects" data-ice="link">Associating objects</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#check-associations" data-ice="link">Check associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#advanced-concepts" data-ice="link">Advanced Concepts</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#scopes" data-ice="link">Scopes</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#1-n" data-ice="link">1:n</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#n-m" data-ice="link">n:m</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#creating-with-associations" data-ice="link">Creating with associations</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongsto---hasmany---hasone-association" data-ice="link">BelongsTo / HasMany / HasOne association</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongsto-association-with-an-alias" data-ice="link">BelongsTo association with an alias</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#hasmany---belongstomany-association" data-ice="link">HasMany / BelongsToMany association</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html" data-ice="link">Raw queries</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html#-quot-dotted-quot--attributes" data-ice="link">"Dotted" attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html#replacements" data-ice="link">Replacements</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html#bind-parameter" data-ice="link">Bind Parameter</a></li>
+</ul>
+  </div>
+
+      <div class="manual-group" style="pointer-events: none">
+        Other Topics
+      </div>
+    <div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html" data-ice="link">Transactions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#managed-transaction--auto-callback-" data-ice="link">Managed transaction (auto-callback)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#throw-errors-to-rollback" data-ice="link">Throw errors to rollback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#automatically-pass-transactions-to-all-queries" data-ice="link">Automatically pass transactions to all queries</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#concurrent-partial-transactions" data-ice="link">Concurrent/Partial transactions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#without-cls-enabled" data-ice="link">Without CLS enabled</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#isolation-levels" data-ice="link">Isolation levels</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#unmanaged-transaction--then-callback-" data-ice="link">Unmanaged transaction (then-callback)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#usage-with-other-sequelize-methods" data-ice="link">Usage with other sequelize methods</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#after-commit-hook" data-ice="link">After commit hook</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#locks" data-ice="link">Locks</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html" data-ice="link">Scopes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#definition" data-ice="link">Definition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#usage" data-ice="link">Usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#merging" data-ice="link">Merging</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#merging-includes" data-ice="link">Merging includes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#associations" data-ice="link">Associations</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/read-replication.html"><a href="/v5/manual/read-replication.html" data-ice="link">Read replication</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html" data-ice="link">Migrations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#the-cli" data-ice="link">The CLI</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#installing-cli" data-ice="link">Installing CLI</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#bootstrapping" data-ice="link">Bootstrapping</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#configuration" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#creating-first-model--and-migration-" data-ice="link">Creating first Model (and Migration)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#running-migrations" data-ice="link">Running Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#undoing-migrations" data-ice="link">Undoing Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#creating-first-seed" data-ice="link">Creating First Seed</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#running-seeds" data-ice="link">Running Seeds</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#undoing-seeds" data-ice="link">Undoing Seeds</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#advance-topics" data-ice="link">Advance Topics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#migration-skeleton" data-ice="link">Migration Skeleton</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#the--code--sequelizerc--code--file" data-ice="link">The .sequelizerc File</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#dynamic-configuration" data-ice="link">Dynamic Configuration</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#using-babel" data-ice="link">Using Babel</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#using-environment-variables" data-ice="link">Using Environment Variables</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#specifying-dialect-options" data-ice="link">Specifying Dialect Options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#production-usages" data-ice="link">Production Usages</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#storage" data-ice="link">Storage</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#migration-storage" data-ice="link">Migration Storage</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#seed-storage" data-ice="link">Seed Storage</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#configuration-connection-string" data-ice="link">Configuration Connection String</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#passing-dialect-specific-options" data-ice="link">Passing Dialect Specific Options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#programmatic-use" data-ice="link">Programmatic use</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#query-interface" data-ice="link">Query Interface</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/resources.html"><a href="/v5/manual/resources.html" data-ice="link">Resources</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/resources.html"><a href="/v5/manual/resources.html#addons--amp--plugins" data-ice="link">Addons &amp; Plugins</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#acl" data-ice="link">ACL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#auto-code-generation--amp--scaffolding" data-ice="link">Auto Code Generation &amp; Scaffolding</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#autoloader" data-ice="link">Autoloader</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#caching" data-ice="link">Caching</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#filters" data-ice="link">Filters</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#fixtures---mock-data" data-ice="link">Fixtures / mock data</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#hierarchies" data-ice="link">Hierarchies</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#historical-records---time-travel" data-ice="link">Historical records / Time travel</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#migrations" data-ice="link">Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#slugification" data-ice="link">Slugification</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#tokens" data-ice="link">Tokens</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#miscellaneous" data-ice="link">Miscellaneous</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html" data-ice="link">TypeScript</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html#installation" data-ice="link">Installation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html#usage" data-ice="link">Usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html#usage-of--code-sequelize-define--code-" data-ice="link">Usage of sequelize.define</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html" data-ice="link">Upgrade to v5</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#breaking-changes" data-ice="link">Breaking Changes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#support-for-node-6-and-up" data-ice="link">Support for Node 6 and up</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#secure-operators" data-ice="link">Secure Operators</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#typescript-support" data-ice="link">Typescript Support</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#pooling" data-ice="link">Pooling</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#model" data-ice="link">Model</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#datatypes" data-ice="link">Datatypes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#hooks" data-ice="link">Hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#sequelize" data-ice="link">Sequelize</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#query-interface" data-ice="link">Query Interface</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#others" data-ice="link">Others</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#dialect-specific" data-ice="link">Dialect Specific</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#mssql" data-ice="link">MSSQL</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#mysql" data-ice="link">MySQL</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#mariadb" data-ice="link">MariaDB</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#packages" data-ice="link">Packages</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#changelog" data-ice="link">Changelog</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-17" data-ice="link">5.0.0-beta.17</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-16" data-ice="link">5.0.0-beta.16</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-15" data-ice="link">5.0.0-beta.15</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-14" data-ice="link">5.0.0-beta.14</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-13" data-ice="link">5.0.0-beta.13</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-12" data-ice="link">5.0.0-beta.12</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-11" data-ice="link">5.0.0-beta.11</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-10" data-ice="link">5.0.0-beta.10</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-9" data-ice="link">5.0.0-beta.9</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-8" data-ice="link">5.0.0-beta.8</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-7" data-ice="link">5.0.0-beta.7</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-6" data-ice="link">5.0.0-beta.6</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-5" data-ice="link">5.0.0-beta.5</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-4" data-ice="link">5.0.0-beta.4</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-3" data-ice="link">5.0.0-beta.3</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-2" data-ice="link">5.0.0-beta.2</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-1" data-ice="link">5.0.0-beta.1</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta" data-ice="link">5.0.0-beta</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html" data-ice="link">Working with legacy tables</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#tables" data-ice="link">Tables</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#fields" data-ice="link">Fields</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#primary-keys" data-ice="link">Primary keys</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#foreign-keys" data-ice="link">Foreign keys</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/whos-using.html"><a href="/v5/manual/whos-using.html" data-ice="link">Who's using sequelize?</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/legal.html"><a href="/v5/manual/legal.html" data-ice="link">Legal Notice</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legal.html"><a href="/v5/manual/legal.html#license" data-ice="link">License</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legal.html"><a href="/v5/manual/legal.html#author-s-" data-ice="link">AUTHOR(S)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legal.html"><a href="/v5/manual/legal.html#inhaltliche-verantwortung" data-ice="link">INHALTLICHE VERANTWORTUNG</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="migrations">Migrations</h1><p>Just like you use Git / SVN to manage changes in your source code, you can use migrations to keep track of changes to the database. With migrations you can transfer your existing database into another state and vice versa: Those state transitions are saved in migration files, which describe how to get to the new state and how to revert the changes in order to get back to the old state.</p>
+<p>You will need <a href="https://github.com/sequelize/cli">Sequelize CLI</a>. The CLI ships support for migrations and project bootstrapping.</p>
+<h2 id="the-cli">The CLI</h2><h3 id="installing-cli">Installing CLI</h3><p>Let's start with installing CLI, you can find instructions <a href="https://github.com/sequelize/cli">here</a>. Most preferred way is installing locally like this</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npm install --save sequelize-cli</code>
+</code></pre>
+<h3 id="bootstrapping">Bootstrapping</h3><p>To create an empty project you will need to execute <code>init</code> command</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli init</code>
+</code></pre>
+<p>This will create following folders</p>
+<ul>
+<li><code>config</code>, contains config file, which tells CLI how to connect with database</li>
+<li><code>models</code>, contains all models for your project</li>
+<li><code>migrations</code>, contains all migration files</li>
+<li><code>seeders</code>, contains all seed files</li>
+</ul>
+<h4 id="configuration">Configuration</h4><p>Before continuing further we will need to tell CLI how to connect to database. To do that let's open default config file <code>config/config.json</code>. It looks something like this</p>
+<pre><code class="lang-json"><code class="source-code prettyprint">{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}</code>
+</code></pre>
+<p>Now edit this file and set correct database credentials and dialect. The keys of the objects(ex. "development") are used on <code>model/index.js</code> for matching <code>process.env.NODE_ENV</code> (When undefined, "development" is a default value.).</p>
+<p><strong>Note:</strong> <em>If your database doesn't exists yet, you can just call <code>db:create</code> command. With proper access it will create that database for you.</em></p>
+<h3 id="creating-first-model--and-migration-">Creating first Model (and Migration)</h3><p>Once you have properly configured CLI config file you are ready to create your first migration. It's as simple as executing a simple command.</p>
+<p>We will use <code>model:generate</code> command. This command requires two options</p>
+<ul>
+<li><code>name</code>, Name of the model</li>
+<li><code>attributes</code>, List of model attributes</li>
+</ul>
+<p>Let's create a model named <code>User</code>.</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string</code>
+</code></pre>
+<p>This will do following</p>
+<ul>
+<li>Create a model file <code>user</code> in <code>models</code> folder</li>
+<li>Create a migration file with name like <code>XXXXXXXXXXXXXX-create-user.js</code> in <code>migrations</code> folder</li>
+</ul>
+<p><strong>Note:</strong> <em>Sequelize will only use Model files, it's the table representation. On the other hand, the migration file is a change in that model or more specifically that table, used by CLI. Treat migrations like a commit or a log for some change in database.</em></p>
+<h3 id="running-migrations">Running Migrations</h3><p>Until this step, we haven't inserted anything into the database. We have just created required model and migration files for our first model <code>User</code>. Now to actually create that table in database you need to run <code>db:migrate</code> command.</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli db:migrate</code>
+</code></pre>
+<p>This command will execute these steps:</p>
+<ul>
+<li>Will ensure a table called <code>SequelizeMeta</code> in database. This table is used to record which migrations have run on the current database</li>
+<li>Start looking for any migration files which haven't run yet. This is possible by checking <code>SequelizeMeta</code> table. In this case it will run <code>XXXXXXXXXXXXXX-create-user.js</code> migration, which we created in last step.</li>
+<li>Creates a table called <code>Users</code> with all columns as specified in its migration file.</li>
+</ul>
+<h3 id="undoing-migrations">Undoing Migrations</h3><p>Now our table has been created and saved in database. With migration you can revert to old state by just running a command.</p>
+<p>You can use <code>db:migrate:undo</code>, this command will revert most recent migration.</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli db:migrate:undo</code>
+</code></pre>
+<p>You can revert back to initial state by undoing all migrations with <code>db:migrate:undo:all</code> command. You can also revert back to a specific migration by passing its name in <code>--to</code> option.</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js</code>
+</code></pre>
+<h3 id="creating-first-seed">Creating First Seed</h3><p>Suppose we want to insert some data into a few tables by default. If we follow up on previous example we can consider creating a demo user for <code>User</code> table.</p>
+<p>To manage all data migrations you can use seeders. Seed files are some change in data that can be used to populate database table with sample data or test data.</p>
+<p>Let's create a seed file which will add a demo user to our <code>User</code> table.</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli seed:generate --name demo-user</code>
+</code></pre>
+<p>This command will create a seed file in <code>seeders</code> folder. File name will look something like <code>XXXXXXXXXXXXXX-demo-user.js</code>. It follows the same <code>up / down</code> semantics as the migration files.</p>
+<p>Now we should edit this file to insert demo user to <code>User</code> table.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">'use strict';
+
+module.exports = {
+  up: (queryInterface, Sequelize) =&gt; {
+    return queryInterface.bulkInsert('Users', [{
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'demo@demo.com',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }], {});
+  },
+
+  down: (queryInterface, Sequelize) =&gt; {
+    return queryInterface.bulkDelete('Users', null, {});
+  }
+};
+</code>
+</code></pre>
+<h3 id="running-seeds">Running Seeds</h3><p>In last step you have create a seed file. It's still not committed to database. To do that we need to run a simple command.</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli db:seed:all</code>
+</code></pre>
+<p>This will execute that seed file and you will have a demo user inserted into <code>User</code> table.</p>
+<p><strong>Note:</strong> <em>Seeders execution is not stored anywhere unlike migrations, which use the <code>SequelizeMeta</code> table. If you wish to override this please read <code>Storage</code> section</em></p>
+<h3 id="undoing-seeds">Undoing Seeds</h3><p>Seeders can be undone if they are using any storage. There are two commands available for that:</p>
+<p>If you wish to undo most recent seed</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli db:seed:undo</code>
+</code></pre>
+<p>If you wish to undo a specific seed</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data</code>
+</code></pre>
+<p>If you wish to undo all seeds</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli db:seed:undo:all</code>
+</code></pre>
+<h2 id="advance-topics">Advance Topics</h2><h3 id="migration-skeleton">Migration Skeleton</h3><p>The following skeleton shows a typical migration file.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">module.exports = {
+  up: (queryInterface, Sequelize) =&gt; {
+    // logic for transforming into the new state
+  },
+
+  down: (queryInterface, Sequelize) =&gt; {
+    // logic for reverting the changes
+  }
+}</code>
+</code></pre>
+<p>We can generate this file using <code>migration:generate</code>. This will create <code>xxx-migration-skeleton.js</code> in your migration folder.</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli migration:generate --name migration-skeleton</code>
+</code></pre>
+<p>The passed <code>queryInterface</code> object can be used to modify the database. The <code>Sequelize</code> object stores the available data types such as <code>STRING</code> or <code>INTEGER</code>. Function <code>up</code> or <code>down</code> should return a <code>Promise</code>. Let's look at an example:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">module.exports = {
+  up: (queryInterface, Sequelize) =&gt; {
+    return queryInterface.createTable('Person', {
+        name: Sequelize.STRING,
+        isBetaMember: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false,
+          allowNull: false
+        }
+      });
+  },
+  down: (queryInterface, Sequelize) =&gt; {
+    return queryInterface.dropTable('Person');
+  }
+}</code>
+</code></pre>
+<p>The following is an example of a migration that performs two changes in the database, using a transaction to ensure that all instructions are successfully executed or rolled back in case of failure:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">module.exports = {
+    up: (queryInterface, Sequelize) =&gt; {
+        return queryInterface.sequelize.transaction((t) =&gt; {
+            return Promise.all([
+                queryInterface.addColumn('Person', 'petName', {
+                    type: Sequelize.STRING
+                }, { transaction: t }),
+                queryInterface.addColumn('Person', 'favoriteColor', {
+                    type: Sequelize.STRING,
+                }, { transaction: t })
+            ])
+        })
+    },
+
+    down: (queryInterface, Sequelize) =&gt; {
+        return queryInterface.sequelize.transaction((t) =&gt; {
+            return Promise.all([
+                queryInterface.removeColumn('Person', 'petName', { transaction: t }),
+                queryInterface.removeColumn('Person', 'favoriteColor', { transaction: t })
+            ])
+        })
+    }
+};</code>
+</code></pre>
+<p>The next is an example of a migration that has a foreign key. You can use references to specify a foreign key:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">module.exports = {
+  up: (queryInterface, Sequelize) =&gt; {
+    return queryInterface.createTable('Person', {
+      name: Sequelize.STRING,
+      isBetaMember: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'users',
+            schema: 'schema'
+          }
+          key: 'id'
+        },
+        allowNull: false
+      },
+    });
+  },
+
+  down: (queryInterface, Sequelize) =&gt; {
+    return queryInterface.dropTable('Person');
+  }
+}
+</code>
+</code></pre>
+<p>The next is an example of a migration that has uses async/await where you create an unique index on a new column:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">module.exports = {
+  async up(queryInterface, Sequelize) {
+    const transaction = await queryInterface.sequelize.transaction();
+    try {
+      await queryInterface.addColumn(
+        'Person',
+        'petName',
+        {
+          type: Sequelize.STRING,
+        },
+        { transaction }
+      );
+      await queryInterface.addIndex(
+        'Person',
+        'petName',
+        {
+          fields: 'petName',
+          unique: true,
+        },
+        { transaction }
+      );
+      await transaction.commit();
+    } catch (err) {
+      await transaction.rollback();
+      throw err;
+    }
+  },
+
+  async down(queryInterface, Sequelize) {
+    const transaction = await queryInterface.sequelize.transaction();
+    try {
+      await queryInterface.removeColumn('Person', 'petName', { transaction });
+      await transaction.commit();
+    } catch (err) {
+      await transaction.rollback();
+      throw err;
+    }
+  },
+};</code>
+</code></pre>
+<h3 id="the--code--sequelizerc--code--file">The <code>.sequelizerc</code> File</h3><p>This is a special configuration file. It lets you specify following options that you would usually pass as arguments to CLI:</p>
+<ul>
+<li><code>env</code>: The environment to run the command in</li>
+<li><code>config</code>: The path to the config file</li>
+<li><code>options-path</code>: The path to a JSON file with additional options</li>
+<li><code>migrations-path</code>: The path to the migrations folder</li>
+<li><code>seeders-path</code>: The path to the seeders folder</li>
+<li><code>models-path</code>: The path to the models folder</li>
+<li><code>url</code>: The database connection string to use. Alternative to using --config files</li>
+<li><code>debug</code>: When available show various debug information</li>
+</ul>
+<p>Some scenarios where you can use it.</p>
+<ul>
+<li>You want to override default path to <code>migrations</code>, <code>models</code>, <code>seeders</code> or <code>config</code> folder.</li>
+<li>You want to rename <code>config.json</code> to something else like <code>database.json</code></li>
+</ul>
+<p>And a whole lot more. Let's see how you can use this file for custom configuration.</p>
+<p>For starters, let's create an empty file in the root directory of your project.</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ touch .sequelizerc</code>
+</code></pre>
+<p>Now let's work with an example config.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const path = require('path');
+
+module.exports = {
+  'config': path.resolve('config', 'database.json'),
+  'models-path': path.resolve('db', 'models'),
+  'seeders-path': path.resolve('db', 'seeders'),
+  'migrations-path': path.resolve('db', 'migrations')
+}</code>
+</code></pre>
+<p>With this config you are telling CLI to</p>
+<ul>
+<li>Use <code>config/database.json</code> file for config settings</li>
+<li>Use <code>db/models</code> as models folder</li>
+<li>Use <code>db/seeders</code> as seeders folder</li>
+<li>Use <code>db/migrations</code> as migrations folder</li>
+</ul>
+<h3 id="dynamic-configuration">Dynamic Configuration</h3><p>Configuration file is by default a JSON file called <code>config.json</code>. But sometimes you want to execute some code or access environment variables which is not possible in JSON files.</p>
+<p>Sequelize CLI can read from both <code>JSON</code> and <code>JS</code> files. This can be setup with <code>.sequelizerc</code> file. Let see how</p>
+<p>First you need to create a <code>.sequelizerc</code> file in the root folder of your project. This file should override config path to a <code>JS</code> file. Like this</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const path = require('path');
+
+module.exports = {
+  'config': path.resolve('config', 'config.js')
+}</code>
+</code></pre>
+<p>Now Sequelize CLI will load <code>config/config.js</code> for getting configuration options. Since this is a JS file you can have any code executed and export final dynamic configuration file.</p>
+<p>An example of <code>config/config.js</code> file</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const fs = require('fs');
+
+module.exports = {
+  development: {
+    username: 'database_dev',
+    password: 'database_dev',
+    database: 'database_dev',
+    host: '127.0.0.1',
+    dialect: 'mysql'
+  },
+  test: {
+    username: 'database_test',
+    password: null,
+    database: 'database_test',
+    host: '127.0.0.1',
+    dialect: 'mysql'
+  },
+  production: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOSTNAME,
+    dialect: 'mysql',
+    dialectOptions: {
+      ssl: {
+        ca: fs.readFileSync(__dirname + '/mysql-ca-master.crt')
+      }
+    }
+  }
+};</code>
+</code></pre>
+<h3 id="using-babel">Using Babel</h3><p>Now you know how to use <code>.sequelizerc</code> file. Now let's see how to use this file to use babel with <code>sequelize-cli</code> setup. This will allow you to write migrations and seeders with ES6/ES7 syntax.</p>
+<p>First install <code>babel-register</code></p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npm i --save-dev babel-register</code>
+</code></pre>
+<p>Now let's create <code>.sequelizerc</code> file, it can include any configuration you may want to change for <code>sequelize-cli</code> but in addition to that we want it to register babel for our codebase. Something like this</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ touch .sequelizerc # Create rc file</code>
+</code></pre>
+<p>Now include <code>babel-register</code> setup in this file</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">require("babel-register");
+
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('config', 'config.json'),
+  'models-path': path.resolve('models'),
+  'seeders-path': path.resolve('seeders'),
+  'migrations-path': path.resolve('migrations')
+}</code>
+</code></pre>
+<p>Now CLI will be able to run ES6/ES7 code from migrations/seeders etc. Please keep in mind this depends upon your configuration of <code>.babelrc</code>. Please read more about that at <a href="https://babeljs.io">babeljs.io</a>.</p>
+<h3 id="using-environment-variables">Using Environment Variables</h3><p>With CLI you can directly access the environment variables inside the <code>config/config.js</code>. You can use <code>.sequelizerc</code> to tell CLI to use <code>config/config.js</code> for configuration. This is explained in last section.</p>
+<p>Then you can just expose file with proper environment variables.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">module.exports = {
+  development: {
+    username: 'database_dev',
+    password: 'database_dev',
+    database: 'database_dev',
+    host: '127.0.0.1',
+    dialect: 'mysql'
+  },
+  test: {
+    username: process.env.CI_DB_USERNAME,
+    password: process.env.CI_DB_PASSWORD,
+    database: process.env.CI_DB_NAME,
+    host: '127.0.0.1',
+    dialect: 'mysql'
+  },
+  production: {
+    username: process.env.PROD_DB_USERNAME,
+    password: process.env.PROD_DB_PASSWORD,
+    database: process.env.PROD_DB_NAME,
+    host: process.env.PROD_DB_HOSTNAME,
+    dialect: 'mysql'
+  }
+};</code>
+</code></pre>
+<h3 id="specifying-dialect-options">Specifying Dialect Options</h3><p>Sometime you want to specify a dialectOption, if it's a general config you can just add it in <code>config/config.json</code>. Sometime you want to execute some code to get dialectOptions, you should use dynamic config file for those cases.</p>
+<pre><code class="lang-json"><code class="source-code prettyprint">{
+    "production": {
+        "dialect":"mysql",
+        "dialectOptions": {
+            "bigNumberStrings": true
+        }
+    }
+}</code>
+</code></pre>
+<h3 id="production-usages">Production Usages</h3><p>Some tips around using CLI and migration setup in production environment.</p>
+<p>1) Use environment variables for config settings. This is better achieved with dynamic configuration. A sample production safe configuration may look like.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const fs = require('fs');
+
+module.exports = {
+  development: {
+    username: 'database_dev',
+    password: 'database_dev',
+    database: 'database_dev',
+    host: '127.0.0.1',
+    dialect: 'mysql'
+  },
+  test: {
+    username: 'database_test',
+    password: null,
+    database: 'database_test',
+    host: '127.0.0.1',
+    dialect: 'mysql'
+  },
+  production: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOSTNAME,
+    dialect: 'mysql',
+    dialectOptions: {
+      ssl: {
+        ca: fs.readFileSync(__dirname + '/mysql-ca-master.crt')
+      }
+    }
+  }
+};</code>
+</code></pre>
+<p>Our goal is to use environment variables for various database secrets and not accidentally check them in to source control.</p>
+<h3 id="storage">Storage</h3><p>There are three types of storage that you can use: <code>sequelize</code>, <code>json</code>, and <code>none</code>.</p>
+<ul>
+<li><code>sequelize</code> : stores migrations and seeds in a table on the sequelize database</li>
+<li><code>json</code> : stores migrations and seeds on a json file</li>
+<li><code>none</code> : does not store any migration/seed</li>
+</ul>
+<h4 id="migration-storage">Migration Storage</h4><p>By default the CLI will create a table in your database called <code>SequelizeMeta</code> containing an entry
+for each executed migration. To change this behavior, there are three options you can add to the
+configuration file. Using <code>migrationStorage</code>, you can choose the type of storage to be used for
+migrations. If you choose <code>json</code>, you can specify the path of the file using <code>migrationStoragePath</code>
+or the CLI will write to the file <code>sequelize-meta.json</code>. If you want to keep the information in the
+database, using <code>sequelize</code>, but want to use a different table, you can change the table name using
+<code>migrationStorageTableName</code>. Also you can define a different schema for the <code>SequelizeMeta</code> table by
+providing the <code>migrationStorageTableSchema</code> property.</p>
+<pre><code class="lang-json"><code class="source-code prettyprint">{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+
+    // Use a different storage type. Default: sequelize
+    "migrationStorage": "json",
+
+    // Use a different file name. Default: sequelize-meta.json
+    "migrationStoragePath": "sequelizeMeta.json",
+
+    // Use a different table name. Default: SequelizeMeta
+    "migrationStorageTableName": "sequelize_meta",
+
+    // Use a different schema for the SequelizeMeta table
+    "migrationStorageTableSchema": "custom_schema"
+  }
+}</code>
+</code></pre>
+<p><strong>Note:</strong> <em>The <code>none</code> storage is not recommended as a migration storage. If you decide to use it, be
+aware of the implications of having no record of what migrations did or didn't run.</em></p>
+<h4 id="seed-storage">Seed Storage</h4><p>By default the CLI will not save any seed that is executed. If you choose to change this behavior (!),
+you can use <code>seederStorage</code> in the configuration file to change the storage type. If you choose <code>json</code>,
+you can specify the path of the file using <code>seederStoragePath</code> or the CLI will write to the file
+<code>sequelize-data.json</code>. If you want to keep the information in the database, using <code>sequelize</code>, you can
+specify the table name using <code>seederStorageTableName</code>, or it will default to <code>SequelizeData</code>.</p>
+<pre><code class="lang-json"><code class="source-code prettyprint">{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    // Use a different storage. Default: none
+    "seederStorage": "json",
+    // Use a different file name. Default: sequelize-data.json
+    "seederStoragePath": "sequelizeData.json",
+    // Use a different table name. Default: SequelizeData
+    "seederStorageTableName": "sequelize_data"
+  }
+}</code>
+</code></pre>
+<h3 id="configuration-connection-string">Configuration Connection String</h3><p>As an alternative to the <code>--config</code> option with configuration files defining your database, you can
+use the <code>--url</code> option to pass in a connection string. For example:</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx sequelize-cli db:migrate --url 'mysql://root:password@mysql_host.com/database_name'</code>
+</code></pre>
+<h3 id="passing-dialect-specific-options">Passing Dialect Specific Options</h3><pre><code class="lang-json"><code class="source-code prettyprint">{
+    "production": {
+        "dialect":"postgres",
+        "dialectOptions": {
+            // dialect options like SSL etc here
+        }
+    }
+}</code>
+</code></pre>
+<h3 id="programmatic-use">Programmatic use</h3><p>Sequelize has a <a href="https://github.com/sequelize/umzug">sister library</a> for programmatically handling execution and logging of migration tasks.</p>
+<h2 id="query-interface">Query Interface</h2><p>Using <code>queryInterface</code> object described before you can change database schema. To see full list of public methods it supports check <a href="/v5/./manual/../class/lib/query-interface.js~QueryInterface.html">QueryInterface API</a></p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

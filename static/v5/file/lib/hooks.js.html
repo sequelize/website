@@ -1,0 +1,689 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/hooks.js | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li data-ice="doc" style="margin-top: 15px;"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IndexHints">IndexHints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#associations">associations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-sqlite">dialects/sqlite</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-describeTable">describeTable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/association-error.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/base-error.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/bulk-record-error.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection-error.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database-error.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/eager-loading-error.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/empty-result-error.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/instance-error.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/optimistic-lock-error.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/query-error.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/sequelize-scope-error.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-connection">errors/connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/access-denied-error.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-acquire-timeout-error.js~ConnectionAcquireTimeoutError.html">ConnectionAcquireTimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-refused-error.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-timed-out-error.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-found-error.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-reachable-error.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/invalid-connection-error.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-database">errors/database</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/exclusion-constraint-error.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/foreign-key-constraint-error.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/timeout-error.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/unknown-constraint-error.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-validation">errors/validation</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation/unique-constraint-error.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="variable/index.html#static-variable-DataTypes">datatypes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ARRAY.html">ARRAY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV4.html">UUIDV4</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV1.html">UUIDV1</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUID.html">UUID</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TINYINT.html">TINYINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TIME.html">TIME</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TEXT.html">TEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~STRING.html">STRING</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~SMALLINT.html">SMALLINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~REAL.html">REAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~RANGE.html">RANGE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NUMBER.html">NUMBER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NOW.html">NOW</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MACADDR.html">MACADDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONB.html">JSONB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INTEGER.html">INTEGER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INET.html">INET</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~HSTORE.html">HSTORE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~FLOAT.html">FLOAT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ENUM.html">ENUM</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DOUBLE.html">DOUBLE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DECIMAL.html">DECIMAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATEONLY.html">DATEONLY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATE.html">DATE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CITEXT.html">CITEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CIDR.html">CIDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CHAR.html">CHAR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BLOB.html">BLOB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BIGINT.html">BIGINT</a></span></span></li></ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/hooks.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">'use strict';
+
+const _ = require('lodash');
+const { logger } = require('./utils/logger');
+const Promise = require('./promise');
+const debug = logger.debugContext('hooks');
+
+const hookTypes = {
+  beforeValidate: { params: 2 },
+  afterValidate: { params: 2 },
+  validationFailed: { params: 3 },
+  beforeCreate: { params: 2 },
+  afterCreate: { params: 2 },
+  beforeDestroy: { params: 2 },
+  afterDestroy: { params: 2 },
+  beforeRestore: { params: 2 },
+  afterRestore: { params: 2 },
+  beforeUpdate: { params: 2 },
+  afterUpdate: { params: 2 },
+  beforeSave: { params: 2, proxies: ['beforeUpdate', 'beforeCreate'] },
+  afterSave: { params: 2, proxies: ['afterUpdate', 'afterCreate'] },
+  beforeUpsert: { params: 2 },
+  afterUpsert: { params: 2 },
+  beforeBulkCreate: { params: 2 },
+  afterBulkCreate: { params: 2 },
+  beforeBulkDestroy: { params: 1 },
+  afterBulkDestroy: { params: 1 },
+  beforeBulkRestore: { params: 1 },
+  afterBulkRestore: { params: 1 },
+  beforeBulkUpdate: { params: 1 },
+  afterBulkUpdate: { params: 1 },
+  beforeFind: { params: 1 },
+  beforeFindAfterExpandIncludeAll: { params: 1 },
+  beforeFindAfterOptions: { params: 1 },
+  afterFind: { params: 2 },
+  beforeCount: { params: 1 },
+  beforeDefine: { params: 2, sync: true, noModel: true },
+  afterDefine: { params: 1, sync: true, noModel: true },
+  beforeInit: { params: 2, sync: true, noModel: true },
+  afterInit: { params: 1, sync: true, noModel: true },
+  beforeAssociate: { params: 2, sync: true },
+  afterAssociate: { params: 2, sync: true },
+  beforeConnect: { params: 1, noModel: true },
+  afterConnect: { params: 2, noModel: true },
+  beforeDisconnect: { params: 1, noModel: true },
+  afterDisconnect: { params: 1, noModel: true },
+  beforeSync: { params: 1 },
+  afterSync: { params: 1 },
+  beforeBulkSync: { params: 1 },
+  afterBulkSync: { params: 1 },
+  beforeQuery: { params: 2 },
+  afterQuery: { params: 2 }
+};
+exports.hooks = hookTypes;
+
+
+/**
+ * get array of current hook and its proxies combined
+ *
+ * @param {string} hookType any hook type @see {@link hookTypes}
+ *
+ * @private
+ */
+const getProxiedHooks = hookType =&gt;
+  hookTypes[hookType].proxies
+    ? hookTypes[hookType].proxies.concat(hookType)
+    : [hookType]
+;
+
+function getHooks(hooked, hookType) {
+  return (hooked.options.hooks || {})[hookType] || [];
+}
+
+const Hooks = {
+  /**
+   * Process user supplied hooks definition
+   *
+   * @param {Object} hooks hooks definition
+   *
+   * @private
+   * @memberof Sequelize
+   * @memberof Sequelize.Model
+   */
+  _setupHooks(hooks) {
+    this.options.hooks = {};
+    _.map(hooks || {}, (hooksArray, hookName) =&gt; {
+      if (!Array.isArray(hooksArray)) hooksArray = [hooksArray];
+      hooksArray.forEach(hookFn =&gt; this.addHook(hookName, hookFn));
+    });
+  },
+
+  runHooks(hooks, ...hookArgs) {
+    if (!hooks) throw new Error('runHooks requires at least 1 argument');
+
+    let hookType;
+
+    if (typeof hooks === 'string') {
+      hookType = hooks;
+      hooks = getHooks(this, hookType);
+
+      if (this.sequelize) {
+        hooks = hooks.concat(getHooks(this.sequelize, hookType));
+      }
+    }
+
+    if (!Array.isArray(hooks)) {
+      hooks = [hooks];
+    }
+
+    // synchronous hooks
+    if (hookTypes[hookType] &amp;&amp; hookTypes[hookType].sync) {
+      for (let hook of hooks) {
+        if (typeof hook === 'object') {
+          hook = hook.fn;
+        }
+
+        debug(`running hook(sync) ${hookType}`);
+        hook.apply(this, hookArgs);
+      }
+      return;
+    }
+
+    // asynchronous hooks (default)
+    return Promise.each(hooks, hook =&gt; {
+      if (typeof hook === 'object') {
+        hook = hook.fn;
+      }
+
+      debug(`running hook ${hookType}`);
+      return hook.apply(this, hookArgs);
+    }).return();
+  },
+
+  /**
+   * Add a hook to the model
+   *
+   * @param {string}          hookType hook name @see {@link hookTypes}
+   * @param {string|Function} [name] Provide a name for the hook function. It can be used to remove the hook later or to order hooks based on some sort of priority system in the future.
+   * @param {Function}        fn The hook function
+   *
+   * @memberof Sequelize
+   * @memberof Sequelize.Model
+   */
+  addHook(hookType, name, fn) {
+    if (typeof name === 'function') {
+      fn = name;
+      name = null;
+    }
+
+    debug(`adding hook ${hookType}`);
+    // check for proxies, add them too
+    hookType = getProxiedHooks(hookType);
+
+    hookType.forEach(type =&gt; {
+      const hooks = getHooks(this, type);
+      hooks.push(name ? { name, fn } : fn);
+      this.options.hooks[type] = hooks;
+    });
+
+    return this;
+  },
+
+  /**
+   * Remove hook from the model
+   *
+   * @param {string} hookType @see {@link hookTypes}
+   * @param {string|Function} name name of hook or function reference which was attached
+   *
+   * @memberof Sequelize
+   * @memberof Sequelize.Model
+   */
+  removeHook(hookType, name) {
+    const isReference = typeof name === 'function' ? true : false;
+
+    if (!this.hasHook(hookType)) {
+      return this;
+    }
+
+    debug(`removing hook ${hookType}`);
+
+    // check for proxies, add them too
+    hookType = getProxiedHooks(hookType);
+
+    for (const type of hookType) {
+      this.options.hooks[type] = this.options.hooks[type].filter(hook =&gt; {
+        if (isReference &amp;&amp; typeof hook === 'function') {
+          return hook !== name; // check if same method
+        }
+        if (!isReference &amp;&amp; typeof hook === 'object') {
+          return hook.name !== name;
+        }
+        return true;
+      });
+    }
+
+    return this;
+  },
+
+  /**
+   * Check whether the mode has any hooks of this type
+   *
+   * @param {string} hookType @see {@link hookTypes}
+   *
+   * @alias hasHooks
+   *
+   * @memberof Sequelize
+   * @memberof Sequelize.Model
+   */
+  hasHook(hookType) {
+    return this.options.hooks[hookType] &amp;&amp; !!this.options.hooks[hookType].length;
+  }
+};
+Hooks.hasHooks = Hooks.hasHook;
+
+
+function applyTo(target, isModel = false) {
+  _.mixin(target, Hooks);
+
+  for (const hook of Object.keys(hookTypes)) {
+    if (isModel &amp;&amp; hookTypes[hook].noModel) {
+      continue;
+    }
+    target[hook] = function(name, callback) {
+      return this.addHook(hook, name, callback);
+    };
+  }
+}
+exports.applyTo = applyTo;
+
+/**
+ * A hook that is run before validation
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instance, options
+ * @name beforeValidate
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run after validation
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instance, options
+ * @name afterValidate
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run when validation fails
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instance, options, error. Error is the
+ * SequelizeValidationError. If the callback throws an error, it will replace the original validation error.
+ * @name validationFailed
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before creating a single instance
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with attributes, options
+ * @name beforeCreate
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run after creating a single instance
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with attributes, options
+ * @name afterCreate
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before creating or updating a single instance, It proxies `beforeCreate` and `beforeUpdate`
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with attributes, options
+ * @name beforeSave
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before upserting
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with attributes, options
+ * @name beforeUpsert
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run after upserting
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with the result of upsert(), options
+ * @name afterUpsert
+ * @memberof Sequelize.Model
+ */
+
+/**
+  * A hook that is run after creating or updating a single instance, It proxies `afterCreate` and `afterUpdate`
+  * @param {string}   name
+  * @param {Function} fn   A callback function that is called with attributes, options
+  * @name afterSave
+  * @memberof Sequelize.Model
+  */
+
+/**
+ * A hook that is run before destroying a single instance
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instance, options
+ *
+ * @name beforeDestroy
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run after destroying a single instance
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instance, options
+ *
+ * @name afterDestroy
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before restoring a single instance
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instance, options
+ *
+ * @name beforeRestore
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run after restoring a single instance
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instance, options
+ *
+ * @name afterRestore
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before updating a single instance
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instance, options
+ * @name beforeUpdate
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run after updating a single instance
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instance, options
+ * @name afterUpdate
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before creating instances in bulk
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instances, options
+ * @name beforeBulkCreate
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run after creating instances in bulk
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instances, options
+ * @name afterBulkCreate
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before destroying instances in bulk
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options
+ *
+ * @name beforeBulkDestroy
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run after destroying instances in bulk
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options
+ *
+ * @name afterBulkDestroy
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before restoring instances in bulk
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options
+ *
+ * @name beforeBulkRestore
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run after restoring instances in bulk
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options
+ *
+ * @name afterBulkRestore
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before updating instances in bulk
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options
+ * @name beforeBulkUpdate
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run after updating instances in bulk
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options
+ * @name afterBulkUpdate
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before a find (select) query
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options
+ * @name beforeFind
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before a find (select) query, after any { include: {all: ...} } options are expanded
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options
+ * @name beforeFindAfterExpandIncludeAll
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before a find (select) query, after all option parsing is complete
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options
+ * @name beforeFindAfterOptions
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run after a find (select) query
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with instance(s), options
+ * @name afterFind
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before a count query
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options
+ * @name beforeCount
+ * @memberof Sequelize.Model
+ */
+
+/**
+ * A hook that is run before a define call
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with attributes, options
+ * @name beforeDefine
+ * @memberof Sequelize
+ */
+
+/**
+ * A hook that is run after a define call
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with factory
+ * @name afterDefine
+ * @memberof Sequelize
+ */
+
+/**
+ * A hook that is run before Sequelize() call
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with config, options
+ * @name beforeInit
+ * @memberof Sequelize
+ */
+
+/**
+ * A hook that is run after Sequelize() call
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with sequelize
+ * @name afterInit
+ * @memberof Sequelize
+ */
+
+/**
+ * A hook that is run before a connection is created
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with config passed to connection
+ * @name beforeConnect
+ * @memberof Sequelize
+ */
+
+/**
+ * A hook that is run after a connection is created
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with the connection object and the config passed to connection
+ * @name afterConnect
+ * @memberof Sequelize
+ */
+
+/**
+ * A hook that is run before a connection is disconnected
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with the connection object
+ * @name beforeDisconnect
+ * @memberof Sequelize
+ */
+
+/**
+ * A hook that is run after a connection is disconnected
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with the connection object
+ * @name afterDisconnect
+ * @memberof Sequelize
+ */
+
+/**
+ * A hook that is run before Model.sync call
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options passed to Model.sync
+ * @name beforeSync
+ * @memberof Sequelize
+ */
+
+/**
+ * A hook that is run after Model.sync call
+ * @param {string}   name
+ * @param {Function} fn   A callback function that is called with options passed to Model.sync
+ * @name afterSync
+ * @memberof Sequelize
+ */
+
+/**
+  * A hook that is run before sequelize.sync call
+  * @param {string}   name
+  * @param {Function} fn   A callback function that is called with options passed to sequelize.sync
+  * @name beforeBulkSync
+  * @memberof Sequelize
+  */
+
+/**
+  * A hook that is run after sequelize.sync call
+  * @param {string}   name
+  * @param {Function} fn   A callback function that is called with options passed to sequelize.sync
+  * @name afterBulkSync
+  * @memberof Sequelize
+  */
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

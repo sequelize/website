@@ -1,0 +1,426 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/dialects/db2/data-types.js | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li data-ice="doc" style="margin-top: 15px;"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IndexHints">IndexHints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#associations">associations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-sqlite">dialects/sqlite</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-describeTable">describeTable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/association-error.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/base-error.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/bulk-record-error.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection-error.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database-error.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/eager-loading-error.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/empty-result-error.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/instance-error.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/optimistic-lock-error.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/query-error.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/sequelize-scope-error.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-connection">errors/connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/access-denied-error.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-acquire-timeout-error.js~ConnectionAcquireTimeoutError.html">ConnectionAcquireTimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-refused-error.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-timed-out-error.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-found-error.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-reachable-error.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/invalid-connection-error.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-database">errors/database</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/exclusion-constraint-error.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/foreign-key-constraint-error.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/timeout-error.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/unknown-constraint-error.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-validation">errors/validation</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation/unique-constraint-error.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="variable/index.html#static-variable-DataTypes">datatypes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ARRAY.html">ARRAY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV4.html">UUIDV4</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV1.html">UUIDV1</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUID.html">UUID</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TINYINT.html">TINYINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TIME.html">TIME</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TEXT.html">TEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~STRING.html">STRING</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~SMALLINT.html">SMALLINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~REAL.html">REAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~RANGE.html">RANGE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NUMBER.html">NUMBER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NOW.html">NOW</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MACADDR.html">MACADDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONB.html">JSONB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INTEGER.html">INTEGER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INET.html">INET</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~HSTORE.html">HSTORE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~FLOAT.html">FLOAT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ENUM.html">ENUM</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DOUBLE.html">DOUBLE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DECIMAL.html">DECIMAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATEONLY.html">DATEONLY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATE.html">DATE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CITEXT.html">CITEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CIDR.html">CIDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CHAR.html">CHAR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BLOB.html">BLOB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BIGINT.html">BIGINT</a></span></span></li></ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/dialects/db2/data-types.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">"use strict";
+const momentTz = require("moment-timezone");
+const moment = require("moment");
+module.exports = (BaseTypes) =&gt; {
+  const warn = BaseTypes.ABSTRACT.warn.bind(void 0, "https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.sql.ref.doc/doc/r0008478.html");
+  function removeUnsupportedIntegerOptions(dataType) {
+    if (dataType._length || dataType.options.length || dataType._unsigned || dataType._zerofill) {
+      warn(`Db2 does not support '${dataType.key}' with options. Plain '${dataType.key}' will be used instead.`);
+      dataType._length = void 0;
+      dataType.options.length = void 0;
+      dataType._unsigned = void 0;
+      dataType._zerofill = void 0;
+    }
+  }
+  BaseTypes.DATE.types.db2 = ["TIMESTAMP"];
+  BaseTypes.STRING.types.db2 = ["VARCHAR"];
+  BaseTypes.CHAR.types.db2 = ["CHAR"];
+  BaseTypes.TEXT.types.db2 = ["VARCHAR", "CLOB"];
+  BaseTypes.TINYINT.types.db2 = ["SMALLINT"];
+  BaseTypes.SMALLINT.types.db2 = ["SMALLINT"];
+  BaseTypes.MEDIUMINT.types.db2 = ["INTEGER"];
+  BaseTypes.INTEGER.types.db2 = ["INTEGER"];
+  BaseTypes.BIGINT.types.db2 = ["BIGINT"];
+  BaseTypes.FLOAT.types.db2 = ["DOUBLE", "REAL", "FLOAT"];
+  BaseTypes.TIME.types.db2 = ["TIME"];
+  BaseTypes.DATEONLY.types.db2 = ["DATE"];
+  BaseTypes.BOOLEAN.types.db2 = ["BOOLEAN", "BOOL", "SMALLINT", "BIT"];
+  BaseTypes.BLOB.types.db2 = ["BLOB"];
+  BaseTypes.DECIMAL.types.db2 = ["DECIMAL"];
+  BaseTypes.UUID.types.db2 = ["CHAR () FOR BIT DATA"];
+  BaseTypes.ENUM.types.db2 = ["VARCHAR"];
+  BaseTypes.REAL.types.db2 = ["REAL"];
+  BaseTypes.DOUBLE.types.db2 = ["DOUBLE"];
+  BaseTypes.GEOMETRY.types.db2 = false;
+  class BLOB extends BaseTypes.BLOB {
+    toSql() {
+      if (this._length) {
+        if (this._length.toLowerCase() === "tiny") {
+          return "BLOB(255)";
+        }
+        if (this._length.toLowerCase() === "medium") {
+          return "BLOB(16M)";
+        }
+        if (this._length.toLowerCase() === "long") {
+          return "BLOB(2G)";
+        }
+        return `BLOB(${this._length})`;
+      }
+      return "BLOB";
+    }
+    escape(blob) {
+      return `BLOB('${blob.toString().replace(/'/g, "''")}')`;
+    }
+    _stringify(value) {
+      if (Buffer.isBuffer(value)) {
+        return `BLOB('${value.toString().replace(/'/g, "''")}')`;
+      }
+      if (Array.isArray(value)) {
+        value = Buffer.from(value);
+      } else {
+        value = Buffer.from(value.toString());
+      }
+      const hex = value.toString("hex");
+      return this._hexify(hex);
+    }
+    _hexify(hex) {
+      return `x'${hex}'`;
+    }
+  }
+  class STRING extends BaseTypes.STRING {
+    toSql() {
+      if (!this._binary) {
+        if (this._length &lt;= 4e3) {
+          return `VARCHAR(${this._length})`;
+        }
+        return `CLOB(${this._length})`;
+      }
+      if (this._length &lt; 255) {
+        return `CHAR(${this._length}) FOR BIT DATA`;
+      }
+      if (this._length &lt;= 4e3) {
+        return `VARCHAR(${this._length}) FOR BIT DATA`;
+      }
+      return `BLOB(${this._length})`;
+    }
+    _stringify(value, options) {
+      if (this._binary) {
+        return BLOB.prototype._hexify(value.toString("hex"));
+      }
+      return options.escape(value);
+    }
+    _bindParam(value, options) {
+      return options.bindParam(this._binary ? Buffer.from(value) : value);
+    }
+  }
+  STRING.prototype.escape = false;
+  class TEXT extends BaseTypes.TEXT {
+    toSql() {
+      let len = 0;
+      if (this._length) {
+        switch (this._length.toLowerCase()) {
+          case "tiny":
+            len = 256;
+            break;
+          case "medium":
+            len = 8192;
+            break;
+          case "long":
+            len = 65536;
+            break;
+        }
+        if (isNaN(this._length)) {
+          this._length = 32672;
+        }
+        if (len &gt; 0) {
+          this._length = len;
+        }
+      } else {
+        this._length = 32672;
+      }
+      if (this._length &gt; 32672) {
+        len = `CLOB(${this._length})`;
+      } else {
+        len = `VARCHAR(${this._length})`;
+      }
+      warn(`Db2 does not support TEXT datatype. ${len} will be used instead.`);
+      return len;
+    }
+  }
+  class BOOLEAN extends BaseTypes.BOOLEAN {
+    toSql() {
+      return "BOOLEAN";
+    }
+    _sanitize(value) {
+      if (value !== null &amp;&amp; value !== void 0) {
+        if (Buffer.isBuffer(value) &amp;&amp; value.length === 1) {
+          value = value[0];
+        }
+        if (typeof value === "string") {
+          value = value === "true" ? true : value === "false" ? false : value;
+          value = value === "" ? true : value === "\0" ? false : value;
+        } else if (typeof value === "number") {
+          value = value === 1 ? true : value === 0 ? false : value;
+        }
+      }
+      return value;
+    }
+  }
+  BOOLEAN.parse = BOOLEAN.prototype._sanitize;
+  class UUID extends BaseTypes.UUID {
+    toSql() {
+      return "CHAR(36) FOR BIT DATA";
+    }
+  }
+  class NOW extends BaseTypes.NOW {
+    toSql() {
+      return "CURRENT TIME";
+    }
+  }
+  class DATE extends BaseTypes.DATE {
+    toSql() {
+      if (this._length &lt; 0) {
+        this._length = 0;
+      }
+      if (this._length &gt; 6) {
+        this._length = 6;
+      }
+      return `TIMESTAMP${this._length ? `(${this._length})` : ""}`;
+    }
+    _stringify(date, options) {
+      if (!moment.isMoment(date)) {
+        date = this._applyTimezone(date, options);
+      }
+      if (this._length &gt; 0) {
+        let msec = ".";
+        for (let i = 0; i &lt; this._length &amp;&amp; i &lt; 6; i++) {
+          msec += "S";
+        }
+        return date.format(`YYYY-MM-DD HH:mm:ss${msec}`);
+      }
+      return date.format("YYYY-MM-DD HH:mm:ss");
+    }
+    static parse(value) {
+      if (typeof value !== "string") {
+        value = value.string();
+      }
+      if (value === null) {
+        return value;
+      }
+      value = new Date(momentTz.utc(value));
+      return value;
+    }
+  }
+  class DATEONLY extends BaseTypes.DATEONLY {
+    static parse(value) {
+      return momentTz(value).format("YYYY-MM-DD");
+    }
+  }
+  class INTEGER extends BaseTypes.INTEGER {
+    constructor(length) {
+      super(length);
+      removeUnsupportedIntegerOptions(this);
+    }
+  }
+  class TINYINT extends BaseTypes.TINYINT {
+    constructor(length) {
+      super(length);
+      removeUnsupportedIntegerOptions(this);
+    }
+  }
+  class SMALLINT extends BaseTypes.SMALLINT {
+    constructor(length) {
+      super(length);
+      removeUnsupportedIntegerOptions(this);
+    }
+  }
+  class BIGINT extends BaseTypes.BIGINT {
+    constructor(length) {
+      super(length);
+      removeUnsupportedIntegerOptions(this);
+    }
+  }
+  class REAL extends BaseTypes.REAL {
+    constructor(length, decimals) {
+      super(length, decimals);
+      if (this._length || this.options.length || this._unsigned || this._zerofill) {
+        warn("Db2 does not support REAL with options. Plain `REAL` will be used instead.");
+        this._length = void 0;
+        this.options.length = void 0;
+        this._unsigned = void 0;
+        this._zerofill = void 0;
+      }
+    }
+  }
+  class FLOAT extends BaseTypes.FLOAT {
+    constructor(length, decimals) {
+      super(length, decimals);
+      if (this._decimals) {
+        warn("Db2 does not support Float with decimals. Plain `FLOAT` will be used instead.");
+        this._length = void 0;
+        this.options.length = void 0;
+      }
+      if (this._unsigned) {
+        warn("Db2 does not support Float unsigned. `UNSIGNED` was removed.");
+        this._unsigned = void 0;
+      }
+      if (this._zerofill) {
+        warn("Db2 does not support Float zerofill. `ZEROFILL` was removed.");
+        this._zerofill = void 0;
+      }
+    }
+  }
+  class ENUM extends BaseTypes.ENUM {
+    toSql() {
+      return "VARCHAR(255)";
+    }
+  }
+  class DOUBLE extends BaseTypes.DOUBLE {
+    constructor(length, decimals) {
+      super(length, decimals);
+      if (this._length || this.options.length || this._unsigned || this._zerofill) {
+        warn("db2 does not support DOUBLE with options. Plain DOUBLE will be used instead.");
+        this._length = void 0;
+        this.options.length = void 0;
+        this._unsigned = void 0;
+        this._zerofill = void 0;
+      }
+    }
+    toSql() {
+      return "DOUBLE";
+    }
+  }
+  DOUBLE.prototype.key = DOUBLE.key = "DOUBLE";
+  return {
+    BLOB,
+    BOOLEAN,
+    ENUM,
+    STRING,
+    UUID,
+    DATE,
+    DATEONLY,
+    NOW,
+    TINYINT,
+    SMALLINT,
+    INTEGER,
+    DOUBLE,
+    "DOUBLE PRECISION": DOUBLE,
+    BIGINT,
+    REAL,
+    FLOAT,
+    TEXT
+  };
+};
+//# sourceMappingURL=data-types.js.map
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

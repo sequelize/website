@@ -1,0 +1,563 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v5/../../">
+  <title data-ice="title">lib/instance-validator.js | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="/v5/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v5/css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="/v5/./inject/css/0-style.css"><link rel="stylesheet" href="/v5/./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="/v5/./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="/v5/identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="/v5/source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li data-ice="doc" style="margin-top: 15px;"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-IndexHints">IndexHints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#associations">associations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#dialects-sqlite">dialects/sqlite</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="/v5/function/index.html#static-function-describeTable">describeTable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/association-error.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/base-error.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/bulk-record-error.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection-error.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/database-error.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/eager-loading-error.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/empty-result-error.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/instance-error.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/optimistic-lock-error.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/query-error.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/sequelize-scope-error.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/validation-error.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/validation-error.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#errors-connection">errors/connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/access-denied-error.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/connection-acquire-timeout-error.js~ConnectionAcquireTimeoutError.html">ConnectionAcquireTimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/connection-refused-error.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/connection-timed-out-error.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/host-not-found-error.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/host-not-reachable-error.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/invalid-connection-error.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#errors-database">errors/database</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/database/exclusion-constraint-error.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/database/foreign-key-constraint-error.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/database/timeout-error.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/database/unknown-constraint-error.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#errors-validation">errors/validation</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/validation/unique-constraint-error.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/variable/index.html#static-variable-DataTypes">datatypes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~ARRAY.html">ARRAY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~UUIDV4.html">UUIDV4</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~UUIDV1.html">UUIDV1</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~UUID.html">UUID</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~TINYINT.html">TINYINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~TIME.html">TIME</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~TEXT.html">TEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~STRING.html">STRING</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~SMALLINT.html">SMALLINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~REAL.html">REAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~RANGE.html">RANGE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~NUMBER.html">NUMBER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~NOW.html">NOW</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~MACADDR.html">MACADDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~JSONB.html">JSONB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~INTEGER.html">INTEGER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~INET.html">INET</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~HSTORE.html">HSTORE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~FLOAT.html">FLOAT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~ENUM.html">ENUM</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~DOUBLE.html">DOUBLE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~DECIMAL.html">DECIMAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~DATEONLY.html">DATEONLY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~DATE.html">DATE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~CITEXT.html">CITEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~CIDR.html">CIDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~CHAR.html">CHAR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~BLOB.html">BLOB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~BIGINT.html">BIGINT</a></span></span></li></ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/instance-validator.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">'use strict';
+
+const _ = require('lodash');
+const Utils = require('./utils');
+const sequelizeError = require('./errors');
+const Promise = require('./promise');
+const DataTypes = require('./data-types');
+const BelongsTo = require('./associations/belongs-to');
+const validator = require('./utils/validator-extras').validator;
+
+/**
+ * Instance Validator.
+ *
+ * @param {Instance} modelInstance The model instance.
+ * @param {Object} options A dictionary with options.
+ *
+ * @private
+ */
+class InstanceValidator {
+  constructor(modelInstance, options) {
+    options = _.clone(options) || {};
+
+    if (options.fields &amp;&amp; !options.skip) {
+      options.skip = _.difference(Object.keys(modelInstance.constructor.rawAttributes), options.fields);
+    }
+
+    // assign defined and default options
+    this.options = _.defaults(options, {
+      skip: [],
+      hooks: true
+    });
+
+    this.modelInstance = modelInstance;
+
+    /**
+     * Exposes a reference to validator.js. This allows you to add custom validations using `validator.extend`
+     * @name validator
+     * @private
+     */
+    this.validator = validator;
+
+    /**
+     *  All errors will be stored here from the validations.
+     *
+     * @type {Array} Will contain keys that correspond to attributes which will
+     *   be Arrays of Errors.
+     * @private
+     */
+    this.errors = [];
+
+    /**
+     * @type {boolean} Indicates if validations are in progress
+     * @private
+     */
+    this.inProgress = false;
+  }
+
+  /**
+   * The main entry point for the Validation module, invoke to start the dance.
+   *
+   * @returns {Promise}
+   * @private
+   */
+  _validate() {
+    if (this.inProgress) throw new Error('Validations already in progress.');
+
+    this.inProgress = true;
+
+    return Promise.all([
+      this._perAttributeValidators().reflect(),
+      this._customValidators().reflect()
+    ]).then(() =&gt; {
+      if (this.errors.length) {
+        throw new sequelizeError.ValidationError(null, this.errors);
+      }
+    });
+  }
+
+  /**
+   * Invoke the Validation sequence and run validation hooks if defined
+   *   - Before Validation Model Hooks
+   *   - Validation
+   *   - On validation success: After Validation Model Hooks
+   *   - On validation failure: Validation Failed Model Hooks
+   *
+   * @returns {Promise}
+   * @private
+   */
+  validate() {
+    return this.options.hooks ? this._validateAndRunHooks() : this._validate();
+  }
+
+  /**
+   * Invoke the Validation sequence and run hooks
+   *   - Before Validation Model Hooks
+   *   - Validation
+   *   - On validation success: After Validation Model Hooks
+   *   - On validation failure: Validation Failed Model Hooks
+   *
+   * @returns {Promise}
+   * @private
+   */
+  _validateAndRunHooks() {
+    const runHooks = this.modelInstance.constructor.runHooks.bind(this.modelInstance.constructor);
+    return runHooks('beforeValidate', this.modelInstance, this.options)
+      .then(() =&gt;
+        this._validate()
+          .catch(error =&gt; runHooks('validationFailed', this.modelInstance, this.options, error)
+            .then(newError =&gt; { throw newError || error; }))
+      )
+      .then(() =&gt; runHooks('afterValidate', this.modelInstance, this.options))
+      .return(this.modelInstance);
+  }
+
+  /**
+   * Will run all the validators defined per attribute (built-in validators and custom validators)
+   *
+   * @returns {Promise&lt;Array.&lt;Promise.PromiseInspection&gt;&gt;} A promise from .reflect().
+   * @private
+   */
+  _perAttributeValidators() {
+    // promisify all attribute invocations
+    const validators = [];
+
+    _.forIn(this.modelInstance.rawAttributes, (rawAttribute, field) =&gt; {
+      if (this.options.skip.includes(field)) {
+        return;
+      }
+
+      const value = this.modelInstance.dataValues[field];
+
+      if (value instanceof Utils.SequelizeMethod) {
+        return;
+      }
+
+      if (!rawAttribute._autoGenerated &amp;&amp; !rawAttribute.autoIncrement) {
+        // perform validations based on schema
+        this._validateSchema(rawAttribute, field, value);
+      }
+
+      if (Object.prototype.hasOwnProperty.call(this.modelInstance.validators, field)) {
+        validators.push(this._singleAttrValidate(value, field, rawAttribute.allowNull).reflect());
+      }
+    });
+
+    return Promise.all(validators);
+  }
+
+  /**
+   * Will run all the custom validators defined in the model's options.
+   *
+   * @returns {Promise&lt;Array.&lt;Promise.PromiseInspection&gt;&gt;} A promise from .reflect().
+   * @private
+   */
+  _customValidators() {
+    const validators = [];
+    _.each(this.modelInstance._modelOptions.validate, (validator, validatorType) =&gt; {
+      if (this.options.skip.includes(validatorType)) {
+        return;
+      }
+
+      const valprom = this._invokeCustomValidator(validator, validatorType)
+        // errors are handled in settling, stub this
+        .catch(() =&gt; {})
+        .reflect();
+
+      validators.push(valprom);
+    });
+
+    return Promise.all(validators);
+  }
+
+  /**
+   * Validate a single attribute with all the defined built-in validators and custom validators.
+   *
+   * @private
+   *
+   * @param {*} value Anything.
+   * @param {string} field The field name.
+   * @param {boolean} allowNull Whether or not the schema allows null values
+   *
+   * @returns {Promise} A promise, will always resolve, auto populates error on this.error local object.
+   */
+  _singleAttrValidate(value, field, allowNull) {
+    // If value is null and allowNull is false, no validators should run (see #9143)
+    if ((value === null || value === undefined) &amp;&amp; !allowNull) {
+      // The schema validator (_validateSchema) has already generated the validation error. Nothing to do here.
+      return Promise.resolve();
+    }
+
+    // Promisify each validator
+    const validators = [];
+    _.forIn(this.modelInstance.validators[field], (test, validatorType) =&gt; {
+
+      if (validatorType === 'isUrl' || validatorType === 'isURL' || validatorType === 'isEmail') {
+        // Preserve backwards compat. Validator.js now expects the second param to isURL and isEmail to be an object
+        if (typeof test === 'object' &amp;&amp; test !== null &amp;&amp; test.msg) {
+          test = {
+            msg: test.msg
+          };
+        } else if (test === true) {
+          test = {};
+        }
+      }
+
+      // Custom validators should always run, except if value is null and allowNull is false (see #9143)
+      if (typeof test === 'function') {
+        validators.push(this._invokeCustomValidator(test, validatorType, true, value, field).reflect());
+        return;
+      }
+
+      // If value is null, built-in validators should not run (only custom validators have to run) (see #9134).
+      if (value === null || value === undefined) {
+        return;
+      }
+
+      const validatorPromise = this._invokeBuiltinValidator(value, test, validatorType, field);
+      // errors are handled in settling, stub this
+      validatorPromise.catch(() =&gt; {});
+      validators.push(validatorPromise.reflect());
+    });
+
+    return Promise
+      .all(validators)
+      .then(results =&gt; this._handleReflectedResult(field, value, results));
+  }
+
+  /**
+   * Prepare and invoke a custom validator.
+   *
+   * @private
+   *
+   * @param {Function} validator The custom validator.
+   * @param {string} validatorType the custom validator type (name).
+   * @param {boolean} optAttrDefined Set to true if custom validator was defined from the attribute
+   * @param {*} optValue value for attribute
+   * @param {string} optField field for attribute
+   *
+   * @returns {Promise} A promise.
+   */
+  _invokeCustomValidator(validator, validatorType, optAttrDefined, optValue, optField) {
+    let validatorFunction = null; // the validation function to call
+    let isAsync = false;
+
+    const validatorArity = validator.length;
+    // check if validator is async and requires a callback
+    let asyncArity = 1;
+    let errorKey = validatorType;
+    let invokeArgs;
+    if (optAttrDefined) {
+      asyncArity = 2;
+      invokeArgs = optValue;
+      errorKey = optField;
+    }
+    if (validatorArity === asyncArity) {
+      isAsync = true;
+    }
+
+    if (isAsync) {
+      if (optAttrDefined) {
+        validatorFunction = Promise.promisify(validator.bind(this.modelInstance, invokeArgs));
+      } else {
+        validatorFunction = Promise.promisify(validator.bind(this.modelInstance));
+      }
+      return validatorFunction()
+        .catch(e =&gt; this._pushError(false, errorKey, e, optValue, validatorType));
+    }
+    return Promise
+      .try(() =&gt; validator.call(this.modelInstance, invokeArgs))
+      .catch(e =&gt; this._pushError(false, errorKey, e, optValue, validatorType));
+  }
+
+  /**
+   * Prepare and invoke a build-in validator.
+   *
+   * @private
+   *
+   * @param {*} value Anything.
+   * @param {*} test The test case.
+   * @param {string} validatorType One of known to Sequelize validators.
+   * @param {string} field The field that is being validated
+   *
+   * @returns {Object} An object with specific keys to invoke the validator.
+   */
+  _invokeBuiltinValidator(value, test, validatorType, field) {
+    return Promise.try(() =&gt; {
+      // Cast value as string to pass new Validator.js string requirement
+      const valueString = String(value);
+      // check if Validator knows that kind of validation test
+      if (typeof validator[validatorType] !== 'function') {
+        throw new Error(`Invalid validator function: ${validatorType}`);
+      }
+
+      const validatorArgs = this._extractValidatorArgs(test, validatorType, field);
+
+      if (!validator[validatorType](valueString, ...validatorArgs)) {
+        throw Object.assign(new Error(test.msg || `Validation ${validatorType} on ${field} failed`), { validatorName: validatorType, validatorArgs });
+      }
+    });
+  }
+
+  /**
+   * Will extract arguments for the validator.
+   *
+   * @param {*} test The test case.
+   * @param {string} validatorType One of known to Sequelize validators.
+   * @param {string} field The field that is being validated.
+   *
+   * @private
+   */
+  _extractValidatorArgs(test, validatorType, field) {
+    let validatorArgs = test.args || test;
+    const isLocalizedValidator = typeof validatorArgs !== 'string' &amp;&amp; (validatorType === 'isAlpha' || validatorType === 'isAlphanumeric' || validatorType === 'isMobilePhone');
+
+    if (!Array.isArray(validatorArgs)) {
+      if (validatorType === 'isImmutable') {
+        validatorArgs = [validatorArgs, field, this.modelInstance];
+      } else if (isLocalizedValidator || validatorType === 'isIP') {
+        validatorArgs = [];
+      } else {
+        validatorArgs = [validatorArgs];
+      }
+    } else {
+      validatorArgs = validatorArgs.slice(0);
+    }
+    return validatorArgs;
+  }
+
+  /**
+   * Will validate a single field against its schema definition (isnull).
+   *
+   * @param {Object} rawAttribute As defined in the Schema.
+   * @param {string} field The field name.
+   * @param {*} value anything.
+   *
+   * @private
+   */
+  _validateSchema(rawAttribute, field, value) {
+    if (rawAttribute.allowNull === false &amp;&amp; (value === null || value === undefined)) {
+      const association = _.values(this.modelInstance.constructor.associations).find(association =&gt; association instanceof BelongsTo &amp;&amp; association.foreignKey === rawAttribute.fieldName);
+      if (!association || !this.modelInstance.get(association.associationAccessor)) {
+        const validators = this.modelInstance.validators[field];
+        const errMsg = _.get(validators, 'notNull.msg', `${this.modelInstance.constructor.name}.${field} cannot be null`);
+
+        this.errors.push(new sequelizeError.ValidationErrorItem(
+          errMsg,
+          'notNull Violation', // sequelizeError.ValidationErrorItem.Origins.CORE,
+          field,
+          value,
+          this.modelInstance,
+          'is_null'
+        ));
+      }
+    }
+
+    if (rawAttribute.type instanceof DataTypes.STRING || rawAttribute.type instanceof DataTypes.TEXT || rawAttribute.type instanceof DataTypes.CITEXT) {
+      if (Array.isArray(value) || _.isObject(value) &amp;&amp; !(value instanceof Utils.SequelizeMethod) &amp;&amp; !Buffer.isBuffer(value)) {
+        this.errors.push(new sequelizeError.ValidationErrorItem(
+          `${field} cannot be an array or an object`,
+          'string violation', // sequelizeError.ValidationErrorItem.Origins.CORE,
+          field,
+          value,
+          this.modelInstance,
+          'not_a_string'
+        ));
+      }
+    }
+  }
+
+
+  /**
+   * Handles the returned result of a Promise.reflect.
+   *
+   * If errors are found it populates this.error.
+   *
+   * @param {string} field The attribute name.
+   * @param {string|number} value The data value.
+   * @param {Array&lt;Promise.PromiseInspection&gt;} promiseInspections objects.
+   *
+   * @private
+   */
+  _handleReflectedResult(field, value, promiseInspections) {
+    for (const promiseInspection of promiseInspections) {
+      if (promiseInspection.isRejected()) {
+        const rejection = promiseInspection.error();
+        const isBuiltIn = !!rejection.validatorName;
+
+        this._pushError(isBuiltIn, field, rejection, value, rejection.validatorName, rejection.validatorArgs);
+      }
+    }
+  }
+
+  /**
+   * Signs all errors retaining the original.
+   *
+   * @param {boolean}       isBuiltin   - Determines if error is from builtin validator.
+   * @param {string}        errorKey    - name of invalid attribute.
+   * @param {Error|string}  rawError    - The original error.
+   * @param {string|number} value       - The data that triggered the error.
+   * @param {string}        fnName      - Name of the validator, if any
+   * @param {Array}         fnArgs      - Arguments for the validator [function], if any
+   *
+   * @private
+   */
+  _pushError(isBuiltin, errorKey, rawError, value, fnName, fnArgs) {
+    const message = rawError.message || rawError || 'Validation error';
+    const error = new sequelizeError.ValidationErrorItem(
+      message,
+      'Validation error', // sequelizeError.ValidationErrorItem.Origins.FUNCTION,
+      errorKey,
+      value,
+      this.modelInstance,
+      fnName,
+      isBuiltin ? fnName : undefined,
+      isBuiltin ? fnArgs : undefined
+    );
+
+    error[InstanceValidator.RAW_KEY_NAME] = rawError;
+
+    this.errors.push(error);
+  }
+}
+/**
+ * @define {string} The error key for arguments as passed by custom validators
+ * @private
+ */
+InstanceValidator.RAW_KEY_NAME = 'original';
+
+module.exports = InstanceValidator;
+module.exports.InstanceValidator = InstanceValidator;
+module.exports.default = InstanceValidator;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>
