@@ -308,17 +308,21 @@ sequelize.define('User', {
 });
 ```
 
-Some special values, such as `DataTypes.NOW`, are also accepted:
+It is possible to use `fn` to use a native SQL function as the default value:
 
 ```js
 sequelize.define('Foo', {
-  bar: {
-    type: DataTypes.DATETIME,
-    defaultValue: DataTypes.NOW
-    // This way, the current date/time will be used to populate this column (at the moment of insertion)
+  myUuid: {
+    type: DataTypes.UUID,
+    defaultValue: fn('uuid_generate_v4'),
   }
 });
 ```
+
+Sequelize provides a series of built-in default values you can use:
+
+- [`DataTypes.NOW`](../other-topics/other-data-types.md#built-in-default-values-for-dates)
+- [`DataTypes.UUIDV1`, `DataTypes.UUIDV4`](../other-topics/other-data-types.md#built-in-default-values-for-uuid)
 
 ## Data Types
 

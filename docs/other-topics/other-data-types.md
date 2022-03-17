@@ -1,6 +1,214 @@
-# Other Data Types
+---
+sidebar_position: 2
+---
 
-Apart from the most common data types mentioned in the Model Basics guide, Sequelize provides several other data types.
+# Data Types
+
+Sequelize provides [a lot of built-in data types](https://github.com/sequelize/sequelize/blob/main/src/data-types.js). To access a built-in data type, you must import `DataTypes`:
+
+```js
+// Import the built-in data types
+import { DataTypes } from '@sequelize/core';
+```
+
+Below is a series of support table describing which SQL Type is used for each Sequelize DataType.
+
+:::info
+
+Most of our DataTypes also accept option bags. Click on one of our DataTypes in the tables below to view their signature.
+
+:::
+
+A ❌ means the dialect does not support that DataType.
+
+## Strings
+
+| Sequelize DataType                                                                 | PostgreSQL     | MariaDB               | MySQL                 | MSSQL              | SQLite                | Snowflake             | db2                         | ibmi            |
+|------------------------------------------------------------------------------------|----------------|-----------------------|-----------------------|--------------------|-----------------------|-----------------------|-----------------------------|-----------------|
+| [`STRING`](pathname:///api/v7/interfaces/DataTypes.StringDataTypeConstructor.html) | `VARCHAR(255)` | `VARCHAR(255)`        | `VARCHAR(255)`        | `NVARCHAR(255)`    | `VARCHAR(255)`        | `VARCHAR(255)`        | `VARCHAR(255)`              | `VARCHAR(255)`  |
+| `STRING(100)`                                                                      | `VARCHAR(100)` | `VARCHAR(100)`        | `VARCHAR(100)`        | `NVARCHAR(100)`    | `VARCHAR(100)`        | `VARCHAR(100)`        | `VARCHAR(100)`              | `VARCHAR(100)`  |
+| `STRING.BINARY`                                                                    | `BYTEA`        | `VARCHAR(255) BINARY` | `VARCHAR(255) BINARY` | `BINARY(255)`      | `VARCHAR BINARY(255)` | `VARCHAR(255) BINARY` | `VARCHAR(255) FOR BIT DATA` | `BINARY(255)`   |
+| `STRING(100).BINARY`                                                               | ❌              | `VARCHAR(100) BINARY` | `VARCHAR(100) BINARY` | `BINARY(100)`      | `VARCHAR BINARY(100)` | `VARCHAR(100) BINARY` | `VARCHAR(100) FOR BIT DATA` | `BINARY(100)`   |
+| [`TEXT`](pathname:///api/v7/interfaces/DataTypes.TextDataTypeConstructor.html)     | `TEXT`         | `TEXT`                | `TEXT`                | `NVARCHAR(MAX)`    | `TEXT`                | `TEXT`                | `VARCHAR(32672)`            | `VARCHAR(8192)` |
+| `TEXT('tiny')`                                                                     | ❌              | `TINYTEXT`            | `TINYTEXT`            | `NVARCHAR(256)`    | ❌                     | ❌                     | `VARCHAR(256)`              | `VARCHAR(256)`  |
+| `TEXT('medium')`                                                                   | ❌              | `MEDIUMTEXT`          | `MEDIUMTEXT`          | ❌                  | ❌                     | ❌                     | `VARCHAR(8192)`             | `VARCHAR(8192)` |
+| `TEXT('long')`                                                                     | ❌              | `LONGTEXT`            | `LONGTEXT`            | ❌                  | ❌                     | ❌                     | `CLOB(65536)`               | `CLOB(65536)`   |
+| [`CHAR`](pathname:///api/v7/interfaces/DataTypes.CharDataTypeConstructor.html)     | `CHAR(255)`    | `CHAR(255)`           | `CHAR(255)`           | `CHAR(255)`        | `CHAR(255)`           | `CHAR(255)`           | `CHAR(255)`                 | `CHAR(255)`     |
+| `CHAR(100)`                                                                        | `CHAR(100)`    | `CHAR(100)`           | `CHAR(100)`           | `CHAR(100)`        | `CHAR(100)`           | `CHAR(100)`           | `CHAR(100)`                 | `CHAR(100)`     |
+| `CHAR.BINARY`                                                                      | `BYTEA`        | `CHAR(255) BINARY`    | `CHAR(255) BINARY`    | `CHAR(255) BINARY` | `CHAR BINARY(255)`    | `CHAR(255) BINARY`    | `CHAR(255) BINARY`          | `CLOB(255)`     |
+| `CHAR(100).BINARY`                                                                 | ❌              | `CHAR(100) BINARY`    | `CHAR(100) BINARY`    | `CHAR(100) BINARY` | `CHAR BINARY(100)`    | `CHAR(100) BINARY`    | `CHAR(100) BINARY`          | `CLOB(100)`     |
+| `CITEXT`                                                                           | `CITEXT`       | ❌                     | ❌                     | ❌                  | `TEXT COLLATE NOCASE` | ❌                     | ❌                           | ❌               |
+| `TSVECTOR`                                                                         | `TSVECTOR`     | ❌                     | ❌                     | ❌                  | ❌                     | ❌                     | ❌                           | ❌               |
+
+## Boolean
+
+| Sequelize DataType | PostgreSQL | MariaDB                         | MySQL        | MSSQL | SQLite       | Snowflake | db2       | ibmi       |
+|--------------------|------------|---------------------------------|--------------|-------|--------------|-----------|-----------|------------|
+| `BOOLEAN`          | `BOOLEAN`  | [`TINYINT(1)`][mariadb-tinyint] | `TINYINT(1)` | `BIT` | `TINYINT(1)` | `BOOLEAN` | `BOOLEAN` | `SMALLINT` |
+
+## Integers
+
+| Sequelize DataType                                                                           | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                          | [MySQL][mysql-numeric] | [MSSQL][mssql-ints] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2                  | ibmi                 |
+|----------------------------------------------------------------------------------------------|--------------------------------|-----------------------------------------------------|------------------------|---------------------|----------------------------|--------------------------------|----------------------|----------------------|
+| [`TINYINT`](pathname:///api/v7/interfaces/DataTypes.TinyIntegerDataTypeConstructor.html)     | ❌                              | [`TINYINT`][mariadb-tinyint]                        | `TINYINT`              | `TINYINT`           | ❌                          | `TINYINT`                      | `TINYINT`            | `TINYINT`            |
+| `TINYINT(1)`                                                                                 | ❌                              | `TINYINT(1)`                                        | `TINYINT(1)`           | ❌                   | ❌                          | `TINYINT(1)`                   | ❌                    | `TINYINT(1)`         |
+| `TINYINT.UNSIGNED`                                                                           | ❌                              | `TINYINT UNSIGNED`                                  | `TINYINT UNSIGNED`     | ❌                   | ❌                          | ❌                              | ❌                    | `TINYINT UNSIGNED`   |
+| `TINYINT.ZEROFILL`                                                                           | ❌                              | `TINYINT ZEROFILL`                                  | `TINYINT ZEROFILL`     | ❌                   | ❌                          | ❌                              | ❌                    | `TINYINT ZEROFILL`   |
+| [`SMALLINT`](pathname:///api/v7/interfaces/DataTypes.SmallIntegerDataTypeConstructor.html)   | `SMALLINT`                     | [`SMALLINT`](https://mariadb.com/kb/en/smallint/)   | `SMALLINT`             | `SMALLINT`          | ❌                          | `SMALLINT`                     | `SMALLINT`           | `SMALLINT`           |
+| `SMALLINT(1)`                                                                                | ❌                              | `SMALLINT(1)`                                       | `SMALLINT(1)`          | ❌                   | ❌                          | `SMALLINT(1)`                  | ❌                    | ❌                    |
+| `SMALLINT.UNSIGNED`                                                                          | ❌                              | `SMALLINT UNSIGNED`                                 | `SMALLINT UNSIGNED`    | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+| `SMALLINT.ZEROFILL`                                                                          | ❌                              | `SMALLINT ZEROFILL`                                 | `SMALLINT ZEROFILL`    | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+| [`MEDIUMINT`](pathname:///api/v7/interfaces/DataTypes.MediumIntegerDataTypeConstructor.html) | ❌                              | [`MEDIUMINT`](https://mariadb.com/kb/en/mediumint/) | `MEDIUMINT`            | ❌                   | ❌                          | ❌                              | `MEDIUMINT`          | `MEDIUMINT`          |
+| `MEDIUMINT(1)`                                                                               | ❌                              | `MEDIUMINT(1)`                                      | `MEDIUMINT(1)`         | ❌                   | ❌                          | ❌                              | `MEDIUMINT(1)`       | `MEDIUMINT(1)`       |
+| `MEDIUMINT.UNSIGNED`                                                                         | ❌                              | `MEDIUMINT UNSIGNED`                                | `MEDIUMINT UNSIGNED`   | ❌                   | ❌                          | ❌                              | `MEDIUMINT UNSIGNED` | `MEDIUMINT UNSIGNED` |
+| `MEDIUMINT.ZEROFILL`                                                                         | ❌                              | `MEDIUMINT ZEROFILL`                                | `MEDIUMINT ZEROFILL`   | ❌                   | ❌                          | ❌                              | `MEDIUMINT ZEROFILL` | `MEDIUMINT ZEROFILL` |
+| [`INTEGER`](pathname:///api/v7/interfaces/IntegerDataTypeConstructor.html)                   | `INTEGER`                      | [`INTEGER`](https://mariadb.com/kb/en/integer/)     | `INTEGER`              | `INTEGER`           | `INTEGER`                  | `INTEGER`                      | `INTEGER`            | `INTEGER`            |
+| `INTEGER(1)`                                                                                 | ❌                              | `INTEGER(1)`                                        | `INTEGER(1)`           | ❌                   | ❌                          | `INTEGER(1)`                   | ❌                    | ❌                    |
+| `INTEGER.UNSIGNED`                                                                           | ❌                              | `INTEGER UNSIGNED`                                  | `INTEGER UNSIGNED`     | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+| `INTEGER.ZEROFILL`                                                                           | ❌                              | `INTEGER ZEROFILL`                                  | `INTEGER ZEROFILL`     | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+| [`BIGINT`](pathname:///api/v7/interfaces/DataTypes.BigIntDataTypeConstructor.html)           | `BIGINT`                       | [`BIGINT`](https://mariadb.com/kb/en/bigint/)       | `BIGINT`               | `BIGINT`            | ❌                          | `BIGINT`                       | `BIGINT`             | `BIGINT`             |
+| `BIGINT(1)`                                                                                  | ❌                              | `BIGINT(1)`                                         | `BIGINT(1)`            | ❌                   | ❌                          | `BIGINT(1)`                    | ❌                    | ❌                    |
+| `BIGINT.UNSIGNED`                                                                            | ❌                              | `BIGINT UNSIGNED`                                   | `BIGINT UNSIGNED`      | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+| `BIGINT.ZEROFILL`                                                                            | ❌                              | `BIGINT ZEROFILL`                                   | `BIGINT ZEROFILL`      | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+
+:::caution
+
+The JavaScript [`number`][mdn-number] type can represent ints ranging from [`-9007199254740991`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_SAFE_INTEGER) 
+to [`9007199254740991`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER).
+
+If your SQL type supports integer values outside this range, we recommend using [`bigint`][mdn-bigint] or [`string`][mdn-string] to represent your integers.
+
+:::
+
+:::info
+
+Numeric options can be combined:<br/>
+`DataTypes.INTEGER(1).UNSIGNED.ZEROFILL`will result in a column of type `INTEGER(1) UNSIGNED ZEROFILL` in MySQL.
+
+:::
+
+## Inexact Decimal Numbers
+
+The types in the following table are typically represented as an [IEEE 754 floating point number][ieee-754], like the JavaScript [`number`][mdn-number] type.
+
+| Sequelize DataType                                                                 | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                              | [MySQL][mysql-numeric] | [MSSQL][mssql-inexact-decimals] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2      | ibmi               |
+|------------------------------------------------------------------------------------|--------------------------------|---------------------------------------------------------|------------------------|---------------------------------|----------------------------|--------------------------------|----------|--------------------|
+| [`REAL`](pathname:///api/v7/interfaces/DataTypes.RealDataTypeConstructor.html)     | `REAL`                         | [`REAL`](https://mariadb.com/kb/en/double-precision/)   | `REAL`                 | `REAL`                          | `REAL`                     | `REAL`                         | `REAL`   | `REAL`             |
+| `REAL(11)`                                                                         | ❌                              | `REAL(11)`                                              | `REAL(11)`             | ❌                               | ❌                          | ❌                              | ❌        | ❌                  |
+| `REAL(11, 10)`                                                                     | ❌                              | `REAL(11,10)`                                           | `REAL(11,10)`          | ❌                               | ❌                          | ❌                              | ❌        | ❌                  |
+| `REAL.UNSIGNED`                                                                    | ❌                              | `REAL UNSIGNED`                                         | `REAL UNSIGNED`        | ❌                               | ❌                          | ❌                              | ❌        | ❌                  |
+| `REAL.ZEROFILL`                                                                    | ❌                              | `REAL ZEROFILL`                                         | `REAL ZEROFILL`        | ❌                               | ❌                          | ❌                              | ❌        | ❌                  |
+| [`FLOAT`](pathname:///api/v7/interfaces/DataTypes.FloatDataTypeConstructor.html)   | `FLOAT`                        | [`FLOAT`](https://mariadb.com/kb/en/float/)             |                        |                                 | ❌                          |                                |          |                    |
+| `FLOAT(11)`                                                                        | `FLOAT(11)`                    | `FLOAT(11)`                                             |                        |                                 | ❌                          |                                |          |                    |
+| `FLOAT(11, 10)`                                                                    | ❌                              | `FLOAT(11,10)`                                          |                        |                                 | ❌                          |                                |          |                    |
+| `FLOAT.UNSIGNED`                                                                   | ❌                              | `FLOAT UNSIGNED`                                        |                        |                                 | ❌                          |                                |          |                    |
+| `FLOAT.ZEROFILL`                                                                   | ❌                              | `FLOAT ZEROFILL`                                        |                        |                                 | ❌                          |                                |          |                    |
+| [`DOUBLE`](pathname:///api/v7/interfaces/DataTypes.DoubleDataTypeConstructor.html) | `DOUBLE PRECISION`             | [`DOUBLE PRECISION`](https://mariadb.com/kb/en/double/) | `DOUBLE PRECISION`     | `DOUBLE PRECISION`              | ❌                          | `DOUBLE PRECISION`             | `DOUBLE` | `DOUBLE PRECISION` |
+| `DOUBLE(11)`                                                                       | ❌                              | `DOUBLE PRECISION(11)`                                  |                        |                                 | ❌                          |                                |          |                    |
+| `DOUBLE(11, 10)`                                                                   | ❌                              | `DOUBLE PRECISION(11, 10)`                              |                        |                                 | ❌                          |                                |          |                    |
+| `DOUBLE.UNSIGNED`                                                                  | ❌                              | `DOUBLE PRECISION UNSIGNED`                             |                        |                                 | ❌                          |                                |          |                    |
+| `DOUBLE.ZEROFILL`                                                                  | ❌                              | `DOUBLE PRECISION ZEROFILL`                             |                        |                                 | ❌                          |                                |          |                    |
+
+:::info
+
+Numeric options can be combined:<br/>
+`DataTypes.INTEGER(1).UNSIGNED.ZEROFILL`will result in a column of type `INTEGER(1) UNSIGNED ZEROFILL` in MySQL.
+
+:::
+
+## Exact Decimal Numbers
+
+:::caution
+
+Exact Decimal Numbers are not representable in JavaScript [yet](https://github.com/tc39/proposal-decimal).
+The JavaScript [`number`][mdn-number] type is a double-precision 64-bit binary format [IEEE 754][ieee-754] value, better represented by [Inexact Decimal types](#inexact-decimal-numbers).
+
+To avoid any loss of precision, we recommend using [`string`][mdn-string] to represent Exact Decimal Numbers in JavaScript.
+
+:::
+
+```js
+DataTypes.DECIMAL            // DECIMAL
+DataTypes.DECIMAL(10, 2)     // DECIMAL(10,2)
+```
+
+## Dates
+
+| Sequelize DataType                                                             | PostgreSQL                 | MariaDB       | MySQL         | MSSQL            | SQLite     | Snowflake   | db2            | ibmi        |
+|--------------------------------------------------------------------------------|----------------------------|---------------|---------------|------------------|------------|-------------|----------------|-------------|
+| [`DATE`](pathname:///api/v7/interfaces/DataTypes.DateDataTypeConstructor.html) | `TIMESTAMP WITH TIME ZONE` | `DATETIME`    | `DATETIME`    | `DATETIMEOFFSET` | `DATETIME` | `TIMESTAMP` | `TIMESTAMP`    | `TIMESTAMP` |
+| `DATE(6)`                                                                      | ❌                          | `DATETIME(6)` | `DATETIME(6)` | ❌                | ❌          | ❌           | `TIMESTAMP(6)` | ❌           |
+| `DATEONLY`                                                                     |                            | `DATE`        |               |                  |            |             |                |             |
+| `TIME`                                                                         |                            | `TIME`        |               |                  |            |             |                |             |
+
+:::info
+
+`DATE(6)` will produce a Date with up to 6 digits of precision
+
+:::
+
+### Built-in Default Values for Dates
+
+
+Along with regular [default values](../core-concepts/model-basics.md#default-values), Sequelize provides `DataTypes.NOW` 
+which will use the appropriate native SQL function based on your dialect.
+
+| Sequelize DataType | PostgreSQL | MariaDB | MySQL | MSSQL       | SQLite | Snowflake | db2            | ibmi  |
+|--------------------|------------|---------|-------|-------------|--------|-----------|----------------|-------|
+| `NOW`              | `NOW`      | `NOW`   | `NOW` | `GETDATE()` | `NOW`  | `NOW`     | `CURRENT TIME` | `NOW` |
+
+```javascript
+MyModel.init({
+  myDate: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
+})
+```
+
+## UUIDs
+
+For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL and SQLite, and `CHAR(36)` for MySQL.
+
+| Sequelize DataType | PostgreSQL | MariaDB           | MySQL             | MSSQL      | SQLite | Snowflake     | db2                     | ibmi       |
+|--------------------|------------|-------------------|-------------------|------------|--------|---------------|-------------------------|------------|
+| `UUID`             | `UUID`     | `CHAR(36) BINARY` | `CHAR(36) BINARY` | `CHAR(36)` | `UUID` | `VARCHAR(36)` | `CHAR(36) FOR BIT DATA` | `CHAR(36)` |
+
+### Built-in Default Values for UUID
+
+Sequelize can generate UUIDs automatically for these fields, simply use `DataTypes.UUIDV1` or `DataTypes.UUIDV4` as the default value:
+
+```javascript
+MyModel.init({
+  myUuid: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
+  },
+})
+```
+
+:::caution
+
+The generation of values for `DataTypes.UUIDV1` and `DataTypes.UUIDV4` is done by the Sequelize layer, in JavaScript.
+For this reason, it is only used when interacting with Models. It cannot be used in [migrations](./migrations.md).
+
+If your dialect provides a built-in SQL function to generate UUIDs, you can use `fn` to set a default value on the SQL layer.
+Making it usable with raw queries, and migrations.
+
+```javascript
+import { fn } from '@sequelize/core';
+
+MyModel.init({
+  myUuid: {
+    type: DataTypes.UUID,
+    // 'uuid_generate_v4' is only available in postgres + uuid-ossp
+    // other dialects may support this function under different names.
+    defaultValue: fn('uuid_generate_v4'),
+  },
+})
+```
+
+:::
 
 ## Ranges (PostgreSQL only)
 
@@ -189,4 +397,36 @@ DataTypes.MACADDR                     // MACADDR               PostgreSQL only
 DataTypes.GEOMETRY                    // Spatial column. PostgreSQL (with PostGIS) or MySQL only.
 DataTypes.GEOMETRY('POINT')           // Spatial column with geometry type. PostgreSQL (with PostGIS) or MySQL only.
 DataTypes.GEOMETRY('POINT', 4326)     // Spatial column with geometry type and SRID. PostgreSQL (with PostGIS) or MySQL only.
+
+DataTypes.GEOGRAPHY
+
+DataTypes.HSTORE
+
+DataTypes.VIRTUAL
 ```
+
+## Default values
+
+```typescript
+DataTypes.NOW
+```
+
+[mdn-number]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+[mdn-bigint]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+[mdn-string]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[ieee-754]: https://en.wikipedia.org/wiki/IEEE_754
+
+[postgres-numeric]: https://www.postgresql.org/docs/current/datatype-numeric.html
+
+[mariadb-numeric]: https://mariadb.com/kb/en/data-types-numeric-data-types/
+[mariadb-tinyint]: https://mariadb.com/kb/en/tinyint/
+
+[mysql-numeric]: https://dev.mysql.com/doc/refman/8.0/en/numeric-type-syntax.html
+
+[mssql-ints]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql?view=sql-server-ver15
+[mssql-inexact-decimals]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/float-and-real-transact-sql?view=sql-server-ver15
+
+[sqlite-datatypes]: https://www.sqlite.org/datatype3.html
+
+[snowflake-numeric]: https://docs.snowflake.com/en/sql-reference/data-types-numeric.html
