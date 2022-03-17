@@ -20,6 +20,7 @@ module.exports = {
     'unicorn/prefer-string-replace-all': 'off',
 
     'unicorn/prefer-spread': 'off',
+    'unicorn/no-useless-undefined': 'off',
   },
   overrides: [{
     files: ['*.mdx/**', '*.md/**'],

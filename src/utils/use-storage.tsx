@@ -34,6 +34,7 @@ export type TJsonSerializable = number | boolean | string | null
 type TStorageHook = <T extends TJsonSerializable>(key: string, defaultValue: T) => [T, TStorageSetValue<T>];
 
 let lastHookId = 0;
+
 export function createStorageHook(storage: Storage = new Storage()): TStorageHook {
 
   // window.onstorage only triggers cross-realm. This is used to notify other useLocalStorage on the same page that it changed
@@ -51,7 +52,7 @@ export function createStorageHook(storage: Storage = new Storage()): TStorageHoo
     const defaultValueRef = useRef(Object.freeze(defaultValue));
     const eventTarget = getEventTarget(storage);
 
-    const [value, setValueState] = useState(() => {
+    const [internalValue, setInternalValue] = useState(() => {
       const _value = storage.getItem(key);
 
       if (_value == null) {
@@ -68,10 +69,10 @@ export function createStorageHook(storage: Storage = new Storage()): TStorageHoo
       }
     });
 
-    const currentValue = useRef(value);
-    currentValue.current = value;
+    const currentValue = useRef(internalValue);
+    currentValue.current = internalValue;
 
-    const setValue: TStorageSetValue<T> = useCallback((val: T | ((oldVal: T) => T)) => {
+    const setValue: TStorageSetValue<T> = useCallback((val: T | undefined | ((oldVal: T) => T)) => {
       if (typeof val === 'function') {
         val = val(currentValue.current);
       }
@@ -83,7 +84,7 @@ export function createStorageHook(storage: Storage = new Storage()): TStorageHoo
       // removeItem
       if (val === undefined) {
         currentValue.current = defaultValueRef.current;
-        setValueState(defaultValueRef.current);
+        setInternalValue(defaultValueRef.current);
 
         if (storage.getItem(key) == null) {
           return;
@@ -93,7 +94,7 @@ export function createStorageHook(storage: Storage = new Storage()): TStorageHoo
       } else {
         const stringified = JSON.stringify(val);
         currentValue.current = val;
-        setValueState(val);
+        setInternalValue(val);
 
         if (stringified === storage.getItem(key)) {
           return;
@@ -113,7 +114,7 @@ export function createStorageHook(storage: Storage = new Storage()): TStorageHoo
 
         try {
           if (e.newValue == null) {
-            setValue();
+            setValue(undefined);
 
             return;
           }
@@ -142,17 +143,10 @@ export function createStorageHook(storage: Storage = new Storage()): TStorageHoo
       };
     }, [eventTarget, key, setValue]);
 
-    return [value, setValue];
+    return [internalValue, setValue];
   };
 }
 
-// in non-browser contexts, we fallback to useState
-function useSsrStorageHook<T>(_key: string, defaultValue: T): [T, TStorageSetValue<T>] {
-  return useState<T>(defaultValue);
-}
+export const useLocalStorage: TStorageHook = createStorageHook(localStorage);
 
-export const useLocalStorage: TStorageHook = typeof localStorage === 'undefined' ? useSsrStorageHook
-  : createStorageHook(localStorage);
-
-export const useSessionStorage: TStorageHook = typeof sessionStorage === 'undefined' ? useSsrStorageHook
-  : createStorageHook(sessionStorage);
+export const useSessionStorage: TStorageHook = createStorageHook(sessionStorage);
