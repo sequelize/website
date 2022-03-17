@@ -5,6 +5,7 @@ sidebar_position: 2
 # Data Types
 
 import { DialectTableFilter } from '@site/src/components/dialect-table-filter.tsx';
+import { Deprecated } from '@site/src/components/deprecated.tsx';
 
 Sequelize provides [a lot of built-in data types](https://github.com/sequelize/sequelize/blob/main/src/data-types.js). To access a built-in data type, you must import `DataTypes`:
 
@@ -107,23 +108,21 @@ The types in the following table are typically represented as an [IEEE 754 float
 
 <DialectTableFilter>
 
-| Sequelize DataType                                                                 | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                              | [MySQL][mysql-numeric] | [MSSQL][mssql-inexact-decimals] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2      | ibmi               |
-|------------------------------------------------------------------------------------|--------------------------------|---------------------------------------------------------|------------------------|---------------------------------|----------------------------|--------------------------------|----------|--------------------|
-| [`REAL`](pathname:///api/v7/interfaces/DataTypes.RealDataTypeConstructor.html)     | `REAL`                         | [`REAL`](https://mariadb.com/kb/en/double-precision/)   | `REAL`                 | `REAL`                          | `REAL`                     | `REAL`                         | `REAL`   | `REAL`             |
-| `REAL(11)`                                                                         | ❌                              | `REAL(11)`                                              | `REAL(11)`             | ❌                               | ❌                          | ❌                              | ❌        | ❌                  |
-| `REAL(11, 10)`                                                                     | ❌                              | `REAL(11,10)`                                           | `REAL(11,10)`          | ❌                               | ❌                          | ❌                              | ❌        | ❌                  |
-| `REAL.UNSIGNED`                                                                    | ❌                              | `REAL UNSIGNED`                                         | `REAL UNSIGNED`        | ❌                               | ❌                          | ❌                              | ❌        | ❌                  |
-| `REAL.ZEROFILL`                                                                    | ❌                              | `REAL ZEROFILL`                                         | `REAL ZEROFILL`        | ❌                               | ❌                          | ❌                              | ❌        | ❌                  |
-| [`FLOAT`](pathname:///api/v7/interfaces/DataTypes.FloatDataTypeConstructor.html)   | `FLOAT`                        | [`FLOAT`](https://mariadb.com/kb/en/float/)             |                        |                                 | ❌                          |                                |          |                    |
-| `FLOAT(11)`                                                                        | `FLOAT(11)`                    | `FLOAT(11)`                                             |                        |                                 | ❌                          |                                |          |                    |
-| `FLOAT(11, 10)`                                                                    | ❌                              | `FLOAT(11,10)`                                          |                        |                                 | ❌                          |                                |          |                    |
-| `FLOAT.UNSIGNED`                                                                   | ❌                              | `FLOAT UNSIGNED`                                        |                        |                                 | ❌                          |                                |          |                    |
-| `FLOAT.ZEROFILL`                                                                   | ❌                              | `FLOAT ZEROFILL`                                        |                        |                                 | ❌                          |                                |          |                    |
-| [`DOUBLE`](pathname:///api/v7/interfaces/DataTypes.DoubleDataTypeConstructor.html) | `DOUBLE PRECISION`             | [`DOUBLE PRECISION`](https://mariadb.com/kb/en/double/) | `DOUBLE PRECISION`     | `DOUBLE PRECISION`              | ❌                          | `DOUBLE PRECISION`             | `DOUBLE` | `DOUBLE PRECISION` |
-| `DOUBLE(11)`                                                                       | ❌                              | `DOUBLE PRECISION(11)`                                  |                        |                                 | ❌                          |                                |          |                    |
-| `DOUBLE(11, 10)`                                                                   | ❌                              | `DOUBLE PRECISION(11, 10)`                              |                        |                                 | ❌                          |                                |          |                    |
-| `DOUBLE.UNSIGNED`                                                                  | ❌                              | `DOUBLE PRECISION UNSIGNED`                             |                        |                                 | ❌                          |                                |          |                    |
-| `DOUBLE.ZEROFILL`                                                                  | ❌                              | `DOUBLE PRECISION ZEROFILL`                             |                        |                                 | ❌                          |                                |          |                    |
+| Sequelize DataType                                                                 | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                              | [MySQL][mysql-numeric]               | [MSSQL][mssql-inexact-decimals] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2         | ibmi                        |
+|------------------------------------------------------------------------------------|--------------------------------|---------------------------------------------------------|--------------------------------------|---------------------------------|----------------------------|--------------------------------|-------------|-----------------------------|
+| [`REAL`](pathname:///api/v7/interfaces/DataTypes.RealDataTypeConstructor.html)     | `REAL`                         | [`REAL`](https://mariadb.com/kb/en/double/)             | `REAL`                               | `REAL`                          | `REAL`                     | `REAL`                         | `REAL`      | `REAL`                      |
+| `REAL(11, 10)`                                                                     | ❌                              | `REAL(11,10)`                                           | `REAL(11,10)`                        | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| `REAL.UNSIGNED`                                                                    | ❌                              | `REAL UNSIGNED`                                         | `REAL UNSIGNED`                      | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| `REAL.ZEROFILL`                                                                    | ❌                              | `REAL ZEROFILL`                                         | `REAL ZEROFILL`                      | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| [`FLOAT`](pathname:///api/v7/interfaces/DataTypes.FloatDataTypeConstructor.html)   | `FLOAT`                        | [`FLOAT`](https://mariadb.com/kb/en/float/)             | `FLOAT`                              | `FLOAT`                         | ❌                          | `FLOAT`                        | `FLOAT`     | `FLOAT`                     |
+| `FLOAT(11)`                                                                        | `FLOAT(11)`                    | ❌                                                       | <Deprecated>`FLOAT(11)`</Deprecated> | `FLOAT(11)`                     | ❌                          | ❌                              | `FLOAT(11)` | `FLOAT(11)`                 |
+| `FLOAT(11, 10)`                                                                    | ❌                              | `FLOAT(11,10)`                                          | `FLOAT(11,10)`                       | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| `FLOAT.UNSIGNED`                                                                   | ❌                              | `FLOAT UNSIGNED`                                        | `FLOAT UNSIGNED`                     | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| `FLOAT.ZEROFILL`                                                                   | ❌                              | `FLOAT ZEROFILL`                                        | `FLOAT ZEROFILL`                     | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| [`DOUBLE`](pathname:///api/v7/interfaces/DataTypes.DoubleDataTypeConstructor.html) | `DOUBLE PRECISION`             | [`DOUBLE PRECISION`](https://mariadb.com/kb/en/double/) | `DOUBLE PRECISION`                   | `DOUBLE PRECISION`              | ❌                          | `DOUBLE PRECISION`             | `DOUBLE`    | `DOUBLE PRECISION`          |
+| `DOUBLE(11, 10)`                                                                   | ❌                              | `DOUBLE PRECISION(11, 10)`                              | `DOUBLE PRECISION(11, 10)`           | ❌                               | ❌                          | ❌                              | ❌           | `DOUBLE PRECISION(11, 10)`  |
+| `DOUBLE.UNSIGNED`                                                                  | ❌                              | `DOUBLE PRECISION UNSIGNED`                             | `DOUBLE PRECISION UNSIGNED`          | ❌                               | ❌                          | ❌                              | ❌           | `DOUBLE PRECISION UNSIGNED` |
+| `DOUBLE.ZEROFILL`                                                                  | ❌                              | `DOUBLE PRECISION ZEROFILL`                             | `DOUBLE PRECISION ZEROFILL`          | ❌                               | ❌                          | ❌                              | ❌           | `DOUBLE PRECISION ZEROFILL` |
 
 </DialectTableFilter>
 
@@ -131,6 +130,13 @@ The types in the following table are typically represented as an [IEEE 754 float
 
 Numeric options can be combined:<br/>
 `DataTypes.INTEGER(1).UNSIGNED.ZEROFILL`will result in a column of type `INTEGER(1) UNSIGNED ZEROFILL` in MySQL.
+
+:::
+
+:::caution
+
+The first parameter in `FLOAT(11)` and `FLOAT(11,10)` have different meanings.  
+Refer to your dialect's manual to learn more about the difference.
 
 :::
 
