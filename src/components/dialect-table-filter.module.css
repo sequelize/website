@@ -1,5 +1,6 @@
 .dialectTableWrapper {
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .dialectTableWrapper table {
@@ -8,9 +9,8 @@
 
 .dialectSelector {
   appearance: none;
-  position: absolute;
-  bottom: calc(100% + 21px);
-  right: 0px;
+  margin-left: auto;
+  margin-bottom: 8px;
   cursor: pointer;
   border-radius: 8px;
   font-size: 16px;
