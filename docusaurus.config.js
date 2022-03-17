@@ -62,12 +62,12 @@ const config = {
             position: 'left',
             dropdownItemsAfter: [
               {
-                href: "pathname:///v5",
-                label: "v5",
+                href: 'pathname:///v5',
+                label: 'v5',
               },
               {
-                href: "pathname:///v4",
-                label: "v4",
+                href: 'pathname:///v4',
+                label: 'v4',
               },
               {
                 href: 'pathname:///v3',
