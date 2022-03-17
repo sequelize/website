@@ -1,0 +1,675 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v4/../../">
+  <title data-ice="title">Tutorial |  Sequelize | The node.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
+  <link type="text/css" rel="stylesheet" href="/v4/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v4/css/prettify-tomorrow.css">
+  <script src="/v4/script/prettify/prettify.js"></script>
+  
+  
+  <script src="/v4/script/manual.js"></script>
+<script data-ice="userScript" src="/v4/user/script/0-script.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/0-style.css">
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/1-theme.css">
+<link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header><a href="/v4/"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+  <a href="/v4/./">Home</a>
+  
+  <a href="/v4/identifiers.html">Reference</a>
+  <a href="/v4/source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/sequelize/sequelize.git" class="repo-url-github">Repository</a><a href="http://sequelize-slack.herokuapp.com/" class="slack-link"><img class="slack-logo" src="/v4/manual/asset/slack.svg">Join us on Slack</a>
+  <div class="search-box">
+  <span>
+    <img src="/v4/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual" data-toc-name="installation">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="■■" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html" data-ice="link">Getting started</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#installation" data-ice="link">Installation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#setting-up-a-connection" data-ice="link">Setting up a connection</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#test-the-connection" data-ice="link">Test the connection</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#your-first-model" data-ice="link">Your first model</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#your-first-query" data-ice="link">Your first query</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#application-wide-model-options" data-ice="link">Application wide model options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/getting-started.html"><a href="/v4/manual/installation/getting-started.html#promises" data-ice="link">Promises</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="■■" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html" data-ice="link">Basic usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#options" data-ice="link">Options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#read-replication" data-ice="link">Read replication</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#dialects" data-ice="link">Dialects</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#mysql" data-ice="link">MySQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#sqlite" data-ice="link">SQLite</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#mssql" data-ice="link">MSSQL</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/usage.html"><a href="/v4/manual/installation/usage.html#executing-raw-sql-queries" data-ice="link">Executing raw SQL queries</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="tutorial">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■■" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html" data-ice="link">Model definition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#timestamps" data-ice="link">Timestamps</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#data-types" data-ice="link">Data types</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#array-enum-" data-ice="link">Array(ENUM)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#range-types" data-ice="link">Range types</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#deferrable" data-ice="link">Deferrable</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#getters-setters" data-ice="link">Getters &amp; setters</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#defining-as-part-of-a-property" data-ice="link">Defining as part of a property</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#defining-as-part-of-the-model-options" data-ice="link">Defining as part of the model options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#helper-functions-for-use-inside-getter-and-setter-definitions" data-ice="link">Helper functions for use inside getter and setter definitions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#validations" data-ice="link">Validations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#validators-and-allownull-" data-ice="link">Validators and allowNull</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#model-validations" data-ice="link">Model validations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#configuration" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#import" data-ice="link">Import</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#optimistic-locking" data-ice="link">Optimistic Locking</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#database-synchronization" data-ice="link">Database synchronization</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#expansion-of-models" data-ice="link">Expansion of models</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-definition.html"><a href="/v4/manual/tutorial/models-definition.html#indexes" data-ice="link">Indexes</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■■" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html" data-ice="link">Model usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#data-retrieval-finders" data-ice="link">Data retrieval / Finders</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-find-search-for-one-specific-element-in-the-database" data-ice="link">find - Search for one specific element in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-findorcreate-search-for-a-specific-element-or-create-it-if-not-available" data-ice="link">findOrCreate - Search for a specific element or create it if not available</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-findandcountall-search-for-multiple-elements-in-the-database-returns-both-data-and-total-count" data-ice="link">findAndCountAll - Search for multiple elements in the database, returns both data and total count</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-findall-search-for-multiple-elements-in-the-database" data-ice="link">findAll - Search for multiple elements in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#complex-filtering-or-not-queries" data-ice="link">Complex filtering / OR / NOT queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#manipulating-the-dataset-with-limit-offset-order-and-group" data-ice="link">Manipulating the dataset with limit, offset, order and group</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#raw-queries" data-ice="link">Raw queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-count-count-the-occurrences-of-elements-in-the-database" data-ice="link">count - Count the occurrences of elements in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-max-get-the-greatest-value-of-a-specific-attribute-within-a-specific-table" data-ice="link">max - Get the greatest value of a specific attribute within a specific table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-min-get-the-least-value-of-a-specific-attribute-within-a-specific-table" data-ice="link">min - Get the least value of a specific attribute within a specific table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#-sum-sum-the-value-of-specific-attributes" data-ice="link">sum - Sum the value of specific attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#eager-loading" data-ice="link">Eager loading</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#top-level-where-with-eagerly-loaded-models" data-ice="link">Top level where with eagerly loaded models</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#including-everything" data-ice="link">Including everything</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#including-soft-deleted-records" data-ice="link">Including soft deleted records</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#ordering-eager-loaded-associations" data-ice="link">Ordering Eager Loaded Associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/models-usage.html"><a href="/v4/manual/tutorial/models-usage.html#nested-eager-loading" data-ice="link">Nested eager loading</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■■■" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html" data-ice="link">Querying</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#attributes" data-ice="link">Attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#where" data-ice="link">Where</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#basics" data-ice="link">Basics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#operators" data-ice="link">Operators</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#range-operators" data-ice="link">Range Operators</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#combinations" data-ice="link">Combinations</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#operators-aliases" data-ice="link">Operators Aliases</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#operators-security" data-ice="link">Operators security</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#json" data-ice="link">JSON</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#mssql" data-ice="link">MSSQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#jsonb" data-ice="link">JSONB</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#nested-object" data-ice="link">Nested object</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#nested-key" data-ice="link">Nested key</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#containment" data-ice="link">Containment</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#relations-associations" data-ice="link">Relations / Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#pagination-limiting" data-ice="link">Pagination / Limiting</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#ordering" data-ice="link">Ordering</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/querying.html"><a href="/v4/manual/tutorial/querying.html#table-hint" data-ice="link">Table Hint</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html" data-ice="link">Instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#building-a-non-persistent-instance" data-ice="link">Building a non-persistent instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#creating-persistent-instances" data-ice="link">Creating persistent instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#updating-saving-persisting-an-instance" data-ice="link">Updating / Saving / Persisting an instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#destroying-deleting-persistent-instances" data-ice="link">Destroying / Deleting persistent instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#working-in-bulk-creating-updating-and-destroying-multiple-rows-at-once-" data-ice="link">Working in bulk (creating, updating and destroying multiple rows at once)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#values-of-an-instance" data-ice="link">Values of an instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#reloading-instances" data-ice="link">Reloading instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#incrementing" data-ice="link">Incrementing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/instances.html"><a href="/v4/manual/tutorial/instances.html#decrementing" data-ice="link">Decrementing</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■■■" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#one-to-one-associations" data-ice="link">One-To-One associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#belongsto" data-ice="link">BelongsTo</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#foreign-keys" data-ice="link">Foreign keys</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#target-keys" data-ice="link">Target keys</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#hasone" data-ice="link">HasOne</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#difference-between-hasone-and-belongsto" data-ice="link">Difference between HasOne and BelongsTo</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#one-to-many-associations-hasmany-" data-ice="link">One-To-Many associations (hasMany)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#belongs-to-many-associations" data-ice="link">Belongs-To-Many associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#scopes" data-ice="link">Scopes</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#1-m" data-ice="link">1:m</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#n-m" data-ice="link">n:m</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#naming-strategy" data-ice="link">Naming strategy</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#associating-objects" data-ice="link">Associating objects</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#check-associations" data-ice="link">Check associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#foreign-keys" data-ice="link">Foreign Keys</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#enforcing-a-foreign-key-reference-without-constraints" data-ice="link">Enforcing a foreign key reference without constraints</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#creating-with-associations" data-ice="link">Creating with associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#creating-elements-of-a-belongsto-has-many-or-hasone-association" data-ice="link">Creating elements of a "BelongsTo", "Has Many" or "HasOne" association</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#creating-elements-of-a-belongsto-association-with-an-alias" data-ice="link">Creating elements of a "BelongsTo" association with an alias</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/associations.html"><a href="/v4/manual/tutorial/associations.html#creating-elements-of-a-hasmany-or-belongstomany-association" data-ice="link">Creating elements of a "HasMany" or "BelongsToMany" association</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html" data-ice="link">Transactions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#managed-transaction-auto-callback-" data-ice="link">Managed transaction (auto-callback)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#throw-errors-to-rollback" data-ice="link">Throw errors to rollback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#automatically-pass-transactions-to-all-queries" data-ice="link">Automatically pass transactions to all queries</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#concurrent-partial-transactions" data-ice="link">Concurrent/Partial transactions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#without-cls-enabled" data-ice="link">Without CLS enabled</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#isolation-levels" data-ice="link">Isolation levels</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#unmanaged-transaction-then-callback-" data-ice="link">Unmanaged transaction (then-callback)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#options" data-ice="link">Options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#usage-with-other-sequelize-methods" data-ice="link">Usage with other sequelize methods</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/transactions.html"><a href="/v4/manual/tutorial/transactions.html#after-commit-hook" data-ice="link">After commit hook</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■" data-link="manual/tutorial/scopes.html"><a href="/v4/manual/tutorial/scopes.html" data-ice="link">Scopes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/scopes.html"><a href="/v4/manual/tutorial/scopes.html#definition" data-ice="link">Definition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/scopes.html"><a href="/v4/manual/tutorial/scopes.html#usage" data-ice="link">Usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/scopes.html"><a href="/v4/manual/tutorial/scopes.html#merging" data-ice="link">Merging</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/scopes.html"><a href="/v4/manual/tutorial/scopes.html#associations" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html" data-ice="link">Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#order-of-operations" data-ice="link">Order of Operations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#declaring-hooks" data-ice="link">Declaring Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#removing-hooks" data-ice="link">Removing hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#global-universal-hooks" data-ice="link">Global / universal hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#sequelize-options-define-default-hook-" data-ice="link">Sequelize.options.define (default hook)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#sequelize-addhook-permanent-hook-" data-ice="link">Sequelize.addHook (permanent hook)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#instance-hooks" data-ice="link">Instance hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#model-hooks" data-ice="link">Model hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#associations" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#a-note-about-transactions" data-ice="link">A Note About Transactions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/hooks.html"><a href="/v4/manual/tutorial/hooks.html#internal-transactions" data-ice="link">Internal Transactions</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■" data-link="manual/tutorial/raw-queries.html"><a href="/v4/manual/tutorial/raw-queries.html" data-ice="link">Raw queries</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/raw-queries.html"><a href="/v4/manual/tutorial/raw-queries.html#replacements" data-ice="link">Replacements</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/raw-queries.html"><a href="/v4/manual/tutorial/raw-queries.html#bind-parameter" data-ice="link">Bind Parameter</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■■■" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html" data-ice="link">Migrations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#the-cli" data-ice="link">The CLI</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#installing-cli" data-ice="link">Installing CLI</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#bootstrapping" data-ice="link">Bootstrapping</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#configuration" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#creating-first-model-and-migration-" data-ice="link">Creating first Model (and Migration)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#running-migrations" data-ice="link">Running Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#undoing-migrations" data-ice="link">Undoing Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#creating-first-seed" data-ice="link">Creating First Seed</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#running-seeds" data-ice="link">Running Seeds</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#undoing-seeds" data-ice="link">Undoing Seeds</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#advance-topics" data-ice="link">Advance Topics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#migration-skeleton" data-ice="link">Migration Skeleton</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#the-sequelizerc-file" data-ice="link">The .sequelizerc File</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#dynamic-configuration" data-ice="link">Dynamic Configuration</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#using-environment-variables" data-ice="link">Using Environment Variables</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#specifying-dialect-options" data-ice="link">Specifying Dialect Options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#production-usages" data-ice="link">Production Usages</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#storage" data-ice="link">Storage</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#migration-storage" data-ice="link">Migration Storage</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#seed-storage" data-ice="link">Seed Storage</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#configuration-connection-string" data-ice="link">Configuration Connection String</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#connecting-over-ssl" data-ice="link">Connecting over SSL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#programmatic-use" data-ice="link">Programmatic use</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/migrations.html"><a href="/v4/manual/tutorial/migrations.html#query-interface" data-ice="link">Query Interface</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-tutorial" data-section-count="■■■" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html" data-ice="link">Upgrade to V4</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#changelog" data-ice="link">Changelog</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#breaking-changes" data-ice="link">Breaking Changes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#node" data-ice="link">Node</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#general" data-ice="link">General</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#config-options" data-ice="link">Config / Options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#data-types" data-ice="link">Data Types</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#transactions-cls" data-ice="link">Transactions / CLS</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#raw-queries" data-ice="link">Raw Queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/tutorial/upgrade-to-v4.html"><a href="/v4/manual/tutorial/upgrade-to-v4.html#others" data-ice="link">Others</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="advanced">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-advanced" data-section-count="■■" data-link="manual/advanced/legacy.html"><a href="/v4/manual/advanced/legacy.html" data-ice="link">Working with legacy tables</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/advanced/legacy.html"><a href="/v4/manual/advanced/legacy.html#tables" data-ice="link">Tables</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/advanced/legacy.html"><a href="/v4/manual/advanced/legacy.html#fields" data-ice="link">Fields</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/advanced/legacy.html"><a href="/v4/manual/advanced/legacy.html#primary-keys" data-ice="link">Primary keys</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/advanced/legacy.html"><a href="/v4/manual/advanced/legacy.html#foreign-keys" data-ice="link">Foreign keys</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="reference">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="■■■■■" data-link="identifiers.html"><a href="/v4/identifiers.html" data-ice="link">Reference</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="/v4/identifiers.html#class" data-ice="link">Class</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="/v4/identifiers.html#function" data-ice="link">Function</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="/v4/identifiers.html#variable" data-ice="link">Variable</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="faq">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-faq" data-section-count="■" data-link="manual/faq/whos-using.html"><a href="/v4/manual/faq/whos-using.html" data-ice="link">Who's using sequelize?</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-faq" data-section-count="■" data-link="manual/faq/imprint.html"><a href="/v4/manual/faq/imprint.html" data-ice="link">Imprint</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/faq/imprint.html"><a href="/v4/manual/faq/imprint.html#author-s-" data-ice="link">AUTHOR(S)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/faq/imprint.html"><a href="/v4/manual/faq/imprint.html#inhaltliche-verantwortung" data-ice="link">INHALTLICHE VERANTWORTUNG</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown">
+  <div class="manual-breadcrumb-list">
+    <a href="/v4/./manual/./index.html">Manual</a>
+    <span>»</span>
+    <span data-ice="title">Tutorial</span>
+  </div>
+  <div data-ice="content"><h1 id="querying">Querying</h1>
+<h2 id="attributes">Attributes</h2>
+<p>To select only some attributes, you can use the <code>attributes</code> option. Most often, you pass an array:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Model.findAll({
+  attributes: ['foo', 'bar']
+});</code>
+</code></pre>
+<pre><code class="lang-sql"><code class="source-code prettyprint">SELECT foo, bar ...</code>
+</code></pre>
+<p>Attributes can be renamed using a nested array:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Model.findAll({
+  attributes: ['foo', ['bar', 'baz']]
+});</code>
+</code></pre>
+<pre><code class="lang-sql"><code class="source-code prettyprint">SELECT foo, bar AS baz ...</code>
+</code></pre>
+<p>You can use <code>sequelize.fn</code> to do aggregations:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Model.findAll({
+  attributes: [[sequelize.fn('COUNT', sequelize.col('hats')), 'no_hats']]
+});</code>
+</code></pre>
+<pre><code class="lang-sql"><code class="source-code prettyprint">SELECT COUNT(hats) AS no_hats ...</code>
+</code></pre>
+<p>When using aggregation function, you must give it an alias to be able to access it from the model. In the example above you can get the number of hats with <code>instance.get('no_hats')</code>.</p>
+<p>Sometimes it may be tiresome to list all the attributes of the model if you only want to add an aggregation:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// This is a tiresome way of getting the number of hats...
+Model.findAll({
+  attributes: ['id', 'foo', 'bar', 'baz', 'quz', [sequelize.fn('COUNT', sequelize.col('hats')), 'no_hats']]
+});
+
+// This is shorter, and less error prone because it still works if you add / remove attributes
+Model.findAll({
+  attributes: { include: [[sequelize.fn('COUNT', sequelize.col('hats')), 'no_hats']] }
+});</code>
+</code></pre>
+<pre><code class="lang-sql"><code class="source-code prettyprint">SELECT id, foo, bar, baz, quz, COUNT(hats) AS no_hats ...</code>
+</code></pre>
+<p>Similarly, it's also possible to remove a selected few attributes:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Model.findAll({
+  attributes: { exclude: ['baz'] }
+});</code>
+</code></pre>
+<pre><code class="lang-sql"><code class="source-code prettyprint">SELECT id, foo, bar, quz ...</code>
+</code></pre>
+<h2 id="where">Where</h2>
+<p>Whether you are querying with findAll/find or doing bulk updates/destroys you can pass a <code>where</code> object to filter the query.</p>
+<p><code>where</code> generally takes an object from attribute:value pairs, where value can be primitives for equality matches or keyed objects for other operators.</p>
+<p>It's also possible to generate complex AND/OR conditions by nesting sets of <code>or</code> and <code>and</code> <code>Operators</code>.</p>
+<h3 id="basics">Basics</h3>
+<pre><code class="lang-js"><code class="source-code prettyprint">const Op = Sequelize.Op;
+
+Post.findAll({
+  where: {
+    authorId: 2
+  }
+});
+// SELECT * FROM post WHERE authorId = 2
+
+Post.findAll({
+  where: {
+    authorId: 12,
+    status: 'active'
+  }
+});
+// SELECT * FROM post WHERE authorId = 12 AND status = 'active';
+
+Post.findAll({
+  where: {
+    [Op.or]: [{authorId: 12}, {authorId: 13}]
+  }
+});
+// SELECT * FROM post WHERE authorId = 12 OR authorId = 13;
+
+Post.findAll({
+  where: {
+    authorId: {
+      [Op.or]: [12, 13]
+    }
+  }
+});
+// SELECT * FROM post WHERE authorId = 12 OR authorId = 13;
+
+Post.destroy({
+  where: {
+    status: 'inactive'
+  }
+});
+// DELETE FROM post WHERE status = 'inactive';
+
+Post.update({
+  updatedAt: null,
+}, {
+  where: {
+    deletedAt: {
+      [Op.ne]: null
+    }
+  }
+});
+// UPDATE post SET updatedAt = null WHERE deletedAt NOT NULL;
+
+Post.findAll({
+  where: sequelize.where(sequelize.fn('char_length', sequelize.col('status')), 6)
+});
+// SELECT * FROM post WHERE char_length(status) = 6;</code>
+</code></pre>
+<h3 id="operators">Operators</h3>
+<p>Sequelize exposes symbol operators that can be used for to create more complex comparisons -</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const Op = Sequelize.Op
+
+[Op.and]: {a: 5}           // AND (a = 5)
+[Op.or]: [{a: 5}, {a: 6}]  // (a = 5 OR a = 6)
+[Op.gt]: 6,                // &gt; 6
+[Op.gte]: 6,               // &gt;= 6
+[Op.lt]: 10,               // &lt; 10
+[Op.lte]: 10,              // &lt;= 10
+[Op.ne]: 20,               // != 20
+[Op.eq]: 3,                // = 3
+[Op.not]: true,            // IS NOT TRUE
+[Op.between]: [6, 10],     // BETWEEN 6 AND 10
+[Op.notBetween]: [11, 15], // NOT BETWEEN 11 AND 15
+[Op.in]: [1, 2],           // IN [1, 2]
+[Op.notIn]: [1, 2],        // NOT IN [1, 2]
+[Op.like]: '%hat',         // LIKE '%hat'
+[Op.notLike]: '%hat'       // NOT LIKE '%hat'
+[Op.iLike]: '%hat'         // ILIKE '%hat' (case insensitive) (PG only)
+[Op.notILike]: '%hat'      // NOT ILIKE '%hat'  (PG only)
+[Op.regexp]: '^[h|a|t]'    // REGEXP/~ '^[h|a|t]' (MySQL/PG only)
+[Op.notRegexp]: '^[h|a|t]' // NOT REGEXP/!~ '^[h|a|t]' (MySQL/PG only)
+[Op.iRegexp]: '^[h|a|t]'    // ~* '^[h|a|t]' (PG only)
+[Op.notIRegexp]: '^[h|a|t]' // !~* '^[h|a|t]' (PG only)
+[Op.like]: { [Op.any]: ['cat', 'hat']}
+                       // LIKE ANY ARRAY['cat', 'hat'] - also works for iLike and notLike
+[Op.overlap]: [1, 2]       // &amp;&amp; [1, 2] (PG array overlap operator)
+[Op.contains]: [1, 2]      // @&gt; [1, 2] (PG array contains operator)
+[Op.contained]: [1, 2]     // &lt;@ [1, 2] (PG array contained by operator)
+[Op.any]: [2,3]            // ANY ARRAY[2, 3]::INTEGER (PG only)
+
+[Op.col]: 'user.organization_id' // = "user"."organization_id", with dialect specific column identifiers, PG in this example</code>
+</code></pre>
+<h4 id="range-operators">Range Operators</h4>
+<p>Range types can be queried with all supported operators.</p>
+<p>Keep in mind, the provided range value can
+<a href="/v4/manual/tutorial/models-definition.html#range-types">define the bound inclusion/exclusion</a>
+as well.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// All the above equality and inequality operators plus the following:
+
+[Op.contains]: 2           // @&gt; '2'::integer (PG range contains element operator)
+[Op.contains]: [1, 2]      // @&gt; [1, 2) (PG range contains range operator)
+[Op.contained]: [1, 2]     // &lt;@ [1, 2) (PG range is contained by operator)
+[Op.overlap]: [1, 2]       // &amp;&amp; [1, 2) (PG range overlap (have points in common) operator)
+[Op.adjacent]: [1, 2]      // -|- [1, 2) (PG range is adjacent to operator)
+[Op.strictLeft]: [1, 2]    // &lt;&lt; [1, 2) (PG range strictly left of operator)
+[Op.strictRight]: [1, 2]   // &gt;&gt; [1, 2) (PG range strictly right of operator)
+[Op.noExtendRight]: [1, 2] // &amp;&lt; [1, 2) (PG range does not extend to the right of operator)
+[Op.noExtendLeft]: [1, 2]  // &amp;&gt; [1, 2) (PG range does not extend to the left of operator)</code>
+</code></pre>
+<h4 id="combinations">Combinations</h4>
+<pre><code class="lang-js"><code class="source-code prettyprint">const Op = Sequelize.Op;
+
+{
+  rank: {
+    [Op.or]: {
+      [Op.lt]: 1000,
+      [Op.eq]: null
+    }
+  }
+}
+// rank &lt; 1000 OR rank IS NULL
+
+{
+  createdAt: {
+    [Op.lt]: new Date(),
+    [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000)
+  }
+}
+// createdAt &lt; [timestamp] AND createdAt &gt; [timestamp]
+
+{
+  [Op.or]: [
+    {
+      title: {
+        [Op.like]: 'Boat%'
+      }
+    },
+    {
+      description: {
+        [Op.like]: '%boat%'
+      }
+    }
+  ]
+}
+// title LIKE 'Boat%' OR description LIKE '%boat%'</code>
+</code></pre>
+<h4 id="operators-aliases">Operators Aliases</h4>
+<p>Sequelize allows setting specific strings as aliases for operators -</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const Op = Sequelize.Op;
+const operatorsAliases = {
+  $gt: Op.gt
+}
+const connection = new Sequelize(db, user, pass, { operatorsAliases })
+
+[Op.gt]: 6 // &gt; 6
+$gt: 6 // same as using Op.gt (&gt; 6)</code>
+</code></pre>
+<h4 id="operators-security">Operators security</h4>
+<p>Using Sequelize without any aliases improves security.
+Some frameworks automatically parse user input into js objects and if you fail to sanitize your input it might be possible to inject an Object with string operators to Sequelize.</p>
+<p>Not having any string aliases will make it extremely unlikely that operators could be injected but you should always properly validate and sanitize user input.</p>
+<p>For backward compatibility reasons Sequelize sets the following aliases by default -
+$eq, $ne, $gte, $gt, $lte, $lt, $not, $in, $notIn, $is, $like, $notLike, $iLike, $notILike, $regexp, $notRegexp, $iRegexp, $notIRegexp, $between, $notBetween, $overlap, $contains, $contained, $adjacent, $strictLeft, $strictRight, $noExtendRight, $noExtendLeft, $and, $or, $any, $all, $values, $col</p>
+<p>Currently the following legacy aliases are also set but are planned to be fully removed in the near future -
+ne, not, in, notIn, gte, gt, lte, lt, like, ilike, $ilike, nlike, $notlike, notilike, .., between, !.., notbetween, nbetween, overlap, &amp;&amp;, @&gt;, &lt;@</p>
+<p>For better security it is highly advised to use <code>Sequelize.Op</code> and not depend on any string alias at all. You can limit alias your application will need by setting <code>operatorsAliases</code> option, remember to sanitize user input especially when you are directly passing them to Sequelize methods.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const Op = Sequelize.Op;
+
+//use sequelize without any operators aliases
+const connection = new Sequelize(db, user, pass, { operatorsAliases: false });
+
+//use sequelize with only alias for $and =&gt; Op.and
+const connection2 = new Sequelize(db, user, pass, { operatorsAliases: { $and: Op.and } });</code>
+</code></pre>
+<p>Sequelize will warn you if you're using the default aliases and not limiting them
+if you want to keep using all default aliases (excluding legacy ones) without the warning you can pass the following operatorsAliases option -</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const Op = Sequelize.Op;
+const operatorsAliases = {
+  $eq: Op.eq,
+  $ne: Op.ne,
+  $gte: Op.gte,
+  $gt: Op.gt,
+  $lte: Op.lte,
+  $lt: Op.lt,
+  $not: Op.not,
+  $in: Op.in,
+  $notIn: Op.notIn,
+  $is: Op.is,
+  $like: Op.like,
+  $notLike: Op.notLike,
+  $iLike: Op.iLike,
+  $notILike: Op.notILike,
+  $regexp: Op.regexp,
+  $notRegexp: Op.notRegexp,
+  $iRegexp: Op.iRegexp,
+  $notIRegexp: Op.notIRegexp,
+  $between: Op.between,
+  $notBetween: Op.notBetween,
+  $overlap: Op.overlap,
+  $contains: Op.contains,
+  $contained: Op.contained,
+  $adjacent: Op.adjacent,
+  $strictLeft: Op.strictLeft,
+  $strictRight: Op.strictRight,
+  $noExtendRight: Op.noExtendRight,
+  $noExtendLeft: Op.noExtendLeft,
+  $and: Op.and,
+  $or: Op.or,
+  $any: Op.any,
+  $all: Op.all,
+  $values: Op.values,
+  $col: Op.col
+};
+
+const connection = new Sequelize(db, user, pass, { operatorsAliases });</code>
+</code></pre>
+<h3 id="json">JSON</h3>
+<p>The JSON data type is supported by the PostgreSQL, SQLite and MySQL dialects only. </p>
+<h4 id="postgresql">PostgreSQL</h4>
+<p>The JSON data type in PostgreSQL stores the value as plain text, as opposed to binary representation. If you simply want to store and retrieve a JSON representation, using JSON will take less disk space and less time to build from its input representation. However, if you want to do any operations on the JSON value, you should prefer the JSONB data type described below.</p>
+<h4 id="mssql">MSSQL</h4>
+<p>MSSQL does not have a JSON data type, however it does provide support for JSON stored as strings through certain functions since SQL Server 2016. Using these functions, you will be able to query the JSON stored in the string, but any returned values will need to be parsed seperately. </p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// ISJSON - to test if a string contains valid JSON
+User.findAll({
+  where: sequelize.where(sequelize.fn('ISJSON', sequelize.col('userDetails')), 1)
+})
+
+// JSON_VALUE - extract a scalar value from a JSON string
+User.findAll({
+  attributes: [[ sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), 'address line 1']]
+})
+
+// JSON_VALUE - query a scalar value from a JSON string
+User.findAll({
+  where: sequelize.where(sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), '14, Foo Street')
+})
+
+// JSON_QUERY - extract an object or array
+User.findAll({
+  attributes: [[ sequelize.fn('JSON_QUERY', sequelize.col('userDetails'), '$.address'), 'full address']]
+})</code>
+</code></pre>
+<h3 id="jsonb">JSONB</h3>
+<p>JSONB can be queried in three different ways.</p>
+<h4 id="nested-object">Nested object</h4>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  meta: {
+    video: {
+      url: {
+        [Op.ne]: null
+      }
+    }
+  }
+}</code>
+</code></pre>
+<h4 id="nested-key">Nested key</h4>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  "meta.audio.length": {
+    [Op.gt]: 20
+  }
+}</code>
+</code></pre>
+<h4 id="containment">Containment</h4>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  "meta": {
+    [Op.contains]: {
+      site: {
+        url: 'http://google.com'
+      }
+    }
+  }
+}</code>
+</code></pre>
+<h3 id="relations-associations">Relations / Associations</h3>
+<pre><code class="lang-js"><code class="source-code prettyprint">// Find all projects with a least one task where task.state === project.state
+Project.findAll({
+    include: [{
+        model: Task,
+        where: { state: Sequelize.col('project.state') }
+    }]
+})</code>
+</code></pre>
+<h2 id="pagination-limiting">Pagination / Limiting</h2>
+<pre><code class="lang-js"><code class="source-code prettyprint">// Fetch 10 instances/rows
+Project.findAll({ limit: 10 })
+
+// Skip 8 instances/rows
+Project.findAll({ offset: 8 })
+
+// Skip 5 instances and fetch the 5 after that
+Project.findAll({ offset: 5, limit: 5 })</code>
+</code></pre>
+<h2 id="ordering">Ordering</h2>
+<p><code>order</code> takes an array of items to order the query by or a sequelize method. Generally you will want to use a tuple/array of either attribute, direction or just direction to ensure proper escaping.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">Subtask.findAll({
+  order: [
+    // Will escape title and validate DESC against a list of valid direction parameters
+    ['title', 'DESC'],
+
+    // Will order by max(age)
+    sequelize.fn('max', sequelize.col('age')),
+
+    // Will order by max(age) DESC
+    [sequelize.fn('max', sequelize.col('age')), 'DESC'],
+
+    // Will order by  otherfunction(`col1`, 12, 'lalala') DESC
+    [sequelize.fn('otherfunction', sequelize.col('col1'), 12, 'lalala'), 'DESC'],
+
+    // Will order an associated model's created_at using the model name as the association's name.
+    [Task, 'createdAt', 'DESC'],
+
+    // Will order through an associated model's created_at using the model names as the associations' names.
+    [Task, Project, 'createdAt', 'DESC'],
+
+    // Will order by an associated model's created_at using the name of the association.
+    ['Task', 'createdAt', 'DESC'],
+
+    // Will order by a nested associated model's created_at using the names of the associations.
+    ['Task', 'Project', 'createdAt', 'DESC'],
+
+    // Will order by an associated model's created_at using an association object. (preferred method)
+    [Subtask.associations.Task, 'createdAt', 'DESC'],
+
+    // Will order by a nested associated model's created_at using association objects. (preferred method)
+    [Subtask.associations.Task, Task.associations.Project, 'createdAt', 'DESC'],
+
+    // Will order by an associated model's created_at using a simple association object.
+    [{model: Task, as: 'Task'}, 'createdAt', 'DESC'],
+
+    // Will order by a nested associated model's created_at simple association objects.
+    [{model: Task, as: 'Task'}, {model: Project, as: 'Project'}, 'createdAt', 'DESC']
+  ]
+
+  // Will order by max age descending
+  order: sequelize.literal('max(age) DESC')
+
+  // Will order by max age ascending assuming ascending is the default order when direction is omitted
+  order: sequelize.fn('max', sequelize.col('age'))
+
+  // Will order by age ascending assuming ascending is the default order when direction is omitted
+  order: sequelize.col('age')
+
+  // Will order randomly based on the dialect (instead of fn('RAND') or fn('RANDOM'))
+  order: sequelize.random()
+})</code>
+</code></pre>
+<h2 id="table-hint">Table Hint</h2>
+<p><code>tableHint</code> can be used to optionally pass a table hint when using mssql. The hint must be a value from <code>Sequelize.TableHints</code> and should only be used when absolutely necessary. Only a single table hint is currently supported per query. </p>
+<p>Table hints override the default behavior of mssql query optimizer by specifing certain options. They only affect the table or view referenced in that clause.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const TableHints = Sequelize.TableHints;
+
+Project.findAll({
+  // adding the table hint NOLOCK
+  tableHint: TableHints.NOLOCK
+  // this will generate the SQL 'WITH (NOLOCK)'
+})</code>
+</code></pre>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="/v4/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+
+
+<script src="/v4/script/pretty-print.js"></script>
+
+
+
+<script src="/v4/script/patch-for-local.js"></script>
+
+
+</body></html>
