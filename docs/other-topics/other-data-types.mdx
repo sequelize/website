@@ -2,6 +2,8 @@
 sidebar_position: 2
 ---
 
+import { DialectTableFilter } from '@site/src/components/dialect-table-filter.tsx'; 
+
 # Data Types
 
 Sequelize provides [a lot of built-in data types](https://github.com/sequelize/sequelize/blob/main/src/data-types.js). To access a built-in data type, you must import `DataTypes`:
@@ -23,6 +25,8 @@ A ❌ means the dialect does not support that DataType.
 
 ## Strings
 
+<DialectTableFilter>
+
 | Sequelize DataType                                                                 | PostgreSQL     | MariaDB               | MySQL                 | MSSQL              | SQLite                | Snowflake             | db2                         | ibmi            |
 |------------------------------------------------------------------------------------|----------------|-----------------------|-----------------------|--------------------|-----------------------|-----------------------|-----------------------------|-----------------|
 | [`STRING`](pathname:///api/v7/interfaces/DataTypes.StringDataTypeConstructor.html) | `VARCHAR(255)` | `VARCHAR(255)`        | `VARCHAR(255)`        | `NVARCHAR(255)`    | `VARCHAR(255)`        | `VARCHAR(255)`        | `VARCHAR(255)`              | `VARCHAR(255)`  |
@@ -40,13 +44,21 @@ A ❌ means the dialect does not support that DataType.
 | `CITEXT`                                                                           | `CITEXT`       | ❌                     | ❌                     | ❌                  | `TEXT COLLATE NOCASE` | ❌                     | ❌                           | ❌               |
 | `TSVECTOR`                                                                         | `TSVECTOR`     | ❌                     | ❌                     | ❌                  | ❌                     | ❌                     | ❌                           | ❌               |
 
+</DialectTableFilter>
+
 ## Boolean
+
+<DialectTableFilter>
 
 | Sequelize DataType | PostgreSQL | MariaDB                         | MySQL        | MSSQL | SQLite       | Snowflake | db2       | ibmi       |
 |--------------------|------------|---------------------------------|--------------|-------|--------------|-----------|-----------|------------|
 | `BOOLEAN`          | `BOOLEAN`  | [`TINYINT(1)`][mariadb-tinyint] | `TINYINT(1)` | `BIT` | `TINYINT(1)` | `BOOLEAN` | `BOOLEAN` | `SMALLINT` |
 
+</DialectTableFilter>
+
 ## Integers
+
+<DialectTableFilter>
 
 | Sequelize DataType                                                                           | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                          | [MySQL][mysql-numeric] | [MSSQL][mssql-ints] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2                  | ibmi                 |
 |----------------------------------------------------------------------------------------------|--------------------------------|-----------------------------------------------------|------------------------|---------------------|----------------------------|--------------------------------|----------------------|----------------------|
@@ -71,6 +83,8 @@ A ❌ means the dialect does not support that DataType.
 | `BIGINT.UNSIGNED`                                                                            | ❌                              | `BIGINT UNSIGNED`                                   | `BIGINT UNSIGNED`      | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
 | `BIGINT.ZEROFILL`                                                                            | ❌                              | `BIGINT ZEROFILL`                                   | `BIGINT ZEROFILL`      | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
 
+</DialectTableFilter>
+
 :::caution
 
 The JavaScript [`number`][mdn-number] type can represent ints ranging from [`-9007199254740991`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_SAFE_INTEGER) 
@@ -91,6 +105,8 @@ Numeric options can be combined:<br/>
 
 The types in the following table are typically represented as an [IEEE 754 floating point number][ieee-754], like the JavaScript [`number`][mdn-number] type.
 
+<DialectTableFilter>
+
 | Sequelize DataType                                                                 | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                              | [MySQL][mysql-numeric] | [MSSQL][mssql-inexact-decimals] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2      | ibmi               |
 |------------------------------------------------------------------------------------|--------------------------------|---------------------------------------------------------|------------------------|---------------------------------|----------------------------|--------------------------------|----------|--------------------|
 | [`REAL`](pathname:///api/v7/interfaces/DataTypes.RealDataTypeConstructor.html)     | `REAL`                         | [`REAL`](https://mariadb.com/kb/en/double-precision/)   | `REAL`                 | `REAL`                          | `REAL`                     | `REAL`                         | `REAL`   | `REAL`             |
@@ -108,6 +124,8 @@ The types in the following table are typically represented as an [IEEE 754 float
 | `DOUBLE(11, 10)`                                                                   | ❌                              | `DOUBLE PRECISION(11, 10)`                              |                        |                                 | ❌                          |                                |          |                    |
 | `DOUBLE.UNSIGNED`                                                                  | ❌                              | `DOUBLE PRECISION UNSIGNED`                             |                        |                                 | ❌                          |                                |          |                    |
 | `DOUBLE.ZEROFILL`                                                                  | ❌                              | `DOUBLE PRECISION ZEROFILL`                             |                        |                                 | ❌                          |                                |          |                    |
+
+</DialectTableFilter>
 
 :::info
 
@@ -134,12 +152,16 @@ DataTypes.DECIMAL(10, 2)     // DECIMAL(10,2)
 
 ## Dates
 
+<DialectTableFilter>
+
 | Sequelize DataType                                                             | PostgreSQL                 | MariaDB       | MySQL         | MSSQL            | SQLite     | Snowflake   | db2            | ibmi        |
 |--------------------------------------------------------------------------------|----------------------------|---------------|---------------|------------------|------------|-------------|----------------|-------------|
 | [`DATE`](pathname:///api/v7/interfaces/DataTypes.DateDataTypeConstructor.html) | `TIMESTAMP WITH TIME ZONE` | `DATETIME`    | `DATETIME`    | `DATETIMEOFFSET` | `DATETIME` | `TIMESTAMP` | `TIMESTAMP`    | `TIMESTAMP` |
 | `DATE(6)`                                                                      | ❌                          | `DATETIME(6)` | `DATETIME(6)` | ❌                | ❌          | ❌           | `TIMESTAMP(6)` | ❌           |
 | `DATEONLY`                                                                     |                            | `DATE`        |               |                  |            |             |                |             |
 | `TIME`                                                                         |                            | `TIME`        |               |                  |            |             |                |             |
+
+</DialectTableFilter>
 
 :::info
 
@@ -153,9 +175,13 @@ DataTypes.DECIMAL(10, 2)     // DECIMAL(10,2)
 Along with regular [default values](../core-concepts/model-basics.md#default-values), Sequelize provides `DataTypes.NOW` 
 which will use the appropriate native SQL function based on your dialect.
 
+<DialectTableFilter>
+
 | Sequelize DataType | PostgreSQL | MariaDB | MySQL | MSSQL       | SQLite | Snowflake | db2            | ibmi  |
 |--------------------|------------|---------|-------|-------------|--------|-----------|----------------|-------|
 | `NOW`              | `NOW`      | `NOW`   | `NOW` | `GETDATE()` | `NOW`  | `NOW`     | `CURRENT TIME` | `NOW` |
+
+</DialectTableFilter>
 
 ```javascript
 MyModel.init({
@@ -170,9 +196,13 @@ MyModel.init({
 
 For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL and SQLite, and `CHAR(36)` for MySQL.
 
+<DialectTableFilter>
+
 | Sequelize DataType | PostgreSQL | MariaDB           | MySQL             | MSSQL      | SQLite | Snowflake     | db2                     | ibmi       |
 |--------------------|------------|-------------------|-------------------|------------|--------|---------------|-------------------------|------------|
 | `UUID`             | `UUID`     | `CHAR(36) BINARY` | `CHAR(36) BINARY` | `CHAR(36)` | `UUID` | `VARCHAR(36)` | `CHAR(36) FOR BIT DATA` | `CHAR(36)` |
+
+</DialectTableFilter>
 
 ### Built-in Default Values for UUID
 

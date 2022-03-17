@@ -18,6 +18,8 @@ module.exports = {
     'prefer-object-has-own': 'off',
     'unicorn/prefer-at': 'off',
     'unicorn/prefer-string-replace-all': 'off',
+
+    'unicorn/prefer-spread': 'off',
   },
   overrides: [{
     files: ['*.mdx/**', '*.md/**'],

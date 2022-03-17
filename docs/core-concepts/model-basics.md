@@ -321,8 +321,8 @@ sequelize.define('Foo', {
 
 Sequelize provides a series of built-in default values you can use:
 
-- [`DataTypes.NOW`](../other-topics/other-data-types.md#built-in-default-values-for-dates)
-- [`DataTypes.UUIDV1`, `DataTypes.UUIDV4`](../other-topics/other-data-types.md#built-in-default-values-for-uuid)
+- [`DataTypes.NOW`](../other-topics/other-data-types.mdx#built-in-default-values-for-dates)
+- [`DataTypes.UUIDV1`, `DataTypes.UUIDV4`](../other-topics/other-data-types.mdx#built-in-default-values-for-uuid)
 
 ## Data Types
 
@@ -406,7 +406,7 @@ For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL 
 
 ### Others
 
-There are other data types, covered in a [separate guide](../other-topics/other-data-types.md).
+There are other data types, covered in a [separate guide](../other-topics/other-data-types.mdx).
 
 ## Column Options
 
