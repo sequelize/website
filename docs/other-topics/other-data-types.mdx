@@ -450,6 +450,27 @@ See [the issue about generated columns](https://github.com/sequelize/sequelize/i
 
 :::
 
+## Custom Data Types
+
+Databases support more Data Types that are not covered by the ones built-in in Sequelize. 
+If you need to use such a Data Types, you can [create your own DataType](./extending-data-types.md).
+
+It is also possible to use a raw SQL string as the type of your attribute. 
+This string will be used as-is as the type of your column when creating the table.
+
+```typescript
+User = sequelize.define('user', {
+  password: {
+    type: 'VARBINARY(50)',
+  },
+});
+```
+
+**Caution:** Sequelize will not do any extra type transformation or validation on an attribute declared like this. Use wisely!
+
+And, of course, you can open a feature request in [the Sequelize repository](https://github.com/sequelize/sequelize) 
+to request the addition of a new built-in DataType.
+
 [mdn-number]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
 [mdn-bigint]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
 [mdn-string]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
