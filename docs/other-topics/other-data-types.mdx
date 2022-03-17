@@ -174,12 +174,12 @@ Numeric options can be combined:<br/>
 
 <DialectTableFilter>
 
-| Sequelize DataType                                                             | PostgreSQL                 | MariaDB       | MySQL         | MSSQL            | SQLite     | Snowflake   | db2            | ibmi        |
-|--------------------------------------------------------------------------------|----------------------------|---------------|---------------|------------------|------------|-------------|----------------|-------------|
-| [`DATE`](pathname:///api/v7/interfaces/DataTypes.DateDataTypeConstructor.html) | `TIMESTAMP WITH TIME ZONE` | `DATETIME`    | `DATETIME`    | `DATETIMEOFFSET` | `DATETIME` | `TIMESTAMP` | `TIMESTAMP`    | `TIMESTAMP` |
-| `DATE(6)`                                                                      | ❌                          | `DATETIME(6)` | `DATETIME(6)` | ❌                | ❌          | ❌           | `TIMESTAMP(6)` | ❌           |
-| `DATEONLY`                                                                     |                            | `DATE`        |               |                  |            |             |                |             |
-| `TIME`                                                                         |                            | `TIME`        |               |                  |            |             |                |             |
+| Sequelize DataType                                                             | [PostgreSQL][postgres-temporal] | [MariaDB][mariadb-temporal]                       | [MySQL][mysql-temporal]                                             | MSSQL                                                                                                 | SQLite | [Snowflake][snowflake-temporal] | db2            | ibmi        |
+|--------------------------------------------------------------------------------|---------------------------------|---------------------------------------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|--------|---------------------------------|----------------|-------------|
+| [`DATE`](pathname:///api/v7/interfaces/DataTypes.DateDataTypeConstructor.html) | `TIMESTAMP WITH TIME ZONE`      | [`DATETIME`](https://mariadb.com/kb/en/datetime/) | [`DATETIME`](https://dev.mysql.com/doc/refman/8.0/en/datetime.html) | [`DATETIMEOFFSET`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/datetimeoffset-transact-sql) | ❌      | `TIMESTAMP`                     | `TIMESTAMP`    | `TIMESTAMP` |
+| `DATE(6)`                                                                      | ❌                               | `DATETIME(6)`                                     | `DATETIME(6)`                                                       | ❌                                                                                                     | ❌      | ❌                               | `TIMESTAMP(6)` | ❌           |
+| `DATEONLY`                                                                     | `DATE`                          | [`DATE`](https://mariadb.com/kb/en/date/)         | [`DATE`](https://dev.mysql.com/doc/refman/8.0/en/datetime.html)     | [`DATE`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/date-transact-sql)                     | ❌      | `DATE`                          | `DATE`         | `DATE`      |
+| `TIME`                                                                         | `TIME`                          | [`TIME`](https://mariadb.com/kb/en/time/)         | [`TIME`](https://dev.mysql.com/doc/refman/8.0/en/time.html)         | [`TIME`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/time-transact-sql)                     | ❌      | `TIME`                          | `TIME`         | `TIME`      |
 
 </DialectTableFilter>
 
@@ -190,9 +190,9 @@ which will use the appropriate native SQL function based on your dialect.
 
 <DialectTableFilter>
 
-| Sequelize DataType | PostgreSQL | MariaDB | MySQL | MSSQL       | SQLite | Snowflake | db2            | ibmi  |
-|--------------------|------------|---------|-------|-------------|--------|-----------|----------------|-------|
-| `NOW`              | `NOW`      | `NOW`   | `NOW` | `GETDATE()` | `NOW`  | `NOW`     | `CURRENT TIME` | `NOW` |
+| Sequelize DataType | PostgreSQL                                                           | MariaDB                                 | MySQL                                                                         | MSSQL                                                                                                          | SQLite | Snowflake | db2            | ibmi  |
+|--------------------|----------------------------------------------------------------------|-----------------------------------------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|--------|-----------|----------------|-------|
+| `NOW`              | [`NOW`](https://www.postgresql.org/docs/8.2/functions-datetime.html) | [`NOW`](https://mariadb.com/kb/en/now/) | [`NOW`](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html) | [`GETDATE()`](https://docs.microsoft.com/en-us/sql/t-sql/functions/getdate-transact-sql?view=sql-server-ver15) | ❌      | ❌         | `CURRENT TIME` | `NOW` |
 
 </DialectTableFilter>
 
@@ -211,9 +211,9 @@ For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL 
 
 <DialectTableFilter>
 
-| Sequelize DataType | PostgreSQL | MariaDB           | MySQL             | MSSQL      | SQLite | Snowflake     | db2                     | ibmi       |
-|--------------------|------------|-------------------|-------------------|------------|--------|---------------|-------------------------|------------|
-| `UUID`             | `UUID`     | `CHAR(36) BINARY` | `CHAR(36) BINARY` | `CHAR(36)` | `UUID` | `VARCHAR(36)` | `CHAR(36) FOR BIT DATA` | `CHAR(36)` |
+| Sequelize DataType | PostgreSQL                                                           | MariaDB           | MySQL             | MSSQL      | SQLite | Snowflake     | db2                     | ibmi       |
+|--------------------|----------------------------------------------------------------------|-------------------|-------------------|------------|--------|---------------|-------------------------|------------|
+| `UUID`             | [`UUID`](https://www.postgresql.org/docs/current/datatype-uuid.html) | `CHAR(36) BINARY` | `CHAR(36) BINARY` | `CHAR(36)` | ❌      | `VARCHAR(36)` | `CHAR(36) FOR BIT DATA` | `CHAR(36)` |
 
 </DialectTableFilter>
 
@@ -268,7 +268,95 @@ The blob datatype allows you to insert data both as strings and buffers. However
 
 </DialectTableFilter>
 
-## Ranges (PostgreSQL only)
+## ENUMs
+
+:::note
+
+Enums are only available in [PostgreSQL](https://www.postgresql.org/docs/current/datatype-enum.html), [MariaDB](https://mariadb.com/kb/en/enum/), and [MySQL]((https://dev.mysql.com/doc/refman/8.0/en/enum.html))
+
+:::
+
+The ENUM is a data type that accepts only a few values, specified as a list.
+
+```js
+DataTypes.ENUM('foo', 'bar') // An ENUM with allowed values 'foo' and 'bar'
+```
+
+See [the API Reference for DataTypes.ENUM](pathname:///api/v7/interfaces/DataTypes.EnumDataTypeConstructor.html) for more information about the options this DataType accepts.
+
+## JSON & JSONB
+
+The `DataTypes.JSON` data type is only supported for SQLite, MySQL, MariaDB and PostgreSQL. However, there is a minimum support for MSSQL (see below).
+
+<DialectTableFilter>
+
+| Sequelize DataType | PostgreSQL                                                        | MariaDB                                             | MySQL                                                       | MSSQL | [SQLite][sqlite-datatypes] | Snowflake | db2 | ibmi |
+|--------------------|-------------------------------------------------------------------|-----------------------------------------------------|-------------------------------------------------------------|-------|----------------------------|-----------|-----|------|
+| `JSON`             | [`JSON`](https://www.postgresql.org/docs/9.4/datatype-json.html)  | [`JSON`](https://mariadb.com/kb/en/json-data-type/) | [`JSON`](https://dev.mysql.com/doc/refman/8.0/en/json.html) | ❌     | ❌                          | ❌         | ❌   | ❌    |
+| `JSONB`            | [`JSONB`](https://www.postgresql.org/docs/9.4/datatype-json.html) | ❌                                                   | ❌                                                           | ❌     | ❌                          | ❌         | ❌   | ❌    |
+
+</DialectTableFilter>
+
+The JSON data type in PostgreSQL stores the value as plain text, as opposed to binary representation.
+
+If you simply want to store and retrieve a JSON representation, using JSON will take less disk space and less time to build from its input representation. However, if you want to do any operations on the JSON value, you should prefer the JSONB data type.
+
+:::info Querying JSON
+
+Sequelize provides a special syntax to query the contents of a JSON object. [Read more about querying JSON](../core-concepts/model-querying-basics.md#querying-json).
+
+:::
+
+## Miscellaneous DataTypes
+
+<DialectTableFilter>
+
+| Sequelize DataType                                                                       | PostgreSQL                                                                | [MariaDB](https://mariadb.com/kb/en/geometry-types/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) | MSSQL | SQLite | Snowflake | db2 | ibmi |
+|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|------------------------------------------------------|-----------------------------------------------------------------------------|-------|--------|-----------|-----|------|
+| [`GEOMETRY`](pathname:///api/v7/interfaces/DataTypes.GeometryDataTypeConstructor.html)   | [`GEOMETRY`](https://postgis.net/workshops/postgis-intro/geometries.html) | `GEOMETRY`                                           | `GEOMETRY`                                                                  | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('POINT')`                                                                      | `GEOMETRY(POINT)`                                                         | `POINT`                                              | `POINT`                                                                     | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('POINT', 4326)`                                                                | `GEOMETRY(POINT,4326)`                                                    | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('POLYGON')`                                                                    | `GEOMETRY(POLYGON)`                                                       | `POLYGON`                                            | `POLYGON`                                                                   | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('LINESTRING')`                                                                 | `GEOMETRY(LINESTRING)`                                                    | `LINESTRING`                                         | `LINESTRING`                                                                | ❌     | ❌      | ❌         | ❌   | ❌    |
+| [`GEOGRAPHY`](pathname:///api/v7/interfaces/DataTypes.GeographyDataTypeConstructor.html) | [`GEOGRAPHY`](https://postgis.net/workshops/postgis-intro/geography.html) | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `HSTORE`                                                                                 | [`HSTORE`](https://www.postgresql.org/docs/9.1/hstore.html)               | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
+
+</DialectTableFilter>
+
+:::note
+
+In Postgres, the GEOMETRY and GEOGRAPHY types are implemented by [the PostGIS extension](https://postgis.net/workshops/postgis-intro/geometries.html).
+
+:::
+
+## DataTypes exclusive to PostgreSQL
+
+### Arrays
+
+:::note
+
+[Arrays](https://www.postgresql.org/docs/current/arrays.html) are only available in PostgreSQL.
+
+:::
+
+```typescript
+// Defines an array of DataTypes.SOMETHING.
+DataTypes.ARRAY(/* DataTypes.SOMETHING */)
+
+// VARCHAR(255)[]
+DataTypes.ARRAY(DataTypes.STRING)
+
+// VARCHAR(255)[][]
+DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
+```
+
+### Ranges
+
+:::note
+
+[Ranges](https://www.postgresql.org/docs/current/rangetypes.html) are only available in PostgreSQL.
+
+:::
 
 ```js
 DataTypes.RANGE(DataTypes.INTEGER)    // int4range
@@ -322,7 +410,7 @@ However, retrieved range values always come in the form of an array of objects. 
 
 You will need to call `reload()` after updating an instance with a range type or use the `returning: true` option.
 
-### Special Cases
+#### Special Cases
 
 ```js
 // empty range:
@@ -338,125 +426,29 @@ Timeline.create({ range: [null, new Date(Date.UTC(2016, 0, 1))] });
 Timeline.create({ range: [-Infinity, new Date(Date.UTC(2016, 0, 1))] });
 ```
 
-## ENUMs
+### Network Addresses
 
-The ENUM is a data type that accepts only a few values, specified as a list.
+<DialectTableFilter>
 
-```js
-DataTypes.ENUM('foo', 'bar') // An ENUM with allowed values 'foo' and 'bar'
-```
+| Sequelize DataType | PostgreSQL                                                               | MariaDB | MySQL | MSSQL | SQLite | Snowflake | db2 | ibmi |
+|--------------------|--------------------------------------------------------------------------|---------|-------|-------|--------|-----------|-----|------|
+| `CIDR`             | [`CIDR`](https://www.postgresql.org/docs/9.1/datatype-net-types.html)    | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `INET`             | [`INET`](https://www.postgresql.org/docs/9.1/datatype-net-types.html)    | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `MACADDR`          | [`MACADDR`](https://www.postgresql.org/docs/9.1/datatype-net-types.html) | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
 
-ENUMs can also be specified with the `values` field of the column definition, as follows:
+</DialectTableFilter>
 
-```js
-sequelize.define('foo', {
-  states: {
-    type: DataTypes.ENUM,
-    values: ['active', 'pending', 'deleted']
-  }
-});
-```
+## Virtual
 
-## JSON (SQLite, MySQL, MariaDB and PostgreSQL only)
+`DataTypes.VIRTUAL` is a special DataType used to declare [virtual attributes](../core-concepts/getters-setters-virtuals.md#virtual-fields).
+It does not create an actual column.
 
-The `DataTypes.JSON` data type is only supported for SQLite, MySQL, MariaDB and PostgreSQL. However, there is a minimum support for MSSQL (see below).
+:::caution
 
-### Note for PostgreSQL
+Unlike `GENERATED` columns, `DataTypes.VIRTUAL` columns are handled in the JavaScript Layer. They are not created on the database table.
+See [the issue about generated columns](https://github.com/sequelize/sequelize/issues/12718) to learn more.
 
-The JSON data type in PostgreSQL stores the value as plain text, as opposed to binary representation. If you simply want to store and retrieve a JSON representation, using JSON will take less disk space and less time to build from its input representation. However, if you want to do any operations on the JSON value, you should prefer the JSONB data type described below.
-
-### JSONB (PostgreSQL only)
-
-PostgreSQL also supports a JSONB data type: `DataTypes.JSONB`. It can be queried in three different ways:
-
-```js
-// Nested object
-await Foo.findOne({
-  where: {
-    meta: {
-      video: {
-        url: {
-          [Op.ne]: null
-        }
-      }
-    }
-  }
-});
-
-// Nested key
-await Foo.findOne({
-  where: {
-    "meta.audio.length": {
-      [Op.gt]: 20
-    }
-  }
-});
-
-// Containment
-await Foo.findOne({
-  where: {
-    meta: {
-      [Op.contains]: {
-        site: {
-          url: 'http://google.com'
-        }
-      }
-    }
-  }
-});
-```
-
-### MSSQL
-
-MSSQL does not have a JSON data type, however it does provide some support for JSON stored as strings through certain functions since SQL Server 2016. Using these functions, you will be able to query the JSON stored in the string, but any returned values will need to be parsed seperately.
-
-```js
-// ISJSON - to test if a string contains valid JSON
-await User.findAll({
-  where: sequelize.where(sequelize.fn('ISJSON', sequelize.col('userDetails')), 1)
-});
-
-// JSON_VALUE - extract a scalar value from a JSON string
-await User.findAll({
-  attributes: [[ sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), 'address line 1']]
-});
-
-// JSON_VALUE - query a scalar value from a JSON string
-await User.findAll({
-  where: sequelize.where(sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), '14, Foo Street')
-});
-
-// JSON_QUERY - extract an object or array
-await User.findAll({
-  attributes: [[ sequelize.fn('JSON_QUERY', sequelize.col('userDetails'), '$.address'), 'full address']]
-});
-```
-
-## Others
-
-```js
-DataTypes.ARRAY(/* DataTypes.SOMETHING */)  // Defines an array of DataTypes.SOMETHING. PostgreSQL only.
-
-DataTypes.CIDR                        // CIDR                  PostgreSQL only
-DataTypes.INET                        // INET                  PostgreSQL only
-DataTypes.MACADDR                     // MACADDR               PostgreSQL only
-
-DataTypes.GEOMETRY                    // Spatial column. PostgreSQL (with PostGIS) or MySQL only.
-DataTypes.GEOMETRY('POINT')           // Spatial column with geometry type. PostgreSQL (with PostGIS) or MySQL only.
-DataTypes.GEOMETRY('POINT', 4326)     // Spatial column with geometry type and SRID. PostgreSQL (with PostGIS) or MySQL only.
-
-DataTypes.GEOGRAPHY
-
-DataTypes.HSTORE
-
-DataTypes.VIRTUAL
-```
-
-## Default values
-
-```typescript
-DataTypes.NOW
-```
+:::
 
 [mdn-number]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
 [mdn-bigint]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
@@ -465,11 +457,14 @@ DataTypes.NOW
 [ieee-754]: https://en.wikipedia.org/wiki/IEEE_754
 
 [postgres-numeric]: https://www.postgresql.org/docs/current/datatype-numeric.html
+[postgres-temporal]: https://www.postgresql.org/docs/current/datatype-datetime.html
 
 [mariadb-numeric]: https://mariadb.com/kb/en/data-types-numeric-data-types/
 [mariadb-tinyint]: https://mariadb.com/kb/en/tinyint/
+[mariadb-temporal]: https://mariadb.com/kb/en/date-and-time-data-types/
 
 [mysql-numeric]: https://dev.mysql.com/doc/refman/8.0/en/numeric-type-syntax.html
+[mysql-temporal]: https://dev.mysql.com/doc/refman/8.0/en/date-and-time-types.html
 
 [mssql-ints]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql?view=sql-server-ver15
 [mssql-exact-decimals]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/decimal-and-numeric-transact-sql?view=sql-server-ver15
@@ -478,3 +473,4 @@ DataTypes.NOW
 [sqlite-datatypes]: https://www.sqlite.org/datatype3.html
 
 [snowflake-numeric]: https://docs.snowflake.com/en/sql-reference/data-types-numeric.html
+[snowflake-temporal]: https://docs.snowflake.com/en/sql-reference/data-types-datetime.html
