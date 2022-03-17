@@ -253,6 +253,21 @@ MyModel.init({
 
 :::
 
+## BLOBs
+
+The blob datatype allows you to insert data both as strings and buffers. However, when a blob is retrieved from database with Sequelize, it will always be retrieved as a [Node Buffer](https://nodejs.org/api/buffer.html).
+
+<DialectTableFilter>
+
+| Sequelize DataType                                                             | PostgreSQL | MariaDB      | MySQL        | MSSQL            | [SQLite][sqlite-datatypes] | Snowflake | db2         | ibmi        |
+|--------------------------------------------------------------------------------|------------|--------------|--------------|------------------|----------------------------|-----------|-------------|-------------|
+| [`BLOB`](pathname:///api/v7/interfaces/DataTypes.BlobDataTypeConstructor.html) | `BYTEA`    | `BLOB`       | `BLOB`       | `VARBINARY(MAX)` | `BLOB`                     | ❌         | `BLOB`      | `BLOB(1M)`  |
+| `BLOB('tiny')`                                                                 | ❌          | `TINYBLOB`   | `TINYBLOB`   | `VARBINARY(256)` | ❌                          | ❌         | `BLOB(255)` | `BLOB(255)` |
+| `BLOB('medium')`                                                               | ❌          | `MEDIUMBLOB` | `MEDIUMBLOB` | ❌                | ❌                          | ❌         | `BLOB(16M)` | `BLOB(16M)` |
+| `BLOB('medium')`                                                               | ❌          | `LONGBLOB`   | `LONGBLOB`   | ❌                | ❌                          | ❌         | `BLOB(2G)`  | `BLOB(2G)`  |
+
+</DialectTableFilter>
+
 ## Ranges (PostgreSQL only)
 
 ```js
@@ -322,17 +337,6 @@ Timeline.create({ range: [null, new Date(Date.UTC(2016, 0, 1))] });
 // range = '[-infinity,"2016-01-01 00:00:00+00:00")'
 Timeline.create({ range: [-Infinity, new Date(Date.UTC(2016, 0, 1))] });
 ```
-
-## BLOBs
-
-```js
-DataTypes.BLOB                // BLOB (bytea for PostgreSQL)
-DataTypes.BLOB('tiny')        // TINYBLOB (bytea for PostgreSQL)
-DataTypes.BLOB('medium')      // MEDIUMBLOB (bytea for PostgreSQL)
-DataTypes.BLOB('long')        // LONGBLOB (bytea for PostgreSQL)
-```
-
-The blob datatype allows you to insert data both as strings and as buffers. However, when a blob is retrieved from database with Sequelize, it will always be retrieved as a buffer.
 
 ## ENUMs
 
