@@ -147,6 +147,16 @@ export function createStorageHook(storage: Storage = new Storage()): TStorageHoo
   };
 }
 
-export const useLocalStorage: TStorageHook = createStorageHook(localStorage);
+function ssrHook<T extends TJsonSerializable>(key: string, defaultValue: T): [T, TStorageSetValue<T>] {
+  return [defaultValue, () => {
+    throw new Error('setState is not supposed to be called server-side.');
+  }];
+}
 
-export const useSessionStorage: TStorageHook = createStorageHook(sessionStorage);
+export const useLocalStorage: TStorageHook = typeof window !== 'undefined' && typeof localStorage !== 'undefined'
+  ? createStorageHook(localStorage)
+  : ssrHook;
+
+export const useSessionStorage: TStorageHook = typeof window !== 'undefined' && typeof localStorage !== 'undefined'
+? createStorageHook(sessionStorage)
+: ssrHook;
