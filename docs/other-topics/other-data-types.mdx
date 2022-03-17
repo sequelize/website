@@ -126,13 +126,6 @@ The types in the following table are typically represented as an [IEEE 754 float
 
 </DialectTableFilter>
 
-:::info
-
-Numeric options can be combined:<br/>
-`DataTypes.INTEGER(1).UNSIGNED.ZEROFILL`will result in a column of type `INTEGER(1) UNSIGNED ZEROFILL` in MySQL.
-
-:::
-
 :::caution
 
 The first parameter in `FLOAT(11)` and `FLOAT(11,10)` have different meanings.  
@@ -140,7 +133,26 @@ Refer to your dialect's manual to learn more about the difference.
 
 :::
 
+:::info
+
+Numeric options can be combined:<br/>
+`DataTypes.INTEGER(1).UNSIGNED.ZEROFILL`will result in a column of type `INTEGER(1) UNSIGNED ZEROFILL` in MySQL.
+
+:::
+
 ## Exact Decimal Numbers
+
+<DialectTableFilter>
+
+| Sequelize DataType                                                                   | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                      | [MySQL][mysql-numeric] | [MSSQL][mssql-exact-decimals] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2              | ibmi             |
+|--------------------------------------------------------------------------------------|--------------------------------|-------------------------------------------------|------------------------|-------------------------------|----------------------------|--------------------------------|------------------|------------------|
+| [`DECIMAL`](pathname:///api/v7/interfaces/DataTypes.DecimalDataTypeConstructor.html) | `DECIMAL`                      | [`DECIMAL`](https://mariadb.com/kb/en/decimal/) | `DECIMAL`              | `DECIMAL`                     | `DECIMAL`                  | `DECIMAL`                      | `DECIMAL`        | `DECIMAL`        |
+| `DECIMAL(11)`                                                                        | `DECIMAL(11)`                  | `DECIMAL(11)`                                   | `DECIMAL(11)`          | `DECIMAL(11)`                 | ❌                          | `DECIMAL(11)`                  | `DECIMAL(11)`    | `DECIMAL(11)`    |
+| `DECIMAL(11, 10)`                                                                    | `DECIMAL(11, 10)`              | `DECIMAL(11,10)`                                | `DECIMAL(11,10)`       | `DECIMAL(11,10)`              | ❌                          | `DECIMAL(11,10)`               | `DECIMAL(11,10)` | `DECIMAL(11,10)` |
+| `DECIMAL.UNSIGNED`                                                                   | ❌                              | `DECIMAL UNSIGNED`                              | `DECIMAL UNSIGNED`     | ❌                             | ❌                          | ❌                              | ❌                | ❌                |
+| `DECIMAL.ZEROFILL`                                                                   | ❌                              | `DECIMAL ZEROFILL`                              | `DECIMAL ZEROFILL`     | ❌                             | ❌                          | ❌                              | ❌                | ❌                |
+
+</DialectTableFilter>
 
 :::caution
 
@@ -151,10 +163,12 @@ To avoid any loss of precision, we recommend using [`string`][mdn-string] to rep
 
 :::
 
-```js
-DataTypes.DECIMAL            // DECIMAL
-DataTypes.DECIMAL(10, 2)     // DECIMAL(10,2)
-```
+:::info
+
+Numeric options can be combined:<br/>
+`DataTypes.INTEGER(1).UNSIGNED.ZEROFILL`will result in a column of type `INTEGER(1) UNSIGNED ZEROFILL` in MySQL.
+
+:::
 
 ## Dates
 
@@ -169,14 +183,7 @@ DataTypes.DECIMAL(10, 2)     // DECIMAL(10,2)
 
 </DialectTableFilter>
 
-:::info
-
-`DATE(6)` will produce a Date with up to 6 digits of precision
-
-:::
-
 ### Built-in Default Values for Dates
-
 
 Along with regular [default values](../core-concepts/model-basics.md#default-values), Sequelize provides `DataTypes.NOW` 
 which will use the appropriate native SQL function based on your dialect.
@@ -195,7 +202,7 @@ MyModel.init({
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
   },
-})
+});
 ```
 
 ## UUIDs
@@ -220,7 +227,7 @@ MyModel.init({
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
   },
-})
+});
 ```
 
 :::caution
@@ -241,7 +248,7 @@ MyModel.init({
     // other dialects may support this function under different names.
     defaultValue: fn('uuid_generate_v4'),
   },
-})
+});
 ```
 
 :::
@@ -403,22 +410,22 @@ MSSQL does not have a JSON data type, however it does provide some support for J
 // ISJSON - to test if a string contains valid JSON
 await User.findAll({
   where: sequelize.where(sequelize.fn('ISJSON', sequelize.col('userDetails')), 1)
-})
+});
 
 // JSON_VALUE - extract a scalar value from a JSON string
 await User.findAll({
   attributes: [[ sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), 'address line 1']]
-})
+});
 
 // JSON_VALUE - query a scalar value from a JSON string
 await User.findAll({
   where: sequelize.where(sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), '14, Foo Street')
-})
+});
 
 // JSON_QUERY - extract an object or array
 await User.findAll({
   attributes: [[ sequelize.fn('JSON_QUERY', sequelize.col('userDetails'), '$.address'), 'full address']]
-})
+});
 ```
 
 ## Others
@@ -461,6 +468,7 @@ DataTypes.NOW
 [mysql-numeric]: https://dev.mysql.com/doc/refman/8.0/en/numeric-type-syntax.html
 
 [mssql-ints]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql?view=sql-server-ver15
+[mssql-exact-decimals]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/decimal-and-numeric-transact-sql?view=sql-server-ver15
 [mssql-inexact-decimals]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/float-and-real-transact-sql?view=sql-server-ver15
 
 [sqlite-datatypes]: https://www.sqlite.org/datatype3.html
