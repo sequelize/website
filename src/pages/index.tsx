@@ -4,6 +4,7 @@ import Layout from "@theme/Layout";
 import clsx from "clsx";
 import React from "react";
 import HomepageFeatures from "../components/homepage-features";
+import HomepageUsage from "../components/homepage-usage";
 import styles from "./index.module.css";
 
 function HomepageHeader() {
@@ -61,6 +62,7 @@ export default function Home(): JSX.Element {
     >
       <HomepageHeader />
       <main>
+        <HomepageUsage />
         <HomepageFeatures />
       </main>
     </Layout>

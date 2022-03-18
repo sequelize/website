@@ -1,0 +1,32 @@
+.usage {
+  background-color: #02afef;
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+  counter-reset: headlines 0;
+}
+
+.usage h2 {
+  color: white;
+  text-transform: uppercase;
+  /* text-align: center; */
+  counter-increment: headlines 1;
+}
+
+.usage h2:before {
+  content: counter(headlines) ". ";
+}
+
+.usageRow {
+  justify-content: center;
+}
+
+.usageSection {
+  width: 800px;
+}
+
+.featureSvg {
+  height: 200px;
+  width: 200px;
+}
