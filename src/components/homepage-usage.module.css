@@ -26,6 +26,13 @@
   width: 800px;
 }
 
+@media screen and (max-width: 800px) {
+  .usageSection {
+    width: calc(100% - 40px);
+    margin: 0 20px;
+  }
+}
+
 .featureSvg {
   height: 200px;
   width: 200px;
