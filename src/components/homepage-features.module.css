@@ -3,9 +3,11 @@
   align-items: center;
   padding: 2rem 0;
   width: 100%;
+  background-color: #3B76C3;
+  color: white;
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.codeBlock {
+  text-align: left;
+  font-size: 0.8em;
 }

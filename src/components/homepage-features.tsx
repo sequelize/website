@@ -1,55 +1,91 @@
-import clsx from 'clsx';
-import React from 'react';
-import styles from './homepage-features.module.css';
+import clsx from "clsx";
+import React from "react";
+import styles from "./homepage-features.module.css";
+import CodeBlock from "@theme/CodeBlock";
+import { trim } from "../models/string";
 
 type FeatureItem = {
-  title: string,
-  image: string,
-  description: JSX.Element,
+  title: string;
+  description: JSX.Element;
+  code: string;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    image: '/img/undraw_docusaurus_mountain.svg',
+    title: "Data Modeling",
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Define your models with ease and make optional use of automatic database
+        synchronization.
       </>
     ),
+    code: `
+      const Wishlist = sequelize.define("Wishlist", {
+        title: Sequelize.STRING,
+      });
+      const Wish = sequelize.define("Wish", {
+        title: Sequelize.STRING,
+        quantity: Sequelize.NUMBER,
+      });
+
+      // Automatically create all tables
+      await sequelize.sync();
+    `,
   },
   {
-    title: 'Focus on What Matters',
-    image: '/img/undraw_docusaurus_tree.svg',
+    title: "Associations",
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Define associations between models and let Sequelize handle the heavy
+        lifting.
       </>
     ),
+    code: `
+      Wish.belongsTo(Wishlist);
+      Wishlist.hasMany(Wish);
+
+      const wishlist = await Wishlist.findOne();
+      const wishes = await wishlist.getWishes();
+      const wish = await wishlist.createWish({ 
+        title: 'Toys', quantity: 3,
+      });
+
+      await wishlist.removeWish(wish);
+    `,
   },
   {
-    title: 'Powered by React',
-    image: '/img/undraw_docusaurus_react.svg',
+    title: "Soft deletion",
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Mark data as deleted instead of removing it once and for all from the database.
       </>
     ),
+    code: `
+      const User = sequelize.define("User", 
+        { username: Sequelize.STRING },
+        { paranoid: true, },
+      });
+
+      const user = await User.findOne();
+
+      await user.destroy();
+      await User.findAll(); // non-deleted only
+      await User.findAll({ paranoid: false }); // all
+    `,
   },
 ];
 
-function Feature({ title, image, description }: FeatureItem) {
+function Feature({ title, description, code }: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <img className={styles.featureSvg} alt={title} src={image} />
-      </div>
+    <div className={clsx("col col--4")}>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>
+      </div>
+      <div>
+        <CodeBlock language="js" className={styles.codeBlock}>
+          {trim(code)}
+        </CodeBlock>
       </div>
     </div>
   );

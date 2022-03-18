@@ -1,10 +1,24 @@
 import clsx from "clsx";
 import React from "react";
-import styles from "./homepage-usage.module.css";
+import styles from "./homepage-users.module.css";
 import CodeBlock from "@theme/CodeBlock";
-import { trim } from "../models/string";
 
-export default function HomepageUsage(): JSX.Element {
+function getPadding(lines: String[]) {
+  const line = lines[0] === "" ? lines[1] : lines[0];
+  return line.match(/^\s*/)![0].length;
+}
+
+function trim(strings: TemplateStringsArray) {
+  const lines = strings.flatMap((s) => s.split("\n"));
+  const padding = getPadding(lines);
+
+  return lines
+    .map((s) => s.substring(padding))
+    .join("\n")
+    .trim();
+}
+
+export default function HomepageUsers(): JSX.Element {
   return (
     <section className={styles.usage}>
       <div className="container">
