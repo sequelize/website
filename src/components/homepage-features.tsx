@@ -2,7 +2,7 @@ import CodeBlock from '@theme/CodeBlock';
 import clsx from 'clsx';
 import React from 'react';
 import { trim } from '../models/string';
-import styles from './homepage-features.module.css';
+import styles from './homepage-features.module.scss';
 
 type FeatureItem = {
   title: string,
@@ -63,7 +63,7 @@ const FeatureList: FeatureItem[] = [
     code: `
       const User = sequelize.define("User", 
         { username: Sequelize.STRING },
-        { paranoid: true, },
+        { paranoid: true },
       });
 
       const user = await User.findOne();
@@ -77,16 +77,14 @@ const FeatureList: FeatureItem[] = [
 
 function Feature({ title, description, code }: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx('col col--4', styles.col)}>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
-      <div>
-        <CodeBlock language="js" className={styles.codeBlock}>
-          {trim(code)}
-        </CodeBlock>
-      </div>
+      <CodeBlock language="js" className={styles.codeBlock}>
+        {trim(code)}
+      </CodeBlock>
     </div>
   );
 }
@@ -95,7 +93,7 @@ export default function HomepageFeatures(): JSX.Element {
   return (
     <section className={styles.features}>
       <div className="container">
-        <div className="row">
+        <div className={clsx('row', styles.row)}>
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
           ))}

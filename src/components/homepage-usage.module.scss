@@ -1,8 +1,10 @@
+@use '../css/variables' as *;
+
 .usage {
-  background-color: #02afef;
+  background-color: $brand-primary-light;
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  padding: fluid($min-screen-size, $container-max-width, 32px, 64px) 16px;
   width: 100%;
   counter-reset: headlines 0;
 }
@@ -12,10 +14,10 @@
   text-transform: uppercase;
   /* text-align: center; */
   counter-increment: headlines 1;
-}
 
-.usage h2:before {
-  content: counter(headlines) ". ";
+  &::before {
+    content: counter(headlines) ". ";
+  }
 }
 
 .usageRow {
@@ -23,14 +25,8 @@
 }
 
 .usageSection {
-  width: 800px;
-}
-
-@media screen and (max-width: 800px) {
-  .usageSection {
-    width: calc(100% - 40px);
-    margin: 0 20px;
-  }
+  max-width: 800px;
+  width: 100%;
 }
 
 .featureSvg {

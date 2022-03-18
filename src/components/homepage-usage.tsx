@@ -2,7 +2,7 @@ import CodeBlock from '@theme/CodeBlock';
 import clsx from 'clsx';
 import React from 'react';
 import { trim } from '../models/string';
-import styles from './homepage-usage.module.css';
+import styles from './homepage-usage.module.scss';
 
 export default function HomepageUsage(): JSX.Element {
   return (
@@ -13,8 +13,9 @@ export default function HomepageUsage(): JSX.Element {
             <h2>Install dependencies</h2>
             <CodeBlock language="bash">
               {trim`
-                $ npm install sequelize sqlite3
-                $ yarn add sequelize sqlite3
+                npm install sequelize sqlite3
+                # or
+                yarn add sequelize sqlite3
               `}
             </CodeBlock>
           </div>

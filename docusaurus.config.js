@@ -14,6 +14,7 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   organizationName: 'sequelize',
   projectName: 'sequelize',
+  plugins: ['docusaurus-plugin-sass'],
   presets: [
     [
       'classic',
@@ -40,7 +41,7 @@ const config = {
           },
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve('./src/css/custom.scss'),
         },
       },
     ],

@@ -1,13 +1,9 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+@use '../css/variables' as *;
 
 .heroBanner {
-  background-color: #f7f6f0;
-  color: #333;
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-color-content-secondary);
   padding: 4rem 0;
-  text-align: center;
   position: relative;
   overflow: hidden;
   text-align: left;
@@ -22,6 +18,12 @@
   height: 300px;
 }
 
+.heroSubtitle {
+  font-size: fluid(800px, $container-max-width, 16px, 24px);
+
+  //  24
+}
+
 .textContainer {
   margin-left: 3em;
   display: flex;
@@ -29,26 +31,34 @@
   justify-content: center;
 }
 
-.buttons {
+.buttons, .buttonGroup {
   display: flex;
+  gap: 16px;
 }
 
-.buttons > * {
-  margin-right: 1em;
-  /* box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.25); */
-  border: 1px solid rgba(0, 0, 0, 0.05);
+.buttons {
+  flex-wrap: wrap;
+}
+
+.buttonGroup {
+  flex: 1;
+
+  & > * {
+    flex: 1;
+    /* box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.25); */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
 }
 
 .supportButton {
   background-color: #1dbf73;
-  color: white !important;
 }
 
 .supportButton:hover {
   filter: brightness(0.9);
 }
 
-@media screen and (max-width: 800px) {
+@media (width < 800px) {
   .heroBanner {
     padding: 2rem 0;
   }
@@ -61,16 +71,12 @@
     display: none;
   }
 
-  .heroBannerContainer p {
-    font-size: 1em !important;
-  }
-
   .buttons {
     flex-direction: column;
   }
 
-  .buttons > * {
-    margin: 0 0 0.5em 0;
+  .buttonGroup {
+    flex-wrap: wrap;
   }
 
   .textContainer {

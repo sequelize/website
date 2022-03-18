@@ -6,46 +6,50 @@ import React from 'react';
 import HomepageFeatures from '../components/homepage-features';
 import HomepageUsage from '../components/homepage-usage';
 import HomepageUsers from '../components/homepage-users';
-import styles from './index.module.css';
+import css from './index.module.scss';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className={clsx('container', styles.heroBannerContainer)}>
+    <header className={clsx('hero hero--primary', css.heroBanner)}>
+      <div className={clsx('container', css.heroBannerContainer)}>
         <img src="/img/logo.svg" className="container-logo" />
-        <div className={styles.textContainer}>
+        <div className={css.textContainer}>
           <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
-          <div className={styles.buttons}>
-            <Link
-              className="button button--primary button--lg"
-              to="/docs/v6/getting-started"
-            >
-              Getting Started
-            </Link>
+          <p className={css.heroSubtitle}>{siteConfig.tagline}</p>
+          <div className={css.buttons}>
+            <div className={css.buttonGroup}>
+              <Link
+                className="button button--primary button--lg"
+                to="/docs/v6/getting-started"
+              >
+                Getting Started
+              </Link>
 
-            <Link
-              className="button button--secondary button--lg"
-              to="/docs/v6/getting-started"
-            >
-              API Reference
-            </Link>
+              <Link
+                className="button button--secondary button--lg"
+                to="/docs/v6/getting-started"
+              >
+                API Reference
+              </Link>
+            </div>
 
-            <Link
-              className="button button--secondary button--lg"
-              to="/docs/v6/other-topics/upgrade-to-v6"
-            >
-              Upgrade to V6
-            </Link>
+            <div className={css.buttonGroup}>
+              <Link
+                className="button button--secondary button--lg"
+                to="/docs/v6/other-topics/upgrade-to-v6"
+              >
+                Upgrade to V6
+              </Link>
 
-            <Link
-              className={clsx('button button--secondary button--lg', styles.supportButton)}
-              to="https://opencollective.com/sequelize"
-            >
-              Support us
-            </Link>
+              <Link
+                className={clsx('button button--secondary button--lg', css.supportButton)}
+                to="https://opencollective.com/sequelize"
+              >
+                Support us
+              </Link>
+            </div>
           </div>
         </div>
       </div>
