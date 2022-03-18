@@ -28,22 +28,22 @@ A ❌ means the dialect does not support that DataType.
 
 <DialectTableFilter>
 
-| Sequelize DataType                                                                 | PostgreSQL     | MariaDB               | MySQL                 | MSSQL              | SQLite                | Snowflake             | db2                         | ibmi            |
-|------------------------------------------------------------------------------------|----------------|-----------------------|-----------------------|--------------------|-----------------------|-----------------------|-----------------------------|-----------------|
-| [`STRING`](pathname:///api/v7/interfaces/DataTypes.StringDataTypeConstructor.html) | `VARCHAR(255)` | `VARCHAR(255)`        | `VARCHAR(255)`        | `NVARCHAR(255)`    | `VARCHAR(255)`        | `VARCHAR(255)`        | `VARCHAR(255)`              | `VARCHAR(255)`  |
-| `STRING(100)`                                                                      | `VARCHAR(100)` | `VARCHAR(100)`        | `VARCHAR(100)`        | `NVARCHAR(100)`    | `VARCHAR(100)`        | `VARCHAR(100)`        | `VARCHAR(100)`              | `VARCHAR(100)`  |
-| `STRING.BINARY`                                                                    | `BYTEA`        | `VARCHAR(255) BINARY` | `VARCHAR(255) BINARY` | `BINARY(255)`      | `VARCHAR BINARY(255)` | `VARCHAR(255) BINARY` | `VARCHAR(255) FOR BIT DATA` | `BINARY(255)`   |
-| `STRING(100).BINARY`                                                               | ❌              | `VARCHAR(100) BINARY` | `VARCHAR(100) BINARY` | `BINARY(100)`      | `VARCHAR BINARY(100)` | `VARCHAR(100) BINARY` | `VARCHAR(100) FOR BIT DATA` | `BINARY(100)`   |
-| [`TEXT`](pathname:///api/v7/interfaces/DataTypes.TextDataTypeConstructor.html)     | `TEXT`         | `TEXT`                | `TEXT`                | `NVARCHAR(MAX)`    | `TEXT`                | `TEXT`                | `VARCHAR(32672)`            | `VARCHAR(8192)` |
-| `TEXT('tiny')`                                                                     | ❌              | `TINYTEXT`            | `TINYTEXT`            | `NVARCHAR(256)`    | ❌                     | ❌                     | `VARCHAR(256)`              | `VARCHAR(256)`  |
-| `TEXT('medium')`                                                                   | ❌              | `MEDIUMTEXT`          | `MEDIUMTEXT`          | ❌                  | ❌                     | ❌                     | `VARCHAR(8192)`             | `VARCHAR(8192)` |
-| `TEXT('long')`                                                                     | ❌              | `LONGTEXT`            | `LONGTEXT`            | ❌                  | ❌                     | ❌                     | `CLOB(65536)`               | `CLOB(65536)`   |
-| [`CHAR`](pathname:///api/v7/interfaces/DataTypes.CharDataTypeConstructor.html)     | `CHAR(255)`    | `CHAR(255)`           | `CHAR(255)`           | `CHAR(255)`        | `CHAR(255)`           | `CHAR(255)`           | `CHAR(255)`                 | `CHAR(255)`     |
-| `CHAR(100)`                                                                        | `CHAR(100)`    | `CHAR(100)`           | `CHAR(100)`           | `CHAR(100)`        | `CHAR(100)`           | `CHAR(100)`           | `CHAR(100)`                 | `CHAR(100)`     |
-| `CHAR.BINARY`                                                                      | `BYTEA`        | `CHAR(255) BINARY`    | `CHAR(255) BINARY`    | `CHAR(255) BINARY` | `CHAR BINARY(255)`    | `CHAR(255) BINARY`    | `CHAR(255) BINARY`          | `CLOB(255)`     |
-| `CHAR(100).BINARY`                                                                 | ❌              | `CHAR(100) BINARY`    | `CHAR(100) BINARY`    | `CHAR(100) BINARY` | `CHAR BINARY(100)`    | `CHAR(100) BINARY`    | `CHAR(100) BINARY`          | `CLOB(100)`     |
-| `CITEXT`                                                                           | `CITEXT`       | ❌                     | ❌                     | ❌                  | `TEXT COLLATE NOCASE` | ❌                     | ❌                           | ❌               |
-| `TSVECTOR`                                                                         | `TSVECTOR`     | ❌                     | ❌                     | ❌                  | ❌                     | ❌                     | ❌                           | ❌               |
+| Sequelize DataType                                                                 | PostgreSQL                                                      | MariaDB                            | MySQL                        | MSSQL                          | [SQLite][sqlite-datatypes] | [Snowflake](https://docs.snowflake.com/en/sql-reference/data-types-text.html) | db2                         | ibmi            |
+|------------------------------------------------------------------------------------|-----------------------------------------------------------------|------------------------------------|------------------------------|--------------------------------|----------------------------|-------------------------------------------------------------------------------|-----------------------------|-----------------|
+| [`STRING`](pathname:///api/v7/interfaces/DataTypes.StringDataTypeConstructor.html) | [`VARCHAR(255)`][postgres-char]                                 | [`VARCHAR(255)`][mariadb-varchar]  | [`VARCHAR(255)`][mysql-char] | [`NVARCHAR(255)`][mssql-nchar] | `VARCHAR(255)`             | `VARCHAR(255)`                                                                | `VARCHAR(255)`              | `VARCHAR(255)`  |
+| `STRING(100)`                                                                      | `VARCHAR(100)`                                                  | `VARCHAR(100)`                     | `VARCHAR(100)`               | `NVARCHAR(100)`                | `VARCHAR(100)`             | `VARCHAR(100)`                                                                | `VARCHAR(100)`              | `VARCHAR(100)`  |
+| `STRING.BINARY`                                                                    | [`BYTEA`][postgres-binary]                                      | `VARCHAR(255) BINARY`              | `VARCHAR(255) BINARY`        | [`BINARY(255)`][mssql-binary]  | `VARCHAR BINARY(255)`      | `VARCHAR(255) BINARY`                                                         | `VARCHAR(255) FOR BIT DATA` | `BINARY(255)`   |
+| `STRING(100).BINARY`                                                               | ❌                                                               | `VARCHAR(100) BINARY`              | `VARCHAR(100) BINARY`        | `BINARY(100)`                  | `VARCHAR BINARY(100)`      | `VARCHAR(100) BINARY`                                                         | `VARCHAR(100) FOR BIT DATA` | `BINARY(100)`   |
+| [`TEXT`](pathname:///api/v7/interfaces/DataTypes.TextDataTypeConstructor.html)     | [`TEXT`][postgres-char]                                         | [`TEXT`][mariadb-text]             | [`TEXT`][mysql-text]         | `NVARCHAR(MAX)`                | `TEXT`                     | `TEXT`                                                                        | `VARCHAR(32672)`            | `VARCHAR(8192)` |
+| `TEXT('tiny')`                                                                     | ❌                                                               | [`TINYTEXT`][mariadb-tinytext]     | [`TINYTEXT`][mysql-text]     | `NVARCHAR(256)`                | ❌                          | ❌                                                                             | `VARCHAR(256)`              | `VARCHAR(256)`  |
+| `TEXT('medium')`                                                                   | ❌                                                               | [`MEDIUMTEXT`][mariadb-mediumtext] | [`MEDIUMTEXT`][mysql-text]   | ❌                              | ❌                          | ❌                                                                             | `VARCHAR(8192)`             | `VARCHAR(8192)` |
+| `TEXT('long')`                                                                     | ❌                                                               | [`LONGTEXT`][mariadb-longtext]     | [`LONGTEXT`][mysql-text]     | ❌                              | ❌                          | ❌                                                                             | `CLOB(65536)`               | `CLOB(65536)`   |
+| [`CHAR`](pathname:///api/v7/interfaces/DataTypes.CharDataTypeConstructor.html)     | [`CHAR(255)`][postgres-char]                                    | [`CHAR(255)`][mariadb-char]        | [`CHAR(255)`][mysql-char]    | [`CHAR(255)`][mssql-char]      | `CHAR(255)`                | `CHAR(255)`                                                                   | `CHAR(255)`                 | `CHAR(255)`     |
+| `CHAR(100)`                                                                        | `CHAR(100)`                                                     | `CHAR(100)`                        | `CHAR(100)`                  | `CHAR(100)`                    | `CHAR(100)`                | `CHAR(100)`                                                                   | `CHAR(100)`                 | `CHAR(100)`     |
+| `CHAR.BINARY`                                                                      | `BYTEA`                                                         | `CHAR(255) BINARY`                 | `CHAR(255) BINARY`           | `CHAR(255) BINARY`             | `CHAR BINARY(255)`         | `CHAR(255) BINARY`                                                            | `CHAR(255) BINARY`          | `CLOB(255)`     |
+| `CHAR(100).BINARY`                                                                 | ❌                                                               | `CHAR(100) BINARY`                 | `CHAR(100) BINARY`           | `CHAR(100) BINARY`             | `CHAR BINARY(100)`         | `CHAR(100) BINARY`                                                            | `CHAR(100) BINARY`          | `CLOB(100)`     |
+| `CITEXT`                                                                           | [`CITEXT`](https://www.postgresql.org/docs/current/citext.html) | ❌                                  | ❌                            | ❌                              | `TEXT COLLATE NOCASE`      | ❌                                                                             | ❌                           | ❌               |
+| `TSVECTOR`                                                                         | [`TSVECTOR`][postgres-tsvector]                                 | ❌                                  | ❌                            | ❌                              | ❌                          | ❌                                                                             | ❌                           | ❌               |
 
 </DialectTableFilter>
 
@@ -51,9 +51,9 @@ A ❌ means the dialect does not support that DataType.
 
 <DialectTableFilter>
 
-| Sequelize DataType | PostgreSQL | MariaDB                         | MySQL        | MSSQL | SQLite       | Snowflake | db2       | ibmi       |
-|--------------------|------------|---------------------------------|--------------|-------|--------------|-----------|-----------|------------|
-| `BOOLEAN`          | `BOOLEAN`  | [`TINYINT(1)`][mariadb-tinyint] | `TINYINT(1)` | `BIT` | `TINYINT(1)` | `BOOLEAN` | `BOOLEAN` | `SMALLINT` |
+| Sequelize DataType | PostgreSQL                                                                 | MariaDB                         | MySQL                         | MSSQL                                                                                                 | SQLite                           | Snowflake                                                                        | db2       | ibmi       |
+|--------------------|----------------------------------------------------------------------------|---------------------------------|-------------------------------|-------------------------------------------------------------------------------------------------------|----------------------------------|----------------------------------------------------------------------------------|-----------|------------|
+| `BOOLEAN`          | [`BOOLEAN`](https://www.postgresql.org/docs/current/datatype-boolean.html) | [`TINYINT(1)`][mariadb-tinyint] | [`TINYINT(1)`][mysql-numeric] | [`BIT`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/bit-transact-sql?view=sql-server-ver15) | [`TINYINT(1)`][sqlite-datatypes] | [`BOOLEAN`](https://docs.snowflake.com/en/sql-reference/data-types-logical.html) | `BOOLEAN` | `SMALLINT` |
 
 </DialectTableFilter>
 
@@ -477,16 +477,31 @@ to request the addition of a new built-in DataType.
 
 [ieee-754]: https://en.wikipedia.org/wiki/IEEE_754
 
+[postgres-char]: https://www.postgresql.org/docs/current/datatype-character.html
+[postgres-binary]: https://www.postgresql.org/docs/9.0/datatype-binary.html
+[postgres-tsvector]: https://www.postgresql.org/docs/10/datatype-textsearch.html
 [postgres-numeric]: https://www.postgresql.org/docs/current/datatype-numeric.html
 [postgres-temporal]: https://www.postgresql.org/docs/current/datatype-datetime.html
 
+[mariadb-varchar]: https://mariadb.com/kb/en/varchar/
+[mariadb-char]: https://mariadb.com/kb/en/char/
+[mariadb-text]: https://mariadb.com/kb/en/text/
+[mariadb-tinytext]: https://mariadb.com/kb/en/tinytext/
+[mariadb-mediumtext]: https://mariadb.com/kb/en/mediumtext/
+[mariadb-longtext]: https://mariadb.com/kb/en/longtext/
 [mariadb-numeric]: https://mariadb.com/kb/en/data-types-numeric-data-types/
 [mariadb-tinyint]: https://mariadb.com/kb/en/tinyint/
 [mariadb-temporal]: https://mariadb.com/kb/en/date-and-time-data-types/
 
+[mysql-char]: https://dev.mysql.com/doc/refman/8.0/en/char.html
+[mysql-text]: https://dev.mysql.com/doc/refman/8.0/en/blob.html
 [mysql-numeric]: https://dev.mysql.com/doc/refman/8.0/en/numeric-type-syntax.html
 [mysql-temporal]: https://dev.mysql.com/doc/refman/8.0/en/date-and-time-types.html
 
+[mssql-char]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/char-and-varchar-transact-sql?view=sql-server-ver15
+[mssql-nchar]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql?view=sql-server-ver15
+[mssql-text]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/ntext-text-and-image-transact-sql?view=sql-server-ver15
+[mssql-binary]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/binary-and-varbinary-transact-sql?view=sql-server-ver15
 [mssql-ints]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql?view=sql-server-ver15
 [mssql-exact-decimals]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/decimal-and-numeric-transact-sql?view=sql-server-ver15
 [mssql-inexact-decimals]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/float-and-real-transact-sql?view=sql-server-ver15
