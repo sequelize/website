@@ -1,21 +1,6 @@
 import clsx from 'clsx';
-import type { CSSProperties } from 'react';
 import React from 'react';
 import styles from './homepage-users.module.scss';
-
-type User = {
-  image: string,
-  style?: CSSProperties,
-};
-
-const users: User[] = [
-  { image: 'bitovi-logo.png', style: { paddingBottom: '10px' } },
-  { image: 'ermeshotels-logo.png' },
-  { image: 'metamarkets.png' },
-  { image: 'logo-snaplytics-green.png' },
-  { image: 'shutterstock.png' },
-  { image: 'walmart-labs-logo.png' },
-];
 
 export default function HomepageUsers(): JSX.Element {
   return (
