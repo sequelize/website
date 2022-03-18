@@ -118,6 +118,11 @@ const config = {
             label: 'GitHub',
             position: 'right',
           },
+          {
+            href: 'https://github.com/sequelize/sequelize/blob/main/SECURITY.md',
+            label: 'Security',
+            position: 'right',
+          },
         ],
       },
       footer: {
@@ -163,6 +168,10 @@ const config = {
               {
                 label: 'Changelog',
                 href: 'https://github.com/sequelize/sequelize/releases',
+              },
+              {
+                label: 'Security',
+                href: 'https://github.com/sequelize/sequelize/blob/main/SECURITY.md',
               },
             ],
           },
