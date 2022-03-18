@@ -1,5 +1,5 @@
-.usage {
-  background-color: #2E3B69;
+.users {
+  background-color: #2e3b69;
   display: flex;
   align-items: center;
   padding: 2rem 0;
@@ -7,33 +7,27 @@
   counter-reset: headlines 0;
 }
 
-.usage h2 {
+.users h2 {
   color: white;
   text-transform: uppercase;
-  /* text-align: center; */
-  counter-increment: headlines 1;
+  text-align: center;
 }
 
-.usage h2:before {
-  content: counter(headlines) ". ";
+.userRow {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  margin: 40px 0 0 0;
 }
 
-.usageRow {
+.userCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
-.usageSection {
-  width: 800px;
-}
-
-@media screen and (max-width: 800px) {
-  .usageSection {
-    width: calc(100% - 40px);
-    margin: 0 20px;
-  }
-}
-
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.userRow img {
+  max-height: 50px;
+  width: auto;
 }
