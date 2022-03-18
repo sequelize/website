@@ -1,18 +1,18 @@
-import clsx from "clsx";
-import React from "react";
-import styles from "./homepage-features.module.css";
-import CodeBlock from "@theme/CodeBlock";
-import { trim } from "../models/string";
+import CodeBlock from '@theme/CodeBlock';
+import clsx from 'clsx';
+import React from 'react';
+import { trim } from '../models/string';
+import styles from './homepage-features.module.css';
 
 type FeatureItem = {
-  title: string;
-  description: JSX.Element;
-  code: string;
+  title: string,
+  description: JSX.Element,
+  code: string,
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: "Data Modeling",
+    title: 'Data Modeling',
     description: (
       <>
         Define your models with ease and make optional use of automatic database
@@ -33,7 +33,7 @@ const FeatureList: FeatureItem[] = [
     `,
   },
   {
-    title: "Associations",
+    title: 'Associations',
     description: (
       <>
         Define associations between models and let Sequelize handle the heavy
@@ -54,7 +54,7 @@ const FeatureList: FeatureItem[] = [
     `,
   },
   {
-    title: "Soft deletion",
+    title: 'Soft deletion',
     description: (
       <>
         Mark data as deleted instead of removing it once and for all from the database.
@@ -77,7 +77,7 @@ const FeatureList: FeatureItem[] = [
 
 function Feature({ title, description, code }: FeatureItem) {
   return (
-    <div className={clsx("col col--4")}>
+    <div className={clsx('col col--4')}>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>

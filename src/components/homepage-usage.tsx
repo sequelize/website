@@ -1,14 +1,14 @@
-import clsx from "clsx";
-import React from "react";
-import styles from "./homepage-usage.module.css";
-import CodeBlock from "@theme/CodeBlock";
-import { trim } from "../models/string";
+import CodeBlock from '@theme/CodeBlock';
+import clsx from 'clsx';
+import React from 'react';
+import { trim } from '../models/string';
+import styles from './homepage-usage.module.css';
 
 export default function HomepageUsage(): JSX.Element {
   return (
     <section className={styles.usage}>
       <div className="container">
-        <div className={clsx("row", styles.usageRow)}>
+        <div className={clsx('row', styles.usageRow)}>
           <div className={styles.usageSection}>
             <h2>Install dependencies</h2>
             <CodeBlock language="bash">
