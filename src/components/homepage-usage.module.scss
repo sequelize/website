@@ -1,0 +1,35 @@
+@use '../css/variables' as *;
+
+.usage {
+  background-color: $brand-primary-light;
+  display: flex;
+  align-items: center;
+  padding: fluid($min-screen-size, $container-max-width, 32px, 64px) 16px;
+  width: 100%;
+  counter-reset: headlines 0;
+}
+
+.usage h2 {
+  color: white;
+  text-transform: uppercase;
+  /* text-align: center; */
+  counter-increment: headlines 1;
+
+  &::before {
+    content: counter(headlines) ". ";
+  }
+}
+
+.usageRow {
+  justify-content: center;
+}
+
+.usageSection {
+  max-width: 800px;
+  width: 100%;
+}
+
+.featureSvg {
+  height: 200px;
+  width: 200px;
+}

@@ -1,0 +1,60 @@
+@use './variables' as *;
+
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #{$brand-primary};
+  --ifm-color-secondary: #ddd;
+  --ifm-color-primary-dark: #{$brand-primary-dark};
+  --ifm-color-primary-darker: rgb(31, 165, 136);
+  --ifm-color-primary-darkest: rgb(26, 136, 112);
+  --ifm-color-primary-light: rgb(70, 203, 174);
+  --ifm-color-primary-lighter: rgb(102, 212, 189);
+  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-code-font-size: 95%;
+
+  &[data-theme="dark"] {
+    --ifm-color-primary: #{$brand-primary-light};
+  }
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.footer__copyright {
+  margin-top: 16px;
+}
+
+.footer--dark {
+  background: #13233D;
+}
+
+.footer--dark .col.footer__col {
+  text-align: center;
+}
+
+/* replace the negative margin hack with 'gap', which also supports vertical gap */
+.row {
+  gap: var(--ifm-spacing-horizontal);
+  margin: 0;
+}
+
+/* .col.col allows us to increase the specificity by 1, instead of using !important which can only be used once */
+.row .col.col {
+  padding: 0;
+  /* since padding was 'inside' the border-box, but gap is 'outside' of it, subtract the new gap from the max size */
+  max-width: calc(var(--ifm-col-width) - var(--ifm-spacing-horizontal));
+}

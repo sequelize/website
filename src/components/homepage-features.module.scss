@@ -1,0 +1,26 @@
+@use '../css/variables' as *;
+
+.features {
+  display: flex;
+  align-items: center;
+  padding: fluid($min-screen-size, $container-max-width, 32px, 64px) 0;
+  width: 100%;
+  background-color: $brand-primary;
+  color: white;
+}
+
+.row {
+  row-gap: 32px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.codeBlock {
+  text-align: left;
+  font-size: 0.8rem;
+  margin-top: auto;
+  margin-bottom: 0;
+}
