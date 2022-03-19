@@ -22,7 +22,7 @@ function joinUrl (base, path) {
 }
 
 function formatResult (location, title, summary) {
-  return '<article><h3><a href="' + joinUrl(base_url, location) + '">'+ title + '</a></h3><p>' + summary +'</p></article>';
+  return '<article><h3><a href="/v2/' + joinUrl(base_url, location) + '">'+ title + '</a></h3><p>' + summary +'</p></article>';
 }
 
 function displayResults (results) {
