@@ -428,11 +428,78 @@ WHERE (
 )
 ```
 
+### Querying JSON
+
+JSON can be queried in three different ways:
+
+```js
+// Nested object
+await Foo.findOne({
+  where: {
+    meta: {
+      video: {
+        url: {
+          [Op.ne]: null
+        }
+      }
+    }
+  }
+});
+
+// Nested key
+await Foo.findOne({
+  where: {
+    "meta.audio.length": {
+      [Op.gt]: 20
+    }
+  }
+});
+
+// Containment
+await Foo.findOne({
+  where: {
+    meta: {
+      [Op.contains]: {
+        site: {
+          url: 'http://google.com'
+        }
+      }
+    }
+  }
+});
+```
+
+#### MSSQL
+
+MSSQL does not have a JSON data type, however it does provide some support for JSON stored as strings through certain functions since SQL Server 2016. Using these functions, you will be able to query the JSON stored in the string, but any returned values will need to be parsed seperately.
+
+```js
+// ISJSON - to test if a string contains valid JSON
+await User.findAll({
+  where: sequelize.where(sequelize.fn('ISJSON', sequelize.col('userDetails')), 1)
+});
+
+// JSON_VALUE - extract a scalar value from a JSON string
+await User.findAll({
+  attributes: [[ sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), 'address line 1']]
+});
+
+// JSON_VALUE - query a scalar value from a JSON string
+await User.findAll({
+  where: sequelize.where(sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), '14, Foo Street')
+});
+
+// JSON_QUERY - extract an object or array
+await User.findAll({
+  attributes: [[ sequelize.fn('JSON_QUERY', sequelize.col('userDetails'), '$.address'), 'full address']]
+});
+```
+
 ### Postgres-only Range Operators
 
 Range types can be queried with all supported operators.
 
-Keep in mind, the provided range value can [define the bound inclusion/exclusion](../other-topics/other-data-types.md#ranges-postgresql-only) as well.
+Keep in mind, the provided range value can [define the bound inclusion/exclusion](../other-topics/other-data-types.mdx#ranges-postgresql-only) as well.
 
 ```js
 [Op.contains]: 2,            // @> '2'::integer  (PG range contains element operator)

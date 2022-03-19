@@ -1,0 +1,9 @@
+.deprecated {
+  display: inline-flex;
+  align-items: center;
+}
+
+.trashIcon {
+  stroke: #ed3966;
+  margin-right: 2px;
+}
