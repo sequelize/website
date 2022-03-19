@@ -1,0 +1,222 @@
+<!DOCTYPE html><html>
+<!-- Mirrored from localhost:3000/blog/state-of-v1-7-0 by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head><title>Sequelize - Blog - State of v1.7.0</title><link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"><link rel="stylesheet" href="../stylesheets/style.css"><script src="../javascripts/jquery-1.10.2.min.js"></script><script>fromGithub = function (partialId, url) {
+  var $partial = $("#" + partialId)
+
+  $partial.load(url, function () {
+    hljs.highlightBlock($partial.get(0));
+  });
+}</script></head><body><div role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-liquid"><div class="col-sm-3 navbar-left"><section><a href="../index.html" class="navbar-brand"><img src="../images/logo-small.png"><span>Sequelize</span></a><div class="clearfix"></div></section></div><div class="col-sm-8 navbar-right"><section><button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="navbar-collapse collapse"><ul class="nav navbar-nav"></ul><ul class="nav navbar-nav navbar-right"><li><a href="../index.html"><span class="glyphicon glyphicon-home"></span><span class="spacer">&nbsp;</span><span class="text">Home</span></a></li><li><a href="../docs/1.7.8/installation.html"><span class="glyphicon glyphicon-info-sign"></span><span class="spacer">&nbsp;</span><span class="text">Docs</span></a></li><li><a href="../articles/getting-started.html"><span class="glyphicon glyphicon-book"></span><span class="spacer">&nbsp;</span><span class="text">Articles</span></a></li><li class="active"><a href="../blog.html"><span class="glyphicon glyphicon-comment"></span><span class="spacer">&nbsp;</span><span class="text">Blog</span></a></li><li><a href="../search.html" class="search"><i class="fa fa-search"></i><span class="spacer">&nbsp;</span><span class="text">Search</span></a></li></ul></div></section></div></div></div><div class="container-liquid"><div class="row documentation"><div class="col-sm-2 mid-blue sidebar"><div class="headline-spacer"></div><section class="navigation"><ul><li class="active"><a href="state-of-v1-7-0.html">State of v1.7.0</a><ul><li><a href="state-of-v1-7-0.html#introduction">Introduction</a></li><li><a href="state-of-v1-7-0.html#validator-upgrade">[DEPENDENCIES] Upgraded validator for IPv6 support</a></li><li><a href="state-of-v1-7-0.html#lodash">[DEPENDENCIES] replaced underscore by lodash</a></li><li><a href="state-of-v1-7-0.html#validate-before-save">[FEATURE] Validate a model before it gets saved</a></li><li><a href="state-of-v1-7-0.html#schematics">[FEATURE] Schematics</a></li><li><a href="state-of-v1-7-0.html#foreign-keys">[FEATURE] Foreign key constraints</a></li><li><a href="state-of-v1-7-0.html#bulk-support">[FEATURE] Support for bulk insert/update/delete</a></li><li><a href="state-of-v1-7-0.html#data-types">[FEATURE] Added convenient data types</a></li><li><a href="state-of-v1-7-0.html#binary">[FEATURE] Binary is more verbose now</a></li><li><a href="state-of-v1-7-0.html#promises">[FEATURE] Promises/A support</a></li><li><a href="state-of-v1-7-0.html#getters-setters">[FEATURE] Added Getters/Setters method for DAO</a></li><li><a href="state-of-v1-7-0.html#model-validations">[FEATURE] Added model wide validations</a></li><li><a href="state-of-v1-7-0.html#bug-fixes">Bug-Fixes</a></li></ul></li><li><a href="v1-6-0-Eager-loading-enums-performance.html">v1.6.0 - Eager loading, enums, ...</a></li><li><a href="changes-in-sequelize-v1-4-1.html">Changes in Sequelize v1.4.1</a></li><li><a href="changes-in-sequelize-v1-4-0.html">Changes in Sequelize v1.4.0</a></li><li><a href="changes-in-sequelize-v1-3-0.html">Changes in Sequelize v1.3.0</a></li><li><a href="changes-in-sequelize-v1-2-1.html">Changes in Sequelize v1.2.1</a></li></ul></section><div class="clearfix"></div></div><div class="col-sm-9 col-sm-offset-1 beige content"><section><div><h2>State of v1.7.0</h2><!-- <img src="http://farm3.staticflickr.com/2306/1992019542_709ca81523.jpg" alt="...non fidarsi è meglio - my scared cat / gatto" data-author="Paolo Margari" data-page="http://www.flickr.com/photos/paolomargari/1992019542/" data-source="flickr" class="span12"> --><h3 id="introduction">Introduction</h3><p>Since the release of <code>v1.6.0</code> in April 2013, many new features have
+been added to Sequelize. This was mostly possible due to the great
+help of the community. Furthermore <a href="https://github.com/durango" target="_blank" rel="nofollow">Daniel Durante</a>
+joined us in May, who is a big help everyday and will be glad to help
+everyone who joins our IRC channel.</p><p>This post is about the features, that have been added since April
+and that are currently available in the current NPM package <code>v1.7.0-alpha2</code>.</p><h3 id="validator-upgrade">[DEPENDENCIES] Upgraded validator for IPv6 support</h3><p>The <a href="https://github.com/chriso/node-validator" target="_blank" rel="nofollow">validator</a>
+plugin has been updated to <code>1.1.1</code>. Part of the new version
+is the possibility to check for proper IPv6 addresses. You can use it like this:</p><pre class="dark-blue"><code class="javascript">Sequelize.define('model', {
+  ip: {
+    type:     Sequelize.STRING,
+    validate: {
+      isIPv6: true
+    }
+  }
+})</code></pre><h3 id="lodash">[DEPENDENCIES] replaced underscore by lodash</h3><p>In order to improve performance of the library, we replaced
+<a href="http://underscorejs.org/" target="_blank" rel="nofollow">underscore.js</a>
+with the faster drop-in-replacement
+<a href="http://lodash.com/" target="_blank" rel="nofollow">lodash</a>
+. You can access it via the already existing way <code>Sequelize.Utils._</code>.</p><h3 id="validate-before-save">[FEATURE] Validate a model before it gets saved</h3><p>Many people requested, that the model needs to be validated before
+it gets saved. This is now the case. So whenever the <code>save</code>
+method gets called on an object, the model is validated and the
+<code>error</code> callback is triggered if the model isn't valid:</p><pre class="dark-blue"><code class="javascript">sequelize.define('user', {
+  username: {
+    type:     Sequelize.STRING,
+    validate: {
+      notEmpty: true,
+      notNull:  true
+    }
+  }
+}).create({
+  username: ''
+}).error(function(errors) {
+  console.log(errors) // { username: [ 'String is empty' ] }
+})</code></pre><h3 id="schematics">[FEATURE] Schematics</h3><p>It is now possible to create schemas for postgres respectively to
+prefix table names for sqlite and mysql. That means that you can
+now define tables in different scopes:</p><pre class="dark-blue"><code class="javascript">var User   = sequelize.define('user', { username: Sequelize.STRING })
+  , wpUser = User.schema('wordpress', '_')
+&nbsp;
+sequelize.createSchema('wordpress').success(function() {
+  sequelize.sync().success(function() {
+    // Sequelize will now create the following tables: `wordpress_users`
+  })
+})</code></pre><h3 id="foreign-keys">[FEATURE] Foreign key constraints</h3><p>It is now possible to define foreign keys to connect tables / models
+with each other. The following snippet connects the <code>Post</code> model with
+the <code>Author</code> model.</p><pre class="dark-blue"><code class="javascript">var Author = sequelize.define('author', { first_name: Sequelize.STRING })
+var Post   = sequelize.define('post', {
+  title:    Sequelize.STRING,
+  authorId: {
+    type:          Sequelize.INTEGER,
+    references:    Author,
+    referencesKey: "id"
+  }
+})
+&nbsp;
+Author.hasMany(Post)
+Post.belongsTo(Author)</code></pre><p>Also we can now define reactions of certain events. E.g.
+what should happen to the associated objects after a
+<code>delete</code> operation, etc. This is the way to do it:</p><pre class="dark-blue"><code class="javascript">var Author = sequelize.define('author', { first_name: Sequelize.STRING })
+var Post   = sequelize.define('post', {
+  title: Sequelize.STRING,
+  authorId: {
+    type:          Sequelize.INTEGER,
+    references:    'authors',
+    referencesKey: 'id',
+    onDelete:      'cascade'
+  }
+})
+&nbsp;
+Author.hasMany(Post)
+Post.belongsTo(Author)
+&nbsp;
+sequelize.sync().success(function() {
+  new Sequelize.Utils.QueryChainer()
+    .add(Author.create({ first_name: 'John' }))
+    .add(Post.create({ title: 'news' }))
+    .add(Post.create({ title: 'milestone reached' }))
+    .run()
+    .success(function(results) {
+      var author    = results[0]
+        , news      = results[1]
+        , milestone = results[2]
+&nbsp;
+      author.setPosts([ news, milestone ]).success(function() {
+        author.destroy()
+        /*
+          At this point, you won't find any authors and posts in the database anymore,
+          as we have dropped the only author and due to the cascade option every related
+          posts of him.
+        */
+      })
+    })
+})</code></pre><h3 id="bulk-support">[FEATURE] Support for bulk insert/update/delete</h3><p>In order to minimize the number of SQL requests while
+creating/updating/deleting a bunch of entries, we introduced bulk support.</p><p>This is how creation of multiple instances is possible while just
+triggering a single SQL statement:</p><pre class="dark-blue"><code class="javascript">var User = sequelize.define('User', { name: Sequelize.STRING })
+&nbsp;
+User.sync({ force: true }).success(function() {
+  var userData = [
+    { name: 'John' },
+    { name: 'Jane' },
+    { name: 'Pete' }
+  ]
+&nbsp;
+  User.bulkCreate(userData).success(function() {
+    // We just created 3 users with just a single SQL statement <3
+  })
+})</code></pre><p>In order to update a bunch of entries we can utilize the <code>update</code> method:</p><pre class="dark-blue"><code class="javascript">User.update({ name: 'Foo' }, '`name` LIKE "J%"').success(function() {
+  // All users thats name used to start with "J" is now called "Foo" :)
+})</code></pre><p>Last but not least we can delete all entries matching certain criteria:</p><pre class="dark-blue"><code class="javascript">User.bulkCreate([
+  { name: 'John' },
+  { name: 'Jane' },
+  { name: 'Pete' }
+]).success(function() {
+  User.destroy('`name` LIKE "J%"').success(function() {
+    // We just deleted all rows that have a name starting with "J"
+  })
+})</code></pre><h3 id="data-types">[FEATURE] Added convenient data types</h3><p>Costent added support for advanced data types. For example, you
+are now able to define a column as unsigned, zerofilled integer
+having a length of 6:</p><pre class="dark-blue"><code class="javascript">var User = sequelize.define("user", {
+  streetNumber: Sequelize.INTEGER(6).ZEROFILL.UNSIGNED
+})</code></pre><p>Also we have added <code>BIGINT</code>, <code>DECIMAL</code>,
+<code>ENUM</code>, <code>ARRAY</code> and some other things.
+<a href="../docs/latest/models.html#data-types">They are nicely documented over here.</a></p><h3 id="binary">[FEATURE] Binary is more verbose now</h3><p><a href="https://github.com/terraflubb" target="_blank" rel="nofollow">Rob Fletcher</a>
+made the Sequelize binary a bit more talkative, when it comes to errors or misusage.</p><h3 id="promises">[FEATURE] Promises/A support</h3><p>In order to make chaining of events easier and smoother,
+Sequelize now has support for Promises/A. Just call <code>then</code> instead
+of reacting on the usual events:</p><pre class="dark-blue"><code class="javascript">var User = sequelize.define("user", {
+  username: Sequelize.STRING
+})
+&nbsp;
+User
+  .sync({ force: true })
+  .then(function() { return User.create({ username: 'John' }) })
+  .then(function(john) { return User.create({ username: 'Jane' }) })
+  .then(function(jane) { return User.create({ username: 'Pete' }) })
+  .then(function(pete) {
+    console.log("we just created 3 users :)")
+    console.log("this is pete:")
+    console.log(pete.values)
+  })</code></pre><h3 id="getters-setters">[FEATURE] Added Getters/Setters method for DAO</h3><p>Virtual attributes have been introduced and allows you, to e.g.
+set a first/last name based on a name respectively to do the vice versa way:</p><pre class="dark-blue"><code class="javascript">var User = sequelize.define("user", {
+  first_name: Sequelize.STRING,
+  last_name:  Sequelize.STRING
+}, {
+  setterMethods: {
+    name: function(s) {
+      this.first_name = s.split(" ")[0]
+      this.last_name  = s.split(" ")[1]
+    }
+  },
+&nbsp;
+  getterMethods: {
+    name: function() {
+      return [this.first_name, this.last_name].join(" ")
+    }
+  }
+})
+&nbsp;
+User
+  .sync({ force: true })
+  .then(function() {
+    return User.create({ name: 'John Doe' })
+  })
+  .then(function(john) {
+    console.log("Let's welcome:", john.first_name, john.last_name)
+    // Let's welcome: John Doe
+  })</code></pre><h3 id="model-validations">[FEATURE] Added model wide validations</h3><p>In addition to the already existing possibilities of validating certain
+single attributes, the current version adds support for instance wide
+validations. It utilizes the <code>validate</code> option of the model definition:</p><pre class="dark-blue"><code class="javascript">var User = sequelize.define("User", {
+  username: {
+    type: Sequelize.STRING,
+    validate: { notEmpty: true }
+  },
+  password:              Sequelize.STRING,
+  password_confirmation: Sequelize.STRING
+}, {
+  validate: {
+    passwordEquality: function() {
+      if (this.password !== this.password_confirmation) {
+        throw new Error("Passwords aren't equal!")
+      }
+    }
+  }
+})
+&nbsp;
+User
+  .sync({ force: true })
+  .then(function() {
+    User.create({
+      username:              'john',
+      password:              'test',
+      password_confirmation: 'tst'
+    }).error(function(err) {
+      console.log(err)
+      // { passwordEquality: [ 'Passwords aren\'t equal!' ] }
+    })
+  })</code></pre><h3 id="bug-fixes">Bug-Fixes</h3><ul><li>[BUG] Fix string escape with postgresql on raw SQL queries.
+<a href="https://github.com/sequelize/sequelize/pull/586" target="_blank" rel="nofollow">#586</a></li><li>[BUG] "order by" is now after "group by".
+<a href="https://github.com/sequelize/sequelize/pull/585" target="_blank" rel="nofollow">#585</a></li><li>[BUG] Added decimal support for min/max.
+<a href="https://github.com/sequelize/sequelize/pull/583" target="_blank" rel="nofollow">#583</a></li><li>[BUG] Null dates don't break SQLite anymore.
+<a href="https://github.com/sequelize/sequelize/pull/572" target="_blank" rel="nofollow">#572</a></li><li>[BUG] Correctly handle booleans in MySQL.
+<a href="https://github.com/sequelize/sequelize/pull/608" target="_blank" rel="nofollow">#608</a></li><li>[BUG] Fixed empty where conditions in MySQL.
+<a href="https://github.com/sequelize/sequelize/pull/619" target="_blank" rel="nofollow">#619</a></li><li>[BUG] Allow overriding of default columns.
+<a href="https://github.com/sequelize/sequelize/pull/635" target="_blank" rel="nofollow">#635</a></li></ul></div></section></div></div></div><div class="imprint very-dark-blue"><div class="container"><div class="col-sm-4">&copy;
+Sascha Depold,
+<a href="https://github.com/sequelize/sequelize-doc/graphs/contributors" target="_blank" rel="nofollow">et al.</a>
+2006 -&nbsp;2022</div><div style="text-align: right" class="col-sm-8"><a href="../imprint.html">Imprint</a></div></div></div><script src="../javascripts/bootstrap.min.js"></script><script src="../javascripts/highlight.pack.js"></script><script src="../javascripts/main.js"></script><script src="../javascripts/documentation.js"></script><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-9039631-4', 'sequelizejs.com');
+ga('send', 'pageview');</script></body>
+<!-- Mirrored from localhost:3000/blog/state-of-v1-7-0 by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT -->
+</html>
