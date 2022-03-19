@@ -58,3 +58,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   /* since padding was 'inside' the border-box, but gap is 'outside' of it, subtract the new gap from the max size */
   max-width: calc(var(--ifm-col-width) - var(--ifm-spacing-horizontal));
 }
+
+.hidden {
+  display: none;
+}
