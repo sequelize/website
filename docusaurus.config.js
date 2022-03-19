@@ -77,6 +77,10 @@ const config = {
                 href: 'pathname:///v2',
                 label: 'v2',
               },
+              {
+                href: 'pathname:///v1',
+                label: 'v1',
+              },
             ],
             dropdownActiveClassDisabled: true,
           },
