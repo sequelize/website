@@ -7,14 +7,36 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Sequelize',
-  tagline: 'Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. It features solid transaction support, relations, eager and lazy loading, read replication and more.',
+  tagline:
+    'Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. It features solid transaction support, relations, eager and lazy loading, read replication and more.',
   url: 'https://sequelize.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   organizationName: 'sequelize',
   projectName: 'sequelize',
-  plugins: ['docusaurus-plugin-sass'],
+  plugins: [
+    'docusaurus-plugin-sass',
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            from: ['/main', '/master', '/v6'],
+            to: '/docs/v6/intro',
+          },
+        ],
+        createRedirects(existingPath) {
+          if (existingPath.includes('/docs/v6')) {
+            // Redirect from /v6/X to /docs/v6/X
+            return [existingPath.replace('/docs/v6', '/v6')];
+          }
+
+          return null; // Return a falsy value: no redirect created
+        },
+      },
+    ],
+  ],
   presets: [
     [
       'classic',
@@ -48,7 +70,7 @@ const config = {
   ],
 
   themeConfig:
-  /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     {
       navbar: {
         title: 'Sequelize',
