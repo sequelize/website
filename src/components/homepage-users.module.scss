@@ -1,0 +1,32 @@
+@use '../css/variables' as *;
+
+.users {
+  background-color: $brand-primary-dark;
+  display: flex;
+  align-items: center;
+  padding: fluid($min-screen-size, $container-max-width, 32px, 64px) 0;
+  width: 100%;
+  counter-reset: headlines 0;
+}
+
+.users h2 {
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: fluid($min-screen-size, $container-max-width, 32px, 64px);
+}
+
+.userRow, .userRow > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 48px 32px;
+}
+
+.userRow img {
+  max-height: fluid($min-screen-size, $container-max-width, 24px, 48px);
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
