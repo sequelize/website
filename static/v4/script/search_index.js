@@ -1,4 +1,4 @@
-<html><head><link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head><body>window.esdocSearchIndex = [
+<html><head><link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico" /></head><body>window.esdocSearchIndex = [
   [
     "sequelize/lib/errors/index.js~accessdeniederror",
     "class/lib/errors/index.js~AccessDeniedError.html",
