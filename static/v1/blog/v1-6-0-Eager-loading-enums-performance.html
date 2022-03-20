@@ -1,0 +1,116 @@
+<!DOCTYPE html><html>
+<!-- Mirrored from localhost:3000/blog/v1-6-0-Eager-loading-enums-performance by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head><title>Sequelize - Blog - v1.6.0 - Eager loading, enums, ...</title><link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"><link rel="stylesheet" href="../stylesheets/style.css"><script src="../javascripts/jquery-1.10.2.min.js"></script><script>fromGithub = function (partialId, url) {
+  var $partial = $("#" + partialId)
+
+  $partial.load(url, function () {
+    hljs.highlightBlock($partial.get(0));
+  });
+}</script></head><body><div role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-liquid"><div class="col-sm-3 navbar-left"><section><a href="../index.html" class="navbar-brand"><img src="../images/logo-small.png"><span>Sequelize</span></a><div class="clearfix"></div></section></div><div class="col-sm-8 navbar-right"><section><button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="navbar-collapse collapse"><ul class="nav navbar-nav"></ul><ul class="nav navbar-nav navbar-right"><li><a href="../index.html"><span class="glyphicon glyphicon-home"></span><span class="spacer">&nbsp;</span><span class="text">Home</span></a></li><li><a href="../docs/1.7.8/installation.html"><span class="glyphicon glyphicon-info-sign"></span><span class="spacer">&nbsp;</span><span class="text">Docs</span></a></li><li><a href="../articles/getting-started.html"><span class="glyphicon glyphicon-book"></span><span class="spacer">&nbsp;</span><span class="text">Articles</span></a></li><li class="active"><a href="../blog.html"><span class="glyphicon glyphicon-comment"></span><span class="spacer">&nbsp;</span><span class="text">Blog</span></a></li><li><a href="../search.html" class="search"><i class="fa fa-search"></i><span class="spacer">&nbsp;</span><span class="text">Search</span></a></li></ul></div></section></div></div></div><div class="container-liquid"><div class="row documentation"><div class="col-sm-2 mid-blue sidebar"><div class="headline-spacer"></div><section class="navigation"><ul><li><a href="state-of-v1-7-0.html">State of v1.7.0</a></li><li class="active"><a href="v1-6-0-Eager-loading-enums-performance.html">v1.6.0 - Eager loading, enums, ...</a><ul><li><a href="v1-6-0-Eager-loading-enums-performance.html#introduction">Introduction</a></li><li><a href="v1-6-0-Eager-loading-enums-performance.html#changes">Changes</a></li><li><a href="v1-6-0-Eager-loading-enums-performance.html#dependencies">Dependencies</a></li><li><a href="v1-6-0-Eager-loading-enums-performance.html#refactorings">Refactorings</a></li><li><a href="v1-6-0-Eager-loading-enums-performance.html#features">Features</a></li><li><a href="v1-6-0-Eager-loading-enums-performance.html#others">Others</a></li><li><a href="v1-6-0-Eager-loading-enums-performance.html#bug-fixes">Bugfixes</a></li></ul></li><li><a href="changes-in-sequelize-v1-4-1.html">Changes in Sequelize v1.4.1</a></li><li><a href="changes-in-sequelize-v1-4-0.html">Changes in Sequelize v1.4.0</a></li><li><a href="changes-in-sequelize-v1-3-0.html">Changes in Sequelize v1.3.0</a></li><li><a href="changes-in-sequelize-v1-2-1.html">Changes in Sequelize v1.2.1</a></li></ul></section><div class="clearfix"></div></div><div class="col-sm-9 col-sm-offset-1 beige content"><section><div><h2>v1.6.0 - Eager loading, enums, ...</h2><h3 id="introduction">Introduction</h3><p>After 552 commits, almost 8 months of work, 42 relevant changes and the
+acquisition of two more core contributors since the last stable version,
+we finally published Sequelize v1.6.0 to NPM today. With this release,
+we’ve been adding some important and often requested features, as well
+as making things more stable while improving the performance noticeably.
+However, we know that there are a lot of important features missing,
+so we created a <a href="https://github.com/sequelize/sequelize#roadmap" target="_blank" rel="nofollow">rough roadmap</a>,
+which should make plans clearer and which will assist us in taking the
+right way. Also, every repository which was somehow related to Sequelize,
+has been moved to a <a href="https://github.com/sequelize" target="_blank" rel="nofollow">Github organization</a>.</p><h3 id="changes">Changes</h3><p><strong>IMPORTANT !!!</strong></p><p>There have been two changes, which might break backwards compatibility for
+your project. However, as they are more likely fixing some of your issues,
+we have decided to not release v2.0.0 but v1.6.0 instead.</p><pre class="dark-blue"><code class="bash">- [FEATURE] timestamps are now stored as UTC. #461 (thanks to innofluence/janmeier)</code></pre><p>Every date that gets sent to the database will be handled as UTC.
+This makes the code less dependent on the location of the computer.</p><pre class="dark-blue"><code class="bash">- [REFACTORING] dropped support for synchronous migrations. added third parameter which needs to get called once the migration has been finished. also this adds support for asynchronous actions in migrations.
+- [FEATURE] it’s now possible to use callbacks of async functions inside migrations (thanks to mphilpot)</code></pre><p>In order to support asynchronous functions in migrations, it was necessary to
+know when methods are finished. In former versions of Sequelize, the migration
+algorithm used to observe the callbacks of the asynchronous methods. As this was
+hacky and contained too much magic, we removed that broken piece of **** and are
+handing over the program flow to the developer. A migration now looks like this:</p><pre class="dark-blue"><code class="javascript">module.exports = {
+  up: function(migration, DataTypes, done) {
+    asyncFunc(function() {
+      anotherAsyncFunc(function() {
+        done()
+      })
+    })
+  },
+&nbsp;
+  down: function(migration, DataTypes, done) {
+    done()
+  }
+}</code></pre><h3 id="dependencies">Dependencies</h3><pre class="dark-blue"><code class="bash">- [DEPENDENCIES] mysql is now an optional dependency. #355 (thanks to clkao)
+- [DEPENDENCIES] upgrade mysql to alpha7. You *MUST* use this version or newer for DATETIMEs to work
+- [DEPENDENCIES] upgraded most dependencies. most important: mysql was upgraded to 2.0.0-alpha-3</code></pre><p>One of the most important things about the new version is the removal of node-mysql
+as dependency. This means that you’ll need to add the mysql package to your package.json
+or choose the <a href="https://github.com/sequelize/sequelize-mysql" target="_blank" rel="nofollow">sequelize-mysql</a>
+bundle instead. If you aren’t using mysql at all, you can just keep everything as it was.</p><h3 id="refactorings">Refactorings</h3><pre class="dark-blue"><code class="bash">- [REFACTORING] separated tests for dialects</code></pre><p>In order to make it easier to support other dialects, tests are now
+less coupled to the dialects. That means that one can easily only run
+tests for a certain dialect.</p><pre class="dark-blue"><code class="bash">- [REFACTORING] reduced number of sql queries used for adding an element to a N:M association. #449 (thanks to innofluence/janmeier)</code></pre><p>This has been reported quite often. Adding an element to an N:M
+association is now resulting in less SQL queries.</p><h3 id="features">Features</h3><pre class="dark-blue"><code class="bash">- [FEATURE] added association prefetching /eager loading for find and findAll. #465</code></pre><p>It’s now possible to load associated data when calling find or findAll:</p><pre class="dark-blue"><code class="javascript">Model.findAll({
+  where: { smth: 'funky' },
+  include: [ AnotherModel ]
+}).success(function(models) {
+  console.log(models[0].anotherModel)
+})</code></pre><p><a href="../docs/latest/models.html#eager-loading">Further information can be found here.</a></p><pre class="dark-blue"><code class="bash">- [FEATURE] added findOrCreate, which returns a the already existing instance or creates one (thanks to eveiga)</code></pre><p>There is a new method called findOrCreate which either creates a new instance or
+that returns an existing one.&nbsp;<a href="../docs/latest/models.html#finders-findorcreate">Further information can be found here.</a></p><pre class="dark-blue"><code class="bash">- [FEATURE] added BIGINT data type which is treated like a string (thanks to adamsch1)
+- [FEATURE] add support for decimals (thanks to alexyoung)
+- [FEATURE] allow usage of enums. #440 (thanks to KevinMartin)
+- [FEATURE] support for array serialization. pg only. #443 (thanks to clkao)</code></pre><p>Sequelize can now handle enums, bigints, decimals and (pg only) arrays:</p><pre class="dark-blue"><code class="javascript">Sequelize.BIGINT                     // BIGINT
+Sequelize.ENUM(‘value 1’, ‘value 2’) // An ENUM with allowed values ‘value 1’ and ‘value 2’
+Sequelize.DECIMAL(10, 2)             // DECIMAL(10,2)
+Sequelize.ARRAY(Sequelize.TEXT)      // Defines an array. PostgreSQL only.</code></pre><a href="../docs/latest/models.html#data-types">Further information can be found here.</a><pre class="dark-blue"><code class="bash">- [FEATURE] allow definition of a models table name (thanks to slamkajs)</code></pre><p>If you need to define a model’s table name, you can now do that like this:</p><pre class="dark-blue"><code class="javascript">var Bar = sequelize.define(‘Bar’, { /* bla */ }, {
+  // define the table’s name
+  tableName: ‘my_very_custom_table_name’
+})</code></pre><p>This will create a model Bar with the table name my_very_custom_table_name.</p><pre class="dark-blue"><code class="bash">- [FEATURE] results of raw queries are parsed with dottie. #468 (thanks to kozze89)</code></pre><p>If the result of a raw query (sequelize.query) is resulting in keys that would include a dot, the respective row will be represented as a nested object.</p><pre class="dark-blue"><code class="javascript">sequelize.query(‘select 1 as `foo.bar.baz`’).success(function(rows) {
+  console.log(JSON.stringify(rows))
+  /*
+    [{
+      “foo”: {
+        “bar”: {
+          “baz”: 1
+        }
+      }
+    }]
+  */
+})</code></pre><pre class="dark-blue"><code class="bash">- [FEATURE] add increment and decrement methods on dao. #408 (thanks to janmeier/innofluence)</code></pre>```<p>In order to increment/decrement values of an instance without running into
+concurrency issues, you may use increment/decrement from now on. You can
+find the relevant information about the methods
+<a href="../docs/latest/instances.html#increment">here</a>.</p><pre class="dark-blue"><code class="bash">- [FEATURE] unified the result of describeTable</code></pre><p>The method describeTable has been refactored to be more consistant.
+Check the
+<a href="../docs/latest/migrations.html#functions">documentation</a> for further information.</p><pre class="dark-blue"><code class="bash">- [FEATURE] added DAO.reload(), which updates the attributes of the DAO in-place (as opposed to doing having to do a find() and returning a new model)</code></pre><p>If you find yourself in a situation where an instance’s information might
+be outdated, you can now reload the respective data:</p><pre class="dark-blue"><code class="javascript">Person.find({ where: { name: ‘john’ } }).success(function(person) {
+  person.name = ‘jane’
+  console.log(person.name) // ‘jane’
+&nbsp;
+  person.reload().success(function() {
+    console.log(person.name) // ‘john’
+  })
+})</code></pre><pre class="dark-blue"><code class="bash">- [FEATURE] added support for stored procedures (inspired by wuyuntao)</code></pre>```<p>This basically means that raw SQL queries (sequelize.query) are correctly return the result of stored procedures.</p><pre class="dark-blue"><code class="bash">- [FEATURE] experimental support for read replication for mysql (thanks to Janzeh)
+- [FEATURE] allows updateAttributes to target specific fields only (thanks to Pasvaz)
+- [FEATURE] minConnections option for MySQL pooling (thanks to dominiklessel)
+- [FEATURE] added possibility to define the attributes of received associations (thanks to joshm)
+- [FEATURE] added possibility to use pg lib’s native api (thanks to denysonique)
+- [FEATURE] honor maxConcurrentQueries option (thanks to dchester)
+- [FEATURE] Compatibility for JSON-like strings in Postgres (thanks to aslakhellesoy)
+- [FEATURE] Model.find and Model.findAll can now take a String with an ID. (thanks to ghernandez345)
+- [FEATURE] Performance improvements (thanks to Mick-Hansen and janmeier from innofluence)
+- [FEATURE] Migrations now understand NODE_ENV (thanks to gavri)
+- [FEATURE] improved comfort of sequelize.query. just pass an sql string to it and wait for the result</code></pre><p>Should be more or less clear. Feel free to ask for further information.</p><h3 id="others">Others</h3><pre class="dark-blue"><code class="bash">- [OTHERS] code was formatted to fit the latest code style guidelines (thanks to durango)
+- [OTHERS] Explicitly target ./docs folder for generate-docs script. #444 (thanks to carsondarling)
+- [OTHERS] Overwrite existing daoFactoryDefinition if there already has been one. (thanks to robraux)</code></pre>```<h3 id="bug-fixes">Bugfixes</h3><pre class="dark-blue"><code class="bash">- [BUG] fixed wrong version in sequelize binary
+- [BUG] local options have higher priority than global options (thanks to guersam)
+- [BUG] fixed where clause when passing an empty array (thanks to kbackowski)
+- [BUG] fixed updateAttributes for models/tables without primary key (thanks to durango)
+- [BUG] fixed the location of the foreign key when using belongsTo (thanks to ricardograca)
+- [BUG] don’t return timestamps if only specific attributes have been seleceted (thanks to ricardograca)
+- [BUG] fixed removeColumn for sqlite
+- [BUG] fixed date equality check for instances. (thanks to solotimes)</code></pre><p>… and thats it.</p><p>Have fun and spread the word.</p></div></section></div></div></div><div class="imprint very-dark-blue"><div class="container"><div class="col-sm-4">&copy;
+Sascha Depold,
+<a href="https://github.com/sequelize/sequelize-doc/graphs/contributors" target="_blank" rel="nofollow">et al.</a>
+2006 -&nbsp;2022</div><div style="text-align: right" class="col-sm-8"><a href="../imprint.html">Imprint</a></div></div></div><script src="../javascripts/bootstrap.min.js"></script><script src="../javascripts/highlight.pack.js"></script><script src="../javascripts/main.js"></script><script src="../javascripts/documentation.js"></script><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-9039631-4', 'sequelizejs.com');
+ga('send', 'pageview');</script></body>
+<!-- Mirrored from localhost:3000/blog/v1-6-0-Eager-loading-enums-performance by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT -->
+</html>

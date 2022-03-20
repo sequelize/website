@@ -46,6 +46,8 @@ module.exports = {
   }],
   ignorePatterns: [
     // archives
+    'static/v1',
+    'static/v2',
     'static/v3',
     'static/v4',
     'static/v5',

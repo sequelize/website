@@ -1,0 +1,219 @@
+<!DOCTYPE html><html>
+<!-- Mirrored from localhost:3000/docs/latest/usage by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head><title>Sequelize - Documentation - Usage</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"><link rel="stylesheet" href="../../stylesheets/style.css"><script src="../../javascripts/jquery-1.10.2.min.js"></script><script>fromGithub = function (partialId, url) {
+  var $partial = $("#" + partialId)
+
+  $partial.load(url, function () {
+    hljs.highlightBlock($partial.get(0));
+  });
+}</script></head><body id="documentation"><div role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-liquid"><div class="col-sm-3 navbar-left"><section><a href="../../index.html" class="navbar-brand"><img src="../../images/logo-small.png"><span>Sequelize</span></a><div class="clearfix"></div></section></div><div class="col-sm-8 navbar-right"><section><button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="navbar-collapse collapse"><ul class="nav navbar-nav"></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../index.html"><span class="glyphicon glyphicon-home"></span><span class="spacer">&nbsp;</span><span class="text">Home</span></a></li><li class="active"><a href="../1.7.8/installation.html"><span class="glyphicon glyphicon-info-sign"></span><span class="spacer">&nbsp;</span><span class="text">Docs</span></a></li><li><a href="../../articles/getting-started.html"><span class="glyphicon glyphicon-book"></span><span class="spacer">&nbsp;</span><span class="text">Articles</span></a></li><li><a href="../../blog.html"><span class="glyphicon glyphicon-comment"></span><span class="spacer">&nbsp;</span><span class="text">Blog</span></a></li><li><a href="../../search.html" class="search"><i class="fa fa-search"></i><span class="spacer">&nbsp;</span><span class="text">Search</span></a></li></ul></div></section></div></div></div><div class="container-liquid"><div class="row documentation"><div class="col-sm-2 mid-blue sidebar"><div class="headline-spacer"></div><section class="navigation"><ul><li><a href="installation.html">Installation</a></li><li class="active"><a href="usage.html">Usage</a><ul><li><a href="usage.html#basics">Basic usage</a></li><li><a href="usage.html#options">Options</a></li><li><a href="usage.html#read-replication">Read replication</a></li><li><a href="usage.html#dialects">Dialects</a></li><li><a href="usage.html#raw-queries">Executing raw SQL queries</a></li></ul></li><li><a href="models.html">Models</a><ul><li><a href="models.html#definition">Definition</a></li><li><a href="models.html#data-types">Data types</a></li><li><a href="models.html#getters---setters">Getters &amp; setters</a></li><li><a href="models.html#validations">Validations</a></li><li><a href="models.html#configuration">Configuration</a></li><li><a href="models.html#import">Import</a></li><li><a href="models.html#database-synchronization">Database synchronization</a></li><li><a href="models.html#expansion-of-models">Expansion of models</a></li><li><a href="models.html#finders">Data retrieval / Finders</a></li><li><a href="models.html#eager-loading">Eager loading</a></li><li><a href="models.html#ordered-eager-loading">Ordering Eager Loaded Associations</a></li><li><a href="models.html#nested-eager-loading">Nested eager loading</a></li></ul></li><li><a href="instances.html">Instances</a><ul><li><a href="instances.html#build">Building a not-persistant instance</a></li><li><a href="instances.html#create">Creating persistant instances</a></li><li><a href="instances.html#update">Updating / Saving / Persisting an instance</a></li><li><a href="instances.html#destroy">Destroying / Deleting persistant instances</a></li><li><a href="instances.html#bulk">Working in bulk (creating, updating and destroying multiple rows at once)</a></li><li><a href="instances.html#values">Values of an instance</a></li><li><a href="instances.html#reload">Reloading instances</a></li><li><a href="instances.html#increment">Incrementing certain values of an instance</a></li><li><a href="instances.html#decrement">Decrementing certain values of an instance</a></li></ul></li><li><a href="associations.html">Associations</a><ul><li><a href="associations.html#one-to-one">One-To-One associations</a></li><li><a href="associations.html#one-to-many">One-To-Many associations</a></li><li><a href="associations.html#many-to-many">Many-To-Many associations</a></li><li><a href="associations.html#naming-strategy">Naming strategy</a></li><li><a href="associations.html#associating-objects">Associating objects</a></li><li><a href="associations.html#check-associations">Check associations</a></li><li><a href="associations.html#foreign-keys">Foreign Keys</a></li></ul></li><li><a href="hooks.html">Hooks</a><ul><li><a href="hooks.html#order-of-operations">Order of Operations</a></li><li><a href="hooks.html#declaring-hooks">Declaring Hooks</a></li><li><a href="hooks.html#associations">Associations</a></li><li><a href="hooks.html#transactions">A Note About Transactions</a></li></ul></li><li><a href="transactions.html">Transactions</a></li><li><a href="migrations.html">Migrations</a><ul><li><a href="migrations.html#cli">The CLI</a></li><li><a href="migrations.html#skeleton">Skeleton</a></li><li><a href="migrations.html#functions">Functions</a></li><li><a href="migrations.html#programmatic-use">Programmatic use</a></li></ul></li><li><a href="utils.html">Utils</a><ul><li><a href="utils.html#lodash-js">Lodash.js</a></li><li><a href="utils.html#querychainer">QueryChainer</a></li><li><a href="utils.html#custom-event-emitter">CustomEventEmitter</a></li></ul></li><li><a href="misc.html">Misc</a><ul><li><a href="misc.html#compatibility">Compatibility</a></li><li><a href="misc.html#asynchronicity">Asynchronicity</a></li><li><a href="misc.html#links(data-nav-value='Links')">Additional links</a></li><li><a href="misc.html#company---projects">Company &amp; Projects</a></li></ul></li><li><a>Versions</a><ul><li><a href="installation.html">Latest</a></li><li><a href="../1.7.8/installation.html">1.7.8</a></li><li><a href="../1.7.6/installation.html">1.7.6</a></li><li><a href="../1.7.0-beta.1/installation.html">1.7.0-beta.1</a></li></ul></li></ul></section><div class="clearfix"></div></div><div class="col-sm-9 col-sm-offset-1 beige content"><section><div><h2>Usage</h2><h3 id="basics">Basic usage</h3><p>To get the ball rollin&apos; you first have to create an instance of Sequelize&period; Use it the following way&colon;</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('database', 'username'[, 'password'])</code></pre><p>This will save the passed database credentials and provide all further methods&period; Furthermore you can specify a non-default host&sol;port&colon;</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('database', 'username', 'password', {
+  host: "my.server.tld",
+  port: 12345
+})
+</code></pre><p>If you just don&apos;t have a password&colon;</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('database', 'username')
+// or
+var sequelize = new Sequelize('database', 'username', null)
+</code></pre><p>You can also use a connection string&colon;</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('mysql://user:pass@example.com:9821/dbname', {
+  // Look to the next section for possible options
+})</code></pre><h3 id="options">Options</h3><p>Besides the host and the port&comma; Sequelize comes with a whole bunch of options&period; Here they are&colon;</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('database', 'username', 'password', {
+  // custom host; default: localhost
+  host: 'my.server.tld',
+&nbsp;
+  // custom port; default: 3306
+  port: 12345,
+&nbsp;
+  // custom protocol
+  // - default: 'tcp'
+  // - added in: v1.5.0
+  // - postgres only, useful for heroku
+  protocol: null,
+&nbsp;
+  // disable logging; default: console.log
+  logging: false,
+&nbsp;
+  // max concurrent database requests; default: 50
+  maxConcurrentQueries: 100,
+&nbsp;
+  // the sql dialect of the database
+  // - default is 'mysql'
+  // - currently supported: 'mysql', 'sqlite', 'postgres', 'mariadb'
+  dialect: 'mysql',
+&nbsp;
+  // you can also pass any dialect options to the underlying dialect library
+  // - default is empty
+  // - currently supported: 'mysql', 'mariadb'
+  dialectOptions: {
+    socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock',
+    supportBigNumbers: true,
+    bigNumberStrings: true
+  },
+&nbsp;
+  // the storage engine for sqlite
+  // - default ':memory:'
+  storage: 'path/to/database.sqlite',
+&nbsp;
+  // disable inserting undefined values as NULL
+  // - default: false
+  omitNull: true,
+&nbsp;
+  // a flag for using a native library or not.
+  // in the case of 'pg' -- set this to true will allow SSL support
+  // - default: false
+  native: true,
+&nbsp;
+  // Specify options, which are used when sequelize.define is called.
+  // The following example:
+  //   define: {timestamps: false}
+  // is basically the same as:
+  //   sequelize.define(name, attributes, { timestamps: false })
+  // so defining the timestamps for each model will be not necessary
+  // Below you can see the possible keys for settings. All of them are explained on this page
+  define: {
+    underscored: false
+    freezeTableName: false,
+    syncOnAssociation: true,
+    charset: 'utf8',
+    collate: 'utf8_general_ci',
+    classMethods: {method1: function() {}},
+    instanceMethods: {method2: function() {}},
+    timestamps: true
+  },
+&nbsp;
+  // similiar for sync: you can define this to always force sync for models
+  sync: { force: true },
+&nbsp;
+  // sync after each association (see below). If set to false, you need to sync manually after setting all associations. Default: true
+  syncOnAssociation: true,
+&nbsp;
+  // use pooling in order to reduce db connection overload and to increase speed
+  // currently only for mysql and postgresql (since v1.5.0)
+  pool: { maxConnections: 5, maxIdleTime: 30},
+&nbsp;
+  // language is used to determine how to translate words into singular or plural form based on the [lingo project](https://github.com/visionmedia/lingo)
+  // options are: en [default], es
+  language: 'en'
+})</code></pre><p><strong>Hint&colon;</strong>&nbsp;You can also define a custom function for the logging part&period; Just pass a function&period; The first parameter will be the string that is logged&period;</p><h3 id="read-replication">Read replication</h3><p>Sequelize supports read replication&comma; i&period;e&period; having multiple servers that you can connect to when you want to do a SELECT query&period; When you do read replication&comma; you specify one or more servers to act as read replicas&comma; and one server to act as the write master&comma; which handles all writes and updates and propagates them to the replicas &lpar;note that the actual replication process is<strong>&nbsp;not&nbsp;</strong>handled by Sequelize&comma; but should be set up in MySql&rpar;&period;</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('database', null, null, {
+  dialect: 'mysql',
+  port: 3306
+  replication: {
+    read: [
+      { host: '8.8.8.8', username: 'anotherusernamethanroot', password: 'lolcats!' },
+      { host: 'localhost', username: 'root', password: null }
+    ],
+    write: { host: 'localhost', username: 'root', password: null }
+  },
+  pool: { // If you want to override the options used for the read pool you can do so here
+    maxConnections: 20,
+    maxIdleTime: 30000
+  },
+})</code></pre><p>If you have any general settings that apply to all replicas you do not need to provide them for each instance&period; In the code above&comma; database name and port is propagated to all replicas&period; The same will happen for user and password&comma; if you leave them out for any of the replicas&period; Each replica has the following options&colon;<code>host</code>&comma;<code>port</code>&comma;<code>username</code>&comma;<code>password</code>&comma;<code>database</code></p><p>Sequelize uses a pool to manage connections to your replicas&period; The default options are&colon;</p><pre class="dark-blue"><code class="javascript">{
+  maxConnections: 10,
+  minConnections: 0,
+  maxIdleTime:    1000
+}</code></pre><p>If you want to modify these&comma; you can pass pool as an options when instantiating Sequelize&comma; as shown above&period;</p><p><strong>Note&colon;</strong>&nbsp;Read replication only works for MySQL at the moment&excl;</p><h3 id="dialects">Dialects</h3><p>With the release of Sequelize<code>v1&period;6&period;0</code>&comma; the library got independent from specific dialects&period; This means&comma; that you&apos;ll have to add the respective connector library to your project yourself. Version 1.7.0 stable has been released in bundles with the connector libraries (sequelize-mysql, sequelize-postgres etc.) but these bundles are not maintained, and will not be released for 2.0.0 upwards.</p><h4 id="dialects-mysql">MySQL</h4><p>In order to get Sequelize working nicely together with MySQL&comma; you&apos;ll need to install<code>mysql&commat;~2&period;0&period;0-alpha7</code>or higher&period; Once that&apos;s done you can use it like this&colon;</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('database', 'username', 'password', {
+  // mysql is the default dialect, but you know...
+  // for demo purporses we are defining it nevertheless :)
+  // so: we want mysql!
+  dialect: 'mysql'
+})</code></pre><p><strong>Note:</strong> You can pass options directly to dialect library by setting the
+<code>dialectOptions</code> parameter. See <a href="usage.html#options">Options</a>
+for examples (currently only mysql and mariadb are supported).</p><h4 id="dialects-mariadb">MariaDB</h4><p>For MariaDB compatibility you have to install the package <code>mariasql@0.1.20</code>, or higher.
+The configuration needs to look like this:</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('database', 'username', 'password', {
+  dialect: 'mariadb'
+})</code></pre><h4 id="dialects-sqlite">SQLite</h4><p>For SQLite compatibility you&apos;ll need<code>sqlite3&commat;~2&period;1&period;5</code>&period; Configure Sequelize like this&colon;</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('database', 'username', 'password', {
+  // sqlite! now!
+  dialect: 'sqlite',
+&nbsp;
+  // the storage engine for sqlite
+  // - default ':memory:'
+  storage: 'path/to/database.sqlite'
+})</code></pre><h4 id="dialects-postgresql">PostgreSQL</h4><p>The library for PostgreSQL is<code>pg&commat;~2&period;0&period;0</code>&period; You&apos;ll just need to define the dialect&colon;</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('database', 'username', 'password', {
+  // gimme postgres, please!
+  dialect: 'postgres'
+})</code></pre><h3 id="raw-queries">Executing raw SQL queries</h3><p>As there are often use cases in which it is just easier to execute raw &sol; already prepared SQL queries&comma; you can utilize the function<code>sequelize&period;query</code>&period;</p><p>Here is how it works&colon;</p><pre class="dark-blue"><code class="javascript">// Arguments for raw queries
+sequelize.query('your query', [, callee], [, options], [, replacements])
+
+// Quick example
+sequelize.query("SELECT * FROM myTable").success(function(myTableRows) {
+  console.log(myTableRows)
+})
+
+// Callee is the model definition. This allows you to easily map a query
+// to a predefined model for sequelizejs e.g:
+sequelize
+  .query('SELECT * FROM projects', Projects)
+  .success(function(projects){
+    // Each record will now be mapped to the project's DAO-Factory.
+    console.log(projects)
+  })
+
+
+// Options is an object with the following keys:
+sequelize
+  .query('SELECT 1', null, {
+    // A function (or false) for logging your queries
+    // Will get called for every SQL query that gets send
+    // to the server.
+    logging: console.log,
+
+    // If plain is true, then sequelize will only return the first
+    // record of the result set. In case of false it will all records.
+    plain: false,
+
+    // Set this to true if you don't have a model definition for your query.
+    raw: false
+  })
+
+// Note the second argument being null!
+// Even if we declared a callee here, the raw: true would
+// supersede and return a raw object.
+sequelize
+  .query('SELECT * FROM projects', null, { raw: true })
+  .success(function(projects) {
+    console.log(projects)
+  })</code></pre><p>Replacements in a query can be done in two different ways, either using
+named parameters (starting with <code>:</code>), or unnamed, represented by a ?</p><p>The syntax used depends on the fourth argument passed to the function:</p><p><ul><li>If an array is passed, <code>?</code> will be replaced in the order that they appear in the array</li><li>If an object is passed, <code>:key</code> will be replaced with the keys from that object.
+If the object contains keys not found in the query or vice verca, an exception
+will be thrown.
+</li></ul></p><pre class="dark-blue"><code class="javascript">sequelize
+  .query(
+    'SELECT * FROM projects WHERE status = ?', null,
+    { raw: true }, ['active']
+  )
+  .success(function(projects) {
+    console.log(projects)
+  })
+
+sequelize
+  .query(
+    'SELECT * FROM projects WHERE status = :status ', null,
+    { raw: true }, { status: 'active' }
+  )
+  .success(function(projects) {
+    console.log(projects)
+  })
+</code></pre><p><strong>One note:</strong> If the attribute names of the table contain dots, the resulting objects will be nested:</p><pre class="dark-blue"><code class="javascript">sequelize.query('select 1 as `foo.bar.baz`').success(function(rows) {
+  console.log(JSON.stringify(rows))
+
+  /*
+    [{
+      "foo": {
+        "bar": {
+          "baz": 1
+        }
+      }
+    }]
+  */
+})</code></pre></div></section></div></div></div><div class="imprint very-dark-blue"><div class="container"><div class="col-sm-4">&copy;
+Sascha Depold,
+<a href="https://github.com/sequelize/sequelize-doc/graphs/contributors" target="_blank" rel="nofollow">et al.</a>
+2006 -&nbsp;2022</div><div style="text-align: right" class="col-sm-8"><a href="../../imprint.html">Imprint</a></div></div></div><script src="../../javascripts/bootstrap.min.js"></script><script src="../../javascripts/highlight.pack.js"></script><script src="../../javascripts/main.js"></script><script src="../../javascripts/documentation.js"></script><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-9039631-4', 'sequelizejs.com');
+ga('send', 'pageview');</script></body>
+<!-- Mirrored from localhost:3000/docs/latest/usage by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT -->
+</html>
