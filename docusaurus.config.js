@@ -34,7 +34,7 @@ const config = {
           //   to: '/api/v6/identifiers.html',
           // },
           {
-            from: legacyBranches.map(branch => `/${branch}/whos-using`),
+            from: legacyBranches.map(branch => `/${branch}/manual/whos-using`),
             to: '/',
           },
           {
