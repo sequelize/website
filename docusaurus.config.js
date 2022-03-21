@@ -4,6 +4,8 @@
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 
+const legacyBranches = ['main', 'master', 'v6'];
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Sequelize',
@@ -20,16 +22,43 @@ const config = {
     [
       '@docusaurus/plugin-client-redirects',
       {
+        fromExtensions: ['html'],
         redirects: [
           {
-            from: ['/main', '/master', '/v6'],
+            from: legacyBranches.map(branch => `/${branch}`),
             to: '/docs/v6/intro',
+          },
+          // https://github.com/facebook/docusaurus/issues/6845
+          // {
+          //   from: legacyBranches.map(branch => `/${branch}/identifiers`),
+          //   to: '/api/v6/identifiers.html',
+          // },
+          {
+            from: legacyBranches.map(branch => `/${branch}/whos-using`),
+            to: '/',
+          },
+          {
+            from: legacyBranches.map(branch => `/${branch}/manual/getting-started`),
+            to: '/docs/v6/getting-started',
           },
         ],
         createRedirects(existingPath) {
-          if (existingPath.includes('/docs/v6')) {
+          if (existingPath.startsWith('/docs/v6')) {
+            const match = existingPath.match(/\/docs\/v6\/[^/]+\/(?<name>.+)/);
+            if (!match) {
+              return [];
+            }
+
+            const documentationName = match.groups.name;
+
+            // http://localhost:3000/v6/manual/model-basics.html
+
             // Redirect from /v6/X to /docs/v6/X
-            return [existingPath.replace('/docs/v6', '/v6')];
+            return legacyBranches.map(branch => {
+              const oldPath = `/${branch}/manual/${documentationName}`;
+
+              return oldPath;
+            });
           }
 
           return null; // Return a falsy value: no redirect created
