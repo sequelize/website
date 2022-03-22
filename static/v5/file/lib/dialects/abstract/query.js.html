@@ -1,0 +1,873 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/dialects/abstract/query.js | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li data-ice="doc" style="margin-top: 15px;"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IndexHints">IndexHints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#associations">associations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-sqlite">dialects/sqlite</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-describeTable">describeTable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/association-error.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/base-error.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/bulk-record-error.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection-error.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database-error.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/eager-loading-error.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/empty-result-error.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/instance-error.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/optimistic-lock-error.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/query-error.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/sequelize-scope-error.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation-error.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-connection">errors/connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/access-denied-error.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-acquire-timeout-error.js~ConnectionAcquireTimeoutError.html">ConnectionAcquireTimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-refused-error.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/connection-timed-out-error.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-found-error.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/host-not-reachable-error.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/connection/invalid-connection-error.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-database">errors/database</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/exclusion-constraint-error.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/foreign-key-constraint-error.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/timeout-error.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/database/unknown-constraint-error.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-validation">errors/validation</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/errors/validation/unique-constraint-error.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="variable/index.html#static-variable-DataTypes">datatypes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ARRAY.html">ARRAY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV4.html">UUIDV4</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUIDV1.html">UUIDV1</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~UUID.html">UUID</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TINYINT.html">TINYINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TIME.html">TIME</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~TEXT.html">TEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~STRING.html">STRING</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~SMALLINT.html">SMALLINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~REAL.html">REAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~RANGE.html">RANGE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NUMBER.html">NUMBER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~NOW.html">NOW</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~MACADDR.html">MACADDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~JSONB.html">JSONB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INTEGER.html">INTEGER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~INET.html">INET</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~HSTORE.html">HSTORE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~FLOAT.html">FLOAT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~ENUM.html">ENUM</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DOUBLE.html">DOUBLE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DECIMAL.html">DECIMAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATEONLY.html">DATEONLY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~DATE.html">DATE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CITEXT.html">CITEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CIDR.html">CIDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~CHAR.html">CHAR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BLOB.html">BLOB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/data-types.js~BIGINT.html">BIGINT</a></span></span></li></ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/dialects/abstract/query.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">'use strict';
+
+const _ = require('lodash');
+const SqlString = require('../../sql-string');
+const QueryTypes = require('../../query-types');
+const Dot = require('dottie');
+const deprecations = require('../../utils/deprecations');
+const uuid = require('uuid').v4;
+
+class AbstractQuery {
+
+  constructor(connection, sequelize, options) {
+    this.uuid = uuid();
+    this.connection = connection;
+    this.instance = options.instance;
+    this.model = options.model;
+    this.sequelize = sequelize;
+    this.options = Object.assign({
+      plain: false,
+      raw: false,
+      // eslint-disable-next-line no-console
+      logging: console.log
+    }, options || {});
+    this.checkLoggingOption();
+  }
+
+  /**
+   * rewrite query with parameters
+   *
+   * Examples:
+   *
+   *   query.formatBindParameters('select $1 as foo', ['fooval']);
+   *
+   *   query.formatBindParameters('select $foo as foo', { foo: 'fooval' });
+   *
+   * Options
+   *   skipUnescape: bool, skip unescaping $$
+   *   skipValueReplace: bool, do not replace (but do unescape $$). Check correct syntax and if all values are available
+   *
+   * @param {string} sql
+   * @param {Object|Array} values
+   * @param {string} dialect
+   * @param {Function} [replacementFunc]
+   * @param {Object} [options]
+   * @private
+   */
+  static formatBindParameters(sql, values, dialect, replacementFunc, options) {
+    if (!values) {
+      return [sql, []];
+    }
+
+    options = options || {};
+    if (typeof replacementFunc !== 'function') {
+      options = replacementFunc || {};
+      replacementFunc = undefined;
+    }
+
+    if (!replacementFunc) {
+      if (options.skipValueReplace) {
+        replacementFunc = (match, key, values) =&gt; {
+          if (values[key] !== undefined) {
+            return match;
+          }
+          return undefined;
+        };
+      } else {
+        replacementFunc = (match, key, values, timeZone, dialect) =&gt; {
+          if (values[key] !== undefined) {
+            return SqlString.escape(values[key], timeZone, dialect);
+          }
+          return undefined;
+        };
+      }
+    } else if (options.skipValueReplace) {
+      const origReplacementFunc = replacementFunc;
+      replacementFunc = (match, key, values, timeZone, dialect, options) =&gt; {
+        if (origReplacementFunc(match, key, values, timeZone, dialect, options) !== undefined) {
+          return match;
+        }
+        return undefined;
+      };
+    }
+
+    const timeZone = null;
+    const list = Array.isArray(values);
+
+    sql = sql.replace(/\$(\$|\w+)/g, (match, key) =&gt; {
+      if ('$' === key) {
+        return options.skipUnescape ? match : key;
+      }
+
+      let replVal;
+      if (list) {
+        if (key.match(/^[1-9]\d*$/)) {
+          key = key - 1;
+          replVal = replacementFunc(match, key, values, timeZone, dialect, options);
+        }
+      } else if (!key.match(/^\d*$/)) {
+        replVal = replacementFunc(match, key, values, timeZone, dialect, options);
+      }
+      if (replVal === undefined) {
+        throw new Error(`Named bind parameter "${match}" has no value in the given object.`);
+      }
+      return replVal;
+    });
+    return [sql, []];
+  }
+
+  /**
+   * Execute the passed sql query.
+   *
+   * Examples:
+   *
+   *     query.run('SELECT 1')
+   *
+   * @private
+   */
+  run() {
+    throw new Error('The run method wasn\'t overwritten!');
+  }
+
+  /**
+   * Check the logging option of the instance and print deprecation warnings.
+   *
+   * @private
+   */
+  checkLoggingOption() {
+    if (this.options.logging === true) {
+      deprecations.noTrueLogging();
+      // eslint-disable-next-line no-console
+      this.options.logging = console.log;
+    }
+  }
+
+  /**
+   * Get the attributes of an insert query, which contains the just inserted id.
+   *
+   * @returns {string} The field name.
+   * @private
+   */
+  getInsertIdField() {
+    return 'insertId';
+  }
+
+  getUniqueConstraintErrorMessage(field) {
+    let message = field ? `${field} must be unique` : 'Must be unique';
+
+    if (field &amp;&amp; this.model) {
+      for (const key of Object.keys(this.model.uniqueKeys)) {
+        if (this.model.uniqueKeys[key].fields.includes(field.replace(/"/g, ''))) {
+          if (this.model.uniqueKeys[key].msg) {
+            message = this.model.uniqueKeys[key].msg;
+          }
+        }
+      }
+    }
+    return message;
+  }
+
+  isRawQuery() {
+    return this.options.type === QueryTypes.RAW;
+  }
+
+  isVersionQuery() {
+    return this.options.type === QueryTypes.VERSION;
+  }
+
+  isUpsertQuery() {
+    return this.options.type === QueryTypes.UPSERT;
+  }
+
+  isInsertQuery(results, metaData) {
+    let result = true;
+
+    if (this.options.type === QueryTypes.INSERT) {
+      return true;
+    }
+
+    // is insert query if sql contains insert into
+    result = result &amp;&amp; this.sql.toLowerCase().startsWith('insert into');
+
+    // is insert query if no results are passed or if the result has the inserted id
+    result = result &amp;&amp; (!results || Object.prototype.hasOwnProperty.call(results, this.getInsertIdField()));
+
+    // is insert query if no metadata are passed or if the metadata has the inserted id
+    result = result &amp;&amp; (!metaData || Object.prototype.hasOwnProperty.call(metaData, this.getInsertIdField()));
+
+    return result;
+  }
+
+  handleInsertQuery(results, metaData) {
+    if (this.instance) {
+      // add the inserted row id to the instance
+      const autoIncrementAttribute = this.model.autoIncrementAttribute;
+      let id = null;
+
+      id = id || results &amp;&amp; results[this.getInsertIdField()];
+      id = id || metaData &amp;&amp; metaData[this.getInsertIdField()];
+
+      this.instance[autoIncrementAttribute] = id;
+    }
+  }
+
+  isShowTablesQuery() {
+    return this.options.type === QueryTypes.SHOWTABLES;
+  }
+
+  handleShowTablesQuery(results) {
+    return _.flatten(results.map(resultSet =&gt; _.values(resultSet)));
+  }
+
+  isShowIndexesQuery() {
+    return this.options.type === QueryTypes.SHOWINDEXES;
+  }
+
+  isShowConstraintsQuery() {
+    return this.options.type === QueryTypes.SHOWCONSTRAINTS;
+  }
+
+  isDescribeQuery() {
+    return this.options.type === QueryTypes.DESCRIBE;
+  }
+
+  isSelectQuery() {
+    return this.options.type === QueryTypes.SELECT;
+  }
+
+  isBulkUpdateQuery() {
+    return this.options.type === QueryTypes.BULKUPDATE;
+  }
+
+  isBulkDeleteQuery() {
+    return this.options.type === QueryTypes.BULKDELETE;
+  }
+
+  isForeignKeysQuery() {
+    return this.options.type === QueryTypes.FOREIGNKEYS;
+  }
+
+  isUpdateQuery() {
+    return this.options.type === QueryTypes.UPDATE;
+  }
+
+  handleSelectQuery(results) {
+    let result = null;
+
+    // Map raw fields to names if a mapping is provided
+    if (this.options.fieldMap) {
+      const fieldMap = this.options.fieldMap;
+      results = results.map(result =&gt; _.reduce(fieldMap, (result, name, field) =&gt; {
+        if (result[field] !== undefined &amp;&amp; name !== field) {
+          result[name] = result[field];
+          delete result[field];
+        }
+        return result;
+      }, result));
+    }
+
+    // Raw queries
+    if (this.options.raw) {
+      result = results.map(result =&gt; {
+        let o = {};
+
+        for (const key in result) {
+          if (Object.prototype.hasOwnProperty.call(result, key)) {
+            o[key] = result[key];
+          }
+        }
+
+        if (this.options.nest) {
+          o = Dot.transform(o);
+        }
+
+        return o;
+      });
+    // Queries with include
+    } else if (this.options.hasJoin === true) {
+      results = AbstractQuery._groupJoinData(results, {
+        model: this.model,
+        includeMap: this.options.includeMap,
+        includeNames: this.options.includeNames
+      }, {
+        checkExisting: this.options.hasMultiAssociation
+      });
+
+      result = this.model.bulkBuild(results, {
+        isNewRecord: false,
+        include: this.options.include,
+        includeNames: this.options.includeNames,
+        includeMap: this.options.includeMap,
+        includeValidated: true,
+        attributes: this.options.originalAttributes || this.options.attributes,
+        raw: true
+      });
+    // Regular queries
+    } else {
+      result = this.model.bulkBuild(results, {
+        isNewRecord: false,
+        raw: true,
+        attributes: this.options.originalAttributes || this.options.attributes
+      });
+    }
+
+    // return the first real model instance if options.plain is set (e.g. Model.find)
+    if (this.options.plain) {
+      result = result.length === 0 ? null : result[0];
+    }
+    return result;
+  }
+
+  isShowOrDescribeQuery() {
+    let result = false;
+
+    result = result || this.sql.toLowerCase().startsWith('show');
+    result = result || this.sql.toLowerCase().startsWith('describe');
+
+    return result;
+  }
+
+  isCallQuery() {
+    return this.sql.toLowerCase().startsWith('call');
+  }
+
+  /**
+   * @param {string} sql
+   * @param {Function} debugContext
+   * @param {Array|Object} parameters
+   * @protected
+   * @returns {Function} A function to call after the query was completed.
+   */
+  _logQuery(sql, debugContext, parameters) {
+    const { connection, options } = this;
+    const benchmark = this.sequelize.options.benchmark || options.benchmark;
+    const logQueryParameters = this.sequelize.options.logQueryParameters || options.logQueryParameters;
+    const startTime = Date.now();
+    let logParameter = '';
+
+    if (logQueryParameters &amp;&amp; parameters) {
+      const delimiter = sql.endsWith(';') ? '' : ';';
+      let paramStr;
+      if (Array.isArray(parameters)) {
+        paramStr = parameters.map(p=&gt;JSON.stringify(p)).join(', ');
+      } else {
+        paramStr = JSON.stringify(parameters);
+      }
+      logParameter = `${delimiter} ${paramStr}`;
+    }
+    const fmt = `(${connection.uuid || 'default'}): ${sql}${logParameter}`;
+    const msg = `Executing ${fmt}`;
+    debugContext(msg);
+    if (!benchmark) {
+      this.sequelize.log(`Executing ${fmt}`, options);
+    }
+    return () =&gt; {
+      const afterMsg = `Executed ${fmt}`;
+      debugContext(afterMsg);
+      if (benchmark) {
+        this.sequelize.log(afterMsg, Date.now() - startTime, options);
+      }
+    };
+  }
+
+  /**
+   * The function takes the result of the query execution and groups
+   * the associated data by the callee.
+   *
+   * Example:
+   *   groupJoinData([
+   *     {
+   *       some: 'data',
+   *       id: 1,
+   *       association: { foo: 'bar', id: 1 }
+   *     }, {
+   *       some: 'data',
+   *       id: 1,
+   *       association: { foo: 'bar', id: 2 }
+   *     }, {
+   *       some: 'data',
+   *       id: 1,
+   *       association: { foo: 'bar', id: 3 }
+   *     }
+   *   ])
+   *
+   * Result:
+   *   Something like this:
+   *
+   *   [
+   *     {
+   *       some: 'data',
+   *       id: 1,
+   *       association: [
+   *         { foo: 'bar', id: 1 },
+   *         { foo: 'bar', id: 2 },
+   *         { foo: 'bar', id: 3 }
+   *       ]
+   *     }
+   *   ]
+   *
+   * @param {Array} rows
+   * @param {Object} includeOptions
+   * @param {Object} options
+   * @private
+   */
+  static _groupJoinData(rows, includeOptions, options) {
+
+    /*
+     * Assumptions
+     * ID is not necessarily the first field
+     * All fields for a level is grouped in the same set (i.e. Panel.id, Task.id, Panel.title is not possible)
+     * Parent keys will be seen before any include/child keys
+     * Previous set won't necessarily be parent set (one parent could have two children, one child would then be previous set for the other)
+     */
+
+    /*
+     * Author (MH) comment: This code is an unreadable mess, but it's performant.
+     * groupJoinData is a performance critical function so we prioritize perf over readability.
+     */
+    if (!rows.length) {
+      return [];
+    }
+
+    // Generic looping
+    let i;
+    let length;
+    let $i;
+    let $length;
+    // Row specific looping
+    let rowsI;
+    let row;
+    const rowsLength = rows.length;
+    // Key specific looping
+    let keys;
+    let key;
+    let keyI;
+    let keyLength;
+    let prevKey;
+    let values;
+    let topValues;
+    let topExists;
+    const checkExisting = options.checkExisting;
+    // If we don't have to deduplicate we can pre-allocate the resulting array
+    let itemHash;
+    let parentHash;
+    let topHash;
+    const results = checkExisting ? [] : new Array(rowsLength);
+    const resultMap = {};
+    const includeMap = {};
+    // Result variables for the respective functions
+    let $keyPrefix;
+    let $keyPrefixString;
+    let $prevKeyPrefixString; // eslint-disable-line
+    let $prevKeyPrefix;
+    let $lastKeyPrefix;
+    let $current;
+    let $parent;
+    // Map each key to an include option
+    let previousPiece;
+    const buildIncludeMap = piece =&gt; {
+      if (Object.prototype.hasOwnProperty.call($current.includeMap, piece)) {
+        includeMap[key] = $current = $current.includeMap[piece];
+        if (previousPiece) {
+          previousPiece = `${previousPiece}.${piece}`;
+        } else {
+          previousPiece = piece;
+        }
+        includeMap[previousPiece] = $current;
+      }
+    };
+    // Calculate the string prefix of a key ('User.Results' for 'User.Results.id')
+    const keyPrefixStringMemo = {};
+    const keyPrefixString = (key, memo) =&gt; {
+      if (!Object.prototype.hasOwnProperty.call(memo, key)) {
+        memo[key] = key.substr(0, key.lastIndexOf('.'));
+      }
+      return memo[key];
+    };
+    // Removes the prefix from a key ('id' for 'User.Results.id')
+    const removeKeyPrefixMemo = {};
+    const removeKeyPrefix = key =&gt; {
+      if (!Object.prototype.hasOwnProperty.call(removeKeyPrefixMemo, key)) {
+        const index = key.lastIndexOf('.');
+        removeKeyPrefixMemo[key] = key.substr(index === -1 ? 0 : index + 1);
+      }
+      return removeKeyPrefixMemo[key];
+    };
+    // Calculates the array prefix of a key (['User', 'Results'] for 'User.Results.id')
+    const keyPrefixMemo = {};
+    const keyPrefix = key =&gt; {
+      // We use a double memo and keyPrefixString so that different keys with the same prefix will receive the same array instead of differnet arrays with equal values
+      if (!Object.prototype.hasOwnProperty.call(keyPrefixMemo, key)) {
+        const prefixString = keyPrefixString(key, keyPrefixStringMemo);
+        if (!Object.prototype.hasOwnProperty.call(keyPrefixMemo, prefixString)) {
+          keyPrefixMemo[prefixString] = prefixString ? prefixString.split('.') : [];
+        }
+        keyPrefixMemo[key] = keyPrefixMemo[prefixString];
+      }
+      return keyPrefixMemo[key];
+    };
+    // Calcuate the last item in the array prefix ('Results' for 'User.Results.id')
+    const lastKeyPrefixMemo = {};
+    const lastKeyPrefix = key =&gt; {
+      if (!Object.prototype.hasOwnProperty.call(lastKeyPrefixMemo, key)) {
+        const prefix = keyPrefix(key);
+        const length = prefix.length;
+
+        lastKeyPrefixMemo[key] = !length ? '' : prefix[length - 1];
+      }
+      return lastKeyPrefixMemo[key];
+    };
+    const getUniqueKeyAttributes = model =&gt; {
+      let uniqueKeyAttributes = _.chain(model.uniqueKeys);
+      uniqueKeyAttributes = uniqueKeyAttributes
+        .result(`${uniqueKeyAttributes.findKey()}.fields`)
+        .map(field =&gt; _.findKey(model.attributes, chr =&gt; chr.field === field))
+        .value();
+
+      return uniqueKeyAttributes;
+    };
+    const stringify = obj =&gt; obj instanceof Buffer ? obj.toString('hex') : obj;
+    let primaryKeyAttributes;
+    let uniqueKeyAttributes;
+    let prefix;
+
+    for (rowsI = 0; rowsI &lt; rowsLength; rowsI++) {
+      row = rows[rowsI];
+
+      // Keys are the same for all rows, so only need to compute them on the first row
+      if (rowsI === 0) {
+        keys = Object.keys(row);
+        keyLength = keys.length;
+      }
+
+      if (checkExisting) {
+        topExists = false;
+
+        // Compute top level hash key (this is usually just the primary key values)
+        $length = includeOptions.model.primaryKeyAttributes.length;
+        topHash = '';
+        if ($length === 1) {
+          topHash = stringify(row[includeOptions.model.primaryKeyAttributes[0]]);
+        }
+        else if ($length &gt; 1) {
+          for ($i = 0; $i &lt; $length; $i++) {
+            topHash += stringify(row[includeOptions.model.primaryKeyAttributes[$i]]);
+          }
+        }
+        else if (!_.isEmpty(includeOptions.model.uniqueKeys)) {
+          uniqueKeyAttributes = getUniqueKeyAttributes(includeOptions.model);
+          for ($i = 0; $i &lt; uniqueKeyAttributes.length; $i++) {
+            topHash += row[uniqueKeyAttributes[$i]];
+          }
+        }
+      }
+
+      topValues = values = {};
+      $prevKeyPrefix = undefined;
+      for (keyI = 0; keyI &lt; keyLength; keyI++) {
+        key = keys[keyI];
+
+        // The string prefix isn't actualy needed
+        // We use it so keyPrefix for different keys will resolve to the same array if they have the same prefix
+        // TODO: Find a better way?
+        $keyPrefixString = keyPrefixString(key, keyPrefixStringMemo);
+        $keyPrefix = keyPrefix(key);
+
+        // On the first row we compute the includeMap
+        if (rowsI === 0 &amp;&amp; !Object.prototype.hasOwnProperty.call(includeMap, key)) {
+          if (!$keyPrefix.length) {
+            includeMap[key] = includeMap[''] = includeOptions;
+          } else {
+            $current = includeOptions;
+            previousPiece = undefined;
+            $keyPrefix.forEach(buildIncludeMap);
+          }
+        }
+        // End of key set
+        if ($prevKeyPrefix !== undefined &amp;&amp; $prevKeyPrefix !== $keyPrefix) {
+          if (checkExisting) {
+            // Compute hash key for this set instance
+            // TODO: Optimize
+            length = $prevKeyPrefix.length;
+            $parent = null;
+            parentHash = null;
+
+            if (length) {
+              for (i = 0; i &lt; length; i++) {
+                prefix = $parent ? `${$parent}.${$prevKeyPrefix[i]}` : $prevKeyPrefix[i];
+                primaryKeyAttributes = includeMap[prefix].model.primaryKeyAttributes;
+                $length = primaryKeyAttributes.length;
+                itemHash = prefix;
+                if ($length === 1) {
+                  itemHash += stringify(row[`${prefix}.${primaryKeyAttributes[0]}`]);
+                }
+                else if ($length &gt; 1) {
+                  for ($i = 0; $i &lt; $length; $i++) {
+                    itemHash += stringify(row[`${prefix}.${primaryKeyAttributes[$i]}`]);
+                  }
+                }
+                else if (!_.isEmpty(includeMap[prefix].model.uniqueKeys)) {
+                  uniqueKeyAttributes = getUniqueKeyAttributes(includeMap[prefix].model);
+                  for ($i = 0; $i &lt; uniqueKeyAttributes.length; $i++) {
+                    itemHash += row[`${prefix}.${uniqueKeyAttributes[$i]}`];
+                  }
+                }
+                if (!parentHash) {
+                  parentHash = topHash;
+                }
+
+                itemHash = parentHash + itemHash;
+                $parent = prefix;
+                if (i &lt; length - 1) {
+                  parentHash = itemHash;
+                }
+              }
+            } else {
+              itemHash = topHash;
+            }
+
+            if (itemHash === topHash) {
+              if (!resultMap[itemHash]) {
+                resultMap[itemHash] = values;
+              } else {
+                topExists = true;
+              }
+            } else if (!resultMap[itemHash]) {
+              $parent = resultMap[parentHash];
+              $lastKeyPrefix = lastKeyPrefix(prevKey);
+
+              if (includeMap[prevKey].association.isSingleAssociation) {
+                if ($parent) {
+                  $parent[$lastKeyPrefix] = resultMap[itemHash] = values;
+                }
+              } else {
+                if (!$parent[$lastKeyPrefix]) {
+                  $parent[$lastKeyPrefix] = [];
+                }
+                $parent[$lastKeyPrefix].push(resultMap[itemHash] = values);
+              }
+            }
+
+            // Reset values
+            values = {};
+          } else {
+            // If checkExisting is false it's because there's only 1:1 associations in this query
+            // However we still need to map onto the appropriate parent
+            // For 1:1 we map forward, initializing the value object on the parent to be filled in the next iterations of the loop
+            $current = topValues;
+            length = $keyPrefix.length;
+            if (length) {
+              for (i = 0; i &lt; length; i++) {
+                if (i === length - 1) {
+                  values = $current[$keyPrefix[i]] = {};
+                }
+                $current = $current[$keyPrefix[i]] || {};
+              }
+            }
+          }
+        }
+
+        // End of iteration, set value and set prev values (for next iteration)
+        values[removeKeyPrefix(key)] = row[key];
+        prevKey = key;
+        $prevKeyPrefix = $keyPrefix;
+        $prevKeyPrefixString = $keyPrefixString;
+      }
+
+      if (checkExisting) {
+        length = $prevKeyPrefix.length;
+        $parent = null;
+        parentHash = null;
+
+        if (length) {
+          for (i = 0; i &lt; length; i++) {
+            prefix = $parent ? `${$parent}.${$prevKeyPrefix[i]}` : $prevKeyPrefix[i];
+            primaryKeyAttributes = includeMap[prefix].model.primaryKeyAttributes;
+            $length = primaryKeyAttributes.length;
+            itemHash = prefix;
+            if ($length === 1) {
+              itemHash += stringify(row[`${prefix}.${primaryKeyAttributes[0]}`]);
+            }
+            else if ($length &gt; 0) {
+              for ($i = 0; $i &lt; $length; $i++) {
+                itemHash += stringify(row[`${prefix}.${primaryKeyAttributes[$i]}`]);
+              }
+            }
+            else if (!_.isEmpty(includeMap[prefix].model.uniqueKeys)) {
+              uniqueKeyAttributes = getUniqueKeyAttributes(includeMap[prefix].model);
+              for ($i = 0; $i &lt; uniqueKeyAttributes.length; $i++) {
+                itemHash += row[`${prefix}.${uniqueKeyAttributes[$i]}`];
+              }
+            }
+            if (!parentHash) {
+              parentHash = topHash;
+            }
+
+            itemHash = parentHash + itemHash;
+            $parent = prefix;
+            if (i &lt; length - 1) {
+              parentHash = itemHash;
+            }
+          }
+        } else {
+          itemHash = topHash;
+        }
+
+        if (itemHash === topHash) {
+          if (!resultMap[itemHash]) {
+            resultMap[itemHash] = values;
+          } else {
+            topExists = true;
+          }
+        } else if (!resultMap[itemHash]) {
+          $parent = resultMap[parentHash];
+          $lastKeyPrefix = lastKeyPrefix(prevKey);
+
+          if (includeMap[prevKey].association.isSingleAssociation) {
+            if ($parent) {
+              $parent[$lastKeyPrefix] = resultMap[itemHash] = values;
+            }
+          } else {
+            if (!$parent[$lastKeyPrefix]) {
+              $parent[$lastKeyPrefix] = [];
+            }
+            $parent[$lastKeyPrefix].push(resultMap[itemHash] = values);
+          }
+        }
+        if (!topExists) {
+          results.push(topValues);
+        }
+      } else {
+        results[rowsI] = topValues;
+      }
+    }
+
+    return results;
+  }
+}
+
+module.exports = AbstractQuery;
+module.exports.AbstractQuery = AbstractQuery;
+module.exports.default = AbstractQuery;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

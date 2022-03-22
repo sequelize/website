@@ -1,6 +1,6 @@
 # Extending Data Types
 
-Most likely the type you are trying to implement is already included in our built-in [DataTypes](./other-data-types.md). If a new datatype is not included, this manual will show how to write it yourself.
+Most likely the type you are trying to implement is already included in our built-in [DataTypes](./other-data-types.mdx). If a new datatype is not included, this manual will show how to write it yourself.
 
 Sequelize doesn't create new DataTypes in the database. This tutorial explains how to make Sequelize recognize new DataTypes and assumes that those new DataTypes are already created in the database.
 

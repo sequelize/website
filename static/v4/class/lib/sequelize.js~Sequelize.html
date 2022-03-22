@@ -1,0 +1,3999 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v4/../../">
+  <title data-ice="title">Sequelize |  Sequelize | The node.js ORM for PostgreSQL, MySQL, SQLite and MSSQL API Document</title>
+  <link type="text/css" rel="stylesheet" href="/v4/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v4/css/prettify-tomorrow.css">
+  <script src="/v4/script/prettify/prettify.js"></script>
+  
+  
+  <script src="/v4/script/manual.js"></script>
+<script data-ice="userScript" src="/v4/user/script/0-script.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/0-style.css">
+<link data-ice="userStyle" rel="stylesheet" href="/v4/user/css/1-theme.css">
+<link rel="shortcut icon" type="image/x-icon" href="/v4/favicon.ico"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header><a href="/v4/"><img src="/v4/manual/asset/logo-small.png" class="header-logo"></a>
+  <a href="/v4/./">Home</a>
+  
+  <a href="/v4/identifiers.html">Reference</a>
+  <a href="/v4/source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/sequelize/sequelize.git" class="repo-url-github">Repository</a><a href="http://sequelize-slack.herokuapp.com/" class="slack-link"><img class="slack-logo" src="/v4/manual/asset/slack.svg">Join us on Slack</a>
+  <div class="search-box">
+  <span>
+    <img src="/v4/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v4/variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">associations</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">errors</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v4/class/lib/errors/index.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="/v4/function/index.html#static-function-isImmutable">isImmutable</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode"></code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">class</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="/v4/file/lib/sequelize.js.html#lineNumber33">source</a></span></span>
+</div>
+
+<div class="self-detail detail">
+  <h1 data-ice="name">Sequelize</h1>
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  <div class="description" data-ice="description"><p>This is the main class, the entry point to sequelize. To use it, you just need to import sequelize:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const Sequelize = require('sequelize');</code>
+</code></pre>
+<p>In addition to sequelize, the connection library for the dialect you want to use should also be installed in your project. You don't need to import it however, as sequelize will take care of that.</p>
+</div>
+  
+
+  
+
+  
+
+  
+
+  
+</div>
+
+
+<div data-ice="staticMethodSummary"><h2>Static Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-and">and</a></span></span><span data-ice="signature">(args: <span>String</span> | <span>Object</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-and">and</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>An AND query</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-cast">cast</a></span></span><span data-ice="signature">(val: <span>any</span>, type: <span>String</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-cast">cast</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Creates an object representing a call to the cast function.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-col">col</a></span></span><span data-ice="signature">(col: <span>String</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-col">col</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Creates an object which represents a column in the DB, this allows referencing another column in your query.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-fn">fn</a></span></span><span data-ice="signature">(fn: <span>String</span>, args: <span>any</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-fn">fn</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Creates an object representing a database function.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-json">json</a></span></span><span data-ice="signature">(conditions: <span>String</span> | <span>Object</span>, value: <span>String</span> | <span>Number</span> | <span>Boolean</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-json">json</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Creates an object representing nested where conditions for postgres/sqlite/mysql json data-type.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-literal">literal</a></span></span><span data-ice="signature">(val: <span>any</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-literal">literal</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Creates an object representing a literal, i.e.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-or">or</a></span></span><span data-ice="signature">(args: <span>String</span> | <span>Object</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-or">or</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>An OR query</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-useCLS">useCLS</a></span></span><span data-ice="signature">(ns: <span>Object</span>): <span>Object</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Use CLS with Sequelize.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-where">where</a></span></span><span data-ice="signature">(attr: <span>Object</span>, comparator: <span>String</span> | <span><a href="/v4/variable/index.html#static-variable-Op">Op</a></span>, logic: <span>String</span> | <span>Object</span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>A way of specifying attr = condition.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(database: <span>String</span>, username: <span>String</span>, password: <span>String</span>, options: <span>Object</span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Instantiate sequelize with name of database, username and password</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-member-models">models</a></span></span><span data-ice="signature">: {}</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Models are stored here under the name given to <code>sequelize.define</code></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-authenticate">authenticate</a></span></span><span data-ice="signature">(options: <span>*</span>): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Test the connection by trying to authenticate</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-close">close</a></span></span><span data-ice="signature">(): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Close all connections used by this sequelize instance, and free all references so the instance can be garbage collected.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-createSchema">createSchema</a></span></span><span data-ice="signature">(schema: <span>String</span>, options: <span>Object</span>): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Create a new database schema.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-define">define</a></span></span><span data-ice="signature">(modelName: <span>String</span>, attributes: <span>Object</span>, options: <span>Object</span>): <span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Define a new model, representing a table in the DB.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-drop">drop</a></span></span><span data-ice="signature">(options: <span>object</span>): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Drop all tables defined through this sequelize instance.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-dropAllSchemas">dropAllSchemas</a></span></span><span data-ice="signature">(options: <span>Object</span>): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Drop all schemas</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-dropSchema">dropSchema</a></span></span><span data-ice="signature">(schema: <span>String</span>, options: <span>Object</span>): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Drop a single schema</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-escape">escape</a></span></span><span data-ice="signature">(value: <span>String</span>): <span>String</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Escape value.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-getDialect">getDialect</a></span></span><span data-ice="signature">(): <span>String</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Returns the specified dialect.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-getQueryInterface">getQueryInterface</a></span></span><span data-ice="signature">(): <span><a href="/v4/class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Returns an instance of QueryInterface.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-import">import</a></span></span><span data-ice="signature">(path: <span>String</span>): <span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Imports a model defined in another file</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-isDefined">isDefined</a></span></span><span data-ice="signature">(modelName: <span>String</span>): <span>Boolean</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Checks whether a model with the given name is defined</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-model">model</a></span></span><span data-ice="signature">(modelName: <span>String</span>): <span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Fetch a Model which is already defined</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-query">query</a></span></span><span data-ice="signature">(sql: <span>String</span>, options: <span>Object</span>): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Execute a query on the DB, with the possibility to bypass all the sequelize goodness.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-random">random</a></span></span><span data-ice="signature">(): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-fn">fn</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get the fn for random based on the dialect</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-set">set</a></span></span><span data-ice="signature">(variables: <span>Object</span>, options: <span>Object</span>): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Execute a query which would set an environment or user variable.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-showAllSchemas">showAllSchemas</a></span></span><span data-ice="signature">(options: <span>Object</span>): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Show all defined schemas</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-sync">sync</a></span></span><span data-ice="signature">(options: <span>Object</span>): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Sync all defined models to the DB.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-transaction">transaction</a></span></span><span data-ice="signature">(options: <span>Object</span>, autoCallback: <span>Function</span>): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Start a transaction.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-truncate">truncate</a></span></span><span data-ice="signature">(options: <span>object</span>): <span>Promise</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Truncate all tables defined through the sequelize models.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+<div data-ice="staticMethodDetails"><h2 data-ice="title">Static Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-and">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span data-ice="name">and</span><span data-ice="signature">(args: <span>String</span> | <span>Object</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-and">and</a></span></span>
+    <span class="right-info">
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber890">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>An AND query</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">args</td>
+      <td data-ice="type"><span>String</span> | <span>Object</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Each argument will be joined by AND</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-and">and</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/model.js~Model.html#static-method-findAll">Model.findAll</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-cast">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span data-ice="name">cast</span><span data-ice="signature">(val: <span>any</span>, type: <span>String</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-cast">cast</a></span></span>
+    <span class="right-info">
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber862">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Creates an object representing a call to the cast function.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">val</td>
+      <td data-ice="type"><span>any</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The value to cast</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">type</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The type to cast it to</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-cast">cast</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-col">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span data-ice="name">col</span><span data-ice="signature">(col: <span>String</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-col">col</a></span></span>
+    <span class="right-info">
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber848">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Creates an object which represents a column in the DB, this allows referencing another column in your query. This is often useful in conjunction with <code>sequelize.fn</code>, since raw string arguments to fn will be escaped.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">col</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The name of the column</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-col">col</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span>Sequelize#fn</span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-fn">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span data-ice="name">fn</span><span data-ice="signature">(fn: <span>String</span>, args: <span>any</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-fn">fn</a></span></span>
+    <span class="right-info">
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber834">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Creates an object representing a database function. This can be used in search queries, both in where and order parts, and as default values in column definitions.
+If you want to refer to columns in your function, you should use <code>sequelize.col</code>, so that the columns are properly interpreted as columns and not a strings.</p>
+<p>Convert a user's username to upper case</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">instance.updateAttributes({
+  username: self.sequelize.fn('upper', self.sequelize.col('username'))
+})</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">fn</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The function you want to call</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">args</td>
+      <td data-ice="type"><span>any</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>All further arguments will be passed as arguments to the function</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-fn">fn</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Convert a user's username to upper case</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">instance.updateAttributes({
+  username: self.sequelize.fn('upper', self.sequelize.col('username'))
+})</code></pre>
+    </div>
+</div>
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/model.js~Model.html#static-method-findAll">Model.findAll</a></span></span></li>
+<li><span><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#instance-method-define">Sequelize.define</a></span></span></li>
+<li><span><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-col">Sequelize.col</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-json">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span data-ice="name">json</span><span data-ice="signature">(conditions: <span>String</span> | <span>Object</span>, value: <span>String</span> | <span>Number</span> | <span>Boolean</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-json">json</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber918">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Creates an object representing nested where conditions for postgres/sqlite/mysql json data-type.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">conditions</td>
+      <td data-ice="type"><span>String</span> | <span>Object</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A hash containing strings/numbers or other nested hash, a string using dot notation or a string using postgres/sqlite/mysql json syntax.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">value</td>
+      <td data-ice="type"><span>String</span> | <span>Number</span> | <span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>An optional value to compare against. Produces a string of the form "&lt;json path&gt; = '&lt;value&gt;'".</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-json">json</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span>Model#findAll</span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-literal">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span data-ice="name">literal</span><span data-ice="signature">(val: <span>any</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-literal">literal</a></span></span>
+    <span class="right-info">
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber876">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Creates an object representing a literal, i.e. something that will not be escaped.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">val</td>
+      <td data-ice="type"><span>any</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-literal">literal</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-or">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span data-ice="name">or</span><span data-ice="signature">(args: <span>String</span> | <span>Object</span>): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-or">or</a></span></span>
+    <span class="right-info">
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber904">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>An OR query</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">args</td>
+      <td data-ice="type"><span>String</span> | <span>Object</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Each argument will be joined by OR</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-or">or</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/model.js~Model.html#static-method-findAll">Model.findAll</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-useCLS">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span data-ice="name">useCLS</span><span data-ice="signature">(ns: <span>Object</span>): <span>Object</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber1021">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Use CLS with Sequelize.
+CLS namespace provided is stored as <code>Sequelize._cls</code>
+and bluebird Promise is patched to use the namespace, using <code>cls-bluebird</code> module.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">ns</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>CLS namespace</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Object</span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Sequelize constructor</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-where">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span data-ice="name">where</span><span data-ice="signature">(attr: <span>Object</span>, comparator: <span>String</span> | <span><a href="/v4/variable/index.html#static-variable-Op">Op</a></span>, logic: <span>String</span> | <span>Object</span>): <span>*</span></span>
+    <span class="right-info">
+      
+      <span class="since" data-ice="since">since v2.0.0-dev3</span>
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber938">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>A way of specifying attr = condition.</p>
+<p>The attr can either be an object taken from <code>Model.rawAttributes</code> (for example <code>Model.rawAttributes.id</code> or <code>Model.rawAttributes.name</code>). The
+attribute should be defined in your model definition. The attribute can also be an object from one of the sequelize utility functions (<code>sequelize.fn</code>, <code>sequelize.col</code> etc.)</p>
+<p>For string attributes, use the regular <code>{ where: { attr: something }}</code> syntax. If you don't want your string to be escaped, use <code>sequelize.literal</code>.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">attr</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The attribute, which can be either an attribute object from <code>Model.rawAttributes</code> or a sequelize object, for example an instance of <code>sequelize.fn</code>. For simple string attributes, use the POJO syntax</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">comparator</td>
+      <td data-ice="type"><span>String</span> | <span><a href="/v4/variable/index.html#static-variable-Op">Op</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: '='</li></ul></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">logic</td>
+      <td data-ice="type"><span>String</span> | <span>Object</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The condition. Can be both a simply type, or a further condition (<code>or</code>, <code>and</code>, <code>.literal</code> etc.)</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/model.js~Model.html#static-method-findAll">Model.findAll</a></span></span></li></ul></div>
+  
+</div>
+</div>
+<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-constructor-constructor">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">constructor</span><span data-ice="signature">(database: <span>String</span>, username: <span>String</span>, password: <span>String</span>, options: <span>Object</span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber103">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Instantiate sequelize with name of database, username and password</p>
+<h4 id="example-usage">Example usage</h4>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">// without password and options
+const sequelize = new Sequelize('database', 'username')
+
+// without options
+const sequelize = new Sequelize('database', 'username', 'password')
+
+// without password / with blank password
+const sequelize = new Sequelize('database', 'username', null, {})
+
+// with password and options
+const sequelize = new Sequelize('my_database', 'john', 'doe', {})
+
+// with database, username, and password in the options object
+const sequelize = new Sequelize({ database, username, password });
+
+// with uri
+const sequelize = new Sequelize('mysql://localhost:3306/database', {})</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">database</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>The name of the database</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">username</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>The username which is used to authenticate against the database.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">password</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>The password which is used to authenticate against the database. Supports SQLCipher encryption for SQLite.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: {}</li></ul></td>
+      <td data-ice="description"><p>An object with options.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.host</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 'localhost'</li></ul></td>
+      <td data-ice="description"><p>The host of the relational database.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.port</td>
+      <td data-ice="type"><span>Integer</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: </li></ul></td>
+      <td data-ice="description"><p>The port of the relational database.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.username</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>The username which is used to authenticate against the database.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.password</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>The password which is used to authenticate against the database.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.database</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>The name of the database</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.dialect</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>The dialect of the database you are connecting to. One of mysql, postgres, sqlite and mssql.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.dialectModulePath</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>If specified, load the dialect library from this path. For example, if you want to use pg.js instead of pg when connecting to a pg database, you should specify 'pg.js' here</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.dialectOptions</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>An object of additional options, which are passed directly to the connection library</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.storage</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Only used by sqlite. Defaults to ':memory:'</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.protocol</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 'tcp'</li></ul></td>
+      <td data-ice="description"><p>The protocol of the relational database.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.define</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: {}</li></ul></td>
+      <td data-ice="description"><p>Default options for model definitions. See sequelize.define for options</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.query</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: {}</li></ul></td>
+      <td data-ice="description"><p>Default options for sequelize.query</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.set</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: {}</li></ul></td>
+      <td data-ice="description"><p>Default options for sequelize.set</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.sync</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: {}</li></ul></td>
+      <td data-ice="description"><p>Default options for sequelize.sync</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.timezone</td>
+      <td data-ice="type"><span>string</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: '+00:00'</li></ul></td>
+      <td data-ice="description"><p>The timezone used when converting a date from the database into a JavaScript date. The timezone is also used to SET TIMEZONE when connecting to the server, to ensure that the result of NOW, CURRENT_TIMESTAMP and other time related functions have in the right timezone. For best cross platform performance use the format +/-HH:MM. Will also accept string versions of timezones used by moment.js (e.g. 'America/Los_Angeles'); this is useful to capture daylight savings time changes.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.standardConformingStrings</td>
+      <td data-ice="type"><span>boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>The PostgreSQL <code>standard_conforming_strings</code> session parameter. Set to <code>false</code> to not set the option. WARNING: Setting this to false may expose vulnerabilities and is not recommended!</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logging</td>
+      <td data-ice="type"><span>Function</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: console.log</li></ul></td>
+      <td data-ice="description"><p>A function that gets executed every time Sequelize would log something.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.benchmark</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Pass query execution time in milliseconds as second argument to logging function (options.logging).</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.omitNull</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>A flag that defines if null values should be passed to SQL queries or not.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.native</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>A flag that defines if native library shall be used or not. Currently only has an effect for postgres</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.replication</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Use read / write replication. To enable replication, pass an object, with two properties, read and write. Write should be an object (a single server for handling writes), and read an array of object (several servers to handle reads). Each read/write server can have the following properties: <code>host</code>, <code>port</code>, <code>username</code>, <code>password</code>, <code>database</code></p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.pool</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>sequelize connection pool configuration</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="2">
+      <td data-ice="name" data-depth="2">options.pool.max</td>
+      <td data-ice="type"><span>Integer</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 5</li></ul></td>
+      <td data-ice="description"><p>Maximum number of connection in pool</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="2">
+      <td data-ice="name" data-depth="2">options.pool.min</td>
+      <td data-ice="type"><span>Integer</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 0</li></ul></td>
+      <td data-ice="description"><p>Minimum number of connection in pool</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="2">
+      <td data-ice="name" data-depth="2">options.pool.idle</td>
+      <td data-ice="type"><span>Integer</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 10000</li></ul></td>
+      <td data-ice="description"><p>The maximum time, in milliseconds, that a connection can be idle before being released. Use with combination of evict for proper working, for more details read <a href="https://github.com/coopernurse/node-pool/issues/178#issuecomment-327110870">https://github.com/coopernurse/node-pool/issues/178#issuecomment-327110870</a></p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="2">
+      <td data-ice="name" data-depth="2">options.pool.acquire</td>
+      <td data-ice="type"><span>Integer</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 10000</li></ul></td>
+      <td data-ice="description"><p>The maximum time, in milliseconds, that pool will try to get connection before throwing error</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="2">
+      <td data-ice="name" data-depth="2">options.pool.evict</td>
+      <td data-ice="type"><span>Integer</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 10000</li></ul></td>
+      <td data-ice="description"><p>The time interval, in milliseconds, for evicting stale connections. Set it to 0 to disable this feature.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="2">
+      <td data-ice="name" data-depth="2">options.pool.handleDisconnects</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>Controls if pool should handle connection disconnect automatically without throwing errors</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="2">
+      <td data-ice="name" data-depth="2">options.pool.validate</td>
+      <td data-ice="type"><span>Function</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>A function that validates a connection. Called with client. The default function checks that client is an object, and that its state is not disconnected</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.quoteIdentifiers</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>Set to <code>false</code> to make table names and attributes case-insensitive on Postgres and skip double quoting of them.  WARNING: Setting this to false may expose vulnerabilities and is not recommended!</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.transactionType</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 'DEFERRED'</li></ul></td>
+      <td data-ice="description"><p>Set the default transaction type. See <code>Sequelize.Transaction.TYPES</code> for possible options. Sqlite only.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.isolationLevel</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Set the default transaction isolation level. See <code>Sequelize.Transaction.ISOLATION_LEVELS</code> for possible options.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.retry</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Set of flags that control when a query is automatically retried.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="2">
+      <td data-ice="name" data-depth="2">options.retry.match</td>
+      <td data-ice="type"><span>Array</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Only retry a query if the error matches one of these strings.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="2">
+      <td data-ice="name" data-depth="2">options.retry.max</td>
+      <td data-ice="type"><span>Integer</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>How many times a failing query is automatically retried.  Set to 0 to disable retrying on SQL_BUSY error.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.typeValidation</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Run built in type validators on insert and update, e.g. validate that arguments passed to integer fields are integer-like.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.operatorsAliases</td>
+      <td data-ice="type"><span>Object</span> | <span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>String based operator alias, default value is true which will enable all operators alias. Pass object to limit set of aliased operators or false to disable completely.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-models">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">models</span><span data-ice="signature">: {}</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber256">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Models are stored here under the name given to <code>sequelize.define</code></p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-authenticate">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">authenticate</span><span data-ice="signature">(options: <span>*</span>): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber785">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Test the connection by trying to authenticate</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-close">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">close</span><span data-ice="signature">(): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber1106">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Close all connections used by this sequelize instance, and free all references so the instance can be garbage collected.</p>
+<p>Normally this is done on process exit, so you only need to call this method if you are creating multiple instances, and want
+to garbage collect some of them.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-createSchema">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">createSchema</span><span data-ice="signature">(schema: <span>String</span>, options: <span>Object</span>): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber633">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Create a new database schema.</p>
+<p>Note, that this is a schema in the <a href="http://www.postgresql.org/docs/9.1/static/ddl-schemas.html">postgres sense of the word</a>,
+not a database table. In mysql and sqlite, this command will do nothing.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">schema</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Name of the schema</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>default: {}</li></ul></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logging</td>
+      <td data-ice="type"><span>Boolean</span> | <span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A function that logs sql queries, or false for no logging</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/model.js~Model.html#static-method-schema">Model.schema</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-define">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">define</span><span data-ice="signature">(modelName: <span>String</span>, attributes: <span>Object</span>, options: <span>Object</span>): <span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber337">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Define a new model, representing a table in the DB.</p>
+<p>The table columns are defined by the object that is given as the second argument. Each key of the object represents a column</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">modelName</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The name of the model. The model will be stored in <code>sequelize.models</code> under this name</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">attributes</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>An object, where each attribute is a column of the table. See <span><a href="/v4/class/lib/model.js~Model.html#static-method-init">Model.init</a></span></p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>These options are merged with the default define options provided to the Sequelize constructor and passed to Model.init()</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">sequelize.define('modelName', {
+    columnA: {
+        type: Sequelize.BOOLEAN,
+        validate: {
+          is: ["[a-z]",'i'],        // will only allow letters
+          max: 23,                  // only allow values &lt;= 23
+          isIn: {
+            args: [['en', 'zh']],
+            msg: "Must be English or Chinese"
+          }
+        },
+        field: 'column_a'
+        // Other attributes here
+    },
+    columnB: Sequelize.STRING,
+    columnC: 'MY VERY OWN COLUMN TYPE'
+})
+
+sequelize.models.modelName // The model will now be available in models under the name given to define</code></pre>
+    </div>
+</div>
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/model.js~Model.html#static-method-init">Model.init</a></span> for a more comprehensive specification of the `options` and `attributes` objects.</span></li>
+<li><span><a href="/v4/manual/tutorial/models-definition.html">The manual section about defining models</a></span></li>
+<li><span><span><a href="/v4/variable/index.html#static-variable-DataTypes">DataTypes</a></span> For a list of possible data types</span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-drop">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">drop</span><span data-ice="signature">(options: <span>object</span>): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber767">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Drop all tables defined through this sequelize instance. This is done by calling Model.drop on each model</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>object</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The options passed to each call to Model.drop</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logging</td>
+      <td data-ice="type"><span>Boolean</span> | <span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A function that logs sql queries, or false for no logging</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/model.js~Model.html#static-method-drop">Model.drop</a></span> for options</span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-dropAllSchemas">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">dropAllSchemas</span><span data-ice="signature">(options: <span>Object</span>): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber673">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Drop all schemas</p>
+<p>Note,that this is a schema in the <a href="http://www.postgresql.org/docs/9.1/static/ddl-schemas.html">postgres sense of the word</a>,
+not a database table. In mysql and sqlite, this is the equivalent of drop all tables.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>default: {}</li></ul></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logging</td>
+      <td data-ice="type"><span>Boolean</span> | <span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A function that logs sql queries, or false for no logging</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-dropSchema">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">dropSchema</span><span data-ice="signature">(schema: <span>String</span>, options: <span>Object</span>): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber660">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Drop a single schema</p>
+<p>Note, that this is a schema in the <a href="http://www.postgresql.org/docs/9.1/static/ddl-schemas.html">postgres sense of the word</a>,
+not a database table. In mysql and sqlite, this drop a table matching the schema name</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">schema</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Name of the schema</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>default: {}</li></ul></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logging</td>
+      <td data-ice="type"><span>Boolean</span> | <span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A function that logs sql queries, or false for no logging</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-escape">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">escape</span><span data-ice="signature">(value: <span>String</span>): <span>String</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber617">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Escape value.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">value</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>String</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getDialect">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">getDialect</span><span data-ice="signature">(): <span>String</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber285">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Returns the specified dialect.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>String</span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>The specified dialect.</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getQueryInterface">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">getQueryInterface</span><span data-ice="signature">(): <span><a href="/v4/class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber296">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Returns an instance of QueryInterface.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>An instance (singleton) of QueryInterface.</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-import">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">import</span><span data-ice="signature">(path: <span>String</span>): <span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber385">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Imports a model defined in another file</p>
+<p>Imported models are cached, so multiple calls to import with the same path will not load the file multiple times</p>
+<p>See <a href="https://github.com/sequelize/express-example">https://github.com/sequelize/express-example</a> for a short example of how to define your models in separate files so that they can be imported by sequelize.import</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">path</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The path to the file that holds the model you want to import. If the part is relative, it will be resolved relatively to the calling file</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-isDefined">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">isDefined</span><span data-ice="signature">(modelName: <span>String</span>): <span>Boolean</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber371">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Checks whether a model with the given name is defined</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">modelName</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The name of a model defined with Sequelize.define</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Boolean</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-model">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">model</span><span data-ice="signature">(modelName: <span>String</span>): <span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber357">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Fetch a Model which is already defined</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">modelName</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The name of a model defined with Sequelize.define</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  <div data-ice="throwWrap">
+    <h4>Throw:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span>*</span></p></td>
+        <td data-ice="throwDesc"><p>Will throw an error if the model is not defined (that is, if sequelize#isDefined returns false)</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-query">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">query</span><span data-ice="signature">(sql: <span>String</span>, options: <span>Object</span>): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber451">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Execute a query on the DB, with the possibility to bypass all the sequelize goodness.</p>
+<p>By default, the function will return two arguments: an array of results, and a metadata object, containing number of affected rows etc. Use <code>.spread</code> to access the results.</p>
+<p>If you are running a type of query where you don't need the metadata, for example a <code>SELECT</code> query, you can pass in a query type to make sequelize format the results:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">sequelize.query('SELECT...').spread((results, metadata) =&gt; {
+  // Raw query - use spread
+});
+
+sequelize.query('SELECT...', { type: sequelize.QueryTypes.SELECT }).then(results =&gt; {
+  // SELECT query - use then
+})</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">sql</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: {}</li></ul></td>
+      <td data-ice="description"><p>Query options.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.raw</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>If true, sequelize will not try to format the results of the query, or build an instance of a model from the result</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.transaction</td>
+      <td data-ice="type"><span><a href="/v4/class/lib/transaction.js~Transaction.html">Transaction</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>The transaction that the query should be executed under</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.type</td>
+      <td data-ice="type"><span><a href="/v4/variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 'RAW'</li></ul></td>
+      <td data-ice="description"><p>The type of query you are executing. The query type affects how results are formatted before they are passed back. The type is a string, but <code>Sequelize.QueryTypes</code> is provided as convenience shortcuts.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.nest</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>If true, transforms objects with <code>.</code> separated property names into nested objects using <a href="https://github.com/mickhansen/dottie.js">dottie.js</a>. For example { 'user.username': 'john' } becomes { user: { username: 'john' }}. When <code>nest</code> is true, the query type is assumed to be <code>'SELECT'</code>, unless otherwise specified</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.plain</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Sets the query type to <code>SELECT</code> and return a single row</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.replacements</td>
+      <td data-ice="type"><span>Object</span> | <span>Array</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Either an object of named parameter replacements in the format <code>:param</code> or an array of unnamed replacements to replace <code>?</code> in your SQL.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.bind</td>
+      <td data-ice="type"><span>Object</span> | <span>Array</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Either an object of named bind parameter in the format <code>_param</code> or an array of unnamed bind parameter to replace <code>$1, $2, ...</code> in your SQL.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.useMaster</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Force the query to use the write pool, regardless of the query type.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logging</td>
+      <td data-ice="type"><span>Function</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>A function that gets executed while running the query to log the sql.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.instance</td>
+      <td data-ice="type"><span>new Model()</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>A sequelize instance used to build the return instance</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.model</td>
+      <td data-ice="type"><span><a href="/v4/class/lib/model.js~Model.html">Model</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>A sequelize model used to build the returned model instances (used to be called callee)</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.retry</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Set of flags that control when a query is automatically retried.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="2">
+      <td data-ice="name" data-depth="2">options.retry.match</td>
+      <td data-ice="type"><span>Array</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Only retry a query if the error matches one of these strings.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="2">
+      <td data-ice="name" data-depth="2">options.retry.max</td>
+      <td data-ice="type"><span>Integer</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>How many times a failing query is automatically retried.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.searchPath</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: DEFAULT</li></ul></td>
+      <td data-ice="description"><p>An optional parameter to specify the schema search_path (Postgres only)</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.supportsSearchPath</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>If false do not prepend the query with the search_path (Postgres only)</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.mapToModel</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Map returned fields to model's fields if <code>options.model</code> or <code>options.instance</code> is present. Mapping will occur before building the model instance.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.fieldMap</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Map returned fields to arbitrary names for <code>SELECT</code> query type.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/model.js~Model.html#static-method-build">Model.build</a></span> for more information about instance option.</span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-random">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">random</span><span data-ice="signature">(): <span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-fn">fn</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber798">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get the fn for random based on the dialect</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="/v4/class/lib/sequelize.js~Sequelize.html#static-method-fn">fn</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-set">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">set</span><span data-ice="signature">(variables: <span>Object</span>, options: <span>Object</span>): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber586">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Execute a query which would set an environment or user variable. The variables are set per connection, so this function needs a transaction.
+Only works for MySQL.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">variables</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Object with multiple variables.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Query options.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.transaction</td>
+      <td data-ice="type"><span><a href="/v4/class/lib/transaction.js~Transaction.html">Transaction</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The transaction that the query should be executed under</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-showAllSchemas">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">showAllSchemas</span><span data-ice="signature">(options: <span>Object</span>): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber646">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Show all defined schemas</p>
+<p>Note, that this is a schema in the <a href="http://www.postgresql.org/docs/9.1/static/ddl-schemas.html">postgres sense of the word</a>,
+not a database table. In mysql and sqlite, this will show all tables.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>default: {}</li></ul></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logging</td>
+      <td data-ice="type"><span>Boolean</span> | <span>function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A function that logs sql queries, or false for no logging</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-sync">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">sync</span><span data-ice="signature">(options: <span>Object</span>): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber690">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Sync all defined models to the DB.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: {}</li></ul></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.force</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>If force is true, each Model will run <code>DROP TABLE IF EXISTS</code>, before it tries to create its own table</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.match</td>
+      <td data-ice="type"><span>RegExp</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Match a regex against the database name before syncing, a safety check for cases where force: true is used in tests but not live code</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logging</td>
+      <td data-ice="type"><span>Boolean</span> | <span>function</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: console.log</li></ul></td>
+      <td data-ice="description"><p>A function that logs sql queries, or false for no logging</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.schema</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 'public'</li></ul></td>
+      <td data-ice="description"><p>The schema that the tables should be created in. This can be overriden for each table in sequelize.define</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.searchPath</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: DEFAULT</li></ul></td>
+      <td data-ice="description"><p>An optional parameter to specify the schema search_path (Postgres only)</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.hooks</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>If hooks is true then beforeSync, afterSync, beforeBulkSync, afterBulkSync hooks will be called</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.alter</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Alters tables to fit models. Not recommended for production use. Deletes data in columns that were removed or had their type changed in the model.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-transaction">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">transaction</span><span data-ice="signature">(options: <span>Object</span>, autoCallback: <span>Function</span>): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber988">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Start a transaction. When using transactions, you should pass the transaction in the options argument in order for the query to happen under that transaction</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">sequelize.transaction().then(transaction =&gt; {
+  return User.findOne(..., {transaction})
+    .then(user =&gt; user.updateAttributes(..., {transaction}))
+    .then(() =&gt; transaction.commit())
+    .catch(() =&gt; transaction.rollback());
+})</code>
+</code></pre>
+<p>A syntax for automatically committing or rolling back based on the promise chain resolution is also supported:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">sequelize.transaction(transaction =&gt; { // Note that we use a callback rather than a promise.then()
+  return User.findOne(..., {transaction})
+    .then(user =&gt; user.updateAttributes(..., {transaction}))
+}).then(() =&gt; {
+  // Committed
+}).catch(err =&gt; {
+  // Rolled back
+  console.error(err);
+});</code>
+</code></pre>
+<p>If you have <a href="https://github.com/othiym23/node-continuation-local-storage">CLS</a> enabled, the transaction will automatically be passed to any query that runs within the callback.
+To enable CLS, add it do your project, create a namespace and set it on the sequelize constructor:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">const cls = require('continuation-local-storage');
+const ns = cls.createNamespace('....');
+const Sequelize = require('sequelize');
+Sequelize.useCLS(ns);</code>
+</code></pre>
+<p>Note, that CLS is enabled for all sequelize instances, and all instances will share the same namespace</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>Object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: {}</li></ul></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.autocommit</td>
+      <td data-ice="type"><span>Boolean</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.type</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 'DEFERRED'</li></ul></td>
+      <td data-ice="description"><p>See <code>Sequelize.Transaction.TYPES</code> for possible options. Sqlite only.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.isolationLevel</td>
+      <td data-ice="type"><span>String</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>See <code>Sequelize.Transaction.ISOLATION_LEVELS</code> for possible options</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logging</td>
+      <td data-ice="type"><span>Function</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>A function that gets executed while running the query to log the sql.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">autoCallback</td>
+      <td data-ice="type"><span>Function</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>The callback is called with the transaction object, and should return a promise. If the promise is resolved, the transaction commits; if the promise rejects, the transaction rolls back</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-truncate">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">truncate</span><span data-ice="signature">(options: <span>object</span>): <span>Promise</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="/v4/file/lib/sequelize.js.html#lineNumber741">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Truncate all tables defined through the sequelize models. This is done
+by calling Model.truncate() on each model.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span>object</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>The options passed to Model.destroy in addition to truncate</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.transaction</td>
+      <td data-ice="type"><span>Boolean</span> | <span>function</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logging</td>
+      <td data-ice="type"><span>Boolean</span> | <span>function</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>A function that logs sql queries, or false for no logging</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span>Promise</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/v4/class/lib/model.js~Model.html#static-method-truncate">Model.truncate</a></span> for more information</span></li></ul></div>
+  
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="/v4/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+
+
+<script src="/v4/script/pretty-print.js"></script>
+
+
+
+<script src="/v4/script/patch-for-local.js"></script>
+
+
+</body></html>

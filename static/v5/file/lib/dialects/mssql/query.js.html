@@ -1,0 +1,545 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v5/../../../../">
+  <title data-ice="title">lib/dialects/mssql/query.js | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="/v5/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v5/css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="/v5/./inject/css/0-style.css"><link rel="stylesheet" href="/v5/./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="/v5/./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="/v5/identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="/v5/source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li data-ice="doc" style="margin-top: 15px;"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/query-interface.js~QueryInterface.html">QueryInterface</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/sequelize.js~Sequelize.html">Sequelize</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-DataTypes">DataTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-Deferrable">Deferrable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-IndexHints">IndexHints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-Op">Op</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-QueryTypes">QueryTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="/v5/variable/index.html#static-variable-TableHints">TableHints</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#associations">associations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/associations/base.js~Association.html">Association</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/associations/belongs-to-many.js~BelongsToMany.html">BelongsToMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/associations/has-many.js~HasMany.html">HasMany</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/associations/has-one.js~HasOne.html">HasOne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#dialects-sqlite">dialects/sqlite</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="/v5/function/index.html#static-function-describeTable">describeTable</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/association-error.js~AssociationError.html">AssociationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/base-error.js~BaseError.html">BaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/bulk-record-error.js~BulkRecordError.html">BulkRecordError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection-error.js~ConnectionError.html">ConnectionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/database-error.js~DatabaseError.html">DatabaseError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/eager-loading-error.js~EagerLoadingError.html">EagerLoadingError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/empty-result-error.js~EmptyResultError.html">EmptyResultError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/instance-error.js~InstanceError.html">InstanceError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/optimistic-lock-error.js~OptimisticLockError.html">OptimisticLockError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/query-error.js~QueryError.html">QueryError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/sequelize-scope-error.js~SequelizeScopeError.html">SequelizeScopeError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/validation-error.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/validation-error.js~ValidationErrorItem.html">ValidationErrorItem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#errors-connection">errors/connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/access-denied-error.js~AccessDeniedError.html">AccessDeniedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/connection-acquire-timeout-error.js~ConnectionAcquireTimeoutError.html">ConnectionAcquireTimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/connection-refused-error.js~ConnectionRefusedError.html">ConnectionRefusedError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/connection-timed-out-error.js~ConnectionTimedOutError.html">ConnectionTimedOutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/host-not-found-error.js~HostNotFoundError.html">HostNotFoundError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/host-not-reachable-error.js~HostNotReachableError.html">HostNotReachableError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/connection/invalid-connection-error.js~InvalidConnectionError.html">InvalidConnectionError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#errors-database">errors/database</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/database/exclusion-constraint-error.js~ExclusionConstraintError.html">ExclusionConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/database/foreign-key-constraint-error.js~ForeignKeyConstraintError.html">ForeignKeyConstraintError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/database/timeout-error.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/database/unknown-constraint-error.js~UnknownConstraintError.html">UnknownConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/identifiers.html#errors-validation">errors/validation</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/errors/validation/unique-constraint-error.js~UniqueConstraintError.html">UniqueConstraintError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="/v5/variable/index.html#static-variable-DataTypes">datatypes</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~ARRAY.html">ARRAY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~UUIDV4.html">UUIDV4</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~UUIDV1.html">UUIDV1</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~UUID.html">UUID</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~TINYINT.html">TINYINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~TIME.html">TIME</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~TEXT.html">TEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~STRING.html">STRING</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~SMALLINT.html">SMALLINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~REAL.html">REAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~RANGE.html">RANGE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~NUMBER.html">NUMBER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~NOW.html">NOW</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~MACADDR.html">MACADDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~JSONB.html">JSONB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~INTEGER.html">INTEGER</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~INET.html">INET</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~HSTORE.html">HSTORE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~FLOAT.html">FLOAT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~ENUM.html">ENUM</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~DOUBLE.html">DOUBLE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~DECIMAL.html">DECIMAL</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~DATEONLY.html">DATEONLY</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~DATE.html">DATE</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~CITEXT.html">CITEXT</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~CIDR.html">CIDR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~CHAR.html">CHAR</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~BLOB.html">BLOB</a></span></span></li><li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="/v5/class/lib/data-types.js~BIGINT.html">BIGINT</a></span></span></li></ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/dialects/mssql/query.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">'use strict';
+
+const Promise = require('../../promise');
+const AbstractQuery = require('../abstract/query');
+const sequelizeErrors = require('../../errors');
+const parserStore = require('../parserStore')('mssql');
+const _ = require('lodash');
+const { logger } = require('../../utils/logger');
+
+const debug = logger.debugContext('sql:mssql');
+
+function getScale(aNum) {
+  if (!Number.isFinite(aNum)) return 0;
+  let e = 1;
+  while (Math.round(aNum * e) / e !== aNum) e *= 10;
+  return Math.log10(e);
+}
+
+class Query extends AbstractQuery {
+  getInsertIdField() {
+    return 'id';
+  }
+
+  getSQLTypeFromJsType(value, TYPES) {
+    const paramType = { type: TYPES.VarChar, typeOptions: {} };
+    paramType.type = TYPES.NVarChar;
+    if (typeof value === 'number') {
+      if (Number.isInteger(value)) {
+        if (value &gt;= -2147483648 &amp;&amp; value &lt;= 2147483647) {
+          paramType.type = TYPES.Int;
+        } else {
+          paramType.type = TYPES.BigInt;
+        }
+      } else {
+        paramType.type = TYPES.Numeric;
+        //Default to a reasonable numeric precision/scale pending more sophisticated logic
+        paramType.typeOptions = { precision: 30, scale: getScale(value) };
+      }
+    }
+    if (Buffer.isBuffer(value)) {
+      paramType.type = TYPES.VarBinary;
+    }
+    return paramType;
+  }
+
+  _run(connection, sql, parameters) {
+    this.sql = sql;
+    const { options } = this;
+
+    const complete = this._logQuery(sql, debug, parameters);
+
+    return new Promise((resolve, reject) =&gt; {
+      const handleTransaction = err =&gt; {
+        if (err) {
+          reject(this.formatError(err));
+          return;
+        }
+        resolve(this.formatResults());
+      };
+      // TRANSACTION SUPPORT
+      if (sql.startsWith('BEGIN TRANSACTION')) {
+        return connection.beginTransaction(handleTransaction, options.transaction.name, connection.lib.ISOLATION_LEVEL[options.isolationLevel]);
+      }
+      if (sql.startsWith('COMMIT TRANSACTION')) {
+        return connection.commitTransaction(handleTransaction);
+      }
+      if (sql.startsWith('ROLLBACK TRANSACTION')) {
+        return connection.rollbackTransaction(handleTransaction, options.transaction.name);
+      }
+      if (sql.startsWith('SAVE TRANSACTION')) {
+        return connection.saveTransaction(handleTransaction, options.transaction.name);
+      }
+      const results = [];
+      const request = new connection.lib.Request(sql, (err, rowCount) =&gt; {
+
+        complete();
+
+        if (err) {
+          err.sql = sql;
+          err.parameters = parameters;
+          reject(this.formatError(err));
+        } else {
+          resolve(this.formatResults(results, rowCount));
+        }
+      });
+
+      if (parameters) {
+        _.forOwn(parameters, (value, key) =&gt; {
+          const paramType = this.getSQLTypeFromJsType(value, connection.lib.TYPES);
+          request.addParameter(key, paramType.type, value, paramType.typeOptions);
+        });
+      }
+
+      request.on('row', columns =&gt; {
+        const row = {};
+        for (const column of columns) {
+          const typeid = column.metadata.type.id;
+          const parse = parserStore.get(typeid);
+          let value = column.value;
+
+          if (value !== null &amp; !!parse) {
+            value = parse(value);
+          }
+          row[column.metadata.colName] = value;
+        }
+
+        results.push(row);
+      });
+
+      connection.execSql(request);
+    });
+  }
+
+  run(sql, parameters) {
+    return Promise.using(this.connection.lock(), connection =&gt; this._run(connection, sql, parameters));
+  }
+
+  static formatBindParameters(sql, values, dialect) {
+    const bindParam = {};
+    const replacementFunc = (match, key, values) =&gt; {
+      if (values[key] !== undefined) {
+        bindParam[key] = values[key];
+        return `@${key}`;
+      }
+      return undefined;
+    };
+    sql = AbstractQuery.formatBindParameters(sql, values, dialect, replacementFunc)[0];
+
+    return [sql, bindParam];
+  }
+
+  /**
+   * High level function that handles the results of a query execution.
+   *
+   * @param {Array} data - The result of the query execution.
+   * @param {number} rowCount
+   * @private
+   * @example
+   * Example:
+   *  query.formatResults([
+   *    {
+   *      id: 1,              // this is from the main table
+   *      attr2: 'snafu',     // this is from the main table
+   *      Tasks.id: 1,        // this is from the associated table
+   *      Tasks.title: 'task' // this is from the associated table
+   *    }
+   *  ])
+   */
+  formatResults(data, rowCount) {
+    let result = this.instance;
+    if (this.isInsertQuery(data)) {
+      this.handleInsertQuery(data);
+
+      if (!this.instance) {
+        if (this.options.plain) {
+          // NOTE: super contrived. This just passes the newly added query-interface
+          //       test returning only the PK. There isn't a way in MSSQL to identify
+          //       that a given return value is the PK, and we have no schema information
+          //       because there was no calling Model.
+          const record = data[0];
+          result = record[Object.keys(record)[0]];
+        } else {
+          result = data;
+        }
+      }
+    }
+
+    if (this.isShowTablesQuery()) {
+      return this.handleShowTablesQuery(data);
+    }
+    if (this.isDescribeQuery()) {
+      result = {};
+      for (const _result of data) {
+        if (_result.Default) {
+          _result.Default = _result.Default.replace("('", '').replace("')", '').replace(/'/g, '');
+        }
+
+        result[_result.Name] = {
+          type: _result.Type.toUpperCase(),
+          allowNull: _result.IsNull === 'YES' ? true : false,
+          defaultValue: _result.Default,
+          primaryKey: _result.Constraint === 'PRIMARY KEY',
+          autoIncrement: _result.IsIdentity === 1,
+          comment: _result.Comment
+        };
+
+        if (
+          result[_result.Name].type.includes('CHAR')
+          &amp;&amp; _result.Length
+        ) {
+          if (_result.Length === -1) {
+            result[_result.Name].type += '(MAX)';
+          } else {
+            result[_result.Name].type += `(${_result.Length})`;
+          }
+        }
+
+      }
+    }
+    if (this.isSelectQuery()) {
+      return this.handleSelectQuery(data);
+    }
+    if (this.isShowIndexesQuery()) {
+      return this.handleShowIndexesQuery(data);
+    }
+    if (this.isUpsertQuery()) {
+      this.handleInsertQuery(data);
+      return this.instance || data[0];
+    }
+    if (this.isCallQuery()) {
+      return data[0];
+    }
+    if (this.isBulkUpdateQuery()) {
+      if (this.options.returning) {
+        return this.handleSelectQuery(data);
+      }
+
+      return rowCount;
+    }
+    if (this.isBulkDeleteQuery()) {
+      return data[0] &amp;&amp; data[0].AFFECTEDROWS;
+    }
+    if (this.isVersionQuery()) {
+      return data[0].version;
+    }
+    if (this.isForeignKeysQuery()) {
+      return data;
+    }
+    if (this.isInsertQuery() || this.isUpdateQuery()) {
+      return [result, rowCount];
+    }
+    if (this.isShowConstraintsQuery()) {
+      return this.handleShowConstraintsQuery(data);
+    }
+    if (this.isRawQuery()) {
+      // MSSQL returns row data and metadata (affected rows etc) in a single object - let's standarize it, sorta
+      return [data, data];
+    }
+
+    return result;
+  }
+
+  handleShowTablesQuery(results) {
+    return results.map(resultSet =&gt; {
+      return {
+        tableName: resultSet.TABLE_NAME,
+        schema: resultSet.TABLE_SCHEMA
+      };
+    });
+  }
+
+  handleShowConstraintsQuery(data) {
+    //Convert snake_case keys to camelCase as it's generated by stored procedure
+    return data.slice(1).map(result =&gt; {
+      const constraint = {};
+      for (const key in result) {
+        constraint[_.camelCase(key)] = result[key];
+      }
+      return constraint;
+    });
+  }
+
+  formatError(err) {
+    let match;
+
+    match = err.message.match(/Violation of (?:UNIQUE|PRIMARY) KEY constraint '((.|\s)*)'. Cannot insert duplicate key in object '.*'.(:? The duplicate key value is \((.*)\).)?/);
+    match = match || err.message.match(/Cannot insert duplicate key row in object .* with unique index '(.*)'/);
+    if (match &amp;&amp; match.length &gt; 1) {
+      let fields = {};
+      const uniqueKey = this.model &amp;&amp; this.model.uniqueKeys[match[1]];
+      let message = 'Validation error';
+
+      if (uniqueKey &amp;&amp; !!uniqueKey.msg) {
+        message = uniqueKey.msg;
+      }
+      if (match[4]) {
+        const values = match[4].split(',').map(part =&gt; part.trim());
+        if (uniqueKey) {
+          fields = _.zipObject(uniqueKey.fields, values);
+        } else {
+          fields[match[1]] = match[4];
+        }
+      }
+
+      const errors = [];
+      _.forOwn(fields, (value, field) =&gt; {
+        errors.push(new sequelizeErrors.ValidationErrorItem(
+          this.getUniqueConstraintErrorMessage(field),
+          'unique violation', // sequelizeErrors.ValidationErrorItem.Origins.DB,
+          field,
+          value,
+          this.instance,
+          'not_unique'
+        ));
+      });
+
+      return new sequelizeErrors.UniqueConstraintError({ message, errors, parent: err, fields });
+    }
+
+    match = err.message.match(/Failed on step '(.*)'.Could not create constraint. See previous errors./) ||
+      err.message.match(/The DELETE statement conflicted with the REFERENCE constraint "(.*)". The conflict occurred in database "(.*)", table "(.*)", column '(.*)'./) ||
+      err.message.match(/The (?:INSERT|MERGE|UPDATE) statement conflicted with the FOREIGN KEY constraint "(.*)". The conflict occurred in database "(.*)", table "(.*)", column '(.*)'./);
+    if (match &amp;&amp; match.length &gt; 0) {
+      return new sequelizeErrors.ForeignKeyConstraintError({
+        fields: null,
+        index: match[1],
+        parent: err
+      });
+    }
+
+    match = err.message.match(/Could not drop constraint. See previous errors./);
+    if (match &amp;&amp; match.length &gt; 0) {
+      let constraint = err.sql.match(/(?:constraint|index) \[(.+?)\]/i);
+      constraint = constraint ? constraint[1] : undefined;
+      let table = err.sql.match(/table \[(.+?)\]/i);
+      table = table ? table[1] : undefined;
+
+      return new sequelizeErrors.UnknownConstraintError({
+        message: match[1],
+        constraint,
+        table,
+        parent: err
+      });
+    }
+
+    return new sequelizeErrors.DatabaseError(err);
+  }
+
+  isShowOrDescribeQuery() {
+    let result = false;
+
+    result = result || this.sql.toLowerCase().startsWith("select c.column_name as 'name', c.data_type as 'type', c.is_nullable as 'isnull'");
+    result = result || this.sql.toLowerCase().startsWith('select tablename = t.name, name = ind.name,');
+    result = result || this.sql.toLowerCase().startsWith('exec sys.sp_helpindex @objname');
+
+    return result;
+  }
+
+  isShowIndexesQuery() {
+    return this.sql.toLowerCase().startsWith('exec sys.sp_helpindex @objname');
+  }
+
+  handleShowIndexesQuery(data) {
+    // Group by index name, and collect all fields
+    data = data.reduce((acc, item) =&gt; {
+      if (!(item.index_name in acc)) {
+        acc[item.index_name] = item;
+        item.fields = [];
+      }
+
+      item.index_keys.split(',').forEach(column =&gt; {
+        let columnName = column.trim();
+        if (columnName.includes('(-)')) {
+          columnName = columnName.replace('(-)', '');
+        }
+
+        acc[item.index_name].fields.push({
+          attribute: columnName,
+          length: undefined,
+          order: column.includes('(-)') ? 'DESC' : 'ASC',
+          collate: undefined
+        });
+      });
+      delete item.index_keys;
+      return acc;
+    }, {});
+
+    return _.map(data, item =&gt; ({
+      primary: item.index_name.toLowerCase().startsWith('pk'),
+      fields: item.fields,
+      name: item.index_name,
+      tableName: undefined,
+      unique: item.index_description.toLowerCase().includes('unique'),
+      type: undefined
+    }));
+  }
+
+  handleInsertQuery(results, metaData) {
+    if (this.instance) {
+      // add the inserted row id to the instance
+      const autoIncrementAttribute = this.model.autoIncrementAttribute;
+      let id = null;
+      let autoIncrementAttributeAlias = null;
+
+      if (Object.prototype.hasOwnProperty.call(this.model.rawAttributes, autoIncrementAttribute) &amp;&amp;
+        this.model.rawAttributes[autoIncrementAttribute].field !== undefined)
+        autoIncrementAttributeAlias = this.model.rawAttributes[autoIncrementAttribute].field;
+
+      id = id || results &amp;&amp; results[0][this.getInsertIdField()];
+      id = id || metaData &amp;&amp; metaData[this.getInsertIdField()];
+      id = id || results &amp;&amp; results[0][autoIncrementAttribute];
+      id = id || autoIncrementAttributeAlias &amp;&amp; results &amp;&amp; results[0][autoIncrementAttributeAlias];
+
+      this.instance[autoIncrementAttribute] = id;
+
+      if (this.instance.dataValues) {
+        for (const key in results[0]) {
+          if (Object.prototype.hasOwnProperty.call(results[0], key)) {
+            const record = results[0][key];
+
+            const attr = _.find(this.model.rawAttributes, attribute =&gt; attribute.fieldName === key || attribute.field === key);
+
+            this.instance.dataValues[attr &amp;&amp; attr.fieldName || key] = record;
+          }
+        }
+      }
+    }
+  }
+}
+
+module.exports = Query;
+module.exports.Query = Query;
+module.exports.default = Query;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>

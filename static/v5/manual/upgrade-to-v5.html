@@ -1,0 +1,864 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="/v5/../">
+  <title data-ice="title">Manual | Sequelize</title>
+  <link type="text/css" rel="stylesheet" href="/v5/css/style.css">
+  <link type="text/css" rel="stylesheet" href="/v5/css/prettify-tomorrow.css">
+  <script src="/v5/script/prettify/prettify.js"></script>
+  <script src="/v5/script/manual.js"></script>
+<link rel="stylesheet" href="/v5/./inject/css/0-style.css"><link rel="stylesheet" href="/v5/./inject/css/0-theme.css"><meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Sequelize"><meta property="twitter:description" content="An easy-to-use multi SQL dialect ORM for Node.js"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="/v5/./" style="display: flex; align-items: center;"><img src="/v5/./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="/v5/identifiers.html" class="api-reference-link">API Reference</a>
+  <a href="/v5/source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="/v5/./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
+      <a href="http://sequelize-slack.herokuapp.com/">
+        <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
+      </a>
+    </header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+
+    <div class="manual-group">
+      <a href="/v5/index.html" style="color: black">Home</a>
+    </div>
+  
+      <div class="manual-group" style="pointer-events: none">
+        Core Concepts
+      </div>
+    <div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html" data-ice="link">Getting started</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#installing" data-ice="link">Installing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#setting-up-a-connection" data-ice="link">Setting up a connection</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#note--setting-up-sqlite" data-ice="link">Note: setting up SQLite</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#note--connection-pool--production-" data-ice="link">Note: connection pool (production)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#testing-the-connection" data-ice="link">Testing the connection</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#closing-the-connection" data-ice="link">Closing the connection</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#modeling-a-table" data-ice="link">Modeling a table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#changing-the-default-model-options" data-ice="link">Changing the default model options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#synchronizing-the-model-with-the-database" data-ice="link">Synchronizing the model with the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#synchronizing-all-models-at-once" data-ice="link">Synchronizing all models at once</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#note-for-production" data-ice="link">Note for production</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#querying" data-ice="link">Querying</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/getting-started.html"><a href="/v5/manual/getting-started.html#promises-and-async-await" data-ice="link">Promises and async/await</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html" data-ice="link">Dialects</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#mysql" data-ice="link">MySQL</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#mariadb" data-ice="link">MariaDB</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#sqlite" data-ice="link">SQLite</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/dialects.html"><a href="/v5/manual/dialects.html#mssql" data-ice="link">MSSQL</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html" data-ice="link">Datatypes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#array-enum-" data-ice="link">Array(ENUM)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#range-types" data-ice="link">Range types</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#special-cases" data-ice="link">Special Cases</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#extending-datatypes" data-ice="link">Extending datatypes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/data-types.html"><a href="/v5/manual/data-types.html#ranges" data-ice="link">Ranges</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html" data-ice="link">Model definition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#timestamps" data-ice="link">Timestamps</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#deferrable" data-ice="link">Deferrable</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#getters--amp--setters" data-ice="link">Getters &amp; setters</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#defining-as-part-of-a-property" data-ice="link">Defining as part of a property</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#defining-as-part-of-the-model-options" data-ice="link">Defining as part of the model options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#helper-functions-for-use-inside-getter-and-setter-definitions" data-ice="link">Helper functions for use inside getter and setter definitions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#validations" data-ice="link">Validations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#per-attribute-validations" data-ice="link">Per-attribute validations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#per-attribute-validators-and--code-allownull--code-" data-ice="link">Per-attribute validators and allowNull</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#model-wide-validations" data-ice="link">Model-wide validations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#configuration" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#import" data-ice="link">Import</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#optimistic-locking" data-ice="link">Optimistic Locking</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#database-synchronization" data-ice="link">Database synchronization</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#expansion-of-models" data-ice="link">Expansion of models</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-definition.html"><a href="/v5/manual/models-definition.html#indexes" data-ice="link">Indexes</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html" data-ice="link">Model usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#data-retrieval---finders" data-ice="link">Data retrieval / Finders</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-find--code----search-for-one-specific-element-in-the-database" data-ice="link">find - Search for one specific element in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-findorcreate--code----search-for-a-specific-element-or-create-it-if-not-available" data-ice="link">findOrCreate - Search for a specific element or create it if not available</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-findandcountall--code----search-for-multiple-elements-in-the-database--returns-both-data-and-total-count" data-ice="link">findAndCountAll - Search for multiple elements in the database, returns both data and total count</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-findall--code----search-for-multiple-elements-in-the-database" data-ice="link">findAll - Search for multiple elements in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#complex-filtering---or---not-queries" data-ice="link">Complex filtering / OR / NOT queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#manipulating-the-dataset-with-limit--offset--order-and-group" data-ice="link">Manipulating the dataset with limit, offset, order and group</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#raw-queries" data-ice="link">Raw queries</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-count--code----count-the-occurrences-of-elements-in-the-database" data-ice="link">count - Count the occurrences of elements in the database</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-max--code----get-the-greatest-value-of-a-specific-attribute-within-a-specific-table" data-ice="link">max - Get the greatest value of a specific attribute within a specific table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-min--code----get-the-least-value-of-a-specific-attribute-within-a-specific-table" data-ice="link">min - Get the least value of a specific attribute within a specific table</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#-code-sum--code----sum-the-value-of-specific-attributes" data-ice="link">sum - Sum the value of specific attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#eager-loading" data-ice="link">Eager loading</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#top-level-where-with-eagerly-loaded-models" data-ice="link">Top level where with eagerly loaded models</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#including-everything" data-ice="link">Including everything</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#including-soft-deleted-records" data-ice="link">Including soft deleted records</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#ordering-eager-loaded-associations" data-ice="link">Ordering Eager Loaded Associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#nested-eager-loading" data-ice="link">Nested eager loading</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/models-usage.html"><a href="/v5/manual/models-usage.html#use-right-join-for-association" data-ice="link">Use right join for association</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html" data-ice="link">Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#order-of-operations" data-ice="link">Order of Operations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#declaring-hooks" data-ice="link">Declaring Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#removing-hooks" data-ice="link">Removing hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#global---universal-hooks" data-ice="link">Global / universal hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#default-hooks--sequelize-options-define-" data-ice="link">Default Hooks (Sequelize.options.define)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#permanent-hooks--sequelize-addhook-" data-ice="link">Permanent Hooks (Sequelize.addHook)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#connection-hooks" data-ice="link">Connection Hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#instance-hooks" data-ice="link">Instance hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#model-hooks" data-ice="link">Model hooks</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#associations" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#a-note-about-transactions" data-ice="link">A Note About Transactions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/hooks.html"><a href="/v5/manual/hooks.html#internal-transactions" data-ice="link">Internal Transactions</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/querying.html"><a href="/v5/manual/querying.html" data-ice="link">Querying</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#attributes" data-ice="link">Attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#where" data-ice="link">Where</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#basics" data-ice="link">Basics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#operators" data-ice="link">Operators</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#range-operators" data-ice="link">Range Operators</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#combinations" data-ice="link">Combinations</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#operators-aliases" data-ice="link">Operators Aliases</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#operators-security" data-ice="link">Operators security</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#json" data-ice="link">JSON</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#postgresql" data-ice="link">PostgreSQL</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#mssql" data-ice="link">MSSQL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#jsonb" data-ice="link">JSONB</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#nested-object" data-ice="link">Nested object</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#nested-key" data-ice="link">Nested key</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/querying.html"><a href="/v5/manual/querying.html#containment" data-ice="link">Containment</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/querying.html"><a href="/v5/manual/querying.html#relations---associations" data-ice="link">Relations / Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#pagination---limiting" data-ice="link">Pagination / Limiting</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#ordering" data-ice="link">Ordering</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#table-hint" data-ice="link">Table Hint</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/querying.html"><a href="/v5/manual/querying.html#index-hints" data-ice="link">Index Hints</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/instances.html"><a href="/v5/manual/instances.html" data-ice="link">Instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#building-a-non-persistent-instance" data-ice="link">Building a non-persistent instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#creating-persistent-instances" data-ice="link">Creating persistent instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#updating---saving---persisting-an-instance" data-ice="link">Updating / Saving / Persisting an instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#destroying---deleting-persistent-instances" data-ice="link">Destroying / Deleting persistent instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#restoring-soft-deleted-instances" data-ice="link">Restoring soft-deleted instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#working-in-bulk--creating--updating-and-destroying-multiple-rows-at-once-" data-ice="link">Working in bulk (creating, updating and destroying multiple rows at once)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#values-of-an-instance" data-ice="link">Values of an instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#reloading-instances" data-ice="link">Reloading instances</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#incrementing" data-ice="link">Incrementing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/instances.html"><a href="/v5/manual/instances.html#decrementing" data-ice="link">Decrementing</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/associations.html"><a href="/v5/manual/associations.html" data-ice="link">Associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#basic-concepts" data-ice="link">Basic Concepts</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#source--amp--target" data-ice="link">Source &amp; Target</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#foreign-keys" data-ice="link">Foreign Keys</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#underscored-option" data-ice="link">underscored option</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#cyclic-dependencies--amp--disabling-constraints" data-ice="link">Cyclic dependencies &amp; Disabling constraints</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#enforcing-a-foreign-key-reference-without-constraints" data-ice="link">Enforcing a foreign key reference without constraints</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#one-to-one-associations" data-ice="link">One-To-One associations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongsto" data-ice="link">BelongsTo</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#foreign-keys" data-ice="link">Foreign keys</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#target-keys" data-ice="link">Target keys</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#hasone" data-ice="link">HasOne</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#source-keys" data-ice="link">Source keys</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#difference-between-hasone-and-belongsto" data-ice="link">Difference between HasOne and BelongsTo</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#one-to-many-associations--hasmany-" data-ice="link">One-To-Many associations (hasMany)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongs-to-many-associations" data-ice="link">Belongs-To-Many associations</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#source-and-target-keys" data-ice="link">Source and target keys</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#naming-strategy" data-ice="link">Naming strategy</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#associating-objects" data-ice="link">Associating objects</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#check-associations" data-ice="link">Check associations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/associations.html"><a href="/v5/manual/associations.html#advanced-concepts" data-ice="link">Advanced Concepts</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#scopes" data-ice="link">Scopes</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#1-n" data-ice="link">1:n</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#n-m" data-ice="link">n:m</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/associations.html"><a href="/v5/manual/associations.html#creating-with-associations" data-ice="link">Creating with associations</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongsto---hasmany---hasone-association" data-ice="link">BelongsTo / HasMany / HasOne association</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#belongsto-association-with-an-alias" data-ice="link">BelongsTo association with an alias</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/associations.html"><a href="/v5/manual/associations.html#hasmany---belongstomany-association" data-ice="link">HasMany / BelongsToMany association</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html" data-ice="link">Raw queries</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html#-quot-dotted-quot--attributes" data-ice="link">"Dotted" attributes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html#replacements" data-ice="link">Replacements</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/raw-queries.html"><a href="/v5/manual/raw-queries.html#bind-parameter" data-ice="link">Bind Parameter</a></li>
+</ul>
+  </div>
+
+      <div class="manual-group" style="pointer-events: none">
+        Other Topics
+      </div>
+    <div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html" data-ice="link">Transactions</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#managed-transaction--auto-callback-" data-ice="link">Managed transaction (auto-callback)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#throw-errors-to-rollback" data-ice="link">Throw errors to rollback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#automatically-pass-transactions-to-all-queries" data-ice="link">Automatically pass transactions to all queries</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#concurrent-partial-transactions" data-ice="link">Concurrent/Partial transactions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#without-cls-enabled" data-ice="link">Without CLS enabled</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#isolation-levels" data-ice="link">Isolation levels</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#unmanaged-transaction--then-callback-" data-ice="link">Unmanaged transaction (then-callback)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#usage-with-other-sequelize-methods" data-ice="link">Usage with other sequelize methods</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#after-commit-hook" data-ice="link">After commit hook</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/transactions.html"><a href="/v5/manual/transactions.html#locks" data-ice="link">Locks</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html" data-ice="link">Scopes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#definition" data-ice="link">Definition</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#usage" data-ice="link">Usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#merging" data-ice="link">Merging</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#merging-includes" data-ice="link">Merging includes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/scopes.html"><a href="/v5/manual/scopes.html#associations" data-ice="link">Associations</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/read-replication.html"><a href="/v5/manual/read-replication.html" data-ice="link">Read replication</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html" data-ice="link">Migrations</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#the-cli" data-ice="link">The CLI</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#installing-cli" data-ice="link">Installing CLI</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#bootstrapping" data-ice="link">Bootstrapping</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#configuration" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#creating-first-model--and-migration-" data-ice="link">Creating first Model (and Migration)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#running-migrations" data-ice="link">Running Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#undoing-migrations" data-ice="link">Undoing Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#creating-first-seed" data-ice="link">Creating First Seed</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#running-seeds" data-ice="link">Running Seeds</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#undoing-seeds" data-ice="link">Undoing Seeds</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#advance-topics" data-ice="link">Advance Topics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#migration-skeleton" data-ice="link">Migration Skeleton</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#the--code--sequelizerc--code--file" data-ice="link">The .sequelizerc File</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#dynamic-configuration" data-ice="link">Dynamic Configuration</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#using-babel" data-ice="link">Using Babel</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#using-environment-variables" data-ice="link">Using Environment Variables</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#specifying-dialect-options" data-ice="link">Specifying Dialect Options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#production-usages" data-ice="link">Production Usages</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#storage" data-ice="link">Storage</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#migration-storage" data-ice="link">Migration Storage</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#seed-storage" data-ice="link">Seed Storage</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#configuration-connection-string" data-ice="link">Configuration Connection String</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#passing-dialect-specific-options" data-ice="link">Passing Dialect Specific Options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#programmatic-use" data-ice="link">Programmatic use</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/migrations.html"><a href="/v5/manual/migrations.html#query-interface" data-ice="link">Query Interface</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/resources.html"><a href="/v5/manual/resources.html" data-ice="link">Resources</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/resources.html"><a href="/v5/manual/resources.html#addons--amp--plugins" data-ice="link">Addons &amp; Plugins</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#acl" data-ice="link">ACL</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#auto-code-generation--amp--scaffolding" data-ice="link">Auto Code Generation &amp; Scaffolding</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#autoloader" data-ice="link">Autoloader</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#caching" data-ice="link">Caching</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#filters" data-ice="link">Filters</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#fixtures---mock-data" data-ice="link">Fixtures / mock data</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#hierarchies" data-ice="link">Hierarchies</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#historical-records---time-travel" data-ice="link">Historical records / Time travel</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#migrations" data-ice="link">Migrations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#slugification" data-ice="link">Slugification</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#tokens" data-ice="link">Tokens</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/resources.html"><a href="/v5/manual/resources.html#miscellaneous" data-ice="link">Miscellaneous</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html" data-ice="link">TypeScript</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html#installation" data-ice="link">Installation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html#usage" data-ice="link">Usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/typescript.html"><a href="/v5/manual/typescript.html#usage-of--code-sequelize-define--code-" data-ice="link">Usage of sequelize.define</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html" data-ice="link">Upgrade to v5</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#breaking-changes" data-ice="link">Breaking Changes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#support-for-node-6-and-up" data-ice="link">Support for Node 6 and up</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#secure-operators" data-ice="link">Secure Operators</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#typescript-support" data-ice="link">Typescript Support</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#pooling" data-ice="link">Pooling</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#model" data-ice="link">Model</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#datatypes" data-ice="link">Datatypes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#hooks" data-ice="link">Hooks</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#sequelize" data-ice="link">Sequelize</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#query-interface" data-ice="link">Query Interface</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#others" data-ice="link">Others</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#dialect-specific" data-ice="link">Dialect Specific</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#mssql" data-ice="link">MSSQL</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#mysql" data-ice="link">MySQL</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#mariadb" data-ice="link">MariaDB</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#packages" data-ice="link">Packages</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#changelog" data-ice="link">Changelog</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-17" data-ice="link">5.0.0-beta.17</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-16" data-ice="link">5.0.0-beta.16</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-15" data-ice="link">5.0.0-beta.15</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-14" data-ice="link">5.0.0-beta.14</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-13" data-ice="link">5.0.0-beta.13</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-12" data-ice="link">5.0.0-beta.12</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-11" data-ice="link">5.0.0-beta.11</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-10" data-ice="link">5.0.0-beta.10</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-9" data-ice="link">5.0.0-beta.9</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-8" data-ice="link">5.0.0-beta.8</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-7" data-ice="link">5.0.0-beta.7</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-6" data-ice="link">5.0.0-beta.6</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-5" data-ice="link">5.0.0-beta.5</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-4" data-ice="link">5.0.0-beta.4</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-3" data-ice="link">5.0.0-beta.3</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-2" data-ice="link">5.0.0-beta.2</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta-1" data-ice="link">5.0.0-beta.1</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/upgrade-to-v5.html"><a href="/v5/manual/upgrade-to-v5.html#5-0-0-beta" data-ice="link">5.0.0-beta</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html" data-ice="link">Working with legacy tables</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#tables" data-ice="link">Tables</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#fields" data-ice="link">Fields</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#primary-keys" data-ice="link">Primary keys</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legacy.html"><a href="/v5/manual/legacy.html#foreign-keys" data-ice="link">Foreign keys</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/whos-using.html"><a href="/v5/manual/whos-using.html" data-ice="link">Who's using sequelize?</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/legal.html"><a href="/v5/manual/legal.html" data-ice="link">Legal Notice</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legal.html"><a href="/v5/manual/legal.html#license" data-ice="link">License</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legal.html"><a href="/v5/manual/legal.html#author-s-" data-ice="link">AUTHOR(S)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/legal.html"><a href="/v5/manual/legal.html#inhaltliche-verantwortung" data-ice="link">INHALTLICHE VERANTWORTUNG</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="upgrade-to-v5">Upgrade to v5</h1><p>Sequelize v5 is the next major release after v4</p>
+<h2 id="breaking-changes">Breaking Changes</h2><h3 id="support-for-node-6-and-up">Support for Node 6 and up</h3><p>Sequelize v5 will only support Node 6 and up <a href="https://github.com/sequelize/sequelize/issues/9015">#9015</a></p>
+<h3 id="secure-operators">Secure Operators</h3><p>With v4 you started to get a deprecation warning <code>String based operators are now deprecated</code>. Also concept of operators was introduced. These operators are Symbols which prevent hash injection attacks.</p>
+<p><a href="/v5/./manual/querying.html#operators-security">operators-security</a></p>
+<p><strong>With v5</strong></p>
+<ul>
+<li>Operators are now enabled by default.</li>
+<li>You can still use string operators by passing an operators map in <code>operatorsAliases</code>, but that will give you deprecation warning.</li>
+<li>Op.$raw is removed</li>
+</ul>
+<h3 id="typescript-support">Typescript Support</h3><p>Sequelize now ship official typings <a href="https://github.com/sequelize/sequelize/pull/10287">#10287</a>. You can consider migrating away from external typings which may get out of sync.</p>
+<h3 id="pooling">Pooling</h3><p>With v5 Sequelize now use <code>sequelize-pool</code> which is a modernized fork of <code>generic-pool@2.5</code>. You no longer need to call <code>sequelize.close</code> to shutdown pool, this helps with lambda executions. <a href="https://github.com/sequelize/sequelize/issues/8468">#8468</a></p>
+<h3 id="model">Model</h3><p><strong>Validators</strong></p>
+<p>Custom validators defined per attribute (as opposed to the custom validators defined in the model's options) now run when the attribute's value is <code>null</code> and <code>allowNull</code> is <code>true</code> (while previously they didn't run and the validation succeeded immediately). To avoid problems when upgrading, please check all your custom validators defined per attribute, where <code>allowNull</code> is <code>true</code>, and make sure all these validators behave correctly when the value is <code>null</code>. See <a href="https://github.com/sequelize/sequelize/issues/9143">#9143</a>.</p>
+<p><strong>Attributes</strong></p>
+<p><code>Model.attributes</code> now removed, use <code>Model.rawAttributes</code>. <a href="https://github.com/sequelize/sequelize/issues/5320">#5320</a></p>
+<p><strong>Note</strong>: <em>Please don't confuse this with <code>options.attributes</code>, they are still valid</em></p>
+<p><strong>Paranoid Mode</strong></p>
+<p>With v5 if <code>deletedAt</code> is set, record will be considered as deleted. <code>paranoid</code> option will only use <code>deletedAt</code> as flag. <a href="https://github.com/sequelize/sequelize/issues/8496">#8496</a></p>
+<p><strong>Model.bulkCreate</strong></p>
+<p><code>updateOnDuplicate</code> option which used to accept boolean and array, now only accepts non-empty array of attributes. <a href="https://github.com/sequelize/sequelize/issues/9288">#9288</a></p>
+<p><strong>Underscored Mode</strong></p>
+<p>Implementation of <code>Model.options.underscored</code> is changed. You can find full specifications <a href="https://github.com/sequelize/sequelize/issues/6423#issuecomment-379472035">here</a>.</p>
+<p>Main outline</p>
+<ol>
+<li>Both <code>underscoredAll</code> and <code>underscored</code> options are merged into single <code>underscored</code> option</li>
+<li>All attributes are now generated with camelcase naming by default. With the <code>underscored</code> option set to <code>true</code>, the <code>field</code> option for attributes will be set as underscored version of attribute name.</li>
+<li><code>underscored</code> will control all attributes including timestamps, version and foreign keys. It will not affect any attribute which already specifies the <code>field</code> option.</li>
+</ol>
+<p><a href="https://github.com/sequelize/sequelize/pull/9304">#9304</a></p>
+<p><strong>Removed aliases</strong></p>
+<p>Many model based aliases has been removed <a href="https://github.com/sequelize/sequelize/issues/9372">#9372</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Removed in v5</th>
+<th style="text-align:left">Official Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">insertOrUpdate</td>
+<td style="text-align:left">upsert</td>
+</tr>
+<tr>
+<td style="text-align:left">find</td>
+<td style="text-align:left">findOne</td>
+</tr>
+<tr>
+<td style="text-align:left">findAndCount</td>
+<td style="text-align:left">findAndCountAll</td>
+</tr>
+<tr>
+<td style="text-align:left">findOrInitialize</td>
+<td style="text-align:left">findOrBuild</td>
+</tr>
+<tr>
+<td style="text-align:left">updateAttributes</td>
+<td style="text-align:left">update</td>
+</tr>
+<tr>
+<td style="text-align:left">findById, findByPrimary</td>
+<td style="text-align:left">findByPk</td>
+</tr>
+<tr>
+<td style="text-align:left">all</td>
+<td style="text-align:left">findAll</td>
+</tr>
+<tr>
+<td style="text-align:left">hook</td>
+<td style="text-align:left">addHook</td>
+</tr>
+</tbody>
+</table>
+<h3 id="datatypes">Datatypes</h3><p><strong>Range</strong></p>
+<p>Now supports only one standard format <code>[{ value: 1, inclusive: true }, { value: 20, inclusive: false }]</code> <a href="https://github.com/sequelize/sequelize/pull/9364">#9364</a></p>
+<p><strong>Case insensitive text</strong></p>
+<p>Added support for <code>CITEXT</code> for Postgres and SQLite</p>
+<p><strong>Removed</strong></p>
+<p><code>NONE</code> type has been removed, use <code>VIRTUAL</code> instead</p>
+<h3 id="hooks">Hooks</h3><p><strong>Removed aliases</strong></p>
+<p>Hooks aliases has been removed <a href="https://github.com/sequelize/sequelize/issues/9372">#9372</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Removed in v5</th>
+<th style="text-align:left">Official Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">[after,before]BulkDelete</td>
+<td style="text-align:left">[after,before]BulkDestroy</td>
+</tr>
+<tr>
+<td style="text-align:left">[after,before]Delete</td>
+<td style="text-align:left">[after,before]Destroy</td>
+</tr>
+<tr>
+<td style="text-align:left">beforeConnection</td>
+<td style="text-align:left">beforeConnect</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sequelize">Sequelize</h3><p><strong>Removed aliases</strong></p>
+<p>Prototype references for many constants, objects and classes has been removed <a href="https://github.com/sequelize/sequelize/issues/9372">#9372</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Removed in v5</th>
+<th style="text-align:left">Official Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Sequelize.prototype.Utils</td>
+<td style="text-align:left">Sequelize.Utils</td>
+</tr>
+<tr>
+<td style="text-align:left">Sequelize.prototype.Promise</td>
+<td style="text-align:left">Sequelize.Promise</td>
+</tr>
+<tr>
+<td style="text-align:left">Sequelize.prototype.TableHints</td>
+<td style="text-align:left">Sequelize.TableHints</td>
+</tr>
+<tr>
+<td style="text-align:left">Sequelize.prototype.Op</td>
+<td style="text-align:left">Sequelize.Op</td>
+</tr>
+<tr>
+<td style="text-align:left">Sequelize.prototype.Transaction</td>
+<td style="text-align:left">Sequelize.Transaction</td>
+</tr>
+<tr>
+<td style="text-align:left">Sequelize.prototype.Model</td>
+<td style="text-align:left">Sequelize.Model</td>
+</tr>
+<tr>
+<td style="text-align:left">Sequelize.prototype.Deferrable</td>
+<td style="text-align:left">Sequelize.Deferrable</td>
+</tr>
+<tr>
+<td style="text-align:left">Sequelize.prototype.Error</td>
+<td style="text-align:left">Sequelize.Error</td>
+</tr>
+<tr>
+<td style="text-align:left">Sequelize.prototype[error]</td>
+<td style="text-align:left">Sequelize[error]</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-js"><code class="source-code prettyprint">import Sequelize from 'sequelize';
+const sequelize = new Sequelize('postgres://user:password@127.0.0.1:mydb');
+
+/**
+ * In v4 you can do this
+ */
+console.log(sequelize.Op === Sequelize.Op) // logs `true`
+console.log(sequelize.UniqueConstraintError === Sequelize.UniqueConstraintError) // logs `true`
+
+Model.findAll({
+  where: {
+    [sequelize.Op.and]: [ // Using sequelize.Op or Sequelize.Op interchangeably
+      {
+        name: "Abc"
+      },
+      {
+        age: {
+          [Sequelize.Op.gte]: 18
+        }
+      }
+    ]
+  }
+}).catch(sequelize.ConnectionError, () =&gt; {
+  console.error('Something wrong with connection?');
+});
+
+/**
+ * In v5 aliases has been removed from Sequelize prototype
+ * You should use Sequelize directly to access Op, Errors etc
+ */
+
+Model.findAll({
+  where: {
+    [Sequelize.Op.and]: [ // Don't use sequelize.Op, use Sequelize.Op instead
+      {
+        name: "Abc"
+      },
+      {
+        age: {
+          [Sequelize.Op.gte]: 18
+        }
+      }
+    ]
+  }
+}).catch(Sequelize.ConnectionError, () =&gt; {
+  console.error('Something wrong with connection?');
+});</code>
+</code></pre>
+<h3 id="query-interface">Query Interface</h3><ul>
+<li><code>changeColumn</code> no longer generates constraint with <code>_idx</code> suffix. Now Sequelize does not specify any name for constraints thus defaulting to database engine naming. This aligns behavior of <code>sync</code>, <code>createTable</code> and <code>changeColumn</code>.</li>
+<li><code>addIndex</code> aliases options aliases have been removed, use the following instead.<ul>
+<li><code>indexName</code> =&gt; <code>name</code></li>
+<li><code>indicesType</code> =&gt; <code>type</code></li>
+<li><code>indexType</code>/<code>method</code> =&gt; <code>using</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="others">Others</h3><ul>
+<li>Sequelize now use parameterized queries for all INSERT / UPDATE operations (except UPSERT). They provide better protection against SQL Injection attack.</li>
+<li><code>ValidationErrorItem</code> now holds reference to original error in the <code>original</code> property, rather than the <code>__raw</code> property.</li>
+<li><a href="https://github.com/mickhansen/retry-as-promised">retry-as-promised</a> has been updated to <code>3.1.0</code>, which use <a href="https://github.com/kevinbeaty/any-promise">any-promise</a>. This module repeat all <code>sequelize.query</code> operations. You can configure <code>any-promise</code> to use <code>bluebird</code> for better performance on Node 4 or 6</li>
+<li>Sequelize will throw for all <code>undefined</code> keys in <code>where</code> options, In past versions <code>undefined</code> was converted to <code>null</code>.</li>
+</ul>
+<h3 id="dialect-specific">Dialect Specific</h3><h4 id="mssql">MSSQL</h4><ul>
+<li>Sequelize now works with <code>tedious &gt;= 6.0.0</code>. Old <code>dialectOptions</code> has to be updated to match their new format. Please refer to tedious <a href="http://tediousjs.github.io/tedious/api-connection.html#function_newConnection">documentation</a>. An example of new <code>dialectOptions</code> is given below</li>
+</ul>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">dialectOptions: {
+  authentication: {
+    domain: 'my-domain'
+  },
+  options: {
+    requestTimeout: 60000,
+    cryptoCredentialsDetails: {
+      ciphers: "RC4-MD5"
+    }
+  }
+}</code>
+</code></pre>
+<h4 id="mysql">MySQL</h4><ul>
+<li>Requires <code>mysql2 &gt;= 1.5.2</code> for prepared statements</li>
+</ul>
+<h4 id="mariadb">MariaDB</h4><ul>
+<li><code>dialect: 'mariadb'</code> is now <a href="https://github.com/sequelize/sequelize/pull/10192">supported</a> with <code>mariadb</code> package</li>
+</ul>
+<h3 id="packages">Packages</h3><ul>
+<li>removed: terraformer-wkt-parser <a href="https://github.com/sequelize/sequelize/pull/9545">#9545</a></li>
+<li>removed: <code>generic-pool</code></li>
+<li>added: <code>sequelize-pool</code></li>
+</ul>
+<h2 id="changelog">Changelog</h2><h3 id="5-0-0-beta-17">5.0.0-beta.17</h3><ul>
+<li>fix(build): default null for multiple primary keys</li>
+<li>fix(util): improve performance of classToInvokable <a href="https://github.com/sequelize/sequelize/pull/10534">#10534</a></li>
+<li>fix(model/update): propagate paranoid to individualHooks query <a href="https://github.com/sequelize/sequelize/pull/10369">#10369</a></li>
+<li>fix(association): use minimal select for hasAssociation <a href="https://github.com/sequelize/sequelize/pull/10529">#10529</a></li>
+<li>fix(query-interface): reject with error for describeTable <a href="https://github.com/sequelize/sequelize/pull/10528">#10528</a></li>
+<li>fix(model): throw for invalid include type <a href="https://github.com/sequelize/sequelize/pull/10527">#10527</a></li>
+<li>fix(types): additional options for db.query and add missing retry <a href="https://github.com/sequelize/sequelize/pull/10512">#10512</a></li>
+<li>fix(query): don't prepare options &amp; sql for every retry <a href="https://github.com/sequelize/sequelize/pull/10498">#10498</a></li>
+<li>feat: expose Sequelize.BaseError</li>
+<li>feat: upgrade to <code>tedious@6.0.0</code> <a href="https://github.com/sequelize/sequelize/pull/10494">#10494</a></li>
+<li>feat(sqlite/query-generator): support restart identity for truncate-table <a href="https://github.com/sequelize/sequelize/pull/10522">#10522</a></li>
+<li>feat(data-types): handle numbers passed as objects <a href="https://github.com/sequelize/sequelize/pull/10492">#10492</a></li>
+<li>feat(types): enabled string association <a href="https://github.com/sequelize/sequelize/pull/10481">#10481</a></li>
+<li>feat(postgres): allow customizing client_min_messages <a href="https://github.com/sequelize/sequelize/pull/10448">#10448</a></li>
+<li>refactor(data-types): move to classes <a href="https://github.com/sequelize/sequelize/pull/10495">#10495</a></li>
+<li>docs(legacy): fix N:M example <a href="https://github.com/sequelize/sequelize/pull/10509">#10509</a></li>
+<li>docs(migrations): use migrationStorageTableSchema <a href="https://github.com/sequelize/sequelize/pull/10417">#10417</a></li>
+<li>docs(hooks): add documentation for connection hooks <a href="https://github.com/sequelize/sequelize/pull/10410">#10410</a></li>
+<li>docs(addIndex): concurrently option <a href="https://github.com/sequelize/sequelize/pull/10409">#10409</a></li>
+<li>docs(model): fix typo <a href="https://github.com/sequelize/sequelize/pull/10405">#10405</a></li>
+<li>docs(usage): fix broken link on Basic Usage <a href="https://github.com/sequelize/sequelize/pull/10381">#10381</a></li>
+<li>docs(package.json): add homepage <a href="https://github.com/sequelize/sequelize/pull/10372">#10372</a></li>
+</ul>
+<h3 id="5-0-0-beta-16">5.0.0-beta.16</h3><ul>
+<li>feat: add typescript typings <a href="https://github.com/sequelize/sequelize/pull/10117">#10287</a></li>
+<li>fix(mysql): match with newlines in error message <a href="https://github.com/sequelize/sequelize/pull/10320">#10320</a></li>
+<li>fix(update): skips update when nothing to update <a href="https://github.com/sequelize/sequelize/pull/10248">#10248</a></li>
+<li>fix(utils): flattenObject for null values <a href="https://github.com/sequelize/sequelize/pull/10293">#10293</a></li>
+<li>fix(instance-validator): don't skip custom validators on null <a href="https://github.com/sequelize/sequelize/pull/9143">#9143</a></li>
+<li>docs(transaction): after save example <a href="https://github.com/sequelize/sequelize/pull/10280">#10280</a></li>
+<li>docs(query-generator): typo <a href="https://github.com/sequelize/sequelize/pull/10277">#10277</a></li>
+<li>refactor(errors): restructure <a href="https://github.com/sequelize/sequelize/pull/10355">#10355</a></li>
+<li>refactor(scope): documentation #9087 <a href="https://github.com/sequelize/sequelize/pull/10312">#10312</a></li>
+<li>refactor: cleanup association and spread use <a href="https://github.com/sequelize/sequelize/pull/10276">#10276</a></li>
+</ul>
+<h3 id="5-0-0-beta-15">5.0.0-beta.15</h3><ul>
+<li>fix(query-generator): fix addColumn create comment <a href="https://github.com/sequelize/sequelize/pull/10117">#10117</a></li>
+<li>fix(sync): throw when no models defined <a href="https://github.com/sequelize/sequelize/pull/10175">#10175</a></li>
+<li>fix(association): enable eager load with include all(#9928) <a href="https://github.com/sequelize/sequelize/pull/10173">#10173</a></li>
+<li>fix(sqlite): simplify connection error handling</li>
+<li>fix(model): prevent version number from being incremented as string <a href="https://github.com/sequelize/sequelize/pull/10217">#10217</a></li>
+<li>feat(dialect): mariadb <a href="https://github.com/sequelize/sequelize/pull/10192">#10192</a></li>
+<li>docs(migrations): improve dialect options docs</li>
+<li>docs: fix favicon <a href="https://github.com/sequelize/sequelize/pull/10242">#10242</a></li>
+<li>docs(model.init): <code>attribute.column.validate</code> option <a href="https://github.com/sequelize/sequelize/pull/10237">#10237</a></li>
+<li>docs(bulk-create): update support information about ignoreDuplicates</li>
+<li>docs: explain custom/new data types <a href="https://github.com/sequelize/sequelize/pull/10170">#10170</a></li>
+<li>docs(migrations): Simplify CLI Call <a href="https://github.com/sequelize/sequelize/pull/10201">#10201</a></li>
+<li>docs(migrations): added advanced skeleton example <a href="https://github.com/sequelize/sequelize/pull/10190">#10190</a></li>
+<li>docs(transaction): default isolation level <a href="https://github.com/sequelize/sequelize/pull/10111">#10111</a></li>
+<li>docs: typo in associations.md <a href="https://github.com/sequelize/sequelize/pull/10157">#10157</a></li>
+<li>refactor: reduce code complexity <a href="https://github.com/sequelize/sequelize/pull/10120">#10120</a></li>
+<li>refactor: optimize memoize use, misc cases <a href="https://github.com/sequelize/sequelize/pull/10122">#10122</a></li>
+<li>chore(lint): enforce consistent spacing <a href="https://github.com/sequelize/sequelize/pull/10193">#10193</a></li>
+</ul>
+<h3 id="5-0-0-beta-14">5.0.0-beta.14</h3><ul>
+<li>fix(query): correctly quote identifier for attributes (#9964) <a href="https://github.com/sequelize/sequelize/pull/10118">#10118</a></li>
+<li>feat(postgres): dyanmic oids <a href="https://github.com/sequelize/sequelize/pull/10077">#10077</a></li>
+<li>fix(error): optimistic lock message <a href="https://github.com/sequelize/sequelize/pull/10068">#10068</a></li>
+<li>fix(package): update depd to version 2.0.0 <a href="https://github.com/sequelize/sequelize/pull/10081">#10081</a></li>
+<li>fix(model): validate virtual attribute (#9947) <a href="https://github.com/sequelize/sequelize/pull/10085">#10085</a></li>
+<li>fix(test): actually test get method with raw option <a href="https://github.com/sequelize/sequelize/pull/10059">#10059</a></li>
+<li>fix(model): return deep cloned value for toJSON <a href="https://github.com/sequelize/sequelize/pull/10058">#10058</a></li>
+<li>fix(model): create instance with many-to-many association with extra column (#10034) <a href="https://github.com/sequelize/sequelize/pull/10050">#10050</a></li>
+<li>fix(query-generator): fix bad property access <a href="https://github.com/sequelize/sequelize/pull/10056">#10056</a></li>
+<li>docs(upgrade-to-v4): typo <a href="https://github.com/sequelize/sequelize/pull/10060">#10060</a></li>
+<li>docs(model-usage): order expression format <a href="https://github.com/sequelize/sequelize/pull/10061">#10061</a></li>
+<li>chore(package): update retry-as-promised to version 3.1.0 <a href="https://github.com/sequelize/sequelize/pull/10065">#10065</a></li>
+<li>refactor(scopes): just in time options conforming <a href="https://github.com/sequelize/sequelize/pull/9735">#9735</a></li>
+<li>refactor: use sequelize-pool for pooling <a href="https://github.com/sequelize/sequelize/pull/10051">#10051</a></li>
+<li>refactor(*): cleanup code <a href="https://github.com/sequelize/sequelize/pull/10091">#10091</a></li>
+<li>refactor: use template strings <a href="https://github.com/sequelize/sequelize/pull/10055">#10055</a></li>
+<li>refactor(query-generation): cleanup template usage <a href="https://github.com/sequelize/sequelize/pull/10047">#10047</a></li>
+</ul>
+<h3 id="5-0-0-beta-13">5.0.0-beta.13</h3><ul>
+<li>fix: throw on undefined where parameters <a href="https://github.com/sequelize/sequelize/pull/10048">#10048</a></li>
+<li>fix(model): improve wrong alias error message <a href="https://github.com/sequelize/sequelize/pull/10041">#10041</a></li>
+<li>feat(sqlite): CITEXT datatype <a href="https://github.com/sequelize/sequelize/pull/10036">#10036</a></li>
+<li>fix(postgres): remove if not exists and cascade from create/drop database queries <a href="https://github.com/sequelize/sequelize/pull/10033">#10033</a></li>
+<li>fix(syntax): correct parentheses around union <a href="https://github.com/sequelize/sequelize/pull/10003">#10003</a></li>
+<li>feat(query-interface): createDatabase / dropDatabase support <a href="https://github.com/sequelize/sequelize/pull/10027">#10027</a></li>
+<li>feat(postgres): CITEXT datatype <a href="https://github.com/sequelize/sequelize/pull/10024">#10024</a></li>
+<li>feat: pass uri query parameters to dialectOptions <a href="https://github.com/sequelize/sequelize/pull/10025">#10025</a></li>
+<li>docs(query-generator): remove doc about where raw query <a href="https://github.com/sequelize/sequelize/pull/10017">#10017</a></li>
+<li>fix(query): handle undefined field on unique constraint error <a href="https://github.com/sequelize/sequelize/pull/10018">#10018</a></li>
+<li>fix(model): sum returns zero when empty matching <a href="https://github.com/sequelize/sequelize/pull/9984">#9984</a></li>
+<li>feat(query-generator): add startsWith, endsWith and substring operators <a href="https://github.com/sequelize/sequelize/pull/9999">#9999</a></li>
+<li>docs(sequelize): correct jsdoc annotations for authenticate <a href="https://github.com/sequelize/sequelize/pull/10002">#10002</a></li>
+<li>docs(query-interface): add bulkUpdate docs <a href="https://github.com/sequelize/sequelize/pull/10005">#10005</a></li>
+<li>fix(tinyint): ignore params for TINYINT on postgres <a href="https://github.com/sequelize/sequelize/pull/9992">#9992</a></li>
+<li>fix(belongs-to): create now returns target model <a href="https://github.com/sequelize/sequelize/pull/9980">#9980</a></li>
+<li>refactor(model): remove .all alias <a href="https://github.com/sequelize/sequelize/pull/9975">#9975</a></li>
+<li>perf: fix memory leak due to instance reference by isImmutable <a href="https://github.com/sequelize/sequelize/pull/9973">#9973</a></li>
+<li>feat(sequelize): dialectModule option <a href="https://github.com/sequelize/sequelize/pull/9972">#9972</a></li>
+<li>fix(query): check valid warn message <a href="https://github.com/sequelize/sequelize/pull/9948">#9948</a></li>
+<li>fix(model): check for own property when overriding association mixins <a href="https://github.com/sequelize/sequelize/pull/9953">#9953</a></li>
+<li>fix(create-table): support for uniqueKeys <a href="https://github.com/sequelize/sequelize/pull/9946">#9946</a></li>
+<li>refactor(transaction): remove autocommit mode <a href="https://github.com/sequelize/sequelize/pull/9921">#9921</a></li>
+<li>feat(sequelize): getDatabaseName <a href="https://github.com/sequelize/sequelize/pull/9937">#9937</a></li>
+<li>refactor: remove aliases <a href="https://github.com/sequelize/sequelize/pull/9933">#9933</a></li>
+<li>feat(belongsToMany): override unique constraint name with uniqueKey <a href="https://github.com/sequelize/sequelize/pull/9914">#9914</a></li>
+<li>fix(postgres): properly disconnect connections <a href="https://github.com/sequelize/sequelize/pull/9911">#9911</a></li>
+<li>docs(instances.md): add section for restore() <a href="https://github.com/sequelize/sequelize/pull/9917">#9917</a></li>
+<li>docs(hooks.md): add warning about memory limits of individual hooks <a href="https://github.com/sequelize/sequelize/pull/9881">#9881</a></li>
+<li>fix(package): update debug to version 4.0.0 <a href="https://github.com/sequelize/sequelize/pull/9908">#9908</a></li>
+<li>feat(postgres): support ignoreDuplicates with ON CONFLICT DO NOTHING <a href="https://github.com/sequelize/sequelize/pull/9883">#9883</a></li>
+</ul>
+<h3 id="5-0-0-beta-12">5.0.0-beta.12</h3><ul>
+<li>fix(changeColumn): normalize attribute <a href="https://github.com/sequelize/sequelize/pull/9897">#9897</a></li>
+<li>feat(describeTable): support string length for mssql <a href="https://github.com/sequelize/sequelize/pull/9896">#9896</a></li>
+<li>feat(describeTable): support autoIncrement for mysql <a href="https://github.com/sequelize/sequelize/pull/9894">#9894</a></li>
+<li>fix(sqlite): unable to reference foreignKey on primaryKey <a href="https://github.com/sequelize/sequelize/pull/9893">#9893</a></li>
+<li>fix(postgres): enum with string COMMENT breaks query <a href="https://github.com/sequelize/sequelize/pull/9891">#9891</a></li>
+<li>fix(changeColumn): use engine defaults for foreign/unique key naming <a href="https://github.com/sequelize/sequelize/pull/9890">#9890</a></li>
+<li>fix(transaction): fixed unhandled rejection when connection acquire timeout <a href="https://github.com/sequelize/sequelize/pull/9879">#9879</a></li>
+<li>fix(sqlite): close connection properly and cleanup files <a href="https://github.com/sequelize/sequelize/pull/9851">#9851</a></li>
+<li>fix(model): incorrect error message for findCreateFind <a href="https://github.com/sequelize/sequelize/pull/9849">#9849</a></li>
+</ul>
+<h3 id="5-0-0-beta-11">5.0.0-beta.11</h3><ul>
+<li>fix(count): duplicate mapping of fields break scopes <a href="https://github.com/sequelize/sequelize/pull/9788">#9788</a></li>
+<li>fix(model): bulkCreate should populate dataValues directly <a href="https://github.com/sequelize/sequelize/pull/9797">#9797</a></li>
+<li>fix(mysql): improve unique key violation handling <a href="https://github.com/sequelize/sequelize/pull/9724">#9724</a></li>
+<li>fix(separate): don't propagate group to separated queries <a href="https://github.com/sequelize/sequelize/pull/9754">#9754</a></li>
+<li>fix(scope): incorrect query generated when sequelize.fn used with scopes <a href="https://github.com/sequelize/sequelize/pull/9730">#9730</a></li>
+<li>fix(json): access included data with attributes <a href="https://github.com/sequelize/sequelize/pull/9662">#9662</a></li>
+<li>(fix): pass offset in UNION'ed queries <a href="https://github.com/sequelize/sequelize/pull/9577">#9577</a></li>
+<li>fix(destroy): attributes updated in a beforeDestroy hook are now persisted on soft delete <a href="https://github.com/sequelize/sequelize/pull/9319">#9319</a></li>
+<li>fix(addScope): only throw when defaultScope is defined <a href="https://github.com/sequelize/sequelize/pull/9703">#9703</a></li>
+</ul>
+<h3 id="5-0-0-beta-10">5.0.0-beta.10</h3><ul>
+<li>fix(belongsToMany): association.add returns array of array of through records <a href="https://github.com/sequelize/sequelize/pull/9700">#9700</a></li>
+<li>feat: association hooks <a href="https://github.com/sequelize/sequelize/pull/9590">#9590</a></li>
+<li>fix(bulkCreate): dont map dataValue to fields for individualHooks:true<a href="https://github.com/sequelize/sequelize/pull/9672">#9672</a></li>
+<li>feat(postgres): drop enum support <a href="https://github.com/sequelize/sequelize/pull/9641">#9641</a></li>
+<li>feat(validation): improve validation for type<a href="https://github.com/sequelize/sequelize/pull/9660">#9660</a></li>
+<li>feat: allow querying sqlite_master table <a href="https://github.com/sequelize/sequelize/pull/9645">#9645</a></li>
+<li>fix(hasOne.sourceKey): setup sourceKeyAttribute for joins <a href="https://github.com/sequelize/sequelize/pull/9658">#9658</a></li>
+<li>fix: throw when type of array values is not defined <a href="https://github.com/sequelize/sequelize/pull/9649">#9649</a></li>
+<li>fix(query-generator): ignore undefined keys in query <a href="https://github.com/sequelize/sequelize/pull/9548">#9548</a></li>
+<li>fix(model): unable to override rejectOnEmpty <a href="https://github.com/sequelize/sequelize/pull/9632">#9632</a></li>
+<li>fix(reload): instance.changed() remains unaffected <a href="https://github.com/sequelize/sequelize/pull/9615">#9615</a></li>
+<li>feat(model): column level comments <a href="https://github.com/sequelize/sequelize/pull/9573">#9573</a></li>
+<li>docs: cleanup / correct jsdoc references <a href="https://github.com/sequelize/sequelize/pull/9702">#9702</a></li>
+</ul>
+<h3 id="5-0-0-beta-9">5.0.0-beta.9</h3><ul>
+<li>fix(model): ignore undefined values in update payload <a href="https://github.com/sequelize/sequelize/pull/9587">#9587</a></li>
+<li>fix(mssql): set encrypt as default false for dialect options <a href="https://github.com/sequelize/sequelize/pull/9588">#9588</a></li>
+<li>fix(model): ignore VIRTUAL/getters with attributes.exclude <a href="https://github.com/sequelize/sequelize/pull/9568">#9568</a></li>
+<li>feat(data-types): CIDR, INET, MACADDR support for Postgres <a href="https://github.com/sequelize/sequelize/pull/9567">#9567</a></li>
+<li>fix: customize allowNull message with notNull validator <a href="https://github.com/sequelize/sequelize/pull/9549">#9549</a></li>
+</ul>
+<h3 id="5-0-0-beta-8">5.0.0-beta.8</h3><ul>
+<li>feat(query-generator): Generate INSERT / UPDATE using bind parameters <a href="https://github.com/sequelize/sequelize/pull/9431">#9431</a> <a href="https://github.com/sequelize/sequelize/pull/9492">#9492</a></li>
+<li>performance: remove terraformer-wkt-parser dependency <a href="https://github.com/sequelize/sequelize/pull/9545">#9545</a></li>
+<li>fix(constructor): set username, password, database via options in addition to connection string<a href="https://github.com/sequelize/sequelize/pull/9517">#9517</a></li>
+<li>fix(associations/belongs-to-many): catch EmptyResultError in set/add helpers <a href="https://github.com/sequelize/sequelize/pull/9535">#9535</a></li>
+<li>fix: sync with alter:true doesn't use field name <a href="https://github.com/sequelize/sequelize/pull/9529">#9529</a></li>
+<li>fix(UnknownConstraintError): improper handling of error options <a href="https://github.com/sequelize/sequelize/pull/9547">#9547</a></li>
+</ul>
+<h3 id="5-0-0-beta-7">5.0.0-beta.7</h3><ul>
+<li>fix(data-types/blob): only return null for mysql binary null <a href="https://github.com/sequelize/sequelize/pull/9441">#9441</a></li>
+<li>fix(errors): use standard .original rather than .__raw for actual error</li>
+<li>fix(connection-manager): mssql datatype parsing <a href="https://github.com/sequelize/sequelize/pull/9470">#9470</a></li>
+<li>fix(query/removeConstraint): support schemas</li>
+<li>fix: use Buffer.from</li>
+<li>fix(transactions): return patched promise from sequelize.query <a href="https://github.com/sequelize/sequelize/pull/9473">#9473</a></li>
+</ul>
+<h3 id="5-0-0-beta-6">5.0.0-beta.6</h3><ul>
+<li>fix(postgres/query-generator): syntax error with auto-increment SMALLINT <a href="https://github.com/sequelize/sequelize/pull/9406">#9406</a></li>
+<li>fix(postgres/range): inclusive property lost in JSON format <a href="https://github.com/sequelize/sequelize/issues/8471">#8471</a></li>
+<li>fix(postgres/range): range bound not applied <a href="https://github.com/sequelize/sequelize/issues/8176">#8176</a></li>
+<li>fix(mssql): no unique constraint error thrown for PRIMARY case <a href="https://github.com/sequelize/sequelize/pull/9415">#9415</a></li>
+<li>fix(query-generator): regexp operator escaping</li>
+<li>docs: various improvements and hinting update</li>
+</ul>
+<h3 id="5-0-0-beta-5">5.0.0-beta.5</h3><ul>
+<li>fix: inject foreignKey when using separate:true <a href="https://github.com/sequelize/sequelize/pull/9396">#9396</a></li>
+<li>fix(isSoftDeleted): just use deletedAt as flag</li>
+<li>feat(hasOne): sourceKey support with key validation <a href="https://github.com/sequelize/sequelize/pull/9382">#9382</a></li>
+<li>fix(query-generator/deleteQuery): remove auto limit <a href="https://github.com/sequelize/sequelize/pull/9377">#9377</a></li>
+<li>feat(postgres): skip locked support <a href="https://github.com/sequelize/sequelize/pull/9197">#9197</a></li>
+<li>fix(mssql): case sensitive operation fails because of uppercased system table references <a href="https://github.com/sequelize/sequelize/pull/9337">#9337</a></li>
+</ul>
+<h3 id="5-0-0-beta-4">5.0.0-beta.4</h3><ul>
+<li>change(model): setDataValue should not mark null to null as changed <a href="https://github.com/sequelize/sequelize/pull/9347">#9347</a></li>
+<li>change(mysql/connection-manager): do not execute SET time_zone query if keepDefaultTimezone config is true <a href="https://github.com/sequelize/sequelize/pull/9358">#9358</a></li>
+<li>feat(transactions): Add afterCommit hooks for transactions <a href="https://github.com/sequelize/sequelize/pull/9287">#9287</a></li>
+</ul>
+<h3 id="5-0-0-beta-3">5.0.0-beta.3</h3><ul>
+<li>change(model): new options.underscored implementation <a href="https://github.com/sequelize/sequelize/pull/9304">#9304</a></li>
+<li>fix(mssql): duplicate order generated with limit offset <a href="https://github.com/sequelize/sequelize/pull/9307">#9307</a></li>
+<li>fix(scope): do not assign scope on eagerly loaded associations <a href="https://github.com/sequelize/sequelize/pull/9292">#9292</a></li>
+<li>change(bulkCreate): only support non-empty array as updateOnDuplicate</li>
+</ul>
+<h3 id="5-0-0-beta-2">5.0.0-beta.2</h3><ul>
+<li>change(operators): Symbol operators now enabled by default, removed deprecation warning</li>
+<li>fix(model): don't add LIMIT in findOne() queries on unique key <a href="https://github.com/sequelize/sequelize/pull/9248">#9248</a></li>
+<li>fix(model): use schema when generating foreign keys <a href="https://github.com/sequelize/sequelize/issues/9029">#9029</a></li>
+</ul>
+<h3 id="5-0-0-beta-1">5.0.0-beta.1</h3><ul>
+<li>fix(postgres): reserved words support <a href="https://github.com/sequelize/sequelize/pull/9236">#9236</a></li>
+<li>fix(findOrCreate): warn and handle unknown attributes in defaults</li>
+<li>fix(query-generator): 1-to-many join in subQuery filter missing where clause <a href="https://github.com/sequelize/sequelize/issues/9228">#9228</a></li>
+</ul>
+<h3 id="5-0-0-beta">5.0.0-beta</h3><ul>
+<li><code>Model.attributes</code> now removed, use <code>Model.rawAttributes</code> <a href="https://github.com/sequelize/sequelize/issues/5320">#5320</a></li>
+<li><code>paranoid</code> mode will now treat any record with <code>deletedAt</code> as deleted <a href="https://github.com/sequelize/sequelize/issues/8496">#8496</a></li>
+<li>Node 6 and up <a href="https://github.com/sequelize/sequelize/issues/9015">#9015</a></li>
+</ul>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="/v5/./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="/v5/script/search_index.js"></script>
+<script src="/v5/script/search.js"></script>
+<script src="/v5/script/pretty-print.js"></script>
+<script src="/v5/script/inherited-summary.js"></script>
+<script src="/v5/script/test-summary.js"></script>
+<script src="/v5/script/inner-link.js"></script>
+<script src="/v5/script/patch-for-local.js"></script>
+
+
+</body></html>
