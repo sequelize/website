@@ -124,6 +124,14 @@ const config = {
                 href: 'pathname:///v3',
                 label: 'v3',
               },
+              {
+                href: 'pathname:///v2',
+                label: 'v2',
+              },
+              {
+                href: 'pathname:///v1',
+                label: 'v1',
+              },
             ],
             dropdownActiveClassDisabled: true,
           },
@@ -157,6 +165,10 @@ const config = {
               {
                 label: 'Sequelize 3',
                 href: 'pathname:///v3/api/sequelize',
+              },
+              {
+                label: 'Sequelize 2',
+                href: 'pathname:///v2/api/sequelize',
               },
             ],
           },
