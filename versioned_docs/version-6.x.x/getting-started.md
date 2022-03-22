@@ -25,6 +25,12 @@ $ npm install --save sqlite3
 $ npm install --save tedious # Microsoft SQL Server
 ```
 
+:::caution sqlite3 fork
+
+Due to issues with deploying a new release and to fix a possible security vulnerability, it is recommended to use the @vscode/sqlite3 fork. See [Dialect-Specific Things](../other-topics/dialect-specific-things.md) for more information.
+
+:::
+
 ## Connecting to a database
 
 To connect to the database, you must create a Sequelize instance. This can be done by either passing the connection parameters separately to the Sequelize constructor or by passing a single connection URI:
