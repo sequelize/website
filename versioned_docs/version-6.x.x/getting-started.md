@@ -27,7 +27,7 @@ $ npm install --save tedious # Microsoft SQL Server
 
 :::caution sqlite3 fork
 
-Due to issues with deploying a new release and to fix a possible security vulnerability, it is recommended to use the @vscode/sqlite3 fork. See [Dialect-Specific Things](../other-topics/dialect-specific-things.md) for more information.
+Due to issues with deploying a new release and to fix a possible security vulnerability, it is recommended to use the @vscode/sqlite3 fork. See [Dialect-Specific Things](./other-topics/dialect-specific-things.md#sqlite) for more information.
 
 :::
 
