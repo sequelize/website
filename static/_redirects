@@ -1,0 +1,14 @@
+/main /docs/v6/intro  302
+/main/manual/whos-using / 302
+/main/manual/getting-started  /docs/v6/getting-started  302
+/main/* /docs/v6/:splat 302
+
+/master /docs/v6/intro  302
+/master/manual/whos-using / 302
+/master/manual/getting-started  /docs/v6/getting-started  302
+/master/* /docs/v6/:splat 302
+
+/v6 /docs/v6/intro  302
+/v6/manual/whos-using / 302
+/v6/manual/getting-started  /docs/v6/getting-started  302
+/v6/* /docs/v6/:splat 302
