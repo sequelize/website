@@ -16,8 +16,8 @@
     "sync": "bash ./sync-repositories.sh"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.17",
-    "@docusaurus/preset-classic": "2.0.0-beta.17",
+    "@docusaurus/core": "2.0.0-beta.18",
+    "@docusaurus/preset-classic": "2.0.0-beta.18",
     "@mdx-js/react": "1.6.22",
     "clsx": "1.1.1",
     "docusaurus-plugin-sass": "0.2.2",
@@ -29,13 +29,13 @@
     "sass": "1.49.9"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.0.0-beta.17",
+    "@docusaurus/module-type-aliases": "2.0.0-beta.18",
     "@ephys/eslint-config-typescript": "16.0.2",
     "@rushstack/eslint-patch": "1.1.1",
     "@tsconfig/docusaurus": "1.0.5",
     "eslint": "8.11.0",
     "eslint-plugin-mdx": "1.17.0",
-    "typescript": "4.6.2"
+    "typescript": "4.6.3"
   },
   "browserslist": {
     "production": [
