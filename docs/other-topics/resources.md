@@ -25,6 +25,7 @@ A curated list of awesome projects surrounding Sequelize.
 
 * [umzug](https://github.com/sequelize/umzug) - framework-agnostic migration tool for Node.
 * [sequelize-cli](https://github.com/sequelize/cli) - The Sequelize Command Line Interface. Includes umzug-based migrations.
+* [sequelize-mig](https://github.com/MRVMV/sequelize-mig) - Sequelize migration generator
 
 ## Miscellaneous
  
