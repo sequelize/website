@@ -13,6 +13,7 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   organizationName: 'sequelize',
+  trailingSlash: true,
   projectName: 'sequelize',
   plugins: ['docusaurus-plugin-sass'],
   presets: [
