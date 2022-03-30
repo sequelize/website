@@ -36,6 +36,10 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 
 .footer__copyright {
   margin-top: 16px;
+
+  a {
+    color: var(--ifm-footer-color);;
+  }
 }
 
 .footer--dark {
