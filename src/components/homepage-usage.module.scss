@@ -2,9 +2,17 @@
 
 .usage {
   background-color: $brand-primary-light;
+  --ifm-link-color: white;
+  --ifm-link-hover-color: white;
+
+  --ifm-tabs-color-active-border: white;
+  --ifm-hover-overlay: rgb(0 0 0 / 0.05);
+  --ifm-tabs-color: white;
+  --ifm-tabs-color-active: white;
+
   display: flex;
   align-items: center;
-  padding: fluid($min-screen-size, $container-max-width, 32px, 64px) 16px;
+  padding: fluid($min-screen-size, $container-max-width, 32px, 64px) 0;
   width: 100%;
   counter-reset: headlines 0;
 }
@@ -25,11 +33,22 @@
 }
 
 .usageSection {
-  max-width: 800px;
   width: 100%;
+  --ifm-leading: 8px;
 }
 
 .featureSvg {
   height: 200px;
   width: 200px;
+}
+
+.docsLink {
+  margin: 0 0 16px 0;
+  text-align: right;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
 }
