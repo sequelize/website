@@ -1,48 +1,46 @@
-<!DOCTYPE html><html>
-<!-- Mirrored from localhost:3000/docs/1.7.0-beta.1/migrations by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
-<head><title>Sequelize - Documentation - Migrations</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"><link rel="stylesheet" href="../../stylesheets/style.css"><script src="../../javascripts/jquery-1.10.2.min.js"></script><script>fromGithub = function (partialId, url) {
+<!DOCTYPE html><html><!-- Mirrored from localhost:3000/docs/1.7.0-beta.1/migrations by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT --><!-- Added by HTTrack --><head><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<title>Sequelize - Documentation - Migrations</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"><link rel="stylesheet" href="../../stylesheets/style.css"><script src="../../javascripts/jquery-1.10.2.min.js"></script><script>fromGithub = function (partialId, url) {
   var $partial = $("#" + partialId)
 
   $partial.load(url, function () {
     hljs.highlightBlock($partial.get(0));
   });
-}</script></head><body id="documentation"><div role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-liquid"><div class="col-sm-3 navbar-left"><section><a href="../../index.html" class="navbar-brand"><img src="../../images/logo-small.png"><span>Sequelize</span></a><div class="clearfix"></div></section></div><div class="col-sm-8 navbar-right"><section><button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="navbar-collapse collapse"><ul class="nav navbar-nav"></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../index.html"><span class="glyphicon glyphicon-home"></span><span class="spacer">&nbsp;</span><span class="text">Home</span></a></li><li class="active"><a href="../1.7.8/installation.html"><span class="glyphicon glyphicon-info-sign"></span><span class="spacer">&nbsp;</span><span class="text">Docs</span></a></li><li><a href="../../articles/getting-started.html"><span class="glyphicon glyphicon-book"></span><span class="spacer">&nbsp;</span><span class="text">Articles</span></a></li><li><a href="../../blog.html"><span class="glyphicon glyphicon-comment"></span><span class="spacer">&nbsp;</span><span class="text">Blog</span></a></li><li><a href="../../search.html" class="search"><i class="fa fa-search"></i><span class="spacer">&nbsp;</span><span class="text">Search</span></a></li></ul></div></section></div></div></div><div class="container-liquid"><div class="row documentation"><div class="col-sm-2 mid-blue sidebar"><div class="headline-spacer"></div><section class="navigation"><ul><li><a href="installation.html">Installation</a></li><li><a href="usage.html">Usage</a><ul><li><a href="usage.html#basics">Basic usage</a></li><li><a href="usage.html#options">Options</a></li><li><a href="usage.html#read-replication">Read replication</a></li><li><a href="usage.html#dialects">Dialects</a></li><li><a href="usage.html#raw-queries">Executing raw SQL queries</a></li></ul></li><li><a href="models.html">Models</a><ul><li><a href="models.html#definition">Definition</a></li><li><a href="models.html#data-types">Data types</a></li><li><a href="models.html#getters---setters">Getters &amp; setters</a></li><li><a href="models.html#validations">Validations</a></li><li><a href="models.html#configuration">Configuration</a></li><li><a href="models.html#import">Import</a></li><li><a href="models.html#database-synchronization">Database synchronization</a></li><li><a href="models.html#expansion-of-models">Expansion of models</a></li><li><a href="models.html#finders">Data retrieval / Finders</a></li><li><a href="models.html#eager-loading">Eager loading</a></li></ul></li><li><a href="instances.html">Instances</a><ul><li><a href="instances.html#build">Building a not-persistant instance</a></li><li><a href="instances.html#create">Creating persistant instances</a></li><li><a href="instances.html#update">Updating &amp;sol; Saving &amp;sol; Persisting an instance</a></li><li><a href="instances.html#destroy">Destroying &amp;sol; Deleting persistant instances</a></li><li><a href="instances.html#values">Values of an instance</a></li><li><a href="instances.html#reload">Reloading instances</a></li><li><a href="instances.html#increment">Incrementing certain values of an instance</a></li><li><a href="instances.html#decrement">Decrementing certain values of an instance</a></li></ul></li><li><a href="associations.html">Associations</a><ul><li><a href="associations.html#one-to-one">One-To-One associations</a></li><li><a href="associations.html#one-to-many">One-To-Many associations</a></li><li><a href="associations.html#many-to-many">Many-To-Many associations</a></li><li><a href="associations.html#associating-objects">Associating objects</a></li><li><a href="associations.html#check-associations">Check associations</a></li><li><a href="associations.html#foreign-keys">Foreign Keys</a></li></ul></li><li><a href="hooks.html">Hooks</a></li><li><a href="transactions.html">Transactions</a></li><li class="active"><a href="migrations.html">Migrations</a><ul><li><a href="migrations.html#the-binary">The binary</a></li><li><a href="migrations.html#skeleton">Skeleton</a></li><li><a href="migrations.html#functions">Functions</a></li></ul></li><li><a href="utils.html">Utils</a><ul><li><a href="utils.html#lodash-js">Lodash.js</a></li><li><a href="utils.html#querychainer">QueryChainer</a></li></ul></li><li><a href="misc.html">Misc</a><ul><li><a href="misc.html#compatibility">Compatibility</a></li><li><a href="misc.html#asynchronicity">Asynchronicity</a></li><li><a href="misc.html#links(data-nav-value='Links')">Additional links</a></li><li><a href="misc.html#company---projects">Company &amp; Projects</a></li></ul></li><li><a>Versions</a><ul><li><a href="../latest/installation.html">Latest</a></li><li><a href="../1.7.8/installation.html">1.7.8</a></li><li><a href="../1.7.6/installation.html">1.7.6</a></li><li><a href="installation.html">1.7.0-beta.1</a></li></ul></li></ul></section><div class="clearfix"></div></div><div class="col-sm-9 col-sm-offset-1 beige content"><section><div><h2>Migrations</h2><p>Sequelize<code>v1&period;3&period;0</code>introduced migrations&period; With those mechanism you can transform your existing database into another state and vice versa&period; Those state transitions are saved in migration files&comma; which describe the way how to get to the new state and how to revert the changes in order to get back to the old state&period;</p><h3 id="the-binary">The binary</h3><p>In order to run migrations&comma; sequelize comes with a handy binary file which can setup your project and run migrations&period; The following snippet shows the possible things&colon;</p><pre class="dark-blue"><code class="javascript">sequelize -h
+}</script><meta name="robots" content="noindex"></head><body id="documentation"><div role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-liquid"><div class="col-sm-3 navbar-left"><section><a href="../../index.html" class="navbar-brand"><img src="../../images/logo-small.png"><span>Sequelize</span></a><div class="clearfix"></div></section></div><div class="col-sm-8 navbar-right"><section><button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="navbar-collapse collapse"><ul class="nav navbar-nav"></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../index.html"><span class="glyphicon glyphicon-home"></span><span class="spacer">&nbsp;</span><span class="text">Home</span></a></li><li class="active"><a href="../1.7.8/installation.html"><span class="glyphicon glyphicon-info-sign"></span><span class="spacer">&nbsp;</span><span class="text">Docs</span></a></li><li><a href="../../articles/getting-started.html"><span class="glyphicon glyphicon-book"></span><span class="spacer">&nbsp;</span><span class="text">Articles</span></a></li><li><a href="../../blog.html"><span class="glyphicon glyphicon-comment"></span><span class="spacer">&nbsp;</span><span class="text">Blog</span></a></li><li><a href="../../search.html" class="search"><i class="fa fa-search"></i><span class="spacer">&nbsp;</span><span class="text">Search</span></a></li></ul></div></section></div></div></div><div class="container-liquid"><div class="row documentation"><div class="col-sm-2 mid-blue sidebar"><div class="headline-spacer"></div><section class="navigation"><ul><li><a href="installation.html">Installation</a></li><li><a href="usage.html">Usage</a><ul><li><a href="usage.html#basics">Basic usage</a></li><li><a href="usage.html#options">Options</a></li><li><a href="usage.html#read-replication">Read replication</a></li><li><a href="usage.html#dialects">Dialects</a></li><li><a href="usage.html#raw-queries">Executing raw SQL queries</a></li></ul></li><li><a href="models.html">Models</a><ul><li><a href="models.html#definition">Definition</a></li><li><a href="models.html#data-types">Data types</a></li><li><a href="models.html#getters---setters">Getters &amp; setters</a></li><li><a href="models.html#validations">Validations</a></li><li><a href="models.html#configuration">Configuration</a></li><li><a href="models.html#import">Import</a></li><li><a href="models.html#database-synchronization">Database synchronization</a></li><li><a href="models.html#expansion-of-models">Expansion of models</a></li><li><a href="models.html#finders">Data retrieval / Finders</a></li><li><a href="models.html#eager-loading">Eager loading</a></li></ul></li><li><a href="instances.html">Instances</a><ul><li><a href="instances.html#build">Building a not-persistant instance</a></li><li><a href="instances.html#create">Creating persistant instances</a></li><li><a href="instances.html#update">Updating &amp;sol; Saving &amp;sol; Persisting an instance</a></li><li><a href="instances.html#destroy">Destroying &amp;sol; Deleting persistant instances</a></li><li><a href="instances.html#values">Values of an instance</a></li><li><a href="instances.html#reload">Reloading instances</a></li><li><a href="instances.html#increment">Incrementing certain values of an instance</a></li><li><a href="instances.html#decrement">Decrementing certain values of an instance</a></li></ul></li><li><a href="associations.html">Associations</a><ul><li><a href="associations.html#one-to-one">One-To-One associations</a></li><li><a href="associations.html#one-to-many">One-To-Many associations</a></li><li><a href="associations.html#many-to-many">Many-To-Many associations</a></li><li><a href="associations.html#associating-objects">Associating objects</a></li><li><a href="associations.html#check-associations">Check associations</a></li><li><a href="associations.html#foreign-keys">Foreign Keys</a></li></ul></li><li><a href="hooks.html">Hooks</a></li><li><a href="transactions.html">Transactions</a></li><li class="active"><a href="migrations.html">Migrations</a><ul><li><a href="migrations.html#the-binary">The binary</a></li><li><a href="migrations.html#skeleton">Skeleton</a></li><li><a href="migrations.html#functions">Functions</a></li></ul></li><li><a href="utils.html">Utils</a><ul><li><a href="utils.html#lodash-js">Lodash.js</a></li><li><a href="utils.html#querychainer">QueryChainer</a></li></ul></li><li><a href="misc.html">Misc</a><ul><li><a href="misc.html#compatibility">Compatibility</a></li><li><a href="misc.html#asynchronicity">Asynchronicity</a></li><li><a href="misc.html#links(data-nav-value='Links')">Additional links</a></li><li><a href="misc.html#company---projects">Company &amp; Projects</a></li></ul></li><li><a>Versions</a><ul><li><a href="../latest/installation.html">Latest</a></li><li><a href="../1.7.8/installation.html">1.7.8</a></li><li><a href="../1.7.6/installation.html">1.7.6</a></li><li><a href="installation.html">1.7.0-beta.1</a></li></ul></li></ul></section><div class="clearfix"></div></div><div class="col-sm-9 col-sm-offset-1 beige content"><section><div><h2>Migrations</h2><p>Sequelize<code>v1.3.0</code>introduced migrations. With those mechanism you can transform your existing database into another state and vice versa. Those state transitions are saved in migration files, which describe the way how to get to the new state and how to revert the changes in order to get back to the old state.</p><h3 id="the-binary">The binary</h3><p>In order to run migrations, sequelize comes with a handy binary file which can setup your project and run migrations. The following snippet shows the possible things:</p><pre class="dark-blue"><code class="javascript">sequelize -h
 sequelize --help
---> prints the help
+--&gt; prints the help
 &nbsp;
 sequelize -V
 sequelize --version
---> prints the version
+--&gt; prints the version
 &nbsp;
 sequelize -i
 sequelize --init
---> creates a migration folder
---> creates a config folder
---> saves a config.json inside the config folder
+--&gt; creates a migration folder
+--&gt; creates a config folder
+--&gt; saves a config.json inside the config folder
 &nbsp;
 sequelize -i -f
 sequelize --init --force
---> forced creation of migration and config folder
---> existing data will be deleted first
+--&gt; forced creation of migration and config folder
+--&gt; existing data will be deleted first
 &nbsp;
 sequelize -m
 sequelize --migrate
---> needs a valid config.json
---> runs pending migrations
---> saves successfully executed migrations inside the database
+--&gt; needs a valid config.json
+--&gt; runs pending migrations
+--&gt; saves successfully executed migrations inside the database
 &nbsp;
 sequelize -m -u
 sequelize --migrate --undo
---> needs a valid config.json
---> reverts the last successfull migration
---> when there were multiple executed migrations, all of them are reverted
+--&gt; needs a valid config.json
+--&gt; reverts the last successfull migration
+--&gt; when there were multiple executed migrations, all of them are reverted
 &nbsp;
 sequelize -c [migration-name]
 sequelize --create-migration [migration-name]
---> creates the migrations folder
---> creates a file with current timestamp + migration-name
---> migration-name has the default 'unnamed-migration'</code></pre><h3 id="skeleton">Skeleton</h3><p>The following skeleton shows a typical migration file&period; All migrations are expected to be located in a folder called<code>migrations</code>at the very top of the project&period; Sequelize<code>1&period;4&period;1</code>added the possibility to let the sequelize binary generate a migration skeleton&period; See the aboves section for more details&period;</p><pre class="dark-blue"><code class="javascript">module.exports = {
+--&gt; creates the migrations folder
+--&gt; creates a file with current timestamp + migration-name
+--&gt; migration-name has the default 'unnamed-migration'</code></pre><h3 id="skeleton">Skeleton</h3><p>The following skeleton shows a typical migration file. All migrations are expected to be located in a folder called<code>migrations</code>at the very top of the project. Sequelize<code>1.4.1</code>added the possibility to let the sequelize binary generate a migration skeleton. See the aboves section for more details.</p><pre class="dark-blue"><code class="javascript">module.exports = {
   up: function(migration, DataTypes, done) {
     // logic for transforming into the new state
   },
@@ -50,7 +48,7 @@ sequelize --create-migration [migration-name]
   down: function(migration, DataTypes, done) {
     // logic for reverting the changes
   }
-}</code></pre><p>The passed<code>migration</code>object can be used to modify the database&period; The<code>DataTypes</code>object stores the available data types such as<code>STRING</code>or<code>INTEGER</code>&period; The third parameter is a callback function which needs to be called once everything was executed&period; The first parameter of the callback function can be used to pass a possible error&period; In that case&comma; the migration will be marked as failed&period; Here is some code&colon;</p><pre class="dark-blue"><code class="javascript">module.exports = {
+}</code></pre><p>The passed<code>migration</code>object can be used to modify the database. The<code>DataTypes</code>object stores the available data types such as<code>STRING</code>or<code>INTEGER</code>. The third parameter is a callback function which needs to be called once everything was executed. The first parameter of the callback function can be used to pass a possible error. In that case, the migration will be marked as failed. Here is some code:</p><pre class="dark-blue"><code class="javascript">module.exports = {
   up: function(migration, DataTypes, done) {
     migration.dropAllTables().complete(done)
 &nbsp;
@@ -63,7 +61,7 @@ sequelize --create-migration [migration-name]
       }
     })
   }
-}</code></pre><p>The available methods of the migration object are the following&period;</p><h3 id="functions">Functions</h3><p>Using the<code>migration</code>object describe before&comma; you will have access to most of already introduced functions&period; Furthermore there are some other methods&comma; which are designed to actually change the database schema&period;</p><h4 id="functions-createtable">createTable&lpar;tableName&comma; attributes&comma; options&rpar;</h4><p>This method allows creation of new tables&period; It is allowed to pass simple or complex attribute definitions&period; You can define the encoding of the table and the table&apos;s engine via options</p><pre class="dark-blue"><code class="javascript">migration.createTable(
+}</code></pre><p>The available methods of the migration object are the following.</p><h3 id="functions">Functions</h3><p>Using the<code>migration</code>object describe before, you will have access to most of already introduced functions. Furthermore there are some other methods, which are designed to actually change the database schema.</p><h4 id="functions-createtable">createTable(tableName, attributes, options)</h4><p>This method allows creation of new tables. It is allowed to pass simple or complex attribute definitions. You can define the encoding of the table and the table's engine via options</p><pre class="dark-blue"><code class="javascript">migration.createTable(
   'nameOfTheNewTable',
   {
     attr1: DataTypes.STRING,
@@ -78,7 +76,7 @@ sequelize --create-migration [migration-name]
     engine: 'MYISAM', // default: 'InnoDB'
     charset: 'latin1' // default: null
   }
-)</code></pre><h4 id="functions-droptable">dropTable&lpar;tableName&rpar;</h4><p>This method allows deletion of an existing table&period;</p><pre class="dark-blue"><code class="javascript">migration.dropTable('nameOfTheExistingTable')</code></pre><h4 id="functions-dropalltables">dropAllTables&lpar;&rpar;</h4><p>This method allows deletion of all existing tables in the database&period;</p><pre class="dark-blue"><code class="javascript">migration.dropAllTables()</code></pre><h4 id="functions-renametable">renameTable&lpar;before&comma; after&rpar;</h4><p>This method allows renaming of an existing table&period;</p><pre class="dark-blue"><code class="javascript">migration.renameTable('Person', 'User')</code></pre><h4 id="functions-showalltables">showAllTables&lpar;&rpar;</h4><p>This method returns the name of all existing tables in the database&period;</p><pre class="dark-blue"><code class="javascript">migration.showAllTables().success(function(tableNames) {})</code></pre><h4 id="functions-describetable">describeTable&lpar;tableName&rpar;</h4><p>This method returns an array of hashes containing information about all attributes in the table&period;</p><pre class="dark-blue"><code class="javascript">migration.describeTable('Person').success(function(attributes) {
+)</code></pre><h4 id="functions-droptable">dropTable(tableName)</h4><p>This method allows deletion of an existing table.</p><pre class="dark-blue"><code class="javascript">migration.dropTable('nameOfTheExistingTable')</code></pre><h4 id="functions-dropalltables">dropAllTables()</h4><p>This method allows deletion of all existing tables in the database.</p><pre class="dark-blue"><code class="javascript">migration.dropAllTables()</code></pre><h4 id="functions-renametable">renameTable(before, after)</h4><p>This method allows renaming of an existing table.</p><pre class="dark-blue"><code class="javascript">migration.renameTable('Person', 'User')</code></pre><h4 id="functions-showalltables">showAllTables()</h4><p>This method returns the name of all existing tables in the database.</p><pre class="dark-blue"><code class="javascript">migration.showAllTables().success(function(tableNames) {})</code></pre><h4 id="functions-describetable">describeTable(tableName)</h4><p>This method returns an array of hashes containing information about all attributes in the table.</p><pre class="dark-blue"><code class="javascript">migration.describeTable('Person').success(function(attributes) {
   /*
     attributes will be something like:
 &nbsp;
@@ -95,7 +93,7 @@ sequelize --create-migration [migration-name]
       }
     }
   */
-})</code></pre><h4 id="functions-addcolumn">addColumn&lpar;tableName&comma; attributeName&comma; dataTypeOrOptions&rpar;</h4><p>This method allows adding columns to an existing table&period; The data type can be simple or complex&period;</p><pre class="dark-blue"><code class="javascript">migration.addColumn(
+})</code></pre><h4 id="functions-addcolumn">addColumn(tableName, attributeName, dataTypeOrOptions)</h4><p>This method allows adding columns to an existing table. The data type can be simple or complex.</p><pre class="dark-blue"><code class="javascript">migration.addColumn(
   'nameOfAnExistingTable',
   'nameOfTheNewAttribute',
   DataTypes.STRING
@@ -110,7 +108,7 @@ migration.addColumn(
     type: DataTypes.STRING,
     allowNull: false
   }
-)</code></pre><h4 id="functions-removecolumn">removeColumn&lpar;tableName&comma; attributeName&rpar;</h4><p>This method allows deletion of a specific column of an existing table&period;</p><pre class="dark-blue"><code class="javascript">migration.removeColumn('Person', 'signature')</code></pre><h4 id="functions-changecolumn">changeColumn&lpar;tableName&comma; attributeName&comma; dataTypeOrOptions&rpar;</h4><p>This method changes the meta data of an attribute&period; It is possible to change the default value&comma; allowance of null or the data type&period; Please make sure&comma; that you are completely describing the new data type&period; Missing information are expected to be defaults&period;</p><pre class="dark-blue"><code class="javascript">migration.changeColumn(
+)</code></pre><h4 id="functions-removecolumn">removeColumn(tableName, attributeName)</h4><p>This method allows deletion of a specific column of an existing table.</p><pre class="dark-blue"><code class="javascript">migration.removeColumn('Person', 'signature')</code></pre><h4 id="functions-changecolumn">changeColumn(tableName, attributeName, dataTypeOrOptions)</h4><p>This method changes the meta data of an attribute. It is possible to change the default value, allowance of null or the data type. Please make sure, that you are completely describing the new data type. Missing information are expected to be defaults.</p><pre class="dark-blue"><code class="javascript">migration.changeColumn(
   'nameOfAnExistingTable',
   'nameOfAnExistingAttribute',
   DataTypes.STRING
@@ -126,11 +124,11 @@ migration.changeColumn(
     allowNull: false,
     default: 0.0
   }
-)</code></pre><h4 id="functions-renamecolumn">renameColumn&lpar;tableName&comma; attrNameBefore&comma; attrNameAfter&rpar;</h4><p>This methods allows renaming attributes&period;</p><pre class="dark-blue"><code class="javascript">migration.renameColumn('Person', 'signature', 'sig')</code></pre><h4 id="functions-addindex">addIndex&lpar;tableName&comma; attributes&comma; options&rpar;</h4><p>This methods creates indexes for specific attributes of a table&period; The index name will be automatically generated if it is not passed via in the options &lpar;see below&rpar;&period;</p><pre class="dark-blue"><code class="javascript">// This example will create the index person_firstname_lastname
+)</code></pre><h4 id="functions-renamecolumn">renameColumn(tableName, attrNameBefore, attrNameAfter)</h4><p>This methods allows renaming attributes.</p><pre class="dark-blue"><code class="javascript">migration.renameColumn('Person', 'signature', 'sig')</code></pre><h4 id="functions-addindex">addIndex(tableName, attributes, options)</h4><p>This methods creates indexes for specific attributes of a table. The index name will be automatically generated if it is not passed via in the options (see below).</p><pre class="dark-blue"><code class="javascript">// This example will create the index person_firstname_lastname
 migration.addIndex('Person', ['firstname', 'lastname'])</code></pre><pre class="dark-blue"><code class="javascript">// This example will create a unique index with the name SuperDuperIndex using the optional 'options' field.
 // Possible options:
 // - indicesType: UNIQUE|FULLTEXT|SPATIAL
-// - indexName: The name of the index. Default is <tableName>_<attrName1>_<attrName2>
+// - indexName: The name of the index. Default is <tablename>_<attrname1>_<attrname2>
 // - parser: For FULLTEXT columns set your parser
 // - indexType: Set a type for the index, e.g. BTREE. See the documentation of the used dialect
 migration.addIndex(
@@ -140,11 +138,11 @@ migration.addIndex(
     indexName: 'SuperDuperIndex',
     indicesType: 'UNIQUE'
   }
-)</code></pre><h4 id="functions-removeindex">removeIndex&lpar;tableName&comma; indexNameOrAttributes&rpar;</h4><p>This method deletes an existing index of a table&period;</p><pre class="dark-blue"><code class="javascript">migration.removeIndex('Person', 'SuperDuperIndex')
+)</attrname2></attrname1></tablename></code></pre><h4 id="functions-removeindex">removeIndex(tableName, indexNameOrAttributes)</h4><p>This method deletes an existing index of a table.</p><pre class="dark-blue"><code class="javascript">migration.removeIndex('Person', 'SuperDuperIndex')
 &nbsp;
 // or
 &nbsp;
-migration.removeIndex('Person', ['firstname', 'lastname'])</code></pre></div></section></div></div></div><div class="imprint very-dark-blue"><div class="container"><div class="col-sm-4">&copy;
+migration.removeIndex('Person', ['firstname', 'lastname'])</code></pre></div></section></div></div></div><div class="imprint very-dark-blue"><div class="container"><div class="col-sm-4">©
 Sascha Depold,
 <a href="https://github.com/sequelize/sequelize-doc/graphs/contributors" target="_blank" rel="nofollow">et al.</a>
 2006 -&nbsp;2022</div><div style="text-align: right" class="col-sm-8"><a href="../../imprint.html">Imprint</a></div></div></div><script src="../../javascripts/bootstrap.min.js"></script><script src="../../javascripts/highlight.pack.js"></script><script src="../../javascripts/main.js"></script><script src="../../javascripts/documentation.js"></script><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -153,6 +151,6 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-9039631-4', 'sequelizejs.com');
-ga('send', 'pageview');</script></body>
-<!-- Mirrored from localhost:3000/docs/1.7.0-beta.1/migrations by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT -->
-</html>
+ga('send', 'pageview');</script>
+
+</body><!-- Mirrored from localhost:3000/docs/1.7.0-beta.1/migrations by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT --></html>

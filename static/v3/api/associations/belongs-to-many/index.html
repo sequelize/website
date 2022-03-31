@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
+<!DOCTYPE html><!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +8,12 @@
   <link rel="shortcut icon" href="/v3/favicon.ico">
   
   <title>BelongsToMany (n:m) - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700">
 
-  <link rel="stylesheet" href="/v3/css/theme.css" />
-  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  <link href="/v3/css/custom.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/v3/css/theme.css">
+  <link rel="stylesheet" href="/v3/css/theme_extra.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+  <link href="/v3/css/custom.css" rel="stylesheet">
   
   <script>
     // Current page data
@@ -25,11 +22,11 @@
     var mkdocs_page_url = "/api/associations/belongs-to-many/";
   </script>
   
-  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
-  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="/v3/js/jquery-2.1.1.min.js" defer=""></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-</head>
+<meta name="robots" content="noindex"></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -41,8 +38,8 @@
       <div class="wy-side-nav-search">
         <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  <form id="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here">
   </form>
 </div>
       </div>
@@ -164,28 +161,27 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="/v3">Docs</a> &raquo;</li>
+    <li><a href="/v3">Docs</a> »</li>
     
       
         
-          <li>API &raquo;</li>
+          <li>API »</li>
         
       
         
-          <li>Associations &raquo;</li>
+          <li>Associations »</li>
         
       
     
     <li>BelongsToMany (n:m)</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/associations/belongs-to-many.md"
-          class="icon icon-github"> Edit on GitHub</a>
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/associations/belongs-to-many.md" class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
   
-  <hr/>
+  <hr>
 </div>
 
           <div role="main">
@@ -211,7 +207,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 });
 </code></pre>
 <p>In the API reference below, replace <code>Assocation(s)</code> with the actual name of your association, e.g. for <code>User.belongsToMany(Project)</code> the getter will be <code>user.getProjects()</code>.</p>
-<hr />
+<hr>
 <p><a name="getassociations"></a></p>
 <h2 id="getassociationsoptions-promisearrayinstance"><code>getAssociations([options])</code> -&gt; <code>Promise.&lt;Array.&lt;Instance&gt;&gt;</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/belongs-to-many.js#L209">View code</a></p>
@@ -238,7 +234,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 </tr>
 <tr>
 <td>[options.scope]</td>
-<td>String &#124; Boolean</td>
+<td>String | Boolean</td>
 <td>Apply a scope on the related model, or remove its default scope by passing false</td>
 </tr>
 <tr>
@@ -248,7 +244,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="setassociations"></a></p>
 <h2 id="setassociationsnewassociations-options-promise"><code>setAssociations([newAssociations], [options])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/belongs-to-many.js#L219">View code</a></p>
@@ -265,7 +261,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 <tbody>
 <tr>
 <td>[newAssociations]</td>
-<td>Array.&lt;Instance &#124; String &#124; Number&gt;</td>
+<td>Array.&lt;Instance | String | Number&gt;</td>
 <td>An array of instances or primary key of instances to associate with this. Pass <code>null</code> or <code>undefined</code> to remove all associations.</td>
 </tr>
 <tr>
@@ -280,7 +276,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="addassociations"></a></p>
 <h2 id="addassociationsnewassociations-options-promise"><code>addAssociations([newAssociations], [options])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/belongs-to-many.js#L229">View code</a></p>
@@ -297,7 +293,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 <tbody>
 <tr>
 <td>[newAssociations]</td>
-<td>Array.&lt;Instance &#124; String &#124; Number&gt;</td>
+<td>Array.&lt;Instance | String | Number&gt;</td>
 <td>An array of instances or primary key of instances to associate with this.</td>
 </tr>
 <tr>
@@ -312,7 +308,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="addassociation"></a></p>
 <h2 id="addassociationnewassociation-options-promise"><code>addAssociation([newAssociation], [options])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/belongs-to-many.js#L239">View code</a></p>
@@ -329,7 +325,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 <tbody>
 <tr>
 <td>[newAssociation]</td>
-<td>Instance &#124; String &#124; Number</td>
+<td>Instance | String | Number</td>
 <td>An instance or primary key of instance to associate with this.</td>
 </tr>
 <tr>
@@ -344,7 +340,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="createassociation"></a></p>
 <h2 id="createassociationvalues-options-promise"><code>createAssociation([values], [options])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/belongs-to-many.js#L248">View code</a></p>
@@ -371,7 +367,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="removeassociation"></a></p>
 <h2 id="removeassociationoldassociated-options-promise"><code>removeAssociation([oldAssociated], [options])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/belongs-to-many.js#L257">View code</a></p>
@@ -388,7 +384,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 <tbody>
 <tr>
 <td>[oldAssociated]</td>
-<td>Instance &#124; String &#124; Number</td>
+<td>Instance | String | Number</td>
 <td>Can be an Instance or its primary key</td>
 </tr>
 <tr>
@@ -398,7 +394,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="removeassociations"></a></p>
 <h2 id="removeassociationsoldassociated-options-promise"><code>removeAssociations([oldAssociated], [options])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/belongs-to-many.js#L266">View code</a></p>
@@ -415,7 +411,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 <tbody>
 <tr>
 <td>[oldAssociated]</td>
-<td>Array.&lt;Instance &#124; String &#124; Number&gt;</td>
+<td>Array.&lt;Instance | String | Number&gt;</td>
 <td>Can be an array of instances or their primary keys</td>
 </tr>
 <tr>
@@ -425,7 +421,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="hasassociation"></a></p>
 <h2 id="hasassociationinstance-options-promise"><code>hasAssociation([instance], [options])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/belongs-to-many.js#L275">View code</a></p>
@@ -442,7 +438,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 <tbody>
 <tr>
 <td>[instance]</td>
-<td>Instance &#124; String &#124; Number</td>
+<td>Instance | String | Number</td>
 <td>Can be an Instance or its primary key</td>
 </tr>
 <tr>
@@ -452,7 +448,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="hasassociations"></a></p>
 <h2 id="hasassociationsinstances-options-promise"><code>hasAssociations([instances], [options])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/belongs-to-many.js#L284">View code</a></p>
@@ -469,7 +465,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 <tbody>
 <tr>
 <td>[instances]</td>
-<td>Array.&lt;Instance &#124; String &#124; Number&gt;</td>
+<td>Array.&lt;Instance | String | Number&gt;</td>
 <td>Can be an array of instances or their primary keys</td>
 </tr>
 <tr>
@@ -479,7 +475,7 @@ user.addProject(project, { role: 'manager', transaction: t });
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="countassociations"></a></p>
 <h2 id="countassociationsoptions-promiseint"><code>countAssociations([options])</code> -&gt; <code>Promise.&lt;Int&gt;</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/belongs-to-many.js#L294">View code</a></p>
@@ -506,12 +502,12 @@ user.addProject(project, { role: 'manager', transaction: t });
 </tr>
 <tr>
 <td>[options.scope]</td>
-<td>String &#124; Boolean</td>
+<td>String | Boolean</td>
 <td>Apply a scope on the related model, or remove its default scope by passing false</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><em>This document is automatically generated based on source code comments. Please do not edit it directly, as your changes will be ignored. Please write on <a href="irc://irc.freenode.net/#sequelizejs">IRC</a>, open an issue or a create a pull request if you feel something can be improved. For help on how to write source code documentation see <a href="http://usejsdoc.org">JSDoc</a> and <a href="https://github.com/tj/dox">dox</a></em></p>
               
             </div>
@@ -528,7 +524,7 @@ user.addProject(project, { role: 'manager', transaction: t });
     </div>
   
 
-  <hr/>
+  <hr>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
@@ -553,23 +549,24 @@ user.addProject(project, { role: 'manager', transaction: t });
         </span>
     
     
-      <span><a href="/v3/api/has-many/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="/v3/api/has-many/" style="color: #fcfcfc">« Previous</a></span>
     
     
-      <span><a href="/v3/hooks/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="/v3/hooks/" style="color: #fcfcfc">Next »</a></span>
     
   </span>
 </div>
     <script>var base_url = '../../..';</script>
-    <script src="/v3/js/theme_extra.js" defer></script>
-    <script src="/v3/js/theme.js" defer></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
-      <script src="/v3/search/main.js" defer></script>
-    <script defer>
+    <script src="/v3/js/theme_extra.js" defer=""></script>
+    <script src="/v3/js/theme.js" defer=""></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer=""></script>
+      <script src="/v3/search/main.js" defer=""></script>
+    <script defer="">
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
 
-</body>
-</html>
+
+
+</body></html>

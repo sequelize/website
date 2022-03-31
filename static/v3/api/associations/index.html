@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
+<!DOCTYPE html><!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +8,12 @@
   <link rel="shortcut icon" href="/v3/favicon.ico">
   
   <title>Overview - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700">
 
-  <link rel="stylesheet" href="/v3/css/theme.css" />
-  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  <link href="/v3/css/custom.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/v3/css/theme.css">
+  <link rel="stylesheet" href="/v3/css/theme_extra.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+  <link href="/v3/css/custom.css" rel="stylesheet">
   
   <script>
     // Current page data
@@ -25,11 +22,11 @@
     var mkdocs_page_url = "/api/associations/";
   </script>
   
-  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
-  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="/v3/js/jquery-2.1.1.min.js" defer=""></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-</head>
+<meta name="robots" content="noindex"></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -41,8 +38,8 @@
       <div class="wy-side-nav-search">
         <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  <form id="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here">
   </form>
 </div>
       </div>
@@ -152,28 +149,27 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="/v3">Docs</a> &raquo;</li>
+    <li><a href="/v3">Docs</a> »</li>
     
       
         
-          <li>API &raquo;</li>
+          <li>API »</li>
         
       
         
-          <li>Associations &raquo;</li>
+          <li>Associations »</li>
         
       
     
     <li>Overview</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/associations/index.md"
-          class="icon icon-github"> Edit on GitHub</a>
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/associations/index.md" class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
   
-  <hr/>
+  <hr>
 </div>
 
           <div role="main">
@@ -236,7 +232,7 @@ user.addPictures([p1, p2]) // Associate user with these two pictures, but don't 
 </code></pre>
 <p>In the example above we have specified that a user belongs to his profile picture. Conceptually, this might not make sense, but since we want to add the foreign key to the user model this is the way to do it.</p>
 <p>Note how we also specified <code>constraints: false</code> for profile picture. This is because we add a foreign key from user to picture (profilePictureId), and from picture to user (userId). If we were to add foreign keys to both, it would create a cyclic dependency, and sequelize would not know which table to create first, since user depends on picture, and picture depends on user. These kinds of problems are detected by sequelize before the models are synced to the database, and you will get an error along the lines of <code>Error: Cyclic dependency found. 'users' is dependent of itself</code>. If you encounter this, you should either disable some constraints, or rethink your associations completely.</p>
-<hr />
+<hr>
 <p><a name="hasone"></a></p>
 <h2 id="hasonetarget-options"><code>hasOne(target, [options])</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/mixin.js#L131">View code</a></p>
@@ -274,11 +270,11 @@ user.addPictures([p1, p2]) // Associate user with these two pictures, but don't 
 </tr>
 <tr>
 <td>[options.foreignKey]</td>
-<td>string &#124; object</td>
+<td>string | object</td>
 <td>The name of the foreign key in the target table or an object representing the type definition for the foreign column (see <code>Sequelize.define</code> for syntax). When using an object, you can add a <code>name</code> property to set the name of the column. Defaults to the name of source + primary key of source</td>
 </tr>
 <tr>
-<td>[options.onDelete='SET&nbsp;NULL &#124; CASCADE']</td>
+<td>[options.onDelete='SET&nbsp;NULL | CASCADE']</td>
 <td>string</td>
 <td>SET NULL if foreignKey allows nulls, CASCADE if otherwise</td>
 </tr>
@@ -294,7 +290,7 @@ user.addPictures([p1, p2]) // Associate user with these two pictures, but don't 
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="belongsto"></a></p>
 <h2 id="belongstotarget-options"><code>belongsTo(target, [options])</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/mixin.js#L149">View code</a></p>
@@ -332,7 +328,7 @@ user.addPictures([p1, p2]) // Associate user with these two pictures, but don't 
 </tr>
 <tr>
 <td>[options.foreignKey]</td>
-<td>string &#124; object</td>
+<td>string | object</td>
 <td>The name of the foreign key in the source table or an object representing the type definition for the foreign column (see <code>Sequelize.define</code> for syntax). When using an object, you can add a <code>name</code> property to set the name of the column. Defaults to the name of target + primary key of target</td>
 </tr>
 <tr>
@@ -341,7 +337,7 @@ user.addPictures([p1, p2]) // Associate user with these two pictures, but don't 
 <td>The name of the field to use as the key for the association in the target table. Defaults to the primary key of the target table</td>
 </tr>
 <tr>
-<td>[options.onDelete='SET&nbsp;NULL &#124; NO&nbsp;ACTION']</td>
+<td>[options.onDelete='SET&nbsp;NULL | NO&nbsp;ACTION']</td>
 <td>string</td>
 <td>SET NULL if foreignKey allows nulls, NO ACTION if otherwise</td>
 </tr>
@@ -357,7 +353,7 @@ user.addPictures([p1, p2]) // Associate user with these two pictures, but don't 
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="hasmany"></a></p>
 <h2 id="hasmanytarget-options"><code>hasMany(target, [options])</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/mixin.js#L166">View code</a></p>
@@ -390,12 +386,12 @@ user.addPictures([p1, p2]) // Associate user with these two pictures, but don't 
 </tr>
 <tr>
 <td>[options.as]</td>
-<td>string &#124; object</td>
+<td>string | object</td>
 <td>The alias of this model. If you provide a string, it should be plural, and will be singularized using node.inflection. If you want to control the singular version yourself, provide an object with <code>plural</code> and <code>singular</code> keys. See also the <code>name</code> option passed to <code>sequelize.define</code>. If you create multiple associations between the same tables, you should provide an alias to be able to distinguish between them. If you provide an alias when creating the association, you should provide the same alias when eager loading and when getting associated models. Defaults to the pluralized name of target</td>
 </tr>
 <tr>
 <td>[options.foreignKey]</td>
-<td>string &#124; object</td>
+<td>string | object</td>
 <td>The name of the foreign key in the target table or an object representing the type definition for the foreign column (see <code>Sequelize.define</code> for syntax). When using an object, you can add a <code>name</code> property to set the name of the column. Defaults to the name of source + primary key of source</td>
 </tr>
 <tr>
@@ -404,7 +400,7 @@ user.addPictures([p1, p2]) // Associate user with these two pictures, but don't 
 <td>A key/value set that will be used for association create and find defaults on the target. (sqlite not supported for N:M)</td>
 </tr>
 <tr>
-<td>[options.onDelete='SET&nbsp;NULL &#124; CASCADE']</td>
+<td>[options.onDelete='SET&nbsp;NULL | CASCADE']</td>
 <td>string</td>
 <td>SET NULL if foreignKey allows nulls, CASCADE if otherwise</td>
 </tr>
@@ -420,7 +416,7 @@ user.addPictures([p1, p2]) // Associate user with these two pictures, but don't 
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="belongstomany"></a></p>
 <h2 id="belongstomanytarget-options"><code>belongsToMany(target, [options])</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/associations/mixin.js#L245">View code</a></p>
@@ -478,7 +474,7 @@ user.setProjects([p1, p2], {started: false}) // The default value is false, but 
 </tr>
 <tr>
 <td>[options.through]</td>
-<td>Model &#124; string &#124; object</td>
+<td>Model | string | object</td>
 <td>The name of the table that is used to join source and target in n:m associations. Can also be a sequelize model if you want to define the junction table yourself and add extra attributes to it.</td>
 </tr>
 <tr>
@@ -498,17 +494,17 @@ user.setProjects([p1, p2], {started: false}) // The default value is false, but 
 </tr>
 <tr>
 <td>[options.as]</td>
-<td>string &#124; object</td>
+<td>string | object</td>
 <td>The alias of this association. If you provide a string, it should be plural, and will be singularized using node.inflection. If you want to control the singular version yourself, provide an object with <code>plural</code> and <code>singular</code> keys. See also the <code>name</code> option passed to <code>sequelize.define</code>. If you create multiple associations between the same tables, you should provide an alias to be able to distinguish between them. If you provide an alias when creating the association, you should provide the same alias when eager loading and when getting associated models. Defaults to the pluralized name of target</td>
 </tr>
 <tr>
 <td>[options.foreignKey]</td>
-<td>string &#124; object</td>
+<td>string | object</td>
 <td>The name of the foreign key in the join table (representing the source model) or an object representing the type definition for the foreign column (see <code>Sequelize.define</code> for syntax). When using an object, you can add a <code>name</code> property to set the name of the column. Defaults to the name of source + primary key of source</td>
 </tr>
 <tr>
 <td>[options.otherKey]</td>
-<td>string &#124; object</td>
+<td>string | object</td>
 <td>The name of the foreign key in the join table (representing the target model) or an object representing the type definition for the other column (see <code>Sequelize.define</code> for syntax). When using an object, you can add a <code>name</code> property to set the name of the column. Defaults to the name of target + primary key of target</td>
 </tr>
 <tr>
@@ -522,7 +518,7 @@ user.setProjects([p1, p2], {started: false}) // The default value is false, but 
 <td>Should the join model have timestamps</td>
 </tr>
 <tr>
-<td>[options.onDelete='SET&nbsp;NULL &#124; CASCADE']</td>
+<td>[options.onDelete='SET&nbsp;NULL | CASCADE']</td>
 <td>string</td>
 <td>Cascade if this is a n:m, and set null if it is a 1:m</td>
 </tr>
@@ -538,7 +534,7 @@ user.setProjects([p1, p2], {started: false}) // The default value is false, but 
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><em>This document is automatically generated based on source code comments. Please do not edit it directly, as your changes will be ignored. Please write on <a href="irc://irc.freenode.net/#sequelizejs">IRC</a>, open an issue or a create a pull request if you feel something can be improved. For help on how to write source code documentation see <a href="http://usejsdoc.org">JSDoc</a> and <a href="https://github.com/tj/dox">dox</a></em></p>
               
             </div>
@@ -555,7 +551,7 @@ user.setProjects([p1, p2], {started: false}) // The default value is false, but 
     </div>
   
 
-  <hr/>
+  <hr>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
@@ -580,23 +576,24 @@ user.setProjects([p1, p2], {started: false}) // The default value is false, but 
         </span>
     
     
-      <span><a href="/v3/api/instance/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="/v3/api/instance/" style="color: #fcfcfc">« Previous</a></span>
     
     
-      <span><a href="./belongs-to/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="./belongs-to/" style="color: #fcfcfc">Next »</a></span>
     
   </span>
 </div>
     <script>var base_url = '../..';</script>
-    <script src="/v3/js/theme_extra.js" defer></script>
-    <script src="/v3/js/theme.js" defer></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
-      <script src="/v3/search/main.js" defer></script>
-    <script defer>
+    <script src="/v3/js/theme_extra.js" defer=""></script>
+    <script src="/v3/js/theme.js" defer=""></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer=""></script>
+      <script src="/v3/search/main.js" defer=""></script>
+    <script defer="">
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
 
-</body>
-</html>
+
+
+</body></html>
