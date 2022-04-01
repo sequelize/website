@@ -58,7 +58,7 @@
   filter: brightness(0.9);
 }
 
-@media (width < 800px) {
+@media (max-width: 800px) {
   .heroBanner {
     padding: 2rem 0;
   }
