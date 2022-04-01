@@ -1,13 +1,11 @@
-<!DOCTYPE html><html>
-<!-- Mirrored from localhost:3000/articles/heroku by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:04 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
-<head><title>Sequelize - Articles</title><link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"><link rel="stylesheet" href="../stylesheets/style.css"><script src="../javascripts/jquery-1.10.2.min.js"></script><script>fromGithub = function (partialId, url) {
+<!DOCTYPE html><html><!-- Mirrored from localhost:3000/articles/heroku by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:04 GMT --><!-- Added by HTTrack --><head><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<title>Sequelize - Articles</title><link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"><link rel="stylesheet" href="../stylesheets/style.css"><script src="../javascripts/jquery-1.10.2.min.js"></script><script>fromGithub = function (partialId, url) {
   var $partial = $("#" + partialId)
 
   $partial.load(url, function () {
     hljs.highlightBlock($partial.get(0));
   });
-}</script></head><body><div role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-liquid"><div class="col-sm-3 navbar-left"><section><a href="../index.html" class="navbar-brand"><img src="../images/logo-small.png"><span>Sequelize</span></a><div class="clearfix"></div></section></div><div class="col-sm-8 navbar-right"><section><button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="navbar-collapse collapse"><ul class="nav navbar-nav"></ul><ul class="nav navbar-nav navbar-right"><li><a href="../index.html"><span class="glyphicon glyphicon-home"></span><span class="spacer">&nbsp;</span><span class="text">Home</span></a></li><li><a href="../docs/1.7.8/installation.html"><span class="glyphicon glyphicon-info-sign"></span><span class="spacer">&nbsp;</span><span class="text">Docs</span></a></li><li class="active"><a href="getting-started.html"><span class="glyphicon glyphicon-book"></span><span class="spacer">&nbsp;</span><span class="text">Articles</span></a></li><li><a href="../blog.html"><span class="glyphicon glyphicon-comment"></span><span class="spacer">&nbsp;</span><span class="text">Blog</span></a></li><li><a href="../search.html" class="search"><i class="fa fa-search"></i><span class="spacer">&nbsp;</span><span class="text">Search</span></a></li></ul></div></section></div></div></div><div class="container-liquid"><div class="row documentation"><div class="col-sm-2 mid-blue sidebar"><div class="headline-spacer"></div><section class="navigation"><ul><li><a href="getting-started.html">Getting started</a></li><li class="active"><a href="heroku.html">Usage on Heroku</a><ul><li><a href="heroku.html#introduction">Introduction</a></li><li><a href="heroku.html#getting-started">Getting started with Heroku</a></li><li><a href="heroku.html#minimal-app">A minimal express application</a></li><li><a href="heroku.html#deployment">Deployment to Heroku</a></li><li><a href="heroku.html#spawning-a-database">Spawning a database on Heroku</a></li><li><a href="heroku.html#adding-sequelize">Adding Sequelize to the application</a></li><li><a href="heroku.html#migrations">Running Migrations</a></li><li><a href="heroku.html#tldr">tl;dr</a></li></ul></li><li><a href="express.html">Usage with Express.JS</a></li></ul></section><div class="clearfix"></div></div><div class="col-sm-9 col-sm-offset-1 beige content"><section><div><h2>Usage on Heroku</h2><h3 id="introduction">Introduction</h3><p>This section covers the use of Sequelize on Heroku. It will explain how to get started with Heroku and what is necessary to setup a proper environment. We will use MySQL on the development machine and PostgreSQL on the remote servers.</p><h3 id="getting-started">Getting started with Heroku</h3><p>Before we can roll out any software on the Heroku cluster, we need to sign up and have to connect our development environment. Here are the most basic steps:</p><ul><li><a href="https://api.heroku.com/signup/devcenter" rel="nofollow" target="_blank">Sign up</a>&nbsp;
+}</script><meta name="robots" content="noindex"></head><body><div role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-liquid"><div class="col-sm-3 navbar-left"><section><a href="../index.html" class="navbar-brand"><img src="../images/logo-small.png"><span>Sequelize</span></a><div class="clearfix"></div></section></div><div class="col-sm-8 navbar-right"><section><button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="navbar-collapse collapse"><ul class="nav navbar-nav"></ul><ul class="nav navbar-nav navbar-right"><li><a href="../index.html"><span class="glyphicon glyphicon-home"></span><span class="spacer">&nbsp;</span><span class="text">Home</span></a></li><li><a href="../docs/1.7.8/installation.html"><span class="glyphicon glyphicon-info-sign"></span><span class="spacer">&nbsp;</span><span class="text">Docs</span></a></li><li class="active"><a href="getting-started.html"><span class="glyphicon glyphicon-book"></span><span class="spacer">&nbsp;</span><span class="text">Articles</span></a></li><li><a href="../blog.html"><span class="glyphicon glyphicon-comment"></span><span class="spacer">&nbsp;</span><span class="text">Blog</span></a></li><li><a href="../search.html" class="search"><i class="fa fa-search"></i><span class="spacer">&nbsp;</span><span class="text">Search</span></a></li></ul></div></section></div></div></div><div class="container-liquid"><div class="row documentation"><div class="col-sm-2 mid-blue sidebar"><div class="headline-spacer"></div><section class="navigation"><ul><li><a href="getting-started.html">Getting started</a></li><li class="active"><a href="heroku.html">Usage on Heroku</a><ul><li><a href="heroku.html#introduction">Introduction</a></li><li><a href="heroku.html#getting-started">Getting started with Heroku</a></li><li><a href="heroku.html#minimal-app">A minimal express application</a></li><li><a href="heroku.html#deployment">Deployment to Heroku</a></li><li><a href="heroku.html#spawning-a-database">Spawning a database on Heroku</a></li><li><a href="heroku.html#adding-sequelize">Adding Sequelize to the application</a></li><li><a href="heroku.html#migrations">Running Migrations</a></li><li><a href="heroku.html#tldr">tl;dr</a></li></ul></li><li><a href="express.html">Usage with Express.JS</a></li></ul></section><div class="clearfix"></div></div><div class="col-sm-9 col-sm-offset-1 beige content"><section><div><h2>Usage on Heroku</h2><h3 id="introduction">Introduction</h3><p>This section covers the use of Sequelize on Heroku. It will explain how to get started with Heroku and what is necessary to setup a proper environment. We will use MySQL on the development machine and PostgreSQL on the remote servers.</p><h3 id="getting-started">Getting started with Heroku</h3><p>Before we can roll out any software on the Heroku cluster, we need to sign up and have to connect our development environment. Here are the most basic steps:</p><ul><li><a href="https://api.heroku.com/signup/devcenter" rel="nofollow" target="_blank">Sign up</a>&nbsp;
 for a Heroku account.</li><li><a href="https://toolbelt.heroku.com/" rel="nofollow" target="_blank">Install</a>&nbsp;
 the Heroku Toolbelt. This tool will let you create applications and is a
 handy way to configure them on the command line.</li><li>Use the new binary to login. Run the following command on command line:<code>heroku login</code></li></ul><p>And that's it. You should now be able to do things like<code>heroku apps</code>. This should list all applications you've currently created on the
@@ -36,8 +34,8 @@ the <code>package.json</code>. The file should look similiar to this:</p><pre cl
     "node": "0.8.x",
     "npm": "1.1.x"
   }
-}</code></pre><p>Now we can create a Heroku application and deploy to it:</p><pre class="dark-blue"><code class="bash">echo "web: node app.js" > Procfile
-echo "node_modules" > .gitignore
+}</code></pre><p>Now we can create a Heroku application and deploy to it:</p><pre class="dark-blue"><code class="bash">echo "web: node app.js" &gt; Procfile
+echo "node_modules" &gt; .gitignore
 git init
 git add .
 git commit -m "initial commit"
@@ -54,7 +52,7 @@ Use `heroku addons:docs heroku-postgresql:dev` to view documentation.</code></pr
 In this case we just created a <code>bronze</code> one. That means,
 that we will have an environment variable <code>HEROKU_POSTGRESQL_BRONZE_URL</code>
 containing the URI of the database.</p><p>If you are interested in the URI, you can just run this command:</p><pre class="dark-blue"><code class="bash">heroku config:get HEROKU_POSTGRESQL_BRONZE_URL
-# => postgres://pfforbjhkrletg:aic5oO6Cran1g3hk6mJa5QqNZB@ec2-23-21-91-97.compute-1.amazonaws.com:5432/dek11b2j1g3mfb</code></pre><h3 id="adding-sequelize">Adding Sequelize to the application</h3><p>The following commands will install <code>sequelize</code>, the needed
+# =&gt; postgres://pfforbjhkrletg:aic5oO6Cran1g3hk6mJa5QqNZB@ec2-23-21-91-97.compute-1.amazonaws.com:5432/dek11b2j1g3mfb</code></pre><h3 id="adding-sequelize">Adding Sequelize to the application</h3><p>The following commands will install <code>sequelize</code>, the needed
 PostgreSQL library as well as the MySQL bindings. Also we will create a
 folder <code>models</code>, that will contain the model definitions.</p><pre class="dark-blue"><code class="bash">npm install --save sequelize pg mysql
 mkdir models</code></pre><h4 id="adding-sequelize-app-js">app.js</h4><p>In order to create a maintainable application, we will put all the
@@ -155,9 +153,9 @@ cd example-app
 npm install express
 node_modules/.bin/express . -f
 npm install
-curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/459c923dd0a14841c932bb95ff3be8a8170bd563/package.json > package.json
-echo "web: node app.js" > Procfile
-echo "node_modules" > .gitignore
+curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/459c923dd0a14841c932bb95ff3be8a8170bd563/package.json &gt; package.json
+echo "web: node app.js" &gt; Procfile
+echo "node_modules" &gt; .gitignore
 npm install --save sequelize pg mysql
 mkdir models
 git init
@@ -167,9 +165,9 @@ heroku create
 git push heroku master
 heroku ps:scale web=1
 heroku addons:add heroku-postgresql:dev
-curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/6db41e130a8b901cd0843bf52390b7cb11db5f15/app.js > app.js
-curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/26c5a94d74db4a242464b02aa8e0ae4b3bac6880/models-index.js > models/index.js
-curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/3b37b0e5d459b2e4b3833a63a018b600a1001795/models-user.js > models/user.js
+curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/6db41e130a8b901cd0843bf52390b7cb11db5f15/app.js &gt; app.js
+curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/26c5a94d74db4a242464b02aa8e0ae4b3bac6880/models-index.js &gt; models/index.js
+curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/3b37b0e5d459b2e4b3833a63a018b600a1001795/models-user.js &gt; models/user.js
 clear
 &nbsp;
 # Now run the following command and change HEROKU_POSTGRESQL_BRONZE_URL in
@@ -179,7 +177,7 @@ heroku config|grep HEROKU_POSTGRESQL|cut -d : -f 1
 git add .
 git commit -m "sequelize application"
 git push heroku master
-heroku open</code></pre></div></section></div></div></div><div class="imprint very-dark-blue"><div class="container"><div class="col-sm-4">&copy;
+heroku open</code></pre></div></section></div></div></div><div class="imprint very-dark-blue"><div class="container"><div class="col-sm-4">©
 Sascha Depold,
 <a href="https://github.com/sequelize/sequelize-doc/graphs/contributors" target="_blank" rel="nofollow">et al.</a>
 2006 -&nbsp;2022</div><div style="text-align: right" class="col-sm-8"><a href="../imprint.html">Imprint</a></div></div></div><script src="../javascripts/bootstrap.min.js"></script><script src="../javascripts/highlight.pack.js"></script><script src="../javascripts/main.js"></script><script src="../javascripts/documentation.js"></script><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -188,6 +186,6 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-9039631-4', 'sequelizejs.com');
-ga('send', 'pageview');</script></body>
-<!-- Mirrored from localhost:3000/articles/heroku by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:04 GMT -->
-</html>
+ga('send', 'pageview');</script>
+
+</body><!-- Mirrored from localhost:3000/articles/heroku by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:04 GMT --></html>

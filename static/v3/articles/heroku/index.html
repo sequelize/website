@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
+<!DOCTYPE html><!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +8,12 @@
   <link rel="shortcut icon" href="/v3/favicon.ico">
   
   <title>Heroku - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700">
 
-  <link rel="stylesheet" href="/v3/css/theme.css" />
-  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  <link href="/v3/css/custom.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/v3/css/theme.css">
+  <link rel="stylesheet" href="/v3/css/theme_extra.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+  <link href="/v3/css/custom.css" rel="stylesheet">
   
   <script>
     // Current page data
@@ -25,11 +22,11 @@
     var mkdocs_page_url = "/articles/heroku/";
   </script>
   
-  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
-  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="/v3/js/jquery-2.1.1.min.js" defer=""></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-</head>
+<meta name="robots" content="noindex"></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -41,8 +38,8 @@
       <div class="wy-side-nav-search">
         <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  <form id="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here">
   </form>
 </div>
       </div>
@@ -142,20 +139,19 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="/v3">Docs</a> &raquo;</li>
+    <li><a href="/v3">Docs</a> »</li>
     
       
     
     <li>Heroku</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/sequelize/sequelize/edit/master/docs/articles/heroku.md"
-          class="icon icon-github"> Edit on GitHub</a>
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/articles/heroku.md" class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
   
-  <hr/>
+  <hr>
 </div>
 
           <div role="main">
@@ -185,28 +181,28 @@ $ node app.js
 <h2 id="deployment-to-heroku">Deployment to Heroku</h2>
 <p>First of all, we need to add the right version of Node.JS and NPM to the <code>package.json</code>. The file should look similar to this:</p>
 <pre><code class="language-js">{
-  &quot;name&quot;: &quot;application-name&quot;,
-  &quot;version&quot;: &quot;0.0.1&quot;,
-  &quot;private&quot;: true,
-  &quot;scripts&quot;: {
-    &quot;start&quot;: &quot;node app.js&quot;
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
   },
-  &quot;dependencies&quot;: {
-    &quot;express&quot;: &quot;3.1.1&quot;,
-    &quot;jade&quot;: &quot;*&quot;
+  "dependencies": {
+    "express": "3.1.1",
+    "jade": "*"
   },
-  &quot;engines&quot;: {
-    &quot;node&quot;: &quot;0.8.x&quot;,
-    &quot;npm&quot;: &quot;1.1.x&quot;
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
   }
 }
 </code></pre>
 <p>Now we can create a Heroku application and deploy to it:</p>
-<pre><code class="language-bash">$ echo &quot;web: node app.js&quot; &gt; Procfile
-$ echo &quot;node_modules&quot; &gt; .gitignore
+<pre><code class="language-bash">$ echo "web: node app.js" &gt; Procfile
+$ echo "node_modules" &gt; .gitignore
 $ git init
 $ git add .
-$ git commit -m &quot;initial commit&quot;
+$ git commit -m "initial commit"
 $ heroku create
 $ git push heroku master
 $ heroku ps:scale web=1
@@ -295,7 +291,7 @@ db.sequelize.sync().then(function() {
   global.db = {
     Sequelize: Sequelize,
     sequelize: sequelize,
-    User:      sequelize.import(__dirname + '/user') 
+    User:      sequelize.import(__dirname + '/user')&nbsp;
     // add your other models here
   }
 
@@ -310,15 +306,15 @@ module.exports = global.db
 <h3 id="modelsuserjs">models/user.js</h3>
 <p>All the other models of our application will be located as separate files in the <code>models</code> folder. We will use the <code>import</code>-method of Sequelize to load those files.</p>
 <pre><code class="language-js">module.exports = function(sequelize, DataTypes) {
-  return sequelize.define(&quot;User&quot;, {
+  return sequelize.define("User", {
     username: DataTypes.STRING
   })
 }
 </code></pre>
 <h2 id="running-migrations">Running Migrations</h2>
 <p>To run migrations on Heroku you must have the following entry in your config/config.json file:</p>
-<pre><code class="language-js">&quot;production&quot;: {
-  &quot;use_env_variable&quot;: &quot;DATABASE_URL&quot;
+<pre><code class="language-js">"production": {
+  "use_env_variable": "DATABASE_URL"
 }
 </code></pre>
 <p>Which also means you must make sure your Heroku environment has <a href="https://devcenter.heroku.com/articles/heroku-postgresql#establish-primary-db">a promoted database.</a> Then from the command line run</p>
@@ -333,13 +329,13 @@ $ npm install express
 $ node_modules/.bin/express . -f
 $ npm install
 $ curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/459c923dd0a14841c932bb95ff3be8a8170bd563/package.json &gt; package.json
-$ echo &quot;web: node app.js&quot; &gt; Procfile
-$ echo &quot;node_modules&quot; &gt; .gitignore
+$ echo "web: node app.js" &gt; Procfile
+$ echo "node_modules" &gt; .gitignore
 $ npm install --save sequelize pg mysql
 $ mkdir models
 $ git init
 $ git add .
-$ git commit -m &quot;initial commit&quot;
+$ git commit -m "initial commit"
 $ heroku create
 $ git push heroku master
 $ heroku ps:scale web=1
@@ -350,11 +346,11 @@ $ curl -s https://gist.github.com/sdepold/ced7d2a4a847f38901ef/raw/3b37b0e5d459b
 $ clear
 
 $ # Now run the following command and change HEROKU_POSTGRESQL_BRONZE_URL in
-$ # the file &quot;models/index.js&quot; to its result:
+$ # the file "models/index.js" to its result:
 $ heroku config|grep HEROKU_POSTGRESQL|cut -d : -f 1
 
 $ git add .
-$ git commit -m &quot;sequelize application&quot;
+$ git commit -m "sequelize application"
 $ git push heroku master
 $ heroku open
 </code></pre>
@@ -364,7 +360,7 @@ $ heroku open
           <footer>
   
 
-  <hr/>
+  <hr>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
@@ -393,15 +389,16 @@ $ heroku open
   </span>
 </div>
     <script>var base_url = '../..';</script>
-    <script src="/v3/js/theme_extra.js" defer></script>
-    <script src="/v3/js/theme.js" defer></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
-      <script src="/v3/search/main.js" defer></script>
-    <script defer>
+    <script src="/v3/js/theme_extra.js" defer=""></script>
+    <script src="/v3/js/theme.js" defer=""></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer=""></script>
+      <script src="/v3/search/main.js" defer=""></script>
+    <script defer="">
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
 
-</body>
-</html>
+
+
+</body></html>
