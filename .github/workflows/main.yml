@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - main
-      - redirects
+      - netlify-deployment
 jobs:
   build:
     runs-on: ubuntu-latest
