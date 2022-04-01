@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
+<!DOCTYPE html><!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +8,12 @@
   <link rel="shortcut icon" href="/v3/favicon.ico">
   
   <title>Hooks - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700">
 
-  <link rel="stylesheet" href="/v3/css/theme.css" />
-  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  <link href="/v3/css/custom.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/v3/css/theme.css">
+  <link rel="stylesheet" href="/v3/css/theme_extra.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+  <link href="/v3/css/custom.css" rel="stylesheet">
   
   <script>
     // Current page data
@@ -25,11 +22,11 @@
     var mkdocs_page_url = "/api/hooks/";
   </script>
   
-  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
-  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="/v3/js/jquery-2.1.1.min.js" defer=""></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-</head>
+<meta name="robots" content="noindex"></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -41,8 +38,8 @@
       <div class="wy-side-nav-search">
         <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  <form id="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here">
   </form>
 </div>
       </div>
@@ -210,24 +207,23 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="/v3">Docs</a> &raquo;</li>
+    <li><a href="/v3">Docs</a> »</li>
     
       
         
-          <li>API &raquo;</li>
+          <li>API »</li>
         
       
     
     <li>Hooks</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/hooks.md"
-          class="icon icon-github"> Edit on GitHub</a>
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/hooks.md" class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
   
-  <hr/>
+  <hr>
 </div>
 
           <div role="main">
@@ -265,7 +261,7 @@ Model.afterBulkUpdate(function () {})
 <ul>
 <li><a href="./sequelize#define">Sequelize#define</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="addhook"></a></p>
 <h2 id="addhookhooktype-name-fn"><code>addHook(hooktype, [name], fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L160">View code</a></p>
@@ -298,7 +294,7 @@ Model.afterBulkUpdate(function () {})
 </tbody>
 </table>
 <p><strong>Aliases:</strong> hook</p>
-<hr />
+<hr>
 <p><a name="removehook"></a></p>
 <h2 id="removehookhooktype-name"><code>removeHook(hookType, name)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L179">View code</a></p>
@@ -325,7 +321,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="hashook"></a></p>
 <h2 id="hashookhooktype"><code>hasHook(hookType)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L205">View code</a></p>
@@ -348,7 +344,7 @@ Model.afterBulkUpdate(function () {})
 </tbody>
 </table>
 <p><strong>Aliases:</strong> hasHooks</p>
-<hr />
+<hr>
 <p><a name="beforevalidate"></a></p>
 <h2 id="beforevalidatename-fn"><code>beforeValidate(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L218">View code</a></p>
@@ -375,7 +371,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="aftervalidate"></a></p>
 <h2 id="aftervalidatename-fn"><code>afterValidate(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L225">View code</a></p>
@@ -402,7 +398,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforecreate"></a></p>
 <h2 id="beforecreatename-fn"><code>beforeCreate(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L232">View code</a></p>
@@ -429,7 +425,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="aftercreate"></a></p>
 <h2 id="aftercreatename-fn"><code>afterCreate(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L239">View code</a></p>
@@ -456,7 +452,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforedestroy"></a></p>
 <h2 id="beforedestroyname-fn"><code>beforeDestroy(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L248">View code</a></p>
@@ -484,7 +480,7 @@ Model.afterBulkUpdate(function () {})
 </tbody>
 </table>
 <p><strong>Aliases:</strong> beforeDelete</p>
-<hr />
+<hr>
 <p><a name="afterdestroy"></a></p>
 <h2 id="afterdestroyname-fn"><code>afterDestroy(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L257">View code</a></p>
@@ -512,7 +508,7 @@ Model.afterBulkUpdate(function () {})
 </tbody>
 </table>
 <p><strong>Aliases:</strong> afterDelete</p>
-<hr />
+<hr>
 <p><a name="beforerestore"></a></p>
 <h2 id="beforerestorename-fn"><code>beforeRestore(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L265">View code</a></p>
@@ -539,7 +535,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="afterrestore"></a></p>
 <h2 id="afterrestorename-fn"><code>afterRestore(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L273">View code</a></p>
@@ -566,7 +562,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforeupdate"></a></p>
 <h2 id="beforeupdatename-fn"><code>beforeUpdate(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L280">View code</a></p>
@@ -593,7 +589,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="afterupdate"></a></p>
 <h2 id="afterupdatename-fn"><code>afterUpdate(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L287">View code</a></p>
@@ -620,7 +616,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforebulkcreate"></a></p>
 <h2 id="beforebulkcreatename-fn"><code>beforeBulkCreate(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L294">View code</a></p>
@@ -647,7 +643,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="afterbulkcreate"></a></p>
 <h2 id="afterbulkcreatename-fn"><code>afterBulkCreate(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L301">View code</a></p>
@@ -674,7 +670,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforebulkdestroy"></a></p>
 <h2 id="beforebulkdestroyname-fn"><code>beforeBulkDestroy(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L310">View code</a></p>
@@ -702,7 +698,7 @@ Model.afterBulkUpdate(function () {})
 </tbody>
 </table>
 <p><strong>Aliases:</strong> beforeBulkDelete</p>
-<hr />
+<hr>
 <p><a name="afterbulkdestroy"></a></p>
 <h2 id="afterbulkdestroyname-fn"><code>afterBulkDestroy(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L319">View code</a></p>
@@ -730,7 +726,7 @@ Model.afterBulkUpdate(function () {})
 </tbody>
 </table>
 <p><strong>Aliases:</strong> afterBulkDelete</p>
-<hr />
+<hr>
 <p><a name="beforebulkrestore"></a></p>
 <h2 id="beforebulkrestorename-fn"><code>beforeBulkRestore(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L327">View code</a></p>
@@ -757,7 +753,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="afterbulkrestore"></a></p>
 <h2 id="afterbulkrestorename-fn"><code>afterBulkRestore(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L335">View code</a></p>
@@ -784,7 +780,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforebulkupdate"></a></p>
 <h2 id="beforebulkupdatename-fn"><code>beforeBulkUpdate(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L342">View code</a></p>
@@ -811,7 +807,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="afterbulkupdate"></a></p>
 <h2 id="afterbulkupdatename-fn"><code>afterBulkUpdate(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L349">View code</a></p>
@@ -838,7 +834,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforefind"></a></p>
 <h2 id="beforefindname-fn"><code>beforeFind(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L356">View code</a></p>
@@ -865,7 +861,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforefindafterexpandincludeall"></a></p>
 <h2 id="beforefindafterexpandincludeallname-fn"><code>beforeFindAfterExpandIncludeAll(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L363">View code</a></p>
@@ -892,7 +888,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforefindafteroptions"></a></p>
 <h2 id="beforefindafteroptionsname-fn"><code>beforeFindAfterOptions(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L370">View code</a></p>
@@ -919,7 +915,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="afterfind"></a></p>
 <h2 id="afterfindname-fn"><code>afterFind(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L377">View code</a></p>
@@ -946,7 +942,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforedefine"></a></p>
 <h2 id="beforedefinename-fn"><code>beforeDefine(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L384">View code</a></p>
@@ -973,7 +969,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="afterdefine"></a></p>
 <h2 id="afterdefinename-fn"><code>afterDefine(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L391">View code</a></p>
@@ -1000,7 +996,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforeinit"></a></p>
 <h2 id="beforeinitname-fn"><code>beforeInit(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L398">View code</a></p>
@@ -1027,7 +1023,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="afterinit"></a></p>
 <h2 id="afterinitname-fn"><code>afterInit(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L405">View code</a></p>
@@ -1054,7 +1050,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforesync"></a></p>
 <h2 id="beforesyncname-fn"><code>beforeSync(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L412">View code</a></p>
@@ -1081,7 +1077,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="aftersync"></a></p>
 <h2 id="aftersyncname-fn"><code>afterSync(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L419">View code</a></p>
@@ -1108,7 +1104,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="beforebulksync"></a></p>
 <h2 id="beforebulksyncname-fn"><code>beforeBulkSync(name, fn)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L426">View code</a></p>
@@ -1135,7 +1131,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="afterbulksync"></a></p>
 <h2 id="afterbulksync"><code>afterBulkSync</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/hooks.js#L434">View code</a></p>
@@ -1162,7 +1158,7 @@ Model.afterBulkUpdate(function () {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><em>This document is automatically generated based on source code comments. Please do not edit it directly, as your changes will be ignored. Please write on <a href="irc://irc.freenode.net/#sequelizejs">IRC</a>, open an issue or a create a pull request if you feel something can be improved. For help on how to write source code documentation see <a href="http://usejsdoc.org">JSDoc</a> and <a href="https://github.com/tj/dox">dox</a></em></p>
               
             </div>
@@ -1179,7 +1175,7 @@ Model.afterBulkUpdate(function () {})
     </div>
   
 
-  <hr/>
+  <hr>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
@@ -1204,23 +1200,24 @@ Model.afterBulkUpdate(function () {})
         </span>
     
     
-      <span><a href="/v3/api/associations/belongs-to-many/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="/v3/api/associations/belongs-to-many/" style="color: #fcfcfc">« Previous</a></span>
     
     
-      <span><a href="/v3/api/transaction/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="/v3/api/transaction/" style="color: #fcfcfc">Next »</a></span>
     
   </span>
 </div>
     <script>var base_url = '../..';</script>
-    <script src="/v3/js/theme_extra.js" defer></script>
-    <script src="/v3/js/theme.js" defer></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
-      <script src="/v3/search/main.js" defer></script>
-    <script defer>
+    <script src="/v3/js/theme_extra.js" defer=""></script>
+    <script src="/v3/js/theme.js" defer=""></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer=""></script>
+      <script src="/v3/search/main.js" defer=""></script>
+    <script defer="">
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
 
-</body>
-</html>
+
+
+</body></html>

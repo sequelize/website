@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
+<!DOCTYPE html><!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +8,12 @@
   <link rel="shortcut icon" href="/v3/favicon.ico">
   
   <title>Errors - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700">
 
-  <link rel="stylesheet" href="/v3/css/theme.css" />
-  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  <link href="/v3/css/custom.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/v3/css/theme.css">
+  <link rel="stylesheet" href="/v3/css/theme_extra.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+  <link href="/v3/css/custom.css" rel="stylesheet">
   
   <script>
     // Current page data
@@ -25,11 +22,11 @@
     var mkdocs_page_url = "/api/errors/";
   </script>
   
-  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
-  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="/v3/js/jquery-2.1.1.min.js" defer=""></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-</head>
+<meta name="robots" content="noindex"></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -41,8 +38,8 @@
       <div class="wy-side-nav-search">
         <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  <form id="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here">
   </form>
 </div>
       </div>
@@ -194,24 +191,23 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="/v3">Docs</a> &raquo;</li>
+    <li><a href="/v3">Docs</a> »</li>
     
       
         
-          <li>API &raquo;</li>
+          <li>API »</li>
         
       
     
     <li>Errors</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/errors.md"
-          class="icon icon-github"> Edit on GitHub</a>
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/errors.md" class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
   
-  <hr/>
+  <hr>
 </div>
 
           <div role="main">
@@ -222,13 +218,13 @@
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L11">View code</a></p>
 <p>Sequelize provides a host of custom error classes, to allow you to do easier debugging. All of these errors are exposed on the sequelize object and the sequelize constructor.
 All sequelize errors inherit from the base JS error object.</p>
-<hr />
+<hr>
 <p><a name="baseerror"></a></p>
 <h2 id="new-baseerror"><code>new BaseError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L20">View code</a></p>
 <p>The Base Error all Sequelize Errors inherit from.
 <strong>Aliases:</strong> Error</p>
-<hr />
+<hr>
 <p><a name="validationerror"></a></p>
 <h2 id="new-validationerrormessage-errors"><code>new ValidationError(message, [errors])</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L41">View code</a></p>
@@ -257,12 +253,12 @@ which is an array with 1 or more ValidationErrorItems, one for each validation t
 </tbody>
 </table>
 <p><strong>Extends:</strong> BaseError</p>
-<hr />
+<hr>
 <p><a name="errors"></a></p>
 <h2 id="errors"><code>errors</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L49">View code</a></p>
 <p>An array of ValidationErrorItems</p>
-<hr />
+<hr>
 <p><a name="get"></a></p>
 <h2 id="getpath"><code>get(path)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L70">View code</a></p>
@@ -284,67 +280,67 @@ which is an array with 1 or more ValidationErrorItems, one for each validation t
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="databaseerror"></a></p>
 <h2 id="new-databaseerror"><code>new DatabaseError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L84">View code</a></p>
 <p>A base class for all database related errors.</p>
 <p><strong>Extends:</strong> BaseError</p>
-<hr />
+<hr>
 <p><a name="parent"></a></p>
 <h2 id="parent"><code>parent</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L92">View code</a></p>
 <p>The database specific error which triggered this one</p>
-<hr />
+<hr>
 <p><a name="sql"></a></p>
 <h2 id="sql"><code>sql</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L98">View code</a></p>
 <p>The SQL that triggered the error</p>
-<hr />
+<hr>
 <p><a name="message"></a></p>
 <h2 id="message"><code>message()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L104">View code</a></p>
 <p>The message from the DB.</p>
-<hr />
+<hr>
 <p><a name="fields"></a></p>
 <h2 id="fields"><code>fields()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L109">View code</a></p>
 <p>The fields of the unique constraint</p>
-<hr />
+<hr>
 <p><a name="value"></a></p>
 <h2 id="value"><code>value()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L114">View code</a></p>
 <p>The value(s) which triggered the error</p>
-<hr />
+<hr>
 <p><a name="index"></a></p>
 <h2 id="index"><code>index()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L119">View code</a></p>
 <p>The name of the index that triggered the error</p>
-<hr />
+<hr>
 <p><a name="timeouterror"></a></p>
 <h2 id="new-timeouterror"><code>new TimeoutError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L127">View code</a></p>
 <p>Thrown when a database query times out because of a deadlock</p>
 <p><strong>Extends:</strong> DatabaseError</p>
-<hr />
+<hr>
 <p><a name="uniqueconstrainterror"></a></p>
 <h2 id="new-uniqueconstrainterror"><code>new UniqueConstraintError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L138">View code</a></p>
 <p>Thrown when a unique constraint is violated in the database</p>
 <p><strong>Extends:</strong> DatabaseError</p>
-<hr />
+<hr>
 <p><a name="foreignkeyconstrainterror"></a></p>
 <h2 id="new-foreignkeyconstrainterror"><code>new ForeignKeyConstraintError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L157">View code</a></p>
 <p>Thrown when a foreign key constraint is violated in the database</p>
 <p><strong>Extends:</strong> DatabaseError</p>
-<hr />
+<hr>
 <p><a name="exclusionconstrainterror"></a></p>
 <h2 id="new-exclusionconstrainterror"><code>new ExclusionConstraintError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L177">View code</a></p>
 <p>Thrown when an exclusion constraint is violated in the database</p>
 <p><strong>Extends:</strong> DatabaseError</p>
-<hr />
+<hr>
 <p><a name="validationerroritem"></a></p>
 <h2 id="new-validationerroritemmessage-type-path-value"><code>new ValidationErrorItem(message, type, path, value)</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L201">View code</a></p>
@@ -382,60 +378,60 @@ Instances of this class are included in the <code>ValidationError.errors</code> 
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="connectionerror"></a></p>
 <h2 id="new-connectionerror"><code>new ConnectionError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L213">View code</a></p>
 <p>A base class for all connection related errors.</p>
 <p><strong>Extends:</strong> BaseError</p>
-<hr />
+<hr>
 <p><a name="parent"></a></p>
 <h2 id="parent_1"><code>parent</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L220">View code</a></p>
 <p>The connection specific error which triggered this one</p>
-<hr />
+<hr>
 <p><a name="connectionrefusederror"></a></p>
 <h2 id="new-connectionrefusederror"><code>new ConnectionRefusedError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L230">View code</a></p>
 <p>Thrown when a connection to a database is refused</p>
 <p><strong>Extends:</strong> ConnectionError</p>
-<hr />
+<hr>
 <p><a name="accessdeniederror"></a></p>
 <h2 id="new-accessdeniederror"><code>new AccessDeniedError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L241">View code</a></p>
 <p>Thrown when a connection to a database is refused due to insufficient privileges</p>
 <p><strong>Extends:</strong> ConnectionError</p>
-<hr />
+<hr>
 <p><a name="hostnotfounderror"></a></p>
 <h2 id="new-hostnotfounderror"><code>new HostNotFoundError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L252">View code</a></p>
 <p>Thrown when a connection to a database has a hostname that was not found</p>
 <p><strong>Extends:</strong> ConnectionError</p>
-<hr />
+<hr>
 <p><a name="hostnotreachableerror"></a></p>
 <h2 id="new-hostnotreachableerror"><code>new HostNotReachableError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L263">View code</a></p>
 <p>Thrown when a connection to a database has a hostname that was not reachable</p>
 <p><strong>Extends:</strong> ConnectionError</p>
-<hr />
+<hr>
 <p><a name="invalidconnectionerror"></a></p>
 <h2 id="new-invalidconnectionerror"><code>new InvalidConnectionError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L274">View code</a></p>
 <p>Thrown when a connection to a database has invalid values for any of the connection parameters</p>
 <p><strong>Extends:</strong> ConnectionError</p>
-<hr />
+<hr>
 <p><a name="connectiontimedouterror"></a></p>
 <h2 id="new-connectiontimedouterror"><code>new ConnectionTimedOutError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L285">View code</a></p>
 <p>Thrown when a connection to a database times out</p>
 <p><strong>Extends:</strong> ConnectionError</p>
-<hr />
+<hr>
 <p><a name="instanceerror"></a></p>
 <h2 id="new-instanceerror"><code>new InstanceError()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/errors.js#L296">View code</a></p>
 <p>Thrown when a some problem occurred with Instance methods (see message for details)</p>
 <p><strong>Extends:</strong> BaseError</p>
-<hr />
+<hr>
 <p><em>This document is automatically generated based on source code comments. Please do not edit it directly, as your changes will be ignored. Please write on <a href="irc://irc.freenode.net/#sequelizejs">IRC</a>, open an issue or a create a pull request if you feel something can be improved. For help on how to write source code documentation see <a href="http://usejsdoc.org">JSDoc</a> and <a href="https://github.com/tj/dox">dox</a></em></p>
               
             </div>
@@ -452,7 +448,7 @@ Instances of this class are included in the <code>ValidationError.errors</code> 
     </div>
   
 
-  <hr/>
+  <hr>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
@@ -477,23 +473,24 @@ Instances of this class are included in the <code>ValidationError.errors</code> 
         </span>
     
     
-      <span><a href="/v3/api/deferrable/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="/v3/api/deferrable/" style="color: #fcfcfc">« Previous</a></span>
     
     
-      <span><a href="/v3/changelog/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="/v3/changelog/" style="color: #fcfcfc">Next »</a></span>
     
   </span>
 </div>
     <script>var base_url = '../..';</script>
-    <script src="/v3/js/theme_extra.js" defer></script>
-    <script src="/v3/js/theme.js" defer></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
-      <script src="/v3/search/main.js" defer></script>
-    <script defer>
+    <script src="/v3/js/theme_extra.js" defer=""></script>
+    <script src="/v3/js/theme.js" defer=""></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer=""></script>
+      <script src="/v3/search/main.js" defer=""></script>
+    <script defer="">
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
 
-</body>
-</html>
+
+
+</body></html>
