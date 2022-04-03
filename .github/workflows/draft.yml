@@ -12,13 +12,12 @@ jobs:
         with:
           node-version: 16.x
           cache: yarn
-      - run: yarn install --frozen-lockfile
-      - run: yarn lint-no-fix
-      - run: yarn typecheck
-      - run: yarn sync
-      - run: yarn build
-      - name: Prepare Netlify dependencies
-        run: npm install netlify-cli -g
+      # - run: yarn install --frozen-lockfile
+      # - run: yarn lint-no-fix
+      # - run: yarn typecheck
+      # - run: yarn sync
+      # - run: yarn build
+      - run: mkdir build; echo "<html><body>hello</body>/html>" > build/index.html
       - name: Deploy to Netlify (Draft)
         id: deployment
         uses: jsmrcaga/action-netlify-deploy@v1.1.0
@@ -27,7 +26,6 @@ jobs:
           NETLIFY_SITE_ID: sequelize-site
           NETLIFY_DEPLOY_TO_PROD: false
           NETLIFY_DEPLOY_MESSAGE: '${{ github.event.commits[0].message }} (draft)'
-          deploy_alias: ${{ env.BRANCH_NAME }}
       - name: Get PR number
         uses: actions/github-script@v2
         id: get-pr-number
