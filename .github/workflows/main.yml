@@ -1,10 +1,12 @@
 # Trigger manually:
 # curl -XPOST -u "username:access-token" -H "Accept: application/vnd.github.v3+json" -H "Content-Type: application/json" https://api.github.com/repos/sequelize/website/dispatches --data '{"event_type":"Build website"}'
 
-name: Website build
+name: Website production build
 on:
   repository_dispatch:
   push:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,15 +23,8 @@ jobs:
       - run: yarn build
       - name: Prepare Netlify dependencies
         run: npm install netlify-cli -g
-      - name: Deploy to Netlify (Production)
-        if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Deploy to Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: sequelize-site
         run: netlify deploy --dir build --prod --message '${{ github.event.commits[0].message }}'
-      - name: Deploy to Netlify (Draft)
-        if: ${{ github.ref != 'refs/heads/main' }}
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: sequelize-site
-        run: netlify deploy --dir build --message '${{ github.event.commits[0].message }} (draft)'

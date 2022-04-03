@@ -1,0 +1,51 @@
+name: Website draft build
+on:
+  push:
+    branches-ignore:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint-no-fix
+      - run: yarn typecheck
+      - run: yarn sync
+      - run: yarn build
+      - name: Prepare Netlify dependencies
+        run: npm install netlify-cli -g
+      - name: Deploy to Netlify (Draft)
+        id: deployment
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: sequelize-site
+        run: >-
+          echo "::set-output name=NETLIFY_LOG::$(
+            netlify deploy --dir build --message '${{ github.event.commits[0].message }} (draft)'
+          )"
+      - name: Get PR number
+        uses: actions/github-script@v2
+        id: get-pr-number
+        with:
+          script: |
+            const {data: pulls} = await github.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              head: '${{ github.event.client_payload.ref }}'
+            })
+            return pulls[0].number
+          result-encoding: string
+      - name: Comment PR with draft publish logs
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ steps.get-pr-number.outputs.result }}
+          body: ${{ steps.deployment.outputs.NETLIFY_LOG }}
+
+
+      
