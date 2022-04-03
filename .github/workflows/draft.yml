@@ -24,7 +24,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: sequelize-site
         run: >-
-           echo "::set-output name=NETLIFY_LOG::$(
+           echo "::set-output name=NETLIFY_OUTPUT::$(
              netlify deploy --dir build --message '${{ github.event.commits[0].message }} (draft)'
            )"
       - name: Get PR number
