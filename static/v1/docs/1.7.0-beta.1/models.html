@@ -1,13 +1,11 @@
-<!DOCTYPE html><html>
-<!-- Mirrored from localhost:3000/docs/1.7.0-beta.1/models by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
-<head><title>Sequelize - Documentation - Models</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"><link rel="stylesheet" href="../../stylesheets/style.css"><script src="../../javascripts/jquery-1.10.2.min.js"></script><script>fromGithub = function (partialId, url) {
+<!DOCTYPE html><html><!-- Mirrored from localhost:3000/docs/1.7.0-beta.1/models by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT --><!-- Added by HTTrack --><head><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<title>Sequelize - Documentation - Models</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"><link rel="stylesheet" href="../../stylesheets/style.css"><script src="../../javascripts/jquery-1.10.2.min.js"></script><script>fromGithub = function (partialId, url) {
   var $partial = $("#" + partialId)
 
   $partial.load(url, function () {
     hljs.highlightBlock($partial.get(0));
   });
-}</script></head><body id="documentation"><div role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-liquid"><div class="col-sm-3 navbar-left"><section><a href="../../index.html" class="navbar-brand"><img src="../../images/logo-small.png"><span>Sequelize</span></a><div class="clearfix"></div></section></div><div class="col-sm-8 navbar-right"><section><button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="navbar-collapse collapse"><ul class="nav navbar-nav"></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../index.html"><span class="glyphicon glyphicon-home"></span><span class="spacer">&nbsp;</span><span class="text">Home</span></a></li><li class="active"><a href="../1.7.8/installation.html"><span class="glyphicon glyphicon-info-sign"></span><span class="spacer">&nbsp;</span><span class="text">Docs</span></a></li><li><a href="../../articles/getting-started.html"><span class="glyphicon glyphicon-book"></span><span class="spacer">&nbsp;</span><span class="text">Articles</span></a></li><li><a href="../../blog.html"><span class="glyphicon glyphicon-comment"></span><span class="spacer">&nbsp;</span><span class="text">Blog</span></a></li><li><a href="../../search.html" class="search"><i class="fa fa-search"></i><span class="spacer">&nbsp;</span><span class="text">Search</span></a></li></ul></div></section></div></div></div><div class="container-liquid"><div class="row documentation"><div class="col-sm-2 mid-blue sidebar"><div class="headline-spacer"></div><section class="navigation"><ul><li><a href="installation.html">Installation</a></li><li><a href="usage.html">Usage</a><ul><li><a href="usage.html#basics">Basic usage</a></li><li><a href="usage.html#options">Options</a></li><li><a href="usage.html#read-replication">Read replication</a></li><li><a href="usage.html#dialects">Dialects</a></li><li><a href="usage.html#raw-queries">Executing raw SQL queries</a></li></ul></li><li class="active"><a href="models.html">Models</a><ul><li><a href="models.html#definition">Definition</a></li><li><a href="models.html#data-types">Data types</a></li><li><a href="models.html#getters---setters">Getters &amp; setters</a></li><li><a href="models.html#validations">Validations</a></li><li><a href="models.html#configuration">Configuration</a></li><li><a href="models.html#import">Import</a></li><li><a href="models.html#database-synchronization">Database synchronization</a></li><li><a href="models.html#expansion-of-models">Expansion of models</a></li><li><a href="models.html#finders">Data retrieval / Finders</a></li><li><a href="models.html#eager-loading">Eager loading</a></li></ul></li><li><a href="instances.html">Instances</a><ul><li><a href="instances.html#build">Building a not-persistant instance</a></li><li><a href="instances.html#create">Creating persistant instances</a></li><li><a href="instances.html#update">Updating &amp;sol; Saving &amp;sol; Persisting an instance</a></li><li><a href="instances.html#destroy">Destroying &amp;sol; Deleting persistant instances</a></li><li><a href="instances.html#values">Values of an instance</a></li><li><a href="instances.html#reload">Reloading instances</a></li><li><a href="instances.html#increment">Incrementing certain values of an instance</a></li><li><a href="instances.html#decrement">Decrementing certain values of an instance</a></li></ul></li><li><a href="associations.html">Associations</a><ul><li><a href="associations.html#one-to-one">One-To-One associations</a></li><li><a href="associations.html#one-to-many">One-To-Many associations</a></li><li><a href="associations.html#many-to-many">Many-To-Many associations</a></li><li><a href="associations.html#associating-objects">Associating objects</a></li><li><a href="associations.html#check-associations">Check associations</a></li><li><a href="associations.html#foreign-keys">Foreign Keys</a></li></ul></li><li><a href="hooks.html">Hooks</a></li><li><a href="transactions.html">Transactions</a></li><li><a href="migrations.html">Migrations</a><ul><li><a href="migrations.html#the-binary">The binary</a></li><li><a href="migrations.html#skeleton">Skeleton</a></li><li><a href="migrations.html#functions">Functions</a></li></ul></li><li><a href="utils.html">Utils</a><ul><li><a href="utils.html#lodash-js">Lodash.js</a></li><li><a href="utils.html#querychainer">QueryChainer</a></li></ul></li><li><a href="misc.html">Misc</a><ul><li><a href="misc.html#compatibility">Compatibility</a></li><li><a href="misc.html#asynchronicity">Asynchronicity</a></li><li><a href="misc.html#links(data-nav-value='Links')">Additional links</a></li><li><a href="misc.html#company---projects">Company &amp; Projects</a></li></ul></li><li><a>Versions</a><ul><li><a href="../latest/installation.html">Latest</a></li><li><a href="../1.7.8/installation.html">1.7.8</a></li><li><a href="../1.7.6/installation.html">1.7.6</a></li><li><a href="installation.html">1.7.0-beta.1</a></li></ul></li></ul></section><div class="clearfix"></div></div><div class="col-sm-9 col-sm-offset-1 beige content"><section><div><h2>Models</h2><h3 id="definition">Definition</h3><p>To define mappings between a model and a table&comma; use the<code>define</code>method&period; Sequelize will then automatically add the attributes<code>createdAt</code>and<code>updatedAt</code>to it&period; So you will be able to know when the database entry went into the db and when it was updated the last time&period;</p><pre class="dark-blue"><code class="javascript">var Project = sequelize.define('Project', {
+}</script><meta name="robots" content="noindex"></head><body id="documentation"><div role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-liquid"><div class="col-sm-3 navbar-left"><section><a href="../../index.html" class="navbar-brand"><img src="../../images/logo-small.png"><span>Sequelize</span></a><div class="clearfix"></div></section></div><div class="col-sm-8 navbar-right"><section><button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="navbar-collapse collapse"><ul class="nav navbar-nav"></ul><ul class="nav navbar-nav navbar-right"><li><a href="../../index.html"><span class="glyphicon glyphicon-home"></span><span class="spacer">&nbsp;</span><span class="text">Home</span></a></li><li class="active"><a href="../1.7.8/installation.html"><span class="glyphicon glyphicon-info-sign"></span><span class="spacer">&nbsp;</span><span class="text">Docs</span></a></li><li><a href="../../articles/getting-started.html"><span class="glyphicon glyphicon-book"></span><span class="spacer">&nbsp;</span><span class="text">Articles</span></a></li><li><a href="../../blog.html"><span class="glyphicon glyphicon-comment"></span><span class="spacer">&nbsp;</span><span class="text">Blog</span></a></li><li><a href="../../search.html" class="search"><i class="fa fa-search"></i><span class="spacer">&nbsp;</span><span class="text">Search</span></a></li></ul></div></section></div></div></div><div class="container-liquid"><div class="row documentation"><div class="col-sm-2 mid-blue sidebar"><div class="headline-spacer"></div><section class="navigation"><ul><li><a href="installation.html">Installation</a></li><li><a href="usage.html">Usage</a><ul><li><a href="usage.html#basics">Basic usage</a></li><li><a href="usage.html#options">Options</a></li><li><a href="usage.html#read-replication">Read replication</a></li><li><a href="usage.html#dialects">Dialects</a></li><li><a href="usage.html#raw-queries">Executing raw SQL queries</a></li></ul></li><li class="active"><a href="models.html">Models</a><ul><li><a href="models.html#definition">Definition</a></li><li><a href="models.html#data-types">Data types</a></li><li><a href="models.html#getters---setters">Getters &amp; setters</a></li><li><a href="models.html#validations">Validations</a></li><li><a href="models.html#configuration">Configuration</a></li><li><a href="models.html#import">Import</a></li><li><a href="models.html#database-synchronization">Database synchronization</a></li><li><a href="models.html#expansion-of-models">Expansion of models</a></li><li><a href="models.html#finders">Data retrieval / Finders</a></li><li><a href="models.html#eager-loading">Eager loading</a></li></ul></li><li><a href="instances.html">Instances</a><ul><li><a href="instances.html#build">Building a not-persistant instance</a></li><li><a href="instances.html#create">Creating persistant instances</a></li><li><a href="instances.html#update">Updating &amp;sol; Saving &amp;sol; Persisting an instance</a></li><li><a href="instances.html#destroy">Destroying &amp;sol; Deleting persistant instances</a></li><li><a href="instances.html#values">Values of an instance</a></li><li><a href="instances.html#reload">Reloading instances</a></li><li><a href="instances.html#increment">Incrementing certain values of an instance</a></li><li><a href="instances.html#decrement">Decrementing certain values of an instance</a></li></ul></li><li><a href="associations.html">Associations</a><ul><li><a href="associations.html#one-to-one">One-To-One associations</a></li><li><a href="associations.html#one-to-many">One-To-Many associations</a></li><li><a href="associations.html#many-to-many">Many-To-Many associations</a></li><li><a href="associations.html#associating-objects">Associating objects</a></li><li><a href="associations.html#check-associations">Check associations</a></li><li><a href="associations.html#foreign-keys">Foreign Keys</a></li></ul></li><li><a href="hooks.html">Hooks</a></li><li><a href="transactions.html">Transactions</a></li><li><a href="migrations.html">Migrations</a><ul><li><a href="migrations.html#the-binary">The binary</a></li><li><a href="migrations.html#skeleton">Skeleton</a></li><li><a href="migrations.html#functions">Functions</a></li></ul></li><li><a href="utils.html">Utils</a><ul><li><a href="utils.html#lodash-js">Lodash.js</a></li><li><a href="utils.html#querychainer">QueryChainer</a></li></ul></li><li><a href="misc.html">Misc</a><ul><li><a href="misc.html#compatibility">Compatibility</a></li><li><a href="misc.html#asynchronicity">Asynchronicity</a></li><li><a href="misc.html#links(data-nav-value='Links')">Additional links</a></li><li><a href="misc.html#company---projects">Company &amp; Projects</a></li></ul></li><li><a>Versions</a><ul><li><a href="../latest/installation.html">Latest</a></li><li><a href="../1.7.8/installation.html">1.7.8</a></li><li><a href="../1.7.6/installation.html">1.7.6</a></li><li><a href="installation.html">1.7.0-beta.1</a></li></ul></li></ul></section><div class="clearfix"></div></div><div class="col-sm-9 col-sm-offset-1 beige content"><section><div><h2>Models</h2><h3 id="definition">Definition</h3><p>To define mappings between a model and a table, use the<code>define</code>method. Sequelize will then automatically add the attributes<code>createdAt</code>and<code>updatedAt</code>to it. So you will be able to know when the database entry went into the db and when it was updated the last time.</p><pre class="dark-blue"><code class="javascript">var Project = sequelize.define('Project', {
   title: Sequelize.STRING,
   description: Sequelize.TEXT
 })
@@ -16,11 +14,11 @@ var Task = sequelize.define('Task', {
   title: Sequelize.STRING,
   description: Sequelize.TEXT,
   deadline: Sequelize.DATE
-})</code></pre><p>You can also set some options on each column&colon;</p><pre class="dark-blue"><code class="javascript">var Foo = sequelize.define('Foo', {
+})</code></pre><p>You can also set some options on each column:</p><pre class="dark-blue"><code class="javascript">var Foo = sequelize.define('Foo', {
   // instantiating will automatically set the flag to true if not set
   flag: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true},
 &nbsp;
-  // default values for dates => current time
+  // default values for dates =&gt; current time
   myDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
 &nbsp;
   // setting allowNull to false will add NOT NULL to the column, which means an error will be
@@ -40,7 +38,7 @@ var Task = sequelize.define('Task', {
 &nbsp;
   // Comments can be specified for each field for MySQL and PG
   hasComment: { type: Sequelize.INTEGER, comment: "I'm a comment!" }
-})</code></pre><p>The comment option can also be used on a table&comma; see&nbsp;<a href="#configuration" rel="nofollow" target="_blank">model configuration</a></p><h3 id="data-types">Data types</h3><p>Sequelize currently supports the following datatypes&colon;</p><pre class="dark-blue"><code class="javascript">Sequelize.STRING                      // VARCHAR(255)
+})</code></pre><p>The comment option can also be used on a table, see&nbsp;<a href="#configuration" rel="nofollow" target="_blank">model configuration</a></p><h3 id="data-types">Data types</h3><p>Sequelize currently supports the following datatypes:</p><pre class="dark-blue"><code class="javascript">Sequelize.STRING                      // VARCHAR(255)
 Sequelize.STRING(1234)                // VARCHAR(1234)
 Sequelize.STRING.BINARY               // VARCHAR BINARY
 Sequelize.TEXT                        // TEXT
@@ -62,17 +60,17 @@ Sequelize.ENUM('value 1', 'value 2')  // An ENUM with allowed values 'value 1' a
 Sequelize.ARRAY(Sequelize.TEXT)       // Defines an array. PostgreSQL only.
 &nbsp;
 Sequelize.BLOB                        // BLOB (bytea for PostgreSQL)
-Sequelize.BLOB('tiny')                // TINYBLOB (bytea for PostgreSQL. Other options are medium and long)</code></pre><p>The BLOB data type allows you to insert data both as strings and as buffers&period; When you do a find or findAll on a model which has a BLOB column&comma; that data will always be returned as a buffer&period;</p><p>In addition to the type mentioned above&comma; integer&comma; bigint and float also support unsigned and zerofill properties&comma; which can be combined in any order&colon;</p><pre class="dark-blue"><code class="javascript">Sequelize.INTEGER.UNSIGNED              // INTEGER UNSIGNED
+Sequelize.BLOB('tiny')                // TINYBLOB (bytea for PostgreSQL. Other options are medium and long)</code></pre><p>The BLOB data type allows you to insert data both as strings and as buffers. When you do a find or findAll on a model which has a BLOB column, that data will always be returned as a buffer.</p><p>In addition to the type mentioned above, integer, bigint and float also support unsigned and zerofill properties, which can be combined in any order:</p><pre class="dark-blue"><code class="javascript">Sequelize.INTEGER.UNSIGNED              // INTEGER UNSIGNED
 Sequelize.INTEGER(11).UNSIGNED          // INTEGER(11) UNSIGNED
 Sequelize.INTEGER(11).ZEROFILL          // INTEGER(11) ZEROFILL
 Sequelize.INTEGER(11).ZEROFILL.UNSIGNED // INTEGER(11) UNSIGNED ZEROFILL
-Sequelize.INTEGER(11).UNSIGNED.ZEROFILL // INTEGER(11) UNSIGNED ZEROFILL</code></pre><p><em>The examples above only show integer&comma; but the same can be done with bigint and float</em></p><p>Usage in object notation&colon;</p><pre class="dark-blue"><code class="javascript">// for enums:
+Sequelize.INTEGER(11).UNSIGNED.ZEROFILL // INTEGER(11) UNSIGNED ZEROFILL</code></pre><p><em>The examples above only show integer, but the same can be done with bigint and float</em></p><p>Usage in object notation:</p><pre class="dark-blue"><code class="javascript">// for enums:
 sequelize.define('model', {
   states: {
     type:   Sequelize.ENUM,
     values: ['active', 'pending', 'deleted']
   }
-})</code></pre><h3 id="getters---setters">Getters & setters</h3><p>It is possible to define &apos;object-property&apos; getters and setter functions on your models&comma; these can be used both for &apos;protecting&apos; properties that map to database fields and for defining &apos;pseudo&apos; properties&period;</p><p>Getters and Setters can be defined in 2 ways &lpar;you can mix and match these 2 approaches&excl;&rpar;&colon;</p><ul><li>as part of a single property definition</li><li>as part of a model options</li></ul><p><strong>N&period;B&period;&colon;</strong>If a getter or setter is defined in both places then the function found in the relevant property definition will always take precedence&period;</p><h4 id="getters---setters-defining-as-part-of-a-property">Defining as part of a property</h4><pre class="dark-blue"><code class="javascript">var Foo = sequelize.define('Foo', {
+})</code></pre><h3 id="getters---setters">Getters &amp; setters</h3><p>It is possible to define 'object-property' getters and setter functions on your models, these can be used both for 'protecting' properties that map to database fields and for defining 'pseudo' properties.</p><p>Getters and Setters can be defined in 2 ways (you can mix and match these 2 approaches!):</p><ul><li>as part of a single property definition</li><li>as part of a model options</li></ul><p><strong>N.B.:</strong>If a getter or setter is defined in both places then the function found in the relevant property definition will always take precedence.</p><h4 id="getters---setters-defining-as-part-of-a-property">Defining as part of a property</h4><pre class="dark-blue"><code class="javascript">var Foo = sequelize.define('Foo', {
   name: { Sequelize.STRING },
   title: {
     type     : Sequelize.STRING,
@@ -87,8 +85,8 @@ sequelize.define('model', {
     },
     set      : function(v) { /* do your magic with the input here! */ }
   }
-});</code></pre><h4 id="getters---setters-defining-as-part-of-the-model-options">Defining as part of the model options</h4><p>Below is an example of defining the getters and setters in the model options&comma; notice the<code>title&UnderBar;slug</code>getter&comma; it shows how you can define<code>pseudo</code>properties on your models&excl; &lpar;the<code>slugify&lpar;&rpar;</code>function was taken from the&nbsp;<a href="https://github.com/epeli/underscore.string" rel="nofollow" target="_blank">Underscore&period;String module</a>&comma; it is slightly modified here so that the example remains self-contained&rpar;&comma; note that the<code>this&period;title</code>reference in the<code>title&UnderBar;slug</code>getter function will trigger a call to the<code>title</code>getter function&period; if you do not want that then
-use the<code>getDataValue&lpar;&rpar;</code>method &lpar;<a href="#get_and_set_helper_funcs">see below</a>&rpar;&period;</p><pre class="dark-blue"><code class="javascript">var defaultToWhiteSpace = function(characters) {
+});</code></pre><h4 id="getters---setters-defining-as-part-of-the-model-options">Defining as part of the model options</h4><p>Below is an example of defining the getters and setters in the model options, notice the<code>title_slug</code>getter, it shows how you can define<code>pseudo</code>properties on your models! (the<code>slugify()</code>function was taken from the&nbsp;<a href="https://github.com/epeli/underscore.string" rel="nofollow" target="_blank">Underscore.String module</a>, it is slightly modified here so that the example remains self-contained), note that the<code>this.title</code>reference in the<code>title_slug</code>getter function will trigger a call to the<code>title</code>getter function. if you do not want that then
+use the<code>getDataValue()</code>method (<a href="#get_and_set_helper_funcs">see below</a>).</p><pre class="dark-blue"><code class="javascript">var defaultToWhiteSpace = function(characters) {
     if (characters == null)
       return '\\s';
     else if (characters.source)
@@ -126,13 +124,13 @@ var Foo = sequelize.define('Foo', {
   setterMethods   : {
     title       : function(v) { /* do your magic with the input here! */ },
   }
-});</code></pre><h4 id="getters---setters--helper-functions-for-use-inside-getter-setter-definitions"><a id="get_and_set_helper_funcs"></a>Helper functions for use inside getter&sol;setter definitions</h4><ul><li>retrieving an underlying property value&quest; always use<code>this&period;getDataValue&lpar;&rpar;</code>&comma; e&period;g&period;&colon;</li></ul><pre class="dark-blue"><code class="javascript">/* a getter for 'title' property */
+});</code></pre><h4 id="getters---setters--helper-functions-for-use-inside-getter-setter-definitions"><a id="get_and_set_helper_funcs"></a>Helper functions for use inside getter/setter definitions</h4><ul><li>retrieving an underlying property value? always use<code>this.getDataValue()</code>, e.g.:</li></ul><pre class="dark-blue"><code class="javascript">/* a getter for 'title' property */
 function() {
     return this.getDataValue('title');
-}</code></pre><ul><li>setting an underlying property value&quest; always use<code>this&period;setDataValue&lpar;&rpar;</code>&comma; e&period;g&period;&colon;</li></ul><pre class="dark-blue"><code class="javascript">/* a setter for 'title' property */
+}</code></pre><ul><li>setting an underlying property value? always use<code>this.setDataValue()</code>, e.g.:</li></ul><pre class="dark-blue"><code class="javascript">/* a setter for 'title' property */
 function(title) {
     return this.setDataValue('title', title.toString().toLowerCase());
-}</code></pre><p><strong>N.B.:&nbsp;</strong>It is important to stick to using the<code>setDataValue&lpar;&rpar;</code>and<code>getDataValue&lpar;&rpar;</code>functions &lpar;as opposed to accessing the underlying &quot;data values&quot; property directly&rpar; - doing so protects your custom getters and setters from changes in the underlying model implementations &lpar;i&period;e&period; how and where data values are stored in your model instances&rpar;</p><h4 id="getters---setters-setter-methods-and-object-initialization">Setter methods and Object Initialization</h4><p>&excl;&excl;&excl;TODO&colon; write about how setters affect object initialization &lpar;both creating new objects with Model&period;build and retrieving existing objects from storage&rpar; &excl;&excl;&excl;&excl;&excl;</p><h3 id="validations">Validations</h3><p>In<code>v1&period;3&period;0</code>model validations have been added&period; They allow you to specify format&sol;content&sol;inheritance validations for each attribute of the model&period; You can perform the validation by calling the<code>validate&lpar;&rpar;</code>method on an instance before saving&period; The validations are implemented by&nbsp;<a href="https://github.com/chriso/node-validator" rel="nofollow" target="_blank">node-validator</a>&comma; and we are currently using v&period; 1&period;1&period;1&period;</p><p><strong>Note&colon;&nbsp;</strong>In<code>v1&period;7&period;0</code>validations will now be called when executing the<code>build&lpar;&rpar;</code>or<code>create&lpar;&rpar;</code>functions&period;</p><pre class="dark-blue"><code class="javascript">var ValidateMe = sequelize.define('Foo', {
+}</code></pre><p><strong>N.B.:&nbsp;</strong>It is important to stick to using the<code>setDataValue()</code>and<code>getDataValue()</code>functions (as opposed to accessing the underlying "data values" property directly) - doing so protects your custom getters and setters from changes in the underlying model implementations (i.e. how and where data values are stored in your model instances)</p><h4 id="getters---setters-setter-methods-and-object-initialization">Setter methods and Object Initialization</h4><p>!!!TODO: write about how setters affect object initialization (both creating new objects with Model.build and retrieving existing objects from storage) !!!!!</p><h3 id="validations">Validations</h3><p>In<code>v1.3.0</code>model validations have been added. They allow you to specify format/content/inheritance validations for each attribute of the model. You can perform the validation by calling the<code>validate()</code>method on an instance before saving. The validations are implemented by&nbsp;<a href="https://github.com/chriso/node-validator" rel="nofollow" target="_blank">node-validator</a>, and we are currently using v. 1.1.1.</p><p><strong>Note:&nbsp;</strong>In<code>v1.7.0</code>validations will now be called when executing the<code>build()</code>or<code>create()</code>functions.</p><pre class="dark-blue"><code class="javascript">var ValidateMe = sequelize.define('Foo', {
   foo: {
     type: Sequelize.STRING,
     validate: {
@@ -164,8 +162,8 @@ function(title) {
       isDate: true,             // only allow date strings
       isAfter: "2011-11-05",    // only allow date strings after a specific date
       isBefore: "2011-11-05",   // only allow date strings before a specific date
-      max: 23,                  // only allow values <= 23
-      min: 23,                  // only allow values >= 23
+      max: 23,                  // only allow values &lt;= 23
+      min: 23,                  // only allow values &gt;= 23
       isCreditCard: true,       // check for valid credit card numbers
 &nbsp;
       // custom validations are also possible:
@@ -179,34 +177,34 @@ function(title) {
     }
   }
 })</code></pre><p>Note that where multiple arguments need to be passed to the built-in validation
-functions&comma; the arguments to be passed must be in an array&period; But if a single array
-argument is to be passed&comma; for instance an array of acceptable strings for<code>isIn</code>&comma; this will be interpreted as multiple string arguments instead of one
-array argument&period; To work around this pass a single-length array of arguments&comma;
-such as<code>&lsqb;&lsqb;&apos;one&apos;&comma; &apos;two&apos;&rsqb;&rsqb;</code>as shown above&period;</p><p>To use a custom error message instead of that provided by node-validator&comma; use an
-object instead of the plain value or array of arguments&comma; for example a validator
+functions, the arguments to be passed must be in an array. But if a single array
+argument is to be passed, for instance an array of acceptable strings for<code>isIn</code>, this will be interpreted as multiple string arguments instead of one
+array argument. To work around this pass a single-length array of arguments,
+such as<code>[['one', 'two']]</code>as shown above.</p><p>To use a custom error message instead of that provided by node-validator, use an
+object instead of the plain value or array of arguments, for example a validator
 which needs no argument can be given a custom message with</p><pre class="dark-blue"><code class="javascript">isInt: {
   msg: "Must be an integer number of pennies"
-}</code></pre><p>or if arguments need to also be passed add an<code>args</code>property&colon;</p><pre class="dark-blue"><code class="javascript">isIn: {
+}</code></pre><p>or if arguments need to also be passed add an<code>args</code>property:</p><pre class="dark-blue"><code class="javascript">isIn: {
   args: [['en', 'zh']],
   msg: "Must be English or Chinese"
 }</code></pre><p>When using custom validator functions the error message will be whatever message
-the thrown<code>Error</code>object holds&period;</p><p>See&nbsp;<a href="https://github.com/chriso/node-validator" rel="nofollow" target="_blank">the node-validator project</a>for
-more details on the built in validation methods&period;</p><p><strong>Hint&colon;&nbsp;</strong>You can also define a custom function for the logging part&period; Just pass
-a function&period; The first parameter will be the string that is logged&period;</p><h4>Validators and<code>allowNull</code></h4><p>Since<code>v1&period;7&period;0</code>if a particular field of a model is set to allow null &lpar;with<code>allowNull&colon; true</code>&rpar; and that value has been set to<code>null</code>&comma; its validators do not
-run&period; This means you can&comma; for instance&comma; have a string field which validates its
-length to be at least 5 characters&comma; but which also allows<code>null</code>&period;</p><h4 id="validations-model-validations">Model validations</h4><p>Since<code>v1&period;7&period;0</code>&comma; validations can also be defined to check the model after the
-field-specific validators&period; Using this you could&comma; for example&comma; ensure either
-neither of<code>latitude</code>and<code>longitude</code>are set or both&comma; and
-fail if one but not the other is set&period;</p><p>Model validator methods are called with the model object&apos;s context and are
-deemed to fail if they throw an error&comma; otherwise pass&period; This is just the same as
-with custom field-specific validators&period;</p><p>Any error messages collected are put in the validation result object alongside
-the field validation errors&comma; with keys named after the failed validation
-method&apos;s key in the<code>validate</code>option object&period; Even though there can only be one
-error message for each model validation method at any one time&comma; it is presented
-as a single string error in an array&comma; to maximize consistency with the field
-errors&period; &lpar;Note that the structure of<code>validate&lpar;&rpar;</code>&apos;s output is scheduled to change
-in<code>v2&period;0</code>to avoid this awkward situation&period; In the mean time&comma; an error is issued
-if a field exists with the same name as a custom model validation&period;&rpar;</p><p>An example&colon;</p><pre class="dark-blue"><code class="javascript">var Pub = Sequelize.define('Pub', {
+the thrown<code>Error</code>object holds.</p><p>See&nbsp;<a href="https://github.com/chriso/node-validator" rel="nofollow" target="_blank">the node-validator project</a>for
+more details on the built in validation methods.</p><p><strong>Hint:&nbsp;</strong>You can also define a custom function for the logging part. Just pass
+a function. The first parameter will be the string that is logged.</p><h4>Validators and<code>allowNull</code></h4><p>Since<code>v1.7.0</code>if a particular field of a model is set to allow null (with<code>allowNull: true</code>) and that value has been set to<code>null</code>, its validators do not
+run. This means you can, for instance, have a string field which validates its
+length to be at least 5 characters, but which also allows<code>null</code>.</p><h4 id="validations-model-validations">Model validations</h4><p>Since<code>v1.7.0</code>, validations can also be defined to check the model after the
+field-specific validators. Using this you could, for example, ensure either
+neither of<code>latitude</code>and<code>longitude</code>are set or both, and
+fail if one but not the other is set.</p><p>Model validator methods are called with the model object's context and are
+deemed to fail if they throw an error, otherwise pass. This is just the same as
+with custom field-specific validators.</p><p>Any error messages collected are put in the validation result object alongside
+the field validation errors, with keys named after the failed validation
+method's key in the<code>validate</code>option object. Even though there can only be one
+error message for each model validation method at any one time, it is presented
+as a single string error in an array, to maximize consistency with the field
+errors. (Note that the structure of<code>validate()</code>'s output is scheduled to change
+in<code>v2.0</code>to avoid this awkward situation. In the mean time, an error is issued
+if a field exists with the same name as a custom model validation.)</p><p>An example:</p><pre class="dark-blue"><code class="javascript">var Pub = Sequelize.define('Pub', {
   name: { type: Sequelize.STRING },
   address: { type: Sequelize.STRING },
   latitude: {
@@ -230,11 +228,11 @@ if a field exists with the same name as a custom model validation&period;&rpar;<
     }
   }
 })</code></pre><p>In this simple case an object fails validation if latitude or longitude is
-given&comma; but not both&period; If we try to build one with an out-of-range latitude and no
-longitude&comma;<code>raging&UnderBar;bullock&UnderBar;arms&period;validate&lpar;&rpar;</code>might return</p><pre class="dark-blue"><code class="javascript">{
+given, but not both. If we try to build one with an out-of-range latitude and no
+longitude,<code>raging_bullock_arms.validate()</code>might return</p><pre class="dark-blue"><code class="javascript">{
   'latitude': ['Invalid number: latitude'],
   'bothCoordsOrNone': ['Require either both latitude and longitude or neither']
-}</code></pre><h3 id="configuration">Configuration</h3><p>You can also influence the way Sequelize handles your column names&colon;</p><pre class="dark-blue"><code class="javascript">var Bar = sequelize.define('Bar', { /* bla */ }, {
+}</code></pre><h3 id="configuration">Configuration</h3><p>You can also influence the way Sequelize handles your column names:</p><pre class="dark-blue"><code class="javascript">var Bar = sequelize.define('Bar', { /* bla */ }, {
   // don't add the timestamp attributes (updatedAt, createdAt)
   timestamps: false,
 &nbsp;
@@ -254,7 +252,7 @@ longitude&comma;<code>raging&UnderBar;bullock&UnderBar;arms&period;validate&lpar
 &nbsp;
   // define the table's name
   tableName: 'my_very_custom_table_name'
-})</code></pre><p>You can also change the database engine&comma; e&period;g&period; to MyISAM&period; InnoDB is default since<code>v1&period;2&period;1</code>of Sequelize&period;</p><pre class="dark-blue"><code class="javascript">var Person = sequelize.define('Person', { /* attributes */ }, {
+})</code></pre><p>You can also change the database engine, e.g. to MyISAM. InnoDB is default since<code>v1.2.1</code>of Sequelize.</p><pre class="dark-blue"><code class="javascript">var Person = sequelize.define('Person', { /* attributes */ }, {
   engine: 'MYISAM'
 })
 &nbsp;
@@ -263,7 +261,7 @@ var sequelize = new Sequelize(db, user, pw, {
   define: { engine: 'MYISAM' }
 })</code></pre><p>Finaly you can specify a comment for the table in MySQL and PG</p><pre class="dark-blue"><code class="javascript">var Person = sequelize.define('Person', { /* attributes */ }, {
   commment: "I'm a table comment!"
-})</code></pre><h3 id="import">Import</h3><p>You can also store your model definitions in a single file using the<code>import</code>-method&period; The returned object is exactly the same as defined in the imported file&apos;s function&period; Since<code>v1&period;5&period;0</code>of Sequelize the import is cached&comma; so you won&apos;t run into troubles when calling the import of a file twice or more often&period;</p><pre class="dark-blue"><code class="javascript">// in your server file - e.g. app.js
+})</code></pre><h3 id="import">Import</h3><p>You can also store your model definitions in a single file using the<code>import</code>-method. The returned object is exactly the same as defined in the imported file's function. Since<code>v1.5.0</code>of Sequelize the import is cached, so you won't run into troubles when calling the import of a file twice or more often.</p><pre class="dark-blue"><code class="javascript">// in your server file - e.g. app.js
 var Project = sequelize.import(__dirname + "/path/to/models/project")
 &nbsp;
 // The model definition is done in /path/to/models/project.js
@@ -273,7 +271,7 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     description: DataTypes.TEXT
   })
-}</code></pre><h3 id="database-synchronization">Database synchronization</h3><p>When starting a new project you won&apos;t have a database structure and using Sequelize you won&apos;t need to&period; Just specify your model structures and let the library do the rest&period; Currently supported is the creation and deletion of tables&colon;</p><pre class="dark-blue"><code class="javascript">// Create the tables:
+}</code></pre><h3 id="database-synchronization">Database synchronization</h3><p>When starting a new project you won't have a database structure and using Sequelize you won't need to. Just specify your model structures and let the library do the rest. Currently supported is the creation and deletion of tables:</p><pre class="dark-blue"><code class="javascript">// Create the tables:
 Project.sync() // will emit success or failure event
 Task.sync() // will emit success or failure event
 &nbsp;
@@ -289,7 +287,7 @@ Project.[sync|drop]().success(function() {
   // ok ... everything is nice!
 }).error(function(error) {
   // oooh, did you entered wrong database credentials?
-})</code></pre><p>Because synchronizing and dropping all of your tables might be a lot of lines to write&comma; you can also let Sequelize do the work for you&colon;</p><pre class="dark-blue"><code class="javascript">// create all tables... now!
+})</code></pre><p>Because synchronizing and dropping all of your tables might be a lot of lines to write, you can also let Sequelize do the work for you:</p><pre class="dark-blue"><code class="javascript">// create all tables... now!
 sequelize.sync() // will emit success or failure
 &nbsp;
 // force it!
@@ -303,7 +301,7 @@ sequelize.[sync|drop]().success(function() {
   // woot woot
 }).error(function(error) {
   // whooops
-})</code></pre><h3 id="expansion-of-models">Expansion of models</h3><p>Sequelize allows you to pass custom methods to a model and it&apos;s instances&period; Just do the following&colon;</p><pre class="dark-blue"><code class="javascript">var Foo = sequelize.define('Foo', { /* attributes */}, {
+})</code></pre><h3 id="expansion-of-models">Expansion of models</h3><p>Sequelize allows you to pass custom methods to a model and it's instances. Just do the following:</p><pre class="dark-blue"><code class="javascript">var Foo = sequelize.define('Foo', { /* attributes */}, {
   classMethods: {
     method1: function(){ return 'smth' }
   },
@@ -314,7 +312,7 @@ sequelize.[sync|drop]().success(function() {
 &nbsp;
 // Example:
 Foo.method1()
-Foo.build().method2()</code></pre><p>Of course you can also access the instance&apos;s data and generate virtual getters&colon;</p><pre class="dark-blue"><code class="javascript">var User = sequelize.define('User', { firstname: Sequelize.STRING, lastname: Sequelize.STRING }, {
+Foo.build().method2()</code></pre><p>Of course you can also access the instance's data and generate virtual getters:</p><pre class="dark-blue"><code class="javascript">var User = sequelize.define('User', { firstname: Sequelize.STRING, lastname: Sequelize.STRING }, {
   instanceMethods: {
     getFullname: function() {
       return [this.firstname, this.lastname].join(' ')
@@ -323,7 +321,7 @@ Foo.build().method2()</code></pre><p>Of course you can also access the instance&
 })
 &nbsp;
 // Example:
-User.build({ firstname: 'foo', lastname: 'bar' }).getFullname() // 'foo bar'</code></pre><p>You can also set custom methods to all of your models during the instantiation&colon;</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('database', 'username', 'password', {
+User.build({ firstname: 'foo', lastname: 'bar' }).getFullname() // 'foo bar'</code></pre><p>You can also set custom methods to all of your models during the instantiation:</p><pre class="dark-blue"><code class="javascript">var sequelize = new Sequelize('database', 'username', 'password', {
   // Other options during the initialization could be here
   define: {
     classMethods: {
@@ -340,7 +338,7 @@ User.build({ firstname: 'foo', lastname: 'bar' }).getFullname() // 'foo bar'</co
 var Foo = sequelize.define('Foo', { /* attributes */});
 Foo.method1()
 Foo.method2()
-Foo.build().method3()</code></pre><h3 id="finders">Data retrieval / Finders</h3><p>Finder methods are designed to get data from the database&period; The returned data isn&apos;t just a plain object&comma; but instances of one of the defined classes&period; Check the next major chapter about instances for further information&period; But as those things are instances&comma; you can e&period;g&period; use the just describe expanded instance methods&period; So&comma; here is what you can do&colon;</p><h4 id="finders-find">find - Search for one specific element in the database</h4><pre class="dark-blue"><code class="javascript">// search for known ids
+Foo.build().method3()</code></pre><h3 id="finders">Data retrieval / Finders</h3><p>Finder methods are designed to get data from the database. The returned data isn't just a plain object, but instances of one of the defined classes. Check the next major chapter about instances for further information. But as those things are instances, you can e.g. use the just describe expanded instance methods. So, here is what you can do:</p><h4 id="finders-find">find - Search for one specific element in the database</h4><pre class="dark-blue"><code class="javascript">// search for known ids
 Project.find(123).success(function(project) {
   // project will be an instance of Project and stores the content of the table entry
   // with id 123. if such an entry is not defined you will get null
@@ -358,7 +356,7 @@ Project.find({
 }).success(function(project) {
   // project will be the first entry of the Projects table with the title 'aProject' || null
   // project.title will contain the name of the project
-})</code></pre><h4 id="finders-findorcreate">findOrCreate - Search for a specific element or create it if not available</h4><p>The method<code>findOrCreate</code>can be used to check if a certain element is already existing in the database&period; If that is the case the method will result in a respective instance&period; If the element does not yet exist&comma; it will be created&period;</p><p>Let&apos;s assume we have an empty database with a<code>User</code>model which has a<code>username</code>and a<code>job</code>&period;</p><pre class="dark-blue"><code class="javascript">User.findOrCreate({ username: 'sdepold' }, { job: 'Technical Lead JavaScript' }).success(function(user, created) {
+})</code></pre><h4 id="finders-findorcreate">findOrCreate - Search for a specific element or create it if not available</h4><p>The method<code>findOrCreate</code>can be used to check if a certain element is already existing in the database. If that is the case the method will result in a respective instance. If the element does not yet exist, it will be created.</p><p>Let's assume we have an empty database with a<code>User</code>model which has a<code>username</code>and a<code>job</code>.</p><pre class="dark-blue"><code class="javascript">User.findOrCreate({ username: 'sdepold' }, { job: 'Technical Lead JavaScript' }).success(function(user, created) {
   console.log(user.values)
   console.log(created)
 &nbsp;
@@ -372,7 +370,7 @@ Project.find({
     }
     created: true
   */
-})</code></pre><p>The code created a new instance&period;</p><p>So when we already have an instance &period;&period;&period;</p><pre class="dark-blue"><code class="javascript">User.create({ username: 'fnord', job: 'omnomnom' }).success(function() {
+})</code></pre><p>The code created a new instance.</p><p>So when we already have an instance ...</p><pre class="dark-blue"><code class="javascript">User.create({ username: 'fnord', job: 'omnomnom' }).success(function() {
   User.findOrCreate({ username: 'fnord' }, { job: 'something else' }).success(function(user, created) {
     console.log(user.values)
     console.log(created)
@@ -388,11 +386,11 @@ Project.find({
       created: false
     */
   })
-})</code></pre><p>&period;&period;&period; the existing entry will not be changed&period; See the<code>job</code>of the second user&comma; and the fact that created was false&period;</p><h4 id="finders-findandcountall">findAndCountAll - Search for multiple elements in the database&comma; returns both data and total count</h4><p>This is a convienience method that combines<code>findAll&lpar;&rpar;</code>and<code>count&lpar;&rpar;</code>&lpar;see below&rpar;&comma; this is useful when dealing with queries related to pagination
-where you want to retrieve data with a<code>limit</code>and<code>offset</code>but also need to know the total number of records that match the query&period;</p><p>The success handler will always receive an object with to properties&colon;</p><ul><li><code>count</code>- an integer&comma; total number records &lpar;matching the where clause&rpar;</li><li><code>rows</code>- an array of objects&comma; the records &lpar;matching the where clause&rpar; within the limit&sol;offset range</li></ul><pre class="dark-blue"><code class="javascript">Project.findAndCountAll({where: ["title LIKE 'foo%'"], offset: 10, limit: 2}).success(function(result) {
+})</code></pre><p>... the existing entry will not be changed. See the<code>job</code>of the second user, and the fact that created was false.</p><h4 id="finders-findandcountall">findAndCountAll - Search for multiple elements in the database, returns both data and total count</h4><p>This is a convienience method that combines<code>findAll()</code>and<code>count()</code>(see below), this is useful when dealing with queries related to pagination
+where you want to retrieve data with a<code>limit</code>and<code>offset</code>but also need to know the total number of records that match the query.</p><p>The success handler will always receive an object with to properties:</p><ul><li><code>count</code>- an integer, total number records (matching the where clause)</li><li><code>rows</code>- an array of objects, the records (matching the where clause) within the limit/offset range</li></ul><pre class="dark-blue"><code class="javascript">Project.findAndCountAll({where: ["title LIKE 'foo%'"], offset: 10, limit: 2}).success(function(result) {
   console.log(result.count);
   console.log(result.rows);
-});</code></pre><p>The options &lsqb;object&rsqb; that you pass to<code>findAndCountAll&lpar;&rpar;</code>is the same as for<code>findAll&lpar;&rpar;</code>&lpar;described below&rpar;&period;</p><h4 id="finders-findall">findAll - Search for multiple elements in the database</h4><pre class="dark-blue"><code class="javascript">// find multiple entries
+});</code></pre><p>The options [object] that you pass to<code>findAndCountAll()</code>is the same as for<code>findAll()</code>(described below).</p><h4 id="finders-findall">findAll - Search for multiple elements in the database</h4><pre class="dark-blue"><code class="javascript">// find multiple entries
 Project.findAll().success(function(projects) {
   // projects will be an array of all Project instances
 })
@@ -408,7 +406,7 @@ Project.findAll({ where: { name: 'A Project' } }).success(function(projects) {
 })
 &nbsp;
 // search with string replacements
-Project.findAll({ where: ["id > ?", 25] }).success(function(projects) {
+Project.findAll({ where: ["id &gt; ?", 25] }).success(function(projects) {
   // projects will be an array of Projects having a greater id than 25
 })
 &nbsp;
@@ -428,27 +426,27 @@ Project.findAll({ where: "name = 'A Project'" }).success(function(projects) {
 Project.findAll({
   where: {
     id: {
-      gt: 6,              // id > 6
-      gte: 6,             // id >= 6
-      lt: 10,             // id < 10
-      lte: 10,            // id <= 10
+      gt: 6,              // id &gt; 6
+      gte: 6,             // id &gt;= 6
+      lt: 10,             // id &lt; 10
+      lte: 10,            // id &lt;= 10
       ne: 20,             // id != 20
       between: [6, 10],   // BETWEEN 6 AND 10
       nbetween: [11, 15]  // NOT BETWEEN 11 AND 15
     }
   }
-})</code></pre><h4 id="finders-limit---offset---order---group">Manipulating the dataset with limit&comma; offset&comma; order and group</h4><p>To get more relevant data&comma; you can use limit&comma; offset&comma; order and grouping&colon;</p><pre class="dark-blue"><code class="javascript">// limit the results of the query
+})</code></pre><h4 id="finders-limit---offset---order---group">Manipulating the dataset with limit, offset, order and group</h4><p>To get more relevant data, you can use limit, offset, order and grouping:</p><pre class="dark-blue"><code class="javascript">// limit the results of the query
 Project.findAll({ limit: 10 })
 &nbsp;
 // step over the first 10 elements
 Project.findAll({ offset: 10 })
 &nbsp;
 // step over the first 10 elements, and take 2
-Project.findAll({ offset: 10, limit: 2 })</code></pre><p>The syntax for grouping and ordering are equal&comma; so below it is only explained with a single example for group&comma; and the rest for order&period; Everything you see below can also be done for group</p><pre class="dark-blue"><code class="javascript">Project.findAll({order: 'title DESC'})
+Project.findAll({ offset: 10, limit: 2 })</code></pre><p>The syntax for grouping and ordering are equal, so below it is only explained with a single example for group, and the rest for order. Everything you see below can also be done for group</p><pre class="dark-blue"><code class="javascript">Project.findAll({order: 'title DESC'})
 // yields ORDER BY title DESC
 &nbsp;
 Project.findAll({group: 'name'})
-// yields GROUP BY name</code></pre><p>Notice how in the two examples above&comma; the string provided is inserted verbatim into the query&comma; i&period;e&period; column names are not escaped&period; When you provide a string to order &sol; group&comma; this will always be the case as per v 1&period;7&period;0&period; If you want to escape column names&comma; you should provide an array of arguments&comma; even though you only want to order &sol; group by a single column</p><pre class="dark-blue"><code class="javascript">something.find({
+// yields GROUP BY name</code></pre><p>Notice how in the two examples above, the string provided is inserted verbatim into the query, i.e. column names are not escaped. When you provide a string to order / group, this will always be the case as per v 1.7.0. If you want to escape column names, you should provide an array of arguments, even though you only want to order / group by a single column</p><pre class="dark-blue"><code class="javascript">something.find({
   order: [
     'name',
     // will return `name`
@@ -467,15 +465,15 @@ Project.findAll({group: 'name'})
     [{ raw: 'otherfunction(awesomefunction(`col`))' }, 'DESC']
     // This won't be quoted, but direction will be added
   ]
-})</code></pre><p>To recap&comma; the elements of the order &sol; group array can be the following&colon;</p><ul><li>String - will be quoted</li><li>Array - first element will be qouted&comma; second will be appended verbatim</li><li>Object -<ul><li>Raw will be added verbatim without quoting</li><li>Everything else is ignored&comma; and if raw is not set&comma; the query will fail</li></ul></li><li>Sequelize&period;fn and Sequelize&period;col returns functions and quoted cools</li></ul><h4 id="finders-raw">Raw queries</h4><p>Sometimes you might be expecting a massive dataset that you just want to display&comma; without manipulation&period; For each row you select&comma; Sequelize creates a<em>DAO</em>&comma; with functions for update&comma; delete&comma; get associations etc&period; If you have thousands of rows&comma; this might take some time&period; If you only need the raw data and don&apos;t want to update anything&comma; you can do like this to get the raw data&period;</p><pre class="dark-blue"><code class="javascript">// Are you expecting a masssive dataset from the DB, and don't want to spend the time building DAOs for each entry?
+})</code></pre><p>To recap, the elements of the order / group array can be the following:</p><ul><li>String - will be quoted</li><li>Array - first element will be qouted, second will be appended verbatim</li><li>Object -<ul><li>Raw will be added verbatim without quoting</li><li>Everything else is ignored, and if raw is not set, the query will fail</li></ul></li><li>Sequelize.fn and Sequelize.col returns functions and quoted cools</li></ul><h4 id="finders-raw">Raw queries</h4><p>Sometimes you might be expecting a massive dataset that you just want to display, without manipulation. For each row you select, Sequelize creates a<em>DAO</em>, with functions for update, delete, get associations etc. If you have thousands of rows, this might take some time. If you only need the raw data and don't want to update anything, you can do like this to get the raw data.</p><pre class="dark-blue"><code class="javascript">// Are you expecting a masssive dataset from the DB, and don't want to spend the time building DAOs for each entry?
 // You can pass an extra query option to get the raw data instead:
-Project.findAll({ where: ... }, { raw: true })</code></pre><h4 id="finders-count">count - Count the occurences of elements in the database</h4><p>There is also a method for counting database objects&colon;</p><pre class="dark-blue"><code class="javascript">Project.count().success(function(c) {
+Project.findAll({ where: ... }, { raw: true })</code></pre><h4 id="finders-count">count - Count the occurences of elements in the database</h4><p>There is also a method for counting database objects:</p><pre class="dark-blue"><code class="javascript">Project.count().success(function(c) {
   console.log("There are " + c + " projects!")
 })
 &nbsp;
-Project.count({ where: ["id > ?", 25] }).success(function(c) {
+Project.count({ where: ["id &gt; ?", 25] }).success(function(c) {
   console.log("There are " + c + " projects with an id greater than 25.")
-})</code></pre><h4 id="finders-max">max - Get the greatest value of a specific attribute within a specific table</h4><p>And here is a method for getting the max value of an attribute&colon;</p><pre class="dark-blue"><code class="javascript">/*
+})</code></pre><h4 id="finders-max">max - Get the greatest value of a specific attribute within a specific table</h4><p>And here is a method for getting the max value of an attribute:</p><pre class="dark-blue"><code class="javascript">/*
   Let's assume 3 person objects with an attribute age.
   The first one is 10 years old,
   the second one is 5 years old,
@@ -483,7 +481,7 @@ Project.count({ where: ["id > ?", 25] }).success(function(c) {
 */
 Project.max('age').success(function(max) {
   // this will return 40
-})</code></pre><h4 id="finders-min">min - Get the least value of a specific attribute within a specific table</h4><p>And here is a method for getting the min value of an attribute&colon;</p><pre class="dark-blue"><code class="javascript">/*
+})</code></pre><h4 id="finders-min">min - Get the least value of a specific attribute within a specific table</h4><p>And here is a method for getting the min value of an attribute:</p><pre class="dark-blue"><code class="javascript">/*
   Let's assume 3 person objects with an attribute age.
   The first one is 10 years old,
   the second one is 5 years old,
@@ -491,7 +489,7 @@ Project.max('age').success(function(max) {
 */
 Project.min('age').success(function(max) {
   // this will return 5
-})</code></pre><h3 id="eager-loading">Eager loading</h3><p>When you are retrieving data from the database there is a fair chance that you also want to get their associations&period; This is possible since<code>v1&period;6&period;0</code>and is called eager loading&period; The basic idea behind that&comma; is the use of the attribute<code>include</code>when you are calling<code>find</code>or<code>findAll</code>&period; Lets assume the following setup&colon;</p><pre class="dark-blue"><code class="javascript">var User = sequelize.define('User', { name: Sequelize.STRING })
+})</code></pre><h3 id="eager-loading">Eager loading</h3><p>When you are retrieving data from the database there is a fair chance that you also want to get their associations. This is possible since<code>v1.6.0</code>and is called eager loading. The basic idea behind that, is the use of the attribute<code>include</code>when you are calling<code>find</code>or<code>findAll</code>. Lets assume the following setup:</p><pre class="dark-blue"><code class="javascript">var User = sequelize.define('User', { name: Sequelize.STRING })
   , Task = sequelize.define('Task', { name: Sequelize.STRING })
   , Tool = sequelize.define('Tool', { name: Sequelize.STRING })
 &nbsp;
@@ -501,7 +499,7 @@ User.hasMany(Tool, { as: 'Instruments' })
 &nbsp;
 sequelize.sync().done(function() {
   // this is where we continue ...
-})</code></pre><p>OK&period; So&comma; first of all&comma; let&apos;s load all tasks with their associated user&period;</p><pre class="dark-blue"><code class="javascript">Task.findAll({ include: [ User ] }).success(function(tasks) {
+})</code></pre><p>OK. So, first of all, let's load all tasks with their associated user.</p><pre class="dark-blue"><code class="javascript">Task.findAll({ include: [ User ] }).success(function(tasks) {
   console.log(JSON.stringify(tasks))
 &nbsp;
   /*
@@ -519,7 +517,7 @@ sequelize.sync().done(function() {
       }
     }]
   */
-})</code></pre><p>Notice that the accessor of the associated data is the name of the model in camelcase with lowercased first character&period; Also the accessor is singular as the association is one-to-something&period;</p><p>Next thing&colon; Loading of data with many-to-something associations&excl;</p><pre class="dark-blue"><code class="javascript">User.findAll({ include: [ Task ] }).success(function(users) {
+})</code></pre><p>Notice that the accessor of the associated data is the name of the model in camelcase with lowercased first character. Also the accessor is singular as the association is one-to-something.</p><p>Next thing: Loading of data with many-to-something associations!</p><pre class="dark-blue"><code class="javascript">User.findAll({ include: [ Task ] }).success(function(users) {
   console.log(JSON.stringify(users))
 &nbsp;
   /*
@@ -537,7 +535,7 @@ sequelize.sync().done(function() {
       }]
     }]
   */
-})</code></pre><p>Notice that the accessor is plural&period; This is because the association is many-to-something&period;</p><p>If an association is aliased &lpar;using the<code>as</code>option&rpar;&comma; you<em>must</em>specify this alias when including the model&period; Notice how the user&apos;s<code>Tool</code>s are aliased as<code>Instruments</code>above&period; In order to get that right you have to specify the model you want to load&comma; as well as the alias&colon;</p><pre class="dark-blue"><code class="javascript">User.findAll({ include: [{ model: Tool, as: 'Instruments' }] }).success(function(users) {
+})</code></pre><p>Notice that the accessor is plural. This is because the association is many-to-something.</p><p>If an association is aliased (using the<code>as</code>option), you<em>must</em>specify this alias when including the model. Notice how the user's<code>Tool</code>s are aliased as<code>Instruments</code>above. In order to get that right you have to specify the model you want to load, as well as the alias:</p><pre class="dark-blue"><code class="javascript">User.findAll({ include: [{ model: Tool, as: 'Instruments' }] }).success(function(users) {
   console.log(JSON.stringify(users))
 &nbsp;
   /*
@@ -555,11 +553,11 @@ sequelize.sync().done(function() {
       }]
     }]
   */
-})</code></pre><p><strong>Final note&colon;</strong>If you include an object which is not associated&comma; Sequelize will throw an error&period;</p><pre class="dark-blue"><code class="javascript">Tool.findAll({ include: [ User ] }).success(function(tools) {
+})</code></pre><p><strong>Final note:</strong>If you include an object which is not associated, Sequelize will throw an error.</p><pre class="dark-blue"><code class="javascript">Tool.findAll({ include: [ User ] }).success(function(tools) {
   console.log(JSON.stringify(tools))
 })
 &nbsp;
-// Error: User is not associated to Tool!</code></pre></div></section></div></div></div><div class="imprint very-dark-blue"><div class="container"><div class="col-sm-4">&copy;
+// Error: User is not associated to Tool!</code></pre></div></section></div></div></div><div class="imprint very-dark-blue"><div class="container"><div class="col-sm-4">©
 Sascha Depold,
 <a href="https://github.com/sequelize/sequelize-doc/graphs/contributors" target="_blank" rel="nofollow">et al.</a>
 2006 -&nbsp;2022</div><div style="text-align: right" class="col-sm-8"><a href="../../imprint.html">Imprint</a></div></div></div><script src="../../javascripts/bootstrap.min.js"></script><script src="../../javascripts/highlight.pack.js"></script><script src="../../javascripts/main.js"></script><script src="../../javascripts/documentation.js"></script><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -568,6 +566,6 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-9039631-4', 'sequelizejs.com');
-ga('send', 'pageview');</script></body>
-<!-- Mirrored from localhost:3000/docs/1.7.0-beta.1/models by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT -->
-</html>
+ga('send', 'pageview');</script>
+
+</body><!-- Mirrored from localhost:3000/docs/1.7.0-beta.1/models by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Mar 2022 11:45:49 GMT --></html>

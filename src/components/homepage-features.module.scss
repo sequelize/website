@@ -1,12 +1,20 @@
 @use '../css/variables' as *;
 
 .features {
-  display: flex;
-  align-items: center;
   padding: fluid($min-screen-size, $container-max-width, 32px, 64px) 0;
   width: 100%;
   background-color: $brand-primary;
   color: white;
+
+  --ifm-color-primary: white;
+  --ifm-color-primary-dark: rgb(212, 213, 216);
+  --ifm-color-primary-darker: rgb(200, 201, 204);
+  --ifm-button-color: black;
+
+  h2 {
+    text-transform: uppercase;
+    margin-top: fluid($min-screen-size, $container-max-width, 32px, 64px);
+  }
 }
 
 .row {
@@ -23,4 +31,8 @@
   font-size: 0.8rem;
   margin-top: auto;
   margin-bottom: 0;
+}
+
+.footerCta {
+  text-align: center;
 }

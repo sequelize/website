@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
+<!DOCTYPE html><!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +8,12 @@
   <link rel="shortcut icon" href="/v3/favicon.ico">
   
   <title>Sequelize - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700">
 
-  <link rel="stylesheet" href="/v3/css/theme.css" />
-  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  <link href="/v3/css/custom.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/v3/css/theme.css">
+  <link rel="stylesheet" href="/v3/css/theme_extra.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+  <link href="/v3/css/custom.css" rel="stylesheet">
   
   <script>
     // Current page data
@@ -25,11 +22,11 @@
     var mkdocs_page_url = "/api/sequelize/";
   </script>
   
-  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
-  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="/v3/js/jquery-2.1.1.min.js" defer=""></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-</head>
+<meta name="robots" content="noindex"></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -41,8 +38,8 @@
       <div class="wy-side-nav-search">
         <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  <form id="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here">
   </form>
 </div>
       </div>
@@ -258,24 +255,23 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="/v3">Docs</a> &raquo;</li>
+    <li><a href="/v3">Docs</a> »</li>
     
       
         
-          <li>API &raquo;</li>
+          <li>API »</li>
         
       
     
     <li>Sequelize</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/sequelize.md"
-          class="icon icon-github"> Edit on GitHub</a>
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/sequelize.md" class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
   
-  <hr/>
+  <hr>
 </div>
 
           <div role="main">
@@ -288,7 +284,7 @@
 <pre><code class="language-js">var Sequelize = require('sequelize');
 </code></pre>
 <p>In addition to sequelize, the connection library for the dialect you want to use should also be installed in your project. You don't need to import it however, as sequelize will take care of that.</p>
-<hr />
+<hr>
 <p><a name="sequelize"></a></p>
 <h2 id="new-sequelizedatabase-usernamenull-passwordnull-options"><code>new Sequelize(database, [username=null], [password=null], [options={}])</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L91">View code</a></p>
@@ -486,7 +482,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="sequelize"></a></p>
 <h2 id="new-sequelizeuri-options"><code>new Sequelize(uri, [options={}])</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L100">View code</a></p>
@@ -513,17 +509,17 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="models"></a></p>
 <h2 id="models"><code>models</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L221">View code</a></p>
 <p>Models are stored here under the name given to <code>sequelize.define</code></p>
-<hr />
+<hr>
 <p><a name="version"></a></p>
 <h2 id="version"><code>version</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L245">View code</a></p>
 <p>Sequelize version number.</p>
-<hr />
+<hr>
 <p><a name="sequelize"></a></p>
 <h2 id="sequelize"><code>Sequelize</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L254">View code</a></p>
@@ -532,28 +528,28 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./sequelize">Sequelize</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="utils"></a></p>
 <h2 id="utils"><code>Utils</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L260">View code</a></p>
 <p>A reference to sequelize utilities. Most users will not need to use these utils directly. However, you might want to use <code>Sequelize.Utils._</code>, which is a reference to the lodash library, if you don't already have it imported in your project.</p>
-<hr />
+<hr>
 <p><a name="promise"></a></p>
 <h2 id="promise"><code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L266">View code</a></p>
 <p>A handy reference to the bluebird Promise class</p>
-<hr />
+<hr>
 <p><a name="querytypes"></a></p>
 <h2 id="querytypes"><code>QueryTypes</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L272">View code</a></p>
 <p>Available query types for use with <code>sequelize.query</code></p>
-<hr />
+<hr>
 <p><a name="validator"></a></p>
 <h2 id="validator"><code>Validator</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L279">View code</a></p>
 <p>Exposes the validator.js object, so you can extend it with custom validation functions. The validator is exposed both on the instance, and on the constructor.</p>
 <p><strong>See:</strong></p>
-<hr />
+<hr>
 <p><a name="transaction"></a></p>
 <h2 id="transaction"><code>Transaction</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L299">View code</a></p>
@@ -563,7 +559,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <li><a href="./transaction">Transaction</a></li>
 <li><a href="./sequelize#transaction">Sequelize#transaction</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="deferrable"></a></p>
 <h2 id="deferrable"><code>Deferrable</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L307">View code</a></p>
@@ -573,7 +569,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <li><a href="./deferrable">Deferrable</a></li>
 <li><a href="./sequelize#transaction">Sequelize#transaction</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="instance"></a></p>
 <h2 id="instance"><code>Instance</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L314">View code</a></p>
@@ -582,7 +578,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./instance">Instance</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="association"></a></p>
 <h2 id="association"><code>Association</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L321">View code</a></p>
@@ -591,7 +587,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./association">Association</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="error"></a></p>
 <h2 id="error"><code>Error</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L334">View code</a></p>
@@ -600,7 +596,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#baseerror">Errors#BaseError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="validationerror"></a></p>
 <h2 id="validationerror"><code>ValidationError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L342">View code</a></p>
@@ -609,7 +605,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#validationerror">Errors#ValidationError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="validationerroritem"></a></p>
 <h2 id="validationerroritem"><code>ValidationErrorItem</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L350">View code</a></p>
@@ -618,7 +614,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#validationerroritem">Errors#ValidationErrorItem</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="databaseerror"></a></p>
 <h2 id="databaseerror"><code>DatabaseError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L357">View code</a></p>
@@ -627,7 +623,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#databaseerror">Errors#DatabaseError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="timeouterror"></a></p>
 <h2 id="timeouterror"><code>TimeoutError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L364">View code</a></p>
@@ -636,7 +632,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#timeouterror">Errors#TimeoutError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="uniqueconstrainterror"></a></p>
 <h2 id="uniqueconstrainterror"><code>UniqueConstraintError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L371">View code</a></p>
@@ -645,7 +641,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#uniqueconstrainterror">Errors#UniqueConstraintError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="exclusionconstrainterror"></a></p>
 <h2 id="exclusionconstrainterror"><code>ExclusionConstraintError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L378">View code</a></p>
@@ -654,7 +650,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#exclusionconstrainterror">Errors#ExclusionConstraintError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="foreignkeyconstrainterror"></a></p>
 <h2 id="foreignkeyconstrainterror"><code>ForeignKeyConstraintError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L385">View code</a></p>
@@ -663,7 +659,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#foreignkeyconstrainterror">Errors#ForeignKeyConstraintError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="connectionerror"></a></p>
 <h2 id="connectionerror"><code>ConnectionError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L392">View code</a></p>
@@ -672,7 +668,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#connectionerror">Errors#ConnectionError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="connectionrefusederror"></a></p>
 <h2 id="connectionrefusederror"><code>ConnectionRefusedError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L399">View code</a></p>
@@ -681,7 +677,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#connectionrefusederror">Errors#ConnectionRefusedError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="accessdeniederror"></a></p>
 <h2 id="accessdeniederror"><code>AccessDeniedError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L406">View code</a></p>
@@ -690,7 +686,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#accessdeniederror">Errors#AccessDeniedError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="hostnotfounderror"></a></p>
 <h2 id="hostnotfounderror"><code>HostNotFoundError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L413">View code</a></p>
@@ -699,7 +695,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#hostnotfounderror">Errors#HostNotFoundError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="hostnotreachableerror"></a></p>
 <h2 id="hostnotreachableerror"><code>HostNotReachableError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L420">View code</a></p>
@@ -708,7 +704,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#hostnotreachableerror">Errors#HostNotReachableError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="invalidconnectionerror"></a></p>
 <h2 id="invalidconnectionerror"><code>InvalidConnectionError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L427">View code</a></p>
@@ -717,7 +713,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#invalidconnectionerror">Errors#InvalidConnectionError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="connectiontimedouterror"></a></p>
 <h2 id="connectiontimedouterror"><code>ConnectionTimedOutError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L434">View code</a></p>
@@ -726,7 +722,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#connectiontimedouterror">Errors#ConnectionTimedOutError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="instanceerror"></a></p>
 <h2 id="instanceerror"><code>InstanceError</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L441">View code</a></p>
@@ -735,13 +731,13 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <ul>
 <li><a href="./errors#instanceerror">Errors#InstanceError</a></li>
 </ul>
-<hr />
+<hr>
 <p><a name="getdialect"></a></p>
 <h2 id="getdialect-string"><code>getDialect()</code> -&gt; <code>String</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L454">View code</a></p>
 <p>Returns the specified dialect.
 <strong>Returns:</strong> The specified dialect.</p>
-<hr />
+<hr>
 <p><a name="getqueryinterface"></a></p>
 <h2 id="getqueryinterface-queryinterface"><code>getQueryInterface()</code> -&gt; <code>QueryInterface</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L466">View code</a></p>
@@ -751,7 +747,7 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
 <li><a href="./queryinterface">QueryInterface</a></li>
 </ul>
 <p><strong>Returns:</strong> An instance (singleton) of QueryInterface.</p>
-<hr />
+<hr>
 <p><a name="define"></a></p>
 <h2 id="definemodelname-attributes-options-model"><code>define(modelName, attributes, [options])</code> -&gt; <code>Model</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L569">View code</a></p>
@@ -761,11 +757,11 @@ var sequelize = new Sequelize('mysql://localhost:3306/database', {})
     columnA: {
         type: Sequelize.BOOLEAN,
         validate: {
-          is: [&quot;[a-z]&quot;,'i'],        // will only allow letters
+          is: ["[a-z]",'i'],        // will only allow letters
           max: 23,                  // only allow values &lt;= 23
           isIn: {
             args: [['en', 'zh']],
-            msg: &quot;Must be English or Chinese&quot;
+            msg: "Must be English or Chinese"
           }
         },
         field: 'column_a'
@@ -809,12 +805,12 @@ sequelize.models.modelName // The model will now be available in models under th
 </tr>
 <tr>
 <td>attributes.column</td>
-<td>String &#124; DataType &#124; Object</td>
+<td>String | DataType | Object</td>
 <td>The description of a database column</td>
 </tr>
 <tr>
 <td>attributes.column.type</td>
-<td>String &#124; DataType</td>
+<td>String | DataType</td>
 <td>A string or a data type</td>
 </tr>
 <tr>
@@ -829,7 +825,7 @@ sequelize.models.modelName // The model will now be available in models under th
 </tr>
 <tr>
 <td>[attributes.column.unique=false]</td>
-<td>String &#124; Boolean</td>
+<td>String | Boolean</td>
 <td>If true, the column will get a unique constraint. If a string is provided, the column will be part of a composite unique index. If multiple columns have the same string, they will be part of the same unique index</td>
 </tr>
 <tr>
@@ -854,12 +850,12 @@ sequelize.models.modelName // The model will now be available in models under th
 </tr>
 <tr>
 <td>[attributes.column.references=null]</td>
-<td>String &#124; Model</td>
+<td>String | Model</td>
 <td>An object with reference configurations</td>
 </tr>
 <tr>
 <td>[attributes.column.references.model]</td>
-<td>String &#124; Model</td>
+<td>String | Model</td>
 <td>If this column references another table, provide it here as a Model, or a string</td>
 </tr>
 <tr>
@@ -984,22 +980,22 @@ sequelize.models.modelName // The model will now be available in models under th
 </tr>
 <tr>
 <td>[options.indexes[].fields]</td>
-<td>Array.&lt;String &#124; Object&gt;</td>
+<td>Array.&lt;String | Object&gt;</td>
 <td>An array of the fields to index. Each field can either be a string containing the name of the field, a sequelize object (e.g <code>sequelize.fn</code>), or an object with the following attributes: <code>attribute</code> (field name), <code>length</code> (create a prefix index of length chars), <code>order</code> (the direction the column should be sorted in), <code>collate</code> (the collation (sort order) for the column)</td>
 </tr>
 <tr>
 <td>[options.createdAt]</td>
-<td>String &#124; Boolean</td>
+<td>String | Boolean</td>
 <td>Override the name of the createdAt column if a string is provided, or disable it if false. Timestamps must be true. Not affected by underscored setting.</td>
 </tr>
 <tr>
 <td>[options.updatedAt]</td>
-<td>String &#124; Boolean</td>
+<td>String | Boolean</td>
 <td>Override the name of the updatedAt column if a string is provided, or disable it if false. Timestamps must be true. Not affected by underscored setting.</td>
 </tr>
 <tr>
 <td>[options.deletedAt]</td>
-<td>String &#124; Boolean</td>
+<td>String | Boolean</td>
 <td>Override the name of the deletedAt column if a string is provided, or disable it if false. Timestamps must be true. Not affected by underscored setting.</td>
 </tr>
 <tr>
@@ -1069,7 +1065,7 @@ sequelize.models.modelName // The model will now be available in models under th
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="model"></a></p>
 <h2 id="modelmodelname-model"><code>model(modelName)</code> -&gt; <code>Model</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L615">View code</a></p>
@@ -1091,7 +1087,7 @@ sequelize.models.modelName // The model will now be available in models under th
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="isdefined"></a></p>
 <h2 id="isdefinedmodelname-boolean"><code>isDefined(modelName)</code> -&gt; <code>Boolean</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L629">View code</a></p>
@@ -1113,7 +1109,7 @@ sequelize.models.modelName // The model will now be available in models under th
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="import"></a></p>
 <h2 id="importpath-model"><code>import(path)</code> -&gt; <code>Model</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L643">View code</a></p>
@@ -1137,7 +1133,7 @@ sequelize.models.modelName // The model will now be available in models under th
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="query"></a></p>
 <h2 id="querysql-options-promise"><code>query(sql, [options={}])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L708">View code</a></p>
@@ -1203,12 +1199,12 @@ sequelize.query('SELECT...', { type: sequelize.QueryTypes.SELECT }).then(functio
 </tr>
 <tr>
 <td>[options.replacements]</td>
-<td>Object &#124; Array</td>
+<td>Object | Array</td>
 <td>Either an object of named parameter replacements in the format <code>:param</code> or an array of unnamed replacements to replace <code>?</code> in your SQL.</td>
 </tr>
 <tr>
 <td>[options.bind]</td>
-<td>Object &#124; Array</td>
+<td>Object | Array</td>
 <td>Either an object of named bind parameter in the format <code>$param</code> or an array of unnamed bind parameter to replace <code>$1, $2, ...</code> in your SQL.</td>
 </tr>
 <tr>
@@ -1268,7 +1264,7 @@ sequelize.query('SELECT...', { type: sequelize.QueryTypes.SELECT }).then(functio
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="set"></a></p>
 <h2 id="setvariables-options-promise"><code>set(variables, options)</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L841">View code</a></p>
@@ -1301,7 +1297,7 @@ Only works for MySQL.</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="escape"></a></p>
 <h2 id="escapevalue-string"><code>escape(value)</code> -&gt; <code>String</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L875">View code</a></p>
@@ -1323,7 +1319,7 @@ Only works for MySQL.</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="createschema"></a></p>
 <h2 id="createschemaschema-options-promise"><code>createSchema(schema, options={})</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L891">View code</a></p>
@@ -1356,12 +1352,12 @@ not a database table. In mysql and sqlite, this command will do nothing.</p>
 </tr>
 <tr>
 <td>options.logging</td>
-<td>Boolean &#124; function</td>
+<td>Boolean | function</td>
 <td>A function that logs sql queries, or false for no logging</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="showallschemas"></a></p>
 <h2 id="showallschemasoptions-promise"><code>showAllSchemas(options={})</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L904">View code</a></p>
@@ -1385,12 +1381,12 @@ not a database table. In mysql and sqlite, this will show all tables.</p>
 </tr>
 <tr>
 <td>options.logging</td>
-<td>Boolean &#124; function</td>
+<td>Boolean | function</td>
 <td>A function that logs sql queries, or false for no logging</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="dropschema"></a></p>
 <h2 id="dropschemaschema-options-promise"><code>dropSchema(schema, options={})</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L918">View code</a></p>
@@ -1419,12 +1415,12 @@ not a database table. In mysql and sqlite, this drop a table matching the schema
 </tr>
 <tr>
 <td>options.logging</td>
-<td>Boolean &#124; function</td>
+<td>Boolean | function</td>
 <td>A function that logs sql queries, or false for no logging</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="dropallschemas"></a></p>
 <h2 id="dropallschemasoptions-promise"><code>dropAllSchemas(options={})</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L931">View code</a></p>
@@ -1448,12 +1444,12 @@ not a database table. In mysql and sqlite, this is the equivalent of drop all ta
 </tr>
 <tr>
 <td>options.logging</td>
-<td>Boolean &#124; function</td>
+<td>Boolean | function</td>
 <td>A function that logs sql queries, or false for no logging</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="sync"></a></p>
 <h2 id="syncoptions-promise"><code>sync([options={}])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L947">View code</a></p>
@@ -1485,7 +1481,7 @@ not a database table. In mysql and sqlite, this is the equivalent of drop all ta
 </tr>
 <tr>
 <td>[options.logging=console.log]</td>
-<td>Boolean &#124; function</td>
+<td>Boolean | function</td>
 <td>A function that logs sql queries, or false for no logging</td>
 </tr>
 <tr>
@@ -1505,7 +1501,7 @@ not a database table. In mysql and sqlite, this is the equivalent of drop all ta
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="truncate"></a></p>
 <h2 id="truncateoptions-promise"><code>truncate([options])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1003">View code</a></p>
@@ -1532,17 +1528,17 @@ by calling Model.truncate() on each model.</p>
 </tr>
 <tr>
 <td>[options.transaction]</td>
-<td>Boolean &#124; function</td>
+<td>Boolean | function</td>
 <td></td>
 </tr>
 <tr>
 <td>[options.logging]</td>
-<td>Boolean &#124; function</td>
+<td>Boolean | function</td>
 <td>A function that logs sql queries, or false for no logging</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="drop"></a></p>
 <h2 id="dropoptions-promise"><code>drop(options)</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1025">View code</a></p>
@@ -1568,18 +1564,18 @@ by calling Model.truncate() on each model.</p>
 </tr>
 <tr>
 <td>options.logging</td>
-<td>Boolean &#124; function</td>
+<td>Boolean | function</td>
 <td>A function that logs sql queries, or false for no logging</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="authenticate"></a></p>
 <h2 id="authenticate-promise"><code>authenticate()</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1047">View code</a></p>
 <p>Test the connection by trying to authenticate
 <strong>Aliases:</strong> validate</p>
-<hr />
+<hr>
 <p><a name="fn"></a></p>
 <h2 id="fnfn-args-sequelizefn"><code>fn(fn, args)</code> -&gt; <code>Sequelize.fn</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1080">View code</a></p>
@@ -1625,7 +1621,7 @@ If you want to refer to columns in your function, you should use <code>sequelize
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="col"></a></p>
 <h2 id="colcol-sequelizecol"><code>col(col)</code> -&gt; <code>Sequelize.col</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1093">View code</a></p>
@@ -1651,7 +1647,7 @@ If you want to refer to columns in your function, you should use <code>sequelize
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="cast"></a></p>
 <h2 id="castval-type-sequelizecast"><code>cast(val, type)</code> -&gt; <code>Sequelize.cast</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1107">View code</a></p>
@@ -1678,7 +1674,7 @@ If you want to refer to columns in your function, you should use <code>sequelize
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="literal"></a></p>
 <h2 id="literalval-sequelizeliteral"><code>literal(val)</code> -&gt; <code>Sequelize.literal</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1120">View code</a></p>
@@ -1701,7 +1697,7 @@ If you want to refer to columns in your function, you should use <code>sequelize
 </tbody>
 </table>
 <p><strong>Aliases:</strong> asIs</p>
-<hr />
+<hr>
 <p><a name="and"></a></p>
 <h2 id="andargs-sequelizeand"><code>and(args)</code> -&gt; <code>Sequelize.and</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1133">View code</a></p>
@@ -1722,12 +1718,12 @@ If you want to refer to columns in your function, you should use <code>sequelize
 <tbody>
 <tr>
 <td>args</td>
-<td>String &#124; Object</td>
+<td>String | Object</td>
 <td>Each argument will be joined by AND</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="or"></a></p>
 <h2 id="orargs-sequelizeor"><code>or(args)</code> -&gt; <code>Sequelize.or</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1146">View code</a></p>
@@ -1748,12 +1744,12 @@ If you want to refer to columns in your function, you should use <code>sequelize
 <tbody>
 <tr>
 <td>args</td>
-<td>String &#124; Object</td>
+<td>String | Object</td>
 <td>Each argument will be joined by OR</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="json"></a></p>
 <h2 id="jsonconditions-value-sequelizejson"><code>json(conditions, [value])</code> -&gt; <code>Sequelize.json</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1159">View code</a></p>
@@ -1774,17 +1770,17 @@ If you want to refer to columns in your function, you should use <code>sequelize
 <tbody>
 <tr>
 <td>conditions</td>
-<td>String &#124; Object</td>
+<td>String | Object</td>
 <td>A hash containing strings/numbers or other nested hash, a string using dot notation or a string using postgres json syntax.</td>
 </tr>
 <tr>
 <td>[value]</td>
-<td>String &#124; Number &#124; Boolean</td>
+<td>String | Number | Boolean</td>
 <td>An optional value to compare against. Produces a string of the form "&lt;json path&gt; = '&lt;value&gt;'".</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><a name="where"></a></p>
 <h2 id="whereattr-comparator-logic-sequelizewhere"><code>where(attr, [comparator='='], logic)</code> -&gt; <code>Sequelize.where</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1181">View code</a></p>
@@ -1818,13 +1814,13 @@ attribute should be defined in your model definition. The attribute can also be 
 </tr>
 <tr>
 <td>logic</td>
-<td>String &#124; Object</td>
+<td>String | Object</td>
 <td>The condition. Can be both a simply type, or a further condition (<code>$or</code>, <code>$and</code>, <code>.literal</code> etc.)</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Aliases:</strong> condition</p>
-<hr />
+<hr>
 <p><a name="transaction"></a></p>
 <h2 id="transactionoptions-promise"><code>transaction([options={}])</code> -&gt; <code>Promise</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/sequelize.js#L1235">View code</a></p>
@@ -1898,7 +1894,7 @@ Sequelize.cls = ns;
 </tr>
 </tbody>
 </table>
-<hr />
+<hr>
 <p><em>This document is automatically generated based on source code comments. Please do not edit it directly, as your changes will be ignored. Please write on <a href="irc://irc.freenode.net/#sequelizejs">IRC</a>, open an issue or a create a pull request if you feel something can be improved. For help on how to write source code documentation see <a href="http://usejsdoc.org">JSDoc</a> and <a href="https://github.com/tj/dox">dox</a></em></p>
               
             </div>
@@ -1915,7 +1911,7 @@ Sequelize.cls = ns;
     </div>
   
 
-  <hr/>
+  <hr>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
@@ -1940,23 +1936,24 @@ Sequelize.cls = ns;
         </span>
     
     
-      <span><a href="/v3/docs/migrations/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="/v3/docs/migrations/" style="color: #fcfcfc">« Previous</a></span>
     
     
-      <span><a href="/v3/api/model/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="/v3/api/model/" style="color: #fcfcfc">Next »</a></span>
     
   </span>
 </div>
     <script>var base_url = '../..';</script>
-    <script src="/v3/js/theme_extra.js" defer></script>
-    <script src="/v3/js/theme.js" defer></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
-      <script src="/v3/search/main.js" defer></script>
-    <script defer>
+    <script src="/v3/js/theme_extra.js" defer=""></script>
+    <script src="/v3/js/theme.js" defer=""></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer=""></script>
+      <script src="/v3/search/main.js" defer=""></script>
+    <script defer="">
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
 
-</body>
-</html>
+
+
+</body></html>

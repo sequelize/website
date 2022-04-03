@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
+<!DOCTYPE html><!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +8,12 @@
   <link rel="shortcut icon" href="/v3/favicon.ico">
   
   <title>Datatypes - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700">
 
-  <link rel="stylesheet" href="/v3/css/theme.css" />
-  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  <link href="/v3/css/custom.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/v3/css/theme.css">
+  <link rel="stylesheet" href="/v3/css/theme_extra.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+  <link href="/v3/css/custom.css" rel="stylesheet">
   
   <script>
     // Current page data
@@ -25,11 +22,11 @@
     var mkdocs_page_url = "/api/datatypes/";
   </script>
   
-  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
-  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="/v3/js/jquery-2.1.1.min.js" defer=""></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-</head>
+<meta name="robots" content="noindex"></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -41,8 +38,8 @@
       <div class="wy-side-nav-search">
         <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  <form id="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here">
   </form>
 </div>
       </div>
@@ -198,24 +195,23 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="/v3">Docs</a> &raquo;</li>
+    <li><a href="/v3">Docs</a> »</li>
     
       
         
-          <li>API &raquo;</li>
+          <li>API »</li>
         
       
     
     <li>Datatypes</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/datatypes.md"
-          class="icon icon-github"> Edit on GitHub</a>
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/api/datatypes.md" class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
   
-  <hr/>
+  <hr>
 </div>
 
           <div role="main">
@@ -258,128 +254,128 @@ from a function.</p>
   }
 })
 </code></pre>
-<hr />
+<hr>
 <p><a name="string"></a></p>
 <h2 id="string"><code>STRING()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L109">View code</a></p>
 <p>A variable length string. Default length 255</p>
 <p>Available properties: <code>BINARY</code></p>
-<hr />
+<hr>
 <p><a name="char"></a></p>
 <h2 id="char"><code>CHAR()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L151">View code</a></p>
 <p>A fixed length string. Default length 255</p>
 <p>Available properties: <code>BINARY</code></p>
-<hr />
+<hr>
 <p><a name="text"></a></p>
 <h2 id="text"><code>TEXT()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L170">View code</a></p>
 <p>An (un)limited length text column. Available lengths: <code>tiny</code>, <code>medium</code>, <code>long</code></p>
-<hr />
+<hr>
 <p><a name="integer"></a></p>
 <h2 id="integer"><code>INTEGER()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L258">View code</a></p>
 <p>A 32 bit integer.</p>
 <p>Available properties: <code>UNSIGNED</code>, <code>ZEROFILL</code></p>
-<hr />
+<hr>
 <p><a name="bigint"></a></p>
 <h2 id="bigint"><code>BIGINT()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L283">View code</a></p>
 <p>A 64 bit integer.</p>
 <p>Note: an attribute defined as <code>BIGINT</code> will be treated like a <code>string</code> due this <a href="https://github.com/brianc/node-postgres/pull/353">feature from node-postgres</a> to prevent precision loss. To have this attribute as a <code>number</code>, this is a possible <a href="https://github.com/sequelize/sequelize/issues/2383#issuecomment-58006083">workaround</a>.</p>
 <p>Available properties: <code>UNSIGNED</code>, <code>ZEROFILL</code></p>
-<hr />
+<hr>
 <p><a name="float"></a></p>
 <h2 id="float"><code>FLOAT()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L307">View code</a></p>
 <p>Floating point number (4-byte precision). Accepts one or two arguments for precision</p>
 <p>Available properties: <code>UNSIGNED</code>, <code>ZEROFILL</code></p>
-<hr />
+<hr>
 <p><a name="real"></a></p>
 <h2 id="real"><code>REAL()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L332">View code</a></p>
 <p>Floating point number (4-byte precision). Accepts one or two arguments for precision</p>
 <p>Available properties: <code>UNSIGNED</code>, <code>ZEROFILL</code></p>
-<hr />
+<hr>
 <p><a name="double"></a></p>
 <h2 id="double"><code>DOUBLE()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L350">View code</a></p>
 <p>Floating point number (8-byte precision). Accepts one or two arguments for precision</p>
 <p>Available properties: <code>UNSIGNED</code>, <code>ZEROFILL</code></p>
-<hr />
+<hr>
 <p><a name="decimal"></a></p>
 <h2 id="decimal"><code>DECIMAL()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L368">View code</a></p>
 <p>Decimal number. Accepts one or two arguments for precision</p>
 <p>Available properties: <code>UNSIGNED</code>, <code>ZEROFILL</code></p>
-<hr />
+<hr>
 <p><a name="boolean"></a></p>
 <h2 id="boolean"><code>BOOLEAN()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L397">View code</a></p>
 <p>A boolean / tinyint column, depending on dialect</p>
-<hr />
+<hr>
 <p><a name="time"></a></p>
 <h2 id="time"><code>TIME()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L416">View code</a></p>
 <p>A time column</p>
-<hr />
+<hr>
 <p><a name="date"></a></p>
 <h2 id="date"><code>DATE()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L427">View code</a></p>
 <p>A datetime column</p>
-<hr />
+<hr>
 <p><a name="dateonly"></a></p>
 <h2 id="dateonly"><code>DATEONLY()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L476">View code</a></p>
 <p>A date only column</p>
-<hr />
+<hr>
 <p><a name="hstore"></a></p>
 <h2 id="hstore"><code>HSTORE()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L492">View code</a></p>
 <p>A key / value column. Only available in postgres.</p>
-<hr />
+<hr>
 <p><a name="json"></a></p>
 <h2 id="json"><code>JSON()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L507">View code</a></p>
 <p>A JSON string column. Only available in postgres.</p>
-<hr />
+<hr>
 <p><a name="jsonb"></a></p>
 <h2 id="jsonb"><code>JSONB()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L526">View code</a></p>
 <p>A pre-processed JSON data column. Only available in postgres.</p>
-<hr />
+<hr>
 <p><a name="now"></a></p>
 <h2 id="now"><code>NOW()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L538">View code</a></p>
 <p>A default value of the current timestamp</p>
-<hr />
+<hr>
 <p><a name="blob"></a></p>
 <h2 id="blob"><code>BLOB()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L548">View code</a></p>
 <p>Binary storage. Available lengths: <code>tiny</code>, <code>medium</code>, <code>long</code></p>
-<hr />
+<hr>
 <p><a name="range"></a></p>
 <h2 id="range"><code>RANGE()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L603">View code</a></p>
 <p>Range types are data types representing a range of values of some element type (called the range's subtype).
 Only available in postgres.
 See {@link http://www.postgresql.org/docs/9.4/static/rangetypes.html|Postgres documentation} for more details</p>
-<hr />
+<hr>
 <p><a name="uuid"></a></p>
 <h2 id="uuid"><code>UUID()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L653">View code</a></p>
 <p>A column storing a unique universal identifier. Use with <code>UUIDV1</code> or <code>UUIDV4</code> for default values.</p>
-<hr />
+<hr>
 <p><a name="uuidv1"></a></p>
 <h2 id="uuidv1"><code>UUIDV1()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L669">View code</a></p>
 <p>A default unique universal identifier generated following the UUID v1 standard</p>
-<hr />
+<hr>
 <p><a name="uuidv4"></a></p>
 <h2 id="uuidv4"><code>UUIDV4()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L689">View code</a></p>
 <p>A default unique universal identifier generated following the UUID v4 standard</p>
-<hr />
+<hr>
 <p><a name="virtual"></a></p>
 <h2 id="virtual"><code>VIRTUAL()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L746">View code</a></p>
@@ -396,7 +392,7 @@ See {@link http://www.postgresql.org/docs/9.4/static/rangetypes.html|Postgres do
      validate: {
         isLongEnough: function (val) {
           if (val.length &lt; 7) {
-            throw new Error(&quot;Please choose a longer password&quot;)
+            throw new Error("Please choose a longer password")
          }
       }
     }
@@ -417,26 +413,26 @@ Return type is mostly useful for setups that rely on types like GraphQL.</p>
 }
 </code></pre>
 <p><strong>Aliases:</strong> NONE</p>
-<hr />
+<hr>
 <p><a name="enum"></a></p>
 <h2 id="enum"><code>ENUM()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L762">View code</a></p>
 <p>An enumeration. <code>DataTypes.ENUM('value', 'another value')</code>.</p>
-<hr />
+<hr>
 <p><a name="array"></a></p>
 <h2 id="array"><code>ARRAY()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L786">View code</a></p>
 <p>An array of <code>type</code>, e.g. <code>DataTypes.ARRAY(DataTypes.DECIMAL)</code>. Only available in postgres.</p>
-<hr />
+<hr>
 <p><a name="geometry"></a></p>
 <h2 id="geometry"><code>GEOMETRY()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L869">View code</a></p>
 <p>A column storing Geometry information.  </p>
-<p>Only available in PostgreSQL (with PostGIS) or MySQL.<br />
+<p>Only available in PostgreSQL (with PostGIS) or MySQL.<br>
 In MySQL, allowable Geometry types are 'POINT', 'LINESTRING', 'POLYGON'.</p>
-<p>When using, GeoJSON is accepted as input and returned as output.<br />
-In PostGIS, the GeoJSON is parsed using the PostGIS function <code>ST_GeomFromGeoJSON</code>.<br />
-In MySQL it is parsed using the function <code>GeomFromText</code>.<br />
+<p>When using, GeoJSON is accepted as input and returned as output.<br>
+In PostGIS, the GeoJSON is parsed using the PostGIS function <code>ST_GeomFromGeoJSON</code>.<br>
+In MySQL it is parsed using the function <code>GeomFromText</code>.<br>
 Therefore, one can just follow the <a href="http://geojson.org/geojson-spec.html">GeoJSON spec</a> for handling geometry objects.  See the following examples:</p>
 <pre><code class="language-js">// Create a new point:
 var point = { type: 'Point', coordinates: [39.807222,-76.984722]};
@@ -473,12 +469,12 @@ User.create({username: 'username', geometry: point }).then(function(newUser) {
 ...
 });
 </code></pre>
-<hr />
+<hr>
 <p><a name="geography"></a></p>
 <h2 id="geography"><code>GEOGRAPHY()</code></h2>
 <p><a href="https://github.com/sequelize/sequelize/blob/3e5b8772ef75169685fc96024366bca9958fee63/lib/data-types.js#L894">View code</a></p>
 <p>A geography datatype represents two dimensional spacial objects in an elliptic coord system.</p>
-<hr />
+<hr>
 <p><em>This document is automatically generated based on source code comments. Please do not edit it directly, as your changes will be ignored. Please write on <a href="irc://irc.freenode.net/#sequelizejs">IRC</a>, open an issue or a create a pull request if you feel something can be improved. For help on how to write source code documentation see <a href="http://usejsdoc.org">JSDoc</a> and <a href="https://github.com/tj/dox">dox</a></em></p>
               
             </div>
@@ -495,7 +491,7 @@ User.create({username: 'username', geometry: point }).then(function(newUser) {
     </div>
   
 
-  <hr/>
+  <hr>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
@@ -520,23 +516,24 @@ User.create({username: 'username', geometry: point }).then(function(newUser) {
         </span>
     
     
-      <span><a href="/v3/api/transaction/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="/v3/api/transaction/" style="color: #fcfcfc">« Previous</a></span>
     
     
-      <span><a href="/v3/api/deferrable/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="/v3/api/deferrable/" style="color: #fcfcfc">Next »</a></span>
     
   </span>
 </div>
     <script>var base_url = '../..';</script>
-    <script src="/v3/js/theme_extra.js" defer></script>
-    <script src="/v3/js/theme.js" defer></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
-      <script src="/v3/search/main.js" defer></script>
-    <script defer>
+    <script src="/v3/js/theme_extra.js" defer=""></script>
+    <script src="/v3/js/theme.js" defer=""></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer=""></script>
+      <script src="/v3/search/main.js" defer=""></script>
+    <script defer="">
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
 
-</body>
-</html>
+
+
+</body></html>

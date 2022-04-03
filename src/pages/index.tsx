@@ -1,3 +1,4 @@
+import Head from '@docusaurus/Head';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
@@ -29,7 +30,7 @@ function HomepageHeader() {
 
               <Link
                 className="button button--secondary button--lg"
-                to="/docs/v6/getting-started"
+                to="pathname:///api/v6/identifiers"
               >
                 API Reference
               </Link>
@@ -61,10 +62,11 @@ export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
-    >
+    <Layout description={siteConfig.tagline}>
+      {/* we don't add '| Sequelize' on the homepage title because it already starts with 'Sequelize -' for better search results display */}
+      <Head titleTemplate="%s">
+        <title>Sequelize | Feature-rich ORM for modern TypeScript & JavaScript</title>
+      </Head>
       <HomepageHeader />
       <main>
         <HomepageUsage />

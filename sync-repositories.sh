@@ -20,7 +20,7 @@ rm -rf "$DOCS_DIR/v7"
 rm -rf "$API_DIR/v7"
 
 # Get sources
-git clone -b feature/typedoc --single-branch "$MAIN_REPO_URL" --depth 1 "$DOCS_DIR/v7"
+git clone -b main --single-branch "$MAIN_REPO_URL" --depth 1 "$DOCS_DIR/v7"
 
 pushd "$DOCS_DIR/v7"
 yarn # Install branch deps & build

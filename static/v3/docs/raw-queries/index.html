@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
+<!DOCTYPE html><!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +8,12 @@
   <link rel="shortcut icon" href="/v3/favicon.ico">
   
   <title>Raw queries - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700">
 
-  <link rel="stylesheet" href="/v3/css/theme.css" />
-  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  <link href="/v3/css/custom.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/v3/css/theme.css">
+  <link rel="stylesheet" href="/v3/css/theme_extra.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+  <link href="/v3/css/custom.css" rel="stylesheet">
   
   <script>
     // Current page data
@@ -25,11 +22,11 @@
     var mkdocs_page_url = "/v3/docs/raw-queries/";
   </script>
   
-  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
-  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="/v3/js/jquery-2.1.1.min.js" defer=""></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-</head>
+<meta name="robots" content="noindex"></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -41,8 +38,8 @@
       <div class="wy-side-nav-search">
         <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  <form id="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here">
   </form>
 </div>
       </div>
@@ -144,24 +141,23 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="/v3">Docs</a> &raquo;</li>
+    <li><a href="/v3">Docs</a> »</li>
     
       
         
-          <li>Documentation &raquo;</li>
+          <li>Documentation »</li>
         
       
     
     <li>Raw queries</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/sequelize/sequelize/edit/master/docs/docs/raw-queries.md"
-          class="icon icon-github"> Edit on GitHub</a>
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/docs/raw-queries.md" class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
   
-  <hr/>
+  <hr>
 </div>
 
           <div role="main">
@@ -169,12 +165,12 @@
               
                 <p>As there are often use cases in which it is just easier to execute raw / already prepared SQL queries, you can utilize the function <code>sequelize.query</code>.</p>
 <p>By default the function will return two arguments - a results array, and an object containing metadata (affected rows etc.). Note that since this is a raw query, the metadata (property names etc.) is dialect specific. Some dialects return the metadata "within" the results object (as properties on an array). However, two arguments will always be returned, but for MSSQL and MySQL it will be two references to the same object.</p>
-<pre><code class="language-js">sequelize.query(&quot;UPDATE users SET y = 42 WHERE x = 12&quot;).spread(function(results, metadata) {
+<pre><code class="language-js">sequelize.query("UPDATE users SET y = 42 WHERE x = 12").spread(function(results, metadata) {
   // Results will be an empty array and metadata will contain the number of affected rows.
 })
 </code></pre>
 <p>In cases where you don't need to access the metadata you can pass in a query type to tell sequelize how to format the results. For example, for a simple select query you could do:</p>
-<pre><code class="language-js">sequelize.query(&quot;SELECT * FROM `users`&quot;, { type: sequelize.QueryTypes.SELECT})
+<pre><code class="language-js">sequelize.query("SELECT * FROM `users`", { type: sequelize.QueryTypes.SELECT})
   .then(function(users) {
     // We don't need spread here, since only the results will be returned for select queries
   })
@@ -214,13 +210,13 @@ sequelize.query('SELECT * FROM projects WHERE status = :status ',
 </ul>
 <p>The array or object must contain all bound values or Sequelize will throw an exception. This applies even to cases in which the database may ignore the bound parameter.</p>
 <p>The database may add further restrictions to this. Bind parameters cannot be SQL keywords, nor table or column names. They are also ignored in quoted text or data. In PostgreSQL it may also be needed to typecast them, if the type cannot be inferred from the context <code>$1::varchar</code>.</p>
-<pre><code class="language-js">sequelize.query('SELECT *, &quot;text with literal $$1 and literal $$status&quot; as t FROM projects WHERE status = $1',
+<pre><code class="language-js">sequelize.query('SELECT *, "text with literal $$1 and literal $$status" as t FROM projects WHERE status = $1',
   { bind: ['active'], type: sequelize.QueryTypes.SELECT }
 ).then(function(projects) {
   console.log(projects)
 })
 
-sequelize.query('SELECT *, &quot;text with literal $$1 and literal $$status&quot; as t FROM projects WHERE status = $status',
+sequelize.query('SELECT *, "text with literal $$1 and literal $$status" as t FROM projects WHERE status = $status',
   { bind: { status: 'active' }, type: sequelize.QueryTypes.SELECT }
 ).then(function(projects) {
   console.log(projects)
@@ -241,7 +237,7 @@ sequelize.query('SELECT *, &quot;text with literal $$1 and literal $$status&quot
     </div>
   
 
-  <hr/>
+  <hr>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
@@ -266,23 +262,24 @@ sequelize.query('SELECT *, &quot;text with literal $$1 and literal $$status&quot
         </span>
     
     
-      <span><a href="/v3/docs/legacy/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="/v3/docs/legacy/" style="color: #fcfcfc">« Previous</a></span>
     
     
-      <span><a href="/v3/docs/migrations/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="/v3/docs/migrations/" style="color: #fcfcfc">Next »</a></span>
     
   </span>
 </div>
     <script>var base_url = '../..';</script>
-    <script src="/v3/js/theme_extra.js" defer></script>
-    <script src="/v3/js/theme.js" defer></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
-      <script src="/v3/search/main.js" defer></script>
-    <script defer>
+    <script src="/v3/js/theme_extra.js" defer=""></script>
+    <script src="/v3/js/theme.js" defer=""></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer=""></script>
+      <script src="/v3/search/main.js" defer=""></script>
+    <script defer="">
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
 
-</body>
-</html>
+
+
+</body></html>

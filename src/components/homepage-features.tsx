@@ -1,3 +1,4 @@
+import Link from '@docusaurus/Link';
 import CodeBlock from '@theme/CodeBlock';
 import clsx from 'clsx';
 import React from 'react';
@@ -19,7 +20,7 @@ const FeatureList: FeatureItem[] = [
         synchronization.
       </>
     ),
-    code: `
+    code: trim`
       const Wishlist = sequelize.define("Wishlist", {
         title: Sequelize.STRING,
       });
@@ -40,7 +41,7 @@ const FeatureList: FeatureItem[] = [
         lifting.
       </>
     ),
-    code: `
+    code: trim`
       Wish.belongsTo(Wishlist);
       Wishlist.hasMany(Wish);
 
@@ -60,7 +61,7 @@ const FeatureList: FeatureItem[] = [
         Mark data as deleted instead of removing it once and for all from the database.
       </>
     ),
-    code: `
+    code: trim`
       const User = sequelize.define("User", 
         { username: Sequelize.STRING },
         { paranoid: true },
@@ -83,7 +84,7 @@ function Feature({ title, description, code }: FeatureItem) {
         <p>{description}</p>
       </div>
       <CodeBlock language="js" className={styles.codeBlock}>
-        {trim(code)}
+        {code}
       </CodeBlock>
     </div>
   );
@@ -98,6 +99,20 @@ export default function HomepageFeatures(): JSX.Element {
             <Feature key={idx} {...props} />
           ))}
         </div>
+      </div>
+      <div className={clsx('container--small', styles.footerCta)}>
+        <h2>Ready to get started with Sequelize?</h2>
+        <p>
+          Transactions, migrations, strong typing, JSON querying, and more.
+          <br />
+          Learn more about the many features Sequelize has to offer!
+        </p>
+        <Link
+          className="button button--primary button--lg"
+          to="/docs/v6/getting-started"
+        >
+          Getting Started
+        </Link>
       </div>
     </section>
   );

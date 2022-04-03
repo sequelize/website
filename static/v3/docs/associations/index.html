@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
+<!DOCTYPE html><!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +8,12 @@
   <link rel="shortcut icon" href="/v3/favicon.ico">
   
   <title>Relations / Associations - Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700">
 
-  <link rel="stylesheet" href="/v3/css/theme.css" />
-  <link rel="stylesheet" href="/v3/css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  <link href="/v3/css/custom.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/v3/css/theme.css">
+  <link rel="stylesheet" href="/v3/css/theme_extra.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+  <link href="/v3/css/custom.css" rel="stylesheet">
   
   <script>
     // Current page data
@@ -25,11 +22,11 @@
     var mkdocs_page_url = "/v3/docs/associations/";
   </script>
   
-  <script src="/v3/js/jquery-2.1.1.min.js" defer></script>
-  <script src="/v3/js/modernizr-2.8.3.min.js" defer></script>
+  <script src="/v3/js/jquery-2.1.1.min.js" defer=""></script>
+  <script src="/v3/js/modernizr-2.8.3.min.js" defer=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-</head>
+<meta name="robots" content="noindex"></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -41,8 +38,8 @@
       <div class="wy-side-nav-search">
         <a href="/v3" class="icon icon-home"> Sequelize | The Node.js / io.js ORM for PostgreSQL, MySQL, SQLite and MSSQL</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  <form id="rtd-search-form" class="wy-form" action="/v3/search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here">
   </form>
 </div>
       </div>
@@ -156,24 +153,23 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="/v3">Docs</a> &raquo;</li>
+    <li><a href="/v3">Docs</a> »</li>
     
       
         
-          <li>Documentation &raquo;</li>
+          <li>Documentation »</li>
         
       
     
     <li>Relations / Associations</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/sequelize/sequelize/edit/master/docs/docs/associations.md"
-          class="icon icon-github"> Edit on GitHub</a>
+        <a href="https://github.com/sequelize/sequelize/edit/master/docs/docs/associations.md" class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
   
-  <hr/>
+  <hr>
 </div>
 
           <div role="main">
@@ -232,7 +228,7 @@ User.belongsTo(Company, {foreignKey: 'fk_companyname', targetKey: 'name'}); // A
 <p>HasOne associations are associations where the foreign key for the one-to-one relation exists on the <strong>target model</strong>.</p>
 <pre><code class="language-js">var User = sequelize.define('user', {/* ... */})
 var Project = sequelize.define('project', {/* ... */})
- 
+&nbsp;
 // One-way associations
 Project.hasOne(User)
 
@@ -247,31 +243,31 @@ Project.hasOne(User)
   You can also define the foreign key, e.g. if you already have an existing
   database and want to work on it:
 */
- 
+&nbsp;
 Project.hasOne(User, { foreignKey: 'initiator_id' })
- 
+&nbsp;
 /*
   Because Sequelize will use the model's name (first parameter of define) for
   the accessor methods, it is also possible to pass a special option to hasOne:
 */
- 
+&nbsp;
 Project.hasOne(User, { as: 'Initiator' })
 // Now you will get Project#getInitiator and Project#setInitiator
- 
+&nbsp;
 // Or let's define some self references
 var Person = sequelize.define('person', { /* ... */})
- 
+&nbsp;
 Person.hasOne(Person, {as: 'Father'})
 // this will add the attribute FatherId to Person
- 
+&nbsp;
 // also possible:
 Person.hasOne(Person, {as: 'Father', foreignKey: 'DadId'})
 // this will add the attribute DadId to Person
- 
+&nbsp;
 // In both cases you will be able to do:
 Person#setFather
 Person#getFather
- 
+&nbsp;
 // If you need to join a table twice you can double join the same table
 Team.hasOne(Game, {as: 'HomeTeam', foreignKey : 'homeTeamId'});
 Team.hasOne(Game, {as: 'AwayTeam', foreignKey : 'awayTeamId'});
@@ -313,7 +309,7 @@ Team.hasOne(Player);
 <p>One-To-Many associations are connecting one source with multiple targets. The targets however are again connected to exactly one specific source.</p>
 <pre><code class="language-js">var User = sequelize.define('user', {/* ... */})
 var Project = sequelize.define('project', {/* ... */})
- 
+&nbsp;
 // OK. Now things get more complicated (not really visible to the user :)).
 // First let's define a hasMany association
 Project.hasMany(User, {as: 'Workers'})
@@ -355,7 +351,7 @@ Project = sequelize.define('project', {})
 UserProjects = sequelize.define('userProjects', {
     status: DataTypes.STRING
 })
- 
+&nbsp;
 User.belongsToMany(Project, { through: UserProjects })
 Project.belongsToMany(User, { through: UserProjects })
 </code></pre>
@@ -520,7 +516,7 @@ WHERE (`tag`.`status` = 'pending');
     plural: 'tasks',
   }
 })
- 
+&nbsp;
 User.belongsToMany(Project);
 </code></pre>
 <p>This will add the functions <code>add/set/get Tasks</code> to user instances.</p>
@@ -536,30 +532,30 @@ Subscription.hasMany(Invoice, { foreignKey: 'subscription_id' )
 <p>Because Sequelize is doing a lot of magic, you have to call <code>Sequelize.sync</code> after setting the associations! Doing so will allow you the following:</p>
 <pre><code class="language-js">Project.belongsToMany(Task)
 Task.belongsToMany(Project)
- 
+&nbsp;
 Project.create()...
 Task.create()...
 Task.create()...
- 
+&nbsp;
 // save them... and then:
 project.setTasks([task1, task2]).then(function() {
   // saved!
 })
- 
+&nbsp;
 // ok, now they are saved... how do I get them later on?
 project.getTasks().then(function(associatedTasks) {
   // associatedTasks is an array of tasks
 })
- 
+&nbsp;
 // You can also pass filters to the getter method.
 // They are equal to the options you can pass to a usual finder method.
 project.getTasks({ where: 'id &gt; 10' }).then(function(tasks) {
   // tasks with an id greater than 10 :)
 })
- 
+&nbsp;
 // You can also only retrieve certain fields of a associated object.
 project.getTasks({attributes: ['title']}).then(function(tasks) {
-    // retrieve tasks with the attributes &quot;title&quot; and &quot;id&quot;
+    // retrieve tasks with the attributes "title" and "id"
 })
 </code></pre>
 <p>To remove created associations you can just call the set method without a specific id:</p>
@@ -567,17 +563,17 @@ project.getTasks({attributes: ['title']}).then(function(tasks) {
 project.setTasks([task2]).then(function(associatedTasks) {
   // you will get task2 only
 })
- 
+&nbsp;
 // remove 'em all
 project.setTasks([]).then(function(associatedTasks) {
   // you will get an empty array
 })
- 
+&nbsp;
 // or remove 'em more directly
 project.removeTask(task1).then(function() {
   // it's gone
 })
- 
+&nbsp;
 // and add 'em again
 project.addTask(task1).then(function() {
   // it's back again
@@ -590,7 +586,7 @@ task2.setProject(null).then(function() {
 })
 </code></pre>
 <p>For hasOne/belongsTo its basically the same:</p>
-<pre><code class="language-js">Task.hasOne(User, {as: &quot;Author&quot;})
+<pre><code class="language-js">Task.hasOne(User, {as: "Author"})
 Task#setAuthor(anAuthor)
 </code></pre>
 <p>Adding associations to a relation with a custom join table can be done in two ways (continuing with the associations defined in the previous chapter):</p>
@@ -599,27 +595,27 @@ project.UserProjects = {
   status: 'active'
 }
 u.addProject(project)
- 
+&nbsp;
 // Or by providing a second argument when adding the association, containing the data that should go in the join table
 u.addProject(project, { status: 'active' })
- 
- 
+&nbsp;
+&nbsp;
 // When associating multiple objects, you can combine the two options above. In this case the second argument
 // will be treated as a defaults object, that will be used if no data is provided
 project1.UserProjects = {
     status: 'inactive'
 }
- 
+&nbsp;
 u.setProjects([project1, project2], { status: 'active' })
 // The code above will record inactive for project one, and active for project two in the join table
 </code></pre>
 <p>When getting data on an association that has a custom join table, the data from the join table will be returned as a DAO instance:</p>
 <pre><code class="language-js">u.getProjects().then(function(projects) {
   var project = projects[0]
- 
+&nbsp;
   if (project.UserProjects.status === 'active') {
     // .. do magic
- 
+&nbsp;
     // since this is a real DAO instance, you can save it directly after you are done doing magic
     return project.UserProjects.save()
   }
@@ -644,7 +640,7 @@ Project.create({ /* */ }).then(function(project) {
     })
   })
 })
- 
+&nbsp;
 // check if all associated objects are as expected:
 // let's assume we have already a project and two users
 project.setUsers([user1, user2]).then(function() {
@@ -660,7 +656,7 @@ project.setUsers([user1, user2]).then(function() {
 <p>When you create associations between your models in sequelize, foreign key references with constraints will automatically be created. The setup below:</p>
 <pre><code class="language-js">var Task = this.sequelize.define('task', { title: Sequelize.STRING })
   , User = this.sequelize.define('user', { username: Sequelize.STRING })
- 
+&nbsp;
 User.hasMany(Task)
 Task.belongsTo(User)
 </code></pre>
@@ -708,44 +704,44 @@ CREATE TABLE IF NOT EXISTS `Version` (
 <h3 id="enforcing-a-foreign-key-reference-without-constraints">Enforcing a foreign key reference without constraints</h3>
 <p>Some times you may want to reference another table, without adding any constraints, or associations. In that case you can manually add the reference attributes to your schema definition, and mark the relations between them.</p>
 <pre><code class="language-js">var Series, Trainer, Video
- 
+&nbsp;
 // Series has a trainer_id=Trainer.id foreign reference key after we call Trainer.hasMany(series)
 Series = sequelize.define('series', {
   title:        DataTypes.STRING,
   sub_title:    DataTypes.STRING,
   description:  DataTypes.TEXT,
- 
+&nbsp;
   // Set FK relationship (hasMany) with `Trainer`
   trainer_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: &quot;trainers&quot;,
-      key: &quot;id&quot;
+      model: "trainers",
+      key: "id"
     }
   }
 })
- 
+&nbsp;
 Trainer = sequelize.define('trainer', {
   first_name: DataTypes.STRING,
   last_name:  DataTypes.STRING
 });
- 
+&nbsp;
 // Video has a series_id=Series.id foreign reference key after we call Series.hasOne(Video)...
 Video = sequelize.define('video', {
   title:        DataTypes.STRING,
   sequence:     DataTypes.INTEGER,
   description:  DataTypes.TEXT,
- 
+&nbsp;
   // set relationship (hasOne) with `Series`
   series_id: {
     type: DataTypes.INTEGER,
     references: {
       model: Series, // Can be both a string representing the table name, or a reference to the model
-      key:   &quot;id&quot;
+      key:   "id"
     }
   }
 });
- 
+&nbsp;
 Series.hasOne(Video);
 Trainer.hasMany(Series);
 </code></pre>
@@ -827,7 +823,7 @@ Product.create({
   }]
 })
 </code></pre>
-<hr />
+<hr>
               
             </div>
           </div>
@@ -843,7 +839,7 @@ Product.create({
     </div>
   
 
-  <hr/>
+  <hr>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
@@ -868,23 +864,24 @@ Product.create({
         </span>
     
     
-      <span><a href="/v3/docs/instances/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="/v3/docs/instances/" style="color: #fcfcfc">« Previous</a></span>
     
     
-      <span><a href="/v3/docs/hooks/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="/v3/docs/hooks/" style="color: #fcfcfc">Next »</a></span>
     
   </span>
 </div>
     <script>var base_url = '../..';</script>
-    <script src="/v3/js/theme_extra.js" defer></script>
-    <script src="/v3/js/theme.js" defer></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer></script>
-      <script src="/v3/search/main.js" defer></script>
-    <script defer>
+    <script src="/v3/js/theme_extra.js" defer=""></script>
+    <script src="/v3/js/theme.js" defer=""></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js" defer=""></script>
+      <script src="/v3/search/main.js" defer=""></script>
+    <script defer="">
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
 
-</body>
-</html>
+
+
+</body></html>

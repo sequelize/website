@@ -7,12 +7,13 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Sequelize',
-  tagline: 'Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. It features solid transaction support, relations, eager and lazy loading, read replication and more.',
+  tagline: 'Sequelize is a modern TypeScript and Node.js ORM for Postgres, MySQL, MariaDB, SQLite and SQL Server, and more. Featuring solid transaction support, relations, eager and lazy loading, read replication and more.',
   url: 'https://sequelize.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   organizationName: 'sequelize',
+  trailingSlash: true,
   projectName: 'sequelize',
   plugins: ['docusaurus-plugin-sass'],
   presets: [
@@ -48,7 +49,7 @@ const config = {
   ],
 
   themeConfig:
-  /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     {
       navbar: {
         title: 'Sequelize',
@@ -189,7 +190,10 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Sequelize Contributors. Built with Docusaurus.`,
+        copyright: `
+          Copyright © ${new Date().getFullYear()} Sequelize Contributors. <br/>
+          Built with Docusaurus and <a href="https://www.netlify.com">powered by Netlify</a>.
+        `,
       },
       prism: {
         theme: lightCodeTheme,
