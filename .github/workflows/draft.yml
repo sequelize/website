@@ -22,7 +22,7 @@ jobs:
         id: deployment
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: 380ec685-4bcd-4d5a-8447-521a642abb61
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: >-
            echo "::set-output name=NETLIFY_OUTPUT::$(
              netlify deploy --dir build --message '${{ github.event.commits[0].message }} (draft)'
