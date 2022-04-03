@@ -21,13 +21,13 @@ jobs:
         run: npm install netlify-cli -g
       - name: Deploy to Netlify (Draft)
         id: deployment
-        env:
+        uses: jsmrcaga/action-netlify-deploy@v1.1.0
+        with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: sequelize-site
-        run: >-
-          echo "::set-output name=NETLIFY_LOG::$(
-            netlify deploy --dir build --message '${{ github.event.commits[0].message }} (draft)'
-          )"
+          NETLIFY_DEPLOY_TO_PROD: false
+          NETLIFY_DEPLOY_MESSAGE: '${{ github.event.commits[0].message }} (draft)'
+          deploy_alias: ${{ env.BRANCH_NAME }}
       - name: Get PR number
         uses: actions/github-script@v2
         id: get-pr-number
@@ -45,7 +45,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ steps.get-pr-number.outputs.result }}
-          body: ${{ steps.deployment.outputs.NETLIFY_LOG }}
+          body: ${{ steps.deployment.outputs.NETLIFY_OUTPUT }}
 
 
       
