@@ -26,12 +26,8 @@ jobs:
         shell: bash
         run: |
           netlify deploy --dir build --message '${{ github.event.commits[0].message }}' > log.txt 2>&1
-          cat log.txt
-      - name: xxx
-        run: |
-          cat log.txt
-          # NETLIFY_OUTPUT=$()
-          # echo "::set-output name=LOGS::$NETLIFY_OUTPUT"
+          NETLIFY_OUTPUT=$(cat log.txt)
+          echo "::set-output name=LOGS::$NETLIFY_OUTPUT"
       - name: Get PR number
         uses: actions/github-script@v2
         id: get-pr-number
@@ -45,8 +41,6 @@ jobs:
             })
             return pulls[0].number
           result-encoding: string
-      - name: bla
-        run: echo '${{ steps.deployment.outputs.LOGS }}'
       - name: Comment PR with draft publish logs
         uses: peter-evans/create-or-update-comment@v1
         with:
