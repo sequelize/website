@@ -23,6 +23,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        shell: bash
         run: |
           NETLIFY_OUTPUT=$(netlify deploy --dir build --message '${{ github.event.commits[0].message }}')
           echo "::set-output name=LOGS::$NETLIFY_OUTPUT"
