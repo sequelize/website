@@ -461,7 +461,7 @@ await Foo.findOne({
     meta: {
       [Op.contains]: {
         site: {
-          url: 'http://google.com'
+          url: 'https://google.com'
         }
       }
     }
