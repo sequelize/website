@@ -24,26 +24,26 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
-          netlify deploy --dir build --message '${{ github.event.commits[0].message }} (draft)' > logs.txt
-      #     echo "::set-output name=NETLIFY_OUTPUT::$(cat logs.txt)"
-      # - name: Get PR number
-      #   uses: actions/github-script@v2
-      #   id: get-pr-number
-      #   with:
-      #     script: |
-      #       const {data: pulls} = await github.pulls.list({
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         state: 'open',
-      #         head: '${{ github.event.client_payload.ref }}'
-      #       })
-      #       return pulls[0].number
-      #     result-encoding: string
-      # - name: Comment PR with draft publish logs
-      #   uses: peter-evans/create-or-update-comment@v1
-      #   with:
-      #     issue-number: ${{ steps.get-pr-number.outputs.result }}
-      #     body: ${{ steps.deployment.outputs.NETLIFY_OUTPUT }}
+          netlify deploy --dir build --message '${{ github.event.commits[0].message }} (draft)' > logs.txt 2>&1
+          echo "::set-output name=NETLIFY_OUTPUT::$(cat logs.txt)"
+      - name: Get PR number
+        uses: actions/github-script@v2
+        id: get-pr-number
+        with:
+          script: |
+            const {data: pulls} = await github.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              head: '${{ github.event.client_payload.ref }}'
+            })
+            return pulls[0].number
+          result-encoding: string
+      - name: Comment PR with draft publish logs
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ steps.get-pr-number.outputs.result }}
+          body: ${{ steps.deployment.outputs.NETLIFY_OUTPUT }}
 
 
       
