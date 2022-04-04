@@ -25,8 +25,13 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         shell: bash
         run: |
-          NETLIFY_OUTPUT=$(netlify deploy --dir build --message '${{ github.event.commits[0].message }}')
-          echo "::set-output name=LOGS::$NETLIFY_OUTPUT"
+          netlify deploy --dir build --message '${{ github.event.commits[0].message }}' > log.txt 2>&1
+          echo log.txt
+      - name: xxx
+        run: |
+          echo log.txt
+          # NETLIFY_OUTPUT=$()
+          # echo "::set-output name=LOGS::$NETLIFY_OUTPUT"
       - name: Get PR number
         uses: actions/github-script@v2
         id: get-pr-number
