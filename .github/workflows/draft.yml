@@ -42,10 +42,15 @@ jobs:
             return pulls[0].number
           result-encoding: string
       - name: Comment PR with draft publish logs
+        id: create-comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ steps.get-pr-number.outputs.result }}
           body: ${{ steps.deployment.outputs.LOGS }}
+      - name: Comment debug
+        run: |
+          echo "Comment ID - ${{ steps.create-comment.outputs.comment-id }}"
+
 
 
       
