@@ -40,12 +40,12 @@ jobs:
             return pulls[0].number
           result-encoding: string
       - name: bla
-        run: echo '${{ steps.deployment.outputs.NETLIFY_OUTPUT }}'
+        run: echo '${{ steps.deployment.outputs.LOGS }}'
       - name: Comment PR with draft publish logs
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ steps.get-pr-number.outputs.result }}
-          body: ${{ steps.deployment.outputs.NETLIFY_OUTPUT }}
+          body: ${{ steps.deployment.outputs.LOGS }}
 
 
       
