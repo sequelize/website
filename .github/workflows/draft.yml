@@ -26,7 +26,7 @@ jobs:
         shell: bash
         run: |
           netlify deploy --dir build --message '${{ github.event.commits[0].message }}' > log.tmp.txt 2>&1
-          cat log.tmp.txt | grep -E 'Logs|Website Draft URL' > logs.txt
+          cat log.tmp.txt | grep -E 'Logs|Website Draft URL' > log.txt
       - name: Get PR number
         uses: actions/github-script@v2
         id: get-pr-number
@@ -40,7 +40,7 @@ jobs:
             })
             return pulls[0].number
           result-encoding: string
-      - name: Read package.json
+      - name: Read deployment log
         id: logs
         uses: juliangruber/read-file-action@v1
         with:
