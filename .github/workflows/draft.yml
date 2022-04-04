@@ -12,12 +12,11 @@ jobs:
         with:
           node-version: 16.x
           cache: yarn
-      # - run: yarn install --frozen-lockfile
-      # - run: yarn lint-no-fix
-      # - run: yarn typecheck
-      # - run: yarn sync
-      # - run: yarn build
-      - run: mkdir build; echo "<html><body>hello</body></html>" > build/index.html
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint-no-fix
+      - run: yarn typecheck
+      - run: yarn sync
+      - run: yarn build
       - name: Deploy to Draft to Netlify
         id: deployment
         env:
