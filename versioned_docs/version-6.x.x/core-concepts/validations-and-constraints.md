@@ -95,7 +95,7 @@ sequelize.define('foo', {
       not: /^[a-z]+$/i,         // does not match this RegExp
       not: ["^[a-z]+$",'i'],    // same as above, but constructing the RegExp from a string
       isEmail: true,            // checks for email format (foo@bar.com)
-      isUrl: true,              // checks for url format (http://foo.com)
+      isUrl: true,              // checks for url format (https://foo.com)
       isIP: true,               // checks for IPv4 (129.89.23.1) or IPv6 format
       isIPv4: true,             // checks for IPv4 (129.89.23.1)
       isIPv6: true,             // checks for IPv6 format
