@@ -23,10 +23,9 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: >-
-           echo "::set-output name=NETLIFY_OUTPUT::$(
-             netlify deploy --dir build --message '${{ github.event.commits[0].message }} (draft)'
-           )"
+        run: |
+          netlify deploy --dir build --message '${{ github.event.commits[0].message }} (draft)' > logs.txt
+          echo "::set-output name=NETLIFY_OUTPUT::$(cat logs.txt)"
       - name: Get PR number
         uses: actions/github-script@v2
         id: get-pr-number
