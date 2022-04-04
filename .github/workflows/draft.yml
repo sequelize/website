@@ -26,8 +26,6 @@ jobs:
         shell: bash
         run: |
           netlify deploy --dir build --message '${{ github.event.commits[0].message }}' > log.txt 2>&1
-          NETLIFY_OUTPUT=$(cat log.txt)
-          echo "::set-output name=LOGS::$NETLIFY_OUTPUT"
       - name: Get PR number
         uses: actions/github-script@v2
         id: get-pr-number
@@ -41,13 +39,18 @@ jobs:
             })
             return pulls[0].number
           result-encoding: string
+      - name: Read package.json
+        id: logs
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: log.txt
       - name: Comment PR with draft publish logs
         id: create-comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ steps.get-pr-number.outputs.result }}
           body: |
-            ${{ steps.deployment.outputs.LOGS }}
+            ${{ steps.logs.outputs.content }}
       - name: Comment debug
         run: |
           echo "Comment ID - ${{ steps.create-comment.outputs.comment-id }}"
