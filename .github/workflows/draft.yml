@@ -26,19 +26,6 @@ jobs:
         run: |
           netlify deploy --dir build --message '${{ github.event.commits[0].message }}' > log.tmp.txt 2>&1
           cat log.tmp.txt | grep -E 'Logs|Website Draft URL' > log.txt
-      - name: Get PR number
-        uses: actions/github-script@v2
-        id: get-pr-number
-        with:
-          script: |
-            const {data: pulls} = await github.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              head: '${{ github.event.client_payload.ref }}'
-            })
-            return pulls[0].number
-          result-encoding: string
       - name: Read deployment log
         id: logs
         uses: juliangruber/read-file-action@v1
@@ -48,7 +35,7 @@ jobs:
         id: create-comment
         uses: peter-evans/create-or-update-comment@v2
         with:
-          issue-number: ${{ steps.get-pr-number.outputs.result }}
+          issue-number: ${{ github.event.pull_request.number }}
           body: |
             ${{ steps.logs.outputs.content }}
       - name: Comment debug
