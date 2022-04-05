@@ -1,4 +1,6 @@
-# Awesome Sequelize
+---
+title: Awesome Sequelize
+---
 
 A curated list of awesome projects surrounding Sequelize.
 

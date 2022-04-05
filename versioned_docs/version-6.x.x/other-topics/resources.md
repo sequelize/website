@@ -1,4 +1,6 @@
-# Resources
+---
+title: Resources
+---
 
 ## Addons & Plugins
 

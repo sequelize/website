@@ -1,8 +1,7 @@
 ---
 sidebar_position: 1
+title: Model Basics
 ---
-
-# Model Basics
 
 In this tutorial you will learn what models are in Sequelize and how to use them.
 

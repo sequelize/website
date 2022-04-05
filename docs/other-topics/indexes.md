@@ -1,4 +1,6 @@
-# Indexes
+---
+title: Indexes
+---
 
 Sequelize supports adding indexes to the model definition which will be created on [`sequelize.sync()`](pathname:///api/v7/classes/Sequelize.html#sync).
 

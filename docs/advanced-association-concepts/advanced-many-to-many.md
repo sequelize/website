@@ -1,8 +1,7 @@
 ---
 sidebar_position: 3
+title: Advanced M:N Associations
 ---
-
-# Advanced M:N Associations
 
 Make sure you have read the [associations guide](../core-concepts/assocs.md) before reading this guide.
 

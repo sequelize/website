@@ -1,4 +1,6 @@
-# Optimistic Locking
+---
+title: Optimistic Locking
+---
 
 Sequelize has built-in support for optimistic locking through a model instance version count.
 

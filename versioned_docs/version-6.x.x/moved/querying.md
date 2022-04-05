@@ -1,4 +1,6 @@
-# [MOVED] Querying
+---
+title: Querying
+---
 
 The contents of this page were moved to other specialized guides.
 

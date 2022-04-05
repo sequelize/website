@@ -1,4 +1,6 @@
-# Upgrade to v6
+---
+title: Upgrade to v6
+---
 
 Sequelize v6 is the next major release after v5. Below is a list of breaking changes to help you upgrade.
 

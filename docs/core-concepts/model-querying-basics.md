@@ -1,8 +1,7 @@
 ---
 sidebar_position: 3
+title: Model Querying - Basics
 ---
-
-# Model Querying - Basics
 
 Sequelize provides various methods to assist querying your database for data.
 

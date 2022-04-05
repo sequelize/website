@@ -1,4 +1,6 @@
-# Dialect-Specific Things
+---
+title: Dialect-Specific Things
+---
 
 ## Underlying Connector Libraries
 

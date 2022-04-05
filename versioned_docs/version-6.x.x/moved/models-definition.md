@@ -1,4 +1,6 @@
-# [MOVED] Models Definition
+---
+title: Models Definition
+---
 
 The contents of this page were moved to [Model Basics](../core-concepts/model-basics.md).
 

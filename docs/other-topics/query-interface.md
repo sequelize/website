@@ -1,4 +1,6 @@
-# Query Interface
+---
+title: Query Interface
+---
 
 An instance of Sequelize uses something called **Query Interface** to communicate to the database in a dialect-agnostic way. Most of the methods you've learned in this manual are implemented with the help of several methods from the query interface.
 
