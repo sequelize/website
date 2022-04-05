@@ -1,4 +1,6 @@
-# Legal Notice
+---
+title: Legal Notice
+---
 
 ## License
 

@@ -1,8 +1,7 @@
 ---
 sidebar_position: 6
+title: Validations & Constraints
 ---
-
-# Validations & Constraints
 
 In this tutorial you will learn how to setup validations and constraints for your models in Sequelize.
 

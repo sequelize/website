@@ -1,4 +1,6 @@
-# Naming Strategies
+---
+title: Naming Strategies
+---
 
 ## The `underscored` option
 

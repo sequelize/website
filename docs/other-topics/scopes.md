@@ -1,4 +1,6 @@
-# Scopes
+---
+title: Scopes
+---
 
 Scopes are used to help you reuse code. You can define commonly used queries, specifying options such as `where`, `include`, `limit`, etc.
 

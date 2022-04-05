@@ -1,4 +1,6 @@
-# Who's using sequelize?
+---
+title: Who's using sequelize?
+---
 
 [![Walmart labs logo](../../src/images/walmart-labs-logo.png)](https://www.walmartlabs.com/)
 

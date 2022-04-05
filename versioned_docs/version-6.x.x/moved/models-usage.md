@@ -1,4 +1,6 @@
-# [MOVED] Models Usage
+---
+title: Models Usage
+---
 
 The contents of this page were moved to other specialized guides.
 

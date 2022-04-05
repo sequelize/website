@@ -1,4 +1,6 @@
-# TypeScript
+---
+title: TypeScript
+---
 
 :::info
 

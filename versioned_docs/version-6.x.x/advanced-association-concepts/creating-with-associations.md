@@ -1,8 +1,7 @@
 ---
 sidebar_position: 2
+title: Creating with Associations
 ---
-
-# Creating with Associations
 
 An instance can be created with nested association in one step, provided all elements are new.
 

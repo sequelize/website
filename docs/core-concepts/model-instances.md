@@ -1,8 +1,7 @@
 ---
 sidebar_position: 2
+title: Model Instances
 ---
-
-# Model Instances
 
 As you already know, a model is an [ES6 class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes). An instance of the class represents one object from that model (which maps to one row of the table in the database). This way, model instances are [DAOs](https://en.wikipedia.org/wiki/Data_access_object).
 

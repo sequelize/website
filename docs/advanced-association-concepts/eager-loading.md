@@ -1,8 +1,7 @@
 ---
 sidebar_position: 1
+title: Eager Loading
 ---
-
-# Eager Loading
 
 As briefly mentioned in [the associations guide](../core-concepts/assocs.md), eager Loading is the act of querying data of several models at once (one 'main' model and one or more associated models). At the SQL level, this is a query with one or more [joins](https://en.wikipedia.org/wiki/Join_\(SQL\)).
 

@@ -1,4 +1,6 @@
-# Other Data Types
+---
+title: Other Data Types
+---
 
 Apart from the most common data types mentioned in the Model Basics guide, Sequelize provides several other data types.
 

@@ -1,4 +1,6 @@
-# Sub Queries
+---
+title: Sub Queries
+---
 
 Consider you have two models, `Post` and `Reaction`, with a One-to-Many relationship set up, so that one post has many reactions:
 

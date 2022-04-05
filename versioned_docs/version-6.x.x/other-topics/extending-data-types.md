@@ -1,4 +1,6 @@
-# Extending Data Types
+---
+title: Extending Data Types
+---
 
 Most likely the type you are trying to implement is already included in [DataTypes](./other-data-types.md). If a new datatype is not included, this manual will show how to write it yourself.
 

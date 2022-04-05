@@ -1,8 +1,7 @@
 ---
 sidebar_position: 5
+title: Polymorphic Associations
 ---
-
-# Polymorphic Associations
 
 _**Note:** the usage of polymorphic associations in Sequelize, as outlined in this guide, should be done with caution. Don't just copy-paste code from here, otherwise you might easily make mistakes and introduce bugs in your code. Make sure you understand what is going on._
 

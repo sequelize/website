@@ -1,8 +1,7 @@
 ---
 sidebar_position: 7
+title: Raw Queries
 ---
-
-# Raw Queries
 
 As there are often use cases in which it is just easier to execute raw / already prepared SQL queries, you can use the [`sequelize.query`](pathname:///api/v6/class/src/sequelize.js~Sequelize.html#instance-method-query) method.
 

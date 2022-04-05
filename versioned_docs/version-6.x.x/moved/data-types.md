@@ -1,4 +1,6 @@
-# [MOVED] Data Types
+---
+title: Data Types
+---
 
 The contents of this page were moved to other specialized guides.
 

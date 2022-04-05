@@ -1,8 +1,7 @@
 ---
 sidebar_position: 4
+title: Model Querying - Finders
 ---
-
-# Model Querying - Finders
 
 Finder methods are the ones that generate `SELECT` queries.
 

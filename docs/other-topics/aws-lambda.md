@@ -1,4 +1,6 @@
-# Using sequelize in AWS Lambda
+---
+title: Using sequelize in AWS Lambda
+---
 
 [AWS Lambda](https://aws.amazon.com/lambda/) is a serverless computing service that allows customers
 to run code without having to worry about the underlying servers. Using `sequelize` in AWS Lambda

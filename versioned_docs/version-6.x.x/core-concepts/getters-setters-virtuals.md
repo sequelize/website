@@ -1,8 +1,7 @@
 ---
 sidebar_position: 5
+title: Getters, Setters & Virtuals
 ---
-
-# Getters, Setters & Virtuals
 
 Sequelize allows you to define custom getters and setters for the attributes of your models.
 

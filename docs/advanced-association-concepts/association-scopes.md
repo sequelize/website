@@ -1,8 +1,7 @@
 ---
 sidebar_position: 4
+title: Association Scopes
 ---
-
-# Association Scopes
 
 This section concerns association scopes, which are similar but not the same as [model scopes](../other-topics/scopes.md).
 
