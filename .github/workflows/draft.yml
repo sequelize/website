@@ -1,7 +1,7 @@
 name: Website draft build
 on:
   pull_request:
-    branches-ignore:
+    branches:
       - main
 jobs:
   build:
