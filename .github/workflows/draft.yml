@@ -1,0 +1,47 @@
+name: Website draft build
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint-no-fix
+      - run: yarn typecheck
+      - run: yarn sync
+      - run: yarn build
+      - name: Deploy to Draft to Netlify
+        id: deployment
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        shell: bash
+        run: |
+          netlify deploy --dir build --message '${{ github.event.commits[0].message }}' > log.tmp.txt 2>&1
+          cat log.tmp.txt | grep -E 'Logs|Website Draft URL' > log.txt
+      - name: Read deployment log
+        id: logs
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: log.txt
+      - name: Comment PR with draft publish logs
+        id: create-comment
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ${{ steps.logs.outputs.content }}
+      - name: Comment debug
+        run: |
+          echo "Comment ID - ${{ steps.create-comment.outputs.comment-id }}"
+
+
+
+      
