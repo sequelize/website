@@ -78,7 +78,7 @@ const FeatureList: FeatureItem[] = [
     title: 'Hooks',
     description: (
       <>
-        Hooks (also known as lifecycle events), are functions which are called before and after calls in sequelize are executed.
+        Hooks are functions which are called before and after calls in sequelize are executed.
       </>
     ),
     code: trim`
