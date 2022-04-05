@@ -51,9 +51,6 @@ jobs:
           issue-number: ${{ steps.get-pr-number.outputs.result }}
           body: |
             ${{ steps.logs.outputs.content }}
-      - name: Comment debug
-        run: |
-          echo "Comment ID - ${{ steps.create-comment.outputs.comment-id }}"
 
 
 
