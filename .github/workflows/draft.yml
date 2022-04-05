@@ -1,6 +1,6 @@
 name: Website draft build
 on:
-  push:
+  pull_request:
     branches-ignore:
       - main
 jobs:
