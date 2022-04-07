@@ -21,10 +21,10 @@ const sequelize = new Sequelize({ dialect: 'sqlite' });
 await sequelize.authenticate();
 ```
 
-### Support for Node 12 and up
+### Dropping support for Node 10 and 12
 
-Sequelize v7 will only support the versions of Node.js that are compatible with the ES module specification,
-namingly version 12 and upwards [#5](https://github.com/sequelize/meetings/issues/5).
+Sequelize v7 will only support the versions of Node.js that are still maintained when Sequelize 7 released,
+namingly version 14.17 and upwards [#5](https://github.com/sequelize/meetings/issues/5).
 
 ### TypeScript conversion
 
