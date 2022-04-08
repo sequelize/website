@@ -34,7 +34,7 @@ If you're trying to use Sequelize 6 in Node 14 or newer, use that version of pg.
 
 | Sequelize   | [PostgreSQL][postgres] | [pg]                                         | [pg-native]    |
 |-------------|------------------------|----------------------------------------------|----------------|
-| 7 (alpha)   | >= 10                  | >= 8.2                                       | >=3.0.0 ⚠️[^1] |
+| 7 (alpha)   | >= 10                  | >= 8.2                                       | >=3.0.0 [^⚠️1] |
 | 6 (current) | >= 9.5                 | >= 7.8 (node < 14) <br/> >= 8.2 (node >= 14) | >=3.0.0        |
 
 [postgres]: https://www.postgresql.org/support/versioning/
@@ -48,7 +48,7 @@ MariaDB requires the use of the [mariadb][mariadb-npm] npm package.
 
 | Sequelize   | [MariaDB][mariadb] | [mariadb (npm)][mariadb-npm] |
 |-------------|--------------------|------------------------------|
-| 7 (alpha)   | >=10.3             | >= 3.0.0 ⚠️[^2]              |
+| 7 (alpha)   | >=10.3             | >= 3.0.0 [^⚠️2]              |
 | 6 (current) | >=10.3             | ^2.3.3                       |
 
 [mariadb]: https://mariadb.org/about/#maintenance-policy
@@ -170,6 +170,6 @@ support for *Db2 for IBM i* is limited as it is not handled by the core team.
 [ibmi]: https://www.ibm.com/support/pages/db2-ibm-i
 [odbc]: https://www.npmjs.com/package/odbc
 
-[^1]: `pg-native` [hasn't had a release since 2018](https://www.npmjs.com/package/pg-native).
+[^⚠️1]: `pg-native` [hasn't had a release since 2018](https://www.npmjs.com/package/pg-native).
 Sequelize will still test against it, but its reliability is degraded in Node >=17.
-[^2]: Support for mariadb 3 has not been completed yet https://github.com/sequelize/sequelize/pull/14187
+[^⚠️2]: Support for mariadb 3 has not been completed yet https://github.com/sequelize/sequelize/pull/14187
