@@ -51,3 +51,7 @@
 /docs/v7/intro /docs/v7/ 301
 /docs/v6/intro /docs/v6/ 301
 /v7 /docs/v7/ 301
+
+/docs/v7/other-topics/upgrade-to-v6/ /docs/v6/other-topics/upgrade/ 301
+/docs/v6/other-topics/upgrade-to-v6/ /docs/v6/other-topics/upgrade/ 301
+/docs/v7/other-topics/upgrade-to-v7/ /docs/v7/other-topics/upgrade/ 301
