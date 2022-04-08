@@ -75,7 +75,7 @@ MSSQL requires the use of the [tedious] npm package.
 | Sequelize   | [SQL Server][mssql] | [tedious] |
 |-------------|---------------------|-----------|
 | 7 (alpha)   | 2017, 2019          | ^14.4.0   |
-| 6 (current) | 2017, 2019          | ^8.3.0    |
+| 6 (current) | 2012-2019           | ^8.3.0    |
 
 [mssql]: https://endoflife.date/mssqlserver
 [tedious]: https://www.npmjs.com/package/tedious
