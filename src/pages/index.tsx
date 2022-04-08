@@ -39,9 +39,9 @@ function HomepageHeader() {
             <div className={css.buttonGroup}>
               <Link
                 className="button button--secondary button--lg"
-                to="/docs/v6/other-topics/upgrade-to-v6"
+                to="/docs/v6/other-topics/upgrade"
               >
-                Upgrade to V6
+                Upgrade to v6
               </Link>
 
               <Link
