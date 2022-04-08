@@ -4,6 +4,12 @@ title: Upgrade to v7
 
 Sequelize v7 is the next major release after v6. Below is a list of breaking changes to help you upgrade.
 
+:::info
+
+Upgrading from Sequelize v5? [Check out our 'Upgrade to v6' guide](/docs/v6/other-topics/upgrade) first!
+
+:::
+
 ## Breaking Changes
 
 ### Main project renamed to @sequelize/core
