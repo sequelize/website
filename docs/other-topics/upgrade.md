@@ -43,7 +43,7 @@ Trying to import any other file, generally from `/lib`, will cause an error.
 This change was made because these files were considered to be internal APIs and their behavior can drastically change from
 one non-major release to the other, as long as the APIs exposed by `@sequelize/core` stay stable.
 
-If you need access to Sequelize's internal code, [open a feature request](https://github.com/sequelize/website/issues) describing your use case.
+If you need access to Sequelize's internal code, [open a feature request](https://github.com/sequelize/sequelize/issues) describing your use case.
 
 As a **last** resort, you can still voluntarily choose to import our internal code by importing the `_non-semver-use-at-your-own-risk_` folder:
 
