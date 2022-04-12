@@ -152,13 +152,13 @@ support for Db2 is limited as it is not handled by the core team.
 
 ## Db2 for IBM i Support Table
 
-*Db2 for IBM i* requires the use of the [odbc] npm package.  
+Db2 for IBM i requires the use of the [odbc] npm package.  
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#db2-for-ibm-i).
 
 :::note
 
 While this dialect is included in Sequelize,
-support for *Db2 for IBM i* is limited as it is not handled by the core team.
+support for Db2 for IBM i is limited as it is not handled by the core team.
 
 :::
 
