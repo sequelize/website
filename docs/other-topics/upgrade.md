@@ -27,10 +27,16 @@ const sequelize = new Sequelize({ dialect: 'sqlite' });
 await sequelize.authenticate();
 ```
 
-### Dropping support for Node 10 and 12
+### Minimum supported engine versions
 
-Sequelize v7 will only support the versions of Node.js that are still maintained when Sequelize 7 released,
-namingly version 14.17 and upwards [#5](https://github.com/sequelize/meetings/issues/5).
+Sequelize v7 only supports the versions of Node.js, and databases that were not EOL at the time of release.[^issue-1]  
+Sequelize v7 also supports versions of TypeScript that were released in the past year prior to the time of release.
+
+This means Sequelize v7 supports **Node >= 14**, and **TypeScript >= 4.4**.
+
+Head to our [Versioning Policy page](/releases) to see exactly which databases are supported by Sequelize v7.
+
+[^issue-1]: https://github.com/sequelize/meetings/issues/5
 
 ### Blocking access to `/lib`
 
@@ -156,12 +162,6 @@ sequelize.connectionManager.getConnection({ type: 'SELECT' });
 // Do this:
 sequelize.connectionManager.getConnection({ type: 'read' });
 ```
-
-### Microsoft SQL Server Support
-
-Sequelize v7 fully supports MS SQL Server 2017 (version 14) onwards, up from 2012 (version 13) in
-Sequelize v6, as this matches Microsoft's own [mainstream support](
-https://docs.microsoft.com/en-us/sql/sql-server/end-of-support/sql-server-end-of-life-overview?view=sql-server-ver15#lifecycle-dates).
 
 ### Overridden Model methods won't be called internally
 
