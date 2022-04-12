@@ -241,3 +241,17 @@ stop working in a future major release.
 - `Model.setAttributes()` is deprecated in favor of `Model.set()`, as it was just an alias
 - `Model.dropSchema()` is deprecated as it is unrelated to Model, use [`Sequelize#dropSchema`](pathname:///api/v7/classes/sequelize#dropSchema) or [`QueryInterface#dropSchema`](pathname:///api/v7/classes/queryinterface#dropSchema) instead.
 - The `parent` and `original` properties on Error classes are deprecated in favor of the native `cause` property, which should improve error messages.
+- Accessing DataTypes on the Sequelize constructor is deprecated. Instead of doing this:
+  ```typescript
+  import { Sequelize } from '@sequelize/core';
+  
+  Sequelize.STRING
+  Sequelize.INTEGER
+  ```
+  do this:
+  ```typescript
+  import { DataTypes } from '@sequelize/core';
+
+  DataTypes.STRING
+  DataTypes.INTEGER
+  ```
