@@ -4,6 +4,12 @@ title: Upgrade to v7
 
 Sequelize v7 is the next major release after v6. Below is a list of breaking changes to help you upgrade.
 
+:::info
+
+Upgrading from Sequelize v5? [Check out our 'Upgrade to v6' guide](/docs/v6/other-topics/upgrade) first!
+
+:::
+
 ## Breaking Changes
 
 ### Main project renamed to @sequelize/core
@@ -25,6 +31,28 @@ await sequelize.authenticate();
 
 Sequelize v7 will only support the versions of Node.js that are still maintained when Sequelize 7 released,
 namingly version 14.17 and upwards [#5](https://github.com/sequelize/meetings/issues/5).
+
+### Blocking access to `/lib`
+
+Sequelize v7 restricts which files can be imported. Going forward, the only modules which can be imported are:
+
+- `@sequelize/core`
+- `@sequelize/core/package.json`
+
+Trying to import any other file, generally from `/lib`, will cause an error.  
+This change was made because these files were considered to be internal APIs and their behavior can drastically change from
+one non-major release to the other, as long as the APIs exposed by `@sequelize/core` stay stable.
+
+If you need access to Sequelize's internal code, [open a feature request](https://github.com/sequelize/sequelize/issues) describing your use case.
+
+As a **last** resort, you can still voluntarily choose to import our internal code by importing the `_non-semver-use-at-your-own-risk_` folder:
+
+```typescript
+// do *not* do this unless you know what you're doing
+import { Model } from '@sequelize/core/_non-semver-use-at-your-own-risk_/model.js';
+```
+
+If you do that, we recommend pinning the Sequelize version your project uses as **breaking changes can be introduced in these files** in any new release of Sequelize, including patch.
 
 ### TypeScript conversion
 
