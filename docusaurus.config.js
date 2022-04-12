@@ -146,8 +146,12 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Guides',
                 to: '/docs/v6/',
+              },
+              {
+                label: 'Version Policy',
+                to: '/releases',
               },
             ],
           },
