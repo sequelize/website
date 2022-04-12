@@ -225,3 +225,19 @@ WHERE firstName = 'bob' AND age > 20 AND age < 30 LIMIT 10
 ```
 
 **Note**: The flag `whereMergeStrategy` was introduced in the v6.18.0 to switch between these two behaviors. This flag has been dropped because only the `and` merging option is supported in Sequelize v7.
+
+### Removal of previously deprecated APIs
+
+- `WhereValue`, `AnyOperator`, `AllOperator`, `AndOperator` and `OrOperator` types: They did not reflect the reality of how the `where` option is typed (see [this PR](https://github.com/sequelize/sequelize/pull/14022))
+
+## Deprecations
+
+Sequelize 7 also includes a series of new deprecation. These APIs will continue to work in v7 but expect them to
+stop working in a future major release.
+
+- `Model.scope()` has been renamed to `Model.withScope()`
+- `Model.unscoped()` has been renamed to `Model.withoutScope()` (due to the addition of `Model.withOriginalScope()`)
+- `Model.schema()` has been renamed to `Model.withSchema()`
+- `Model.setAttributes()` is deprecated in favor of `Model.set()`, as it was just an alias
+- `Model.dropSchema()` is deprecated as it is unrelated to Model, use [`Sequelize#dropSchema`](pathname:///api/v7/classes/sequelize#dropSchema) or [`QueryInterface#dropSchema`](pathname:///api/v7/classes/queryinterface#dropSchema) instead.
+- The `parent` and `original` properties on Error classes are deprecated in favor of the native `cause` property, which should improve error messages.
