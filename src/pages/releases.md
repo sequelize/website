@@ -8,7 +8,7 @@ This page regroups information related to which engines versions are supported b
 
 | Sequelize                       | [Node.js][node-releases] | [Typescript][ts-releases] | Release Date | EOL        |
 |---------------------------------|--------------------------|---------------------------|--------------|------------|
-| [7 (alpha)][sequelize-core]     | >= 14                    | >= 4.4                    | ❓            | ❓          |
+| [7 (alpha)][sequelize-core]     | ^14.17.0 || >= 16.0.0    | >= 4.4                    | ❓            | ❓          |
 | [6 (current)][sequelize-legacy] | >= 10                    | >= 3.9                    | 2020-06-24   | ❓          |
 | 5 (eol)                         | >=6                      | >= 3.1                    | 2019-03-13   | 2022-01-01 |
 
@@ -87,7 +87,7 @@ Sequelize uses the `sqlite3` npm library.
 
 :::caution
 
-sqlite3 has not been released since february 2021, and has security vulnerabilities and installation issues on newer platforms.
+sqlite3 has not been released since February 2021, and has security vulnerabilities and installation issues on newer platforms.
 
 We recommended using the [@vscode/sqlite3](https://github.com/microsoft/vscode-node-sqlite3) fork 
 by replacing the version with `npm:@vscode/sqlite3@5.0.7` like in the example below.

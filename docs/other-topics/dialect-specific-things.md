@@ -155,7 +155,7 @@ See [Releases](/releases#sqlite-support-table) to see which versions of sqlite3 
 
 :::caution
 
-sqlite3 has not been released since february 2021, and has security vulnerabilities and installation issues on newer platforms.
+sqlite3 has not been released since February 2021, and has security vulnerabilities and installation issues on newer platforms.
 
 We recommended using the [@vscode/sqlite3](https://github.com/microsoft/vscode-node-sqlite3) fork by replacing the version with `npm:@vscode/sqlite3@5.0.7` like in the example below.
 
