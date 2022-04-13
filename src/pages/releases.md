@@ -85,31 +85,12 @@ MSSQL requires the use of the [tedious] npm package.
 Sequelize uses the `sqlite3` npm library.  
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#sqlite).
 
-:::caution
-
-sqlite3 has not been released since February 2021, and has security vulnerabilities and installation issues on newer platforms.
-
-We recommended using the [@vscode/sqlite3](https://github.com/microsoft/vscode-node-sqlite3) fork 
-by replacing the version with `npm:@vscode/sqlite3@5.0.7` like in the example below.
-
-It is supported in both v6 & v7.
-
-```json
-{
-  "dependencies": {
-    "sqlite3": "npm:@vscode/sqlite3@5.0.7"
-  }
-}
-```
-
-:::
-
 | Sequelize   | [sqlite3]                                                      |
 |-------------|----------------------------------------------------------------|
-| 7 (alpha)   | `npm:@vscode/sqlite3@^5.0.7`                                   |
-| 6 (current) | `npm:@vscode/sqlite3@^4.0.12`, or `npm:@vscode/sqlite3@^5.0.7` |
+| 7 (alpha)   | `sqlite3@^5.0.3`                                   |
+| 6 (current) | `sqlite3@^4.0.12`, or `sqlite3@^5.0.3` |
 
-[sqlite3]: https://www.npmjs.com/package/@vscode/sqlite3
+[sqlite3]: https://www.npmjs.com/package/sqlite3
 
 ## Snowflake Support Table
 
