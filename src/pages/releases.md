@@ -49,7 +49,7 @@ MariaDB requires the use of the [mariadb][mariadb-npm] npm package.
 | Sequelize   | [MariaDB][mariadb] | [mariadb (npm)][mariadb-npm] |
 |-------------|--------------------|------------------------------|
 | 7 (alpha)   | >=10.3             | >= 3.0.0 [^⚠️2]              |
-| 6 (current) | >=10.3             | ^2.3.3                       |
+| 6 (current) | >=10.1.44          | ^2.3.3                       |
 
 [mariadb]: https://mariadb.org/about/#maintenance-policy
 [mariadb-npm]: https://www.npmjs.com/package/mariadb
@@ -75,7 +75,7 @@ MSSQL requires the use of the [tedious] npm package.
 | Sequelize   | [SQL Server][mssql] | [tedious] |
 |-------------|---------------------|-----------|
 | 7 (alpha)   | 2017, 2019          | ^14.4.0   |
-| 6 (current) | 2012-2019           | ^8.3.0    |
+| 6 (current) | 2014-2019           | ^8.3.0    |
 
 [mssql]: https://endoflife.date/mssqlserver
 [tedious]: https://www.npmjs.com/package/tedious
