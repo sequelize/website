@@ -496,8 +496,8 @@ class User extends Model {
   }
 }
 User.init({
-  firstname: Sequelize.TEXT,
-  lastname: Sequelize.TEXT
+  firstname: DataTypes.TEXT,
+  lastname: DataTypes.TEXT
 }, { sequelize });
 
 console.log(User.classLevelMethod()); // 'foo'

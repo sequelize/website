@@ -14,21 +14,21 @@ Consider the following models:
 ```js
 class Product extends Model {}
 Product.init({
-  title: Sequelize.STRING
+  title: DataTypes.STRING
 }, { sequelize, modelName: 'product' });
 class User extends Model {}
 User.init({
-  firstName: Sequelize.STRING,
-  lastName: Sequelize.STRING
+  firstName: DataTypes.STRING,
+  lastName: DataTypes.STRING
 }, { sequelize, modelName: 'user' });
 class Address extends Model {}
 Address.init({
   type: DataTypes.STRING,
-  line1: Sequelize.STRING,
-  line2: Sequelize.STRING,
-  city: Sequelize.STRING,
-  state: Sequelize.STRING,
-  zip: Sequelize.STRING,
+  line1: DataTypes.STRING,
+  line2: DataTypes.STRING,
+  city: DataTypes.STRING,
+  state: DataTypes.STRING,
+  zip: DataTypes.STRING,
 }, { sequelize, modelName: 'address' });
 
 // We save the return values of the association setup calls to use them later
@@ -90,7 +90,7 @@ Let's introduce the ability to associate a product with many tags. Setting up th
 ```js
 class Tag extends Model {}
 Tag.init({
-  name: Sequelize.STRING
+  name: DataTypes.STRING
 }, { sequelize, modelName: 'tag' });
 
 Product.hasMany(Tag);
