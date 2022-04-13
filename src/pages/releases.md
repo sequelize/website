@@ -170,6 +170,19 @@ support for Db2 for IBM i is limited as it is not handled by the core team.
 [ibmi]: https://www.ibm.com/support/pages/db2-ibm-i
 [odbc]: https://www.npmjs.com/package/odbc
 
+## Oracle Support Table
+
+Oracle Database requires the use of the [oracledb] npm package.  
+[Read more about this here](/docs/v7/other-topics/dialect-specific-things/#oracle).
+
+| Sequelize   | [Oracle]   | [ibm_db] |
+|-------------|------------|----------|
+| 7 (alpha)   | unknown    | unknown  |
+| 6 (current) | >= 18.4    | ^5.4.0   |
+
+[Oracle Database]: https://support.oracle.com/knowledge/Oracle%20Database%20Products/742060_1.html
+[oracledb]: https://www.npmjs.com/package/oracledb
+
 [^⚠️1]: `pg-native` [hasn't had a release since 2018](https://www.npmjs.com/package/pg-native).
 Sequelize will still test against it, but its reliability is degraded in Node >=17.
 [^⚠️2]: Support for mariadb 3 has not been completed yet https://github.com/sequelize/sequelize/pull/14187
