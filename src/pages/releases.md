@@ -170,15 +170,15 @@ support for Db2 for IBM i is limited as it is not handled by the core team.
 [ibmi]: https://www.ibm.com/support/pages/db2-ibm-i
 [odbc]: https://www.npmjs.com/package/odbc
 
-## Oracle Support Table
+## Oracle Database Support Table
 
-Oracle Database requires the use of the [oracledb] npm package.  
+Oracle Database requires the use of the [node-oracledb] npm package.  
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#oracle).
 
-| Sequelize   | [Oracle]   | [ibm_db] |
-|-------------|------------|----------|
-| 7 (alpha)   | unknown    | unknown  |
-| 6 (current) | >= 18.4    | ^5.4.0   |
+| Sequelize   | [Oracle Database]   | [node-oracledb] |
+|-------------|---------------------|-----------------|
+| 7 (alpha)   |      unknown        |    unknown      |
+| 6 (current) |      >= 18.4        |    ^5.4.0       |
 
 [Oracle Database]: https://support.oracle.com/knowledge/Oracle%20Database%20Products/742060_1.html
 [oracledb]: https://www.npmjs.com/package/oracledb
