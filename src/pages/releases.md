@@ -85,10 +85,16 @@ MSSQL requires the use of the [tedious] npm package.
 Sequelize uses the `sqlite3` npm library.  
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#sqlite).
 
+:::note
+
+sqlite3@^4 has security vulnerabilities which are fixed by the [@vscode/sqlite3](https://www.npmjs.com/package/@vscode/sqlite3) fork. We recommend using that if you can not update to sqlite3@^5.0.3.
+
+:::
+
 | Sequelize   | [sqlite3]                                                      |
 |-------------|----------------------------------------------------------------|
 | 7 (alpha)   | `sqlite3@^5.0.3`                                   |
-| 6 (current) | `sqlite3@^4.0.12`, or `sqlite3@^5.0.3` |
+| 6 (current) | `@vscode/sqlite3@^4.0.12`, or `sqlite3@^5.0.3` |
 
 [sqlite3]: https://www.npmjs.com/package/sqlite3
 
