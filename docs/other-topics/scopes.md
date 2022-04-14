@@ -201,10 +201,10 @@ Includes are merged recursively based on the models being included. This is a ve
 Consider the models `Foo`, `Bar`, `Baz` and `Qux`, with One-to-Many associations as follows:
 
 ```js
-const Foo = sequelize.define('Foo', { name: Sequelize.STRING });
-const Bar = sequelize.define('Bar', { name: Sequelize.STRING });
-const Baz = sequelize.define('Baz', { name: Sequelize.STRING });
-const Qux = sequelize.define('Qux', { name: Sequelize.STRING });
+const Foo = sequelize.define('Foo', { name: DataTypes.STRING });
+const Bar = sequelize.define('Bar', { name: DataTypes.STRING });
+const Baz = sequelize.define('Baz', { name: DataTypes.STRING });
+const Qux = sequelize.define('Qux', { name: DataTypes.STRING });
 Foo.hasMany(Bar, { foreignKey: 'fooId' });
 Bar.hasMany(Baz, { foreignKey: 'barId' });
 Baz.hasMany(Qux, { foreignKey: 'bazId' });

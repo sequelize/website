@@ -190,7 +190,7 @@ You also can conditionally allow `null` values, with a custom validator, since i
 ```js
 class User extends Model {}
 User.init({
-  age: Sequelize.INTEGER,
+  age: DataTypes.INTEGER,
   name: {
     type: DataTypes.STRING,
     allowNull: true,
@@ -235,8 +235,8 @@ An example:
 ```js
 class Place extends Model {}
 Place.init({
-  name: Sequelize.STRING,
-  address: Sequelize.STRING,
+  name: DataTypes.STRING,
+  address: DataTypes.STRING,
   latitude: {
     type: DataTypes.INTEGER,
     validate: {
