@@ -22,11 +22,11 @@ const FeatureList: FeatureItem[] = [
     ),
     code: trim`
       const Wishlist = sequelize.define("Wishlist", {
-        title: Sequelize.STRING,
+        title: DataTypes.STRING,
       });
       const Wish = sequelize.define("Wish", {
-        title: Sequelize.STRING,
-        quantity: Sequelize.NUMBER,
+        title: DataTypes.STRING,
+        quantity: DataTypes.NUMBER,
       });
 
       // Automatically create all tables
@@ -63,7 +63,7 @@ const FeatureList: FeatureItem[] = [
     ),
     code: trim`
       const User = sequelize.define("User", 
-        { username: Sequelize.STRING },
+        { username: DataTypes.STRING },
         { paranoid: true },
       });
 
