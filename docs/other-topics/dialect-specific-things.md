@@ -153,22 +153,6 @@ const sequelize = new Sequelize('database', null, null, {
 The underlying connector library used by Sequelize for SQLite is the [sqlite3](https://www.npmjs.com/package/sqlite3) npm package.  
 See [Releases](/releases#sqlite-support-table) to see which versions of sqlite3 are supported.
 
-:::caution
-
-sqlite3 has not been released since February 2021, and has security vulnerabilities and installation issues on newer platforms.
-
-We recommended using the [@vscode/sqlite3](https://github.com/microsoft/vscode-node-sqlite3) fork by replacing the version with `npm:@vscode/sqlite3@5.0.7` like in the example below.
-
-```json
-{
-  "dependencies": {
-    "sqlite3": "npm:@vscode/sqlite3@5.0.7"
-  }
-}
-```
-
-:::
-
 You specify the storage file in the Sequelize constructor with the `storage` option (use `:memory:` for an in-memory SQLite instance).
 
 You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
