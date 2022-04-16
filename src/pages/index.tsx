@@ -1,21 +1,21 @@
-import BrowserOnly from "@docusaurus/BrowserOnly";
-import Head from "@docusaurus/Head";
-import Link from "@docusaurus/Link";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import Layout from "@theme/Layout";
-import clsx from "clsx";
-import React from "react";
-import HomepageFeatures from "../components/homepage-features";
-import HomepageUsage from "../components/homepage-usage";
-import HomepageUsers from "../components/homepage-users";
-import css from "./index.module.scss";
+import BrowserOnly from '@docusaurus/BrowserOnly';
+import Head from '@docusaurus/Head';
+import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Layout from '@theme/Layout';
+import clsx from 'clsx';
+import React from 'react';
+import HomepageFeatures from '../components/homepage-features';
+import HomepageUsage from '../components/homepage-usage';
+import HomepageUsers from '../components/homepage-users';
+import css from './index.module.scss';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <header className={clsx("hero hero--primary", css.heroBanner)}>
-      <div className={clsx("container", css.heroBannerContainer)}>
+    <header className={clsx('hero hero--primary', css.heroBanner)}>
+      <div className={clsx('container', css.heroBannerContainer)}>
         <img src="/img/logo.svg" className="container-logo" alt="" />
         <div className={css.textContainer}>
           <h1 className="hero__title">{siteConfig.title}</h1>
@@ -47,8 +47,8 @@ function HomepageHeader() {
 
               <Link
                 className={clsx(
-                  "button button--secondary button--lg",
-                  css.supportButton
+                  'button button--secondary button--lg',
+                  css.supportButton,
                 )}
                 to="https://opencollective.com/sequelize"
               >
