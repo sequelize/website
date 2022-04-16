@@ -121,6 +121,10 @@ try {
 Sequelize will keep the connection open by default, and use the same connection for all queries.
 If you need to close the connection, call `sequelize.close()` (which is asynchronous and returns a Promise).
 
+### Reconnecting the connection
+
+Sequelize can't reconnecting to closed connection, it's not reversible, but you can create a new instance of Sequelize to 'undo' the connection.
+
 ## Terminology convention
 
 Observe that, in the examples above, `Sequelize` refers to the library itself while `sequelize` refers to an instance of Sequelize,
