@@ -127,7 +127,7 @@ export default function HomepageFeatures(): JSX.Element {
             className="topics"
             to="/docs/v6/other-topics/hooks/"
           > lifecycle events (hooks)
-          </Link> 
+          </Link>
           and more.
           <br />
           Learn more about the many features Sequelize has to offer!
