@@ -121,9 +121,11 @@ try {
 Sequelize will keep the connection open by default, and use the same connection for all queries.
 If you need to close the connection, call `sequelize.close()` (which is asynchronous and returns a Promise).
 
-### Reconnecting the connection
+:::note
 
-Sequelize can't reconnecting to closed connection, it's not reversible, but you can create a new instance of Sequelize to 'undo' the connection.
+One `sequelize.close()` has been called, it's impossible to reopen a connection. You will need to create a new Sequelize instance to access your database again.
+
+:::
 
 ## Terminology convention
 
