@@ -1,20 +1,21 @@
-import Head from '@docusaurus/Head';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
-import clsx from 'clsx';
-import React from 'react';
-import HomepageFeatures from '../components/homepage-features';
-import HomepageUsage from '../components/homepage-usage';
-import HomepageUsers from '../components/homepage-users';
-import css from './index.module.scss';
+import BrowserOnly from "@docusaurus/BrowserOnly";
+import Head from "@docusaurus/Head";
+import Link from "@docusaurus/Link";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Layout from "@theme/Layout";
+import clsx from "clsx";
+import React from "react";
+import HomepageFeatures from "../components/homepage-features";
+import HomepageUsage from "../components/homepage-usage";
+import HomepageUsers from "../components/homepage-users";
+import css from "./index.module.scss";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <header className={clsx('hero hero--primary', css.heroBanner)}>
-      <div className={clsx('container', css.heroBannerContainer)}>
+    <header className={clsx("hero hero--primary", css.heroBanner)}>
+      <div className={clsx("container", css.heroBannerContainer)}>
         <img src="/img/logo.svg" className="container-logo" alt="" />
         <div className={css.textContainer}>
           <h1 className="hero__title">{siteConfig.title}</h1>
@@ -45,7 +46,10 @@ function HomepageHeader() {
               </Link>
 
               <Link
-                className={clsx('button button--secondary button--lg', css.supportButton)}
+                className={clsx(
+                  "button button--secondary button--lg",
+                  css.supportButton
+                )}
                 to="https://opencollective.com/sequelize"
               >
                 Support us
@@ -65,13 +69,15 @@ export default function Home(): JSX.Element {
     <Layout description={siteConfig.tagline}>
       {/* we don't add '| Sequelize' on the homepage title because it already starts with 'Sequelize -' for better search results display */}
       <Head titleTemplate="%s">
-        <title>Sequelize | Feature-rich ORM for modern TypeScript & JavaScript</title>
+        <title>
+          Sequelize | Feature-rich ORM for modern TypeScript & JavaScript
+        </title>
       </Head>
       <HomepageHeader />
       <main>
         <HomepageUsage />
         <HomepageFeatures />
-        <HomepageUsers />
+        <BrowserOnly>{() => <HomepageUsers />}</BrowserOnly>
       </main>
     </Layout>
   );
