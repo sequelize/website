@@ -39,7 +39,7 @@ This will create following folders
 - `migrations`, contains all migration files
 - `seeders`, contains all seed files
 
-## Initiating migration files
+## Writing a migration
 
 The following skeleton shows a typical migration file.
 
