@@ -106,23 +106,29 @@ export default function HomepageFeatures(): JSX.Element {
           <Link
             className="topics"
             to="/docs/v6/other-topics/transactions/"
-          > Transactions</Link>,
+          > Transactions
+          </Link>,
           <Link
             className="topics"
             to="/docs/v6/other-topics/migrations/"
-          > migrations</Link>,
+          > migrations
+          </Link>,
           <Link
             className="topics"
             to="/docs/v6/other-topics/typescript/"
-          > strong typing</Link>,
+          > strong typing
+          </Link>,
           <Link
             className="topics"
             to="/docs/v6/other-topics/other-data-types/#json-sqlite-mysql-mariadb-and-postgresql-only"
-          > JSON querying</Link>,
+          > JSON querying
+          </Link>,
           <Link
             className="topics"
             to="/docs/v6/other-topics/hooks/"
-          > lifecycle events (hooks)</Link> and more.
+          > lifecycle events (hooks)
+          </Link> 
+          and more.
           <br />
           Learn more about the many features Sequelize has to offer!
         </p>
