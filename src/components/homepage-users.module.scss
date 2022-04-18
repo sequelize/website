@@ -16,7 +16,7 @@
   margin-bottom: fluid($min-screen-size, $container-max-width, 32px, 64px);
 }
 
-.userRow, .userRow > div {
+.userRow {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,48 @@
 
 .userRow img {
   max-height: fluid($min-screen-size, $container-max-width, 24px, 48px);
-  width: auto;
   filter: brightness(0) invert(1);
   opacity: 0.8;
+  max-height: 75px;
+}
+
+.slide {
+  padding: 0 20px;
+}
+
+.testimonialWrapper {
+  background: white;
+  width: 100%;
+  display: flex;
+  border-radius: var(--ifm-global-radius);
+  padding: 20px;
+  flex-direction: column;
+  position: relative;
+  text-align: center;
+
+  &::before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background: white;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    margin-left: -15px;
+    transform: rotate(45deg);
+  }
+}
+
+.testimonialText {
+  font-style: italic;
+}
+
+.userName {
+  margin-left: 0.5rem;
+  opacity: 0.5;
+
+  &::before {
+    content: '–';
+    margin-right: 0.5rem;
+  }
 }
