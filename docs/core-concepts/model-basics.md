@@ -280,7 +280,7 @@ Foo.init({ /* attributes */ }, {
 
 ## Prevent creating a default PK attribute
 
-By default, Sequelize automatically adds the primary key field `id` to every model when there is no primary key field defined and would throw an error when there is an `id` field but not a primary key field, to prevent this you can use the option `noPrimaryKey` and set it to true.
+By default, Sequelize automatically adds the primary key field `id` to every model when there is no primary key field defined. When there is an `id` field but not a primary key field Sequelize will throw an error. To prevent this you can use the option `noPrimaryKey` when creating the instance and set it to true.
 
 ```js
 const sequelize = Sequelize.createSequelizeInstance({
