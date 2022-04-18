@@ -1,3 +1,4 @@
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import Head from '@docusaurus/Head';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -45,7 +46,10 @@ function HomepageHeader() {
               </Link>
 
               <Link
-                className={clsx('button button--secondary button--lg', css.supportButton)}
+                className={clsx(
+                  'button button--secondary button--lg',
+                  css.supportButton,
+                )}
                 to="https://opencollective.com/sequelize"
               >
                 Support us
@@ -65,13 +69,15 @@ export default function Home(): JSX.Element {
     <Layout description={siteConfig.tagline}>
       {/* we don't add '| Sequelize' on the homepage title because it already starts with 'Sequelize -' for better search results display */}
       <Head titleTemplate="%s">
-        <title>Sequelize | Feature-rich ORM for modern TypeScript & JavaScript</title>
+        <title>
+          Sequelize | Feature-rich ORM for modern TypeScript & JavaScript
+        </title>
       </Head>
       <HomepageHeader />
       <main>
         <HomepageUsage />
         <HomepageFeatures />
-        <HomepageUsers />
+        <BrowserOnly>{() => <HomepageUsers />}</BrowserOnly>
       </main>
     </Layout>
   );
