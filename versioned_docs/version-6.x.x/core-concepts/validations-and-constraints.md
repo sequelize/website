@@ -199,7 +199,7 @@ User.init({
         if (value === null && this.age !== 10) {
           throw new Error("name can't be null unless age is 10");
         }
-      })
+      }
     }
   }
 }, { sequelize });
