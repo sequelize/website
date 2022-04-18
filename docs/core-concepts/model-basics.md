@@ -278,6 +278,35 @@ Foo.init({ /* attributes */ }, {
 });
 ```
 
+## Prevent creating a default PK attribute
+
+By default, Sequelize automatically adds the primary key field `id` to every model when there is no primary key field defined and would throw an error when there is an `id` field but not a primary key field, to avoid this you can use the option `noPrimaryKey` and set it to true.
+
+```js
+const sequelize = Sequelize.createSequelizeInstance({
+  define: {
+    noPrimaryKey: true,
+  },
+});
+
+const User = sequelize.define('User', {
+  name: {
+    type: DataTypes.STRING
+  }
+});
+```
+
+In case you do not want to use `noPrimaryKey` and do not want to caught by an error you can define `primaryKey` on the model fields and set it to false.
+
+```js
+const User = sequelize.define('User', {
+  name: {
+    type: DataTypes.STRING,
+    primaryKey: false
+  }
+});
+```
+
 ## Column declaration shorthand syntax
 
 If the only thing being specified about a column is its data type, the syntax can be shortened:
