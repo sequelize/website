@@ -296,7 +296,7 @@ const User = sequelize.define('User', {
 });
 ```
 
-In case you do not want to use `noPrimaryKey` and do not want to caught by an error you can define `primaryKey` on the model fields and set it to false.
+In case you only want to disable primary keys on a single model, you can define the field with `primaryKey: false`.
 
 ```js
 const User = sequelize.define('User', {
