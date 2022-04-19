@@ -283,7 +283,17 @@ Foo.init({ /* attributes */ }, {
 By default, Sequelize automatically adds the primary key attribute `id` to every model when there is no primary key has been defined manually. To prevent this you can use the option `noPrimaryKey` when creating the instance and set it to true.
 
 ```js
-const sequelize = Sequelize.createSequelizeInstance({
+const User = sequelize.define('User', {
+  name: DataTypes.STRING,
+}, {
+  noPrimaryKey: true,
+});
+```
+
+In case you want to disable primary keys on every models.
+
+```js
+const sequelize = new Sequelize({
   define: {
     noPrimaryKey: true,
   },
@@ -292,17 +302,6 @@ const sequelize = Sequelize.createSequelizeInstance({
 const User = sequelize.define('User', {
   name: {
     type: DataTypes.STRING
-  }
-});
-```
-
-In case you only want to disable primary keys on a single model, you can define the field with `primaryKey: false`.
-
-```js
-const User = sequelize.define('User', {
-  name: {
-    type: DataTypes.STRING,
-    primaryKey: false
   }
 });
 ```
