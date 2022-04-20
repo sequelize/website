@@ -55,7 +55,7 @@ The following will happen in this case:
 
 * Sequelize will automatically start a transaction and obtain a transaction object `t`
 * Then, Sequelize will execute the callback you provided, passing `t` into it
-* If your callback throws error, Sequelize will automatically rollback the transaction
+* If your callback throws an error, Sequelize will automatically rollback the transaction
 * If your callback succeeds, Sequelize will automatically commit the transaction
 * Only then the `sequelize.transaction` call will settle:
   * Either resolving with the resolution of your callback
