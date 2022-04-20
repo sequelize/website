@@ -282,8 +282,12 @@ node-oracledb needs [instant client library files](https://www.oracle.com/in/dat
 const sequelize = new Sequelize('servicename', 'username', 'password', {
   dialect: 'oracle',
   host: 'hostname',
+  [port: 'port number',]
 });
 ```
+
+The default port number is 1521. User can provide the port number as options.
+
 :::note
 
 `Sequelize.Datatypes.TEXT` doesn't support `where` option. 
