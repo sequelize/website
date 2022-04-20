@@ -290,7 +290,7 @@ const User = sequelize.define('User', {
 });
 ```
 
-In case you want to prevent the addition of the default foreign key for every model:
+In case you want to prevent the addition of the default primary key for every model:
 
 ```js
 const sequelize = new Sequelize({
