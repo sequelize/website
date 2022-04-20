@@ -4,74 +4,10 @@ title: Dialect-Specific Things
 
 ## Underlying Connector Libraries
 
-### MySQL
-
-The underlying connector library used by Sequelize for MySQL is the [mysql2](https://www.npmjs.com/package/mysql2) package (version 1.5.2 or higher).
-
-You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
-
-```js
-const sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'mysql',
-  dialectOptions: {
-    // Your mysql2 options here
-  }
-})
-```
-
-`dialectOptions` are passed directly to the MySQL connection constructor. A full list of options can be found in the [MySQL docs](https://www.npmjs.com/package/mysql#connection-options).
-
-### MariaDB
-
-The underlying connector library used by Sequelize for MariaDB is the [mariadb](https://www.npmjs.com/package/mariadb) package.
-
-You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
-
-```js
-const sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'mariadb',
-  dialectOptions: {
-    // Your mariadb options here
-    // connectTimeout: 1000
-  }
-});
-```
-
-`dialectOptions` are passed directly to the MariaDB connection constructor. A full list of options can be found in the [MariaDB docs](https://mariadb.com/kb/en/nodejs-connection-options/).
-
-### SQLite
-
-The underlying connector library used by Sequelize for SQLite is the [sqlite3](https://www.npmjs.com/package/sqlite3) npm package (version 4.0.0 or above). Due to issues with deploying a new release and to fix a possible security vulnerability, it is recommended to use the @vscode/sqlite3 fork by replacing the version with `npm:@vscode/sqlite3@5.0.7` like in the example below.
-
-```json
-{
-  "dependencies": {
-    "sqlite3": "npm:@vscode/sqlite3@5.0.7",
-  }
-}
-```
-
-You specify the storage file in the Sequelize constructor with the `storage` option (use `:memory:` for an in-memory SQLite instance).
-
-You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
-
-```js
-const sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'sqlite',
-  storage: 'path/to/database.sqlite' // or ':memory:'
-  dialectOptions: {
-    // Your sqlite3 options here
-  }
-});
-```
-
-The following fields may be passed to SQLite `dialectOptions`:
-
-- `readWriteMode`: Set the opening mode for the SQLite connection. Potential values are provided by the sqlite3 package, and can include sqlite3.OPEN_READONLY, sqlite3.OPEN_READWRITE, or sqlite3.OPEN_CREATE. See the [SQLite C interface documentation for more details]( https://www.sqlite.org/c3ref/open.html).
-
 ### PostgreSQL
 
-The underlying connector library used by Sequelize for PostgreSQL is the [pg](https://www.npmjs.com/package/pg) package. For usage in Node 14 and above you need to use pg version 8.2.x or above, as per [the documentation](https://node-postgres.com/#version-compatibility). The module [pg-hstore](https://www.npmjs.com/package/pg-hstore) is also necessary.
+The underlying connector library used by Sequelize for PostgreSQL is the [pg](https://www.npmjs.com/package/pg) package.  
+See [Releases](/releases#postgresql-support-table) to see which versions of PostgreSQL & pg are supported.
 
 You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
 
@@ -80,7 +16,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'postgres',
   dialectOptions: {
     // Your pg options here
-  }
+  },
 });
 ```
 
@@ -98,17 +34,24 @@ To connect over a unix domain socket, specify the path to the socket directory i
 ```js
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'postgres',
-  host: '/path/to/socket_directory'
+  host: '/path/to/socket_directory',
 });
 ```
 
 The default `client_min_messages` config in sequelize is `WARNING`.
 
-### Redshift
+### Amazon Redshift
 
-Most configuration is same as PostgreSQL above.
+:::caution
 
-Redshift doesn't support `client_min_messages`, 'ignore' is needed to skip the configuration:
+While Redshift is based on PostgreSQL, it does not support the same set of features as PostgreSQL.  
+Our PostgreSQL implementation is not integration tested against Redshift, and support is limited.
+
+:::
+
+Most of the configuration is same as PostgreSQL above.
+
+Redshift doesn't support `client_min_messages`, you must set it to `'ignore'`:
 
 ```js
 const sequelize = new Sequelize('database', 'username', 'password', {
@@ -116,18 +59,53 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   dialectOptions: {
     // Your pg options here
     // ...
-    clientMinMessages: 'ignore' // case insensitive
-  }
+    clientMinMessages: 'ignore', // case insensitive
+  },
 });
 ```
 
-### MSSQL
+### MariaDB
 
-The supported versions of MS SQL are from MS SQL 2017 (version 14) up to the most recent version.
+The underlying connector library used by Sequelize for MariaDB is the [mariadb](https://www.npmjs.com/package/mariadb) package.  
+See [Releases](/releases#mariadb-support-table) to see which versions of MariaDB & mariadb (npm) are supported.
 
-#### Tedious
+You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
 
-The default underlying connector library used by Sequelize for MSSQL is the [tedious](https://www.npmjs.com/package/tedious) package.
+```js
+const sequelize = new Sequelize('database', 'username', 'password', {
+  dialect: 'mariadb',
+  dialectOptions: {
+    // Your mariadb options here
+    // connectTimeout: 1000
+  },
+});
+```
+
+`dialectOptions` are passed directly to the MariaDB connection constructor. A full list of options can be found in the [MariaDB docs](https://mariadb.com/kb/en/nodejs-connection-options/).
+
+### MySQL
+
+The underlying connector library used by Sequelize for MySQL is the [mysql2](https://www.npmjs.com/package/mysql2) package.  
+See [Releases](/releases#mysql-support-table) to see which versions of MySQL & mysql2 are supported.
+
+You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
+
+```js
+const sequelize = new Sequelize('database', 'username', 'password', {
+  dialect: 'mysql',
+  dialectOptions: {
+    // Your mysql2 options here
+  },
+});
+```
+
+`dialectOptions` are passed directly to the MySQL connection constructor. 
+A full list of options can be found in the [MySQL docs](https://www.npmjs.com/package/mysql#connection-options).
+
+### Microsoft SQL Server (mssql)
+
+The underlying connector library used by Sequelize for MSSQL is the [tedious](https://www.npmjs.com/package/tedious) package.  
+See [Releases](/releases#microsoft-sql-server-mssql-support-table) to see which versions of SQL Server & tedious are supported.
 
 You can provide custom options to it using `dialectOptions.options` in the Sequelize constructor:
 
@@ -139,9 +117,9 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     options: {
       // Your tedious options here
       useUTC: false,
-      dateFirst: 1
-    }
-  }
+      dateFirst: 1,
+    },
+  },
 });
 ```
 
@@ -160,38 +138,50 @@ const sequelize = new Sequelize('database', null, null, {
       options: {
         domain: 'yourDomain',
         userName: 'username',
-        password: 'password'
-      }
+        password: 'password',
+      },
     },
     options: {
-      instanceName: 'SQLEXPRESS'
-    }
-  }
-})
+      instanceName: 'SQLEXPRESS',
+    },
+  },
+});
 ```
 
-### IBM i
+### SQLite
 
-The underlying connector library used by Sequelize for IBM i is the [odbc](https://www.npmjs.com/package/odbc) npm package (version 2.4.1 or higher).
+The underlying connector library used by Sequelize for SQLite is the [sqlite3](https://www.npmjs.com/package/sqlite3) npm package.  
+See [Releases](/releases#sqlite-support-table) to see which versions of sqlite3 are supported.
 
-To learn more about using ODBC with IBM i, consult the [IBM i and ODBC documentation](https://ibmi-oss-docs.readthedocs.io/en/latest/odbc/README.html).
+You specify the storage file in the Sequelize constructor with the `storage` option (use `:memory:` for an in-memory SQLite instance).
 
-When passing options to the constructor, the concept of `database` is mapped to the ODBC `DSN`. You can provide additional connection string options to Sequelize using the `dialectOptions.odbcConnectionString`. This connection string is then appended with the values found in the `database`, `username`, and `password` parameters:
+You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
 
 ```js
-const sequelize = new Sequelize('MY_DSN', 'username', 'password', {
-  dialect: 'ibmi',
+const sequelize = new Sequelize('database', 'username', 'password', {
+  dialect: 'sqlite',
+  storage: 'path/to/database.sqlite', // or ':memory:'
   dialectOptions: {
-    odbcConnectionString: 'CMT=1;NAM=0;...'
-  }
-})
+    // Your sqlite3 options here
+  },
+});
 ```
 
-The final connection string generated by the above configuration would look like `CMT=1;NAMING=0;...;DSN=MY_DSN;UID=username;PWD=password;`. Additionally, the `host` option will map the the `SYSTEM=` connection string key.
+The following fields may be passed to SQLite `dialectOptions`:
 
-### Snowflake (Experiment)
+- `readWriteMode`: Set the opening mode for the SQLite connection. Potential values are provided by the sqlite3 package, and can include sqlite3.OPEN_READONLY, sqlite3.OPEN_READWRITE, or sqlite3.OPEN_CREATE. See the [SQLite C interface documentation for more details]( https://www.sqlite.org/c3ref/open.html).
 
-The underlying connector library used by Sequelize for Snowflake is the [snowflake-sdk](https://www.npmjs.com/package/snowflake-sdk) package.
+### Snowflake
+
+:::note
+
+While this dialect is included in Sequelize,
+support for Snowflake is limited as it is not handled by the core team.
+
+:::
+
+The underlying connector library used by Sequelize for Snowflake is the [snowflake-sdk](https://www.npmjs.com/package/snowflake-sdk) package.  
+See [Releases](/releases#snowflake-support-table) to see which versions of Snowflake and snowflake-sdk are supported.
 
 In order to connect with an account, use the following format:
 
@@ -205,13 +195,13 @@ const sequelize = new Sequelize('database', null, null, {
     // below option should be optional
     role: 'myRole',
     warehouse: 'myWarehouse',
-    schema: 'mySchema'
+    schema: 'mySchema',
   },
   // same as other dialect
   username: 'myUserName',
   password: 'myPassword',
-  database: 'myDatabaseName'
-})
+  database: 'myDatabaseName',
+});
 ```
 
 **NOTE** There is no test sandbox provided so the snowflake integration test is not part of the pipeline. Also it is difficult for core team to triage and debug. This dialect needs to be maintained by the snowflake user/community for now.
@@ -224,6 +214,46 @@ SEQ_ACCOUNT=myAccount SEQ_USER=myUser SEQ_PW=myPassword SEQ_ROLE=myRole SEQ_DB=m
 # using yarn
 SEQ_ACCOUNT=myAccount SEQ_USER=myUser SEQ_PW=myPassword SEQ_ROLE=myRole SEQ_DB=myDatabaseName SEQ_SCHEMA=mySchema SEQ_WH=myWareHouse yarn test-integration-snowflake
 ```
+
+### Db2
+
+:::note
+
+While this dialect is included in Sequelize,
+support for Db2 is limited as it is not handled by the core team.
+
+:::
+
+
+The underlying connector library used by Sequelize for Db2 is the [ibm_db](https://www.npmjs.com/package/ibm_db) npm package.  
+See [Releases](/releases#db2-support-table) to see which versions of DB2 and ibm_db are supported.
+
+### Db2 for IBM i
+
+:::note
+
+While this dialect is included in Sequelize,
+support for *Db2 for IBM i* is limited as it is not handled by the core team.
+
+:::
+
+The underlying connector library used by Sequelize for *Db2 for IBM i* is the [odbc](https://www.npmjs.com/package/odbc) npm package.  
+See [Releases](/releases#db2-for-ibm-i-support-table) to see which versions of IBMi and odbc are supported.
+
+To learn more about using ODBC with IBM i, consult the [IBM i and ODBC documentation](https://ibmi-oss-docs.readthedocs.io/en/latest/odbc/README.html).
+
+When passing options to the constructor, the concept of `database` is mapped to the ODBC `DSN`. You can provide additional connection string options to Sequelize using the `dialectOptions.odbcConnectionString`. This connection string is then appended with the values found in the `database`, `username`, and `password` parameters:
+
+```js
+const sequelize = new Sequelize('MY_DSN', 'username', 'password', {
+  dialect: 'ibmi',
+  dialectOptions: {
+    odbcConnectionString: 'CMT=1;NAM=0;...'
+  },
+});
+```
+
+The final connection string generated by the above configuration would look like `CMT=1;NAMING=0;...;DSN=MY_DSN;UID=username;PWD=password;`. Additionally, the `host` option will map the the `SYSTEM=` connection string key.
 
 ## Data type: TIMESTAMP WITHOUT TIME ZONE - PostgreSQL only
 
@@ -252,9 +282,9 @@ Table hints override the default behavior of MSSQL query optimizer by specifing 
 const { TableHints } = require('@sequelize/core');
 Project.findAll({
   // adding the table hint NOLOCK
-  tableHint: TableHints.NOLOCK
+  tableHint: TableHints.NOLOCK,
   // this will generate the SQL 'WITH (NOLOCK)'
-})
+});
 ```
 
 ## Index Hints - MySQL/MariaDB only
@@ -267,16 +297,16 @@ Index hints [override the default behavior of the MySQL query optimizer](https:/
 const { IndexHints } = require('@sequelize/core');
 Project.findAll({
   indexHints: [
-    { type: IndexHints.USE, values: ['index_project_on_name'] }
+    { type: IndexHints.USE, values: ['index_project_on_name'] },
   ],
   where: {
     id: {
-      [Op.gt]: 623
+      [Op.gt]: 623,
     },
     name: {
-      [Op.like]: 'Foo %'
-    }
-  }
+      [Op.like]: 'Foo %',
+    },
+  },
 });
 ```
 
@@ -298,7 +328,7 @@ You can change the engine for a model with the `engine` option (e.g., to MyISAM)
 
 ```js
 const Person = sequelize.define('person', { /* attributes */ }, {
-  engine: 'MYISAM'
+  engine: 'MYISAM',
 });
 ```
 
@@ -306,8 +336,8 @@ Like every option for the definition of a model, this setting can also be change
 
 ```js
 const sequelize = new Sequelize(db, user, pw, {
-  define: { engine: 'MYISAM' }
-})
+  define: { engine: 'MYISAM' },
+});
 ```
 
 ## Table comments - MySQL/MariaDB/PostgreSQL only
@@ -318,8 +348,8 @@ You can specify a comment for a table when defining the model:
 class Person extends Model {}
 Person.init({ /* attributes */ }, {
   comment: "I'm a table comment!",
-  sequelize
-})
+  sequelize,
+});
 ```
 
 The comment will be set when calling `sync()`.

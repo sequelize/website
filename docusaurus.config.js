@@ -24,7 +24,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/sequelize/sequelize/tree/main/documentation/',
+            'https://github.com/sequelize/website/tree/main/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           versions: {
@@ -146,8 +146,12 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Guides',
                 to: '/docs/v6/',
+              },
+              {
+                label: 'Version Policy',
+                to: '/releases',
               },
             ],
           },
