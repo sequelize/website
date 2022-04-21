@@ -13,6 +13,12 @@ type User = {
 };
 const users: User[] = [
   {
+    name: 'uphold',
+    image: '/img/uphold-logo.svg',
+    testimonial:
+      'Uphold is proud to be using Sequelize for 7+ years. It has served us well and has allowed us to grow to 12 million users (and counting). We will continue to invest and contribute in the platform.',
+  },
+  {
     image: '/img/bitovi-logo.png',
     style: { maxHeight: 50 },
     name: 'Bitovi',
@@ -28,7 +34,8 @@ const users: User[] = [
   {
     image: '/img/secure-coders.png',
     name: 'Secure Coders',
-    testimonial: 'Sequelize provides a reliable and convenient ORM for any SQL dialect which greatly simplifies working with both simple and complex data models. The data migration features are just icing on the cake.',
+    testimonial:
+      'Sequelize provides a reliable and convenient ORM for any SQL dialect which greatly simplifies working with both simple and complex data models. The data migration features are just icing on the cake.',
     author: 'Charley Wooley',
   },
   {
