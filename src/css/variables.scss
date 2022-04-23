@@ -3,9 +3,9 @@
 $container-max-width: 1320px;
 $min-screen-size: 320px;
 
-$brand-primary: #3B76C3;
+$brand-primary: #3b76c3;
 $brand-primary-light: #02afef;
-$brand-primary-dark: #2E3B69;
+$brand-primary-dark: #2e3b69;
 
 @function px-to-rem($fontAsPx) {
   @return math.div($fontAsPx, 16) * 1rem;
@@ -24,6 +24,15 @@ $brand-primary-dark: #2E3B69;
   $u4: unit($max-size);
 
   @if $u1 == $u2 and $u3 == $u4 {
-    @return max(#{$min-size}, min(#{$max-size}, calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}))));
+    @return max(
+      #{$min-size},
+      min(
+        #{$max-size},
+        calc(
+          #{$min-size} + #{strip-unit($max-size - $min-size)} *
+            ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})
+        )
+      )
+    );
   }
 }

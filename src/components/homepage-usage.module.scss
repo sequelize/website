@@ -24,7 +24,7 @@
   counter-increment: headlines 1;
 
   &::before {
-    content: counter(headlines) ". ";
+    content: counter(headlines) '. ';
   }
 }
 
