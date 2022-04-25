@@ -1,4 +1,4 @@
-@use "../css/variables" as *;
+@use '../css/variables' as *;
 
 .users {
   background-color: $brand-primary-dark;
@@ -46,7 +46,7 @@
   text-align: center;
 
   &::before {
-    content: "";
+    content: '';
     width: 30px;
     height: 30px;
     background: white;
@@ -58,7 +58,7 @@
   }
 }
 
-html[data-theme="dark"] .testimonialWrapper {
+html[data-theme='dark'] .testimonialWrapper {
   background: var(--ifm-color-primary-dark);
 
   &::before {
@@ -75,7 +75,7 @@ html[data-theme="dark"] .testimonialWrapper {
   opacity: 0.5;
 
   &::before {
-    content: "–";
+    content: '–';
     margin-right: 0.5rem;
   }
 }
