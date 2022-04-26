@@ -97,11 +97,13 @@ When using aggregation function, you must give it an alias to be able to access 
 Sometimes it may be tiresome to list all the attributes of the model if you only want to add an aggregation:
 
 ```js
+import { fn, col } from '@sequelize/core';
+
 // This is a tiresome way of getting the number of hats (along with every column)
 Model.findAll({
   attributes: [
     'id', 'foo', 'bar', 'baz', 'qux', 'hats', // We had to list all attributes...
-    [sequelize.fn('COUNT', sequelize.col('hats')), 'n_hats'] // To add the aggregation...
+    [fn('COUNT', col('hats')), 'n_hats'] // To add the aggregation...
   ]
 });
 
@@ -109,7 +111,7 @@ Model.findAll({
 Model.findAll({
   attributes: {
     include: [
-      [sequelize.fn('COUNT', sequelize.col('hats')), 'n_hats']
+      [fn('COUNT', col('hats')), 'n_hats']
     ]
   }
 });
@@ -153,6 +155,7 @@ Observe that no operator (from `Op`) was explicitly passed, so Sequelize assumed
 
 ```js
 const { Op } = require('@sequelize/core');
+
 Post.findAll({
   where: {
     authorId: {
@@ -179,6 +182,7 @@ Just like Sequelize inferred the `Op.eq` operator in the first example, here Seq
 
 ```js
 const { Op } = require('@sequelize/core');
+
 Post.findAll({
   where: {
     [Op.and]: [
@@ -194,6 +198,7 @@ An `OR` can be easily performed in a similar way:
 
 ```js
 const { Op } = require('@sequelize/core');
+
 Post.findAll({
   where: {
     [Op.or]: [
@@ -209,6 +214,7 @@ Since the above was an `OR` involving the same field, Sequelize allows you to us
 
 ```js
 const { Op } = require('@sequelize/core');
+
 Post.destroy({
   where: {
     authorId: {
@@ -224,7 +230,8 @@ Post.destroy({
 Sequelize provides several operators.
 
 ```js
-const { Op } = require('@sequelize/core');
+const { Op, literal, fn } = require('@sequelize/core');
+
 Post.findAll({
   where: {
     [Op.and]: [{ a: 5 }, { b: 6 }],            // (a = 5) AND (b = 6)
@@ -250,7 +257,7 @@ Post.findAll({
 
       // Other operators
 
-      [Op.all]: sequelize.literal('SELECT 1'), // > ALL (SELECT 1)
+      [Op.all]: literal('SELECT 1'), // > ALL (SELECT 1)
 
       [Op.in]: [1, 2],                         // IN [1, 2]
       [Op.notIn]: [1, 2],                      // NOT IN [1, 2]
@@ -268,7 +275,7 @@ Post.findAll({
       [Op.notIRegexp]: '^[h|a|t]',             // !~* '^[h|a|t]' (PG only)
 
       [Op.any]: [2, 3],                        // ANY (ARRAY[2, 3]::INTEGER[]) (PG only)
-      [Op.match]: Sequelize.fn('to_tsquery', 'fat & rat') // match text search for strings 'fat' and 'rat' (PG only)
+      [Op.match]: fn('to_tsquery', 'fat & rat') // match text search for strings 'fat' and 'rat' (PG only)
 
       // In Postgres, Op.like/Op.iLike/Op.notLike can be combined to Op.any:
       [Op.like]: { [Op.any]: ['cat', 'hat'] }  // LIKE ANY (ARRAY['cat', 'hat'])
@@ -376,8 +383,10 @@ WHERE (
 What if you wanted to obtain something like `WHERE char_length("content") = 7`?
 
 ```js
+import { where, fn, col } from '@sequelize/core';
+
 Post.findAll({
-  where: sequelize.where(sequelize.fn('char_length', sequelize.col('content')), 7)
+  where: where(fn('char_length', col('content')), 7)
 });
 // SELECT ... FROM "posts" AS "post" WHERE char_length("content") = 7
 ```
@@ -387,10 +396,12 @@ Note the usage of the  [`fn`](pathname:///api/v7/index.html#fn) and [`col`](path
 What if you need something even more complex?
 
 ```js
+import { where, fn, col, Op } from '@sequelize/core';
+
 Post.findAll({
   where: {
     [Op.or]: [
-      sequelize.where(sequelize.fn('char_length', sequelize.col('content')), 7),
+      where(fn('char_length', col('content')), 7),
       {
         content: {
           [Op.like]: 'Hello%'
@@ -399,7 +410,7 @@ Post.findAll({
       {
         [Op.and]: [
           { status: 'draft' },
-          sequelize.where(sequelize.fn('char_length', sequelize.col('content')), {
+          where(fn('char_length', col('content')), {
             [Op.gt]: 10
           })
         ]
@@ -473,24 +484,26 @@ await Foo.findOne({
 MSSQL does not have a JSON data type, however it does provide some support for JSON stored as strings through certain functions since SQL Server 2016. Using these functions, you will be able to query the JSON stored in the string, but any returned values will need to be parsed seperately.
 
 ```js
+import { where, fn, col } from '@sequelize/core';
+
 // ISJSON - to test if a string contains valid JSON
 await User.findAll({
-  where: sequelize.where(sequelize.fn('ISJSON', sequelize.col('userDetails')), 1)
+  where: where(fn('ISJSON', col('userDetails')), 1)
 });
 
 // JSON_VALUE - extract a scalar value from a JSON string
 await User.findAll({
-  attributes: [[ sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), 'address line 1']]
+  attributes: [[ fn('JSON_VALUE', col('userDetails'), '$.address.Line1'), 'address line 1']]
 });
 
 // JSON_VALUE - query a scalar value from a JSON string
 await User.findAll({
-  where: sequelize.where(sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), '14, Foo Street')
+  where: where(fn('JSON_VALUE', col('userDetails'), '$.address.Line1'), '14, Foo Street')
 });
 
 // JSON_QUERY - extract an object or array
 await User.findAll({
-  attributes: [[ sequelize.fn('JSON_QUERY', sequelize.col('userDetails'), '$.address'), 'full address']]
+  attributes: [[ fn('JSON_QUERY', col('userDetails'), '$.address'), 'full address']]
 });
 ```
 
@@ -520,6 +533,7 @@ For example:
 
 ```js
 const { Sequelize, Op } = require('@sequelize/core');
+
 const sequelize = new Sequelize('sqlite::memory:', {
   operatorsAliases: {
     $gt: Op.gt
@@ -630,19 +644,21 @@ Sequelize provides the `order` and `group` options to work with `ORDER BY` and `
 The `order` option takes an array of items to order the query by or a sequelize method. These *items* are themselves arrays in the form `[column, direction]`. The column will be escaped correctly and the direction will be checked in a whitelist of valid directions (such as `ASC`, `DESC`, `NULLS FIRST`, etc).
 
 ```js
+import { where, fn, col, literal } from '@sequelize/core';
+
 Subtask.findAll({
   order: [
     // Will escape title and validate DESC against a list of valid direction parameters
     ['title', 'DESC'],
 
     // Will order by max(age)
-    sequelize.fn('max', sequelize.col('age')),
+    fn('max', col('age')),
 
     // Will order by max(age) DESC
-    [sequelize.fn('max', sequelize.col('age')), 'DESC'],
+    [fn('max', col('age')), 'DESC'],
 
     // Will order by  otherfunction(`col1`, 12, 'lalala') DESC
-    [sequelize.fn('otherfunction', sequelize.col('col1'), 12, 'lalala'), 'DESC'],
+    [fn('otherfunction', col('col1'), 12, 'lalala'), 'DESC'],
 
     // Will order an associated model's createdAt using the model name as the association's name.
     [Task, 'createdAt', 'DESC'],
@@ -670,13 +686,13 @@ Subtask.findAll({
   ],
 
   // Will order by max age descending
-  order: sequelize.literal('max(age) DESC'),
+  order: literal('max(age) DESC'),
 
   // Will order by max age ascending assuming ascending is the default order when direction is omitted
-  order: sequelize.fn('max', sequelize.col('age')),
+  order: fn('max', col('age')),
 
   // Will order by age ascending assuming ascending is the default order when direction is omitted
-  order: sequelize.col('age'),
+  order: col('age'),
 
   // Will order randomly based on the dialect (instead of fn('RAND') or fn('RANDOM'))
   order: sequelize.random()
@@ -689,13 +705,13 @@ Foo.findOne({
     // will return `username` DESC
     ['username', 'DESC'],
     // will return max(`age`)
-    sequelize.fn('max', sequelize.col('age')),
+    fn('max', col('age')),
     // will return max(`age`) DESC
-    [sequelize.fn('max', sequelize.col('age')), 'DESC'],
+    [fn('max', col('age')), 'DESC'],
     // will return otherfunction(`col1`, 12, 'lalala') DESC
-    [sequelize.fn('otherfunction', sequelize.col('col1'), 12, 'lalala'), 'DESC'],
+    [fn('otherfunction', col('col1'), 12, 'lalala'), 'DESC'],
     // will return otherfunction(awesomefunction(`col`)) DESC, This nesting is potentially infinite!
-    [sequelize.fn('otherfunction', sequelize.fn('awesomefunction', sequelize.col('col'))), 'DESC']
+    [fn('otherfunction', fn('awesomefunction', col('col'))), 'DESC']
   ]
 });
 ```
@@ -707,8 +723,8 @@ To recap, the elements of the order array can be the following:
 * An object with a `raw` field:
   * The content of `raw` will be added verbatim without quoting
   * Everything else is ignored, and if raw is not set, the query will fail
-* A call to `Sequelize.fn` (which will generate a function call in SQL)
-* A call to `Sequelize.col` (which will quoute the column name)
+* A call to `fn()` (which will generate a function call in SQL)
+* A call to `col()` (which will quote the column name)
 
 ### Grouping
 
@@ -784,3 +800,26 @@ Let's assume we have a user, whose age is 10.
 await User.increment({age: 5}, { where: { id: 1 } }) // Will increase age to 15
 await User.increment({age: -5}, { where: { id: 1 } }) // Will decrease age to 5
 ```
+
+
+### Literals (raw SQL)
+
+It's not always possible for Sequelize to support every SQL feature in a clean way. It can sometimes be better to write the SQL query yourself.
+
+This can be done in two ways:
+
+- Either write a complete [raw query](./raw-queries.md) yourself,
+- or use the [`literal()`](pathname:///api/v7/index.html#literal) function provided by Sequelize to insert raw SQL almost anywhere in queries built by Sequelize.
+
+```typescript
+import { literal } from '@sequelize/core';
+
+User.findAll({
+  where: literal('id = $id'),
+  bind: {
+    id: 5,
+  },
+});
+```
+
+`literal()` supports both [replacements](./raw-queries.md#replacements) and [bind parameters](./raw-queries.md#bind-parameters) as ways to safely include user input in your query.
