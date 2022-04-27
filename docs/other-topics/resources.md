@@ -17,6 +17,7 @@ A curated list of awesome projects surrounding Sequelize.
 * [sequelize-auto](https://github.com/sequelize/sequelize-auto) Generating models for SequelizeJS via the command line is another choice.
 * [pg-generator](https://pg-generator.com/v4/builtin-templates--nc,d1/sequelize.html) - Auto generate/scaffold Sequelize models for PostgreSQL database.
 * [meteor modeler](https://www.datensen.com/) - Desktop tool for visual definition of Sequelize models and asssociations.
+* [sequel-ace-typescript-bundles](https://github.com/binlabs/sequel-ace-typescript-bundles) - A plugin for Sequel Ace that allows generation of Sequelize models from selected database tables.
 
 ## Performance
 
