@@ -242,7 +242,14 @@ await sequelize.query(
     type: QueryTypes.SELECT,
   },
 );
-
-// some dialects (such as postgres) support a terser cast syntax you can use if you prefer:
-// SELECT * FROM projects WHERE id = $1::int
 ```
+
+:::note Did you know?
+
+Some dialects, such as PostgreSQL and IBM Db2, support a terser cast syntax that you can use if you prefer:
+
+```typescript
+await sequelize.query('SELECT * FROM projects WHERE id = $1::int');
+```
+
+:::
