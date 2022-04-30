@@ -6,13 +6,13 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
-}
-#carbonads {
+  border-radius: var(--ifm-global-radius);
   display: flex;
-  max-width: 330px;
+  max-width: 300px;
   background-color: hsl(0, 0%, 98%);
   box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
   z-index: 100;
+  overflow: hidden;
 }
 #carbonads a {
   color: inherit;
@@ -36,12 +36,14 @@
 }
 #carbonads .carbon-img img {
   display: block;
+  width: 120px;
+  height: 92px;
 }
 #carbonads .carbon-text {
-  font-size: 13px;
+  font-size: 12px;
   padding: 10px;
   margin-bottom: 16px;
-  line-height: 1.5;
+  line-height: 1.2;
   text-align: left;
 }
 #carbonads .carbon-poweredby {
@@ -52,7 +54,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 600;
-  font-size: 8px;
+  font-size: 7px;
   line-height: 1;
   border-top-left-radius: 3px;
   position: absolute;
@@ -61,10 +63,35 @@
 }
 
 .footer {
-  #ads-container {
+  .ads-container {
     margin-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     #carbonads {
       color: #13233d;
+      font-size: 0.5em;
+    }
+  }
+}
+
+/* Unfortunately, the right TOC pane doesn't have any unique class, hence the following hack */
+@media (min-width: 997px) {
+  [class^='docMainContainer'] {
+    /* Left content page */
+    [class*='docItemCol_node_modules'] {
+      max-width: calc(100% - var(--ifm-spacing-horizontal) - 300px) !important;
+    }
+
+    /* Right content page */
+    .col.col--3 {
+      min-width: 300px;
+      max-width: 300px !important;
+
+      .ads-container {
+        margin-bottom: 16px;
+      }
     }
   }
 }

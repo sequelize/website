@@ -151,6 +151,10 @@ const config = {
                 label: 'Security',
                 href: 'https://github.com/sequelize/sequelize/blob/main/SECURITY.md',
               },
+              {
+                label: 'Changelog',
+                href: 'https://github.com/sequelize/sequelize/releases',
+              },
             ],
           },
           {
@@ -172,10 +176,6 @@ const config = {
                 label: 'GitHub',
                 href: 'https://github.com/sequelize/sequelize',
               },
-              {
-                label: 'Changelog',
-                href: 'https://github.com/sequelize/sequelize/releases',
-              },
             ],
           },
           {
@@ -186,7 +186,7 @@ const config = {
                 href: 'https://opencollective.com/sequelize',
               },
               {
-                html: '<div id="ads-container"></div>',
+                html: '<div class="ads-container"></div>',
               },
             ],
           },

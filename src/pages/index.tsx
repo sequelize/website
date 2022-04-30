@@ -5,7 +5,6 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import clsx from 'clsx';
 import React from 'react';
-import { useAds } from '../components/ads';
 import HomepageFeatures from '../components/homepage-features';
 import HomepageUsage from '../components/homepage-usage';
 import HomepageUsers from '../components/homepage-users';
@@ -65,8 +64,6 @@ function HomepageHeader() {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
-
-  useAds({ selector: '#ads-container' });
 
   return (
     <Layout description={siteConfig.tagline}>
