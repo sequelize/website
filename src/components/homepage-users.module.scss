@@ -58,6 +58,14 @@
   }
 }
 
+html[data-theme='dark'] .testimonialWrapper {
+  background: var(--ifm-color-primary-dark);
+
+  &::before {
+    background: var(--ifm-color-primary-dark);
+  }
+}
+
 .testimonialText {
   font-style: italic;
 }

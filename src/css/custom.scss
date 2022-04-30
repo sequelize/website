@@ -18,7 +18,7 @@
   --ifm-color-primary-lightest: rgb(146, 224, 208);
   --ifm-code-font-size: 95%;
 
-  &[data-theme="dark"] {
+  &[data-theme='dark'] {
     --ifm-color-primary: #{$brand-primary-light};
     --ifm-color-primary-dark: #{$brand-primary};
     --ifm-color-primary-darker: #{lighten($brand-primary-dark, 5%)};
@@ -41,12 +41,12 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   margin-top: 16px;
 
   a {
-    color: var(--ifm-footer-color);;
+    color: var(--ifm-footer-color);
   }
 }
 
 .footer--dark {
-  background: #13233D;
+  background: #13233d;
 }
 
 .footer--dark .col.footer__col {
