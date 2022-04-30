@@ -80,7 +80,7 @@
 @media (min-width: 997px) {
   [class^='docMainContainer'] {
     /* Left content page */
-    [class*='docItemCol_node_modules'] {
+    [class*='docItemCol_'] {
       max-width: calc(100% - var(--ifm-spacing-horizontal) - 300px) !important;
     }
 
