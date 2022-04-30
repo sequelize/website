@@ -28,7 +28,6 @@ const FeatureList: FeatureItem[] = [
         title: DataTypes.STRING,
         quantity: DataTypes.NUMBER,
       });
-
       // Automatically create all tables
       await sequelize.sync();
     `,
@@ -44,13 +43,11 @@ const FeatureList: FeatureItem[] = [
     code: trim`
       Wish.belongsTo(Wishlist);
       Wishlist.hasMany(Wish);
-
       const wishlist = await Wishlist.findOne();
       const wishes = await wishlist.getWishes();
       const wish = await wishlist.createWish({ 
         title: 'Toys', quantity: 3,
       });
-
       await wishlist.removeWish(wish);
     `,
   },
@@ -66,9 +63,7 @@ const FeatureList: FeatureItem[] = [
         { username: DataTypes.STRING },
         { paranoid: true },
       });
-
       const user = await User.findOne();
-
       await user.destroy();
       await User.findAll(); // non-deleted only
       await User.findAll({ paranoid: false }); // all
@@ -103,7 +98,32 @@ export default function HomepageFeatures(): JSX.Element {
       <div className={clsx('container--small', styles.footerCta)}>
         <h2>Ready to get started with Sequelize?</h2>
         <p>
-          Transactions, migrations, strong typing, JSON querying, and more.
+          <Link
+            className="topics"
+            to="/docs/v6/other-topics/transactions/"
+          > Transactions
+          </Link>,
+          <Link
+            className="topics"
+            to="/docs/v6/other-topics/migrations/"
+          > migrations
+          </Link>,
+          <Link
+            className="topics"
+            to="/docs/v6/other-topics/typescript/"
+          > strong typing
+          </Link>,
+          <Link
+            className="topics"
+            to="/docs/v6/other-topics/other-data-types/#json-sqlite-mysql-mariadb-and-postgresql-only"
+          > JSON querying
+          </Link>,
+          <Link
+            className="topics"
+            to="/docs/v6/other-topics/hooks/"
+          > lifecycle events (hooks)
+          </Link>,
+          and more.
           <br />
           Learn more about the many features Sequelize has to offer!
         </p>
