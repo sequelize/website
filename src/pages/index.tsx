@@ -8,10 +8,13 @@ import React from 'react';
 import HomepageFeatures from '../components/homepage-features';
 import HomepageUsage from '../components/homepage-usage';
 import HomepageUsers from '../components/homepage-users';
+import { useAds } from '../hooks/use-ads';
 import css from './index.module.scss';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
+
+  useAds({ selector: '.ads-container' });
 
   return (
     <header className={clsx('hero hero--primary', css.heroBanner)}>
