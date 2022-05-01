@@ -8,12 +8,6 @@ on:
     branches:
       - main
 
-# This configuration cancels previous runs if a new run is started on the same PR. Only one run at a time per PR.
-# From https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-a-fallback-value
-concurrency:
-  group: ${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
