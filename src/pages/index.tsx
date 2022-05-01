@@ -14,6 +14,8 @@ import css from './index.module.scss';
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
 
+  // This will inject the ads into the footer of the homepage.
+  // The target container is injected in the docusaurus footer config.
   useAds({ selector: '.ads-container' });
 
   return (
