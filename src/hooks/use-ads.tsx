@@ -1,20 +1,19 @@
 import type { MutableRefObject } from 'react';
 import { useEffect } from 'react';
+import { useMedia } from 'react-use';
 
-const SCRIPT_URL
-  = '//cdn.carbonads.com/carbon.js?serve=CEAI627Y&placement=sequelizeorg';
+const SCRIPT_URL =
+  '//cdn.carbonads.com/carbon.js?serve=CEAI627Y&placement=sequelizeorg';
 
 type OnEnvironment = 'mobile' | 'desktop' | 'all';
 
 type InitProps = {
-  ref?: MutableRefObject<HTMLInputElement | undefined>,
-  selector?: string,
-  on?: OnEnvironment,
+  ref?: MutableRefObject<HTMLInputElement | undefined>;
+  selector?: string;
+  on?: OnEnvironment;
 };
 
-function shouldRender(on: OnEnvironment) {
-  const isMobile = window.matchMedia('(max-width: 996px)').matches;
-
+function shouldRender(isMobile: boolean, on: OnEnvironment) {
   if (on === 'all') {
     return true;
   }
@@ -27,11 +26,13 @@ function shouldRender(on: OnEnvironment) {
 }
 
 export function useAds({ ref, selector, on = 'all' }: InitProps): void {
+  const isMobile = useMedia('(max-width: 996px)');
+
   useEffect(() => {
     let container: HTMLElement | null = null;
     let script: HTMLScriptElement | null = null;
 
-    if (shouldRender(on)) {
+    if (shouldRender(isMobile, on)) {
       if (ref) {
         container = ref.current as any;
       } else if (selector) {
@@ -54,7 +55,12 @@ export function useAds({ ref, selector, on = 'all' }: InitProps): void {
         return;
       }
 
-      script?.remove();
+      cleanAds(script);
     };
-  }, [ref, selector, on]);
+  }, [ref, selector, on, isMobile]);
+}
+
+function cleanAds(script: HTMLScriptElement | null) {
+  script?.remove();
+  document.querySelector('#carbonads')?.remove();
 }
