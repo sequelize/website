@@ -1,19 +1,23 @@
 import type { MutableRefObject } from 'react';
 import { useEffect } from 'react';
 
-const SCRIPT_URL
-  = '//cdn.carbonads.com/carbon.js?serve=CEAI627Y&placement=sequelizeorg';
+const SCRIPT_URL =
+  '//cdn.carbonads.com/carbon.js?serve=CEAI627Y&placement=sequelizeorg';
 
-type OnEnvironment = 'mobile' | 'desktop';
+type OnEnvironment = 'mobile' | 'desktop' | 'all';
 
 type InitProps = {
-  ref?: MutableRefObject<HTMLInputElement | undefined>,
-  selector?: string,
-  on: OnEnvironment,
+  ref?: MutableRefObject<HTMLInputElement | undefined>;
+  selector?: string;
+  on?: OnEnvironment;
 };
 
 function shouldRender(on: OnEnvironment) {
   const isMobile = window.matchMedia('(max-width: 996px)').matches;
+
+  if (on === 'all') {
+    return true;
+  }
 
   if (on === 'mobile') {
     return isMobile;
@@ -22,7 +26,7 @@ function shouldRender(on: OnEnvironment) {
   return !isMobile;
 }
 
-export function useAds({ ref, selector, on }: InitProps): void {
+export function useAds({ ref, selector, on = 'all' }: InitProps): void {
   useEffect(() => {
     let container: HTMLElement | null = null;
     let script: HTMLScriptElement | null = null;
