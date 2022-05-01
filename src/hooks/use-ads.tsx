@@ -1,15 +1,15 @@
 import type { MutableRefObject } from 'react';
 import { useEffect } from 'react';
 
-const SCRIPT_URL =
-  '//cdn.carbonads.com/carbon.js?serve=CEAI627Y&placement=sequelizeorg';
+const SCRIPT_URL
+  = '//cdn.carbonads.com/carbon.js?serve=CEAI627Y&placement=sequelizeorg';
 
 type OnEnvironment = 'mobile' | 'desktop' | 'all';
 
 type InitProps = {
-  ref?: MutableRefObject<HTMLInputElement | undefined>;
-  selector?: string;
-  on?: OnEnvironment;
+  ref?: MutableRefObject<HTMLInputElement | undefined>,
+  selector?: string,
+  on?: OnEnvironment,
 };
 
 function shouldRender(on: OnEnvironment) {
