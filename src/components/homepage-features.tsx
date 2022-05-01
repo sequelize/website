@@ -28,7 +28,7 @@ const FeatureList: FeatureItem[] = [
         title: DataTypes.STRING,
         quantity: DataTypes.NUMBER,
       });
-      
+
       // Automatically create all tables
       await sequelize.sync();
     `,
@@ -44,7 +44,7 @@ const FeatureList: FeatureItem[] = [
     code: trim`
       Wish.belongsTo(Wishlist);
       Wishlist.hasMany(Wish);
-      
+
       const wishlist = await Wishlist.findOne();
       const wishes = await wishlist.getWishes();
       const wish = await wishlist.createWish({ 
@@ -65,9 +65,9 @@ const FeatureList: FeatureItem[] = [
         { username: DataTypes.STRING },
         { paranoid: true },
       });
-      
+
       const user = await User.findOne();
-      
+
       await user.destroy();
       await User.findAll(); // non-deleted only
       await User.findAll({ paranoid: false }); // all
