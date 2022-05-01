@@ -1,6 +1,6 @@
+import { useMediaQuery } from '@react-hookz/web'; // cjs
 import type { MutableRefObject } from 'react';
 import { useEffect } from 'react';
-import { useMedia } from 'react-use';
 
 const SCRIPT_URL
   = '//cdn.carbonads.com/carbon.js?serve=CEAI627Y&placement=sequelizeorg';
@@ -26,7 +26,7 @@ function shouldRender(isMobile: boolean, on: OnEnvironment) {
 }
 
 export function useAds({ ref, selector, on = 'all' }: InitProps): void {
-  const isMobile = useMedia('(max-width: 996px)');
+  const isMobile = useMediaQuery('(max-width: 996px)');
 
   useEffect(() => {
     let container: HTMLElement | null = null;
