@@ -95,3 +95,26 @@
     }
   }
 }
+
+/* Below 997px width the right TOC pane will no longer be rendered. Instead an inline collapseable TOC is present. */
+@media (max-width: 996px) {
+  .ads-container.mobile {
+    float: right;
+  }
+}
+
+@media (max-width: 750px) {
+  .ads-container.mobile {
+    float: none;
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .ads-container.mobile {
+    #carbonads {
+      max-width: 100%;
+    }
+  }
+}

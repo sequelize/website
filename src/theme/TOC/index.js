@@ -3,11 +3,11 @@ import Toc from '@theme-original/TOC';
 import React from 'react';
 
 export default function TOCWrapper(props) {
-  useAds({ selector: '.ads-container' });
+  useAds({ selector: '.ads-container.desktop', on: 'desktop' });
 
   return (
     <>
-      <div class="ads-container" />
+      <div class="ads-container desktop" />
       <Toc {...props} />
     </>
   );
