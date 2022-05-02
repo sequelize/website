@@ -40,6 +40,8 @@ Head to our [Versioning Policy page](/releases) to see exactly which databases a
 
 ### Blocking access to `/lib`
 
+*Pull Request [#14352]*
+
 Sequelize v7 restricts which files can be imported. Going forward, the only modules which can be imported are:
 
 - `@sequelize/core`
@@ -59,6 +61,59 @@ import { Model } from '@sequelize/core/_non-semver-use-at-your-own-risk_/model.j
 ```
 
 If you do that, we recommend pinning the Sequelize version your project uses as **breaking changes can be introduced in these files** in any new release of Sequelize, including patch.
+
+### `$bind` parameters in strings must not be escaped anymore
+
+*Pull Request [#14447]*
+
+Sequelize 6 would treat any piece of text looking like a `$bind` parameter as a bind parameter, 
+even if it were located in places bind parameters cannot be used like inside a string or a comment. Causing it to mangle strings.
+
+As a way to bypass this issue, Sequelize 6 required [escaping bind parameters](/docs/v6/core-concepts/raw-queries/#bind-parameter) 
+that should not be transformed by adding a second $ character (`$$bind`). Sequelize would then unescape it for you back to `$bind`.
+
+Sequelize 7 uses a smarter way of parsing bind parameters that knows whether the piece of text is a valid bind parameter.
+As a result it is not necessary to escape these bind parameters anymore, or you will end up with an extra $ character in your string.
+
+Example 1 (mysql):
+
+```typescript
+const result = await this.sequelize.query(`select * from users WHERE id = '$$one'`);
+```
+
+```sql
+-- in v6, the above SQL was transformed into:
+SELECT * FROM users WHERE id = '$one';
+
+-- in v7, the above SQL is left untouched:
+SELECT * FROM users WHERE id = '$$one';
+```
+
+Example 2 (mysql):
+
+```typescript
+const result = await this.sequelize.query(`select * from users WHERE id = '$one'`);
+```
+
+```sql
+-- in v6, the above SQL was transformed into:
+SELECT * FROM users WHERE id = '?';
+
+-- in v7, the above SQL is left untouched:
+SELECT * FROM users WHERE id = '$one';
+```
+
+Bind parameters are still transformed in the corresponding dialect-specific syntax where it would make sense, so the following:
+
+```typescript
+const result = await this.sequelize.query(`select * from users WHERE id = $id`);
+```
+
+Will still be transformed into the following in both v6 and v7:
+
+```sql
+SELECT * FROM users WHERE id = ?;
+```
 
 ### TypeScript conversion
 
@@ -255,3 +310,7 @@ stop working in a future major release.
   DataTypes.STRING
   DataTypes.INTEGER
   ```
+
+
+[#14352]: https://github.com/sequelize/sequelize/pull/14352
+[#14447]: https://github.com/sequelize/sequelize/pull/14447
