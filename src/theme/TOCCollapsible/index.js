@@ -8,7 +8,7 @@ export default function TOCCollapsibleWrapper(props) {
   return (
     <>
       <TOCCollapsible {...props} />
-      <div class="ads-container mobile" />
+      <div className="ads-container mobile" />
     </>
   );
 }

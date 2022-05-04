@@ -78,14 +78,17 @@
 
 /* Unfortunately, the right TOC pane doesn't have any unique class, hence the following hack */
 @media (min-width: 997px) {
-  [class^='docMainContainer'] {
+  [class^='docMainContainer'],
+  .mdx-wrapper.mdx-page {
     /* Left content page */
-    [class*='docItemCol_'] {
+    [class*='docItemCol_'],
+    .col--8 {
       max-width: calc(100% - var(--ifm-spacing-horizontal) - 300px) !important;
     }
 
     /* Right content page */
-    .col.col--3 {
+    .col.col--3,
+    .col.col--2 {
       min-width: 300px;
       max-width: 300px !important;
 
