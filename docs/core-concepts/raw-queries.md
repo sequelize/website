@@ -103,10 +103,19 @@ If an attribute name of the table contains dots, the resulting objects can becom
 
 ## Replacements
 
-Replacements in a query can be done in two different ways, either using named parameters (starting with `:`), or unnamed, represented by a `?`. Replacements are passed in the options object.
+Replacements are a way to pass variables in your Query. They are an alternative to [Bind Parameters](#bind-parameters).
 
-* If an array is passed, `?` will be replaced in the order that they appear in the array
-* If an object is passed, `:key` will be replaced with the keys from that object. If the object contains keys not found in the query or vice versa, an exception will be thrown.
+The difference between replacements and bind parameters is that replacements are escaped and inserted into the query by Sequelize before the query is sent to the database,
+whereas bind parameters are sent to the database separately from the SQL query text, and 'escaped' by the Database itself.
+
+Replacements can be written in two different ways:
+
+- Either using numeric identifiers (represented by a `?`). The `replacements` option must be an array. The values will be replaced in the order in which they appear in the array and query.
+- Or by using alphanumeric identifiers (e.g. `:firstName`, `:status`, etc…). These identifiers follow common identifier rules (alphanumeric & underscore only, cannot start with a number). The `replacements` option must be a plain object which includes each parameter (without the `:` prefix).
+
+The `replacements` option must contain all bound values, or Sequelize will throw an error.
+
+Examples:
 
 ```js
 const { QueryTypes } = require('@sequelize/core');
@@ -115,26 +124,46 @@ await sequelize.query(
   'SELECT * FROM projects WHERE status = ?',
   {
     replacements: ['active'],
-    type: QueryTypes.SELECT
-  }
+    type: QueryTypes.SELECT,
+  },
 );
 
 await sequelize.query(
   'SELECT * FROM projects WHERE status = :status',
   {
     replacements: { status: 'active' },
-    type: QueryTypes.SELECT
-  }
+    type: QueryTypes.SELECT,
+  },
 );
 ```
 
-Array replacements will automatically be handled, the following query searches for projects where the status matches an array of values.
+When using operators like `LIKE`, keep in mind that special characters in your replacement do keep their special meaning.  
+e.g. the following query matches users with names that start with 'ben':
 
 ```js
 const { QueryTypes } = require('@sequelize/core');
 
 await sequelize.query(
-  'SELECT * FROM projects WHERE status IN(:status)',
+  'SELECT * FROM users WHERE name LIKE :searchName',
+  {
+    replacements: { searchName: 'ben%' },
+    type: QueryTypes.SELECT
+  }
+);
+```
+
+:::caution
+
+Sequelize does not currently support a way to [specify the DataType of a replacement](https://github.com/sequelize/sequelize/issues/14410), 
+and will try to guess its type prior to serializing it.  
+
+For instance, Arrays will not be serialized as the SQL `ARRAY` type. Instead, the following query:
+
+```js
+const { QueryTypes } = require('@sequelize/core');
+
+await sequelize.query(
+  'SELECT * FROM projects WHERE status IN (:status)',
   {
     replacements: { status: ['active', 'inactive'] },
     type: QueryTypes.SELECT
@@ -142,48 +171,85 @@ await sequelize.query(
 );
 ```
 
-To use the wildcard operator `%`, append it to your replacement. The following query matches users with names that start with 'ben'.
+Will result in this SQL:
 
-```js
-const { QueryTypes } = require('@sequelize/core');
-
-await sequelize.query(
-  'SELECT * FROM users WHERE name LIKE :search_name',
-  {
-    replacements: { search_name: 'ben%' },
-    type: QueryTypes.SELECT
-  }
-);
+```sql
+SELECT * FROM projects WHERE status IN ('active', 'inactive')
 ```
 
-## Bind Parameter
+Until such a feature is implemented, you can use a [bind parameter](#bind-parameters) and cast it instead.
 
-Bind parameters are like replacements. Except replacements are escaped and inserted into the query by sequelize before the query is sent to the database, while bind parameters are sent to the database outside the SQL query text. A query can have either bind parameters or replacements. Bind parameters are referred to by either $1, $2, ... (numeric) or $key (alpha-numeric). This is independent of the dialect.
+:::
 
-* If an array is passed, `$1` is bound to the 1st element in the array (`bind[0]`)
-* If an object is passed, `$key` is bound to `object['key']`. Each key must begin with a non-numeric char. `$1` is not a valid key, even if `object['1']` exists.
-* In either case `$$` can be used to escape a literal `$` sign.
+## Bind Parameters
 
-The array or object must contain all bound values or Sequelize will throw an exception. This applies even to cases in which the database may ignore the bound parameter.
+Bind parameters are a way to pass variables in your Query. They are an alternative to [Replacements](#replacements).
 
-The database may add further restrictions to this. Bind parameters cannot be SQL keywords, nor table or column names. They are also ignored in quoted text or data. In PostgreSQL it may also be needed to typecast them, if the type cannot be inferred from the context `$1::varchar`.
+The difference between replacements and bind parameters is that replacements are escaped and inserted into the query by Sequelize before the query is sent to the database,
+whereas bind parameters are sent to the database separately from the SQL query text, and 'escaped' by the Database itself.
+
+A query can have both bind parameters and replacements.
+
+Each database uses a different syntax for bind parameters, but Sequelize provides its own unification layer.  
+
+Inconsequentially to which database you use, in Sequelize bind parameters are written following a postgres-like syntax. You can either:
+
+- Use numeric identifiers (e.g. `$1`, `$2`, etc…). Note that these identifiers start at 1, not 0. The `bind` option must be an array which contains a value for each identifier used in the query (`$1` is bound to the 1st element in the array (`bind[0]`), etc…).
+- Use alphanumeric identifiers (e.g. `$firstName`, `$status`, etc…). These identifiers follow common identifier rules (alphanumeric & underscore only, cannot start with a number). The `bind` option must be a plain object which includes each bind parameter (without the `$` prefix).
+
+The `bind` option must contain all bound values, or Sequelize will throw an error.
+
+:::info
+
+Bind Parameters can only be used for data values. Bind Parameters cannot be used to dynamically change the name of a table, a column, or other non-data values parts of the query.
+
+Your database may have further restrictions with bind parameters.
+
+:::
+
+Examples:
 
 ```js
 const { QueryTypes } = require('@sequelize/core');
 
 await sequelize.query(
-  'SELECT *, "text with literal $$1 and literal $$status" as t FROM projects WHERE status = $1',
+  'SELECT * FROM projects WHERE status = $1',
   {
     bind: ['active'],
-    type: QueryTypes.SELECT
-  }
+    type: QueryTypes.SELECT,
+  },
 );
 
 await sequelize.query(
-  'SELECT *, "text with literal $$1 and literal $$status" as t FROM projects WHERE status = $status',
+  'SELECT * FROM projects WHERE status = $status',
   {
     bind: { status: 'active' },
-    type: QueryTypes.SELECT
-  }
+    type: QueryTypes.SELECT,
+  },
 );
 ```
+
+Sequelize does not currently support a way to [specify the DataType of a bind parameter](https://github.com/sequelize/sequelize/issues/14410).  
+Until such a feature is implemented, you can cast your bind parameters if you need to change their DataType:
+
+```js
+const { QueryTypes } = require('@sequelize/core');
+
+await sequelize.query(
+  'SELECT * FROM projects WHERE id = CAST($1 AS int)',
+  {
+    bind: [5],
+    type: QueryTypes.SELECT,
+  },
+);
+```
+
+:::note Did you know?
+
+Some dialects, such as PostgreSQL and IBM Db2, support a terser cast syntax that you can use if you prefer:
+
+```typescript
+await sequelize.query('SELECT * FROM projects WHERE id = $1::int');
+```
+
+:::
