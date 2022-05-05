@@ -7,7 +7,8 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Sequelize',
-  tagline: 'Sequelize is a modern TypeScript and Node.js ORM for Postgres, MySQL, MariaDB, SQLite and SQL Server, and more. Featuring solid transaction support, relations, eager and lazy loading, read replication and more.',
+  tagline:
+    'Sequelize is a modern TypeScript and Node.js ORM for Postgres, MySQL, MariaDB, SQLite and SQL Server, and more. Featuring solid transaction support, relations, eager and lazy loading, read replication and more.',
   url: 'https://sequelize.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -23,8 +24,7 @@ const config = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/sequelize/website/tree/main/',
+          editUrl: 'https://github.com/sequelize/website/tree/main/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           versions: {
@@ -85,12 +85,6 @@ const config = {
             ],
             dropdownActiveClassDisabled: true,
           },
-          // {
-          //   type: 'doc',
-          //   docId: 'intro',
-          //   position: 'left',
-          //   label: 'Guides',
-          // },
           {
             type: 'dropdown',
             label: 'API References',
@@ -153,6 +147,14 @@ const config = {
                 label: 'Version Policy',
                 to: '/releases',
               },
+              {
+                label: 'Security',
+                href: 'https://github.com/sequelize/sequelize/blob/main/SECURITY.md',
+              },
+              {
+                label: 'Changelog',
+                href: 'https://github.com/sequelize/sequelize/releases',
+              },
             ],
           },
           {
@@ -170,26 +172,21 @@ const config = {
                 label: 'Twitter',
                 href: 'https://twitter.com/SequelizeJS',
               },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              // {
-              //   label: 'Blog',
-              //   to: '/blog',
-              // },
               {
                 label: 'GitHub',
                 href: 'https://github.com/sequelize/sequelize',
               },
+            ],
+          },
+          {
+            title: 'Support',
+            items: [
               {
-                label: 'Changelog',
-                href: 'https://github.com/sequelize/sequelize/releases',
+                label: 'OpenCollective',
+                href: 'https://opencollective.com/sequelize',
               },
               {
-                label: 'Security',
-                href: 'https://github.com/sequelize/sequelize/blob/main/SECURITY.md',
+                html: '<div class="ads-container"></div>',
               },
             ],
           },
