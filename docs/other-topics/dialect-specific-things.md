@@ -288,6 +288,14 @@ const sequelize = new Sequelize('servicename', 'username', 'password', {
 
 The default port number is 1521. User can provide the port number as options.
 
+Sequelize also provides user to pass credentials in URL format:
+
+```js
+const sequelize = new Sequelize('oracle://user:pass@hostname:port/servicename');
+```
+
+`hostname` and `servicename` are available to user of Oracle Database.
+
 :::note
 
 `Sequelize.Datatypes.TEXT` doesn't support `where` option. 
