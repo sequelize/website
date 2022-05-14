@@ -105,27 +105,27 @@ export default function HomepageFeatures(): JSX.Element {
           <Link
             className="topics"
             to="/docs/v6/other-topics/transactions/"
-          > Transactions
-          </Link>,
+          >Transactions
+          </Link>,&nbsp;
           <Link
             className="topics"
             to="/docs/v6/other-topics/migrations/"
-          > migrations
-          </Link>,
+          >migrations
+          </Link>,&nbsp;
           <Link
             className="topics"
             to="/docs/v6/other-topics/typescript/"
-          > strong typing
-          </Link>,
+          >strong typing
+          </Link>,&nbsp;
           <Link
             className="topics"
             to="/docs/v6/other-topics/other-data-types/#json-sqlite-mysql-mariadb-and-postgresql-only"
-          > JSON querying
-          </Link>,
+          >JSON querying
+          </Link>,&nbsp;
           <Link
             className="topics"
             to="/docs/v6/other-topics/hooks/"
-          > lifecycle events (hooks)
+          >lifecycle events (hooks)
           </Link>,
           and more.
           <br />
