@@ -102,128 +102,7 @@ This will:
 
 **Note:** _Sequelize will only use Model files, it's the table representation. On the other hand, the migration file is a change in that model or more specifically that table, used by CLI. Treat migrations like a commit or a log for some change in database._
 
-## Running Migrations
-
-Until this step, we haven't inserted anything into the database. We have just created the required model and migration files for our first model, `User`. Now to actually create that table in the database you need to run `db:migrate` command.
-
-```bash
-# using npm
-npx sequelize-cli db:migrate
-# using yarn
-yarn sequelize-cli db:migrate
-```
-
-This command will execute these steps:
-
-- Will ensure a table called `SequelizeMeta` in database. This table is used to record which migrations have run on the current database
-- Start looking for any migration files which haven't run yet. This is possible by checking `SequelizeMeta` table. In this case it will run `XXXXXXXXXXXXXX-create-user.js` migration, which we created in last step.
-- Creates a table called `Users` with all columns as specified in its migration file.
-
-## Undoing Migrations
-
-Now our table has been created and saved in the database. With migration you can revert to old state by just running a command.
-
-You can use `db:migrate:undo`, this command will revert most the recent migration.
-
-```bash
-# using npm
-npx sequelize-cli db:migrate:undo
-# using yarn
-yarn sequelize-cli db:migrate:undo
-```
-
-You can revert back to the initial state by undoing all migrations with the `db:migrate:undo:all` command. You can also revert back to a specific migration by passing its name with the `--to` option.
-
-```bash
-# using npm
-npx sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
-# using yarn
-yarn sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
-```
-
-### Creating the first Seed
-
-Suppose we want to insert some data into a few tables by default. If we follow up on the previous example we can consider creating a demo user for the `User` table.
-
-To manage all data migrations you can use seeders. Seed files are some change in data that can be used to populate database tables with sample or test data.
-
-Let's create a seed file which will add a demo user to our `User` table.
-
-```bash
-# using npm
-npx sequelize-cli seed:generate --name demo-user
-# using yarn
-yarn sequelize-cli seed:generate --name demo-user
-```
-
-This command will create a seed file in `seeders` folder. File name will look something like `XXXXXXXXXXXXXX-demo-user.js`. It follows the same `up / down` semantics as the migration files.
-
-Now we should edit this file to insert demo user to `User` table.
-
-```js
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users', [{
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'example@example.com',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
-  },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Users', null, {});
-  }
-};
-```
-
-## Running Seeds
-
-In last step you created a seed file; however, it has not been committed to the database. To do that we run a simple command.
-
-```bash
-# using npm
-npx sequelize-cli db:seed:all
-# using yarn
-yarn sequelize-cli db:seed:all
-```
-
-This will execute that seed file and a demo user will be inserted into the `User` table.
-
-**Note:** _Seeder execution history is not stored anywhere, unlike migrations, which use the `SequelizeMeta` table. If you wish to change this behavior, please read the `Storage` section._
-
-## Undoing Seeds
-
-Seeders can be undone if they are using any storage. There are two commands available for that:
-
-If you wish to undo the most recent seed:
-
-```bash
-# using npm
-npx sequelize-cli db:seed:undo
-# using yarn
-yarn sequelize-cli db:seed:undo
-```
-
-If you wish to undo a specific seed:
-
-```bash
-# using npm
-npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
-# using yarn
-yarn sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
-```
-
-If you wish to undo all seeds:
-
-```bash
-# using npm
-npx sequelize-cli db:seed:undo:all
-# using yarn
-yarn sequelize-cli db:seed:undo:all
-```
-
-## Migration Skeleton
+## Writing a migration
 
 The following skeleton shows a typical migration file.
 
@@ -238,13 +117,13 @@ module.exports = {
 }
 ```
 
-We can generate this file using `migration:generate`. This will create `xxx-migration-skeleton.js` in your migration folder.
+We can generate this file using `migration:generate`. This will create `xxx-migration-example.js` in your migration folder.
 
 ```bash
 # using npm
-npx sequelize-cli migration:generate --name migration-skeleton
+npx sequelize-cli migration:generate --name migration-example
 # using yarn
-yarn sequelize-cli migration:generate --name migration-skeleton
+yarn sequelize-cli migration:generate --name migration-example
 ```
 
 The passed `queryInterface` object can be used to modify the database. The `Sequelize` object stores the available data types such as `STRING` or `INTEGER`. Function `up` or `down` should return a `Promise`. Let's look at an example:
@@ -394,6 +273,127 @@ module.exports = {
     return queryInterface.dropTable('Person');
   }
 }
+```
+
+## Running Migrations
+
+Until this step, we haven't inserted anything into the database. We have just created the required model and migration files for our first model, `User`. Now to actually create that table in the database you need to run `db:migrate` command.
+
+```bash
+# using npm
+npx sequelize-cli db:migrate
+# using yarn
+yarn sequelize-cli db:migrate
+```
+
+This command will execute these steps:
+
+- Will ensure a table called `SequelizeMeta` in database. This table is used to record which migrations have run on the current database
+- Start looking for any migration files which haven't run yet. This is possible by checking `SequelizeMeta` table. In this case it will run `XXXXXXXXXXXXXX-create-user.js` migration, which we created in last step.
+- Creates a table called `Users` with all columns as specified in its migration file.
+
+## Undoing Migrations
+
+Now our table has been created and saved in the database. With migration you can revert to old state by just running a command.
+
+You can use `db:migrate:undo`, this command will revert the most recent migration.
+
+```bash
+# using npm
+npx sequelize-cli db:migrate:undo
+# using yarn
+yarn sequelize-cli db:migrate:undo
+```
+
+You can revert back to the initial state by undoing all migrations with the `db:migrate:undo:all` command. You can also revert back to a specific migration by passing its name with the `--to` option.
+
+```bash
+# using npm
+npx sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
+# using yarn
+yarn sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
+```
+
+### Creating the first Seed
+
+Suppose we want to insert some data into a few tables by default. If we follow up on the previous example we can consider creating a demo user for the `User` table.
+
+To manage all data migrations you can use seeders. Seed files are some change in data that can be used to populate database tables with sample or test data.
+
+Let's create a seed file which will add a demo user to our `User` table.
+
+```bash
+# using npm
+npx sequelize-cli seed:generate --name demo-user
+# using yarn
+yarn sequelize-cli seed:generate --name demo-user
+```
+
+This command will create a seed file in `seeders` folder. File name will look something like `XXXXXXXXXXXXXX-demo-user.js`. It follows the same `up / down` semantics as the migration files.
+
+Now we should edit this file to insert demo user to `User` table.
+
+```js
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.bulkInsert('Users', [{
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'example@example.com',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }]);
+  },
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete('Users', null, {});
+  }
+};
+```
+
+## Running Seeds
+
+In last step you created a seed file; however, it has not been committed to the database. To do that we run a simple command.
+
+```bash
+# using npm
+npx sequelize-cli db:seed:all
+# using yarn
+yarn sequelize-cli db:seed:all
+```
+
+This will execute that seed file and a demo user will be inserted into the `User` table.
+
+**Note:** _Seeder execution history is not stored anywhere, unlike migrations, which use the `SequelizeMeta` table. If you wish to change this behavior, please read the `Storage` section._
+
+## Undoing Seeds
+
+Seeders can be undone if they are using any storage. There are two commands available for that:
+
+If you wish to undo the most recent seed:
+
+```bash
+# using npm
+npx sequelize-cli db:seed:undo
+# using yarn
+yarn sequelize-cli db:seed:undo
+```
+
+If you wish to undo a specific seed:
+
+```bash
+# using npm
+npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
+# using yarn
+yarn sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
+```
+
+If you wish to undo all seeds:
+
+```bash
+# using npm
+npx sequelize-cli db:seed:undo:all
+# using yarn
+yarn sequelize-cli db:seed:undo:all
 ```
 
 ### The `.sequelizerc` file

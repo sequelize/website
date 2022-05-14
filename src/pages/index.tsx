@@ -8,10 +8,15 @@ import React from 'react';
 import HomepageFeatures from '../components/homepage-features';
 import HomepageUsage from '../components/homepage-usage';
 import HomepageUsers from '../components/homepage-users';
+import { useAds } from '../hooks/use-ads';
 import css from './index.module.scss';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
+
+  // This will inject the ads into the footer of the homepage.
+  // The target container is injected in the docusaurus footer config.
+  useAds({ selector: '.ads-container' });
 
   return (
     <header className={clsx('hero hero--primary', css.heroBanner)}>

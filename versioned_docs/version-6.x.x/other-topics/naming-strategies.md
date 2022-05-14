@@ -86,7 +86,7 @@ sequelize.define('foo', {
 });
 ```
 
-In the above example we are manually defining a key that references another model. It's not usual to do this, but if you have to, you should use the table name there. This is because the reference is created upon the referencced table name. In the example above, the plural form was used (`bars`), assuming that the `bar` model was created with the default settings (making its underlying table automatically pluralized).
+In the above example we are manually defining a key that references another model. It's not usual to do this, but if you have to, you should use the table name there. This is because the reference is created upon the referenced table name. In the example above, the plural form was used (`bars`), assuming that the `bar` model was created with the default settings (making its underlying table automatically pluralized).
 
 ### When retrieving data from eager loading
 
