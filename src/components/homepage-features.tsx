@@ -50,6 +50,7 @@ const FeatureList: FeatureItem[] = [
       const wish = await wishlist.createWish({ 
         title: 'Toys', quantity: 3,
       });
+
       await wishlist.removeWish(wish);
     `,
   },
