@@ -106,22 +106,22 @@ export default function HomepageFeatures(): JSX.Element {
             className="topics"
             to="/docs/v6/other-topics/transactions/"
           >Transactions
-          </Link>,&nbsp;
+          </Link>,{' '}
           <Link
             className="topics"
             to="/docs/v6/other-topics/migrations/"
           >migrations
-          </Link>,&nbsp;
+          </Link>,{' '}
           <Link
             className="topics"
             to="/docs/v6/other-topics/typescript/"
           >strong typing
-          </Link>,&nbsp;
+          </Link>,{' '}
           <Link
             className="topics"
             to="/docs/v6/other-topics/other-data-types/#json-sqlite-mysql-mariadb-and-postgresql-only"
           >JSON querying
-          </Link>,&nbsp;
+          </Link>,{' '}
           <Link
             className="topics"
             to="/docs/v6/other-topics/hooks/"
