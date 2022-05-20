@@ -46,7 +46,7 @@ type UserCreationAttributes = Optional<UserAttributes, 'id'>;
 
 class User extends Model<UserAttributes, UserCreationAttributes> {
   declare id: number;
-  declare string: number;
+  declare name: string;
   // other attributes...
 }
 ```
