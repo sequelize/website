@@ -29,7 +29,7 @@
     "raw-loader": "4.0.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-feather": "2.0.9",
+    "react-feather": "2.0.10",
     "react-responsive-carousel": "3.2.23",
     "sass": "1.52.1"
   },
