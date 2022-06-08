@@ -180,7 +180,7 @@ Oracle Database requires the use of the [node-oracledb] npm package.
 | 7 (alpha)   |      unknown        |    unknown      |
 | 6 (current) |      >= 18.4        |    ^5.4.0       |
 
-[Oracle Database]: https://support.oracle.com/knowledge/Oracle%20Database%20Products/742060_1.html
+[Oracle Database]: https://www.oracle.com/database/technologies/oracle-database-software-downloads.html
 [oracledb]: https://www.npmjs.com/package/oracledb
 
 [^⚠️1]: `pg-native` [hasn't had a release since 2018](https://www.npmjs.com/package/pg-native).
