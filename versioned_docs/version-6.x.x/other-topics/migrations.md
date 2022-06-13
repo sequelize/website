@@ -562,6 +562,22 @@ As an alternative to the `--config` option with configuration files defining you
 npx sequelize-cli db:migrate --url 'mysql://root:password@mysql_host.com/database_name'
 ```
 
+If utilizing `package.json/scripts` commands make sure to use the extra `--` in your cammand.
+For example:
+
+```json
+// package.json
+
+...
+  "scripts": {
+    "migrate:up": "npx sequelize-cli db:migrate ",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo "
+  },
+...
+```
+
+Use the command like so: `npm run migrate:up -- --url <url>`
+
 ### Programmatic usage
 
 Sequelize has a sister library called [umzug](https://github.com/sequelize/umzug) for programmatically handling execution and logging of migration tasks.
