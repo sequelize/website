@@ -562,7 +562,7 @@ As an alternative to the `--config` option with configuration files defining you
 npx sequelize-cli db:migrate --url 'mysql://root:password@mysql_host.com/database_name'
 ```
 
-If utilizing `package.json/scripts` commands make sure to use the extra `--` in your cammand.
+If utilizing `package.json/scripts` commands make sure to use the extra `--` in your command when using flags.
 For example:
 
 ```json
