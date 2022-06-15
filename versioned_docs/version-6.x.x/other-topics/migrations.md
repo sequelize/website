@@ -570,8 +570,8 @@ For example:
 
 ...
   "scripts": {
-    "migrate:up": "npx sequelize-cli db:migrate ",
-    "migrate:undo": "npx sequelize-cli db:migrate:undo "
+    "migrate:up": "npx sequelize-cli db:migrate",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo"
   },
 ...
 ```
