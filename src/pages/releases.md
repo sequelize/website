@@ -177,7 +177,7 @@ Oracle Database requires the use of the [node-oracledb] npm package.
 
 | Sequelize   | [Oracle Database]   | [node-oracledb] |
 |-------------|---------------------|-----------------|
-| 7 (alpha)   |      unknown        |    unknown      |
+| 7 (alpha)   |      upcoming       |    upcoming     |
 | 6 (current) |      >= 18.4        |    ^5.4.0       |
 
 [Oracle Database]: https://www.oracle.com/database/technologies/oracle-database-software-downloads.html
