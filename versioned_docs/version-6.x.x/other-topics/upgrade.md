@@ -24,7 +24,7 @@ Sequelize.useCLS(namespace);
 
 ### Database Engine Support
 
-We have updated our minimum supported database engine versions. Using older database engine will show `SEQUELIZE0006` deprecation warning. Please check [ENGINE.md](https://github.com/sequelize/sequelize/blob/main/ENGINE.md) for version table.
+We have updated our minimum supported database engine versions. Using older database engine will show `SEQUELIZE0006` deprecation warning. Please check [the releases page](https://sequelize.org/releases/) for the version table.
 
 ### Sequelize
 
