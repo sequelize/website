@@ -269,7 +269,7 @@ See [Releases](/releases#oracle-support-table) to see which versions of Oracle D
 
 node-oracledb needs [instant client library files](https://www.oracle.com/database/technologies/instant-client/downloads.html) to work. You can use node-oracledb [quick start](https://oracle.github.io/node-oracledb/INSTALL.html#quickstart) link for installations.
 
-Below is Sequelize constructor with parameters related to Oracle Database.
+Below is a Sequelize constructor with parameters related to Oracle Database.
 
 ```js
 const sequelize = new Sequelize('servicename', 'username', 'password', {
@@ -286,11 +286,6 @@ Sequelize also lets you pass credentials in URL format:
 ```js
 const sequelize = new Sequelize('oracle://user:pass@hostname:port/servicename');
 ```
-
-:::note
-
-The `Datatypes.TEXT` doesn't support the `where` option.
-:::
 
 ## Data type: TIMESTAMP WITHOUT TIME ZONE - PostgreSQL only
 
