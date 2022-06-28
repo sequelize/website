@@ -275,7 +275,7 @@ Below is Sequelize constructor with parameters related to Oracle Database.
 const sequelize = new Sequelize('servicename', 'username', 'password', {
   dialect: 'oracle',
   host: 'hostname',
-  [port: 'port number',]
+  port: 'port number', // optional
 });
 ```
 
