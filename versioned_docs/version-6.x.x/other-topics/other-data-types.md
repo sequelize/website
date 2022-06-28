@@ -104,9 +104,9 @@ sequelize.define('foo', {
 });
 ```
 
-## JSON (SQLite, MySQL, MariaDB and PostgreSQL only)
+## JSON (SQLite, MySQL, MariaDB, Oracle and PostgreSQL only)
 
-The `DataTypes.JSON` data type is only supported for SQLite, MySQL, MariaDB and PostgreSQL. However, there is a minimum support for MSSQL (see below).
+The `DataTypes.JSON` data type is only supported for SQLite, MySQL, MariaDB, Oracle and PostgreSQL. However, there is a minimum support for MSSQL (see below).
 
 ### Note for PostgreSQL
 
