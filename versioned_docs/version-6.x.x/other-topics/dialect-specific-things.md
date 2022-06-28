@@ -199,6 +199,31 @@ For running integration test:
 SEQ_ACCOUNT=myAccount SEQ_USER=myUser SEQ_PW=myPassword SEQ_ROLE=myRole SEQ_DB=myDatabaseName SEQ_SCHEMA=mySchema SEQ_WH=myWareHouse npm run test-integration-snowflake
 ```
 
+### Oracle Database
+
+The underlying connector library used by Sequelize for Oracle is the [node-oracledb](https://www.npmjs.com/package/oracledb) package.  
+See [Releases](/releases#oracle-support-table) to see which versions of Oracle Database & node-oracledb are supported.
+
+node-oracledb needs [instant client library files](https://www.oracle.com/database/technologies/instant-client/downloads.html) to work. You can use node-oracledb [quick start](https://oracle.github.io/node-oracledb/INSTALL.html#quickstart) link for installations.
+
+Below is a Sequelize constructor with parameters related to Oracle Database.
+
+```js
+const sequelize = new Sequelize('servicename', 'username', 'password', {
+  dialect: 'oracle',
+  host: 'hostname',
+  port: 'port number', //optional
+});
+```
+
+The default port number for Oracle database is 1521.
+
+Sequelize also lets you pass credentials in URL format:
+
+```js
+const sequelize = new Sequelize('oracle://user:pass@hostname:port/servicename');
+```
+
 ## Data type: TIMESTAMP WITHOUT TIME ZONE - PostgreSQL only
 
 If you are working with the PostgreSQL `TIMESTAMP WITHOUT TIME ZONE` and you need to parse it to a different timezone, please use the pg library's own parser:
