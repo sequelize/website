@@ -275,7 +275,7 @@ Below is Sequelize constructor with parameters related to Oracle Database.
 const sequelize = new Sequelize('servicename', 'username', 'password', {
   dialect: 'oracle',
   host: 'hostname',
-  [port: 'port number',]
+  port: 'port number', // optional
 });
 ```
 
@@ -289,7 +289,7 @@ const sequelize = new Sequelize('oracle://user:pass@hostname:port/servicename');
 
 :::note
 
-The `Sequelize.Datatypes.TEXT` doesn't support the `where` option. 
+The `Datatypes.TEXT` doesn't support the `where` option.
 :::
 
 ## Data type: TIMESTAMP WITHOUT TIME ZONE - PostgreSQL only
