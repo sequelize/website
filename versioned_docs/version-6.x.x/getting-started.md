@@ -45,7 +45,7 @@ const sequelize = new Sequelize({
 // Option 3: Passing parameters separately (other dialects)
 const sequelize = new Sequelize('database', 'username', 'password', {
   host: 'localhost',
-  dialect: /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' | 'Oracle' */
+  dialect: /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' | 'oracle' */
 });
 ```
 
