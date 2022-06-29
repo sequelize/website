@@ -204,7 +204,7 @@ SEQ_ACCOUNT=myAccount SEQ_USER=myUser SEQ_PW=myPassword SEQ_ROLE=myRole SEQ_DB=m
 The underlying connector library used by Sequelize for Oracle is the [node-oracledb](https://www.npmjs.com/package/oracledb) package.  
 See [Releases](/releases#oracle-support-table) to see which versions of Oracle Database & node-oracledb are supported.
 
-node-oracledb needs [instant client library files](https://www.oracle.com/database/technologies/instant-client/downloads.html) to work. You can use node-oracledb [quick start](https://oracle.github.io/node-oracledb/INSTALL.html#quickstart) link for installations.
+node-oracledb needs IC[Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html) to work. You can use node-oracledb [quick start](https://oracle.github.io/node-oracledb/INSTALL.html#quickstart) link for installations.
 
 Below is a Sequelize constructor with parameters related to Oracle Database.
 
