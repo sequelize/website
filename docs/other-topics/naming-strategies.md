@@ -28,7 +28,7 @@ Without the `underscored` option, Sequelize would automatically define:
 
 With the `underscored` option enabled, Sequelize will instead define:
 
-* An `users` table for the User model and a `tasks` table for the Task model.
+* A `users` table for the User model and a `tasks` table for the Task model.
 * A `createdAt` attribute for each model, pointing to a column named `created_at` in each table
 * An `updatedAt` attribute for each model, pointing to a column named `updated_at` in each table
 * A `userId` attribute in the `Task` model, pointing to a column named `user_id` in the task table
