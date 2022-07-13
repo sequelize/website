@@ -123,7 +123,7 @@ You can revert back to the initial state by undoing all migrations with the `db:
 npx sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
 ```
 
-### Creating the first Seed
+## Creating the first Seed
 
 Suppose we want to insert some data into a few tables by default. If we follow up on the previous example we can consider creating a demo user for the `User` table.
 
