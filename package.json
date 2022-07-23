@@ -39,7 +39,7 @@
     "@rushstack/eslint-patch": "1.1.4",
     "@tsconfig/docusaurus": "1.0.5",
     "eslint": "8.20.0",
-    "eslint-plugin-mdx": "1.17.1",
+    "eslint-plugin-mdx": "2.0.2",
     "husky": "8.0.1",
     "lint-staged": "13.0.3",
     "prettier": "2.7.1",
