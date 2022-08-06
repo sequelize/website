@@ -437,7 +437,7 @@ console.log((await Ship.findAll({ include: Captain })).toJSON());
 console.log((await Ship.findAll({ include: 'captain' })).toJSON());
 
 // Also, instances obtain a `getCaptain()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getCaptain()).toJSON());
 ```
 
@@ -454,7 +454,7 @@ console.log((await Ship.findAll({ include: Captain })).toJSON());
 console.log((await Ship.findAll({ include: 'Captain' })).toJSON());
 
 // Also, instances obtain a `getCaptain()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getCaptain()).toJSON());
 ```
 
@@ -480,7 +480,7 @@ console.log((await Ship.findAll({
 })).toJSON());
 
 // Also, instances obtain a `getLeader()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getLeader()).toJSON());
 ```
 
@@ -508,7 +508,7 @@ console.log((await Ship.findAll({
 })).toJSON());
 
 // Also, instances obtain a `getLeader()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getLeader()).toJSON());
 ```
 
@@ -617,7 +617,7 @@ The same ones from `Foo.hasMany(Bar)`:
 For belongsToMany relationships, by default `getBars()` will return all fields from the join table. Note that any `include` options will apply to the target `Bar` object, so trying to set options for the join table as you would when eager loading with `find` methods is not possible. To choose what attributes of the join table to include, `getBars()` supports a `joinTableAttributes` option that can be used similarly to setting `through.attributes` in an `include`. As an example, given Foo belongsToMany Bar, the following will both output results without join table fields:
 
 ```js
-const foo = Foo.findByPk(id, {
+const foo = await Foo.findByPk(id, {
   include: [{
     model: Bar,
     through: { attributes: [] }
@@ -625,7 +625,7 @@ const foo = Foo.findByPk(id, {
 })
 console.log(foo.bars)
 
-const foo = Foo.findByPk(id)
+const foo = await Foo.findByPk(id)
 console.log(foo.getBars({ joinTableAttributes: [] }))
 ```
 
