@@ -37,7 +37,7 @@
     "@docusaurus/module-type-aliases": "2.0.0-beta.21",
     "@ephys/eslint-config-typescript": "17.0.0",
     "@rushstack/eslint-patch": "1.1.4",
-    "@tsconfig/docusaurus": "1.0.5",
+    "@tsconfig/docusaurus": "1.0.6",
     "eslint": "8.22.0",
     "eslint-plugin-mdx": "1.17.1",
     "husky": "8.0.1",
