@@ -4,7 +4,7 @@ import { Trash } from 'react-feather';
 import css from './deprecated.module.css';
 
 type Props = {
-  children: ReactNode;
+  children: ReactNode,
 };
 
 export function Deprecated(props: Props) {
