@@ -15,7 +15,7 @@ Sequelize supports two ways of using transactions:
 Let's start with an example:
 
 ```js
-// First, we start a transaction and save it into a variable
+// First, we start a transaction from your connection and save it into a variable
 const t = await sequelize.transaction();
 
 try {
