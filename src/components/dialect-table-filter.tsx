@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useLocalStorage } from '../utils/use-storage';
 import css from './dialect-table-filter.module.css';
@@ -14,8 +14,8 @@ export function DialectTableFilter(props: Props) {
 
   const [preferredDialect, setPreferredDialect] = useLocalStorage('preferred-dialect', 'all');
 
-  const onDialectSelection = useCallback(e => {
-    const newDialect = e.currentTarget.value;
+  const onDialectSelection = useCallback((e: ChangeEvent) => {
+    const newDialect = (e.currentTarget as any).value;
     setPreferredDialect(newDialect);
   }, [setPreferredDialect]);
 

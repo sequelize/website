@@ -2,7 +2,7 @@ import Link from '@docusaurus/Link';
 import CodeBlock from '@theme/CodeBlock';
 import clsx from 'clsx';
 import React from 'react';
-import ArrowRight from 'react-feather/dist/icons/arrow-right';
+import { ArrowRight } from 'react-feather';
 import { trim } from '../models/string';
 import styles from './homepage-usage.module.scss';
 
