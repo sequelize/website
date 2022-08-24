@@ -1,4 +1,4 @@
-import type { ChangeEvent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useLocalStorage } from '../utils/use-storage';
 import css from './dialect-table-filter.module.css';
@@ -12,10 +12,10 @@ const existingDialects = new Set(['PostgreSQL', 'MariaDB', 'MySQL', 'MSSQL', 'SQ
 export function DialectTableFilter(props: Props) {
   const divRef = useRef<HTMLDivElement | null>(null);
 
-  const [preferredDialect, setPreferredDialect] = useLocalStorage('preferred-dialect', 'all');
+  const [preferredDialect, setPreferredDialect] = useLocalStorage<string>('preferred-dialect', 'all');
 
-  const onDialectSelection = useCallback((e: ChangeEvent) => {
-    const newDialect = (e.currentTarget as any).value;
+  const onDialectSelection = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newDialect = e.currentTarget.value;
     setPreferredDialect(newDialect);
   }, [setPreferredDialect]);
 
