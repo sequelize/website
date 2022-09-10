@@ -98,8 +98,9 @@ ENUMs can also be specified with the `values` field of the column definition, as
 ```js
 sequelize.define('foo', {
   states: {
-    type: DataTypes.ENUM,
+    type: DataTypes.ENUM({
     values: ['active', 'pending', 'deleted']
+    })
   }
 });
 ```
