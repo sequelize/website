@@ -55,7 +55,6 @@ npm i sqlite3 # SQLite
 npm i tedious # Microsoft SQL Server
 npm i ibm_db # DB2
 npm i odbc # IBM i
-npm i oracledb # Oracle Database
 ```
 
 </TabItem>
@@ -69,7 +68,6 @@ yarn add sqlite3 # SQLite
 yarn add tedious # Microsoft SQL Server
 yarn add ibm_db # DB2
 yarn add odbc # IBM i
-yarn add oracledb # Oracle Database
 ```
 
 </TabItem>
@@ -97,7 +95,7 @@ const sequelize = new Sequelize({
 const sequelize = new Sequelize('database', 'username', 'password', {
   host: 'localhost',
   // one of our supported dialects:
-  // 'mysql', 'mariadb', 'postgres', 'mssql', 'sqlite', 'snowflake', 'oracle', 'db2' or 'ibmi'
+  // 'mysql', 'mariadb', 'postgres', 'mssql', 'sqlite', 'snowflake', 'db2' or 'ibmi'
   dialect: 'postgres'
 });
 ```
