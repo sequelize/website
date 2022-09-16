@@ -46,7 +46,7 @@ type UserCreationAttributes = Optional<UserAttributes, 'id'>;
 
 class User extends Model<UserAttributes, UserCreationAttributes> {
   declare id: number;
-  declare string: number;
+  declare name: string;
   // other attributes...
 }
 ```
@@ -63,7 +63,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   // 'CreationOptional' is a special type that marks the field as optional
   // when creating an instance of the model (such as using Model.create()).
   declare id: CreationOptional<number>;
-  declare string: number;
+  declare name: string;
   // other attributes...
 }
 ```
