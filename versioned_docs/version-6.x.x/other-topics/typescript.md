@@ -88,7 +88,7 @@ Note that attributes that accept `null`, or `undefined` do not need to use `Crea
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare firstName: string;
 
-  // there is no need to use CreationOptional on firstName because nullable attributes
+  // there is no need to use CreationOptional on lastName because nullable attributes
   // are always optional in User.create()
   declare lastName: string | null;
 }
