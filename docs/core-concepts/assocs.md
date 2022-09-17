@@ -72,7 +72,7 @@ Before digging into the aspects of using Sequelize, it is useful to take a step 
 
 Let's say we have two models, `Foo` and `Bar`. We want to establish a One-To-One relationship between Foo and Bar. We know that in a relational database, this will be done by establishing a foreign key in one of the tables. So in this case, a very relevant question is: in which table do we want this foreign key to be? In other words, do we want `Foo` to have a `barId` column, or should `Bar` have a `fooId` column instead?
 
-In principle, both options are a valid way to establish a One-To-One relationship between Foo and Bar. However, when we say something like *"there is a One-To-One relationship between Foo and Bar"*, it is unclear whether or not the relationship is *mandatory* or optional. In other words, can a Foo exist without a Bar? Can a Bar exist without a Foo? The answers to these questions helps figuring out where we want the foreign key column to be.
+In principle, both options are a valid way to establish a One-To-One relationship between Foo and Bar. However, when we say something like *"there is a One-To-One relationship between Foo and Bar"*, it is unclear whether or not the relationship is *mandatory* or optional. In other words, can a Foo exist without a Bar? Can a Bar exist without a Foo? The answers to these questions help figuring out where we want the foreign key column to be.
 
 ### Goal
 
