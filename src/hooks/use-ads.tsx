@@ -26,7 +26,7 @@ function shouldRender(isMobile: boolean, on: OnEnvironment) {
 }
 
 export function useAds({ ref, selector, on = 'all' }: InitProps): void {
-  const isMobile = useMediaQuery('(max-width: 996px)');
+  const isMobile = useMediaQuery('(max-width: 996px)') ?? false;
 
   useEffect(() => {
     let container: HTMLElement | null = null;
