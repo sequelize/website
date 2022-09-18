@@ -74,6 +74,27 @@ Timeline.create({ range: [null, new Date(Date.UTC(2016, 0, 1))] });
 Timeline.create({ range: [-Infinity, new Date(Date.UTC(2016, 0, 1))] });
 ```
 
+## Network Addresses (PostgreSQL only)
+
+```
+DataTypes.CIDR                        // IPv4 or IPv6 host address with Classless Inter-Domain Routing format.
+DataTypes.INET                        // IPv4 or IPv6 host address, and optionally its subnet, all in one field.
+DataTypes.MACADDR                     // MAC addresses.
+```
+
+## Arrays (PostgreSQL only)
+
+```typescript
+// Defines an array of DataTypes.SOMETHING.
+DataTypes.ARRAY(/* DataTypes.SOMETHING */)
+
+// For example
+// VARCHAR(255)[]
+DataTypes.ARRAY(DataTypes.STRING)
+// VARCHAR(255)[][]
+DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
+```
+
 ## BLOBs
 
 ```js
@@ -104,9 +125,9 @@ sequelize.define('foo', {
 });
 ```
 
-## JSON (SQLite, MySQL, MariaDB and PostgreSQL only)
+## JSON (SQLite, MySQL, MariaDB, Oracle and PostgreSQL only)
 
-The `DataTypes.JSON` data type is only supported for SQLite, MySQL, MariaDB and PostgreSQL. However, there is a minimum support for MSSQL (see below).
+The `DataTypes.JSON` data type is only supported for SQLite, MySQL, MariaDB, Oracle and PostgreSQL. However, there is a minimum support for MSSQL (see below).
 
 ### Note for PostgreSQL
 
@@ -179,16 +200,26 @@ await User.findAll({
 })
 ```
 
-## Others
+## Miscellaneous DataTypes
 
-```js
-DataTypes.ARRAY(/* DataTypes.SOMETHING */)  // Defines an array of DataTypes.SOMETHING. PostgreSQL only.
+<DialectTableFilter>
 
-DataTypes.CIDR                        // CIDR                  PostgreSQL only
-DataTypes.INET                        // INET                  PostgreSQL only
-DataTypes.MACADDR                     // MACADDR               PostgreSQL only
+| Sequelize DataType                                                                       | PostgreSQL                                                                | [MariaDB](https://mariadb.com/kb/en/geometry-types/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) | MSSQL | SQLite | Snowflake | db2 | ibmi |
+|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|------------------------------------------------------|-----------------------------------------------------------------------------|-------|--------|-----------|-----|------|
+| [`GEOMETRY`](https://sequelize.org/api/v6/class/src/data-types.js~geometry)   | [`GEOMETRY`](https://postgis.net/workshops/postgis-intro/geometries.html) | `GEOMETRY`                                           | `GEOMETRY`                                                                  | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('POINT')`                                                                      | `GEOMETRY(POINT)`                                                         | `POINT`                                              | `POINT`                                                                     | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('POINT', 4326)`                                                                | `GEOMETRY(POINT,4326)`                                                    | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('POLYGON')`                                                                    | `GEOMETRY(POLYGON)`                                                       | `POLYGON`                                            | `POLYGON`                                                                   | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('LINESTRING')`                                                                 | `GEOMETRY(LINESTRING)`                                                    | `LINESTRING`                                         | `LINESTRING`                                                                | ❌     | ❌      | ❌         | ❌   | ❌    |
+| [`GEOGRAPHY`](https://sequelize.org/api/v6/class/src/data-types.js~geography) | [`GEOGRAPHY`](https://postgis.net/workshops/postgis-intro/geography.html) | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `HSTORE`                                                                                 | [`HSTORE`](https://www.postgresql.org/docs/9.1/hstore.html)               | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
 
-DataTypes.GEOMETRY                    // Spatial column. PostgreSQL (with PostGIS) or MySQL only.
-DataTypes.GEOMETRY('POINT')           // Spatial column with geometry type. PostgreSQL (with PostGIS) or MySQL only.
-DataTypes.GEOMETRY('POINT', 4326)     // Spatial column with geometry type and SRID. PostgreSQL (with PostGIS) or MySQL only.
-```
+</DialectTableFilter>
+
+:::note
+
+In Postgres, the GEOMETRY and GEOGRAPHY types are implemented by [the PostGIS extension](https://postgis.net/workshops/postgis-intro/geometries.html).
+
+In Postgres, You must install the [pg-hstore](https://www.npmjs.com/package/pg-hstore) package if you use `DataTypes.HSTORE`
+
+:::
