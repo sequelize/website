@@ -12,9 +12,9 @@ const existingDialects = new Set(['PostgreSQL', 'MariaDB', 'MySQL', 'MSSQL', 'SQ
 export function DialectTableFilter(props: Props) {
   const divRef = useRef<HTMLDivElement | null>(null);
 
-  const [preferredDialect, setPreferredDialect] = useLocalStorage('preferred-dialect', 'all');
+  const [preferredDialect, setPreferredDialect] = useLocalStorage<string>('preferred-dialect', 'all');
 
-  const onDialectSelection = useCallback(e => {
+  const onDialectSelection = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     const newDialect = e.currentTarget.value;
     setPreferredDialect(newDialect);
   }, [setPreferredDialect]);
