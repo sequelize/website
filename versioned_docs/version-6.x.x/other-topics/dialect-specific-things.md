@@ -224,6 +224,15 @@ Sequelize also lets you pass credentials in URL format:
 const sequelize = new Sequelize('oracle://user:pass@hostname:port/servicename');
 ```
 
+You can pass tns alias, [connection descriptor](https://oracle.github.io/node-oracledb/doc/api.html#-1612-embedded-connect-descriptor-strings) and EZconnect to Sequelize constructor using `dialectoptions.connectString`:
+
+```js
+const sequelize = new Sequelize({dialect: 'oracle', username: 'user', password: 'password', dialectOptions: {connectString: 'inst1'}});
+```
+Note that the `host` and `port` will be overwritten to values available in connectString.
+
+Please refer to [Connect String](https://oracle.github.io/node-oracledb/doc/api.html#-161-connection-strings) for more about connect Strings.
+
 ## Data type: TIMESTAMP WITHOUT TIME ZONE - PostgreSQL only
 
 If you are working with the PostgreSQL `TIMESTAMP WITHOUT TIME ZONE` and you need to parse it to a different timezone, please use the pg library's own parser:
