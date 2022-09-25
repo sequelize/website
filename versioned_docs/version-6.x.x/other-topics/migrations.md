@@ -8,7 +8,7 @@ You will need the [Sequelize Command-Line Interface (CLI)](https://github.com/se
 
 A Migration in Sequelize is a javascript file which exports two functions, `up` and `down`, that dictates how to perform the migration and undo it. You define those functions manually, but you don't call them manually; they will be called automatically by the CLI. In these functions, you should simply perform whatever queries you need, with the help of `sequelize.query` and whichever other methods Sequelize provides to you. There is no extra magic beyond that.
 
-## Installing the Sequelize CLI
+## Installing the CLI
 
 To install the Sequelize CLI:
 
@@ -71,7 +71,7 @@ Sequelize will use the default connection port for each dialect (for example, fo
 
 **Note:** _If your database doesn't exist yet, you can just call `db:create` command. With proper access it will create that database for you._
 
-## Generate the Model (and Migration)
+## Creating the first Model (and Migration)
 
 Once you have properly configured CLI config file you are ready to create your first migration. It's as simple as executing a simple command.
 
