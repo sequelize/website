@@ -78,7 +78,7 @@ Once you have properly configured CLI config file you are ready to create your f
 We will use `model:generate` command. This command requires two options:
 
 - `name`: the name of the model;
-- `attributes`: the list of model attributes. each attributes is separated by `:` with the attribute name and the data types, for example `id:integer`, the data types is the same as DataTypes from Sequelize but lowercased including array for ARRAY and enum for ENUM.
+- `attributes`: the list of model attributes, each attributes is separated by `:` with the attribute name and the data types, for example `id:integer`, the data types is the same as DataTypes from Sequelize but lowercased including array for ARRAY and enum for ENUM.
 
 Let's create a model named `User`.
 
