@@ -53,15 +53,54 @@ The Sequelize constructor accepts a lot of options. They are documented in the [
 
 ### Testing the connection
 
-You can use the `.authenticate()` function to test if the connection is OK:
+You can use the `.authenticate()` function to test if the connection is OK, it runs `SELECT 1+1 AS result` query to test:
 
 ```js
+const sequelize = new Sequelize("db", "user", "pass");
+
 try {
   await sequelize.authenticate();
   console.log('Connection has been established successfully.');
 } catch (error) {
   console.error('Unable to connect to the database:', error);
 }
+
+// or using Promise
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', error);
+  });
+```
+
+You can also use `db.sync()` directly, if you do not require any authentication to the database, for example using sqlite:
+
+```js
+const db = new Sequelize("app", "", "", {
+  storage: "./database.sqlite",
+  dialect: "sqlite",
+  logging: false,
+});
+
+try {
+  await db.sync();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
+
+// or using Promise
+db
+  .sync()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', error);
+  });
 ```
 
 ### Closing the connection
