@@ -76,7 +76,7 @@ Timeline.create({ range: [-Infinity, new Date(Date.UTC(2016, 0, 1))] });
 
 ## Network Addresses (PostgreSQL only)
 
-```
+```typescript
 DataTypes.CIDR                        // IPv4 or IPv6 host address with Classless Inter-Domain Routing format.
 DataTypes.INET                        // IPv4 or IPv6 host address, and optionally its subnet, all in one field.
 DataTypes.MACADDR                     // MAC addresses.
