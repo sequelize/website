@@ -427,7 +427,7 @@ WHERE (
 
 Range types can be queried with all supported operators.
 
-Keep in mind, the provided range value can [define the bound inclusion/exclusion](../other-topics/other-data-types.md#ranges-postgresql-only) as well.
+Keep in mind, the provided range value can [define the bound inclusion/exclusion](../other-topics/other-data-types.mdx#ranges-postgresql-only) as well.
 
 ```js
 [Op.contains]: 2,            // @> '2'::integer  (PG range contains element operator)
