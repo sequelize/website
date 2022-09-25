@@ -133,6 +133,16 @@ const config = {
           },
         ],
       },
+      // documentation: https://docusaurus.io/docs/search
+      algolia: {
+        appId: 'HFDFWN39WP',
+        apiKey: '71548217f591df1f6774c85a602ec591',
+        indexName: 'sequelize',
+        contextualSearch: true,
+
+        // Path of search page
+        searchPagePath: 'search',
+      },
       footer: {
         style: 'dark',
         links: [
