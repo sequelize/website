@@ -84,7 +84,7 @@ Once you have properly configured CLI config file you are ready to create your f
 We will use `model:generate` command. This command requires two options:
 
 - `name`: the name of the model;
-- `attributes`: the list of model attributes.
+- `attributes`: the list of model attributes, each attributes is separated by `:` with the attribute name and the data types, for example `id:integer`, the data types is the same as DataTypes from Sequelize but lowercased including array for ARRAY and enum for ENUM.
 
 Let's create a model named `User`.
 
@@ -97,6 +97,7 @@ yarn sequelize-cli model:generate --name User --attributes firstName:string,last
 
 This will:
 
+- Create a model with some default fields: `id` for the primary key with auto increment and `createdAt` and `updatedAt` for the timestamps.
 - Create a model file `user` in `models` folder;
 - Create a migration file with name like `XXXXXXXXXXXXXX-create-user.js` in `migrations` folder.
 
