@@ -229,9 +229,9 @@ You can pass an Easy Connect String, a Net Service Name, or a Connect Descriptor
 ```js
 const sequelize = new Sequelize({dialect: 'oracle', username: 'user', password: 'password', dialectOptions: {connectString: 'inst1'}});
 ```
-Note that the `host` and `port` will be overwritten to values available in connectString.
+Note that the `host` and `port` will be overriden and the values in connectString will be used for authentication.
 
-Please refer to [Connect String](https://oracle.github.io/node-oracledb/doc/api.html#connectionstrings) for more about connect Strings.
+Please refer to [Connect String](https://oracle.github.io/node-oracledb/doc/api.html#connectionstrings) for more about connect strings.
 
 ## Data type: TIMESTAMP WITHOUT TIME ZONE - PostgreSQL only
 
