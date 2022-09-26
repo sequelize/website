@@ -229,7 +229,7 @@ You can pass an Easy Connect String, a Net Service Name, or a Connect Descriptor
 ```js
 const sequelize = new Sequelize({dialect: 'oracle', username: 'user', password: 'password', dialectOptions: {connectString: 'inst1'}});
 ```
-Note that the `host` and `port` will be overriden and the values in connectString will be used for authentication.
+Note that the `database`, `host` and `port` will be overriden and the values in connectString will be used for authentication.
 
 Please refer to [Connect String](https://oracle.github.io/node-oracledb/doc/api.html#connectionstrings) for more about connect strings.
 
