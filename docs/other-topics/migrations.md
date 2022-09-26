@@ -98,7 +98,7 @@ yarn sequelize-cli model:generate --name User --attributes firstName:string,last
 This will:
 
 - Create a model with some default fields: `id` for the primary key with auto increment and `createdAt` and `updatedAt` for the timestamps.
-- Create a model file `user` in `models` folder;
+- Create a model file `user` in `models` folder.
 - Create a migration file with name like `XXXXXXXXXXXXXX-create-user.js` in `migrations` folder.
 
 **Note:** _Sequelize will only use Model files, it's the table representation. On the other hand, the migration file is a change in that model or more specifically that table, used by CLI. Treat migrations like a commit or a log for some change in database._
