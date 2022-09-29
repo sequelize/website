@@ -4839,6 +4839,31 @@ instance.getDataValue('field')</code>
                   </tr>
                   <tr data-ice="property" data-depth="2">
                     <td data-ice="name" class="code" data-depth="2">
+                      options.through.paranoid
+                    </td>
+                    <td data-ice="type" class="code">
+                      <span
+                        ><a
+                          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+                          >boolean</a
+                        ></span
+                      >
+                    </td>
+                    <td data-ice="appendix">
+                      <ul>
+                        <li>optional</li>
+                        <li>default: false</li>
+                      </ul>
+                    </td>
+                    <td data-ice="description">
+                      <p>
+                        Set true to count only non-deleted records. Can be used
+                        on models with paranoid enabled
+                      </p>
+                    </td>
+                  </tr>
+                  <tr data-ice="property" data-depth="2">
+                    <td data-ice="name" class="code" data-depth="2">
                       options.through.scope
                     </td>
                     <td data-ice="type" class="code">
@@ -4877,7 +4902,7 @@ instance.getDataValue('field')</code>
                     <td data-ice="appendix">
                       <ul>
                         <li>optional</li>
-                        <li>default: false</li>
+                        <li>default: true</li>
                       </ul>
                     </td>
                     <td data-ice="description">
