@@ -193,7 +193,7 @@ The possible isolations levels to use when starting a transaction:
 ```js
 const { Transaction } = require('@sequelize/core');
 
-// The following are valid isolation levels which is:
+// The following are valid isolation levels:
 Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED // "READ UNCOMMITTED"
 Transaction.ISOLATION_LEVELS.READ_COMMITTED // "READ COMMITTED"
 Transaction.ISOLATION_LEVELS.REPEATABLE_READ  // "REPEATABLE READ"
