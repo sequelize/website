@@ -290,9 +290,9 @@ User.afterSave((instance, options) => {
 });
 ```
 
-## Locks
+## Row Locking
 
-A `lock` option alows row locking.
+A `lock` option allows row locking.
 
 Queries within a `transaction` can be performed with locks:
 
