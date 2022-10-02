@@ -277,7 +277,7 @@ You can also fix this without relying on options from the `retry-as-promised` li
 const { Sequelize, Transaction } = require('@sequelize/core');
 
 async function executeSomething() {
-  const MAX_RETRIES = 5
+  const MAX_RETRIES = 5;
   let retriesCount = 0;
 
   let result;
