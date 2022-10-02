@@ -252,7 +252,9 @@ const sequelize = new Sequelize(process.env.DB_NAME,
 });
 ```
 
-List of retry options and the default value:
+You can use other possible error classes [here](https://sequelize.org/api/v7/classes/error).
+
+List of the default retry options and the value when you passing `{}` to the retry option:
 
 ```js
 {
@@ -268,8 +270,6 @@ List of retry options and the default value:
   }
 }
 ```
-
-You can use other possible error classes [here](https://sequelize.org/api/v7/classes/error).
 
 You can also fix this without relying on options from the `retry-as-promised` library:
 
