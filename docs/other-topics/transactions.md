@@ -186,12 +186,14 @@ For managed transactions, use `sequelize.transaction(options, callback)`.
 
 ## Isolation levels
 
+Isolation levels is used in transactions to defines one transaction is isolated with the others. It's describe the different types of performance trade-off between the isolated transactions.
+
 The possible isolations levels to use when starting a transaction:
 
 ```js
 const { Transaction } = require('@sequelize/core');
 
-// The following are valid isolation levels:
+// The following are valid isolation levels which is:
 Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED // "READ UNCOMMITTED"
 Transaction.ISOLATION_LEVELS.READ_COMMITTED // "READ COMMITTED"
 Transaction.ISOLATION_LEVELS.REPEATABLE_READ  // "REPEATABLE READ"
