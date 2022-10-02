@@ -222,6 +222,84 @@ const sequelize = new Sequelize('sqlite::memory:', {
 
 **Note for MSSQL:** _The `SET ISOLATION LEVEL` queries are not logged since the specified `isolationLevel` is passed directly to `tedious`._
 
+## Manually retrying failed transactions
+
+Sequelize does not automically retries on potential write conflicts for deadlocks, when using a certain level of isolation, it is expected that transactions may fail due to potential write conflicts due to concurrent transactions or deadlocks.
+
+You can programmatically fix this by relying on options from the [retry-as-promised](https://github.com/mickhansen/retry-as-promised/blob/master/README.md) library:
+
+```typescript
+const { Sequelize } = require('@sequelize/core');
+
+const sequelize = new Sequelize(process.env.DB_NAME, 
+    process.env.DB_NAME, 
+    process.env.DB_PASS, 
+    {
+    host: process.env.DB_HOST,
+    dialect: 'mysql',
+    // Here:
+    retry: {
+        max: 3, // this may cause memory leaks if you set the retries limit too much.
+        match: [
+          Sequelize.ConnectionError,
+          Sequelize.ConnectionRefusedError,
+          Sequelize.ConnectionTimedOutError,
+          Sequelize.OptimisticLockError,
+          Sequelize.TimeoutError,
+          /Deadlock/i, // retry-as-promised also takes RegExp, for example to find deadlocks error.
+        ],
+    }
+});
+```
+
+List of retry options and the default value:
+
+```js
+{
+  retry: {
+    $current: 1,
+    max: undefined,
+    timeout: undefined,
+    match: [],
+    backoffBase: 100,
+    backoffExponent: 1.1,
+    report: function () {},
+    name: 'unknown',
+  }
+}
+```
+
+You can use other possible error classes [here](https://sequelize.org/api/v7/classes/error).
+
+You can also fix this without relying on options from the `retry-as-promised` library:
+
+```typescript
+const { Sequelize, Transaction } = require('@sequelize/core');
+
+async function executeSomething() {
+  const MAX_RETRIES = 5
+  let retriesCount = 0;
+
+  let result;
+  while (retriesCount < MAX_RETRIES) {
+    try {
+      result = await sequelize.transaction({
+        isolationLevel: Transaction.ISOLATION_LEVELS.SERIALIZABLE
+      }, async (t) => {
+        // Your code
+      });
+    } catch (error) {
+      // You can modify the script below to achieve your goals.
+      if (error.message === 'the error message') {
+        retriesCount++;
+        continue;
+      }
+      throw error;
+    }
+  }
+}
+```
+
 ## Usage with other sequelize methods
 
 The `transaction` option goes with most other options, which are usually the first argument of a method.
