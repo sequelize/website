@@ -722,7 +722,7 @@ const awesomeHomeTeam = await Team.findOne({
   where: {
     name: "Home Ball Team"
   },
-  include: Game // Add `include` option to use eager loading
+  include: Game, // Add `include` option to use eager loading
 });
 
 console.log('Team Name:', awesomeHomeTeam.name); // Home Ball Team
