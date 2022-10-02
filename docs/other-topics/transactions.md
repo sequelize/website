@@ -224,7 +224,7 @@ const sequelize = new Sequelize('sqlite::memory:', {
 
 ## Manually retrying failed transactions
 
-Sequelize does not automically retries on potential write conflicts for deadlocks, when using a certain level of isolation, it is expected that transactions may fail due to potential write conflicts due to concurrent transactions or deadlocks.
+Sequelize does not automically retries on potential write conflicts or deadlocks, when using a certain level of isolations, it is expected that transactions may fail due to potential write conflicts in concurrent transactions or deadlocks.
 
 You can programmatically fix this by relying on options from the [retry-as-promised](https://github.com/mickhansen/retry-as-promised/blob/master/README.md) library:
 
