@@ -14,7 +14,7 @@ A DataType is little more than a class that extends `DataTypes.ABSTRACT`, and im
 import { Sequelize, DataTypes } from '@sequelize/core';
 
 // All DataTypes must inherit from DataTypes.ABSTRACT.
-class MyDateType extends DataTypes.ABSTRACT {
+export class MyDateType extends DataTypes.ABSTRACT {
   // toSql must return the SQL that will be used in a CREATE TABLE statement.
   toSql() {
     return 'TIMESTAMP';
@@ -25,6 +25,8 @@ class MyDateType extends DataTypes.ABSTRACT {
 You can then use your new data type in your models:
 
 ```typescript
+import { MyDateType } from './custom-types.js';
+
 const sequelize = new Sequelize('sqlite::memory:');
 
 const User = sequelize.define('User', {
@@ -60,7 +62,7 @@ You can implement a series of methods to change the behavior of your data type:
 ```typescript
 import { Sequelize, DataTypes, ValidationErrorItem } from '@sequelize/core';
 
-class MyDateType extends DataTypes.ABSTRACT<Date> {
+export class MyDateType extends DataTypes.ABSTRACT<Date> {
   toSql() {
     return 'TIMESTAMP';
   }
@@ -107,7 +109,7 @@ We also have 4 methods that can be implemented to define how the Data Type seria
 ```typescript
 import { DataTypes, StringifyOptions } from '@sequelize/core';
 
-class MyDateType extends DataTypes.ABSTRACT<Date> {
+export class MyDateType extends DataTypes.ABSTRACT<Date> {
   // [...] truncated example
   
   parseDatabaseValue(value: unknown): Date {
@@ -124,6 +126,40 @@ class MyDateType extends DataTypes.ABSTRACT<Date> {
     return options.dialect.escapeString(value.toISOString());
   }
 }
+```
+
+## Modifying an existing Data Type
+
+You can inherit the implementation of an existing Data Type to customize its behavior.  
+To do so, make your class extend the Data Type you wish to modify instead of `DataTypes.ABSTRACT`:
+
+The following
+
+```typescript
+import { Sequelize, DataTypes } from '@sequelize/core';
+
+export class MyStringType extends DataTypes.STRING {
+  toSql() {
+    return 'TEXT';
+  }
+}
+```
+
+Just like with custom data types, use your Data Type class instead of the type you are extending:
+
+```typescript
+import { MyStringType } from './custom-types.js';
+
+const sequelize = new Sequelize('sqlite::memory:');
+
+const User = sequelize.define('User', {
+  firstName: {
+    // highlight-next-line
+    type: MyStringType,
+  },
+}, { timestamps: false, noPrimaryKey: true, underscored: true });
+
+await User.sync();
 ```
 
 ## Limitations
