@@ -111,7 +111,7 @@ This command will execute these steps:
 
 Now our table has been created and saved in the database. With migration you can revert to old state by just running a command.
 
-You can use `db:migrate:undo`, this command will revert most the recent migration.
+You can use `db:migrate:undo`, this command will revert the most recent migration.
 
 ```text
 npx sequelize-cli db:migrate:undo
