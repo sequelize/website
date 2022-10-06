@@ -254,52 +254,6 @@ const sequelize = new Sequelize(process.env.DB_NAME,
 
 You can use other possible error classes [here](https://sequelize.org/api/v7/classes/error).
 
-List of the default retry options and the value when you passing `{}` to the retry option:
-
-```js
-{
-  retry: {
-    $current: 1,
-    max: undefined,
-    timeout: undefined,
-    match: [],
-    backoffBase: 100,
-    backoffExponent: 1.1,
-    report: function () {},
-    name: 'unknown',
-  }
-}
-```
-
-You can also fix this without relying on options from the `retry-as-promised` library:
-
-```typescript
-const { Sequelize, Transaction } = require('@sequelize/core');
-
-async function executeSomething() {
-  const MAX_RETRIES = 5;
-  let retriesCount = 0;
-
-  let result;
-  while (retriesCount < MAX_RETRIES) {
-    try {
-      result = await sequelize.transaction({
-        isolationLevel: Transaction.ISOLATION_LEVELS.SERIALIZABLE
-      }, async (t) => {
-        // Your code
-      });
-    } catch (error) {
-      // You can modify the script below to achieve your goals.
-      if (error.message === 'the error message') {
-        retriesCount++;
-        continue;
-      }
-      throw error;
-    }
-  }
-}
-```
-
 ## Usage with other sequelize methods
 
 The `transaction` option goes with most other options, which are usually the first argument of a method.
