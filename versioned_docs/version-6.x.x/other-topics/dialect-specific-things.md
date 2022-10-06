@@ -245,7 +245,7 @@ So this enum name must follow this pattern `enum_<table_name>_<col_name>`. If yo
 
 The `tableHint` option can be used to define a table hint. The hint must be a value from `TableHints` and should only be used when absolutely necessary. Only a single table hint is currently supported per query.
 
-Table hints override the default behavior of MSSQL query optimizer by specifing certain options. They only affect the table or view referenced in that clause.
+Table hints override the default behavior of MSSQL query optimizer by specifying certain options. They only affect the table or view referenced in that clause.
 
 ```js
 const { TableHints } = require('sequelize');
