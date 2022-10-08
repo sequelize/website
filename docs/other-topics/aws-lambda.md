@@ -465,7 +465,7 @@ presents a set of issues:
    execute multiple queries asynchronously (e.g.
    [`Model.count()`](pathname:///api/v7/classes/Model.html#count) and
    [`Model.findAll()`](pathname:///api/v7/classes/Model.html#findAll)). Using a maximum of
-   one connection forces the queries to be exectued serially (rather than in parallel using two
+   one connection forces the queries to be executed serially (rather than in parallel using two
    connections). While this may be an acceptable performance compromise in order to
    maintain a manageable number of database connections, long running queries may result in
    [`ConnectionAcquireTimeoutError`](pathname:///api/v7/classes/ConnectionAcquireTimeoutError.html)
@@ -707,7 +707,7 @@ race condition with `{ min: 1, max: 1 }` can result with in a `ETIMEDOUT` error:
       the connection with `ETIMEDOUT`.
    1. The promise returned by the handler rejects (for reasons not detailed here) so the Lambda
       function execution finishes and the Node.js event loop is "paused".
-1. Enough time elapses beween invocations so that:
+1. Enough time elapses between invocations so that:
    1. `config.pool.acquire` timer elapses.
    1. `mysql2` connection timer has not elapsed yet but has almost elapsed (i.e. race condition).
 1. A second Lambda invocation is received (container re-used):
