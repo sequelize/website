@@ -222,7 +222,7 @@ const sequelize = new Sequelize('sqlite::memory:', {
 
 **Note for MSSQL:** _The `SET ISOLATION LEVEL` queries are not logged since the specified `isolationLevel` is passed directly to `tedious`._
 
-## Manually retrying failed transactions
+## Manually retrying the failed transactions
 
 Sequelize does not automically retries on potential write conflicts or deadlocks, when using a certain level of isolations, it is expected that transactions may fail due to potential write conflicts in concurrent transactions or deadlocks.
 
@@ -244,7 +244,6 @@ const sequelize = new Sequelize(process.env.DB_NAME,
           Sequelize.ConnectionError,
           Sequelize.ConnectionRefusedError,
           Sequelize.ConnectionTimedOutError,
-          Sequelize.OptimisticLockError,
           Sequelize.TimeoutError,
           /Deadlock/i, // retry-as-promised also takes RegExp, for example to find deadlocks error.
         ],
@@ -253,6 +252,13 @@ const sequelize = new Sequelize(process.env.DB_NAME,
 ```
 
 You can use other possible error classes [here](https://sequelize.org/api/v7/classes/error).
+
+
+:::caution
+
+Be careful when manually retrying the transactions, this can lead to retries for the same reason (possible memory leak if you set `max` option value to a large number or `Infinity`), always check what was thrown.
+
+:::
 
 ## Usage with other sequelize methods
 
