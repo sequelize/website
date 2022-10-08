@@ -149,7 +149,7 @@ Multiple options are available for writing subqueries:
 <TabItem value="qb" label="Query Builder">
 
 ```typescript
-import { subquery, Op, attr } from '@sequelize/core';
+import { subquery, Op, col } from '@sequelize/core';
 
 await User
   .select()
@@ -159,7 +159,7 @@ await User
       .distinct()
       .innerJoin(Project, 'p', qb => {
         qb.on({ 
-          userId: attr('u.id'),
+          userId: col('u.id'),
         })
       })
       .where({
@@ -173,7 +173,7 @@ await User
 <TabItem value="obj" label="POJO">
 
 ```typescript
-import { subquery, Op, attr } from '@sequelize/core';
+import { subquery, Op, col } from '@sequelize/core';
 
 await User.findAll({
   where: {
@@ -186,7 +186,7 @@ await User.findAll({
           from: [Project, 'p'],
           type: 'inner',
           on: {
-            userId: attr('u.id'),
+            userId: col('u.id'),
           },
         },
         where: {
@@ -264,11 +264,11 @@ The `from` option can be used to specify a subquery to use in the `FROM` clause,
 Sequelize expects that subquery to return the same columns as the table it is replacing.
 
 ```typescript
-import { sql } from '@sequelize/core';
+import { sql, table } from '@sequelize/core';
 
 await User.findAll({
   // Note how you have to provide your own parenthesis when using raw SQL, to give you more control over the query.
-  from: sql`(SELECT * FROM users LIMIT 10)`,
+  from: sql`(SELECT * FROM ${table(User)} LIMIT 10)`,
 });
 ```
 
@@ -294,7 +294,7 @@ await User.findAll({
     target: Project,
     // This fetches 10 projects per user.
     // highlight-next-line
-    from: sql`(SELECT * FROM projects p WHERE p.user_id = u.id LIMIT 10)`,
+    from: sql`(SELECT * FROM ${table(Project)} p WHERE p.user_id = u.id LIMIT 10)`,
     type: sql`LEFT JOIN LATERAL`,
     on: true,
   },
@@ -396,6 +396,8 @@ await User.findAll({
 });
 ```
 
+Note that while the above is not possible with `include`, it is perfectly valid when using [joins](#joins).
+
 ### Filtering based on an association's existence
 
 `include` supports the `required` option, which ensures at least one associated entity exists and matches the `WHERE` clause for returned each parent entity.
@@ -475,6 +477,7 @@ A limitation of this approach is that you cannot reference the parent entity fro
 
 ```typescript
 await User.findAll({
+  alias: 'user',
   include: {
     association: User.associations.projects,
     // highlight-next-line
@@ -483,7 +486,7 @@ await User.findAll({
       association: Project.associations.tasks,
       // This would work without the "separate" option, but won't work with it.
       // error-next-line
-      where: { assignedId: '$user.id$' },
+      where: { assignedId: col('user.id') },
     },
   },
 });
