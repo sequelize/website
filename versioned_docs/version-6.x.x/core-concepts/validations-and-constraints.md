@@ -67,7 +67,7 @@ By default, `null` is an allowed value for every column of a model. This can be 
 } /* ... */
 ```
 
-Without `allowNull: false`, the call `User.create({})` would work.
+Without `allowNull: false`, the call `User.create({})` would work if and only if we set the `timestamps: false` in the model options.
 
 ### Note about `allowNull` implementation
 
