@@ -371,6 +371,16 @@ await User.findAll({
 });
 ```
 
+:::caution
+
+Undecided point: How should association references in WHERE behave?
+
+The following solutions have been tagged ✅ for "technically possible" or ❌ if such a solution would be incompatible with existing options.
+
+## ✅ Option 1: It only filters its own level, can only reference parent models
+
+***This is possibly The "safest" solution: no broken meaning possible***
+
 When using `include`, the `where` clause can only reference attributes from itself or its parent model.
 
 ```typescript
@@ -396,7 +406,192 @@ await User.findAll({
 });
 ```
 
-Note that while the above is not possible with `include`, it is perfectly valid when using [joins](#joins).
+Note: You can still filter User based on the existence of a project named "foo"
+by using a [subquery](#subqueries), or a [join](#joins) instead.
+
+## ✅ Option 2: It only filters its own level, but can reference child includes
+
+***it works but its behavior may not be intuitive. It may be better to simply forbid this and tell users to use join & subqueries***
+
+The following query would only return users that have a project named "foo", but would return all projects for those users.
+
+```typescript
+await User.findAll({
+  alias: 'user',
+  include: User.associations.projects,
+  where: {
+    'projects.name': 'foo',
+  },
+});
+```
+
+It would be equivalent to the following SQL:
+
+```sql
+SELECT "user".*
+FROM (
+  SELECT "user".* FROM "users" AS "user"
+    INNER JOIN "projects" AS "projects" ON "user"."id" = "projects"."user_id"
+    WHERE "projects"."name" = 'foo'
+) "user"
+LEFT JOIN "projects" AS "projects" ON "user"."id" = "projects"."user_id";
+```
+
+## ❌ Option 3: It only filters the associated model
+
+***This solution is not possible!***
+
+Both of the following queries would have the same behavior:
+
+```typescript
+await User.findAll({
+  include: User.associations.projects,
+  where: {
+    'projects.name': 'foo',
+  },
+});
+
+await User.findAll({
+  include: {
+    association: User.associations.projects,
+    where: {
+      name: 'foo',
+    },
+  },
+});
+```
+
+❌ This solution is impossible because the following query would have an impossible meaning:
+
+```sql
+await User.findAll({
+  include: [User.associations.projects, User.associations.groups],
+  // error-start
+  where: or({
+    // what would this even mean?
+    // note: this is actually possible if you do a JOIN, 
+    // but its meaning for include would be completely broken
+    'projects.name': 'foo',
+    'groups.name': 'bar',
+  }),
+  // error-end
+});
+```
+
+## ❌ Option 4: It filters both the association AND the current level
+
+***This is the behavior in Sequelize v6, because it is what happens when you use WHERE on joined tables, 
+but it is as broken as Option 3 (for the same reasons), and should be discarded***
+
+Take the following:
+
+```typescript
+await User.findAll({
+  alias: 'user',
+  include: User.associations.projects,
+  where: {
+    'projects.name': 'foo',
+  },
+});
+```
+
+The above will return all users that have at least one project named "foo", and only its projects named "foo" will be included.
+
+It would produce the following SQL:
+
+```sql
+SELECT "user".*
+FROM "users" AS "user"
+LEFT JOIN "projects" AS "projects" ON "user"."id" = "projects"."user_id"
+WHERE "projects"."name" = 'foo';
+```
+
+---
+
+A version with limits (which cannot use a simple join)
+
+```typescript
+await User.findAll({
+  alias: 'user',
+  include: User.associations.projects,
+  where: {
+    'projects.name': 'foo',
+  },
+  limit: 2,
+});
+```
+
+would produce the following SQL:
+
+```sql
+SELECT "user".*
+FROM (
+    -- limit to 2 users that have a project named "foo"
+    SELECT "user".*
+    FROM "users" AS "user"
+    LEFT JOIN "projects" AS "projects" ON "user"."id" = "projects"."user_id"
+    WHERE "projects"."name" = 'foo'
+    LIMIT 2
+) AS "user"
+LEFT JOIN "projects" AS "projects" ON "user"."id" = "projects"."user_id"
+WHERE "projects"."name" = 'foo';
+```
+
+---
+
+Limiting both the top level model and the association:
+
+```typescript
+await User.findAll({
+  alias: 'user',
+  include: { association: User.associations.projects, limit: 7 },
+  where: {
+    'projects.name': 'foo',
+  },
+  limit: 2,
+});
+```
+
+would produce this SQL:
+
+```sql
+SELECT "user".*
+FROM (
+    -- limit to 2 users that have a project named "foo"
+    SELECT "user".*
+    FROM "users" AS "user"
+    LEFT JOIN "projects" AS "projects" ON "user"."id" = "projects"."user_id"
+    WHERE "projects"."name" = 'foo'
+    LIMIT 2
+) AS "user"
+LEFT JOIN LATERAL (
+    -- limit to 7 projects named "foo" per user
+    SELECT "projects".*
+    FROM "projects" AS "projects"
+    WHERE "projects"."user_id" = "user"."id"
+    AND "projects"."name" = 'foo'
+    LIMIT 7
+) AS "projects" ON true;
+```
+
+❌ This solution should be discarded because the following query would have a completely broken meaning:
+
+```sql
+await User.findAll({
+  include: [User.associations.projects, User.associations.groups],
+  // error-start
+  where: or({
+    // what would this even mean?
+    // note: this is actually possible if you do a JOIN, 
+    // but its meaning for include would be completely broken
+    'projects.name': 'foo',
+    'groups.name': 'bar',
+  }),
+  // error-end
+});
+```
+
+:::
 
 ### Filtering based on an association's existence
 
