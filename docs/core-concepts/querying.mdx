@@ -98,7 +98,7 @@ You can alias that target model using the `alias` option. This alias can be used
 ```typescript
 const users = await User.findAll({
   alias: 'user',
-  join: [{ 
+  join: [{
     target: Post,
     // highlight-next-line
     alias: 'post',
@@ -154,7 +154,7 @@ import { subquery, Op, col } from '@sequelize/core';
 await User
   .select()
   .where('id', Op.in, subquery(qb => {
-    qb.from(User, 'u')
+    qb.target(User, 'u')
       .attributes(['id'])
       .distinct()
       .innerJoin(Project, 'p', qb => {
@@ -178,12 +178,14 @@ import { subquery, Op, col } from '@sequelize/core';
 await User.findAll({
   where: {
     id: {
-      [Op.in]: subquery({ 
-        from: [User, 'u'],
+      [Op.in]: subquery({
+        target: User,
+        alias: 'u',
         distinct: true,
         attributes: ['id'],
-        joins: {
-          from: [Project, 'p'],
+        join: {
+          target: Project,
+          alias: 'u',
           type: 'inner',
           on: {
             userId: col('u.id'),
@@ -275,10 +277,10 @@ await User.findAll({
 The above (roughly) produces the following SQL:
 
 ```sql
-SELECT "user".*
+SELECT "users".*
 FROM (
   SELECT * FROM users LIMIT 10
-) AS "user";
+) AS "users";
 ```
 
 ### Subqueries in `JOIN` clauses
@@ -289,7 +291,7 @@ The above `from` clause can also be used to specify a subquery to use in a `JOIN
 import { sql } from '@sequelize/core';
 
 await User.findAll({
-  from: [User, 'u'],
+  alias: 'u',
   joins: {
     target: Project,
     // This fetches 10 projects per user.
@@ -422,6 +424,7 @@ await User.findAll({
   where: {
     'projects.name': 'foo',
   },
+  limit: 3,
 });
 ```
 
@@ -431,8 +434,11 @@ It would be equivalent to the following SQL:
 SELECT "user".*
 FROM (
   SELECT "user".* FROM "users" AS "user"
-    INNER JOIN "projects" AS "projects" ON "user"."id" = "projects"."user_id"
+  WHERE "user"."id" IN (
+    SELECT DISTINCT "projects"."user_id" FROM "projects" AS "projects"
     WHERE "projects"."name" = 'foo'
+  )
+  LIMIT 3
 ) "user"
 LEFT JOIN "projects" AS "projects" ON "user"."id" = "projects"."user_id";
 ```
