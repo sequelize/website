@@ -366,7 +366,7 @@ DataTypes.STRING             // VARCHAR(255)
 DataTypes.STRING(1234)       // VARCHAR(1234)
 DataTypes.STRING.BINARY      // VARCHAR BINARY
 DataTypes.TEXT               // TEXT
-DataTypes.TEXT('tiny')       // TINYTEXT
+DataTypes.TEXT('tiny')       // tiny for TINYTEXT, medium for MEDIUMTEXT and long for LONGTEXT
 DataTypes.CITEXT             // CITEXT          PostgreSQL and SQLite only.
 DataTypes.TSVECTOR           // TSVECTOR        PostgreSQL only.
 ```
