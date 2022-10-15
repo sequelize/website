@@ -294,6 +294,7 @@ Sequelize 6 had a bug where `transaction.afterCommit`-hooks would be executed wh
 Sequelize 7 also includes a series of new deprecation. These APIs will continue to work in v7 but expect them to
 stop working in a future major release.
 
+- All hook methods are deprecated in favor of using the `hooks` property available on models and Sequelize classes. See the documentation on [hooks](./hooks.md) to learn more.
 - `Model.scope()` has been renamed to `Model.withScope()`
 - `Model.unscoped()` has been renamed to `Model.withoutScope()` (due to the addition of `Model.withOriginalScope()`)
 - `Model.schema()` has been renamed to `Model.withSchema()`
