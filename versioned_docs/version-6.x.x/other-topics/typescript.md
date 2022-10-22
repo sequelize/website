@@ -298,6 +298,7 @@ User.hasMany(Project, {
   foreignKey: 'ownerId',
   as: 'projects' // this determines the name in `associations`!
 });
+Project.belongsTo(User, { foreignKey: 'ownerId', targetKey: 'id' })
 
 Address.belongsTo(User, { targetKey: 'id' });
 User.hasOne(Address, { sourceKey: 'id' });
