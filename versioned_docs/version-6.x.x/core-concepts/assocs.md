@@ -403,7 +403,7 @@ The above showed the basics on queries for fetching data involving associations.
   // a regular column, after all). Nothing very clever going on here.
   ```
 
-* Or use the *[special methods/mixins](#special-methods-mixins-added-to-instances)* available for associated models, which are explained later on this page.
+* Or use the *[special methods/mixins](#special-methodsmixins-added-to-instances)* available for associated models, which are explained later on this page.
 
 **Note:** The [`save()` instance method](pathname:///api/v6/class/src/model.js~Model.html#instance-method-save) is not aware of associations. In other words, if you change a value from a *child* object that was eager loaded along a *parent* object, calling `save()` on the parent will completely ignore the change that happened on the child.
 
