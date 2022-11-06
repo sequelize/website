@@ -47,7 +47,7 @@ import { Sequelize } from '@sequelize/core';
 const sequelize = new Sequelize(/* options */);
 
 // This will be called whenever findAll is called on any model.
-sequelize.hooks.addListener('beforeFindAll', () => {
+sequelize.hooks.addListener('beforeFind', () => {
   console.log('findAll has been called a model');
 });
 ```
@@ -92,7 +92,7 @@ Instance Sequelize hooks can be registered in two ways:
 | `beforeAssociate`, `afterAssociate`                                                    | ❌     | Whenever an association is declared on the model                                |
 | `beforeSync`, `afterSync`                                                              | ✅     | When `sequelize.sync` or `Model.sync` are called                                |
 | `beforeValidate`, `afterValidate`, `validationFailed`                                  | ✅     | When the model's attributes are being validated (happens in most model methods) |
-| `beforeFind`, `beforeFindAfterExpandIncludeAll`, `beforeFindAfterOptions`, `afterFind` | ✅     | When `Model.findAll` is called                                                  |
+| `beforeFind`, `beforeFindAfterExpandIncludeAll`, `beforeFindAfterOptions`, `afterFind` | ✅     | When `Model.findAll`, or `Model.findOne` is called                              |
 | `beforeCount`                                                                          | ✅     | When `Model.count` is called                                                    |
 | `beforeUpsert`, `afterUpsert`                                                          | ✅     | When `Model.upsert` is called                                                   |
 | `beforeBulkCreate`, `afterBulkCreate`                                                  | ✅     | When `Model.bulkCreate` is called                                               |
@@ -120,7 +120,7 @@ Instance Sequelize hooks can be registered in three ways:
    });
    
    // highlight-next-line
-   MyModel.hooks.addListener('beforeFindAll', () => {
+   MyModel.hooks.addListener('beforeFind', () => {
      console.log('findAll has been called on MyModel');
    });
    ```
@@ -133,7 +133,7 @@ Instance Sequelize hooks can be registered in three ways:
    }, {
      // highlight-next-line
      hooks: {
-       beforeFindAll: () => {
+       beforeFind: () => {
          console.log('findAll has been called on MyModel');
        },
      },
@@ -145,7 +145,8 @@ Instance Sequelize hooks can be registered in three ways:
    import { BeforeFindAll } from 'sequelize-typescript';
    
    export class MyModel extends Model {
-     @BeforeFindAll
+     // highlight-next-line
+     @BeforeFind
      static logFindAll() {
        console.log('findAll has been called on MyModel');
      }
