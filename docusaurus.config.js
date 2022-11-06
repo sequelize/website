@@ -8,7 +8,7 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 const config = {
   title: 'Sequelize',
   tagline:
-    'Sequelize is a modern TypeScript and Node.js ORM for Postgres, MySQL, MariaDB, SQLite and SQL Server, and more. Featuring solid transaction support, relations, eager and lazy loading, read replication and more.',
+    'Sequelize is a modern TypeScript and Node.js ORM for Oracle, Postgres, MySQL, MariaDB, SQLite and SQL Server, and more. Featuring solid transaction support, relations, eager and lazy loading, read replication and more.',
   url: 'https://sequelize.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -117,7 +117,7 @@ const config = {
             ],
           },
           {
-            href: 'https://sequelize-slack.herokuapp.com/',
+            href: 'https://join.slack.com/t/sequelize/shared_invite/zt-1igt9hx8h-tGWU4AI1bRPvkRdEK5wnuQ',
             label: 'Slack',
             position: 'right',
           },
@@ -132,6 +132,16 @@ const config = {
             position: 'right',
           },
         ],
+      },
+      // documentation: https://docusaurus.io/docs/search
+      algolia: {
+        appId: 'HFDFWN39WP',
+        apiKey: '71548217f591df1f6774c85a602ec591',
+        indexName: 'sequelize',
+        contextualSearch: true,
+
+        // Path of search page
+        searchPagePath: 'search',
       },
       footer: {
         style: 'dark',
@@ -166,7 +176,7 @@ const config = {
               },
               {
                 label: 'Slack',
-                href: 'https://sequelize-slack.herokuapp.com/',
+                href: 'https://join.slack.com/t/sequelize/shared_invite/zt-1igt9hx8h-tGWU4AI1bRPvkRdEK5wnuQ',
               },
               {
                 label: 'Twitter',

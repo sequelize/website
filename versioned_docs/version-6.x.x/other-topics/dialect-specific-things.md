@@ -41,25 +41,33 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 
 ### SQLite
 
-The underlying connector library used by Sequelize for SQLite is the [sqlite3](https://www.npmjs.com/package/sqlite3) npm package (version 4.0.0 or above). Due to security vulnerabilities with sqlite3@^4 it is recommended to use the [@vscode/sqlite3](https://www.npmjs.com/package/@vscode/sqlite3) fork if updating to sqlite3@^5.0.3 is not possible.
+The underlying connector library used by Sequelize for SQLite is the [sqlite3](https://www.npmjs.com/package/sqlite3) npm package (version 4.0.0 or above).  
+Due to security vulnerabilities with sqlite3@^4 it is recommended to use the [@vscode/sqlite3](https://www.npmjs.com/package/@vscode/sqlite3) fork if updating to sqlite3@^5.0.3 is not possible.
 
 You specify the storage file in the Sequelize constructor with the `storage` option (use `:memory:` for an in-memory SQLite instance).
 
 You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
 
 ```js
+import { Sequelize } from 'sequelize';
+import SQLite from 'sqlite3';
+
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'sqlite',
-  storage: 'path/to/database.sqlite' // or ':memory:'
+  storage: 'path/to/database.sqlite', // or ':memory:'
   dialectOptions: {
     // Your sqlite3 options here
-  }
+    // for instance, this is how you can configure the database opening mode:
+    mode: SQLite.OPEN_READWRITE | SQLite.OPEN_CREATE | SQLite.OPEN_FULLMUTEX,
+  },
 });
 ```
 
 The following fields may be passed to SQLite `dialectOptions`:
 
-- `readWriteMode`: Set the opening mode for the SQLite connection. Potential values are provided by the sqlite3 package, and can include sqlite3.OPEN_READONLY, sqlite3.OPEN_READWRITE, or sqlite3.OPEN_CREATE. See the [SQLite C interface documentation for more details]( https://www.sqlite.org/c3ref/open.html).
+- `mode`: Set the opening mode for the SQLite connection. Potential values are provided by the `sqlite3` package,
+  and can include `SQLite.OPEN_READONLY`, `SQLite.OPEN_READWRITE`, or `SQLite.OPEN_CREATE`.  
+  See [sqlite3's API reference](https://github.com/TryGhost/node-sqlite3/wiki/API) and the [SQLite C interface documentation](https://www.sqlite.org/c3ref/open.html) for more details.
 
 ### PostgreSQL
 
@@ -191,6 +199,40 @@ For running integration test:
 SEQ_ACCOUNT=myAccount SEQ_USER=myUser SEQ_PW=myPassword SEQ_ROLE=myRole SEQ_DB=myDatabaseName SEQ_SCHEMA=mySchema SEQ_WH=myWareHouse npm run test-integration-snowflake
 ```
 
+### Oracle Database
+
+The underlying connector library used by Sequelize for Oracle is the [node-oracledb](https://www.npmjs.com/package/oracledb) package.  
+See [Releases](/releases#oracle-support-table) to see which versions of Oracle Database & node-oracledb are supported.
+
+node-oracledb needs [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html) to work. You can use the node-oracledb [quick start](https://oracle.github.io/node-oracledb/INSTALL.html#quickstart) link for installations.
+
+Below is a Sequelize constructor with parameters related to Oracle Database.
+
+```js
+const sequelize = new Sequelize('servicename', 'username', 'password', {
+  dialect: 'oracle',
+  host: 'hostname',
+  port: 'port number', //optional
+});
+```
+
+The default port number for Oracle database is 1521.
+
+Sequelize also lets you pass credentials in URL format:
+
+```js
+const sequelize = new Sequelize('oracle://user:pass@hostname:port/servicename');
+```
+
+You can pass an Easy Connect String, a Net Service Name, or a Connect Descriptor to the Sequelize constructor using `dialectOptions.connectString`:
+
+```js
+const sequelize = new Sequelize({dialect: 'oracle', username: 'user', password: 'password', dialectOptions: {connectString: 'inst1'}});
+```
+Note that the `database`, `host` and `port` will be overriden and the values in connectString will be used for authentication.
+
+Please refer to [Connect String](https://oracle.github.io/node-oracledb/doc/api.html#connectionstrings) for more about connect strings.
+
 ## Data type: TIMESTAMP WITHOUT TIME ZONE - PostgreSQL only
 
 If you are working with the PostgreSQL `TIMESTAMP WITHOUT TIME ZONE` and you need to parse it to a different timezone, please use the pg library's own parser:
@@ -212,7 +254,7 @@ So this enum name must follow this pattern `enum_<table_name>_<col_name>`. If yo
 
 The `tableHint` option can be used to define a table hint. The hint must be a value from `TableHints` and should only be used when absolutely necessary. Only a single table hint is currently supported per query.
 
-Table hints override the default behavior of MSSQL query optimizer by specifing certain options. They only affect the table or view referenced in that clause.
+Table hints override the default behavior of MSSQL query optimizer by specifying certain options. They only affect the table or view referenced in that clause.
 
 ```js
 const { TableHints } = require('sequelize');

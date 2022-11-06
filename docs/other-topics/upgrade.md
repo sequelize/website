@@ -411,6 +411,13 @@ WHERE firstName = 'bob' AND age > 20 AND age < 30 LIMIT 10
 
 **Note**: The flag `whereMergeStrategy` was introduced in the v6.18.0 to switch between these two behaviors. This flag has been dropped because only the `and` merging option is supported in Sequelize v7.
 
+### Transaction afterCommit hook
+
+Sequelize 6 had a bug where `transaction.afterCommit`-hooks would be executed when application code wants to commit - even when the database transaction rolls back on its commit.
+This behaviour has been changed to better meet expectations of how this callback hook can be used.
+
+See [issue 14902](https://github.com/sequelize/sequelize/issues/14902) and [PR 14903](https://github.com/sequelize/sequelize/pull/14903) for more details.
+
 ## Deprecations & Removals
 
 ### Removal of previously deprecated APIs

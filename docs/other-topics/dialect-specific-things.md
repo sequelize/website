@@ -158,18 +158,25 @@ You specify the storage file in the Sequelize constructor with the `storage` opt
 You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
 
 ```js
+import { Sequelize } from 'sequelize';
+import SQLite from 'sqlite3';
+
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'sqlite',
   storage: 'path/to/database.sqlite', // or ':memory:'
   dialectOptions: {
     // Your sqlite3 options here
+    // for instance, this is how you can configure the database opening mode:
+    mode: SQLite.OPEN_READWRITE | SQLite.OPEN_CREATE | SQLite.OPEN_FULLMUTEX,
   },
 });
 ```
 
 The following fields may be passed to SQLite `dialectOptions`:
 
-- `readWriteMode`: Set the opening mode for the SQLite connection. Potential values are provided by the sqlite3 package, and can include sqlite3.OPEN_READONLY, sqlite3.OPEN_READWRITE, or sqlite3.OPEN_CREATE. See the [SQLite C interface documentation for more details]( https://www.sqlite.org/c3ref/open.html).
+- `mode`: Set the opening mode for the SQLite connection. Potential values are provided by the `sqlite3` package, 
+  and can include `SQLite.OPEN_READONLY`, `SQLite.OPEN_READWRITE`, or `SQLite.OPEN_CREATE`.  
+  See [sqlite3's API reference](https://github.com/TryGhost/node-sqlite3/wiki/API) and the [SQLite C interface documentation](https://www.sqlite.org/c3ref/open.html) for more details.
 
 ### Snowflake
 
@@ -276,7 +283,7 @@ So this enum name must follow this pattern `enum_<table_name>_<col_name>`. If yo
 
 The `tableHint` option can be used to define a table hint. The hint must be a value from `TableHints` and should only be used when absolutely necessary. Only a single table hint is currently supported per query.
 
-Table hints override the default behavior of MSSQL query optimizer by specifing certain options. They only affect the table or view referenced in that clause.
+Table hints override the default behavior of MSSQL query optimizer by specifying certain options. They only affect the table or view referenced in that clause.
 
 ```js
 const { TableHints } = require('@sequelize/core');

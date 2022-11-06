@@ -6,7 +6,7 @@ Just like you use [version control](https://en.wikipedia.org/wiki/Version_contro
 
 You will need the [Sequelize Command-Line Interface (CLI)](https://github.com/sequelize/cli). The CLI ships support for migrations and project bootstrapping.
 
-A Migration in Sequelize is javascript file which exports two functions, `up` and `down`, that dictate how to perform the migration and undo it. You define those functions manually, but you don't call them manually; they will be called automatically by the CLI. In these functions, you should simply perform whatever queries you need, with the help of `sequelize.query` and whichever other methods Sequelize provides to you. There is no extra magic beyond that.
+A Migration in Sequelize is a javascript file which exports two functions, `up` and `down`, that dictates how to perform the migration and undo it. You define those functions manually, but you don't call them manually; they will be called automatically by the CLI. In these functions, you should simply perform whatever queries you need, with the help of `sequelize.query` and whichever other methods Sequelize provides to you. There is no extra magic beyond that.
 
 ## Installing the CLI
 
@@ -111,7 +111,7 @@ This command will execute these steps:
 
 Now our table has been created and saved in the database. With migration you can revert to old state by just running a command.
 
-You can use `db:migrate:undo`, this command will revert most the recent migration.
+You can use `db:migrate:undo`, this command will revert the most recent migration.
 
 ```text
 npx sequelize-cli db:migrate:undo
@@ -123,7 +123,7 @@ You can revert back to the initial state by undoing all migrations with the `db:
 npx sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
 ```
 
-### Creating the first Seed
+## Creating the first Seed
 
 Suppose we want to insert some data into a few tables by default. If we follow up on the previous example we can consider creating a demo user for the `User` table.
 
@@ -561,6 +561,22 @@ As an alternative to the `--config` option with configuration files defining you
 ```text
 npx sequelize-cli db:migrate --url 'mysql://root:password@mysql_host.com/database_name'
 ```
+
+If utilizing `package.json` scripts with npm, make sure to use the extra `--` in your command when using flags.
+For example:
+
+```json
+// package.json
+
+...
+  "scripts": {
+    "migrate:up": "npx sequelize-cli db:migrate",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo"
+  },
+...
+```
+
+Use the command like so: `npm run migrate:up -- --url <url>`
 
 ### Programmatic usage
 

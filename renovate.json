@@ -1,8 +1,17 @@
 {
   "extends": [
     "config:base",
-    ":semanticCommitType(build)",
-    ":maintainLockFilesWeekly"
+    ":maintainLockFilesWeekly",
+    ":semanticCommitTypeAll(meta)",
+    ":semanticCommitScopeDisabled"
   ],
-  "ignorePaths": ["static/"]
+  "automergeStrategy": "squash",
+  "semanticCommitType": "meta",
+  "ignorePaths": ["static/"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance"],
+      "automerge": true
+    }
+  ]
 }

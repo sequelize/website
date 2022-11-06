@@ -70,3 +70,5 @@ title: Resources
 * [sequelize-deep-update](https://www.npmjs.com/package/sequelize-deep-update) - Update a sequelize instance and its included associated instances with new properties.
 * [sequelize-noupdate-attributes](https://www.npmjs.com/package/sequelize-noupdate-attributes) - Adds no update/readonly attributes support to models.
 * [sqlcommenter-sequelize](https://github.com/google/sqlcommenter/tree/master/nodejs/sqlcommenter-nodejs/packages/sqlcommenter-sequelize) A [sqlcommenter](https://google.github.io/sqlcommenter/) plugin with [support for Sequelize](https://google.github.io/sqlcommenter/node/sequelize/) to augment SQL statements with comments that can be used later to correlate application code with SQL statements.
+* [automated-express-backend](https://github.com/ruyd/automated-express-backend) - Sample Sequelize Backend with runtime generation of API
+* [@rematter/paranoid-sql](https://www.npmjs.com/package/@rematter/paranoid-sql) - Add conditions to verify rows are not soft deleted.

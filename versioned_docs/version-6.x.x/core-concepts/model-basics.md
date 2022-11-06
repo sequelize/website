@@ -401,7 +401,7 @@ For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL 
 
 ### Others
 
-There are other data types, covered in a [separate guide](../other-topics/other-data-types.md).
+There are other data types, covered in a [separate guide](../other-topics/other-data-types.mdx).
 
 ## Column Options
 

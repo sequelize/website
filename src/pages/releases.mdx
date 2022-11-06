@@ -10,11 +10,11 @@ This page regroups information related to which engines versions are supported b
 
 ## Releases
 
-| Sequelize                       | [Node.js][node-releases] | [Typescript][ts-releases] | Release Date | EOL        |
-|---------------------------------|--------------------------|---------------------------|--------------|------------|
-| [7 (alpha)][sequelize-core]     | ^14.17.0 || >= 16.0.0    | >= 4.4                    | ❓            | ❓          |
-| [6 (current)][sequelize-legacy] | >= 10                    | >= 3.9                    | 2020-06-24   | ❓          |
-| 5 (eol)                         | >=6                      | >= 3.1                    | 2019-03-13   | 2022-01-01 |
+| Sequelize                       |  [Node.js][node-releases]  | [Typescript][ts-releases] | Release Date | EOL        |
+|---------------------------------|----------------------------|---------------------------|--------------|------------|
+| [7 (alpha)][sequelize-core]     | ^14.17.0 \|\| >= 16.0.0    | >= 4.5                    | ❓           | ❓         |
+| [6 (current)][sequelize-legacy] | >= 10                      | >= 4.1                    | 2020-06-24   | ❓         |
+| 5 (eol)                         | >=6                        | >= 3.1                    | 2019-03-13   | 2022-01-01 |
 
 \* ❓ means the date has not been determined yet.
 
@@ -78,7 +78,7 @@ MSSQL requires the use of the [tedious] npm package.
 
 | Sequelize   | [SQL Server][mssql] | [tedious] |
 |-------------|---------------------|-----------|
-| 7 (alpha)   | 2017, 2019          | ^14.4.0   |
+| 7 (alpha)   | 2017-2022           | ^14.4.0   |
 | 6 (current) | 2014-2019           | ^8.3.0    |
 
 [mssql]: https://endoflife.date/mssqlserver
@@ -160,6 +160,19 @@ support for Db2 for IBM i is limited as it is not handled by the core team.
 
 [ibmi]: https://www.ibm.com/support/pages/db2-ibm-i
 [odbc]: https://www.npmjs.com/package/odbc
+
+## Oracle Database Support Table
+
+Oracle Database requires the use of the [node-oracledb] npm package.  
+[Read more about this here](/docs/v7/other-topics/dialect-specific-things/#oracle).
+
+| Sequelize   | [Oracle Database]   | [node-oracledb] |
+|-------------|---------------------|-----------------|
+| 7 (alpha)   |      upcoming       |    upcoming     |
+| 6 (current) |      >= 18.4        |    ^5.4.0       |
+
+[Oracle Database]: https://www.oracle.com/database/technologies/oracle-database-software-downloads.html
+[node-oracledb]: https://www.npmjs.com/package/oracledb
 
 [^⚠️1]: `pg-native` [hasn't had a release since 2018](https://www.npmjs.com/package/pg-native).
 Sequelize will still test against it, but its reliability is degraded in Node >=17.
