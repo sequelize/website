@@ -131,9 +131,9 @@ export class MyDateType extends DataTypes.ABSTRACT<Date> {
 ## Modifying an existing Data Type
 
 You can inherit the implementation of an existing Data Type to customize its behavior.  
-To do so, make your class extend the Data Type you wish to modify instead of `DataTypes.ABSTRACT`:
+To do so, make your class extend the Data Type you wish to modify instead of `DataTypes.ABSTRACT`.
 
-The following
+Note how the following example inherits from `DataTypes.STRING` instead of `DataTypes.ABSTRACT`:
 
 ```typescript
 import { Sequelize, DataTypes } from '@sequelize/core';
