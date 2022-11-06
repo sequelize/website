@@ -124,7 +124,7 @@ Some attributes don't actually need to be passed to `Model.init`, this is how yo
   Use the `ForeignKey<>` branded type to make `Model.init` aware of the fact that it isn't necessary to configure the foreign key:
 
   ```typescript
-  import { Model, InferAttributes, InferCreationAttributes, DataTypes, ForeignKey } from 'sequelize';
+  import { Model, InferAttributes, InferCreationAttributes, DataTypes, ForeignKey } from '@sequelize/core';
 
   class Project extends Model<InferAttributes<Project>, InferCreationAttributes<Project>> {
     id: number;
@@ -148,7 +148,7 @@ Some attributes don't actually need to be passed to `Model.init`, this is how yo
   unfortunately `Model.init` has no way of knowing this. We recommend you use the minimum necessary configuration to silence this error:
 
   ```typescript
-  import { Model, InferAttributes, InferCreationAttributes, DataTypes } from 'sequelize';
+  import { Model, InferAttributes, InferCreationAttributes, DataTypes } from '@sequelize/core';
 
   class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     id: number;

@@ -1,6 +1,6 @@
 ---
-sidebar_position: 8
-title: Associations
+sidebar_position: 1
+title: Basics
 ---
 
 Sequelize supports the standard associations: [One-To-One](https://en.wikipedia.org/wiki/One-to-one_%28data_model%29), [One-To-Many](https://en.wikipedia.org/wiki/One-to-many_%28data_model%29) and [Many-To-Many](https://en.wikipedia.org/wiki/Many-to-many_%28data_model%29).

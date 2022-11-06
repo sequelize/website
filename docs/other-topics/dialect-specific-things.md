@@ -158,7 +158,7 @@ You specify the storage file in the Sequelize constructor with the `storage` opt
 You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
 
 ```js
-import { Sequelize } from 'sequelize';
+import { Sequelize } from '@sequelize/core';
 import SQLite from 'sqlite3';
 
 const sequelize = new Sequelize('database', 'username', 'password', {

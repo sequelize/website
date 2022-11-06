@@ -1,10 +1,11 @@
 ---
 sidebar_position: 2
-title: Getting Started
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+
+# Getting Started
 
 In this tutorial you will learn to make a simple setup of Sequelize.
 
@@ -12,18 +13,19 @@ In this tutorial you will learn to make a simple setup of Sequelize.
 
 Sequelize is available via [npm](https://www.npmjs.com/package/@sequelize/core) (or [yarn](https://yarnpkg.com/package/@sequelize/core)).
 
+:::info
+
 The following commands will install Sequelize v7.
 If you're looking for Sequelize v6 (published as `sequelize` instead of `@sequelize/core`),
-[visit the v6 documentation](pathname:///docs/v6/getting-started/)
+[visit the v6 documentation](pathname:///v6/manual/getting-started.html)
+
+:::
 
 <Tabs>
 <TabItem value="npm" label="npm">
 
 ```bash
-# This will install v6, the latest stable release of Sequelize
-npm i sequelize
-
-# This will install v7, the latest alpha release of Sequelize
+# This will install Sequelize 7, the latest alpha release of Sequelize
 npm i @sequelize/core
 ```
 
@@ -47,7 +49,6 @@ Next you'll need to manually install the driver for your database of choice:
 <TabItem value="npm" label="npm">
 
 ```bash
-# using npm
 npm i pg pg-hstore # PostgreSQL
 npm i mysql2 # MySQL
 npm i mariadb # MariaDB
@@ -105,7 +106,9 @@ They are documented in the [API Reference](pathname:///api/v7/classes/Sequelize.
 
 ### Testing the connection
 
-You can use the `.authenticate()` function to test if the connection is OK:
+You can use the `.authenticate()` function to test if the connection is OK.  
+Note that this is completely optional, but recommended as Sequelize fetches your Database version on the first connection.
+That version is then used to determine which SQL features are available.
 
 ```js
 try {
@@ -118,10 +121,10 @@ try {
 
 ### Closing the connection
 
-Sequelize will keep the connection open by default, and use the same connection for all queries.
-If you need to close the connection, call `sequelize.close()` (which is asynchronous and returns a Promise).
+Sequelize uses a connection pool to manage connections to the database. This means some connection can remain open even after you're done with them.  
+If you wish to gracefully shut down your application, you can use [`sequelize.close()`](pathname:///api/v7/classes/Sequelize.html#close) to close all active connections.
 
-:::note
+:::caution
 
 Once `sequelize.close()` has been called, it's impossible to open a new connection. You will need to create a new Sequelize instance to access your database again.
 
@@ -129,8 +132,8 @@ Once `sequelize.close()` has been called, it's impossible to open a new connecti
 
 ## Terminology convention
 
-Observe that, in the examples above, `Sequelize` refers to the library itself while `sequelize` refers to an instance of Sequelize,
-which represents a connection to one database. This is the recommended convention and it will be followed throughout the documentation.
+Observe that, in the examples above, `Sequelize` refers to the library itself while the lowercase `sequelize` refers to an instance of Sequelize.
+This is the recommended convention and it will be followed throughout the documentation.
 
 ## Tip for reading the docs
 
@@ -176,3 +179,7 @@ const sequelize = new Sequelize('sqlite::memory:', {
 Most of the methods provided by Sequelize are asynchronous and therefore return Promises. They are all [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) , so you can use the Promise API (for example, using `then`, `catch`, `finally`) out of the box.
 
 Of course, using `async` and `await` works normally as well.
+
+## Next Step
+
+Now that you have a Sequelize instance, the next step to get started is to define your models.
