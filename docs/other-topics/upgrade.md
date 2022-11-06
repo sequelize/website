@@ -10,7 +10,7 @@ Upgrading from Sequelize v5? [Check out our 'Upgrade to v6' guide](/docs/v6/othe
 
 :::
 
-## Breaking Changes
+## Main Breaking Changes
 
 ### Main project renamed to @sequelize/core
 
@@ -114,6 +114,136 @@ Will still be transformed into the following in both v6 and v7:
 ```sql
 SELECT * FROM users WHERE id = ?;
 ```
+
+### Associations names are now unique
+
+*Pull Request [#14280]*
+
+This is a minor change, but trying to define two associations with the same name will now throw:
+
+```typescript
+Project.belongsTo(User, { as: 'owner' });
+Project.belongsTo(User, { as: 'owner' });
+```
+
+Doing this was already very broken in v6 because the association methods added to `Project`, such as `project.getOwner`,
+belonged to the first association, while [`Project.associations.owner`](pathname:///api/v7/classes/model#associations) was equal to the second association.
+
+### Association resolution in `include`
+
+*Pull Request [#14280]*
+
+In Sequelize v6, these two were considered to be different associations:
+
+```typescript
+User.hasMany(Project, { as: 'projects' });
+User.hasMany(Project);
+```
+
+And you could distinguish them when eager-loading them by specifying the [`as`](pathname:///api/v7/interfaces/includeoptions#as) option in your [`include`](pathname:///api/v7/interfaces/findoptions#include) too:
+
+```typescript
+await User.findAll({
+  include: [{
+    model: Project,
+    as: 'projects',
+  }, {
+    model: Project,
+  }],
+})
+```
+
+This caused issues, because they still shared the same association name.
+Resulting in inconsistent values for [`User.associations.projects`](pathname:///api/v7/classes/model#associations), and association mixin methods (e.g. `user.getProjects()`).
+Both would also try to eager-load under the same key.
+
+In Sequelize v7, the [`as`](pathname:///api/v7/interfaces/includeoptions#as) parameter now defaults to the plural name of the target model (in this scenario, `projects`) for multi associations (`hasMany`, `belongsToMany`), 
+and the singular name of the model otherwise.
+
+As a consequence, how `include` is resolved has changed too: 
+You can only omit the [`as`](pathname:///api/v7/interfaces/includeoptions#as) parameter if no more than one association has been defined between the two models.
+
+This change also means that the [`include.association`](pathname:///api/v7/interfaces/includeoptions#association) option is the best way to specify
+your association, and we recommend always using it over a combination of `as` + `model`. `as` has also been deprecated in favor of `association`.
+
+```typescript
+// Don't use `as` or `model`, use this instead:
+await User.findAll({
+  include: [User.associations.projects],
+});
+
+// Or provide the name of the association as a string:
+await User.findAll({
+  include: ['projects'],
+});
+
+// If you need to specify more options:
+await User.findAll({
+  include: [{
+    association: 'projects',
+  }],
+});
+```
+
+### Bidirectional Association Options
+
+*Pull Request [#14280]*
+
+In Sequelize 6, associations are a bit fuzzy: 
+Defining an association on both sides of the association would attempt to merge and reconcile their options.
+
+The problem is that if the options did not perfectly match,
+you could end up with different behaviors based on which association was declared first.
+Something that can happen easily if both associations are declared in different files, 
+as the declaration order would be different based on which file was loaded first.
+
+This lead to subtle bugs, so starting with v7, associations options must perfectly match both sides or Sequelize will emit an error.
+
+For instance, the following declaration is no longer valid:
+
+```typescript
+User.belongsToMany(Countries, { foreignKey: 'user_id' });
+Countries.belongsToMany(User);
+```
+
+But this is:
+
+```typescript
+User.belongsToMany(User, { foreignKey: 'user_id' });
+Country.belongsToMany(User, { otherKey: 'user_id' });
+```
+
+This requirement increases the verbosity of your associations, 
+se we introduced a new option to solve that problem: [`inverse`](pathname:///api/v7/classes/belongsto#inverse). 
+This option lets you define both sides of the association at the same time.
+This removes the need to repeat options that are common to both associations.
+
+Instead of writing this:
+
+```typescript
+User.belongsToMany(Country, { as: 'countries' });
+User.belongsToMany(User, { as: 'citizen' });
+```
+
+You can now write this:
+
+```typescript
+User.belongsToMany(Country, { 
+  as: 'countries',
+  inverse: { as: 'citizen' },
+});
+```
+
+### Changes to `sequelize.sync`
+
+*Pull Request [#14619]*
+
+- DB2 does not force all indexes to be unique anymore (this was a bug)
+- When using DB2, we do not force columns that are part of an index to be non-null.
+  The database still requires this to be the case, but we don't do it silently for you anymore.
+- A few bugs in how indexes were named have been fixed. This means your index names could change.
+
+## Minor Breaking changes
 
 ### TypeScript conversion
 
@@ -281,15 +411,20 @@ WHERE firstName = 'bob' AND age > 20 AND age < 30 LIMIT 10
 
 **Note**: The flag `whereMergeStrategy` was introduced in the v6.18.0 to switch between these two behaviors. This flag has been dropped because only the `and` merging option is supported in Sequelize v7.
 
-### afterCommit hooks
+### Transaction afterCommit hook
 
-Sequelize 6 had a bug where `transaction.afterCommit`-hooks would be executed when application code wants to commit - even when the database transaction rolls back on its commit. This behaviour has been changed to better meet expectations of how this callback hook can be used. See [issue 14902](https://github.com/sequelize/sequelize/issues/14902) and [PR 14903](https://github.com/sequelize/sequelize/pull/14903) for more details.
+Sequelize 6 had a bug where `transaction.afterCommit`-hooks would be executed when application code wants to commit - even when the database transaction rolls back on its commit.
+This behaviour has been changed to better meet expectations of how this callback hook can be used.
+
+See [issue 14902](https://github.com/sequelize/sequelize/issues/14902) and [PR 14903](https://github.com/sequelize/sequelize/pull/14903) for more details.
+
+## Deprecations & Removals
 
 ### Removal of previously deprecated APIs
 
 - `WhereValue`, `AnyOperator`, `AllOperator`, `AndOperator` and `OrOperator` types: They did not reflect the reality of how the `where` option is typed (see [this PR](https://github.com/sequelize/sequelize/pull/14022))
 
-## Deprecations
+## New Deprecations
 
 Sequelize 7 also includes a series of new deprecation. These APIs will continue to work in v7 but expect them to
 stop working in a future major release.
@@ -314,7 +449,9 @@ stop working in a future major release.
   DataTypes.STRING
   DataTypes.INTEGER
   ```
-
+- The `as` & `model` options in `include` are deprecated, we recommend using the `association` option instead.
 
 [#14352]: https://github.com/sequelize/sequelize/pull/14352
 [#14447]: https://github.com/sequelize/sequelize/pull/14447
+[#14280]: https://github.com/sequelize/sequelize/pull/14280
+[#14619]: https://github.com/sequelize/sequelize/pull/14619
