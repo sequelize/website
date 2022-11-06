@@ -4,7 +4,7 @@ title: Scopes
 
 Scopes are used to help you reuse code. You can define commonly used queries, specifying options such as `where`, `include`, `limit`, etc.
 
-This guide concerns model scopes. You might also be interested in the [guide for association scopes](../advanced-association-concepts/association-scopes.md), which are similar but not the same thing.
+This guide concerns model scopes. You might also be interested in the [guide for association scopes](docs/associations/association-scopes.md), which are similar but not the same thing.
 
 ## Definition
 

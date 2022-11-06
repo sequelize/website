@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 # Synchronizing your Models (development)
@@ -17,7 +17,7 @@ Note that this changes only the table in the database, not the model in the Java
 :::caution
 
 While `sync()` is a very useful tool during development, it is not designed to be used in production and using its `alter` or `force` options may lead to data loss.
-See [Synchronizing in production](#synchronization-in-production).
+See [Migrations](./migrations.md) to learn how to update your database schema in production.
 
 :::
 
@@ -61,10 +61,3 @@ As shown above, the `sync` and `drop` operations are destructive. Sequelize acce
 // This will run .sync() only if database name ends with '_test'
 sequelize.sync({ force: true, match: /_test$/ });
 ```
-
-## Synchronization in production
-
-As shown above, `sync({ force: true })` and `sync({ alter: true })` can be destructive operations.
-Therefore, they are not recommended for production-level software.
-Instead, synchronization should be done with the advanced concept of [Migrations](migrations.html),
-with the help of the [Sequelize CLI](https://github.com/sequelize/cli).

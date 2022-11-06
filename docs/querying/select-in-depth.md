@@ -1,37 +1,14 @@
 ---
-sidebar_position: 3
-title: Model Querying - Basics
+sidebar_position: 5
 ---
+
+# SELECT Queries: In Depth
 
 Sequelize provides various methods to assist querying your database for data.
 
 *Important notice: to perform production-ready queries with Sequelize, make sure you have read the [Transactions guide](../other-topics/transactions.md) as well. Transactions are important to ensure data integrity and to provide other benefits.*
 
 This guide will show how to make the standard [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) queries.
-
-## Simple INSERT queries
-
-First, a simple example:
-
-```js
-// Create a new user
-const jane = await User.create({ firstName: "Jane", lastName: "Doe" });
-console.log("Jane's auto-generated ID:", jane.id);
-```
-
-The [`Model.create()`](pathname:///api/v7/classes/Model.html#create) method is a shorthand for building an unsaved instance with [`Model.build()`](pathname:///api/v7/classes/Model.html#build) and saving the instance with [`instance.save()`](pathname:///api/v7/classes/Model.html#save).
-
-It is also possible to define which attributes can be set in the `create` method. This can be especially useful if you create database entries based on a form which can be filled by a user. Using that would, for example, allow you to restrict the `User` model to set only an username but not an admin flag (i.e., `isAdmin`):
-
-```js
-const user = await User.create({
-  username: 'alice123',
-  isAdmin: true
-}, { fields: ['username'] });
-// let's assume the default of isAdmin is false
-console.log(user.username); // 'alice123'
-console.log(user.isAdmin); // false
-```
 
 ## Simple SELECT queries
 
@@ -548,93 +525,6 @@ Foo.findAll({
 });
 ```
 
-## Simple UPDATE queries
-
-Update queries also accept the `where` option, just like the read queries shown above.
-
-```js
-// Change everyone without a last name to "Doe"
-await User.update({ lastName: "Doe" }, {
-  where: {
-    lastName: null
-  }
-});
-```
-
-## Simple DELETE queries
-
-Delete queries also accept the `where` option, just like the read queries shown above.
-
-```js
-// Delete everyone named "Jane"
-await User.destroy({
-  where: {
-    firstName: "Jane"
-  }
-});
-```
-
-To destroy everything the `TRUNCATE` SQL can be used:
-
-```js
-// Truncate the table
-await User.destroy({
-  truncate: true
-});
-```
-
-## Creating in bulk
-
-Sequelize provides the `Model.bulkCreate` method to allow creating multiple records at once, with only one query.
-
-The usage of `Model.bulkCreate` is very similar to `Model.create`, by receiving an array of objects instead of a single object.
-
-```js
-const captains = await Captain.bulkCreate([
-  { name: 'Jack Sparrow' },
-  { name: 'Davy Jones' }
-]);
-console.log(captains.length); // 2
-console.log(captains[0] instanceof Captain); // true
-console.log(captains[0].name); // 'Jack Sparrow'
-console.log(captains[0].id); // 1 // (or another auto-generated value)
-```
-
-However, by default, `bulkCreate` does not run validations on each object that is going to be created (which `create` does). To make `bulkCreate` run these validations as well, you must pass the `validate: true` option. This will decrease performance. Usage example:
-
-```js
-const Foo = sequelize.define('foo', {
-  bar: {
-    type: DataTypes.TEXT,
-    validate: {
-      len: [4, 6]
-    }
-  }
-});
-
-// This will not throw an error, both instances will be created
-await Foo.bulkCreate([
-  { name: 'abc123' },
-  { name: 'name too long' }
-]);
-
-// This will throw an error, nothing will be created
-await Foo.bulkCreate([
-  { name: 'abc123' },
-  { name: 'name too long' }
-], { validate: true });
-```
-
-If you are accepting values directly from the user, it might be beneficial to limit the columns that you want to actually insert. To support this, `bulkCreate()` accepts a `fields` option, an array defining which fields must be considered (the rest will be ignored).
-
-```js
-await User.bulkCreate([
-  { username: 'foo' },
-  { username: 'bar', admin: true }
-], { fields: ['username'] });
-// Neither foo nor bar are admins.
-```
-
 ## Ordering and Grouping
 
 Sequelize provides the `order` and `group` options to work with `ORDER BY` and `GROUP BY`.
@@ -754,55 +644,7 @@ Project.findAll({ offset: 5, limit: 5 });
 
 Usually these are used alongside the `order` option.
 
-## Utility methods
-
-Sequelize also provides a few utility methods.
-
-### `count`
-
-The `count` method simply counts the occurrences of elements in the database.
-
-```js
-console.log(`There are ${await Project.count()} projects`);
-
-const amount = await Project.count({
-  where: {
-    id: {
-      [Op.gt]: 25
-    }
-  }
-});
-console.log(`There are ${amount} projects with an id greater than 25`);
-```
-
-### `max`, `min` and `sum`
-
-Sequelize also provides the `max`, `min` and `sum` convenience methods.
-
-Let's assume we have three users, whose ages are 10, 5, and 40.
-
-```js
-await User.max('age'); // 40
-await User.max('age', { where: { age: { [Op.lt]: 20 } } }); // 10
-await User.min('age'); // 5
-await User.min('age', { where: { age: { [Op.gt]: 5 } } }); // 10
-await User.sum('age'); // 55
-await User.sum('age', { where: { age: { [Op.gt]: 5 } } }); // 50
-```
-
-### `increment`, `decrement`
-
-Sequelize also provides the `increment` convenience method.
-
-Let's assume we have a user, whose age is 10.
-
-```js
-await User.increment({age: 5}, { where: { id: 1 } }) // Will increase age to 15
-await User.increment({age: -5}, { where: { id: 1 } }) // Will decrease age to 5
-```
-
-
-### Literals (raw SQL)
+## Literals (raw SQL)
 
 It's not always possible for Sequelize to support every SQL feature in a clean way. It can sometimes be better to write the SQL query yourself.
 
