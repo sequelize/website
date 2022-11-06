@@ -117,7 +117,7 @@ const config = {
             ],
           },
           {
-            href: 'https://sequelize-slack.herokuapp.com/',
+            href: 'https://join.slack.com/t/sequelize/shared_invite/zt-1igt9hx8h-tGWU4AI1bRPvkRdEK5wnuQ',
             label: 'Slack',
             position: 'right',
           },
@@ -176,7 +176,7 @@ const config = {
               },
               {
                 label: 'Slack',
-                href: 'https://sequelize-slack.herokuapp.com/',
+                href: 'https://join.slack.com/t/sequelize/shared_invite/zt-1igt9hx8h-tGWU4AI1bRPvkRdEK5wnuQ',
               },
               {
                 label: 'Twitter',
