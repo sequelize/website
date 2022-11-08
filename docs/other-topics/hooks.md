@@ -142,13 +142,13 @@ Instance Sequelize hooks can be registered in three ways:
 3. Using decorators
    ```typescript
    import { Sequelize, Model, Hook } from '@sequelize/core';
-   import { BeforeFindAll } from 'sequelize-typescript';
+   import { BeforeFind } from 'sequelize-typescript';
    
    export class MyModel extends Model {
      // highlight-next-line
      @BeforeFind
-     static logFindAll() {
-       console.log('findAll has been called on MyModel');
+     static logFind() {
+       console.log('findAll/findOne has been called on MyModel');
      }
    }
    ```
@@ -192,22 +192,22 @@ Hooks added by decorators cannot be removed using the callback instance, but can
 
 ```typescript
 import { Sequelize, Model, Hook } from '@sequelize/core';
-import { BeforeFindAll } from 'sequelize-typescript';
+import { BeforeFind } from 'sequelize-typescript';
 
 export class MyModel extends Model {
-  @BeforeFindAll({ name: 'yourHookIdentifier' })
+  @BeforeFind({ name: 'yourHookIdentifier' })
   static logFindAll() {
-    console.log('findAll has been called on MyModel');
+    console.log('findAll/findOne has been called on MyModel');
   }
 }
 
 // This will not work
 // error-next-line
-MyModel.hooks.removeListener('beforeFindAll', MyModel.logFindAll);
+MyModel.hooks.removeListener('beforeFind', MyModel.logFindAll);
 
 // But this will
 // success-next-line
-MyModel.hooks.removeListener('beforeFindAll', 'yourHookIdentifier');
+MyModel.hooks.removeListener('beforeFind', 'yourHookIdentifier');
 ```
 
 However, we do not recommend removing hooks added through decorators, as it may make your code harder to understand.
