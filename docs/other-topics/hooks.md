@@ -92,7 +92,7 @@ Instance Sequelize hooks can be registered in two ways:
 | `beforeAssociate`, `afterAssociate`                                                    | ❌     | Whenever an association is declared on the model                                |
 | `beforeSync`, `afterSync`                                                              | ✅     | When `sequelize.sync` or `Model.sync` are called                                |
 | `beforeValidate`, `afterValidate`, `validationFailed`                                  | ✅     | When the model's attributes are being validated (happens in most model methods) |
-| `beforeFind`, `beforeFindAfterExpandIncludeAll`, `beforeFindAfterOptions`, `afterFind` | ✅     | When `Model.findAll`, or `Model.findOne` is called                              |
+| `beforeFind`, `beforeFindAfterExpandIncludeAll`, `beforeFindAfterOptions`, `afterFind` | ✅     | When `Model.findAll` is called[^find-all]                                       |
 | `beforeCount`                                                                          | ✅     | When `Model.count` is called                                                    |
 | `beforeUpsert`, `afterUpsert`                                                          | ✅     | When `Model.upsert` is called                                                   |
 | `beforeBulkCreate`, `afterBulkCreate`                                                  | ✅     | When `Model.bulkCreate` is called                                               |
@@ -147,8 +147,8 @@ Instance Sequelize hooks can be registered in three ways:
    export class MyModel extends Model {
      // highlight-next-line
      @BeforeFind
-     static logFind() {
-       console.log('findAll/findOne has been called on MyModel');
+     static logFindAll() {
+       console.log('findAll has been called on MyModel');
      }
    }
    ```
@@ -197,7 +197,7 @@ import { BeforeFind } from 'sequelize-typescript';
 export class MyModel extends Model {
   @BeforeFind({ name: 'yourHookIdentifier' })
   static logFindAll() {
-    console.log('findAll/findOne has been called on MyModel');
+    console.log('findAll has been called on MyModel');
   }
 }
 
@@ -253,3 +253,5 @@ await sequelize.transaction(async transaction => {
 If we had not included the transaction option in our call to `User.update` in the preceding code, 
 no change would have occurred, since our newly created user does not exist in the database until the pending transaction 
 has been committed.
+
+[^find-all]: **findAll**: Note that some methods, such as `Model.findOne`, `Model.findAndCountAll` and association getters will also call `Model.findAll` internally. This will cause the `beforeFind` hook to be called for these methods too.
