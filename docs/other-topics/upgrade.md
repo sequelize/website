@@ -115,6 +115,61 @@ Will still be transformed into the following in both v6 and v7:
 SELECT * FROM users WHERE id = ?;
 ```
 
+### DataTypes rewrite
+
+*Pull Request [#14505]*
+
+As part of our migration to TypeScript, Data Types have been completely rewritten to be more TypeScript-friendly, 
+and make them more powerful.
+
+If you have written custom data types, you will need to rewrite them to use the new API. All methods have been renamed,
+and new ones have been added. You can find the new API in the [Custom Data Types documentation](./extending-data-types.md).
+
+Other changes:
+
+- Which SQL Data Type corresponds to each Sequelize Data Type has also been changed. Refer to [our list of Data Types](../other-topics/other-data-types.mdx) for an up-to-date description.
+- Type validation is now enabled by default. The `typeValidation` sequelize option has been renamed to `noTypeValidation`.
+- Integer Data Types will throw an error if they receive a JavaScript number bigger than `MAX_SAFE_INTEGER` or smaller than `MIN_SAFE_INTEGER`.
+- `DataTypes.NUMERIC` has been removed, use `DataTypes.DECIMAL` instead.
+- `DataTypes.NUMBER` has been removed (it had no real use).
+- `DataTypes['DOUBLE PRECISION']` has been removed, use `DataTypes.DOUBLE` instead.
+- `DataTypes.JSONTYPE` has been removed, use `DataTypes.JSON` instead.
+- Dates are now returned as strings instead of JavaScript dates if no Sequelize Data Type is associated to that column.
+  This is usually the case when executing raw queries without specifying a model, or when the attribute does not have a corresponding attribute in the model definition.
+- `DataTypes.BOOLEAN` only accepts `true` & `false` (and `null` for nullable columns).
+- String DataTypes (`STRING`, `CITEXT`, `TEXT`, `CHAR`) only accept strings. Other values will not be stringified anymore.
+- `DataTypes.DECIMAL` is now intended to be an "unconstrained decimal", and throws in dialects that do not support such a Data Type.
+- `DataTypes.FLOAT(precision)` has been removed. It used to be a way to select between single-precision floats & double-precision floats. You must now use `DataTypes.FLOAT` and `DataTypes.DOUBLE`
+- `DataTypes.DECIMAL`, `DataTypes.DOUBLE` and `DataTypes.FLOAT` now throw if the `precision` parameter is set, but not the `scale` parameter.
+- `DataTypes.BIGINT` and `DataTypes.DECIMAL` values are always returned as strings instead of JS numbers.
+- `DataTypes.CHAR.BINARY` and `DataTypes.STRING.BINARY` now mean "chars with a binary collation" and throw in dialects that do not support collations.
+- **SQLite**: All Data Types are now named after one of the [6 strict data types](https://www.sqlite.org/stricttables.html).
+- **SQLite**: `DataTypes.CHAR` has been removed, as SQLite doesn't provide a fixed-length `CHAR` type. 
+- **SQL Server**: `DataTypes.UUID` now maps to `UNIQUEIDENTIFIER` instead of `CHAR(36)`.
+
+### Cannot define values of `DataTypes.ENUM` separately
+
+The "values" property has been removed from column definitions. The following is no longer supported:
+
+```typescript
+sequelize.define('MyModel', {
+  roles: { 
+    type: DataTypes.ENUM,
+    values: ['admin', 'user'],
+  },
+});
+```
+
+Instead, specify enum values like this:
+
+```typescript
+sequelize.define('MyModel', {
+  roles: {
+    type: DataTypes.ENUM(['admin', 'user']),
+  },
+});
+```
+
 ### Associations names are now unique
 
 *Pull Request [#14280]*
@@ -247,7 +302,7 @@ User.belongsToMany(Country, {
 
 ### TypeScript conversion
 
-One of the major foundational code changes of v7 is the migration to TypeScript.\
+One of the major foundational code changes of v7 is the migration to TypeScript.  
 As a result, the manual typings that were formerly best-effort guesses on top of the JavaScript code base,
 have been removed and all typings are now directly retrieved from the actual TypeScript code.
 
@@ -257,7 +312,7 @@ You'll likely find many tiny differences which however should be easy to fix.
 
 *Attributes cannot start or end with `$`, include `.`, include `::`, or include `->`. Column names are not impacted.*
 
-`$attribute$` & `$nested.attribute$` is a special syntax used to reference nested attributes in Queries.\
+`$attribute$` & `$nested.attribute$` is a special syntax used to reference nested attributes in Queries.  
 The `.` character also has special meaning, being used to reference nested JSON object keys,
 the `$nested.attribute$` syntax, and in output names of eager-loaded associations in SQL queries.
 
@@ -265,7 +320,7 @@ The `->` character sequence is [used internally to reference nested associations
 
 Finally, the `::` character sequence has special meaning in queries as it allows you to tell sequelize to cast an attribute.
 
-In Sequelize 6, it was possible to create an attribute that matched these special syntaxes, leading to subtle bugs.\
+In Sequelize 6, it was possible to create an attribute that matched these special syntaxes, leading to subtle bugs.  
 Starting with Sequelize 7, this is now considered reserved syntax, and it is no longer possible to
 use a string that both starts or ends with a `$` as the attribute name, includes the `.` character, or includes `::`.
 
@@ -430,6 +485,7 @@ Sequelize 7 also includes a series of new deprecation. These APIs will continue 
 stop working in a future major release.
 
 - All hook methods are deprecated in favor of using the `hooks` property available on models and Sequelize classes. See the documentation on [hooks](./hooks.md) to learn more.
+- `DataTypes.REAL` is redundant with `DataTypes.FLOAT`, and is deprecated.
 - `Model.scope()` has been renamed to `Model.withScope()`
 - `Model.unscoped()` has been renamed to `Model.withoutScope()` (due to the addition of `Model.withOriginalScope()`)
 - `Model.schema()` has been renamed to `Model.withSchema()`
@@ -454,5 +510,6 @@ stop working in a future major release.
 
 [#14352]: https://github.com/sequelize/sequelize/pull/14352
 [#14447]: https://github.com/sequelize/sequelize/pull/14447
+[#14505]: https://github.com/sequelize/sequelize/pull/14505
 [#14280]: https://github.com/sequelize/sequelize/pull/14280
 [#14619]: https://github.com/sequelize/sequelize/pull/14619
