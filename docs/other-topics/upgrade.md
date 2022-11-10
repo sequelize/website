@@ -484,6 +484,7 @@ See [issue 14902](https://github.com/sequelize/sequelize/issues/14902) and [PR 1
 Sequelize 7 also includes a series of new deprecation. These APIs will continue to work in v7 but expect them to
 stop working in a future major release.
 
+- All hook methods are deprecated in favor of using the `hooks` property available on models and Sequelize classes. See the documentation on [hooks](./hooks.md) to learn more.
 - `DataTypes.REAL` is redundant with `DataTypes.FLOAT`, and is deprecated.
 - `Model.scope()` has been renamed to `Model.withScope()`
 - `Model.unscoped()` has been renamed to `Model.withoutScope()` (due to the addition of `Model.withOriginalScope()`)

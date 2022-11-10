@@ -278,7 +278,7 @@ Notes:
 You can use the `afterCommit` hook in conjunction with model hooks to know when a instance is saved and available outside of a transaction
 
 ```js
-User.afterSave((instance, options) => {
+User.hooks.addListener('afterSave', (instance, options) => {
   if (options.transaction) {
     // Save done within a transaction, wait until transaction is committed to
     // notify listeners the instance has been saved
