@@ -25,6 +25,7 @@ jobs:
       - run: yarn sync
       - run: yarn build
       - name: Deploy to Draft to Netlify
+        if: '! github.event.pull_request.head.repo.fork'
         id: deployment
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -34,11 +35,13 @@ jobs:
           netlify deploy --dir build --message '${{ github.event.commits[0].message }}' > log.tmp.txt 2>&1
           cat log.tmp.txt | grep -E 'Logs|Website Draft URL' > log.txt
       - name: Read deployment log
+        if: '! github.event.pull_request.head.repo.fork'
         id: logs
         uses: juliangruber/read-file-action@v1
         with:
           path: log.txt
       - name: Comment PR with draft publish logs
+        if: '! github.event.pull_request.head.repo.fork'
         id: create-comment
         uses: peter-evans/create-or-update-comment@v2
         with:
@@ -46,9 +49,6 @@ jobs:
           body: |
             ${{ steps.logs.outputs.content }}
       - name: Comment debug
+        if: '! github.event.pull_request.head.repo.fork'
         run: |
           echo "Comment ID - ${{ steps.create-comment.outputs.comment-id }}"
-
-
-
-      
