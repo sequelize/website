@@ -2,6 +2,7 @@
   "extends": [
     "config:base",
     ":maintainLockFilesWeekly",
+    ":semanticCommitTypeAll(meta)",
     ":semanticCommitScopeDisabled"
   ],
   "automergeStrategy": "squash",
