@@ -3,6 +3,13 @@ sidebar_position: 7
 title: Raw SQL (literals)
 ---
 
+:::caution
+
+!TODO: document https://github.com/sequelize/sequelize/issues/15142
+!TODO: document https://github.com/sequelize/sequelize/issues/15214
+
+:::
+
 ## Literals (raw SQL)
 
 Use the [`literal()`](pathname:///api/v7/index.html#literal) function provided by Sequelize to insert raw SQL almost anywhere in queries built by Sequelize.
