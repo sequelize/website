@@ -2,7 +2,7 @@
 name: 🐛 Bug report for Sequelize website
 about: Documentation is unclear, or otherwise insufficient/misleading, examples isn't working as expected
 title: ""
-labels: "type: docs"
+labels: ""
 assignees: ""
 ---
 
