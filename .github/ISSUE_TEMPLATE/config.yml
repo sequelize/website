@@ -6,6 +6,3 @@ contact_links:
   - name: 🔧 Having issues with Sequelize CLI?
     url: https://github.com/sequelize/cli/issues
     about: Please file an issue in the Sequelize CLI repository.
-  - name: 📗 Found an issue in our Sequelize API references?
-    url: https://github.com/sequelize/website/issues/new?assignees=&labels=&template=api_references_issue.md&title=
-    about: Please file an issue in the Sequelize website repository.
