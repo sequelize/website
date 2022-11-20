@@ -1,5 +1,5 @@
 ---
-name: 📗 Having issues with Sequelize API References?
+name: 📗 Having issues with Sequelize API reference?
 about: Let us know about any unclear, missing, or problematic Sequelize API reference.
 title: ""
 labels: "type: typescript"
@@ -18,7 +18,7 @@ For general questions, please use StackOverflow.
 
 ## Issue Description
 
-### What was any unclear/missing/problematic in the API reference
+### What was any unclear/missing/problematic in the API reference?
 
 Write here.
 
