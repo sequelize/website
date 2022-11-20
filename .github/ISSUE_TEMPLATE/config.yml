@@ -3,6 +3,6 @@ contact_links:
   - name: 💬 Help & Questions
     url: https://github.com/sequelize/website/discussions
     about: The issue tracker is for documentation related question and help requests. Use GitHub Discussions for question and help requests.
-  - name: 🔧 Having issues with Sequelize?
+  - name: 🔧 Having issues with Sequelize features?
     url: https://github.com/sequelize/sequelize/issues/new/choose
     about: Please file an issue in the Sequelize repository.
