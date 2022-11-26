@@ -142,7 +142,7 @@ Instance Sequelize hooks can be registered in three ways:
 3. Using decorators
    ```typescript
    import { Sequelize, Model, Hook } from '@sequelize/core';
-   import { BeforeFind } from 'sequelize-typescript';
+   import { BeforeFind } from '@sequelize/core/decorators-legacy';
    
    export class MyModel extends Model {
      // highlight-next-line
@@ -192,7 +192,7 @@ Hooks added by decorators cannot be removed using the callback instance, but can
 
 ```typescript
 import { Sequelize, Model, Hook } from '@sequelize/core';
-import { BeforeFind } from 'sequelize-typescript';
+import { BeforeFind } from '@sequelize/core/decorators-legacy';
 
 export class MyModel extends Model {
   @BeforeFind({ name: 'yourHookIdentifier' })
