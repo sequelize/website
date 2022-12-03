@@ -441,7 +441,7 @@ Given the fact that AWS Lambda containers process one request at a time, one wou
 configure `sequelize` as follows:
 
 ```js
-const { Sequelize } = require('@sequelize/core');
+import { Sequelize } from '@sequelize/core';
 
 const sequelize = new Sequelize(/* (...) */, {
   // (...)

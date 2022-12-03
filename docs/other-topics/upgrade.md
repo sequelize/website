@@ -21,7 +21,7 @@ Starting with Sequelize v7, we are introducing scoped modules and renamed the fo
 As a result, you now use Sequelize as follows:
 
 ```javascript
-const { Sequelize } = require('@sequelize/core');
+import { Sequelize } from '@sequelize/core';
 const sequelize = new Sequelize({ dialect: 'sqlite' });
 
 await sequelize.authenticate();
@@ -127,7 +127,7 @@ and new ones have been added. You can find the new API in the [Custom Data Types
 
 Other changes:
 
-- Which SQL Data Type corresponds to each Sequelize Data Type has also been changed. Refer to [our list of Data Types](../other-topics/other-data-types.mdx) for an up-to-date description.
+- Which SQL Data Type corresponds to each Sequelize Data Type has also been changed. Refer to [our list of Data Types](../models/data-types.mdx) for an up-to-date description.
 - Type validation is now enabled by default. The `typeValidation` sequelize option has been renamed to `noTypeValidation`.
 - Integer Data Types will throw an error if they receive a JavaScript number bigger than `MAX_SAFE_INTEGER` or smaller than `MIN_SAFE_INTEGER`.
 - `DataTypes.NUMERIC` has been removed, use `DataTypes.DECIMAL` instead.
@@ -484,7 +484,7 @@ See [issue 14902](https://github.com/sequelize/sequelize/issues/14902) and [PR 1
 Sequelize 7 also includes a series of new deprecation. These APIs will continue to work in v7 but expect them to
 stop working in a future major release.
 
-- All hook methods are deprecated in favor of using the `hooks` property available on models and Sequelize classes. See the documentation on [hooks](./hooks.md) to learn more.
+- All hook methods are deprecated in favor of using the `hooks` property available on models and Sequelize classes. See the documentation on [hooks](./hooks.mdx) to learn more.
 - `DataTypes.REAL` is redundant with `DataTypes.FLOAT`, and is deprecated.
 - `Model.scope()` has been renamed to `Model.withScope()`
 - `Model.unscoped()` has been renamed to `Model.withoutScope()` (due to the addition of `Model.withOriginalScope()`)

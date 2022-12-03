@@ -13,7 +13,7 @@ This guide shows a few examples, but for the full list of what it can do, and fo
 From now on, we will call `queryInterface` the singleton instance of the [QueryInterface](pathname:///api/v7/classes/QueryInterface.html) class, which is available on your Sequelize instance:
 
 ```js
-const { Sequelize, DataTypes } = require('@sequelize/core');
+import { Sequelize, DataTypes } from '@sequelize/core';
 const sequelize = new Sequelize(/* ... */);
 const queryInterface = sequelize.getQueryInterface();
 ```

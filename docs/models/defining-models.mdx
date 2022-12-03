@@ -5,6 +5,7 @@ sidebar_label: Defining a Model
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import DecoratorInfo from '../_fragments/_decorator-info.mdx';
 
 # Model Basics
 
@@ -24,113 +25,84 @@ Each instance of a model maps to one row of the table in the database. Basically
 
 ## Defining a Model
 
-Models can be defined in two equivalent ways in Sequelize:
+This chapter will go into detail about how to create a model in Sequelize.
+Sequelize uses a class-based approach to define models, and makes heavy uses of decorators to define the model's metadata.
+You can choose to [avoid using decorators](#without-decorators), but you should read this chapter first.
 
-* Extending [Model](pathname:///api/v7/classes/Model.html) and calling its [`init(attributes, options)`](pathname:///api/v7/classes/Model.html#init) static method
-* Calling [`sequelize.define(modelName, attributes, options)`](pathname:///api/v7/classes/Sequelize.html#define)
+<DecoratorInfo />
 
-To learn with an example, we will consider that we want to create a model to represent users, which have a `firstName` and a `lastName`. We want our model to be called `User`, and the table it represents is called `Users` in the database.
+To learn with an example, we will consider that we want to create a model to represent users, which have a `firstName` and a `lastName`. 
+We want our model to be called `User`, and the table it represents is called `users` in the database.
 
-Both ways to define this model are shown below. After being defined, we can access our model with `sequelize.models.User`.
-
-### Extending [Model](pathname:///api/v7/classes/Model.html) (recommended)
+Defining a model is simple: Create a class that extends [the `Model` class](pathname:///api/v7/classes/Model.html),
+and add instance properties to it.
 
 <Tabs>
 <TabItem value="ts" label="TypeScript">
 
-Learn more about using Sequelize with TypeScript in [our TypeScript guide](../typescript.md).
-
-```typescript
+```ts
 import { Sequelize, DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
 
 const sequelize = new Sequelize('sqlite::memory:');
 
-class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  declare id: CreationOptional<number>,
-  declare firstName: string,
-  declare lastName: string | null,
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attibute(DataTypes.INTEGER)
+  @PrimaryKey
+  @AutoIncrement
+  declare id: CreationOptional<number>;
+
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare firstName: string;
+ 
+  @Attribute(DataTypes.STRING)
+  declare lastName: string | null;
 }
-
-User.init({
-  // Model attributes are defined here
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  firstName: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  lastName: {
-    type: DataTypes.STRING,
-    // allowNull defaults to true, except for primary keys
-  },
-}, {
-  // Other model options go here
-  sequelize, // We need to pass the connection instance
-});
-
-// Once init has been called, the model also becomes available through sequelize.models
-console.log(User === sequelize.models.User); // true
 ```
 
 </TabItem>
-<TabItem value="js" label="JavaScript (CJS)">
+<TabItem value="js" label="JavaScript">
 
-```javascript
-const { Sequelize, DataTypes, Model } = require('@sequelize/core');
+```js
+import { Sequelize, DataTypes, Model } from '@sequelize/core';
+
 const sequelize = new Sequelize('sqlite::memory:');
 
-class User extends Model {}
+export class User extends Model {
+  @Attibute(DataTypes.INTEGER)
+  @PrimaryKey
+  @AutoIncrement
+  id;
 
-User.init({
-  // Model attributes are defined here
-  firstName: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  lastName: {
-    type: DataTypes.STRING,
-    // allowNull defaults to true, except for primary keys
-  },
-}, {
-  // Other model options go here
-  sequelize, // We need to pass the connection instance
-});
-
-// Once init has been called, the model also becomes available through sequelize.models
-console.log(User === sequelize.models.User); // true
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  firstName;
+ 
+  @Attribute(DataTypes.STRING)
+  lastName;
+}
 ```
 
-</TabItem>
+</TabItem>  
 </Tabs>
 
-:::caution Model Names & Minification
+### Without Decorators
 
-When defining a model using the class-based approach, the name of the model will, by default, be the name of your class.
-In the above example, the name of the model is `User`.
+:::note
 
-If you minify your code, it is possible that the class' name — and therefore its model name — will be changed by your minifier.
-This can be an issue, as many systems use your modelName, from [Sequelize#models](pathname:///api/v7/classes/Sequelize.html#models)
-to [the name of your Database table name](./sql-name-inference.mdx).
-
-The solution to prevent this issue is to explicitly set the `modelName` option:
-
-```typescript
-class User extends Model {}
-
-User.init({ /* attributes */ }, {
-  /* other model options */
-
-  // by specifying 'modelName' explicitely, the name of this model can be safely minified.
-  modelName: 'User',
-});
-```
+This subsection will only present how to define a model without using decorators.
+You should read [the previous section](#defining-a-model) first to get an overview of how to define a model.
 
 :::
 
-#### Caveat with Public Class Fields
+### Legacy Definition methods
+
+If you're working on a project that was created before Sequelize 7, you're likely using the old way of defining models.
+This is still supported, but we recommend to use the [new way of defining models](#defining-a-model).
+
+Head to [our page about Legacy Model Definitions](../other-topics/legacy-model-definitions.mdx) to learn more about the old API.
+
+## Caveat with Public Class Fields
 
 Adding a [Public Class Field](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields) with the same name as one of the model's attribute is going to cause issues.
 Sequelize adds a getter & a setter for each attribute defined through `Model.init`.
@@ -195,31 +167,32 @@ const user = new User({ id: 1 });
 user.id; // 1
 ```
 
-### Using [`sequelize.define`](pathname:///api/v7/classes/Sequelize.html#define)
+## Caveat with minification
 
-Internally, `sequelize.define` calls `Model.init`, so both approaches are essentially equivalent.
+:::caution Model Names & Minification
 
-```js
-const { Sequelize, DataTypes } = require('@sequelize/core');
-const sequelize = new Sequelize('sqlite::memory:');
+When defining a model using the class-based approach, the name of the model will, by default, be the name of your class.
+In the above example, the name of the model is `User`.
 
-const User = sequelize.define('User', {
-  // Model attributes are defined here
-  firstName: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  lastName: {
-    type: DataTypes.STRING
-    // allowNull defaults to true, except for primary keys
-  }
-}, {
-  // Other model options go here
+If you minify your code, it is possible that the class' name — and therefore its model name — will be changed by your minifier.
+This can be an issue, as many systems use your modelName, from [Sequelize#models](pathname:///api/v7/classes/Sequelize.html#models)
+to [the name of your Database table name](./naming-strategies.mdx).
+
+The solution to prevent this issue is to explicitly set the `modelName` option:
+
+```typescript
+class User extends Model {}
+
+User.init({ /* attributes */ }, {
+  /* other model options */
+
+  // by specifying 'modelName' explicitely, the name of this model can be safely minified.
+  modelName: 'User',
 });
-
-// The model is also available through sequelize.models
-console.log(User === sequelize.models.User); // true
 ```
+
+:::
+
 
 ## Column declaration shorthand syntax
 
@@ -277,7 +250,7 @@ e.g. an attribute with a type `DataTypes.INTEGER` will result in a column of typ
 When defining a column, apart from specifying the `type` of the column, and the `allowNull` and `defaultValue` options mentioned above, there are a lot more options that can be used. Some examples are below.
 
 ```js
-const { Model, DataTypes, Deferrable } = require('@sequelize/core');
+import { Model, DataTypes, Deferrable } from '@sequelize/core';
 
 class Foo extends Model {}
 Foo.init({

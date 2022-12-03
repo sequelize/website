@@ -91,7 +91,7 @@ For the sake of an example, let's say we are modeling a `Post`, whose `content` 
 *Note: modern databases should do some compression automatically in these cases. Please note that this is just for the sake of an example.*
 
 ```js
-const { gzipSync, gunzipSync } = require('zlib');
+import { gzipSync, gunzipSync } from 'zlib';
 
 const Post = sequelize.define('post', {
   content: {
@@ -135,7 +135,7 @@ For example, let's say we have the `firstName` and `lastName` attributes for a U
 It would be nice to have a simple way to obtain the *full name* directly! We can combine the idea of `getters` with the special data type Sequelize provides for this kind of situation: `DataTypes.VIRTUAL`:
 
 ```js
-const { DataTypes } = require('@sequelize/core');
+import { DataTypes } from '@sequelize/core';
 
 const User = sequelize.define('user', {
   firstName: DataTypes.TEXT,
@@ -166,7 +166,7 @@ Sequelize also provides the `getterMethods` and `setterMethods` options in the m
 Example:
 
 ```js
-const { Sequelize, DataTypes } = require('@sequelize/core');
+import { Sequelize, DataTypes } from '@sequelize/core';
 const sequelize = new Sequelize('sqlite::memory:');
 
 const User = sequelize.define('user', {

@@ -131,7 +131,7 @@ Post.findAll({
 Observe that no operator (from `Op`) was explicitly passed, so Sequelize assumed an equality comparison by default. The above code is equivalent to:
 
 ```js
-const { Op } = require('@sequelize/core');
+import { Op } from '@sequelize/core';
 
 Post.findAll({
   where: {
@@ -158,7 +158,7 @@ Post.findAll({
 Just like Sequelize inferred the `Op.eq` operator in the first example, here Sequelize inferred that the caller wanted an `AND` for the two checks. The code above is equivalent to:
 
 ```js
-const { Op } = require('@sequelize/core');
+import { Op } from '@sequelize/core';
 
 Post.findAll({
   where: {
@@ -174,7 +174,7 @@ Post.findAll({
 An `OR` can be easily performed in a similar way:
 
 ```js
-const { Op } = require('@sequelize/core');
+import { Op } from '@sequelize/core';
 
 Post.findAll({
   where: {
@@ -190,7 +190,7 @@ Post.findAll({
 Since the above was an `OR` involving the same field, Sequelize allows you to use a slightly different structure which is more readable and generates the same behavior:
 
 ```js
-const { Op } = require('@sequelize/core');
+import { Op } from '@sequelize/core';
 
 Post.destroy({
   where: {
@@ -207,7 +207,7 @@ Post.destroy({
 Sequelize provides several operators.
 
 ```js
-const { Op, literal, fn } = require('@sequelize/core');
+import { Op, literal, fn } from '@sequelize/core';
 
 Post.findAll({
   where: {
@@ -283,7 +283,7 @@ The operators `Op.and`, `Op.or` and `Op.not` can be used to create arbitrarily c
 #### Examples with `Op.and` and `Op.or`
 
 ```js
-const { Op } = require('@sequelize/core');
+import { Op } from '@sequelize/core';
 
 Foo.findAll({
   where: {
@@ -488,7 +488,7 @@ await User.findAll({
 
 Range types can be queried with all supported operators.
 
-Keep in mind, the provided range value can [define the bound inclusion/exclusion](../other-topics/other-data-types.mdx#ranges-postgresql-only) as well.
+Keep in mind, the provided range value can [define the bound inclusion/exclusion](../models/data-types.mdx#ranges-postgresql-only) as well.
 
 ```js
 [Op.contains]: 2,            // @> '2'::integer  (PG range contains element operator)
@@ -509,7 +509,7 @@ In Sequelize v4, it was possible to specify strings to refer to operators, inste
 For example:
 
 ```js
-const { Sequelize, Op } = require('@sequelize/core');
+import { Sequelize, Op } from '@sequelize/core';
 
 const sequelize = new Sequelize('sqlite::memory:', {
   operatorsAliases: {

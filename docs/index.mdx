@@ -59,7 +59,7 @@ User.init({
 <TabItem value="js" label="JavaScript (CJS)">
 
 ```javascript
-const { Sequelize, Model, DataTypes } = require('@sequelize/core');
+import { Sequelize, Model, DataTypes } from '@sequelize/core';
 const sequelize = new Sequelize('sqlite::memory:');
 
 class User extends Model {}

@@ -44,7 +44,7 @@ console.log(comment.commentableType); // "Image"
 const associatedCommentable = await comment.getCommentable();
 
 // In this example, `associatedCommentable` is the same thing as `image`:
-const isDeepEqual = require('deep-equal');
+import isDeepEqual from 'deep-equal';
 console.log(isDeepEqual(image, commentable)); // true
 ```
 

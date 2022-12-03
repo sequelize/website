@@ -8,7 +8,7 @@ In this tutorial you will learn how to setup validations and constraints for you
 For this tutorial, the following setup will be assumed:
 
 ```js
-const { Sequelize, Op, Model, DataTypes } = require('@sequelize/core');
+import { Sequelize, Op, Model, DataTypes } from '@sequelize/core';
 const sequelize = new Sequelize("sqlite::memory:");
 
 const User = sequelize.define("user", {

@@ -4,6 +4,22 @@ sidebar_position: 6
 
 # Advanced model definitions
 
+## Composite primary keys
+
+You can easily create a composite primary key by using the [`@PrimaryKey`](./decorators.mdx#primarykey) decorator on multiple attributes:
+
+```ts
+class Assignment extends Model<InferAttributes<Assignment>, InferCreationAttributes<Assignment>> {
+  @Attribute(DataTypes.INTEGER)
+  @PrimaryKey
+  declare userId: number;
+
+  @Attribute(DataTypes.INTEGER)
+  @PrimaryKey
+  declare taskId: number;
+}
+```
+
 ## Prevent creating a default PK attribute
 
 By default, Sequelize automatically adds the primary key attribute `id` to every model when no primary key has been defined manually. 

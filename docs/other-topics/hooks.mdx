@@ -2,6 +2,8 @@
 title: Hooks
 ---
 
+import DecoratorInfo from '../_fragments/_decorator-info.mdx';
+
 Hooks are events that you can listen to, and which are triggerred when their corresponding method is called.
 
 They are useful for adding custom functionality to the core of the application.
@@ -139,7 +141,11 @@ Instance Sequelize hooks can be registered in three ways:
      },
    });
    ```
-3. Using decorators
+3. Using decorators.  
+   There is a decorator for every model hook, their names are the same as the hook names, but in `PascalCase`.
+
+   <DecoratorInfo />
+
    ```typescript
    import { Sequelize, Model, Hook } from '@sequelize/core';
    import { BeforeFind } from '@sequelize/core/decorators-legacy';

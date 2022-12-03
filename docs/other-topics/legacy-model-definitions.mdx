@@ -1,0 +1,116 @@
+---
+title: Optimistic Locking
+---
+
+# Legacy Model Definitions
+
+:::caution
+
+This API is considered legacy. It is still supported, but we strongly recommend to use the [new way of defining models](#defining-a-model), 
+as this legacy API can easily make your models complex if you need to declare an association.
+
+:::
+
+There are two legacy ways of defining models:
+
+* Extending [Model](pathname:///api/v7/classes/Model.html), and calling its [`init(attributes, options)`](pathname:///api/v7/classes/Model.html#init) static method
+* Calling [`sequelize.define(modelName, attributes, options)`](pathname:///api/v7/classes/Sequelize.html#define)
+
+## Extending [Model](pathname:///api/v7/classes/Model.html)
+
+<Tabs>
+<TabItem value="ts" label="TypeScript">
+
+Learn more about using Sequelize with TypeScript in [our TypeScript guide](../other-topics/typescript.mdx).
+
+```typescript
+import { Sequelize, DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+
+const sequelize = new Sequelize('sqlite::memory:');
+
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id: CreationOptional<number>;
+  declare firstName: string;
+  declare lastName: string | null;
+}
+
+User.init({
+  // Model attributes are defined here
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    // allowNull defaults to true, except for primary keys
+  },
+}, {
+  // Other model options go here
+  sequelize, // We need to pass the connection instance
+});
+
+// Once init has been called, the model also becomes available through sequelize.models
+console.log(User === sequelize.models.User); // true
+```
+
+</TabItem>
+<TabItem value="js" label="JavaScript (CJS)">
+
+```javascript
+import { Sequelize, DataTypes, Model } from '@sequelize/core';
+const sequelize = new Sequelize('sqlite::memory:');
+
+class User extends Model {}
+
+User.init({
+  // Model attributes are defined here
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    // allowNull defaults to true, except for primary keys
+  },
+}, {
+  // Other model options go here
+  sequelize, // We need to pass the connection instance
+});
+
+// Once init has been called, the model also becomes available through sequelize.models
+console.log(User === sequelize.models.User); // true
+```
+
+</TabItem>
+</Tabs>
+
+## Using [`sequelize.define`](pathname:///api/v7/classes/Sequelize.html#define)
+
+Internally, `sequelize.define` calls `Model.init`, so both approaches are essentially equivalent.
+
+```js
+import { Sequelize, DataTypes } from '@sequelize/core';
+const sequelize = new Sequelize('sqlite::memory:');
+
+const User = sequelize.define('User', {
+  // Model attributes are defined here
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  lastName: {
+    type: DataTypes.STRING
+    // allowNull defaults to true, except for primary keys
+  }
+}, {
+  // Other model options go here
+});
+
+// The model is also available through sequelize.models
+console.log(User === sequelize.models.User); // true
+```

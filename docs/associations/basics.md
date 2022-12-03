@@ -161,7 +161,7 @@ As shown above, the `foreignKey` option accepts a string or an object. When rece
 For example, to use `UUID` as the foreign key data type instead of the default (`INTEGER`), you can simply do:
 
 ```js
-const { DataTypes } = require('@sequelize/core');
+import { DataTypes } from '@sequelize/core';
 
 Foo.hasOne(Bar, {
   foreignKey: {

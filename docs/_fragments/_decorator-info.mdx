@@ -1,0 +1,12 @@
+:::info
+
+Sequelize currently only supports the legacy decorator proposal, which is what [TypeScript](https://www.typescriptlang.org/docs/handbook/decorators.html#decorators) supports.  
+Support for the new proposal will be implemented once TypeScript supports it.
+
+All decorators must be imported from `@sequelize/core/decorators-legacy`:
+
+```ts
+import { Attribute, Table } from '@sequelize/core/decorators-legacy';
+```
+
+:::

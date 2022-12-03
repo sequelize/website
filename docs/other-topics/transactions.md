@@ -118,14 +118,14 @@ await sequelize.transaction(async t => {
 In the examples above, the transaction is still manually passed, by passing `{ transaction: t }` as the second argument. To automatically pass the transaction to all queries you must install the [cls-hooked](https://github.com/Jeff-Lewis/cls-hooked) (CLS) module and instantiate a namespace in your own code:
 
 ```js
-const cls = require('cls-hooked');
+import cls from 'cls-hooked';
 const namespace = cls.createNamespace('my-very-own-namespace');
 ```
 
 To enable CLS you must tell sequelize which namespace to use by using a static method of the sequelize constructor:
 
 ```js
-const Sequelize = require('@sequelize/core');
+import Sequelize from '@sequelize/core';
 Sequelize.useCLS(namespace);
 
 new Sequelize(....);
@@ -189,7 +189,7 @@ For managed transactions, use `sequelize.transaction(options, callback)`.
 The possible isolations levels to use when starting a transaction:
 
 ```js
-const { Transaction } = require('@sequelize/core');
+import { Transaction } from '@sequelize/core';
 
 // The following are valid isolation levels:
 Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED // "READ UNCOMMITTED"
@@ -201,7 +201,7 @@ Transaction.ISOLATION_LEVELS.SERIALIZABLE // "SERIALIZABLE"
 By default, sequelize uses the isolation level of the database. If you want to use a different isolation level, pass in the desired level as the first argument:
 
 ```js
-const { Transaction } = require('@sequelize/core');
+import { Transaction } from '@sequelize/core';
 
 await sequelize.transaction({
   isolationLevel: Transaction.ISOLATION_LEVELS.SERIALIZABLE
@@ -213,7 +213,7 @@ await sequelize.transaction({
 You can also overwrite the `isolationLevel` setting globally with an option in the Sequelize constructor:
 
 ```js
-const { Sequelize, Transaction } = require('@sequelize/core');
+import { Sequelize, Transaction } from '@sequelize/core';
 
 const sequelize = new Sequelize('sqlite::memory:', {
   isolationLevel: Transaction.ISOLATION_LEVELS.SERIALIZABLE

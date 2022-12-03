@@ -44,7 +44,7 @@ The `replacements` option must contain all bound values, or Sequelize will throw
 Examples:
 
 ```js
-const { QueryTypes } = require('@sequelize/core');
+import { QueryTypes } from '@sequelize/core';
 
 await sequelize.query(
   'SELECT * FROM projects WHERE status = ?',
@@ -67,7 +67,7 @@ When using operators like `LIKE`, keep in mind that special characters in your r
 e.g. the following query matches users with names that start with 'ben':
 
 ```js
-const { QueryTypes } = require('@sequelize/core');
+import { QueryTypes } from '@sequelize/core';
 
 await sequelize.query(
   'SELECT * FROM users WHERE name LIKE :searchName',
@@ -86,7 +86,7 @@ and will try to guess its type prior to serializing it.
 For instance, Arrays will not be serialized as the SQL `ARRAY` type. Instead, the following query:
 
 ```js
-const { QueryTypes } = require('@sequelize/core');
+import { QueryTypes } from '@sequelize/core';
 
 await sequelize.query(
   'SELECT * FROM projects WHERE status IN (:status)',
@@ -136,7 +136,7 @@ Your database may have further restrictions with bind parameters.
 Examples:
 
 ```js
-const { QueryTypes } = require('@sequelize/core');
+import { QueryTypes } from '@sequelize/core';
 
 await sequelize.query(
   'SELECT * FROM projects WHERE status = $1',
@@ -159,7 +159,7 @@ Sequelize does not currently support a way to [specify the DataType of a bind pa
 Until such a feature is implemented, you can cast your bind parameters if you need to change their DataType:
 
 ```js
-const { QueryTypes } = require('@sequelize/core');
+import { QueryTypes } from '@sequelize/core';
 
 await sequelize.query(
   'SELECT * FROM projects WHERE id = CAST($1 AS int)',
@@ -194,7 +194,7 @@ const [results, metadata] = await sequelize.query("UPDATE users SET y = 42 WHERE
 In cases where you don't need to access the metadata you can pass in a query type to tell sequelize how to format the results. For example, for a simple select query you could do:
 
 ```js
-const { QueryTypes } = require('@sequelize/core');
+import { QueryTypes } from '@sequelize/core';
 const users = await sequelize.query("SELECT * FROM `users`", { type: QueryTypes.SELECT });
 // We didn't need to destructure the result here - the results were returned directly
 ```
@@ -215,7 +215,7 @@ const projects = await sequelize.query('SELECT * FROM projects', {
 See more options in the [query API reference](pathname:///api/v7/classes/Sequelize.html#query). Some examples:
 
 ```js
-const { QueryTypes } = require('@sequelize/core');
+import { QueryTypes } from '@sequelize/core';
 await sequelize.query('SELECT 1', {
   // A function (or false) for logging your queries
   // Will get called for every SQL query that gets sent
@@ -246,7 +246,7 @@ If an attribute name of the table contains dots, the resulting objects can becom
 * Without `nest: true`:
 
   ```js
-  const { QueryTypes } = require('@sequelize/core');
+  import { QueryTypes } from '@sequelize/core';
   const records = await sequelize.query('select 1 as `foo.bar.baz`', {
     type: QueryTypes.SELECT
   });
@@ -262,7 +262,7 @@ If an attribute name of the table contains dots, the resulting objects can becom
 * With `nest: true`:
 
   ```js
-  const { QueryTypes } = require('@sequelize/core');
+  import { QueryTypes } from '@sequelize/core';
   const records = await sequelize.query('select 1 as `foo.bar.baz`', {
     nest: true,
     type: QueryTypes.SELECT
