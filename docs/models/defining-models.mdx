@@ -25,6 +25,14 @@ Each instance of a model maps to one row of the table in the database. Basically
 
 ## Defining a Model
 
+:::warning Issue with Public Class Fields
+
+Sequelize currently has a bug where adding a Public Class Field shadows the setter & getters that sequelize adds for all model attributes. 
+
+[We are working on this issue](https://github.com/sequelize/meetings/issues/16). Until we've resolved that issue, you can use the workaround described in [this comment](https://github.com/sequelize/sequelize-typescript/issues/778#issuecomment-1007615424).
+
+:::
+
 This chapter will go into detail about how to create a model in Sequelize.
 Sequelize uses a class-based approach to define models, and makes heavy uses of decorators to define the model's metadata.
 You can choose to [avoid using decorators](#without-decorators), but you should read this chapter first.
@@ -86,6 +94,37 @@ export class User extends Model {
 </TabItem>  
 </Tabs>
 
+Many decorators are available to configure an attribute. [You can find the list of decorators here](./decorators.mdx).
+
+After defining the model, you need to initialize it. This is done by passing it to the Sequelize constructor:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { User } from './models/user.model.js';
+
+export const sequelize = new Sequelize('sqlite::memory:', {
+  // add all your models here
+  models: [User],
+});
+```
+
+You can also load all your models dynamically by using [`importModels`](pathname:///api/v7/functions/importModels.html). Note that this method is **async**, 
+and uses [`import` (esm)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import), not `require` (commonjs):
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { fileURLToPath } from 'url';
+
+const __dirname = fileURLToPath(import.meta.url);
+
+export const sequelize = new Sequelize('sqlite::memory:', {
+  // this will load all model classes found in files matching this glob pattern.
+  models: await importModels(__dirname + '/**/*.model.{ts,js}'),
+});
+```
+
+`importModels` uses [`fast-glob`](https://github.com/mrmlnc/fast-glob), and expects a glob pattern (or an array of glob patterns) as its first argument.
+
 ### Without Decorators
 
 :::note
@@ -95,94 +134,14 @@ You should read [the previous section](#defining-a-model) first to get an overvi
 
 :::
 
+**TODO: STUB SECTION, API MISSING**
+
 ### Legacy Definition methods
 
 If you're working on a project that was created before Sequelize 7, you're likely using the old way of defining models.
 This is still supported, but we recommend to use the [new way of defining models](#defining-a-model).
 
 Head to [our page about Legacy Model Definitions](../other-topics/legacy-model-definitions.mdx) to learn more about the old API.
-
-If the only thing being specified about a column is its data type, the syntax can be shortened:
-
-```js
-// This:
-sequelize.define('User', {
-  // name is a nullable string
-  name: DataTypes.STRING,
-});
-
-// Is equivalent to this:
-sequelize.define('User', {
-  name: {
-    type: DataTypes.STRING,
-  },
-});
-```
-
-## Caveat with Public Class Fields
-
-Adding a [Public Class Field](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields) with the same name as one of the model's attribute is going to cause issues.
-Sequelize adds a getter & a setter for each attribute defined through `Model.init`.
-Adding a Public Class Field will shadow those getter and setters, blocking access to the model's actual data.
-
-This is an issue we're working on. [Head to this issue for more information](https://github.com/sequelize/meetings/issues/16).
-
-```typescript
-// Invalid
-class User extends Model {
-  id; // this field will shadow sequelize's getter & setter. It should be removed.
-  otherPublicField; // this field does not shadow anything. It is fine.
-}
-
-User.init({
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
-  }
-}, { sequelize });
-
-const user = new User({ id: 1 });
-user.id; // undefined
-```
-
-```typescript
-// Valid
-class User extends Model {
-  otherPublicField;
-}
-
-User.init({
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
-  }
-}, { sequelize });
-
-const user = new User({ id: 1 });
-user.id; // 1
-```
-
-In TypeScript, you can add typing information without adding an actual public class field by using the `declare` keyword:
-
-```typescript
-// Valid
-class User extends Model {
-  declare id: number; // this is ok! The 'declare' keyword ensures this field will not be emitted by TypeScript.
-}
-
-User.init({
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
-  }
-}, { sequelize });
-
-const user = new User({ id: 1 });
-user.id; // 1
-```
 
 ## Default Values
 
