@@ -36,8 +36,8 @@ import { Sequelize, Model, DataTypes, InferAttributes, InferCreationAttributes }
 const sequelize = new Sequelize('sqlite::memory:');
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  declare username: string | null,
-  declare birthday: Date | null,
+  declare username: string | null;
+  declare birthday: Date | null;
 }
 
 User.init({
