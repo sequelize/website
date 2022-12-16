@@ -170,6 +170,22 @@ sequelize.define('MyModel', {
 });
 ```
 
+### `DataTypes.DATE` date parsing
+
+When using strings instead of `Date` instances with `DataTypes.DATE`, Sequelize parses that string into a `Date` for you. This means the following query is valid:
+
+```ts
+const MyModel = sequelize.define('MyModel', {
+  date: DataTypes.DATE,
+});
+
+await MyModel.findOne({ where: { date: '2022-11-06T00:00:00Z' } });
+```
+
+In Sequelize 6, an input such as `2022-11-06` was parsed as local time. If your server's timezone were GMT+1, that input would have resulted in `2022-11-05T23:00:00.000Z`.
+
+Starting with Sequelize 7, that input is parsed as UTC and results in `2022-11-06T00:00:00.000Z` no matter the timezone of your server.
+
 ### Associations names are now unique
 
 *Pull Request [#14280]*
