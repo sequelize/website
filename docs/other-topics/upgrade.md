@@ -523,6 +523,7 @@ stop working in a future major release.
   DataTypes.INTEGER
   ```
 - The `as` & `model` options in `include` are deprecated, we recommend using the `association` option instead.
+- `Sequelize.QueryInterface` has been renamed to `Sequelize.AbstractQueryInterface`.
 
 [#14352]: https://github.com/sequelize/sequelize/pull/14352
 [#14447]: https://github.com/sequelize/sequelize/pull/14447
