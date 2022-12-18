@@ -315,6 +315,15 @@ User.belongsToMany(Country, {
 - A few bugs in how indexes were named have been fixed. This means your index names could change.
 
 ## Minor Breaking changes
+### Renamed APIs
+- `Sequelize.QueryInterface` has been renamed to `Sequelize.AbstractQueryInterface`. Previously, you could do: 
+```javascript
+const { QueryInterface } = require('@sequelize/core');
+```
+The new import would be:
+```javscript
+const { AbstractQueryInterface } = require('@sequelize/core');
+```
 
 ### TypeScript conversion
 
@@ -523,7 +532,6 @@ stop working in a future major release.
   DataTypes.INTEGER
   ```
 - The `as` & `model` options in `include` are deprecated, we recommend using the `association` option instead.
-- `Sequelize.QueryInterface` has been renamed to `Sequelize.AbstractQueryInterface`.
 
 [#14352]: https://github.com/sequelize/sequelize/pull/14352
 [#14447]: https://github.com/sequelize/sequelize/pull/14447
