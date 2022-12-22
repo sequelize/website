@@ -336,8 +336,6 @@ If you need to react to these events, consider using your database's native trig
 
 ## Hooks for cascade deletes
 
-## Hooks for cascade deletes
-
 As indicated in [Exceptions](#exceptions), Sequelize will not trigger hooks when instances are deleted by the database because of an `ON DELETE CASCADE` constraint.
 
 However, if you set the `hooks` option to `true` when defining your association, Sequelize will trigger the `beforeDestroy` and `afterDestroy` hooks for the deleted instances.
@@ -350,7 +348,7 @@ Using this option is discouraged for the following reasons:
   If this option is enabled, an extra `SELECT` query, as well as an extra `DELETE` query for each row returned by the select will be executed.
 - If you do not run this query in a transaction, and an error occurs, you may end up with some rows deleted and some not deleted.
 - This option only works when the *instance* version of `destroy` is used. The static version will not trigger the hooks, even with `individualHooks`.
-- This option won't work in `paranoid` mode.
+- This option will not work in `paranoid` mode.
 - This option will not work if you only define the association on the model that owns the foreign key. You need to define the reverse association as well.
 
 This option is considered legacy. We highly recommend using your database's triggers and notification system if you need to be notified of database changes.
