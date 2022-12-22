@@ -62,6 +62,20 @@ import { Model } from '@sequelize/core/_non-semver-use-at-your-own-risk_/model.j
 
 If you do that, we recommend pinning the Sequelize version your project uses as **breaking changes can be introduced in these files** in any new release of Sequelize, including patch.
 
+### CLS Transactions
+
+*Pull Request [#15292]*
+
+:::info
+
+[CLS Transactions](../other-topics/transactions.md#automatically-pass-transactions-to-all-queries) are now enabled by default.
+You can use the [`disableClsTransactions`](pathname:///api/v7/interfaces/Options.html#disableClsTransactions) global option to disable them.
+
+:::
+
+Sequelize's CLS implementation has been migrated to use Node's built-in AsyncLocalStorage. This means you do not need to install the `continuation-local-storage` or `cls-hooked` packages anymore,
+and that the `Sequelize.useCLS` method has been removed.
+
 ### `$bind` parameters in strings must not be escaped anymore
 
 *Pull Request [#14447]*
@@ -314,12 +328,141 @@ User.belongsToMany(Country, {
   The database still requires this to be the case, but we don't do it silently for you anymore.
 - A few bugs in how indexes were named have been fixed. This means your index names could change.
 
+### Attributes are always escaped
+
+*Pull Request [#15374]*
+
+In Sequelize 6, some attributes specified in the finder (`findAll`, `findOne`, etc…) "attributes" option had special meaning and were not escaped.
+
+For instance, the following query:
+
+```ts
+await User.findAll({
+  attributes: [
+    '*',
+    'a.*',
+    ['count(id)', 'count'],
+  ]
+});
+```
+
+Would produce the following SQL:
+
+```sql
+SELECT *, "a".*, count(id) AS "count" FROM "users"
+```
+
+Starting with v7, it will produce the following SQL:
+
+```sql
+SELECT "*", "a.*", "count(id)" AS "count" FROM "users"
+```
+
+This was done to improve the security of Sequelize, by reducing the attack surface of the ORM. 
+The previous behavior is still available, but you need to explicitly opt-in to it by using the [`literal`](pathname:///api/v7/functions/literal-1.html), 
+[`col`](pathname:///api/v7/functions/col-1.html) or [`fn`](pathname:///api/v7/functions/fn-1.html) functions:
+
+```ts
+User.findAll({
+  attributes: [
+    col('*'),
+    col('a.*'),
+    [literal('count(*)'), 'count'],
+    // or
+    // [fn('count', col('*')), 'count'],
+  ],
+});
+```
+
+### Instance methods cannot be used without primary key.
+
+*Pull Request [#15108]*
+
+Model instance methods `save`, `update`, `reload`, `destroy`, `restore`, `decrement`, and `increment` cannot be used anymore 
+if the model definition does not have a primary key, or if the primary key was not loaded.
+
+Sequelize used to include a hack to allow you to call these methods even if your model did not have a primary key. 
+This hack was not reliable and using it could lead to your data being corrupted. We have removed it.
+
+If you wish to use these methods but your model definition does not have a primary key, you can use their static version instead.
+
 ## Minor Breaking changes
 
 ### Renamed APIs
 
 - `QueryInterface` has been renamed to `AbstractQueryInterface`.
 - `ModelColumnAttributeOptions` has been renamed to `AttributeOptions`.
+
+### Attribute `references` option
+
+*Pull Request [#15431]*
+
+The `references` option, used to define foreign keys, has been reworked. Prior to Sequelize 7, this option accepted a sub-option called "model", but
+this sub-option also accepted table names.
+
+Starting with Sequelize 7, this sub-option has been split into two options: `model` and `table`. You only need to specify one of them:
+
+```typescript
+// Before
+const User = sequelize.define('User', {
+  countryId: {
+    type: Sequelize.INTEGER,
+    references: {
+      // This referenced the TABLE named "countries", not the MODEL called "countries".
+      model: 'countries',
+      key: 'id',
+    },
+  },
+});
+
+// After (table version)
+const User = sequelize.define('User', {
+  countryId: {
+    type: Sequelize.INTEGER,
+    references: {
+      // It is now clear that this references the table called "countries"
+      table: 'countries',
+      key: 'id',
+    },
+  },
+});
+
+// After (model version)
+const User = sequelize.define('User', {
+  countryId: {
+    type: Sequelize.INTEGER,
+    references: {
+      // It is now clear that this references the Country model, from which the table name will be inferred.
+      model: Country,
+      key: 'id',
+    },
+  },
+});
+```
+
+### Strict Auto-Timestamp & Auto-version attributes
+
+*Pull Request [#15431]*
+
+Sequelize can add 4 special attributes to your models: `createdAt`, `updatedAt`, `deletedAt` and `version`. 
+These attributes are handled automatically by Sequelize, and therefore must follow a specific format.
+
+If you defined these attributes manually, but with options that are incompatible with Sequelize's behavior,
+Sequelize would silently ignore your options and replace them with its own.
+
+Starting with Sequelize 7, Sequelize will throw an error if you try to define these attributes with incompatible options.
+
+For instance, if you try to define a `createdAt` attribute with an incompatible type, Sequelize will throw an error:
+
+```typescript
+const User = sequelize.define('User', {
+  createdAt: {
+    // This will cause an error because sequelize expects a DATE type, not DATEONLY.
+    // error-next-line
+    type: Sequelize.DATEONLY,
+  },
+});
+```
 
 ### TypeScript conversion
 
@@ -494,11 +637,32 @@ This behaviour has been changed to better meet expectations of how this callback
 
 See [issue 14902](https://github.com/sequelize/sequelize/issues/14902) and [PR 14903](https://github.com/sequelize/sequelize/pull/14903) for more details.
 
+### The `where` options throws if the value is not a valid option
+
+*Pull Request [#15375]*
+
+In Sequelize v6, the `where` option was ignored if the value it received was not a valid option.
+
+For instance, the following query:
+
+```ts
+User.findAll({
+  where: new Date(),
+});
+```
+
+Would have returned all users in the database. In Sequelize 7, this will throw an error.
+
 ## Deprecations & Removals
 
 ### Removal of previously deprecated APIs
 
 - `WhereValue`, `AnyOperator`, `AllOperator`, `AndOperator` and `OrOperator` types: They did not reflect the reality of how the `where` option is typed (see [this PR](https://github.com/sequelize/sequelize/pull/14022))
+- `setterMethods` and `getterMethods` model options: They were deprecated in v6 and are now removed. Use [VIRTUAL](../core-concepts/getters-setters-virtuals.md) attributes, or class getter & setters instead.
+- Models had an instance property called `validators`. This property has been removed because almost all attributes have at least one validator (based on their nullability and data type). 
+  The information you need to replace this property is available in the [`modelDefinition`](pathname:///api/v7/classes/Model.html#modelDefinition) static property.
+- The `Utils` export has been removed. It exposed internal utilities that were not meant to be used by end users. If you used any of these utilities, please open an issue to discuss how to expose them in a future-proof way.  
+  This export included classes `Fn`, `Col`, `Cast`, `Literal`, `Json`, and `Where`, which are useful for typing purposes. They now have their own exports instead of being part of `Utils`.
 
 ## New Deprecations
 
@@ -534,3 +698,8 @@ stop working in a future major release.
 [#14505]: https://github.com/sequelize/sequelize/pull/14505
 [#14280]: https://github.com/sequelize/sequelize/pull/14280
 [#14619]: https://github.com/sequelize/sequelize/pull/14619
+[#15431]: https://github.com/sequelize/sequelize/pull/15431
+[#15374]: https://github.com/sequelize/sequelize/pull/15374
+[#15375]: https://github.com/sequelize/sequelize/pull/15375
+[#15108]: https://github.com/sequelize/sequelize/pull/15108
+[#15292]: https://github.com/sequelize/sequelize/pull/15292
