@@ -55,7 +55,7 @@ return Product.create({
   }
 }, {
   include: [{
-    association: Product.User,
+    model: Product.User,
     include: [ User.Addresses ]
   }]
 });
@@ -126,7 +126,7 @@ Product.create({
   ]
 }, {
   include: [{
-    association: Categories,
+    model: Categories,
     as: 'categories'
   }]
 })
