@@ -221,6 +221,45 @@ of regular model methods, which will trigger hooks.
 
 For instance, using the `add` / `set` mixin methods will trigger the `beforeUpdate` and `afterUpdate` hooks.
 
+## `individualHooks`
+
+:::caution
+
+Using this option is discouraged for two reasons:
+
+- Unlike the "normal" hook, the data provided to events emitted by `individualHooks` cannot be modified. Only the "bulk" event's data can be modified.
+- This option is slow, as it will need to fetch the instances that need to be destroyed.
+
+Use with care. If you need to react to database changes, consider using your database's triggers and notification system instead.
+
+:::
+
+When using static model methods such as `Model.destroy` or `Model.update`, only their corresponding "bulk" hook (such as `beforeBulkDestroy`) will be called, not the instance hooks (such as `beforeDestroy`).
+
+If you want to trigger the instance hooks, you use the `individualHooks` option to the method to run the instance hooks for each row that will be impacted.  
+The following example will trigger the `beforeDestroy` and `afterDestroy` hooks for each row that will be deleted:
+
+```js
+User.destroy({
+  where: {
+    id: [1, 2, 3],
+  },
+  individualHooks: true,
+});
+```
+
+## Exceptions
+
+Only __Model methods__ trigger hooks. This means there are a number of cases where Sequelize will interact with the database without triggering hooks.
+These include but are not limited to:
+
+- Instances being deleted by the database because of an `ON DELETE CASCADE` constraint.
+- Instances being updated by the database because of a `SET NULL` or `SET DEFAULT` constraint.
+- [Raw queries](../core-concepts/raw-queries.md).
+- All QueryInterface methods.
+
+If you need to react to these events, consider using your database's native and notification system instead.
+
 ## Hooks and Transactions
 
 Many model operations in Sequelize support specifying a transaction in the options parameter of the method. 

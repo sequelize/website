@@ -322,6 +322,18 @@ await Users.bulkCreate([
 });
 ```
 
+## Exceptions
+
+Only __Model methods__ trigger hooks. This means there are a number of cases where Sequelize will interact with the database without triggering hooks.
+These include but are not limited to:
+
+- Instances being deleted by the database because of an `ON DELETE CASCADE` constraint.
+- Instances being updated by the database because of a `SET NULL` or `SET DEFAULT` constraint.
+- [Raw queries](../core-concepts/raw-queries.md).
+- All QueryInterface methods.
+
+If you need to react to these events, consider using your database's native triggers and notification system instead.
+
 ## Associations
 
 For the most part hooks will work the same for instances when being associated.
@@ -329,33 +341,6 @@ For the most part hooks will work the same for instances when being associated.
 ### One-to-One and One-to-Many associations
 
 * When using `add`/`set` mixin methods the `beforeUpdate` and `afterUpdate` hooks will run.
-
-* The `beforeDestroy` and `afterDestroy` hooks will only be called on associations that have `onDelete: 'CASCADE'` and `hooks: true`. For example:
-
-```js
-class Projects extends Model {}
-Projects.init({
-  title: DataTypes.STRING
-}, { sequelize });
-
-class Tasks extends Model {}
-Tasks.init({
-  title: DataTypes.STRING
-}, { sequelize });
-
-Projects.hasMany(Tasks, { onDelete: 'CASCADE', hooks: true });
-Tasks.belongsTo(Projects);
-```
-
-This code will run `beforeDestroy` and `afterDestroy` hooks on the Tasks model.
-
-Sequelize, by default, will try to optimize your queries as much as possible. When calling cascade on delete, Sequelize will simply execute:
-
-```sql
-DELETE FROM `table` WHERE associatedIdentifier = associatedIdentifier.primaryKey
-```
-
-However, adding `hooks: true` explicitly tells Sequelize that optimization is not of your concern. Then, Sequelize will first perform a `SELECT` on the associated objects and destroy each instance, one by one, in order to be able to properly call the hooks (with the right parameters).
 
 ### Many-to-Many associations
 
