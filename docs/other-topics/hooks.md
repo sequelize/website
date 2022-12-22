@@ -275,7 +275,7 @@ Using this option is discouraged for the following reasons:
 - If you do not run this query in a transaction, and an error occurs, you may end up with some rows deleted and some not deleted.
 - This option only works when the *instance* version of `destroy` is used. The static version will not trigger the hooks, even with `individualHooks`.
 - This option won't work in `paranoid` mode.
-- This option will not work if you only define the association on the model that has the primary key. You need to define the reverse association as well.
+- This option will not work if you only define the association on the model that owns the foreign key. You need to define the reverse association as well.
 
 This option is considered legacy. We highly recommend using your database's triggers and notification system if you need to be notified of database changes.
 
