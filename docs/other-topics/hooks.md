@@ -273,10 +273,47 @@ Using this option is discouraged for the following reasons:
 - This option requires many extra queries. The `destroy` method normally executes a single query.
   If this option is enabled, an extra `SELECT` query, as well as an extra `DELETE` query for each row returned by the select will be executed.
 - If you do not run this query in a transaction, and an error occurs, you may end up with some rows deleted and some not deleted.
+- This option only works when the *instance* version of `destroy` is used. The static version will not trigger the hooks, even with `individualHooks`.
+- This option won't work in `paranoid` mode.
+- This option will not work if you only define the association on the model that has the primary key. You need to define the reverse association as well.
 
-We highly recommend using your database's triggers and notification system instead.
+This option is considered legacy. We highly recommend using your database's triggers and notification system if you need to be notified of database changes.
 
 :::
+
+Here is an example of how to use this option:
+
+```ts
+import { Model } from '@sequelize/core';
+import { HasMany, BeforeDestroy } from '@sequelize/core/decorators-legacy';
+
+class User extends Model {
+  // This "hooks" option will cause the "beforeDestroy" and "afterDestroy"
+  // highlight-next-line
+  @HasMany(() => Post, { hooks: true })
+  declare posts: Post[];
+}
+
+class Post extends Model {
+  @BeforeDestroy
+  static logDestroy() {
+    console.log('Post has been destroyed');
+  }
+}
+
+const sequelize = new Sequelize({
+  /* options */
+  models: [User, Post], 
+});
+
+await sequelize.sync({ force: true });
+
+const user = await User.create();
+const post = await Post.create({ userId: user.id });
+
+// this will log "Post has been destroyed"
+await user.destroy();
+```
 
 ## Hooks and Transactions
 

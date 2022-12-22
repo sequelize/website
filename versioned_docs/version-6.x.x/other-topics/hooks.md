@@ -336,6 +336,8 @@ If you need to react to these events, consider using your database's native trig
 
 ## Hooks for cascade deletes
 
+## Hooks for cascade deletes
+
 As indicated in [Exceptions](#exceptions), Sequelize will not trigger hooks when instances are deleted by the database because of an `ON DELETE CASCADE` constraint.
 
 However, if you set the `hooks` option to `true` when defining your association, Sequelize will trigger the `beforeDestroy` and `afterDestroy` hooks for the deleted instances.
@@ -347,10 +349,44 @@ Using this option is discouraged for the following reasons:
 - This option requires many extra queries. The `destroy` method normally executes a single query.
   If this option is enabled, an extra `SELECT` query, as well as an extra `DELETE` query for each row returned by the select will be executed.
 - If you do not run this query in a transaction, and an error occurs, you may end up with some rows deleted and some not deleted.
+- This option only works when the *instance* version of `destroy` is used. The static version will not trigger the hooks, even with `individualHooks`.
+- This option won't work in `paranoid` mode.
+- This option will not work if you only define the association on the model that has the primary key. You need to define the reverse association as well.
 
-We highly recommend using your database's triggers and notification system instead.
+This option is considered legacy. We highly recommend using your database's triggers and notification system if you need to be notified of database changes.
 
 :::
+
+Here is an example of how to use this option:
+
+```ts
+import { Model } from 'sequelize';
+
+const sequelize = new Sequelize({ /* options */ });
+
+class User extends Model {}
+
+User.init({}, { sequelize });
+
+class Post extends Model {}
+
+Post.init({}, { sequelize });
+Post.beforeDestroy(() => {
+  console.log('Post has been destroyed');
+});
+
+// This "hooks" option will cause the "beforeDestroy" and "afterDestroy"
+// highlight-next-line
+User.hasMany(Post, { onDelete: 'cascade', hooks: true });
+
+await sequelize.sync({ force: true });
+
+const user = await User.create();
+const post = await Post.create({ userId: user.id });
+
+// this will log "Post has been destroyed"
+await user.destroy();
+```
 
 ## Associations
 
