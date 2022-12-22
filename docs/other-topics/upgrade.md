@@ -316,6 +316,11 @@ User.belongsToMany(Country, {
 
 ## Minor Breaking changes
 
+### Renamed APIs
+
+- `QueryInterface` has been renamed to `AbstractQueryInterface`.
+- `ModelColumnAttributeOptions` has been renamed to `AttributeOptions`.
+
 ### TypeScript conversion
 
 One of the major foundational code changes of v7 is the migration to TypeScript.  
