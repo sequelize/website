@@ -253,12 +253,30 @@ User.destroy({
 Only __Model methods__ trigger hooks. This means there are a number of cases where Sequelize will interact with the database without triggering hooks.
 These include but are not limited to:
 
-- Instances being deleted by the database because of an `ON DELETE CASCADE` constraint.
+- Instances being deleted by the database because of an `ON DELETE CASCADE` constraint, [except if the `hooks` option is true](#hooks-for-cascade-deletes).
 - Instances being updated by the database because of a `SET NULL` or `SET DEFAULT` constraint.
 - [Raw queries](../core-concepts/raw-queries.md).
 - All QueryInterface methods.
 
 If you need to react to these events, consider using your database's native and notification system instead.
+
+## Hooks for cascade deletes
+
+As indicated in [Exceptions](#exceptions), Sequelize will not trigger hooks when instances are deleted by the database because of an `ON DELETE CASCADE` constraint.
+
+However, if you set the `hooks` option to `true` when defining your association, Sequelize will trigger the `beforeDestroy` and `afterDestroy` hooks for the deleted instances.
+
+:::caution
+
+Using this option is discouraged for the following reasons:
+
+- This option requires many extra queries. The `destroy` method normally executes a single query.
+  If this option is enabled, an extra `SELECT` query, as well as an extra `DELETE` query for each row returned by the select will be executed.
+- If you do not run this query in a transaction, and an error occurs, you may end up with some rows deleted and some not deleted.
+
+We highly recommend using your database's triggers and notification system instead.
+
+:::
 
 ## Hooks and Transactions
 
