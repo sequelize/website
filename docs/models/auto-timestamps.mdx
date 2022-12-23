@@ -21,10 +21,9 @@ A third Auto-generated Timestamp called `deletedAt` exists. It is used by [Paran
 
 :::
 
-Example:
+## TypeScript
 
-<Tabs>
-<TabItem value="ts" label="TypeScript">
+If you're using TypeScript, you'll want to type these attributes. You can do so by simply adding them to your model as follows:
 
 ```typescript
 import { InferCreationAttributes, InferAttributes, Model, CreationOptional } from '@sequelize/core';
@@ -33,95 +32,47 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
-
-User.init({
-  createdAt: DataTypes.DATE,
-  updatedAt: DataTypes.DATE,
-}, {
-  sequelize,
-});
 ```
 
-</TabItem>
-<TabItem value="js" label="JavaScript">
-
-```javascript
-import { Model } from '@sequelize/core';
-
-class User extends Model {}
-
-User.init({
-  // ... (attributes)
-}, {
-  sequelize,
-});
-```
-
-</TabItem>
-</Tabs>
+You don't need to decorate them, as they're automatically configured by Sequelize.
 
 ## Disabling Auto-Timestamp Attributes
 
-All auto-generated timestamp attributes can be disabled for a model by setting the `timestamps: false` option.
+All auto-generated timestamp attributes can be removed from your model by setting the [`timestamps`](pathname:///api/v7/interfaces/ModelOptions.html#timestamps) option to `false`:
 
-<Tabs>
-<TabItem value="classes" label="Using Classes">
+```ts
+// highlight-next-line
+@Table({ timestamps: false })
+class User extends Model {}
+```
+
+The `timestamps` option can also be disabled globally, on the `Sequelize` instance:
 
 ```js
 class User extends Model {}
 
-User.init({
-  // ... (attributes)
-}, {
-  timestamps: false,
-})
-```
-
-</TabItem>
-<TabItem value="define" label="Using Define">
-
-```js
-sequelize.define('User', {
-  // ... (attributes)
-}, {
-  timestamps: false,
-});
-```
-
-</TabItem>
-</Tabs>
-
-The `timestamps` option can also be set globally, on the `Sequelize` instance.
-
-```javascript
-const sequelize = new Sequelize('database', 'username', 'password', {
-  database: 'database',
-  username: 'username',
-  password: 'password',
-  dialect: 'postgres',
-
-  // define sets the default configuration options of all models.
+const sequelize = new Sequelize({
   define: {
-    // disable auto-generated timestamps in all models.
+    // highlight-next-line
     timestamps: false,
   },
+  models: [User],
 });
 ```
 
 It is also possible to disable only some auto-generated timestamp attributes
-by setting the `createdAt` or `updatedAt` option to false:
+by setting the [`createdAt`](pathname:///api/v7/interfaces/ModelOptions.html#createdAt) or [`updatedAt`](pathname:///api/v7/interfaces/ModelOptions.html#updatedAt) option to false:
 
 ```js
-class User extends Model {}
-
-User.init({
-  // ... (attributes)
-}, {
+@Table({
   // don't generate a "createdAt" attribute
+  // highlight-next-line
   createdAt: false,
   // don't generate an "updatedAt" attribute
+  // highlight-next-line
   updatedAt: false,
 })
+class User extends Model {}
 ```
 
 ## Renaming Auto-Timestamp Attributes
@@ -140,25 +91,22 @@ Changing the *attribute name* is done by setting the `createdAt`, `updatedAt`, o
 
 ```typescript
 import { InferCreationAttributes, InferAttributes, Model, CreationOptional } from '@sequelize/core';
+import { Table } from '@sequelize/core/decorators-legacy';
 
+@Table({
+  // set these options to change the attribute name (the JS name).
+  // highlight-next-line
+  createdAt: 'creationDate',
+  // highlight-next-line
+  updatedAt: 'lastUpdateDate',
+  // This one can only be set on Paranoid Models
+  // highlight-next-line
+  deletedAt: 'deletionDate',
+})
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare creationDate: CreationOptional<Date>;
   declare lastUpdateDate: CreationOptional<Date>;
 }
-
-User.init({
-  creationDate: DataTypes.DATE,
-  lastUpdateDate: DataTypes.DATE,
-}, {
-  sequelize,
-
-  // set these options to change the attribute name (the JS name).
-
-  createdAt: 'creationDate',
-  updatedAt: 'lastUpdateDate',
-  // for Paranoid Models
-  // deletedAt: 'deletionDate',
-});
 ```
 
 </TabItem>
@@ -166,22 +114,19 @@ User.init({
 
 ```javascript
 import { Model } from '@sequelize/core';
+import { Table } from '@sequelize/core/decorators-legacy';
 
-class User extends Model {
-}
-
-User.init({
-  /* attributes */
-}, {
-  sequelize,
-
+@Table({
   // set these options to change the attribute name (the JS name).
-
+  // highlight-next-line
   createdAt: 'creationDate',
+  // highlight-next-line
   updatedAt: 'lastUpdateDate',
-  // for Paranoid Models
-  // deletedAt: 'deletionDate',
-});
+  // This one can only be set on Paranoid Models
+  // highlight-next-line
+  deletedAt: 'deletionDate',
+})
+class User extends Model {}
 ```
 
 </TabItem>
@@ -189,13 +134,15 @@ User.init({
 
 ### Changing the Column Name
 
-Changing the Column Name is done by setting the `field` option on the attribute in `Model.init` or `sequelize.define`.
+Changing the Column Name is done by using the `@ColumnName` decorator on the timestamp attribute.  
+If `@ColumnName` is not used, the Column Name will be automatically inferred from the Attribute Name.
 
-:::info
+Read more on this in [the Naming Strategies API](./naming-strategies.mdx) documentation.
 
-If the `field` option is not set, the Column Name will be automatically inferred from the Attribute Name.
+:::note
 
-Read more on this in [Configuring Column & Table names](./sql-name-inference.mdx)
+Notice how in the example below, we do not configure the data type or the nullability of these attributes. These properties will
+be configured automatically by Sequelize.
 
 :::
 
@@ -203,37 +150,26 @@ Read more on this in [Configuring Column & Table names](./sql-name-inference.mdx
 <TabItem value="ts" label="TypeScript">
 
 ```typescript
-import { InferCreationAttributes, InferAttributes, Model, CreationOptional } from '@sequelize/core';
+import { Model, InferCreationAttributes, InferAttributes, CreationOptional } from '@sequelize/core';
+import { ColumnName } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  // sets the Database name to 'created_at'
+  // highlight-next-line
+  @ColumnName('created_at')
   declare createdAt: CreationOptional<Date>;
+
+  // sets the Database name to 'updated_at'
+  // highlight-next-line
+  @ColumnName('updated_at')
   declare updatedAt: CreationOptional<Date>;
-}
-
-User.init({
-  createdAt: {
-    type: DataTypes.DATE,
-
-    // sets the Database name to 'created_at'
-    field: 'created_at',
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-
-    // sets the Database name to 'updated_at'
-    field: 'updated_at',
-  },
 
   // for Paranoid Models
-  // deletedAt: {
-  //   type: DataTypes.DATE,
-  //
-  //   // sets the Database name to 'deleted_at'
-  //   field: 'deleted_at',
-  // },
-}, {
-  sequelize,
-});
+  // sets the Database name to 'deleted_at'
+  // highlight-next-line
+  @ColumnName('deleted_at')
+  declare deletedAt: Date | null;
+}
 ```
 
 </TabItem>
@@ -241,22 +177,25 @@ User.init({
 
 ```javascript
 import { Model } from '@sequelize/core';
+import { ColumnName } from '@sequelize/core/decorators-legacy';
 
 class User extends Model {
-}
+  // sets the Database name to 'created_at'
+  // highlight-next-line
+  @ColumnName('created_at')
+  createdAt;
 
-User.init({
-  /* attributes */
-}, {
-  sequelize,
+  // sets the Database name to 'updated_at'
+  // highlight-next-line
+  @ColumnName('updated_at')
+  updatedAt;
 
-  // set these options to change the attribute name (the JS name).
-
-  createdAt: 'creationDate',
-  updatedAt: 'lastUpdateDate',
   // for Paranoid Models
-  // deletedAt: 'deletionDate',
-});
+  // sets the Database name to 'deleted_at'
+  // highlight-next-line
+  @ColumnName('deleted_at')
+  deletedAt;
+}
 ```
 
 </TabItem>

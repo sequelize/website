@@ -77,19 +77,7 @@ On the other hand, constraints are rules defined at SQL level. The most basic ex
 
 ## Unique Constraint
 
-Our code example above defines a unique constraint on the `username` field:
-
-```js
-/* ... */ {
-  username: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-    unique: true
-  },
-} /* ... */
-```
-
-When this model is synchronized (by calling `sequelize.sync` for example), the `username` field will be created in the table as `` `username` TEXT UNIQUE``, and an attempt to insert an username that already exists there will throw a `SequelizeUniqueConstraintError`.
+Unique constraints are created as unique indexes in the database. Read more about them in the [documentation on Indexes](./indexes.md#unique-indexes).
 
 ## Allowing/disallowing null values
 

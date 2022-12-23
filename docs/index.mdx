@@ -30,29 +30,30 @@ You are currently looking at the **Tutorials and Guides** for Sequelize. You mig
 <Tabs>
 <TabItem value="ts" label="TypeScript">
 
-```javascript
+```typescript
 import { Sequelize, Model, DataTypes, InferAttributes, InferCreationAttributes } from '@sequelize/core';
-
-const sequelize = new Sequelize('sqlite::memory:');
+import { Attribute } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attribute(DataTypes.STRING)
   declare username: string | null;
+
+  @Attribute(DataTypes.DATE)
   declare birthday: Date | null;
 }
 
-User.init({
-  username: DataTypes.STRING,
-  birthday: DataTypes.DATE
-}, { sequelize, modelName: 'user' });
+const sequelize = new Sequelize('sqlite::memory:', {
+  models: [User],
+});
 
-(async () => {
-  await sequelize.sync();
-  const jane = await User.create({
-    username: 'janedoe',
-    birthday: new Date(1980, 6, 20),
-  });
-  console.log(jane.toJSON());
-})();
+await sequelize.sync();
+
+const jane = await User.create({
+  username: 'janedoe',
+  birthday: new Date(1980, 6, 20),
+});
+
+console.log(jane.toJSON());
 ```
 
 </TabItem>

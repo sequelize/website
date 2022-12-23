@@ -6,6 +6,7 @@ sidebar_label: Defining a Model
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import DecoratorInfo from '../_fragments/_decorator-info.mdx';
+import JsDefaultCaution from '../_fragments/_js-default-caution.mdx';
 
 # Model Basics
 
@@ -24,14 +25,6 @@ while tables have pluralized names (such as `users`), although this is fully con
 Each instance of a model maps to one row of the table in the database. Basically, model instances are [DAOs](https://en.wikipedia.org/wiki/Data_access_object).
 
 ## Defining a Model
-
-:::warning Issue with Public Class Fields
-
-Sequelize currently has a bug where adding a Public Class Field shadows the setter & getters that sequelize adds for all model attributes. 
-
-[We are working on this issue](https://github.com/sequelize/meetings/issues/16). Until we've resolved that issue, you can use the workaround described in [this comment](https://github.com/sequelize/sequelize-typescript/issues/778#issuecomment-1007615424).
-
-:::
 
 This chapter will go into detail about how to create a model in Sequelize.
 Sequelize uses a class-based approach to define models, and makes heavy uses of decorators to define the model's metadata.
@@ -94,7 +87,10 @@ export class User extends Model {
 </TabItem>  
 </Tabs>
 
-Many decorators are available to configure an attribute. [You can find the list of decorators here](./decorators.mdx).
+Many decorators are available to configure an attribute. [You can find the list of decorators here](./decorators.mdx).  
+You can also [define associations between models](../associations/basics.md), which will be covered in a following chapter.
+
+### Initializing the Model
 
 After defining the model, you need to initialize it. This is done by passing it to the Sequelize constructor:
 
@@ -127,122 +123,354 @@ export const sequelize = new Sequelize('sqlite::memory:', {
 
 ### Without Decorators
 
-:::note
-
-This subsection will only present how to define a model without using decorators.
-You should read [the previous section](#defining-a-model) first to get an overview of how to define a model.
-
-:::
-
-**TODO: STUB SECTION, API MISSING**
-
-### Legacy Definition methods
-
 If you're working on a project that was created before Sequelize 7, you're likely using the old way of defining models.
 This is still supported, but we recommend to use the [new way of defining models](#defining-a-model).
 
+If you do not want to use decorators, you can continue to use the old way of defining models.  
 Head to [our page about Legacy Model Definitions](../other-topics/legacy-model-definitions.mdx) to learn more about the old API.
-
-## Default Values
-
-By default, Sequelize assumes that the default value of a column is `null`. This behavior can be changed by passing a specific `defaultValue` to the column definition:
-
-```js
-sequelize.define('User', {
-  name: {
-    type: DataTypes.STRING,
-    defaultValue: "John Doe"
-  }
-});
-```
-
-Some special values, such as [`DataTypes.NOW`](./data-types.mdx#built-in-default-values-for-dates) and [`DataTypes.UUIDV4`](./data-types.mdx#built-in-default-values-for-uuid), are also accepted:
-
-```js
-sequelize.define('Foo', {
-  bar: {
-    type: DataTypes.DATETIME,
-    defaultValue: DataTypes.NOW
-    // This way, the current date/time will be used to populate this column (at the moment of insertion)
-  }
-});
-```
 
 ## Column Data Types
 
 Every attribute you define in your model must have a data type.
-e.g. an attribute with a type `DataTypes.INTEGER` will result in a column of type `integer`.
+
+The data type defines the type of your column. e.g. an attribute with a type `DataTypes.INTEGER` will result in a column of type `INTEGER`.
 
 [The list of supported Data Types is available here](./data-types.mdx).
 
-## Column Options
+## Nullability
 
-When defining a column, apart from specifying the `type` of the column, and the `allowNull` and `defaultValue` options mentioned above, there are a lot more options that can be used. Some examples are below.
+Just like in SQL, attributes are nullable by default in Sequelize
+
+You can change this behavior by using the `@NotNull` decorator:
+
+<Tabs>
+<TabItem value="ts" label="TypeScript">
+
+```ts
+import { DataTypes, Model, InferAttributes, InferCreationAttributes } from '@sequelize/core';
+import { Attribute, NotNull } from '@sequelize/core/decorators-legacy';
+
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attribute(DataTypes.STRING)
+  // highlight-next-line
+  @NotNull
+  declare firstName: string;
+  
+  @Attribute(DataTypes.STRING)
+  declare lastName: string | null;
+}
+```
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
 
 ```js
-import { Model, DataTypes, Deferrable } from '@sequelize/core';
+import { DataTypes, Model } from '@sequelize/core';
+import { Attribute, NotNull, Default } from '@sequelize/core/decorators-legacy';
 
-class Foo extends Model {}
-Foo.init({
-  // instantiating will automatically set the flag to true if not set
-  flag: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true },
+class User extends Model {
+  // This attribute is non-null
+  @Attribute(DataTypes.STRING)
+  // highlight-next-line
+  @NotNull
+  firstName;
+  
+  // This attribute is nullable
+  @Attribute(DataTypes.STRING)
+  lastName;
+}
+```
 
-  // default values for dates => current time
-  myDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+</TabItem>  
+</Tabs>
 
-  // setting allowNull to false will add NOT NULL to the column, which means an error will be
-  // thrown from the DB when the query is executed if the column is null. If you want to check that a value
-  // is not null before querying the DB, look at the validations section below.
-  title: { type: DataTypes.STRING, allowNull: false },
+## Default Values
 
-  // Creating two objects with the same value will throw an error. The unique property can be either a
-  // boolean, or a string. If you provide the same string for multiple columns, they will form a
-  // composite unique key.
-  uniqueOne: { type: DataTypes.STRING,  unique: 'compositeIndex' },
-  uniqueTwo: { type: DataTypes.INTEGER, unique: 'compositeIndex' },
+By default, Sequelize assumes that the default value of a column is `null`.
+This behavior can be changed by using the `@Default` decorator:
 
-  // The unique property is simply a shorthand to create a unique constraint.
-  someUnique: { type: DataTypes.STRING, unique: true },
+<Tabs>
+<TabItem value="ts" label="TypeScript">
 
-  // Go on reading for further information about primary keys
-  identifier: { type: DataTypes.STRING, primaryKey: true },
+```ts
+import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import { Attribute, NotNull, Default } from '@sequelize/core/decorators-legacy';
 
-  // autoIncrement can be used to create auto_incrementing integer columns
-  incrementMe: { type: DataTypes.INTEGER, autoIncrement: true },
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  // highlight-next-line
+  @Default('John')
+  declare firstName: CreationOptional<string>;
+}
+```
 
-  // You can specify a custom column name via the 'field' attribute:
-  fieldWithUnderscores: { type: DataTypes.STRING, field: 'field_with_underscores' },
+:::info `CreationOptional`
 
-  // It is possible to create foreign keys:
-  bar_id: {
-    type: DataTypes.INTEGER,
+If you use `@Default`, your attribute won't need to be specified when calling methods such as `User.create`.  
+To let TypeScript know that this attribute has a default value, you can use the [`CreationOptional`](pathname:///api/v7/types/CreationOptional.html) type, like in the example above.
 
-    references: {
-      // This is a reference to another model
-      model: Bar,
+:::
 
-      // This is the column name of the referenced model
-      key: 'id',
+</TabItem>
+<TabItem value="js" label="JavaScript">
 
-      // With PostgreSQL, it is optionally possible to declare when to check the foreign key constraint, passing the Deferrable type.
-      deferrable: Deferrable.INITIALLY_IMMEDIATE
-      // Options:
-      // - `Deferrable.INITIALLY_IMMEDIATE` - Immediately check the foreign key constraints
-      // - `Deferrable.INITIALLY_DEFERRED` - Defer all foreign key constraint check to the end of a transaction
-      // - `Deferrable.NOT` - Don't defer the checks at all (default) - This won't allow you to dynamically change the rule in a transaction
-    }
-  },
+```js
+import { DataTypes, Model } from '@sequelize/core';
+import { Attribute, NotNull, Default } from '@sequelize/core/decorators-legacy';
 
-  // Comments can only be added to columns in MySQL, MariaDB, PostgreSQL and MSSQL
-  commentMe: {
-    type: DataTypes.INTEGER,
-    comment: 'This is a column name that has a comment'
-  }
-}, {
-  sequelize,
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  // highlight-next-line
+  @Default('John')
+  firstName;
+}
+```
 
-  // Using `unique: true` in an attribute above is exactly the same as creating the index in the model's options:
-  indexes: [{ unique: true, fields: ['someUnique'] }]
+</TabItem>  
+</Tabs>
+
+### Dynamic JS default values
+
+Instead of a static value, you can also use a JavaScript function that sequelize will call every time a new instance is created. Sequelize provides 3 built-in functions that you can use, but a custom function can be used as well:
+
+- [`DataTypes.NOW`](./data-types.mdx#built-in-default-values-for-dates) for the current timestamp
+- [`DataTypes.UUIDV4`](./data-types.mdx#built-in-default-values-for-uuid) for a UUIDv4
+- [`DataTypes.UUIDV1`](./data-types.mdx#built-in-default-values-for-uuid) for a UUIDv1
+
+<JsDefaultCaution />
+
+<Tabs>
+<TabItem value="ts" label="TypeScript">
+
+```ts
+import uniqid from 'uniqid';
+import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import { Attribute, NotNull, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
+
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @PrimaryKey
+  @Attribute(DataTypes.STRING(18))
+  // Generate a new ID every time a new instance is created
+  // highlight-next-line
+  @Default(() => uniqid())
+  declare id: CreationOptional<string>;
+
+  @Attribute(DataTypes.DATE)
+  @NotNull
+  // The current date/time will be used to populate this column at the moment of insertion
+  // highlight-next-line
+  @Default(DataTypes.NOW)
+  declare registeredAt: CreationOptional<Date>;
+}
+```
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
+
+```js
+import uniqid from 'uniqid';
+import { DataTypes, Model } from '@sequelize/core';
+import { Attribute, NotNull, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
+
+class User extends Model {
+  @PrimaryKey
+  @Attribute(DataTypes.STRING(18))
+  // Generate a new ID every time a new instance is created
+  // highlight-next-line
+  @Default(() => uniqid())
+  id;
+
+  @Attribute(DataTypes.DATE)
+  @NotNull
+  // The current date/time will be used to populate this column at the moment of insertion
+  // highlight-next-line
+  @Default(DataTypes.NOW)
+  registeredAt;
+}
+```
+
+</TabItem>  
+</Tabs>
+
+### Dynamic SQL default values
+
+You can also use a SQL function as a default value using either [`fn`](pathname:///api/v7/functions/fn-1.html) or [`literal`](../querying/raw-queries.md#literals-raw-sql). 
+This has the advantage over [dynamic JS default values](#dynamic-js-default-values) that the function will always be called, since it is handled by the database, not by Sequelize.
+
+For instance, if your dialect provides a built-in SQL function to generate UUIDs, you can use `fn` to set a default value on the SQL layer:
+
+<Tabs>
+<TabItem value="ts" label="TypeScript">
+
+```ts
+import { DataTypes, Model, fn, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import { Attribute, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
+
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @PrimaryKey
+  @Attribute(DataTypes.UUID)
+  // 'uuid_generate_v4' is only available in postgres + uuid-ossp
+  // other dialects may support this function under different names.
+  // highlight-next-line
+  @Default(fn('uuid_generate_v4'))
+  declare id: CreationOptional<string>;
+}
+```
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
+
+```js
+import { DataTypes, Model, fn } from '@sequelize/core';
+import { Attribute, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
+
+class User extends Model {
+  @PrimaryKey
+  @Attribute(DataTypes.UUID)
+  // 'uuid_generate_v4' is only available in postgres + uuid-ossp
+  // other dialects may support this function under different names.
+  // highlight-next-line
+  @Default(fn('uuid_generate_v4'))
+  id;
+}
+```
+
+</TabItem>  
+</Tabs>
+
+## Primary Keys
+
+Sequelize automatically adds an auto-incremented integer attribute called `id` as primary key if none is specified.  
+
+If you want to use a different attribute, type, or want to use a composite primary key, you can use the `@PrimaryKey` decorator:
+
+<Tabs>
+<TabItem value="ts" label="TypeScript">
+
+```ts
+import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import { Attribute, PrimaryKey, AutoIncrement } from '@sequelize/core/decorators-legacy';
+
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attribute(DataTypes.INTEGER)
+  // highlight-next-line
+  @PrimaryKey
+  // highlight-next-line
+  @AutoIncrement
+  declare internalId: CreationOptional<number>;
+}
+```
+
+:::info `CreationOptional`
+
+If you use `@AutoIncrement`, your attribute won't need to be specified when calling methods such as `User.create`.  
+To let TypeScript know that this attribute has a default value, you can use the [`CreationOptional`](pathname:///api/v7/types/CreationOptional.html) type, like in the example above.
+
+:::
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
+
+```ts
+import { DataTypes, Model } from '@sequelize/core';
+import { Attribute, PrimaryKey, AutoIncrement } from '@sequelize/core/decorators-legacy';
+
+class User extends Model {
+  @Attribute(DataTypes.INTEGER)
+  // highlight-next-line
+  @PrimaryKey
+  // highlight-next-line
+  @AutoIncrement
+  internalId;
+}
+```
+
+</TabItem>
+</Tabs>
+
+The `@AutoIncrement` decorator can also be used on primary key columns to make them auto-incremented.
+
+You table cannot have a primary key? See [How to remove the primary key](./advanced.mdx#prevent-creating-a-default-pk-attribute).
+
+### Composite Primary Keys
+
+Composite primary keys are supported by using the `@PrimaryKey` decorator on multiple attributes:
+
+<Tabs>
+<TabItem value="ts" label="TypeScript">
+
+```ts
+import { DataTypes, Model, InferAttributes, InferCreationAttributes } from '@sequelize/core';
+import { Attribute, PrimaryKey } from '@sequelize/core/decorators-legacy';
+
+class UserRole extends Model<InferAttributes<UserRole>, InferCreationAttributes<UserRole>> {
+  @Attribute(DataTypes.INTEGER)
+  // highlight-next-line
+  @PrimaryKey
+  declare userId: number;
+
+  @Attribute(DataTypes.INTEGER)
+  // highlight-next-line
+  @PrimaryKey
+  declare roleId: number;
+}
+```
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
+
+```js
+import { DataTypes, Model } from '@sequelize/core';
+import { Attribute, PrimaryKey } from '@sequelize/core/decorators-legacy';
+
+class UserRole extends Model {
+  @Attribute(DataTypes.INTEGER)
+  // highlight-next-line
+  @PrimaryKey
+  userId;
+
+  @Attribute(DataTypes.INTEGER)
+  // highlight-next-line
+  @PrimaryKey
+  roleId;
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Table & Column names
+
+Head to the [Naming Strategies API](./naming-strategies.mdx) page to learn how to customize the names of your tables and columns.
+
+## Database schema
+
+By default, Sequelize places your table in your database's default schema. You can specify a different schema by using the `schema` model option:
+
+```typescript
+import { Model } from '@sequelize/core';
+import { Table } from '@sequelize/core/decorators-legacy';
+
+// This model's table will be created in the "public" schema
+// highlight-next-line
+@Table({ schema: 'public' })
+export class User extends Model {}
+```
+
+You can also change the default schema for all models by setting the `schema` option in the `Sequelize` constructor:
+
+```js
+import { Model, Sequelize } from '@sequelize/core';
+
+class User extends Model {}
+
+const sequelize = new Sequelize({
+  // All models that don't specify a schema will be created in the "public" schema by default
+  // highlight-next-line
+  schema: 'public',
+  models: [User],
 });
 ```
 
@@ -263,11 +491,17 @@ You can very easily add custom instance or class level methods.
 <TabItem value="ts" label="TypeScript">
 
 ```typescript
-import { InferCreationAttributes, InferAttributes, Model } from '@sequelize/core';
+import { Model, InferCreationAttributes, InferAttributes } from '@sequelize/core';
+import { Attribute, NotNull } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  declare firstname: string | null;
-  declare lastname: string | null;
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare firstname: string;
+  
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare lastname: string;
 
   instanceLevelMethod() {
     return 'bar';
@@ -282,10 +516,9 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   }
 }
 
-User.init({
-  firstname: Sequelize.TEXT,
-  lastname: Sequelize.TEXT
-}, { sequelize });
+const sequelize = new Sequelize('sqlite::memory:', {
+  models: [User],
+});
 
 console.log(User.classLevelMethod()); // 'foo'
 const user = User.build({ firstname: 'Jane', lastname: 'Doe' });
@@ -296,10 +529,19 @@ console.log(user.getFullname()); // 'Jane Doe'
 </TabItem>
 <TabItem value="js" label="JavaScript">
 
-```typescript
+```javascript
 import { Model } from '@sequelize/core';
+import { Attribute, NotNull } from '@sequelize/core/decorators-legacy';
 
 class User extends Model {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  firstname;
+
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  lastname;
+
   instanceLevelMethod() {
     return 'bar';
   }
@@ -313,10 +555,9 @@ class User extends Model {
   }
 }
 
-User.init({
-  firstname: Sequelize.TEXT,
-  lastname: Sequelize.TEXT
-}, { sequelize });
+const sequelize = new Sequelize('sqlite::memory:', {
+  models: [User],
+});
 
 console.log(User.classLevelMethod()); // 'foo'
 const user = User.build({ firstname: 'Jane', lastname: 'Doe' });
@@ -326,3 +567,10 @@ console.log(user.getFullname()); // 'Jane Doe'
 
 </TabItem>
 </Tabs>
+
+## Where to go from here?
+
+A good next step is to [synchronise your models with the database](./model-synchronization.md), after which you'll be able to [create, read, update and delete](../querying/insert.md) your models.
+
+Alternatively, find out how to [define associations](../associations/basics.md) between models, learn about [indexes](./indexes.md), [constraints](./validations-and-constraints.md), and other advanced features,
+or take a look at the API Reference of the [`@Attribute`](pathname:///api/v7/interfaces/AttributeOptions.html) and [`@Table`](pathname:///api/v7/interfaces/ModelOptions.html) decorators to learn about the many more options they offer to customize your attributes and models.

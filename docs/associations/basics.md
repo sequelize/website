@@ -800,3 +800,73 @@ The trick to deciding between `sourceKey` and `targetKey` is just to remember wh
 * `A.hasOne(B)` and `A.hasMany(B)` keep the foreign key in the target model (`B`), therefore the referenced key is in the source model, hence the usage of `sourceKey`.
 
 * `A.belongsToMany(B)` involves an extra table (the junction table), therefore both `sourceKey` and `targetKey` are usable, with `sourceKey` corresponding to some field in `A` (the source) and `targetKey` corresponding to some field in `B` (the target).
+
+### When retrieving data from eager loading
+
+When you perform an `include` in a query, the included data will be added to an extra field in the returned objects, according to the following rules:
+
+* When including something from a single association (`hasOne` or `belongsTo`) - the field name will be the singular version of the model name;
+* When including something from a multiple association (`hasMany` or `belongsToMany`) - the field name will be the plural form of the model.
+
+In short, the name of the field will take the most logical form in each situation.
+
+Examples:
+
+```js
+// Assuming Foo.hasMany(Bar)
+const foo = Foo.findOne({ include: Bar });
+// foo.bars will be an array
+// foo.bar will not exist since it doens't make sense
+
+// Assuming Foo.hasOne(Bar)
+const foo = Foo.findOne({ include: Bar });
+// foo.bar will be an object (possibly null if there is no associated model)
+// foo.bars will not exist since it doens't make sense
+
+// And so on.
+```
+
+### Overriding singulars and plurals when defining aliases
+
+When defining an alias for an association, instead of using simply `{ as: 'myAlias' }`, you can pass an object to specify the singular and plural forms:
+
+```js
+Project.belongsToMany(User, {
+  as: {
+    singular: 'líder',
+    plural: 'líderes'
+  }
+});
+```
+
+If you know that a model will always use the same alias in associations, you can provide the singular and plural forms directly to the model itself:
+
+```js
+const User = sequelize.define('User', { /* ... */ }, {
+  name: {
+    singular: 'líder',
+    plural: 'líderes',
+  }
+});
+Project.belongsToMany(User);
+```
+
+The mixins added to the user instances will use the correct forms. For example, instead of `project.addUser()`, Sequelize will provide `project.getLíder()`. Also, instead of `project.setUsers()`, Sequelize will provide `project.setLíderes()`.
+
+Note: recall that using `as` to change the name of the association will also change the name of the foreign key. Therefore it is recommended to also specify the foreign key(s) involved directly in this case.
+
+```js
+// Example of possible mistake
+Invoice.belongsTo(Subscription, { as: 'TheSubscription' });
+Subscription.hasMany(Invoice);
+```
+
+The first call above will establish a foreign key called `theSubscriptionId` on `Invoice`. However, the second call will also establish a foreign key on `Invoice` (since as we know, `hasMany` calls places foreign keys in the target model) - however, it will be named `subscriptionId`. This way you will have both `subscriptionId` and `theSubscriptionId` columns.
+
+The best approach is to choose a name for the foreign key and place it explicitly in both calls. For example, if `subscription_id` was chosen:
+
+```js
+// Fixed example
+Invoice.belongsTo(Subscription, { as: 'TheSubscription', foreignKey: 'subscription_id' });
+Subscription.hasMany(Invoice, { foreignKey: 'subscription_id' });
+```
