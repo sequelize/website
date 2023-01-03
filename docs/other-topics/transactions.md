@@ -186,6 +186,8 @@ For managed transactions, use `sequelize.transaction(options, callback)`.
 
 ## Isolation levels
 
+Isolation levels is used in transactions to defines one transaction is isolated with the others. It's describe the different types of performance trade-offs between the isolated transactions.
+
 The possible isolations levels to use when starting a transaction:
 
 ```js
