@@ -10,7 +10,7 @@ Upgrading from Sequelize v5? [Check out our 'Upgrade to v6' guide](/docs/v6/othe
 
 :::
 
-## Breaking Changes
+## Main Breaking Changes
 
 ### Main project renamed to @sequelize/core
 
@@ -32,7 +32,7 @@ await sequelize.authenticate();
 Sequelize v7 only supports the versions of Node.js, and databases that were not EOL at the time of release.[^issue-1]  
 Sequelize v7 also supports versions of TypeScript that were released in the past year prior to the time of release.
 
-This means Sequelize v7 supports **Node ^14.17.0 || >=16.0.0**, and **TypeScript >= 4.4**.
+This means Sequelize v7 supports **Node ^14.17.0 || >=16.0.0**, and **TypeScript >= 4.5**.
 
 Head to our [Versioning Policy page](/releases) to see exactly which databases are supported by Sequelize v7.
 
@@ -61,6 +61,20 @@ import { Model } from '@sequelize/core/_non-semver-use-at-your-own-risk_/model.j
 ```
 
 If you do that, we recommend pinning the Sequelize version your project uses as **breaking changes can be introduced in these files** in any new release of Sequelize, including patch.
+
+### CLS Transactions
+
+*Pull Request [#15292]*
+
+:::info
+
+[CLS Transactions](../other-topics/transactions.md#automatically-pass-transactions-to-all-queries) are now enabled by default.
+You can use the [`disableClsTransactions`](pathname:///api/v7/interfaces/Options.html#disableClsTransactions) global option to disable them.
+
+:::
+
+Sequelize's CLS implementation has been migrated to use Node's built-in AsyncLocalStorage. This means you do not need to install the `continuation-local-storage` or `cls-hooked` packages anymore,
+and that the `Sequelize.useCLS` method has been removed.
 
 ### `$bind` parameters in strings must not be escaped anymore
 
@@ -115,9 +129,344 @@ Will still be transformed into the following in both v6 and v7:
 SELECT * FROM users WHERE id = ?;
 ```
 
+### DataTypes rewrite
+
+*Pull Request [#14505]*
+
+As part of our migration to TypeScript, Data Types have been completely rewritten to be more TypeScript-friendly, 
+and make them more powerful.
+
+If you have written custom data types, you will need to rewrite them to use the new API. All methods have been renamed,
+and new ones have been added. You can find the new API in the [Custom Data Types documentation](./extending-data-types.md).
+
+Other changes:
+
+- Which SQL Data Type corresponds to each Sequelize Data Type has also been changed. Refer to [our list of Data Types](../other-topics/other-data-types.mdx) for an up-to-date description.
+- Type validation is now enabled by default. The `typeValidation` sequelize option has been renamed to `noTypeValidation`.
+- Integer Data Types will throw an error if they receive a JavaScript number bigger than `MAX_SAFE_INTEGER` or smaller than `MIN_SAFE_INTEGER`.
+- `DataTypes.NUMERIC` has been removed, use `DataTypes.DECIMAL` instead.
+- `DataTypes.NUMBER` has been removed (it had no real use).
+- `DataTypes['DOUBLE PRECISION']` has been removed, use `DataTypes.DOUBLE` instead.
+- `DataTypes.JSONTYPE` has been removed, use `DataTypes.JSON` instead.
+- Dates are now returned as strings instead of JavaScript dates if no Sequelize Data Type is associated to that column.
+  This is usually the case when executing raw queries without specifying a model, or when the attribute does not have a corresponding attribute in the model definition.
+- `DataTypes.BOOLEAN` only accepts `true` & `false` (and `null` for nullable columns).
+- String DataTypes (`STRING`, `CITEXT`, `TEXT`, `CHAR`) only accept strings. Other values will not be stringified anymore.
+- `DataTypes.DECIMAL` is now intended to be an "unconstrained decimal", and throws in dialects that do not support such a Data Type.
+- `DataTypes.FLOAT(precision)` has been removed. It used to be a way to select between single-precision floats & double-precision floats. You must now use `DataTypes.FLOAT` and `DataTypes.DOUBLE`
+- `DataTypes.DECIMAL`, `DataTypes.DOUBLE` and `DataTypes.FLOAT` now throw if the `precision` parameter is set, but not the `scale` parameter.
+- `DataTypes.BIGINT` and `DataTypes.DECIMAL` values are always returned as strings instead of JS numbers.
+- `DataTypes.CHAR.BINARY` and `DataTypes.STRING.BINARY` now mean "chars with a binary collation" and throw in dialects that do not support collations.
+- **SQLite**: All Data Types are now named after one of the [6 strict data types](https://www.sqlite.org/stricttables.html).
+- **SQLite**: `DataTypes.CHAR` has been removed, as SQLite doesn't provide a fixed-length `CHAR` type. 
+- **SQL Server**: `DataTypes.UUID` now maps to `UNIQUEIDENTIFIER` instead of `CHAR(36)`.
+
+### Cannot define values of `DataTypes.ENUM` separately
+
+The "values" property has been removed from column definitions. The following is no longer supported:
+
+```typescript
+sequelize.define('MyModel', {
+  roles: { 
+    type: DataTypes.ENUM,
+    values: ['admin', 'user'],
+  },
+});
+```
+
+Instead, specify enum values like this:
+
+```typescript
+sequelize.define('MyModel', {
+  roles: {
+    type: DataTypes.ENUM(['admin', 'user']),
+  },
+});
+```
+
+### `DataTypes.DATE` date parsing
+
+When using strings instead of `Date` instances with `DataTypes.DATE`, Sequelize parses that string into a `Date` for you. This means the following query is valid:
+
+```ts
+const MyModel = sequelize.define('MyModel', {
+  date: DataTypes.DATE,
+});
+
+await MyModel.findOne({ where: { date: '2022-11-06T00:00:00Z' } });
+```
+
+In Sequelize 6, an input such as `2022-11-06` was parsed as local time. If your server's timezone were GMT+1, that input would have resulted in `2022-11-05T23:00:00.000Z`.
+
+Starting with Sequelize 7, that input is parsed as UTC and results in `2022-11-06T00:00:00.000Z` no matter the timezone of your server.
+
+### Associations names are now unique
+
+*Pull Request [#14280]*
+
+This is a minor change, but trying to define two associations with the same name will now throw:
+
+```typescript
+Project.belongsTo(User, { as: 'owner' });
+Project.belongsTo(User, { as: 'owner' });
+```
+
+Doing this was already very broken in v6 because the association methods added to `Project`, such as `project.getOwner`,
+belonged to the first association, while [`Project.associations.owner`](pathname:///api/v7/classes/model#associations) was equal to the second association.
+
+### Association resolution in `include`
+
+*Pull Request [#14280]*
+
+In Sequelize v6, these two were considered to be different associations:
+
+```typescript
+User.hasMany(Project, { as: 'projects' });
+User.hasMany(Project);
+```
+
+And you could distinguish them when eager-loading them by specifying the [`as`](pathname:///api/v7/interfaces/includeoptions#as) option in your [`include`](pathname:///api/v7/interfaces/findoptions#include) too:
+
+```typescript
+await User.findAll({
+  include: [{
+    model: Project,
+    as: 'projects',
+  }, {
+    model: Project,
+  }],
+})
+```
+
+This caused issues, because they still shared the same association name.
+Resulting in inconsistent values for [`User.associations.projects`](pathname:///api/v7/classes/model#associations), and association mixin methods (e.g. `user.getProjects()`).
+Both would also try to eager-load under the same key.
+
+In Sequelize v7, the [`as`](pathname:///api/v7/interfaces/includeoptions#as) parameter now defaults to the plural name of the target model (in this scenario, `projects`) for multi associations (`hasMany`, `belongsToMany`), 
+and the singular name of the model otherwise.
+
+As a consequence, how `include` is resolved has changed too: 
+You can only omit the [`as`](pathname:///api/v7/interfaces/includeoptions#as) parameter if no more than one association has been defined between the two models.
+
+This change also means that the [`include.association`](pathname:///api/v7/interfaces/includeoptions#association) option is the best way to specify
+your association, and we recommend always using it over a combination of `as` + `model`. `as` has also been deprecated in favor of `association`.
+
+```typescript
+// Don't use `as` or `model`, use this instead:
+await User.findAll({
+  include: [User.associations.projects],
+});
+
+// Or provide the name of the association as a string:
+await User.findAll({
+  include: ['projects'],
+});
+
+// If you need to specify more options:
+await User.findAll({
+  include: [{
+    association: 'projects',
+  }],
+});
+```
+
+### Bidirectional Association Options
+
+*Pull Request [#14280]*
+
+In Sequelize 6, associations are a bit fuzzy: 
+Defining an association on both sides of the association would attempt to merge and reconcile their options.
+
+The problem is that if the options did not perfectly match,
+you could end up with different behaviors based on which association was declared first.
+Something that can happen easily if both associations are declared in different files, 
+as the declaration order would be different based on which file was loaded first.
+
+This lead to subtle bugs, so starting with v7, associations options must perfectly match both sides or Sequelize will emit an error.
+
+For instance, the following declaration is no longer valid:
+
+```typescript
+User.belongsToMany(Countries, { foreignKey: 'user_id' });
+Countries.belongsToMany(User);
+```
+
+But this is:
+
+```typescript
+User.belongsToMany(User, { foreignKey: 'user_id' });
+Country.belongsToMany(User, { otherKey: 'user_id' });
+```
+
+This requirement increases the verbosity of your associations, 
+se we introduced a new option to solve that problem: [`inverse`](pathname:///api/v7/classes/belongsto#inverse). 
+This option lets you define both sides of the association at the same time.
+This removes the need to repeat options that are common to both associations.
+
+Instead of writing this:
+
+```typescript
+User.belongsToMany(Country, { as: 'countries' });
+User.belongsToMany(User, { as: 'citizen' });
+```
+
+You can now write this:
+
+```typescript
+User.belongsToMany(Country, { 
+  as: 'countries',
+  inverse: { as: 'citizen' },
+});
+```
+
+### Changes to `sequelize.sync`
+
+*Pull Request [#14619]*
+
+- DB2 does not force all indexes to be unique anymore (this was a bug)
+- When using DB2, we do not force columns that are part of an index to be non-null.
+  The database still requires this to be the case, but we don't do it silently for you anymore.
+- A few bugs in how indexes were named have been fixed. This means your index names could change.
+
+### Attributes are always escaped
+
+*Pull Request [#15374]*
+
+In Sequelize 6, some attributes specified in the finder (`findAll`, `findOne`, etc…) "attributes" option had special meaning and were not escaped.
+
+For instance, the following query:
+
+```ts
+await User.findAll({
+  attributes: [
+    '*',
+    'a.*',
+    ['count(id)', 'count'],
+  ]
+});
+```
+
+Would produce the following SQL:
+
+```sql
+SELECT *, "a".*, count(id) AS "count" FROM "users"
+```
+
+Starting with v7, it will produce the following SQL:
+
+```sql
+SELECT "*", "a.*", "count(id)" AS "count" FROM "users"
+```
+
+This was done to improve the security of Sequelize, by reducing the attack surface of the ORM. 
+The previous behavior is still available, but you need to explicitly opt-in to it by using the [`literal`](pathname:///api/v7/functions/literal-1.html), 
+[`col`](pathname:///api/v7/functions/col-1.html) or [`fn`](pathname:///api/v7/functions/fn-1.html) functions:
+
+```ts
+User.findAll({
+  attributes: [
+    col('*'),
+    col('a.*'),
+    [literal('count(*)'), 'count'],
+    // or
+    // [fn('count', col('*')), 'count'],
+  ],
+});
+```
+
+### Instance methods cannot be used without primary key.
+
+*Pull Request [#15108]*
+
+Model instance methods `save`, `update`, `reload`, `destroy`, `restore`, `decrement`, and `increment` cannot be used anymore 
+if the model definition does not have a primary key, or if the primary key was not loaded.
+
+Sequelize used to include a hack to allow you to call these methods even if your model did not have a primary key. 
+This hack was not reliable and using it could lead to your data being corrupted. We have removed it.
+
+If you wish to use these methods but your model definition does not have a primary key, you can use their static version instead.
+
+## Minor Breaking changes
+
+### Renamed APIs
+
+- `QueryInterface` has been renamed to `AbstractQueryInterface`.
+- `ModelColumnAttributeOptions` has been renamed to `AttributeOptions`.
+
+### Attribute `references` option
+
+*Pull Request [#15431]*
+
+The `references` option, used to define foreign keys, has been reworked. Prior to Sequelize 7, this option accepted a sub-option called "model", but
+this sub-option also accepted table names.
+
+Starting with Sequelize 7, this sub-option has been split into two options: `model` and `table`. You only need to specify one of them:
+
+```typescript
+// Before
+const User = sequelize.define('User', {
+  countryId: {
+    type: Sequelize.INTEGER,
+    references: {
+      // This referenced the TABLE named "countries", not the MODEL called "countries".
+      model: 'countries',
+      key: 'id',
+    },
+  },
+});
+
+// After (table version)
+const User = sequelize.define('User', {
+  countryId: {
+    type: Sequelize.INTEGER,
+    references: {
+      // It is now clear that this references the table called "countries"
+      table: 'countries',
+      key: 'id',
+    },
+  },
+});
+
+// After (model version)
+const User = sequelize.define('User', {
+  countryId: {
+    type: Sequelize.INTEGER,
+    references: {
+      // It is now clear that this references the Country model, from which the table name will be inferred.
+      model: Country,
+      key: 'id',
+    },
+  },
+});
+```
+
+### Strict Auto-Timestamp & Auto-version attributes
+
+*Pull Request [#15431]*
+
+Sequelize can add 4 special attributes to your models: `createdAt`, `updatedAt`, `deletedAt` and `version`. 
+These attributes are handled automatically by Sequelize, and therefore must follow a specific format.
+
+If you defined these attributes manually, but with options that are incompatible with Sequelize's behavior,
+Sequelize would silently ignore your options and replace them with its own.
+
+Starting with Sequelize 7, Sequelize will throw an error if you try to define these attributes with incompatible options.
+
+For instance, if you try to define a `createdAt` attribute with an incompatible type, Sequelize will throw an error:
+
+```typescript
+const User = sequelize.define('User', {
+  createdAt: {
+    // This will cause an error because sequelize expects a DATE type, not DATEONLY.
+    // error-next-line
+    type: Sequelize.DATEONLY,
+  },
+});
+```
+
 ### TypeScript conversion
 
-One of the major foundational code changes of v7 is the migration to TypeScript.\
+One of the major foundational code changes of v7 is the migration to TypeScript.  
 As a result, the manual typings that were formerly best-effort guesses on top of the JavaScript code base,
 have been removed and all typings are now directly retrieved from the actual TypeScript code.
 
@@ -127,7 +476,7 @@ You'll likely find many tiny differences which however should be easy to fix.
 
 *Attributes cannot start or end with `$`, include `.`, include `::`, or include `->`. Column names are not impacted.*
 
-`$attribute$` & `$nested.attribute$` is a special syntax used to reference nested attributes in Queries.\
+`$attribute$` & `$nested.attribute$` is a special syntax used to reference nested attributes in Queries.  
 The `.` character also has special meaning, being used to reference nested JSON object keys,
 the `$nested.attribute$` syntax, and in output names of eager-loaded associations in SQL queries.
 
@@ -135,7 +484,7 @@ The `->` character sequence is [used internally to reference nested associations
 
 Finally, the `::` character sequence has special meaning in queries as it allows you to tell sequelize to cast an attribute.
 
-In Sequelize 6, it was possible to create an attribute that matched these special syntaxes, leading to subtle bugs.\
+In Sequelize 6, it was possible to create an attribute that matched these special syntaxes, leading to subtle bugs.  
 Starting with Sequelize 7, this is now considered reserved syntax, and it is no longer possible to
 use a string that both starts or ends with a `$` as the attribute name, includes the `.` character, or includes `::`.
 
@@ -281,19 +630,47 @@ WHERE firstName = 'bob' AND age > 20 AND age < 30 LIMIT 10
 
 **Note**: The flag `whereMergeStrategy` was introduced in the v6.18.0 to switch between these two behaviors. This flag has been dropped because only the `and` merging option is supported in Sequelize v7.
 
-### afterCommit hooks
+### Transaction afterCommit hook
 
-Sequelize 6 had a bug where `transaction.afterCommit`-hooks would be executed when application code wants to commit - even when the database transaction rolls back on its commit. This behaviour has been changed to better meet expectations of how this callback hook can be used. See [issue 14902](https://github.com/sequelize/sequelize/issues/14902) and [PR 14903](https://github.com/sequelize/sequelize/pull/14903) for more details.
+Sequelize 6 had a bug where `transaction.afterCommit`-hooks would be executed when application code wants to commit - even when the database transaction rolls back on its commit.
+This behaviour has been changed to better meet expectations of how this callback hook can be used.
+
+See [issue 14902](https://github.com/sequelize/sequelize/issues/14902) and [PR 14903](https://github.com/sequelize/sequelize/pull/14903) for more details.
+
+### The `where` options throws if the value is not a valid option
+
+*Pull Request [#15375]*
+
+In Sequelize v6, the `where` option was ignored if the value it received was not a valid option.
+
+For instance, the following query:
+
+```ts
+User.findAll({
+  where: new Date(),
+});
+```
+
+Would have returned all users in the database. In Sequelize 7, this will throw an error.
+
+## Deprecations & Removals
 
 ### Removal of previously deprecated APIs
 
 - `WhereValue`, `AnyOperator`, `AllOperator`, `AndOperator` and `OrOperator` types: They did not reflect the reality of how the `where` option is typed (see [this PR](https://github.com/sequelize/sequelize/pull/14022))
+- `setterMethods` and `getterMethods` model options: They were deprecated in v6 and are now removed. Use [VIRTUAL](../core-concepts/getters-setters-virtuals.md) attributes, or class getter & setters instead.
+- Models had an instance property called `validators`. This property has been removed because almost all attributes have at least one validator (based on their nullability and data type). 
+  The information you need to replace this property is available in the [`modelDefinition`](pathname:///api/v7/classes/Model.html#modelDefinition) static property.
+- The `Utils` export has been removed. It exposed internal utilities that were not meant to be used by end users. If you used any of these utilities, please open an issue to discuss how to expose them in a future-proof way.  
+  This export included classes `Fn`, `Col`, `Cast`, `Literal`, `Json`, and `Where`, which are useful for typing purposes. They now have their own exports instead of being part of `Utils`.
 
-## Deprecations
+## New Deprecations
 
 Sequelize 7 also includes a series of new deprecation. These APIs will continue to work in v7 but expect them to
 stop working in a future major release.
 
+- All hook methods are deprecated in favor of using the `hooks` property available on models and Sequelize classes. See the documentation on [hooks](./hooks.md) to learn more.
+- `DataTypes.REAL` is redundant with `DataTypes.FLOAT`, and is deprecated.
 - `Model.scope()` has been renamed to `Model.withScope()`
 - `Model.unscoped()` has been renamed to `Model.withoutScope()` (due to the addition of `Model.withOriginalScope()`)
 - `Model.schema()` has been renamed to `Model.withSchema()`
@@ -314,7 +691,15 @@ stop working in a future major release.
   DataTypes.STRING
   DataTypes.INTEGER
   ```
-
+- The `as` & `model` options in `include` are deprecated, we recommend using the `association` option instead.
 
 [#14352]: https://github.com/sequelize/sequelize/pull/14352
 [#14447]: https://github.com/sequelize/sequelize/pull/14447
+[#14505]: https://github.com/sequelize/sequelize/pull/14505
+[#14280]: https://github.com/sequelize/sequelize/pull/14280
+[#14619]: https://github.com/sequelize/sequelize/pull/14619
+[#15431]: https://github.com/sequelize/sequelize/pull/15431
+[#15374]: https://github.com/sequelize/sequelize/pull/15374
+[#15375]: https://github.com/sequelize/sequelize/pull/15375
+[#15108]: https://github.com/sequelize/sequelize/pull/15108
+[#15292]: https://github.com/sequelize/sequelize/pull/15292

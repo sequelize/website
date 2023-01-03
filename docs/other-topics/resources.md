@@ -6,7 +6,7 @@ A curated list of awesome projects surrounding Sequelize.
 
 ## Integrations
 
-* [sequelize-typescript](https://www.npmjs.com/package/sequelize-typescript) - Decorators and some other features for sequelize.
+* [sequelize-typescript](https://www.npmjs.com/package/sequelize-typescript) - Decorators and some other features for sequelize (built-in as of Sequelize 7).
 * [Sequelize-Nest](https://docs.nestjs.com/recipes/sql-sequelize) - Sequelize integration in [nest](https://github.com/nestjs/nest).
 * [sequelizejs-decorators](https://www.npmjs.com/package/sequelizejs-decorators) decorators for composing sequelize models.
 
