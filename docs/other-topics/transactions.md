@@ -290,11 +290,13 @@ User.hooks.addListener('afterSave', (instance, options) => {
 });
 ```
 
-## Locks
+## Row Locking
+
+A `lock` option allows row locking.
 
 Queries within a `transaction` can be performed with locks:
 
-```js
+```typescript
 return User.findAll({
   limit: 1,
   lock: true,
@@ -302,13 +304,43 @@ return User.findAll({
 });
 ```
 
+### Implement locked transactions
+
+You can also implement it with a `transaction` object to wait the action will either be committed or rolled back when the lock is released.
+
+```typescript
+return User.findAll({
+  limit: 1,
+  lock: true,
+  transaction: t1
+});
+```
+
+### Skip locked rows (PostgreSQL Only)
+
+With `skipLocked` option sets true, any selected rows that cannot be immediately locked are skipped.
+
 Queries within a transaction can skip locked rows:
 
-```js
+```typescript
 return User.findAll({
   limit: 1,
   lock: true,
   skipLocked: true,
-  transaction: t2
 });
 ```
+
+### Using enumeration LOCK
+
+You can also use enumeration `LOCK` to implement possible options for row locking.
+
+```typescript
+import { LOCK } from '@sequelize/core';
+
+Model.findAll({
+  transaction,
+  lock: LOCK.UPDATE,
+});
+```
+
+Read more about the options [here](https://sequelize.org/api/v7/enums/lock).
