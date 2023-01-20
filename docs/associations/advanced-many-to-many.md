@@ -3,7 +3,7 @@ sidebar_position: 3
 title: Advanced M:N Associations
 ---
 
-Make sure you have read the [associations guide](../core-concepts/assocs.md) before reading this guide.
+Make sure you have read the [associations guide](./basics.md) before reading this guide.
 
 Let's start with an example of a Many-to-Many relationship between `User` and `Profile`.
 
@@ -296,7 +296,7 @@ User.findAll({
 
 Similarly to the other relationships, aliases can be defined for Many-to-Many relationships.
 
-Before proceeding, please recall [the aliasing example for `belongsTo`](../core-concepts/assocs.md#defining-an-alias) on the [associations guide](../core-concepts/assocs.md). Note that, in that case, defining an association impacts both the way includes are done (i.e. passing the association name) and the name Sequelize chooses for the foreign key (in that example, `leaderId` was created on the `Ship` model).
+Before proceeding, please recall [the aliasing example for `belongsTo`](./basics.md#defining-an-alias) on the [associations guide](./basics.md). Note that, in that case, defining an association impacts both the way includes are done (i.e. passing the association name) and the name Sequelize chooses for the foreign key (in that example, `leaderId` was created on the `Ship` model).
 
 Defining an alias for a `belongsToMany` association also impacts the way includes are performed:
 

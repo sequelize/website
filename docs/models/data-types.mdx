@@ -186,7 +186,7 @@ Numeric options can be combined:<br/>
 
 ### Built-in Default Values for Dates
 
-Along with regular [default values](../core-concepts/model-basics.md#default-values), Sequelize provides `DataTypes.NOW` 
+Along with regular [default values](./defining-models.mdx#default-values), Sequelize provides `DataTypes.NOW` 
 which will use the appropriate native SQL function based on your dialect.
 
 <DialectTableFilter>
@@ -285,7 +285,7 @@ If you simply want to store and retrieve a JSON representation, using JSON will 
 
 :::info Querying JSON
 
-Sequelize provides a special syntax to query the contents of a JSON object. [Read more about querying JSON](../core-concepts/model-querying-basics.md#querying-json).
+Sequelize provides a special syntax to query the contents of a JSON object. [Read more about querying JSON](../querying/json.md).
 
 :::
 
@@ -443,7 +443,7 @@ User.init({
 
 ## Virtual
 
-`DataTypes.VIRTUAL` is a special DataType used to declare [virtual attributes](../core-concepts/getters-setters-virtuals.md#virtual-fields).
+`DataTypes.VIRTUAL` is a special DataType used to declare [virtual attributes](../other-topics/getters-setters-virtuals.md#virtual-fields).
 It does not create an actual column.
 
 :::caution
@@ -456,7 +456,7 @@ See [the issue about generated columns](https://github.com/sequelize/sequelize/i
 ## Custom Data Types
 
 Databases support more Data Types that are not covered by the ones built-in in Sequelize. 
-If you need to use such a Data Types, you can [create your own DataType](./extending-data-types.md).
+If you need to use such a Data Types, you can [create your own DataType](../other-topics/extending-data-types.md).
 
 It is also possible to use a raw SQL string as the type of your attribute. 
 This string will be used as-is as the type of your column when creating the table.

@@ -222,7 +222,7 @@ However, we do not recommend removing hooks added through decorators, as it may 
 
 ## Associations Method Hooks
 
-Methods added by [Associations](../core-concepts/assocs.md) on your model do provide hooks specific to them, but they are built on top
+Methods added by [Associations](../associations/basics.md) on your model do provide hooks specific to them, but they are built on top
 of regular model methods, which will trigger hooks.
 
 For instance, using the `add` / `set` mixin methods will trigger the `beforeUpdate` and `afterUpdate` hooks.
@@ -261,7 +261,7 @@ These include but are not limited to:
 
 - Instances being deleted by the database because of an `ON DELETE CASCADE` constraint, [except if the `hooks` option is true](#hooks-for-cascade-deletes).
 - Instances being updated by the database because of a `SET NULL` or `SET DEFAULT` constraint.
-- [Raw queries](../core-concepts/raw-queries.md).
+- [Raw queries](../querying/raw-queries.md).
 - All QueryInterface methods.
 
 If you need to react to these events, consider using your database's native and notification system instead.
