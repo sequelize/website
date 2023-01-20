@@ -8,14 +8,14 @@ import TabItem from '@theme/TabItem';
 import DecoratorInfo from '../_fragments/_decorator-info.mdx';
 import JsDefaultCaution from '../_fragments/_js-default-caution.mdx';
 
-# Model Basics
+# Defining a Model
 
 In this tutorial you will learn what models are in Sequelize and how to use them.
 
 ## Concept
 
 Models are the essence of Sequelize. A model is an abstraction that represents a table in your database.
-In Sequelize, it is a class that extends [the `Model` class](pathname:///api/v7/classes/Model.html).
+In Sequelize, it is a class that extends the [`Model`] class.
 
 The model tells Sequelize several things about the entity it represents, such as the name of the table in the database and which columns it has (and their data types).
 
@@ -35,10 +35,9 @@ You can choose to [avoid using decorators](#without-decorators), but you should 
 To learn with an example, we will consider that we want to create a model to represent users, which have a `firstName` and a `lastName`. 
 We want our model to be called `User`, and the table it represents is called `users` in the database.
 
-Defining a model is simple: Create a class that extends [the `Model` class](pathname:///api/v7/classes/Model.html),
-and add instance properties to it.
+Defining a model is simple: Create a class that extends the [`Model`] class and add instance properties to it.
 
-<Tabs>
+<Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
 ```ts
@@ -87,7 +86,7 @@ export class User extends Model {
 </TabItem>  
 </Tabs>
 
-Many decorators are available to configure an attribute. [You can find the list of decorators here](./decorators.mdx).  
+Many decorators are available to configure your attributes. [You can find the list of decorators here](pathname:///api/v7/modules/decorators_legacy.html).  
 You can also [define associations between models](../associations/basics.md), which will be covered in a following chapter.
 
 ### Initializing the Model
@@ -104,14 +103,15 @@ export const sequelize = new Sequelize('sqlite::memory:', {
 });
 ```
 
-You can also load all your models dynamically by using [`importModels`](pathname:///api/v7/functions/importModels.html). Note that this method is **async**, 
-and uses [`import` (esm)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import), not `require` (commonjs):
+You can also load all your models dynamically by using [`importModels`]. Note that this method is **async**, 
+and uses [`import`] (esm), not [`require`] (commonjs):
 
 ```ts
 import { Sequelize } from '@sequelize/core';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 
-const __dirname = fileURLToPath(import.meta.url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const sequelize = new Sequelize('sqlite::memory:', {
   // this will load all model classes found in files matching this glob pattern.
@@ -119,7 +119,7 @@ export const sequelize = new Sequelize('sqlite::memory:', {
 });
 ```
 
-`importModels` uses [`fast-glob`](https://github.com/mrmlnc/fast-glob), and expects a glob pattern (or an array of glob patterns) as its first argument.
+[`importModels`] uses [`fast-glob`](https://github.com/mrmlnc/fast-glob), and expects a glob pattern (or an array of glob patterns) as its first argument.
 
 ### Without Decorators
 
@@ -131,7 +131,7 @@ Head to [our page about Legacy Model Definitions](../other-topics/legacy-model-d
 
 ## Column Data Types
 
-Every attribute you define in your model must have a data type.
+Every attribute you define in your model must have a data type. You can use the [`@Attribute`] decorator to define the data type of an attribute:
 
 The data type defines the type of your column. e.g. an attribute with a type `DataTypes.INTEGER` will result in a column of type `INTEGER`.
 
@@ -141,9 +141,9 @@ The data type defines the type of your column. e.g. an attribute with a type `Da
 
 Just like in SQL, attributes are nullable by default in Sequelize
 
-You can change this behavior by using the `@NotNull` decorator:
+You can change this behavior by using the [`@NotNull`] decorator:
 
-<Tabs>
+<Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
 ```ts
@@ -187,9 +187,9 @@ class User extends Model {
 ## Default Values
 
 By default, Sequelize assumes that the default value of a column is `null`.
-This behavior can be changed by using the `@Default` decorator:
+This behavior can be changed by using the [`@Default`] decorator:
 
-<Tabs>
+<Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
 ```ts
@@ -207,8 +207,8 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
 :::info `CreationOptional`
 
-If you use `@Default`, your attribute won't need to be specified when calling methods such as `User.create`.  
-To let TypeScript know that this attribute has a default value, you can use the [`CreationOptional`](pathname:///api/v7/types/CreationOptional.html) type, like in the example above.
+If you use [`@Default`], your attribute won't need to be specified when calling methods such as `User.create`.  
+To let TypeScript know that this attribute has a default value, you can use the [`CreationOptional`] type, like in the example above.
 
 :::
 
@@ -241,7 +241,7 @@ Instead of a static value, you can also use a JavaScript function that sequelize
 
 <JsDefaultCaution />
 
-<Tabs>
+<Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
 ```ts
@@ -296,12 +296,12 @@ class User extends Model {
 
 ### Dynamic SQL default values
 
-You can also use a SQL function as a default value using either [`fn`](pathname:///api/v7/functions/fn-1.html) or [`literal`](../querying/raw-queries.md#literals-raw-sql). 
+You can also use a SQL function as a default value using either [`fn`] or [`literal`]. 
 This has the advantage over [dynamic JS default values](#dynamic-js-default-values) that the function will always be called, since it is handled by the database, not by Sequelize.
 
-For instance, if your dialect provides a built-in SQL function to generate UUIDs, you can use `fn` to set a default value on the SQL layer:
+For instance, if your dialect provides a built-in SQL function to generate UUIDs, you can use [`fn`] to set a default value on the SQL layer:
 
-<Tabs>
+<Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
 ```ts
@@ -344,9 +344,9 @@ class User extends Model {
 
 Sequelize automatically adds an auto-incremented integer attribute called `id` as primary key if none is specified.  
 
-If you want to use a different attribute, type, or want to use a composite primary key, you can use the `@PrimaryKey` decorator:
+If you want to use a different attribute, type, or want to use a composite primary key, you can use the [`@PrimaryKey`] decorator:
 
-<Tabs>
+<Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
 ```ts
@@ -365,8 +365,8 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
 :::info `CreationOptional`
 
-If you use `@AutoIncrement`, your attribute won't need to be specified when calling methods such as `User.create`.  
-To let TypeScript know that this attribute has a default value, you can use the [`CreationOptional`](pathname:///api/v7/types/CreationOptional.html) type, like in the example above.
+If you use [`@AutoIncrement`], your attribute won't need to be specified when calling methods such as `User.create`.  
+To let TypeScript know that this attribute has a default value, you can use the [`CreationOptional`] type, like in the example above.
 
 :::
 
@@ -390,15 +390,15 @@ class User extends Model {
 </TabItem>
 </Tabs>
 
-The `@AutoIncrement` decorator can also be used on primary key columns to make them auto-incremented.
+The [`@AutoIncrement`] decorator can also be used on primary key columns to make them auto-incremented.
 
 You table cannot have a primary key? See [How to remove the primary key](./advanced.mdx#prevent-creating-a-default-pk-attribute).
 
 ### Composite Primary Keys
 
-Composite primary keys are supported by using the `@PrimaryKey` decorator on multiple attributes:
+Composite primary keys are supported by using the [`@PrimaryKey`] decorator on multiple attributes:
 
-<Tabs>
+<Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
 ```ts
@@ -459,7 +459,7 @@ import { Table } from '@sequelize/core/decorators-legacy';
 export class User extends Model {}
 ```
 
-You can also change the default schema for all models by setting the `schema` option in the `Sequelize` constructor:
+You can also change the default schema for all models by setting the `schema` option in the [`Sequelize`] constructor:
 
 ```js
 import { Model, Sequelize } from '@sequelize/core';
@@ -481,13 +481,13 @@ You can very easily add custom instance or class level methods.
 
 :::info
 
-`Model` provides a suite of built-in static & instance methods that can be used to interact with the database.
+[`Model`] provides a suite of built-in static & instance methods that can be used to interact with the database.
 
-[Take a look at the API Reference for `Model`](pathname:///api/v7/classes/Model.html) for more information
+Take a look at the API Reference for [`Model`] for more information
 
 :::
 
-<Tabs>
+<Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
 ```typescript
@@ -573,4 +573,22 @@ console.log(user.getFullname()); // 'Jane Doe'
 A good next step is to [synchronise your models with the database](./model-synchronization.md), after which you'll be able to [create, read, update and delete](../querying/insert.md) your models.
 
 Alternatively, find out how to [define associations](../associations/basics.md) between models, learn about [indexes](./indexes.md), [constraints](./validations-and-constraints.md), and other advanced features,
-or take a look at the API Reference of the [`@Attribute`](pathname:///api/v7/interfaces/AttributeOptions.html) and [`@Table`](pathname:///api/v7/interfaces/ModelOptions.html) decorators to learn about the many more options they offer to customize your attributes and models.
+or take a look at the API Reference of the [`@Attribute`] and [`@Table`] decorators to learn about the many more options they offer to customize your attributes and models.
+
+[`Model`]: pathname:///api/v7/classes/Model.html
+[`@Table`]: pathname:///api/v7/functions/decorators_legacy.Table.html
+[`@Attribute`]: pathname:///api/v7/functions/decorators_legacy.Attribute.html
+[`@NotNull`]: pathname:///api/v7/functions/decorators_legacy.NotNull.html
+[`@Default`]: pathname:///api/v7/functions/decorators_legacy.Default.html
+[`@PrimaryKey`]: pathname:///api/v7/functions/decorators_legacy.PrimaryKey.html
+[`@AutoIncrement`]: pathname:///api/v7/functions/decorators_legacy.AutoIncrement.html
+[`importModels`]: pathname:///api/v7/functions/importModels.html
+[`import`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
+[`require`]: https://nodejs.org/api/modules.html#requireid
+[`CreationOptional`]: pathname:///api/v7/types/CreationOptional.html
+[`fn`]: pathname:///api/v7/functions/fn-1.html
+[`literal`]: pathname:///api/v7/functions/literal-1.html
+[`Sequelize`]: pathname:///api/v7/classes/Sequelize.html
+[`ValidationError`]: pathname:///api/v7/classes/index.ValidationError.html
+[`QueryInterface#addConstraint`]: pathname:///api/v7/classes/index.AbstractQueryInterface.html#addConstraint
+[`Model#validate`]: pathname:///api/v7/classes/index.Model.html#validate

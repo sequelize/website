@@ -1,5 +1,5 @@
 ---
-title: Indexes
+title: Indexes & Uniques
 sidebar_position: 7
 ---
 
