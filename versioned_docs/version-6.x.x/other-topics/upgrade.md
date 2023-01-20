@@ -15,9 +15,9 @@ Sequelize v6 will only support Node 10 and up [#10821](https://github.com/sequel
 You should now use [cls-hooked](https://github.com/Jeff-Lewis/cls-hooked) package for CLS support.
 
 ```js
-const cls = require("cls-hooked");
-const namespace = cls.createNamespace("....");
-const Sequelize = require("sequelize");
+const cls = require('cls-hooked');
+const namespace = cls.createNamespace('....');
+const Sequelize = require('sequelize');
 
 Sequelize.useCLS(namespace);
 ```
@@ -41,20 +41,35 @@ Option `returning: true` will no longer return attributes that are not defined i
 
 #### `Model.changed()`
 
-This method now tests for equality with [`_.isEqual`](https://lodash.com/docs/4.17.15#isEqual) and is now deep aware for JSON objects. Modifying a nested value for a JSON object won't mark it as changed (since it is still the same object).
+Sequelize does not detect deep mutations. To avoid problems with `save`, you should treat each attribute as immutable and only assign new values.
+
+Example with a deep mutation of an attribute:
 
 ```js
 const instance = await MyModel.findOne();
 
-instance.myJsonField.someProperty = 12345; // Changed from something else to 12345
+// Sequelize will not detect this change
+instance.jsonField.jsonProperty = 12345;
+
 console.log(instance.changed()); // false
 
-await instance.save(); // this will not save anything
+// You can workaround this by telling Sequelize the property changed:
+instance.changed('jsonField', true);
+console.log(instance.changed()); // true
+```
 
-instance.changed("myJsonField", true);
-console.log(instance.changed()); // ['myJsonField']
+Example if you treat each attribute as immutable:
 
-await instance.save(); // will save
+```js
+const instance = await MyModel.findOne();
+
+// Sequelize will detect this change
+instance.jsonField = {
+  ...instance.jsonField,
+  jsonProperty: 12345,
+};
+
+console.log(instance.changed()); // true
 ```
 
 #### `Model.bulkCreate()`
