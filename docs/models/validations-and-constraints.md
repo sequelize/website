@@ -133,7 +133,7 @@ class User extends Model {
 }
 ```
 
-Head to [the package's readme](https://www.npmjs.com/package/@sequelize/validator.js) for the list of available validators.
+Head to [its TypeDoc page](pathname:///api/v7/modules/_sequelize_validator_js.html) for the list of available validators.
 
 :::note Future development
 
