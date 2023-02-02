@@ -24,6 +24,7 @@ git clone -b main --single-branch "$MAIN_REPO_URL" --depth 1 "$DOCS_DIR/v7"
 
 pushd "$DOCS_DIR/v7"
 yarn # Install branch deps & build
+yarn build
 yarn docs # Generate v7 typedocs
 mv .typedoc-build "$API_DIR/v7" # Move compiled api reference
 popd

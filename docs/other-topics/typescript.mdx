@@ -2,17 +2,9 @@
 title: TypeScript
 ---
 
-:::info
-
-We're working hard on making Sequelize a breeze to use in TypeScript.
-[Some parts](https://github.com/sequelize/sequelize/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3ARFC+label%3A%22type%3A+typescript%22) are still a work in progress. We recommend using [sequelize-typescript](https://www.npmjs.com/package/sequelize-typescript) 
-to bridge the gap until our improvements are ready to be released.
-
-:::
-
 Sequelize provides its own TypeScript definitions.
 
-Please note that only **TypeScript >= 4.4** is supported.
+Please note that only **TypeScript >= 4.5** is supported.
 Our TypeScript support does not follow SemVer. We will support TypeScript releases for at least one year, after which they may be dropped in a SemVer MINOR release.
 
 As Sequelize heavily relies on runtime property assignments, TypeScript won't be very useful out of the box.
@@ -106,7 +98,7 @@ You only need to use `CreationOptional` & `NonAttribute` on class instance field
 Example of a minimal TypeScript project with strict type-checking for attributes:
 
 import CodeBlock from '@theme/CodeBlock';
-import modelInitExample from '!!raw-loader!@site/.sequelize/v7/test/types/typescript-docs/model-init.ts';
+import modelInitExample from '!!raw-loader!@site/.sequelize/v7/packages/core/test/types/typescript-docs/model-init.ts';
 
 <CodeBlock className="language-typescript">
   {modelInitExample}
@@ -174,7 +166,7 @@ Some attributes don't actually need to be passed to `Model.init`, this is how yo
 The typings for Sequelize v5 allowed you to define models without specifying types for the attributes. 
 This is still possible for backwards compatibility and for cases where you feel strict typing for attributes isn't worth it.
 
-import modelInitNoAttributesExample from '!!raw-loader!@site/.sequelize/v7/test/types/typescript-docs/model-init-no-attributes.ts';
+import modelInitNoAttributesExample from '!!raw-loader!@site/.sequelize/v7/packages/core/test/types/typescript-docs/model-init-no-attributes.ts';
 
 <CodeBlock className="language-typescript">
   {modelInitNoAttributesExample}
@@ -185,7 +177,7 @@ import modelInitNoAttributesExample from '!!raw-loader!@site/.sequelize/v7/test/
 In Sequelize versions before v5, the default way of defining a model involved using [`Sequelize#define`](pathname:///api/v7/classes/Sequelize.html#define). 
 It's still possible to define models with that, and you can also add typings to these models using interfaces.
 
-import defineExample from '!!raw-loader!@site/.sequelize/v7/test/types/typescript-docs/define.ts';
+import defineExample from '!!raw-loader!@site/.sequelize/v7/packages/core/test/types/typescript-docs/define.ts';
 
 <CodeBlock className="language-typescript">
   {defineExample}
