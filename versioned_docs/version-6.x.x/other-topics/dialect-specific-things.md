@@ -238,7 +238,7 @@ const sequelize = new Sequelize({
 ```
 Note that the `database`, `host` and `port` will be overriden and the values in connectString will be used for authentication.
 
-Please refer to [Connect String](https://oracle.github.io/node-oracledb/doc/api.html#connectionstrings) for more about connect strings.
+Please refer to [Connect String](https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html#connectionstrings) for more about connect strings.
 
 ## Data type: TIMESTAMP WITHOUT TIME ZONE - PostgreSQL only
 
