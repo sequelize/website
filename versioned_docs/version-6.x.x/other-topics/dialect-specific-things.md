@@ -232,8 +232,8 @@ const sequelize = new Sequelize({
     username: 'user',
     password: 'password',
     dialectOptions: {
-        connectString: 'inst1'
-     }
+      connectString: 'inst1'
+    }
  });
 ```
 Note that the `database`, `host` and `port` will be overriden and the values in connectString will be used for authentication.
