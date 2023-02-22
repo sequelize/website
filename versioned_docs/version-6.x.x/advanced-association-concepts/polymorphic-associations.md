@@ -380,7 +380,7 @@ In the example above, the `scope` options (such as `scope: { taggableType: 'imag
 
 We can also apply an association scope on the target model. We can even do both at the same time.
 
-To illustrate this, consider an extension of the above example between tags and taggables, where each tag has a status. This way, to get all pending tags of an image, we could establish another `belognsToMany` relationship between `Image` and `Tag`, this time applying a scope on the through model and another scope on the target model:
+To illustrate this, consider an extension of the above example between tags and taggables, where each tag has a status. This way, to get all pending tags of an image, we could establish another `belongsToMany` relationship between `Image` and `Tag`, this time applying a scope on the through model and another scope on the target model:
 
 ```js
 Image.belongsToMany(Tag, {
