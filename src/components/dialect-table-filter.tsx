@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import React, { useCallback, useEffect, useRef } from 'react';
+import { SUPPORTED_DIALECTS } from '../utils/dialects';
 import { useLocalStorage } from '../utils/use-storage';
 import css from './dialect-table-filter.module.css';
-import { SUPPORTED_DIALECTS } from '../utils/dialects';
 
 type Props = {
   children: ReactNode,

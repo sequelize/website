@@ -3,6 +3,12 @@ sidebar_position: 7
 title: Raw SQL (literals)
 ---
 
+We believe that ORMs are inherently leaky abstractions. They are a compromise between the flexibility of SQL and the convenience of an object-oriented programming language.
+As such, it does not make sense to try to provide a 100% complete abstraction over SQL (which could easily be more difficult to read than the SQL itself).
+
+For this reason, Sequelize treats raw SQL as a first-class citizen. __You can use raw SQL almost anywhere in Sequelize__[^1], and thanks to the `sql` tag, it's
+easy to write SQL that is both safe, readable and reusable.
+
 :::caution
 
 !TODO: document https://github.com/sequelize/sequelize/issues/15142
@@ -279,3 +285,5 @@ If an attribute name of the table contains dots, the resulting objects can becom
     }
   }
   ```
+
+[^1]: If you need to use raw SQL in a place that sequelize does not support, do not hesitate to open a feature request or a pull request.
