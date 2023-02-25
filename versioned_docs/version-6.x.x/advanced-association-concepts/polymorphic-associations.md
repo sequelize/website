@@ -237,7 +237,7 @@ Implementation:
 
 ```js
 class Tag extends Model {
-  getTaggables(options) {
+ async getTaggables(options) {
     const images = await this.getImages(options);
     const videos = await this.getVideos(options);
     // Concat images and videos in a single array of taggables
