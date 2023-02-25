@@ -591,6 +591,25 @@ const [results, metadata] = await sequelize.query("UPDATE users SET y = 42 WHERE
 // Results will be an empty array and metadata will contain the number of affected rows.
 ```
 
+:::warning
+
+When interpolating variables in your query, make absolutely sure that you are tagging your query with the `sql` tag. `sequelize.query` is
+one of the few functions that will interpret plain strings as raw SQL, so forgetting to tag your query with `sql` can lead to SQL injection vulnerabilities:
+
+```ts
+// Dangerous
+await sequelize.query(`SELECT * FROM users WHERE first_name = ${firstName}`);
+
+// Safe
+await sequelize.query(sql`SELECT * FROM users WHERE first_name = ${firstName}`);
+```
+
+All other functions that accept raw SQL will throw an error if you use a string that has not been tagged with `sql`.
+
+This footgun may be removed in a future version of Sequelize.
+
+:::
+
 In cases where you don't need to access the metadata you can pass in a query type to tell sequelize how to format the results. For example, for a simple select query you could do:
 
 ```js
