@@ -101,6 +101,7 @@ Each database uses a different syntax for bind parameters, but Sequelize provide
 
 Inconsequentially to which database you use, in Sequelize bind parameters are written following a postgres-like syntax. You can either:
 
+- By using the `sql` tag when the [query is in _bind parameter_ mode](#query-variable-mode)
 - Use numeric identifiers (e.g. `$1`, `$2`, etc…). Note that these identifiers start at 1, not 0. The `bind` option must be an array which contains a value for each identifier used in the query (`$1` is bound to the 1st element in the array (`bind[0]`), etc…).
 - Use alphanumeric identifiers (e.g. `$firstName`, `$status`, etc…). These identifiers follow common identifier rules (alphanumeric & underscore only, cannot start with a number). The `bind` option must be a plain object which includes each bind parameter (without the `$` prefix).
 
