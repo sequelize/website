@@ -194,7 +194,7 @@ Post.findAll({
 // SELECT * FROM posts WHERE "views" > 100 AND "views" <= 500;
 ```
 
-You can find the complete list of operators, and more, in the [Operators guide](./operators.md).
+You can find the complete list of operators, and more, in the [Operators guide](./operators.mdx).
 
 ### Casting
 

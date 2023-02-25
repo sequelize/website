@@ -1,0 +1,871 @@
+---
+sidebar_position: 6
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { SupportTable } from '@site/src/components/support-table';
+
+# Querying: Operators
+
+Sequelize provides a large number of operators to help you build complex queries. They are available in the `Op` object, which can be imported from `@sequelize/core`.
+
+They can be used in two ways: Either using `sql.where`, or as a key in where POJOs:
+
+```ts
+import { Op } from '@sequelize/core';
+
+Post.findAll({
+  where: {
+    commentCount: {
+      [Op.gt]: 2,
+    },
+  },
+});
+
+// or
+
+Post.findAll({
+  where: sql.where(sql.attribute('commentCount'), Op.gt, 2),
+});
+```
+
+## Basic Operators
+
+### Implicit Operator
+
+When using a POJO, you can omit the operator and Sequelize will infer it. Depending on the value,
+Sequelize will use either the `Op.eq`, `Op.is` or `Op.in` operators.
+
+Using null as the value will make Sequelize use the `Op.is` operator:
+
+```ts
+Post.findAll({
+  where: {
+    authorId: null,
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "authorId" IS NULL;
+```
+
+Using an array as the value will make Sequelize use the `Op.in` operator:
+
+```ts
+Post.findAll({
+  where: {
+    authorId: [2, 3],
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "authorId" IN (2, 3);
+```
+
+Finally, using any other value will make Sequelize use the `Op.eq` operator:
+
+```ts
+Post.findAll({
+  where: {
+    authorId: 2,
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "authorId" = 2;
+```
+
+### Equality Operator
+
+`Op.eq` and `Op.ne` are the simple "equals" and "not equals" operators:
+
+<Tabs>
+<TabItem value="Op.eq">
+
+```ts
+Post.findAll({
+  where: {
+    authorId: { [Op.eq]: 12 },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "authorId" = 12;
+```
+
+</TabItem>
+<TabItem value="Op.ne">
+
+```ts
+Post.findAll({
+  where: {
+    authorId: { [Op.ne]: 12 },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "authorId" <> 12;
+```
+
+</TabItem>
+</Tabs>
+
+:::info
+
+As mentioned in [the section about Implicit Operators](#implicit-operator), Sequelize can infer the `Op.eq` operator if you omit it,
+but there are cases where you need to explicitly use it, for instance when you want to do an equality check against an array, or a JSON object:
+
+```ts
+Post.findAll({
+  where: {
+    tags: {
+      [Op.eq]: ['cooking', 'food'],
+    },
+    jsonMetadata: {
+      [Op.eq]: { key: 'value' },
+    },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "tags" = ARRAY['cooking', 'food'] AND "jsonMetadata" = '{"key": "value"}';
+```
+
+Whereas omitting the `Op.eq` operator would produce the following:
+
+```sql
+SELECT * FROM "posts" WHERE "tags" IN ('cooking', 'food') AND "jsonMetadata"->'key' = 'value';
+```
+
+:::
+
+### IS Operator
+
+<SupportTable
+  features={{
+    'IS NULL': true,
+    'IS true, IS false': {
+      PostgreSQL: 'https://www.postgresql.org/docs/current/functions-comparison.html'
+    },
+  }}
+/>
+
+The `Op.is` and `Op.isNot` operators are used to check for `NULL` and boolean values:
+
+<Tabs>
+<TabItem value="Op.is">
+
+```ts
+Post.findAll({
+  where: {
+    authorId: { [Op.is]: null },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "authorId" IS NULL;
+```
+
+</TabItem>
+<TabItem value="Op.isNot">
+
+```ts
+Post.findAll({
+  where: {
+    authorId: { [Op.isNot]: null },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "authorId" IS NOT NULL;
+```
+
+</TabItem>
+</Tabs>
+
+### Comparison Operators
+
+`Op.gt`, `Op.gte`, `Op.lt`, `Op.lte` are the comparison operators. They respectively mean:
+
+- `Op.gt`: Greater than
+- `Op.gte`: Greater than or equal to
+- `Op.lt`: Less than
+- `Op.lte`: Less than or equal to
+
+<Tabs>
+<TabItem value="Op.gt">
+
+```ts
+Post.findAll({
+  where: {
+    commentCount: { [Op.gt]: 10 },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "commentCount" > 10;
+```
+
+</TabItem>
+<TabItem value="Op.gte">
+
+```ts
+Post.findAll({
+  where: {
+    commentCount: { [Op.gte]: 10 },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "commentCount" >= 10;
+```
+
+</TabItem>
+<TabItem value="Op.lt">
+
+```ts
+Post.findAll({
+  where: {
+    commentCount: { [Op.lt]: 10 },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "commentCount" < 10;
+```
+
+</TabItem>
+<TabItem value="Op.lte">
+
+```ts
+Post.findAll({
+  where: {
+    commentCount: { [Op.gte]: 10 },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "commentCount" <= 10;
+```
+
+</TabItem>
+</Tabs>
+
+:::note
+
+Sequelize does not include SQL Server's "not less than" (`!<`) and "not greater than" operators (`!>`).
+
+See [Custom Operators](#custom-operators) to learn how you can use them in your queries.
+
+:::
+
+### Between Operator
+
+The `Op.between` and `Op.notBetween` operators are used to check if a value is between two values.
+This operator takes an array of exactly two values (the lower and upper bounds):
+
+<Tabs>
+<TabItem value="Op.between">
+
+```ts
+Post.findAll({
+  where: {
+    commentCount: { [Op.between]: [1, 10] },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "commentCount" BETWEEN 1 AND 10;
+```
+
+</TabItem>
+<TabItem value="Op.notBetween">
+
+```ts
+Post.findAll({
+  where: {
+    commentCount: { [Op.notBetween]: [1, 10] },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "commentCount" NOT BETWEEN 1 AND 10;
+```
+
+</TabItem>
+</Tabs>
+
+### IN Operator
+
+The `Op.in` and `Op.notIn` operators are used to check if a value is in a list of values:
+
+<Tabs>
+<TabItem value="Op.in">
+
+```ts
+Post.findAll({
+  where: {
+    authorId: { [Op.in]: [2, 3] },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "authorId" IN (2, 3);
+```
+
+</TabItem>
+<TabItem value="Op.notIn">
+
+```ts
+Post.findAll({
+  where: {
+    authorId: { [Op.notIn]: [2, 3] },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "authorId" NOT IN (2, 3);
+```
+
+</TabItem>
+</Tabs>
+
+### LIKE Operator
+
+The `Op.like` and `Op.notLike` operators are used to check if a value matches a pattern.
+In supported dialects, you can also use `Op.iLike` and `Op.notILike` to perform case-insensitive matches.
+
+<Tabs>
+<TabItem value="Op.like">
+
+```ts
+Post.findAll({
+  where: {
+    title: { [Op.like]: '%The Fox & The Hound%' },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "title" LIKE '%The Fox & The Hound%';
+```
+
+</TabItem>
+<TabItem value="Op.notLike">
+
+```ts
+Post.findAll({
+  where: {
+    title: { [Op.notLike]: '%The Fox & The Hound%' },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "title" NOT LIKE '%The Fox & The Hound%';
+```
+
+</TabItem>
+<TabItem value="Op.iLike">
+
+```ts
+Post.findAll({
+  where: {
+    title: { [Op.iLike]: '%The Fox & The Hound%' },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "title" ILIKE '%The Fox & The Hound%';
+```
+
+</TabItem>
+<TabItem value="Op.notILike">
+
+```ts
+Post.findAll({
+  where: {
+    title: { [Op.notILike]: '%The Fox & The Hound%' },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "title" NOT ILIKE '%The Fox & The Hound%';
+```
+
+</TabItem>
+</Tabs>
+
+:::caution
+
+Sequelize does not provide a way to escape characters in LIKE patterns yet. You will need to use a custom operator to do so:
+
+```ts
+import { Literal, sql, Expression } from '@sequelize/core';
+
+function like(value: Expression, pattern: string, escape: string): Literal {
+  return sql`${value} LIKE ${pattern} ESCAPE ${escape}`
+}
+
+Post.findAll({
+  where: like(sql.attribute('title'), 'Inflation is above 10\\%', '\\'),
+});
+```
+
+Will generate:
+
+```sql
+SELECT * FROM "posts" WHERE "title" LIKE 'Inflation is above 10\\%' ESCAPE '\\';
+```
+:::
+
+### Regexp Operator
+
+The `Op.regexp` and `Op.notRegexp` operators are used to check if a value matches a regular expression.
+In supported dialects, you can also use `Op.iRegexp` and `Op.notIRegexp` to perform case-insensitive matches.
+
+<Tabs>
+<TabItem value="Op.regexp">
+
+```ts
+Post.findAll({
+  where: {
+    title: { [Op.regexp]: '^The Fox' },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "title" ~ '^The Fox';
+```
+
+</TabItem>
+<TabItem value="Op.notRegexp">
+
+```ts
+Post.findAll({
+  where: {
+    title: { [Op.notRegexp]: '^The Fox' },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "title" !~ '^The Fox';
+```
+
+</TabItem>
+<TabItem value="Op.iRegexp">
+
+```ts
+Post.findAll({
+  where: {
+    title: { [Op.iRegexp]: '^The Fox' },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "title" ~* '^The Fox';
+```
+
+</TabItem>
+<TabItem value="Op.notIRegexp">
+
+```ts
+Post.findAll({
+  where: {
+    title: { [Op.notIRegexp]: '^The Fox' },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "title" !~* '^The Fox';
+```
+
+</TabItem>
+</Tabs>
+
+### Starts & Ends With Operator
+
+The `Op.startsWith` and `Op.endsWith` operators are used to check if a value starts or ends with a string.
+Their negated versions are `Op.notStartsWith` and `Op.notEndsWith`.
+
+Unlike the `LIKE` and `REGEXP` operators, these operators are case-sensitive, and will do an exact match against the string,
+not a pattern match.
+
+These operators do not exist natively in most dialects, but are still available through Sequelize as Sequelize
+will generate the appropriate replacement.
+
+### Contains String Operator
+
+The `Op.substring` and `Op.notSubstring` operators are used to check if a value contains a string.
+
+Unlike the `LIKE` and `REGEXP` operators, these operators are case-sensitive, and will do an exact match against the string,
+not a pattern match.
+
+Just like `Op.startsWith` and `Op.endsWith`, these operators do not exist natively in most dialects,
+but are still available through Sequelize as Sequelize.
+
+### TSQuery Matching Operator
+
+<SupportTable
+  dialectLinks={{
+    PostgreSQL: 'https://www.postgresql.org/docs/current/functions-textsearch.html',
+  }}
+/>
+
+The `Op.match` operator is a postgres-specific operator that allows you to match a [`tsvector`](../models/data-types.mdx#strings) against a `tsquery`.
+It is equal to the `@@` postgres operator.
+
+It is one of the only operators that do not accept JavaScript values. Instead you must provide a built `tsquery` object, which
+you can get using the `sql` tag or the `sql.fn` function:
+
+```ts
+import { sql } from '@sequelize/core';
+
+Document.findAll({
+  where: {
+    // in this example, it is assumed that this attribute has been previously populated using
+    // postgres' to_tsvector function.
+    searchTsVector: {
+      [Op.match]: sql`to_tsquery('english', 'cat & rat')`,
+    },
+  },
+});
+```
+
+The above will produce
+
+```sql
+SELECT * FROM "documents" WHERE "searchTsVector" @@ to_tsquery('english', 'cat & rat');
+```
+
+To learn more, see [PostgreSQL's documentation on Full Text Search](https://www.postgresql.org/docs/current/textsearch.html).
+
+### Array Operators
+
+<SupportTable
+  dialectLinks={{
+    PostgreSQL: 'https://www.postgresql.org/docs/current/functions-array.html',
+  }}
+/>
+
+`Op.contains` and `Op.contained` are used to check if an array contains or is contained by another array.
+
+<Tabs>
+<TabItem value="Op.contains">
+
+```ts
+Post.findAll({
+  where: {
+    tags: { [Op.contains]: ['popular', 'trending'] },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "tags" @> ARRAY['popular', 'trending'];
+```
+
+</TabItem>
+<TabItem value="Op.contained">
+
+```ts
+Post.findAll({
+  where: {
+    tags: { [Op.contained]: ['popular', 'trending'] },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "tags" <@ ARRAY['popular', 'trending'];
+```
+
+</TabItem>
+</Tabs>
+
+:::caution
+
+Both operands of the `Op.contains` and `Op.contained` operators must be arrays.
+- If you need to check whether an array contains a single value, you need to wrap the value in an array.
+- If you want to check if a single value is contained in an array, you can use the [`Op.any`](#list--array-comparison-all-any-values) or [`Op.in`](#in-operator) operators instead.
+
+:::
+
+A third array operator, `Op.overlap` can be used to check whether two arrays have at least one value in common:
+
+```ts
+Post.findAll({
+  where: {
+    tags: { [Op.overlap]: ['popular', 'trending'] },
+  },
+});
+```
+
+Produces:
+
+```sql
+SELECT * FROM "posts" WHERE "tags" && ARRAY['popular', 'trending'];
+```
+
+### Range Operators (`Op.overlap`, `Op.contains`, `Op.contained`, `Op.adjacent`, `Op.strictLeft`, `Op.strictRight`, `Op.noExtendRight`, `Op.noExtendLeft`)
+
+<SupportTable
+  dialectLinks={{
+    PostgreSQL: 'https://www.postgresql.org/docs/current/functions-range.html',
+  }}
+/>
+
+### JSONB Operators (`Op.anyKeyExists`, `Op.allKeysExist`)
+
+## Logical combinations (OR, AND, NOT)
+
+## List & Array Comparison (ALL, ANY, VALUES)
+
+Just like Sequelize inferred the `Op.eq` operator in the first example, here Sequelize inferred that the caller wanted an `AND` for the two checks. The code above is equivalent to:
+
+```js
+import { Op } from '@sequelize/core';
+
+Post.findAll({
+  where: {
+    [Op.and]: [
+      { authorId: 12 },
+      { status: 'active' }
+    ]
+  }
+});
+// SELECT * FROM post WHERE authorId = 12 AND status = 'active';
+```
+
+An `OR` can be easily performed in a similar way:
+
+```js
+import { Op } from '@sequelize/core';
+
+Post.findAll({
+  where: {
+    [Op.or]: [
+      { authorId: 12 },
+      { authorId: 13 }
+    ]
+  }
+});
+// SELECT * FROM post WHERE authorId = 12 OR authorId = 13;
+```
+
+Since the above was an `OR` involving the same field, Sequelize allows you to use a slightly different structure which is more readable and generates the same behavior:
+
+```js
+import { Op } from '@sequelize/core';
+
+Post.destroy({
+  where: {
+    authorId: {
+      [Op.or]: [12, 13]
+    }
+  }
+});
+// DELETE FROM post WHERE authorId = 12 OR authorId = 13;
+```
+
+### Operators
+
+Sequelize provides several operators.
+
+```js
+import { Op, literal, fn } from '@sequelize/core';
+
+Post.findAll({
+  where: {
+    [Op.and]: [{ a: 5 }, { b: 6 }],            // (a = 5) AND (b = 6)
+    [Op.or]: [{ a: 5 }, { b: 6 }],             // (a = 5) OR (b = 6)
+    someAttribute: {
+      // Basics
+      [Op.not]: true,                          // IS NOT TRUE
+      [Op.or]: [5, 6],                         // (someAttribute = 5) OR (someAttribute = 6)
+
+      // Number comparisons
+      [Op.between]: [6, 10],                   // BETWEEN 6 AND 10
+      [Op.notBetween]: [11, 15],               // NOT BETWEEN 11 AND 15
+
+      // Other operators
+
+      [Op.all]: literal('SELECT 1'), // > ALL (SELECT 1)
+
+      [Op.startsWith]: 'hat',                  // LIKE 'hat%'
+      [Op.endsWith]: 'hat',                    // LIKE '%hat'
+      [Op.substring]: 'hat',                   // LIKE '%hat%'
+      [Op.iLike]: '%hat',                      // ILIKE '%hat' (case insensitive) (PG only)
+      [Op.notILike]: '%hat',                   // NOT ILIKE '%hat'  (PG only)
+      [Op.regexp]: '^[h|a|t]',                 // REGEXP/~ '^[h|a|t]' (MySQL/PG only)
+      [Op.notRegexp]: '^[h|a|t]',              // NOT REGEXP/!~ '^[h|a|t]' (MySQL/PG only)
+      [Op.iRegexp]: '^[h|a|t]',                // ~* '^[h|a|t]' (PG only)
+      [Op.notIRegexp]: '^[h|a|t]',             // !~* '^[h|a|t]' (PG only)
+
+      [Op.any]: [2, 3],                        // ANY (ARRAY[2, 3]::INTEGER[]) (PG only)
+      [Op.match]: fn('to_tsquery', 'fat & rat') // match text search for strings 'fat' and 'rat' (PG only)
+
+      // In Postgres, Op.like/Op.iLike/Op.notLike can be combined to Op.any:
+      [Op.like]: { [Op.any]: ['cat', 'hat'] }  // LIKE ANY (ARRAY['cat', 'hat'])
+
+      // There are more postgres-only range operators, see below
+    }
+  }
+});
+```
+
+### Logical combinations with operators
+
+The operators `Op.and`, `Op.or` and `Op.not` can be used to create arbitrarily complex nested logical comparisons.
+
+#### Examples with `Op.and` and `Op.or`
+
+```js
+import { Op } from '@sequelize/core';
+
+Foo.findAll({
+  where: {
+    rank: {
+      [Op.or]: {
+        [Op.lt]: 1000,
+        [Op.eq]: null
+      }
+    },
+    // rank < 1000 OR rank IS NULL
+
+    {
+      createdAt: {
+        [Op.lt]: new Date(),
+        [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000)
+      }
+    },
+    // createdAt < [timestamp] AND createdAt > [timestamp]
+
+    {
+      [Op.or]: [
+        {
+          title: {
+            [Op.like]: 'Boat%'
+          }
+        },
+        {
+          description: {
+            [Op.like]: '%boat%'
+          }
+        }
+      ]
+    }
+    // title LIKE 'Boat%' OR description LIKE '%boat%'
+  }
+});
+```
+
+#### Examples with `Op.not`
+
+```js
+Project.findAll({
+  where: {
+    name: 'Some Project',
+    [Op.not]: [
+      { id: [1,2,3] },
+      {
+        description: {
+          [Op.like]: 'Hello%'
+        }
+      }
+    ]
+  }
+});
+```
+
+The above will generate:
+
+```sql
+SELECT *
+FROM `Projects`
+WHERE (
+  `Projects`.`name` = 'Some Project'
+  AND NOT (
+    `Projects`.`id` IN (1,2,3)
+    AND
+    `Projects`.`description` LIKE 'Hello%'
+  )
+)
+```
+
+## Custom Operators
