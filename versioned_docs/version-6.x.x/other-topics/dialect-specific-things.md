@@ -227,11 +227,18 @@ const sequelize = new Sequelize('oracle://user:pass@hostname:port/servicename');
 You can pass an Easy Connect String, a Net Service Name, or a Connect Descriptor to the Sequelize constructor using `dialectOptions.connectString`:
 
 ```js
-const sequelize = new Sequelize({dialect: 'oracle', username: 'user', password: 'password', dialectOptions: {connectString: 'inst1'}});
+const sequelize = new Sequelize({
+  dialect: 'oracle',
+  username: 'user',
+  password: 'password',
+  dialectOptions: {
+    connectString: 'inst1'
+  }
+});
 ```
 Note that the `database`, `host` and `port` will be overriden and the values in connectString will be used for authentication.
 
-Please refer to [Connect String](https://oracle.github.io/node-oracledb/doc/api.html#connectionstrings) for more about connect strings.
+Please refer to [Connect String](https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html#connectionstrings) for more about connect strings.
 
 ## Data type: TIMESTAMP WITHOUT TIME ZONE - PostgreSQL only
 

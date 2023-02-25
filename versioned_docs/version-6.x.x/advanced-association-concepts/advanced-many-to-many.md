@@ -484,7 +484,7 @@ So we start by defining the three relevant models:
 ```js
 const Player = sequelize.define('Player', { username: DataTypes.STRING });
 const Team = sequelize.define('Team', { name: DataTypes.STRING });
-const Game = sequelize.define('Game', { name: DataTypes.INTEGER });
+const Game = sequelize.define('Game', { name: DataTypes.STRING });
 ```
 
 Now, the question is: how to associate them?
@@ -545,7 +545,7 @@ const sequelize = new Sequelize('sqlite::memory:', {
 });
 const Player = sequelize.define('Player', { username: DataTypes.STRING });
 const Team = sequelize.define('Team', { name: DataTypes.STRING });
-const Game = sequelize.define('Game', { name: DataTypes.INTEGER });
+const Game = sequelize.define('Game', { name: DataTypes.STRING });
 
 // We apply a Super Many-to-Many relationship between Game and Team
 const GameTeam = sequelize.define('GameTeam', {
