@@ -8,8 +8,26 @@ Finder methods are the ones that generate `SELECT` queries. All of the following
 
 ## `findAll`
 
-The [`findAll`](pathname:///api/v7/classes/Model.html#findAll) method is already known from the previous tutorial.  
+The [`findAll`](pathname:///api/v7/classes/Model.html#findAll) method is the most basic finder method. 
+It returns all the records in the database that match the query.
+
 It generates a standard `SELECT` query which will retrieve all entries from the table (unless restricted by something like a `where` clause, for example).
+
+The following example returns the array of all users in the database whose first name is "John":
+
+```ts
+const users = await User.findAll({
+  where: {
+    firstName: 'John',
+  },
+});
+```
+
+:::info
+
+This method accepts many options, which are described in detail in [the second part of the SELECT queries guide](./select-in-depth.md).
+
+:::
 
 ## `findOne`
 

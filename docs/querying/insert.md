@@ -19,7 +19,7 @@ The simplest way to create a new record is to use the [`create`](pathname:///api
 ```ts
 // Create a new user
 const jane = await User.create({ firstName: "Jane", lastName: "Doe" });
-// by this point, the user has already been saved to the database!
+// by this point, the user has been saved to the database!
 console.log("Jane's auto-generated ID:", jane.id);
 ```
 
@@ -40,23 +40,6 @@ await jane.save();
 
 Note, from the usage of `await` in the snippet above, that `save` is an asynchronous method. In fact, almost every Sequelize method is asynchronous; `build` is one of the very few exceptions.
 
-:::info Tip!
-
-Trying to log a model instance `console.log` will produce a lot of clutter, since Sequelize instances have a lot of things attached to them.
-Instead, you can use the `.get()` method to only log the instance's attributes.
-
-```ts
-const jane = await User.create({ name: "Jane" });
-
-// this will result in a very clutered log
-console.log(jane);
-
-// this will only log the attributes of the instance
-console.log(jane.get());
-```
-
-:::
-
 ## `findOrCreate`
 
 The method [`findOrCreate`](pathname:///api/v7/classes/Model.html#findOrCreate) will create an entry in the table unless it can find one fulfilling the query options. In both cases, it will return an instance (either the found instance or the created instance) and a boolean indicating whether that instance was created or already existed.
@@ -72,6 +55,7 @@ const [user, created] = await User.findOrCreate({
     job: 'Technical Lead JavaScript'
   }
 });
+
 console.log(user.username); // 'sdepold'
 console.log(user.job); // This may or may not be 'Technical Lead JavaScript'
 console.log(created); // The boolean indicating whether this instance was just created
@@ -100,43 +84,25 @@ const captains = await Captain.bulkCreate([
   { name: 'Jack Sparrow' },
   { name: 'Davy Jones' }
 ]);
+
 console.log(captains.length); // 2
 console.log(captains[0] instanceof Captain); // true
 console.log(captains[0].name); // 'Jack Sparrow'
 console.log(captains[0].id); // 1 // (or another auto-generated value)
 ```
 
-However, by default, `bulkCreate` does not run validations on each object that is going to be created (which `create` does). To make `bulkCreate` run these validations as well, you must pass the `validate: true` option. This will decrease performance. Usage example:
-
-```ts
-const Foo = sequelize.define('foo', {
-  bar: {
-    type: DataTypes.TEXT,
-    validate: {
-      len: [4, 6]
-    }
-  }
-});
-
-// This will not throw an error, both instances will be created
-await Foo.bulkCreate([
-  { name: 'abc123' },
-  { name: 'name too long' }
-]);
-
-// This will throw an error, nothing will be created
-await Foo.bulkCreate([
-  { name: 'abc123' },
-  { name: 'name too long' }
-], { validate: true });
-```
-
-If you are accepting values directly from the user, it might be beneficial to limit the columns that you want to actually insert. To support this, `bulkCreate()` accepts a `fields` option, an array defining which fields must be considered (the rest will be ignored).
+If you are accepting values directly from the user, it might be beneficial to limit the columns that you want to actually insert. 
+To support this, `bulkCreate()` accepts a `fields` option, an array defining which fields must be considered (the rest will be ignored).
 
 ```ts
 await User.bulkCreate([
   { username: 'foo' },
-  { username: 'bar', admin: true }
+  { 
+    username: 'bar', 
+    // highlight-start
+    // This property will be ignored, because it is not listed in the "fields" option
+    admin: true 
+    // highlight-end
+  },
 ], { fields: ['username'] });
-// Neither foo nor bar are admins.
 ```

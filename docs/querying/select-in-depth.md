@@ -25,337 +25,185 @@ console.log("All users:", JSON.stringify(users, null, 2));
 SELECT * FROM ...
 ```
 
-## Specifying attributes for SELECT queries
+## Selecting Attributes
 
-To select only some attributes, you can use the `attributes` option:
+By default, querying methods will load all attributes of the model. You can control which attributes are loaded by using the [`attributes`](pathname:///api/v7/interfaces/_sequelize_core.Projectable.html) option:
+
+To select a specific list of attributes, set that option to an array of attribute names, like this:
 
 ```js
-Model.findAll({
-  attributes: ['foo', 'bar']
+User.findAll({
+  // "firstName" and "lastName" are attributes of the "User" model
+  attributes: ['firstName', 'lastName'],
 });
 ```
+
+This will result in roughly the following SQL query:
 
 ```sql
-SELECT foo, bar FROM ...
+SELECT foo, bar FROM my_table;
 ```
 
-Attributes can be renamed using a nested array:
+### Excluding attributes
+
+You also have the option to exclude attributes from the result set:
 
 ```js
-Model.findAll({
-  attributes: ['foo', ['bar', 'baz'], 'qux']
+User.findAll({
+  // "password" is attributes of the "User" model
+  attributes: { exclude: ['password'] },
 });
 ```
 
-```sql
-SELECT foo, bar AS baz, qux FROM ...
-```
+This will load all attributes that have been defined in the model, except for the `password` attribute.
 
-You can use [`fn`](pathname:///api/v7/index.html#fn) to do aggregations:
+### Extra attributes
 
-```js
-import { fn, col } from '@sequelize/core';
+You also have the option to load custom attributes that are not part of the model definition. 
+This is useful if you need to compute the value of one of your attributes, or if you need to load attributes that are not part of your model definition.
 
-Model.findAll({
-  attributes: [
-    'foo',
-    [fn('COUNT', col('hats')), 'n_hats'],
-    'bar'
-  ]
-});
-```
-
-```sql
-SELECT foo, COUNT(hats) AS n_hats, bar FROM ...
-```
-
-When using aggregation function, you must give it an alias to be able to access it from the model. In the example above you can get the number of hats with `instance.n_hats`.
-
-Sometimes it may be tiresome to list all the attributes of the model if you only want to add an aggregation:
+You can do this by using the `attributes.include` option, which will load all attributes that have been defined in the model, plus the extra attributes that you have specified:
 
 ```js
-import { fn, col } from '@sequelize/core';
-
-// This is a tiresome way of getting the number of hats (along with every column)
-Model.findAll({
-  attributes: [
-    'id', 'foo', 'bar', 'baz', 'qux', 'hats', // We had to list all attributes...
-    [fn('COUNT', col('hats')), 'n_hats'] // To add the aggregation...
-  ]
-});
-
-// This is shorter, and less error prone because it still works if you add / remove attributes from your model later
-Model.findAll({
+User.findAll({
   attributes: {
     include: [
-      [fn('COUNT', col('hats')), 'n_hats']
-    ]
-  }
+      // This will include a dynamically computed "age" property on all returned instances.
+      [literal('DATEDIFF(year, "birthdate", GETDATE())'), 'age'],
+    ],
+  },
 });
 ```
 
-```sql
-SELECT id, foo, bar, baz, qux, hats, COUNT(hats) AS n_hats FROM ...
-```
+You can use [SQL Literals](./raw-queries.md#literals--raw-sql-) to select any SQL expression instead of a column.
+When using SQL expressions like in the above example, you must give it an alias to be able to access it from the model.
+In the above example, the alias is `age`.
 
-Similarly, it's also possible to remove a selected few attributes:
+:::caution TypeScript
 
-```js
-Model.findAll({
-  attributes: { exclude: ['baz'] }
+Be aware that these attributes will not be typed, as methods such as `findAll` and `findOne` return 
+instances of the model class.
+
+If these attributes are part of your model, you could declare them as optional attributes on your model.
+
+If they are not part of your model, 
+One way to type these attributes is to use the `raw` option, which will return a plain object instead of an instance of the model class:
+
+```ts
+import { fn, col } from '@sequelize/core';
+
+interface Data {
+  authorId: number;
+  postCount: number;
+}
+
+// this will return an array of plain objects with the shape of the "Data" interface
+const data: Data[] = await Post.findAll<Data>({
+  attributes: [
+    [fn('COUNT', col('id')), 'postCount'],
+  ],
+  group: ['authorId'],
+  raw: true,
 });
 ```
 
-```sql
--- Assuming all columns are 'id', 'foo', 'bar', 'baz' and 'qux'
-SELECT id, foo, bar, qux FROM ...
-```
+:::
 
 ## Applying WHERE clauses
 
-[//]: # (TODO: replace link to a guide that details every operator)
-
-The `where` option is used to filter the query. There are lots of operators to use for the `where` clause, available as Symbols from [`Op`](pathname:///api/v7/index.html#Op).
-
-### The basics
+The `where` option is used to filter the query. Its most basic form is an object of attribute-value pairs, 
+which is a simple equality check:
 
 ```js
 Post.findAll({
   where: {
-    authorId: 2
+    authorId: 2,
   }
 });
-// SELECT * FROM post WHERE authorId = 2;
+
+// SELECT * FROM posts WHERE "authorId" = 2;
 ```
 
-Observe that no operator (from `Op`) was explicitly passed, so Sequelize assumed an equality comparison by default. The above code is equivalent to:
-
-```js
-import { Op } from '@sequelize/core';
-
-Post.findAll({
-  where: {
-    authorId: {
-      [Op.eq]: 2
-    }
-  }
-});
-// SELECT * FROM post WHERE authorId = 2;
-```
-
-Multiple checks can be passed:
+You can specify multiple attributes in the `where` object, and they will be joined by an `AND` operator:
 
 ```js
 Post.findAll({
   where: {
-    authorId: 12,
-    status: 'active'
-  }
+    authorId: 2,
+    status: 'active',
+  },
 });
-// SELECT * FROM post WHERE authorId = 12 AND status = 'active';
+
+// SELECT * FROM posts WHERE "authorId" = 2 AND "status" = 'active';
 ```
 
-Just like Sequelize inferred the `Op.eq` operator in the first example, here Sequelize inferred that the caller wanted an `AND` for the two checks. The code above is equivalent to:
+If you need to specify an `OR` condition, you can use the [Op.or](pathname:///api/v7/interfaces/_sequelize_core.OpTypes.html#or) operator or the [`or`](pathname:///api/v7/functions/_sequelize_core.or.html) function:
 
 ```js
-import { Op } from '@sequelize/core';
+import { or } from '@sequelize/core';
 
 Post.findAll({
-  where: {
-    [Op.and]: [
-      { authorId: 12 },
-      { status: 'active' }
-    ]
-  }
+  where: or({
+    authorId: 2,
+    status: 'active',
+  }),
 });
-// SELECT * FROM post WHERE authorId = 12 AND status = 'active';
+
+// SELECT * FROM posts WHERE "authorId" = 2 OR "status" = 'active';
 ```
 
-An `OR` can be easily performed in a similar way:
+Of course, you can also nest and mix these operators:
 
 ```js
-import { Op } from '@sequelize/core';
+import { or, and } from '@sequelize/core';
 
 Post.findAll({
-  where: {
-    [Op.or]: [
-      { authorId: 12 },
-      { authorId: 13 }
-    ]
-  }
+  where: and(
+    {
+      authorId: 2,
+      status: 'active',
+    },
+    or(
+      { title: 'foo' },
+      { title: 'bar' },
+    ),
+  ),
 });
-// SELECT * FROM post WHERE authorId = 12 OR authorId = 13;
-```
 
-Since the above was an `OR` involving the same field, Sequelize allows you to use a slightly different structure which is more readable and generates the same behavior:
-
-```js
-import { Op } from '@sequelize/core';
-
-Post.destroy({
-  where: {
-    authorId: {
-      [Op.or]: [12, 13]
-    }
-  }
-});
-// DELETE FROM post WHERE authorId = 12 OR authorId = 13;
+// SELECT * FROM posts WHERE "authorId" = 2 AND "status" = 'active' AND ("title" = 'foo' OR "title" = 'bar');
 ```
 
 ### Operators
 
-Sequelize provides several operators.
-
-```js
-import { Op, literal, fn } from '@sequelize/core';
-
-Post.findAll({
-  where: {
-    [Op.and]: [{ a: 5 }, { b: 6 }],            // (a = 5) AND (b = 6)
-    [Op.or]: [{ a: 5 }, { b: 6 }],             // (a = 5) OR (b = 6)
-    someAttribute: {
-      // Basics
-      [Op.eq]: 3,                              // = 3
-      [Op.ne]: 20,                             // != 20
-      [Op.is]: null,                           // IS NULL
-      [Op.not]: true,                          // IS NOT TRUE
-      [Op.or]: [5, 6],                         // (someAttribute = 5) OR (someAttribute = 6)
-
-      // Using dialect specific column identifiers (PG in the following example):
-      [Op.col]: 'user.organization_id',        // = "user"."organization_id"
-
-      // Number comparisons
-      [Op.gt]: 6,                              // > 6
-      [Op.gte]: 6,                             // >= 6
-      [Op.lt]: 10,                             // < 10
-      [Op.lte]: 10,                            // <= 10
-      [Op.between]: [6, 10],                   // BETWEEN 6 AND 10
-      [Op.notBetween]: [11, 15],               // NOT BETWEEN 11 AND 15
-
-      // Other operators
-
-      [Op.all]: literal('SELECT 1'), // > ALL (SELECT 1)
-
-      [Op.in]: [1, 2],                         // IN [1, 2]
-      [Op.notIn]: [1, 2],                      // NOT IN [1, 2]
-
-      [Op.like]: '%hat',                       // LIKE '%hat'
-      [Op.notLike]: '%hat',                    // NOT LIKE '%hat'
-      [Op.startsWith]: 'hat',                  // LIKE 'hat%'
-      [Op.endsWith]: 'hat',                    // LIKE '%hat'
-      [Op.substring]: 'hat',                   // LIKE '%hat%'
-      [Op.iLike]: '%hat',                      // ILIKE '%hat' (case insensitive) (PG only)
-      [Op.notILike]: '%hat',                   // NOT ILIKE '%hat'  (PG only)
-      [Op.regexp]: '^[h|a|t]',                 // REGEXP/~ '^[h|a|t]' (MySQL/PG only)
-      [Op.notRegexp]: '^[h|a|t]',              // NOT REGEXP/!~ '^[h|a|t]' (MySQL/PG only)
-      [Op.iRegexp]: '^[h|a|t]',                // ~* '^[h|a|t]' (PG only)
-      [Op.notIRegexp]: '^[h|a|t]',             // !~* '^[h|a|t]' (PG only)
-
-      [Op.any]: [2, 3],                        // ANY (ARRAY[2, 3]::INTEGER[]) (PG only)
-      [Op.match]: fn('to_tsquery', 'fat & rat') // match text search for strings 'fat' and 'rat' (PG only)
-
-      // In Postgres, Op.like/Op.iLike/Op.notLike can be combined to Op.any:
-      [Op.like]: { [Op.any]: ['cat', 'hat'] }  // LIKE ANY (ARRAY['cat', 'hat'])
-
-      // There are more postgres-only range operators, see below
-    }
-  }
-});
-```
-
-#### Shorthand syntax for `Op.in`
-
-Passing an array directly to the `where` option will implicitly use the `IN` operator:
-
-```js
-Post.findAll({
-  where: {
-    id: [1,2,3] // Same as using `id: { [Op.in]: [1,2,3] }`
-  }
-});
-// SELECT ... FROM "posts" AS "post" WHERE "post"."id" IN (1, 2, 3);
-```
-
-### Logical combinations with operators
-
-The operators `Op.and`, `Op.or` and `Op.not` can be used to create arbitrarily complex nested logical comparisons.
-
-#### Examples with `Op.and` and `Op.or`
+Sequelize supports many operators, which can be used to create more complex queries. Here is a short example:
 
 ```js
 import { Op } from '@sequelize/core';
 
-Foo.findAll({
+Post.findAll({
   where: {
-    rank: {
-      [Op.or]: {
-        [Op.lt]: 1000,
-        [Op.eq]: null
-      }
+    views: {
+      // highlight-start
+      [Op.gt]: 100,
+      [Op.lte]: 500,
+      // highlight-end
     },
-    // rank < 1000 OR rank IS NULL
-
-    {
-      createdAt: {
-        [Op.lt]: new Date(),
-        [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000)
-      }
-    },
-    // createdAt < [timestamp] AND createdAt > [timestamp]
-
-    {
-      [Op.or]: [
-        {
-          title: {
-            [Op.like]: 'Boat%'
-          }
-        },
-        {
-          description: {
-            [Op.like]: '%boat%'
-          }
-        }
-      ]
-    }
-    // title LIKE 'Boat%' OR description LIKE '%boat%'
-  }
+  },
 });
+
+// SELECT * FROM posts WHERE "views" > 100 AND "views" <= 500;
 ```
 
-#### Examples with `Op.not`
+You can find the complete list of operators, and more, in the [Operators guide](./operators.md).
 
-```js
-Project.findAll({
-  where: {
-    name: 'Some Project',
-    [Op.not]: [
-      { id: [1,2,3] },
-      {
-        description: {
-          [Op.like]: 'Hello%'
-        }
-      }
-    ]
-  }
-});
-```
+### Casting
 
-The above will generate:
-
-```sql
-SELECT *
-FROM `Projects`
-WHERE (
-  `Projects`.`name` = 'Some Project'
-  AND NOT (
-    `Projects`.`id` IN (1,2,3)
-    AND
-    `Projects`.`description` LIKE 'Hello%'
-  )
-)
-```
+- shorthand casting syntax
+- longhand casting syntax
 
 ### Advanced queries with functions (not just columns)
+
+[//]: # (TODO: THIS HAS NOT BEEN REWRITTEN YET)
 
 What if you wanted to obtain something like `WHERE char_length("content") = 7`?
 
