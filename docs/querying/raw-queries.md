@@ -199,7 +199,7 @@ const users = await sequelize.query("SELECT * FROM `users`", { type: QueryTypes.
 // We didn't need to destructure the result here - the results were returned directly
 ```
 
-Several other query types are available. [Peek into the source for details](https://github.com/sequelize/sequelize/blob/main/src/query-types.ts).
+Several other query types are available. [Peek into the source for details](https://github.com/sequelize/sequelize/blob/main/packages/core/src/query-types.ts).
 
 A second option is the model. If you pass a model the returned data will be instances of that model.
 
