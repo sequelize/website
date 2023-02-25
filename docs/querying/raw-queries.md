@@ -16,104 +16,86 @@ easy to write SQL that is both safe, readable and reusable.
 
 :::
 
-## Literals (raw SQL)
+## Writing raw SQL
 
-Use the [`literal()`](pathname:///api/v7/index.html#literal) function provided by Sequelize to insert raw SQL almost anywhere in queries built by Sequelize.
+The `sql` tag is a template literal tag that allows you to write raw SQL:
 
 ```typescript
-import { literal } from '@sequelize/core';
+import { sql } from '@sequelize/core';
 
-User.findAll({
-  where: literal('id = $id'),
-  bind: {
-    id: 5,
-  },
+const id = 5;
+
+await sequelize.query(sql`SELECT * FROM users WHERE id = ${id}`);
+```
+
+As indicated above, raw SQL can be used almost anywhere in Sequelize. For instance, here is one way to use raw SQL to customize the `WHERE` clause of a `findAll` query:
+
+```typescript
+import { sql } from '@sequelize/core';
+
+const id = 5;
+
+const users = await User.findAll({
+  where: sql`id = ${id}`,
 });
 ```
 
-`literal()` supports both [replacements](./raw-queries.md#replacements) and [bind parameters](./raw-queries.md#bind-parameters) as ways to safely include user input in your query.
+In the above example, we used a variable in our raw SQL. Thanks to the `sql` tag, Sequelize will automatically escape that variable to remove any risk of SQL injection.
 
-## Replacements
+Sequelize supports two different ways to pass variables in raw SQL: __Replacements__ and __Bind Parameters__.  
+Replacements and bind parameters are available in all querying methods, and can be used together in the same query.
+
+### Replacements
 
 Replacements are a way to pass variables in your Query. They are an alternative to [Bind Parameters](#bind-parameters).
 
 The difference between replacements and bind parameters is that replacements are escaped and inserted into the query by Sequelize before the query is sent to the database,
 whereas bind parameters are sent to the database separately from the SQL query text, and 'escaped' by the Database itself.
 
-Replacements can be written in two different ways:
+Replacements can be written in three different ways:
 
-- Either using numeric identifiers (represented by a `?`). The `replacements` option must be an array. The values will be replaced in the order in which they appear in the array and query.
+- By using the `sql` tag when the [query is in _replacement_ mode](#query-variable-mode)
+- By using numeric identifiers (represented by a `?`) in the query. The `replacements` option must be an array. The values will be replaced in the order in which they appear in the array and query.
 - Or by using alphanumeric identifiers (e.g. `:firstName`, `:status`, etc…). These identifiers follow common identifier rules (alphanumeric & underscore only, cannot start with a number). The `replacements` option must be a plain object which includes each parameter (without the `:` prefix).
 
 The `replacements` option must contain all bound values, or Sequelize will throw an error.
 
-Examples:
+#### Examples
 
 ```js
 import { QueryTypes } from '@sequelize/core';
 
+// This query use positional replacements
 await sequelize.query(
   'SELECT * FROM projects WHERE status = ?',
   {
     replacements: ['active'],
-    type: QueryTypes.SELECT,
   },
 );
 
+// This query uses named replacements
 await sequelize.query(
   'SELECT * FROM projects WHERE status = :status',
   {
     replacements: { status: 'active' },
-    type: QueryTypes.SELECT,
   },
 );
-```
 
-When using operators like `LIKE`, keep in mind that special characters in your replacement do keep their special meaning.  
-e.g. the following query matches users with names that start with 'ben':
-
-```js
-import { QueryTypes } from '@sequelize/core';
-
+// This query use replacements added by the sql tag
 await sequelize.query(
-  'SELECT * FROM users WHERE name LIKE :searchName',
-  {
-    replacements: { searchName: 'ben%' },
-    type: QueryTypes.SELECT
-  }
+  sql`SELECT * FROM projects WHERE status = ${'active'}`,
 );
+
+// Replacements are also available in other querying methods
+await Project.findAll({
+  where: {
+    status: sql`:status`
+  },
+  replacements: { status: 'active' },
+});
 ```
 
-:::caution
-
-Sequelize does not currently support a way to [specify the DataType of a replacement](https://github.com/sequelize/sequelize/issues/14410), 
-and will try to guess its type prior to serializing it.  
-
-For instance, Arrays will not be serialized as the SQL `ARRAY` type. Instead, the following query:
-
-```js
-import { QueryTypes } from '@sequelize/core';
-
-await sequelize.query(
-  'SELECT * FROM projects WHERE status IN (:status)',
-  {
-    replacements: { status: ['active', 'inactive'] },
-    type: QueryTypes.SELECT
-  }
-);
-```
-
-Will result in this SQL:
-
-```sql
-SELECT * FROM projects WHERE status IN ('active', 'inactive')
-```
-
-Until such a feature is implemented, you can use a [bind parameter](#bind-parameters) and cast it instead.
-
-:::
-
-## Bind Parameters
+### Bind Parameters
 
 Bind parameters are a way to pass variables in your Query. They are an alternative to [Replacements](#replacements).
 
@@ -133,17 +115,19 @@ The `bind` option must contain all bound values, or Sequelize will throw an erro
 
 :::info
 
-Bind Parameters can only be used for data values. Bind Parameters cannot be used to dynamically change the name of a table, a column, or other non-data values parts of the query.
+Bind Parameters can only be used for data values. Bind Parameters cannot be used to dynamically change the name of a table, a column, or other non-data values parts of the query,
+but you can use [`sql.attribute`](#attribute), and [`sql.identifier`](#identifier) for that.
 
 Your database may have further restrictions with bind parameters.
 
 :::
 
-Examples:
+#### Examples
 
 ```js
 import { QueryTypes } from '@sequelize/core';
 
+// This query use positional bind parameters
 await sequelize.query(
   'SELECT * FROM projects WHERE status = $1',
   {
@@ -152,6 +136,7 @@ await sequelize.query(
   },
 );
 
+// This query uses named bind parameters
 await sequelize.query(
   'SELECT * FROM projects WHERE status = $status',
   {
@@ -159,6 +144,14 @@ await sequelize.query(
     type: QueryTypes.SELECT,
   },
 );
+
+// Bind parameters are also available in other querying methods
+await Project.findAll({
+  where: {
+    status: sql`$status`
+  },
+  bind: { status: 'active' },
+});
 ```
 
 Sequelize does not currently support a way to [specify the DataType of a bind parameter](https://github.com/sequelize/sequelize/issues/14410).  
@@ -185,6 +178,361 @@ await sequelize.query('SELECT * FROM projects WHERE id = $1::int');
 ```
 
 :::
+
+### Query Variable Mode
+
+While bind parameters written using the `$` syntax, and replacements written using the `:` and `?` syntaxes, will always be interpreted as
+bind parameters and replacements respectively, variables inserted in an `sql`-tagged template literal can be interpreted as bind parameters or replacements depending on the __Query Variable Mode__.
+
+It is not currently possible to configure that mode per query (this feature is planned for a future release). Instead, the mode
+is pre-determined by the method used to execute the query:
+
+- `Model.insert`, `Model.destroy` and `Model.update` are in "bind parameter" mode.
+- All other methods are in "replacement" mode.
+
+This means that, for instance, variables used in `findAll` will be added to the query as replacements:
+
+```ts
+const fundingStatus = 'funded';
+
+await Project.findAll({
+  where: and(
+    { status: 'active' },
+    sql`funding = ${fundingStatus}`,
+  ),
+});
+```
+
+```sql
+SELECT * FROM projects WHERE status = 'active' AND funding = 'funded'
+```
+
+Whereas variables used in `update` will be added to the query as bind parameters:
+
+```ts
+const fundingStatus = 'funded';
+
+await Project.update(
+  { funding: 'pending' },
+  {
+    where: and(
+      { status: 'active' },
+      sql`funding = ${fundingStatus}`,
+    ),
+  },
+);
+```
+
+```sql
+UPDATE projects SET funding = $1 WHERE status = $2 AND funding = $3
+```
+
+### `sql.identifier`
+
+The `sql.identifier` function can be used to escape the name of an identifier (such as a table or column name) in a query.
+
+```js
+import { sql } from '@sequelize/core';
+
+await sequelize.query(
+  sql`SELECT * FROM ${sql.identifier('projects')}`,
+);
+```
+
+```sql
+-- The identifier quotes are dialect-specific, this is an example for PostgreSQL
+SELECT * FROM "projects"
+```
+
+### `sql.list`
+
+When using an array as a variable in a query, Sequelize will by default treat it as an SQL array:
+
+```ts
+const statuses = ['active', 'pending'];
+
+await sequelize.query(
+  sql`SELECT * FROM projects WHERE status = ANY(${statuses})`,
+);
+```
+
+```sql
+SELECT * FROM projects WHERE status = ANY(ARRAY['active', 'pending'])
+```
+
+The `sql.list` function can be used to tell Sequelize to treat the value as an SQL list instead:
+
+```ts
+const statuses = ['active', 'pending'];
+
+await sequelize.query(
+  sql`SELECT * FROM projects WHERE status IN ${sql.list(statuses)}`,
+);
+```
+
+```sql
+SELECT * FROM projects WHERE status IN ('active', 'pending')
+```
+
+### `sql.where`
+
+The `sql.where` function can be used to generate an SQL condition from a JavaScript object, using the same syntax as the [`where` option of the `findAll` method](./select-in-depth.md#applying-where-clauses).
+
+```ts
+const where = {
+  status: 'active',
+  funding: 'funded',
+};
+
+await sequelize.query(
+  sql`SELECT * FROM projects WHERE ${sql.where(where)}`,
+);
+```
+
+```sql
+SELECT * FROM projects WHERE status = 'active' AND funding = 'funded'
+```
+
+It can also be used to generate an SQL condition where the left operand is something other than an attribute name:
+
+```ts
+Post.findAll({
+  where: sql.where(
+    new Date('2012-01-01'),
+    Op.between,
+    [sql.attribute('createdAt'), sql.attribute('publishedAt')]
+  ),
+});
+```
+
+```sql
+-- The left operand is a literal value, and the right operands are column names
+-- Something that is not possible to do with the POJO where syntax.
+SELECT * FROM "projects" WHERE '2012-01-01' BETWEEN "createdAt" AND "publishedAt"
+```
+
+### `sql.attribute`
+
+The `sql.attribute` function can be used to reference the name of a Model attribute. It is similar to the [`sql.identifier`](#sqlidentifier) function, 
+but the name of the attribute will be mapped to the name of the column, whereas `sql.identifier` escapes its value as-is:
+
+```ts
+class User extends Model {
+  @Attribute({
+    type: DataTypes.STRING,
+    columnName: 'first_name',
+  })
+  declare firstName: string;
+}
+
+User.findAll({
+  where: sql.where(
+    // highlight-next-line
+    sql.attribute('firstName'),
+    Op.eq,
+    'John',
+  ),
+});
+```
+
+```sql
+SELECT * FROM "users" WHERE "first_name" = 'John'
+```
+
+:::caution
+
+Sequelize is only able to map the attribute name to the column name if it's aware of the Model.
+This is typically the case for model methods, but is not the case for `sequelize.query`.
+
+:::
+
+On top of this mapping, `sql.attribute` also supports the entire range of the attribute syntax. This means that it's possible to:
+
+#### Use the association reference syntax
+
+You can reference includes using the association reference syntax.
+
+The name of the association must start & end with a `$` character, and the name of the attribute must be separated from the association name with a `.` character.
+
+```ts
+User.findAll({
+  include: [{
+    association: User.associations.posts,
+    where: sql.where(
+      // highlight-next-line
+      sql.attribute('$user$.name'),
+      Op.eq,
+      'Zoe',
+    ),
+  }],
+});
+```
+
+#### Use the Casting Syntax
+
+You can use the `::` syntax to cast the attribute to a different type, just like in [POJO attributes](./select-in-depth.md#casting)
+
+```ts
+User.findAll({
+  where: sql.where(
+    // highlight-next-line
+    sql.attribute('createdAt::text'),
+    Op.like,
+    '2012-%',
+  ),
+});
+```
+
+#### Use the JSON Extraction syntax
+
+You can use the JSON extraction syntax to access JSON properties, just like in [POJO attributes](./select-in-depth.md#json-extraction)
+
+```ts
+User.findAll({
+  where: sql.where(
+    // This will access the property `name` of the JSON column `data`
+    // highlight-next-line
+    sql.attribute('data.name'),
+    Op.eq,
+    'John',
+  ),
+});
+```
+
+### `sql.cast`
+
+The `sql.cast` function can be used to cast a value to the type of your choice:
+
+```ts
+User.findAll({
+  where: sql.where(
+    // highlight-next-line
+    sql.cast(sql.attribute('createdAt'), 'text'),
+    Op.like,
+    '2012-%',
+  ),
+});
+```
+
+```sql
+SELECT * FROM "users" WHERE CAST("createdAt" AS text) LIKE '2012-%'
+```
+
+It's also possible to use a Sequelize DataType as the type:
+
+```ts
+User.findAll({
+  where: sql.where(
+    // highlight-next-line
+    sql.cast(sql.attribute('createdAt'), DataTypes.TEXT),
+    Op.like,
+    '2012-%',
+  ),
+});
+```
+
+:::info
+
+Attributes support a shorthand syntax for casting. See [Casting syntax in `sql.attribute`](#use-the-casting-syntax) and [Casting Syntax in POJOs](./select-in-depth.md#casting) for more information.
+
+:::
+
+### `sql.col`
+
+:::caution
+
+This function is available for backwards compatibility, and there are currently no plans to deprecate it, 
+but it is not recommended to use in new code. Prefer instead to use [`sql.attribute`](#sqlattribute), [`sql.identifier`](#sqlidentifier),
+and the `sql` template tag.
+
+:::
+
+This function is a third way to reference a column name. It's similar to [`sql.identifier`](#sqlidentifier), but gives special meaning to the `*` characters.
+
+Here are a few examples:
+
+| Input     | `sql.col`   | `sql.identifier` |
+|-----------|-------------|------------------|
+| `*`       | `*`         | `"*"`            |
+| `users.*` | `"users".*` | `"users.*"`      |
+
+Unlike [`sql.attribute`](#sqlattribute), this method does not support any other special syntax, and does not map its input to a column name.
+
+### `sql.jsonPath`
+
+This function can be used to extract a JSON property from a JSON value
+
+```ts
+sequelize.query(sql`
+  SELECT ${sql.jsonPath(sql.identifier('data'), ['addresses', 0, 'country'])} AS country
+  FROM users
+`);
+```
+
+```sql
+-- postgres
+SELECT data#>ARRAY['addresses', '0', 'country'] AS country FROM users
+-- other dialects
+SELECT JSON_EXTRACT(data, '$.addresses[0].country') AS country FROM users
+```
+
+This can be useful to generate a JSON extraction query dynamically in a safe way.
+
+The JSON Path array accepts a mix of strings and numbers. If a string is used, it will be treated as a property name (used to access an object property).
+If a number is used, it will be treated as an index (used to access an array element).
+
+Make sure to use the correct type for your use case, as using the string `'0'` will try to access the property named `'0'` instead of the first element of the array.
+
+Read more about this feature in the [JSON Extraction](./select-in-depth.md#json-extraction) chapter.
+
+:::info
+
+Attributes support a shorthand syntax for JSON extraction. See [Casting syntax in `sql.attribute`](#use-the-json-extraction-syntax) for more information.
+
+:::
+
+### `sql.unquote`
+
+The `sql.unquote` function is used to execute the `JSON_UNQUOTE` (or equivalent) function on a JSON value:
+
+```ts
+sequelize.query(sql`
+  SELECT ${sql.unquote(sql.jsonPath(sql.identifier('data'), ['addresses', 0, 'country']))} AS country
+  FROM users
+`);
+```
+
+```sql
+-- postgres (the #>> operator unquotes, unlike the #> operator)
+SELECT data#>>ARRAY['addresses', '0', 'country'] AS country FROM users
+-- other dialects
+SELECT JSON_UNQUOTE(JSON_EXTRACT(data, '$.addresses[0].country')) AS country FROM users
+```
+
+Read more about this feature in the [JSON Extraction](./select-in-depth.md#json-extraction) chapter.
+
+### `sql.fn`
+
+This function exists for backwards compatibility with older versions of Sequelize but is not recommended for new code, as `sql` can be used to write
+SQL functions in a more natural way.
+
+For instance, the old way of writing a `lower` function would be:
+
+```ts
+sql.fn('LOWER', sql.attribute('name'));
+```
+
+And can now be written as:
+
+```ts
+sql`LOWER(${sql.attribute('name')})`;
+```
+
+Both result in
+
+```sql
+LOWER("name")
+```
 
 ## `sequelize.query`
 

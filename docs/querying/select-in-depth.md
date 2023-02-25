@@ -198,8 +198,38 @@ You can find the complete list of operators, and more, in the [Operators guide](
 
 ### Casting
 
-- shorthand casting syntax
-- longhand casting syntax
+Sequelize provides a convenient syntax to cast an attribute to a different type:
+
+```ts
+User.findAll({
+  where: {
+    // highlight-next-line
+    'createdAt::text': {
+      [Op.like]: '2012-%',
+    },
+  },
+});
+```
+
+```sql
+SELECT * FROM "users" AS "user" WHERE CAST("user"."createdAt" AS TEXT) LIKE '2012-%';
+```
+
+This syntax is only available on attributes, but you can also use [`sql.cast`](./raw-queries.md#sqlcast) to cast a value:
+
+```ts
+User.findAll({
+  where: {
+    createdAt: {
+      [Op.gt]: sql.cast('2012-01-01', 'date'),
+    },
+  },
+});
+```
+
+```sql
+SELECT * FROM "users" AS "user" WHERE "user"."createdAt" > CAST('2012-01-01' AS DATE);
+```
 
 ### Advanced queries with functions (not just columns)
 
@@ -263,7 +293,7 @@ WHERE (
 )
 ```
 
-### Querying JSON
+### JSON Extraction
 
 JSON can be queried in three different ways:
 
