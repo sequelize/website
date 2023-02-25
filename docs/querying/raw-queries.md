@@ -172,7 +172,7 @@ await sequelize.query('SELECT * FROM projects WHERE id = $1::int');
 
 :::
 
-### ⚠️ Caution: Don't put parameters in strings
+### ⚠️ Don't put parameters in strings
 
 Never put parameters in strings, __including postgres dollar-quoted strings__, as this can very easily lead to SQL injection attacks.
 
