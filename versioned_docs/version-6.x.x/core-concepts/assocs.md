@@ -454,7 +454,7 @@ console.log((await Ship.findAll({ include: Captain })).toJSON());
 console.log((await Ship.findAll({ include: 'Captain' })).toJSON());
 
 // Also, instances obtain a `getCaptain()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getCaptain()).toJSON());
 ```
 
@@ -480,7 +480,7 @@ console.log((await Ship.findAll({
 })).toJSON());
 
 // Also, instances obtain a `getLeader()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getLeader()).toJSON());
 ```
 
@@ -508,7 +508,7 @@ console.log((await Ship.findAll({
 })).toJSON());
 
 // Also, instances obtain a `getLeader()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getLeader()).toJSON());
 ```
 
