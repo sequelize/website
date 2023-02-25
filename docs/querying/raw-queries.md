@@ -9,13 +9,6 @@ As such, it does not make sense to try to provide a 100% complete abstraction ov
 For this reason, Sequelize treats raw SQL as a first-class citizen. __You can use raw SQL almost anywhere in Sequelize__[^1], and thanks to the `sql` tag, it's
 easy to write SQL that is both safe, readable and reusable.
 
-:::caution
-
-!TODO: document https://github.com/sequelize/sequelize/issues/15142
-!TODO: document https://github.com/sequelize/sequelize/issues/15214
-
-:::
-
 ## Writing raw SQL
 
 The `sql` tag is a template literal tag that allows you to write raw SQL:
@@ -179,6 +172,50 @@ await sequelize.query('SELECT * FROM projects WHERE id = $1::int');
 
 :::
 
+### ⚠️ Caution: Don't put parameters in strings
+
+Never put parameters in strings, __including postgres dollar-quoted strings__, as this can very easily lead to SQL injection attacks.
+
+You may be tempted to use parameters inside something like `DO` blocks,
+and it is a common misconception that you can safely use replacements or bind parameters inside dollar-quoted strings, but that is not the case.
+
+For this reason, if you use the `?`, `$bind` or `:replacements` syntax, Sequelize will not consider these tokens as parameters if they are inside a string or an identifier.
+
+However, when using the `sql` tag, Sequelize gives you full control, and you are responsible for ensuring that your query is safe.
+
+Here is an example of a query that is vulnerable to SQL injection:
+
+```ts
+const id = '$$';
+
+sequelize.query(
+  sql`
+DO $$
+DECLARE r record;
+BEGIN
+  SELECT * FROM users WHERE id = ${id};
+END
+$$;
+  `
+);
+```
+
+The above query looks like code, has syntax coloring that makes it look like code, but is really a regular dollar-quoted string 
+that will be interpreted as SQL by the `DO` clause (similarly to `eval` in JavaScript).
+
+Dollar-quoted strings end as soon as `$$` is encountered. If the user passes `$$` as the `id` parameter, the query will end early and will
+at best be invalid SQL, and at worst will allow the user to execute arbitrary SQL.
+
+```sql
+DO $$
+DECLARE r record;
+BEGIN
+  SELECT * FROM users WHERE id = '$$';
+  --                              ^ the contents of the DO clause ends here
+END
+$$;
+```
+
 ### Query Variable Mode
 
 While bind parameters written using the `$` syntax, and replacements written using the `:` and `?` syntaxes, will always be interpreted as
@@ -273,6 +310,14 @@ await sequelize.query(
 ```sql
 SELECT * FROM projects WHERE status IN ('active', 'pending')
 ```
+
+:::caution
+
+When using `sql.list` make sure that the array contains at least one value, otherwise `()` will be used as the list, which is invalid SQL.
+
+Read more about this in [#15142](https://github.com/sequelize/sequelize/issues/15142)
+
+:::
 
 ### `sql.where`
 
