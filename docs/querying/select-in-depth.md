@@ -4,25 +4,21 @@ sidebar_position: 5
 
 # SELECT Queries: In Depth
 
-Sequelize provides various methods to assist querying your database for data.
-
-*Important notice: to perform production-ready queries with Sequelize, make sure you have read the [Transactions guide](../other-topics/transactions.md) as well. Transactions are important to ensure data integrity and to provide other benefits.*
-
-This guide will show how to make the standard [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) queries.
+[In Finder Methods](./select-methods.md), we've seen what the various finder methods are. In this guide,
+we'll focus on how to use [`findAll`](pathname:///api/v7/classes/Model.html#findAll) in depth. The information of this guide
+is still relevant for other finder methods, as they are built on top of `findAll`.
 
 ## Simple SELECT queries
 
-You can read the whole table from the database with the [`findAll`](pathname:///api/v7/classes/Model.html#findAll) method:
+Without any options, [`findAll`](pathname:///api/v7/classes/Model.html#findAll) will return all rows of a table as instances of the model,
+and [`findOne`](pathname:///api/v7/classes/Model.html#findOne) will return the first row of a table as an instance of the model:
 
-```js
-// Find all users
+```ts
 const users = await User.findAll();
-console.log(users.every(user => user instanceof User)); // true
-console.log("All users:", JSON.stringify(users, null, 2));
 ```
 
 ```sql
-SELECT * FROM ...
+SELECT * FROM users;
 ```
 
 ## Selecting Attributes
@@ -41,7 +37,7 @@ User.findAll({
 This will result in roughly the following SQL query:
 
 ```sql
-SELECT foo, bar FROM my_table;
+SELECT "firstName", "lastName" FROM "users";
 ```
 
 ### Excluding attributes
@@ -120,8 +116,10 @@ Post.findAll({
     authorId: 2,
   }
 });
+```
 
-// SELECT * FROM posts WHERE "authorId" = 2;
+```sql
+SELECT * FROM posts WHERE "authorId" = 2;
 ```
 
 You can specify multiple attributes in the `where` object, and they will be joined by an `AND` operator:
@@ -133,11 +131,13 @@ Post.findAll({
     status: 'active',
   },
 });
-
-// SELECT * FROM posts WHERE "authorId" = 2 AND "status" = 'active';
 ```
 
-If you need to specify an `OR` condition, you can use the [Op.or](pathname:///api/v7/interfaces/_sequelize_core.OpTypes.html#or) operator or the [`or`](pathname:///api/v7/functions/_sequelize_core.or.html) function:
+```sql
+SELECT * FROM posts WHERE "authorId" = 2 AND "status" = 'active';
+```
+
+If you need to specify an `OR` condition, you can use the [Op.or](./operators.mdx#logical-combinations-or-and-not) operator or the [`or`](pathname:///api/v7/functions/_sequelize_core.or.html) function:
 
 ```js
 import { or } from '@sequelize/core';
@@ -148,8 +148,10 @@ Post.findAll({
     status: 'active',
   }),
 });
+```
 
-// SELECT * FROM posts WHERE "authorId" = 2 OR "status" = 'active';
+```sql
+SELECT * FROM posts WHERE "authorId" = 2 OR "status" = 'active';
 ```
 
 Of course, you can also nest and mix these operators:
@@ -169,8 +171,13 @@ Post.findAll({
     ),
   ),
 });
+```
 
-// SELECT * FROM posts WHERE "authorId" = 2 AND "status" = 'active' AND ("title" = 'foo' OR "title" = 'bar');
+```sql
+SELECT * FROM posts 
+WHERE "authorId" = 2 
+  AND "status" = 'active' 
+  AND ("title" = 'foo' OR "title" = 'bar');
 ```
 
 ### Operators
@@ -190,8 +197,10 @@ Post.findAll({
     },
   },
 });
+```
 
-// SELECT * FROM posts WHERE "views" > 100 AND "views" <= 500;
+```sql
+SELECT * FROM posts WHERE "views" > 100 AND "views" <= 500;
 ```
 
 You can find the complete list of operators, and more, in the [Operators guide](./operators.mdx).
@@ -231,171 +240,199 @@ User.findAll({
 SELECT * FROM "users" AS "user" WHERE "user"."createdAt" > CAST('2012-01-01' AS DATE);
 ```
 
-### Advanced queries with functions (not just columns)
+### Using functions & other SQL expressions
 
-[//]: # (TODO: THIS HAS NOT BEEN REWRITTEN YET)
+Operators are great, but barely scratch the surface of what you can do with SQL. 
+If you need to use a function or another SQL feature, you can use the `sql` tag to write raw SQL:
 
-What if you wanted to obtain something like `WHERE char_length("content") = 7`?
+```ts
+import { sql } from '@sequelize/core';
 
-```js
-import { where, fn, col } from '@sequelize/core';
+const maxLength = 7;
 
-Post.findAll({
-  where: where(fn('char_length', col('content')), 7)
-});
-// SELECT ... FROM "posts" AS "post" WHERE char_length("content") = 7
-```
-
-Note the usage of the  [`fn`](pathname:///api/v7/index.html#fn) and [`col`](pathname:///api/v7/index.html#col) methods, which should be used to specify an SQL function call and a table column, respectively. These methods should be used instead of passing a plain string (such as `char_length(content)`) because Sequelize needs to treat this situation differently (for example, using other symbol escaping approaches).
-
-What if you need something even more complex?
-
-```js
-import { where, fn, col, Op } from '@sequelize/core';
-
-Post.findAll({
-  where: {
-    [Op.or]: [
-      where(fn('char_length', col('content')), 7),
-      {
-        content: {
-          [Op.like]: 'Hello%'
-        }
-      },
-      {
-        [Op.and]: [
-          { status: 'draft' },
-          where(fn('char_length', col('content')), {
-            [Op.gt]: 10
-          })
-        ]
-      }
-    ]
-  }
+User.findAll({
+  where: sql`char_length(${sql.attribute('content')}) <= ${maxLength}`,
 });
 ```
 
-The above generates the following SQL:
+:::info More information
+
+Head to our [Raw SQL guide](./raw-queries.md) for more information on how to use the `sql` tag.
+
+:::
+
+## Ordering
+
+The `order` option can be used to sort the results of a query. It controls the `ORDER BY` clause of the SQL query.
+
+This option takes an array of items to order the query by or a sequelize method. Its most basic form is just an attribute name:
+
+```ts
+Subtask.findAll({
+  order: ['title'],
+});
+```
 
 ```sql
-SELECT
-  ...
-FROM "posts" AS "post"
-WHERE (
-  char_length("content") = 7
-  OR
-  "post"."content" LIKE 'Hello%'
-  OR (
-    "post"."status" = 'draft'
-    AND
-    char_length("content") > 10
-  )
-)
+SELECT * FROM subtasks ORDER BY "title";
 ```
 
-## Ordering and Grouping
+You can of course specify multiple attributes to order by:
 
-Sequelize provides the `order` and `group` options to work with `ORDER BY` and `GROUP BY`.
+```ts
+Subtask.findAll({
+  order: ['title', 'createdAt'],
+});
+```
 
-### Ordering
+```sql
+SELECT * FROM subtasks ORDER BY "title", "createdAt";
+```
 
-The `order` option takes an array of items to order the query by or a sequelize method. These *items* are themselves arrays in the form `[column, direction]`. The column will be escaped correctly and the direction will be checked in a whitelist of valid directions (such as `ASC`, `DESC`, `NULLS FIRST`, etc).
+By default, the direction is `ASC`, but you can specify it explicitly. To do so, you must use an array of `[attribute, direction]`:
 
-```js
-import { where, fn, col, literal } from '@sequelize/core';
-
+```ts
 Subtask.findAll({
   order: [
-    // Will escape title and validate DESC against a list of valid direction parameters
     ['title', 'DESC'],
-
-    // Will order by max(age)
-    fn('max', col('age')),
-
-    // Will order by max(age) DESC
-    [fn('max', col('age')), 'DESC'],
-
-    // Will order by  otherfunction(`col1`, 12, 'lalala') DESC
-    [fn('otherfunction', col('col1'), 12, 'lalala'), 'DESC'],
-
-    // Will order an associated model's createdAt using the model name as the association's name.
-    [Task, 'createdAt', 'DESC'],
-
-    // Will order through an associated model's createdAt using the model names as the associations' names.
-    [Task, Project, 'createdAt', 'DESC'],
-
-    // Will order by an associated model's createdAt using the name of the association.
-    ['Task', 'createdAt', 'DESC'],
-
-    // Will order by a nested associated model's createdAt using the names of the associations.
-    ['Task', 'Project', 'createdAt', 'DESC'],
-
-    // Will order by an associated model's createdAt using an association object. (preferred method)
-    [Subtask.associations.Task, 'createdAt', 'DESC'],
-
-    // Will order by a nested associated model's createdAt using association objects. (preferred method)
-    [Subtask.associations.Task, Task.associations.Project, 'createdAt', 'DESC'],
-
-    // Will order by an associated model's createdAt using a simple association object.
-    [{model: Task, as: 'Task'}, 'createdAt', 'DESC'],
-
-    // Will order by a nested associated model's createdAt simple association objects.
-    [{model: Task, as: 'Task'}, {model: Project, as: 'Project'}, 'createdAt', 'DESC']
   ],
-
-  // Will order by max age descending
-  order: literal('max(age) DESC'),
-
-  // Will order by max age ascending assuming ascending is the default order when direction is omitted
-  order: fn('max', col('age')),
-
-  // Will order by age ascending assuming ascending is the default order when direction is omitted
-  order: col('age'),
-
-  // Will order randomly based on the dialect (instead of fn('RAND') or fn('RANDOM'))
-  order: sequelize.random()
 });
+```
 
-Foo.findOne({
+```sql
+SELECT * FROM subtasks ORDER BY "title" DESC;
+```
+
+There are 2 valid directions: `ASC` (default) and `DESC`. You can also specify `NULLS FIRST` or `NULLS LAST`. Here are all possible combinations:
+
+- `ASC`
+- `DESC`
+- `ASC NULLS FIRST`
+- `DESC NULLS FIRST`
+- `ASC NULLS LAST`
+- `DESC NULLS LAST`
+- `NULLS FIRST`
+- `NULLS LAST`
+
+You can also use [raw SQL](./raw-queries.md) to order by an expression:
+
+```ts
+Subtask.findAll({
   order: [
-    // will return `name`
-    ['name'],
-    // will return `username` DESC
-    ['username', 'DESC'],
-    // will return max(`age`)
-    fn('max', col('age')),
-    // will return max(`age`) DESC
-    [fn('max', col('age')), 'DESC'],
-    // will return otherfunction(`col1`, 12, 'lalala') DESC
-    [fn('otherfunction', col('col1'), 12, 'lalala'), 'DESC'],
-    // will return otherfunction(awesomefunction(`col`)) DESC, This nesting is potentially infinite!
-    [fn('otherfunction', fn('awesomefunction', col('col'))), 'DESC']
-  ]
+    [sql`UPPERCASE(${sql.attribute('title')})`, 'DESC'],
+  ],
 });
 ```
 
-To recap, the elements of the order array can be the following:
-
-* A string (which will be automatically quoted)
-* An array, whose first element will be quoted, second will be appended verbatim
-* An object with a `raw` field:
-  * The content of `raw` will be added verbatim without quoting
-  * Everything else is ignored, and if raw is not set, the query will fail
-* A call to `fn()` (which will generate a function call in SQL)
-* A call to `col()` (which will quote the column name)
-
-### Grouping
-
-The syntax for grouping and ordering are equal, except that grouping does not accept a direction as last argument of the array (there is no `ASC`, `DESC`, `NULLS FIRST`, etc).
-
-You can also pass a string directly to `group`, which will be included directly (verbatim) into the generated SQL. Use with caution and don't use with user generated content.
-
-```js
-Project.findAll({ group: 'name' });
-// yields 'GROUP BY name'
+```sql
+SELECT * FROM subtasks ORDER BY UPPERCASE("title") DESC;
 ```
+
+You can use [raw SQL](./raw-queries.md) inside the `order` array, or as the entire `order` option:
+
+```ts
+Subtask.findAll({
+  order: sql`UPPERCASE(${sql.attribute('title')}) DESC`,
+});
+```
+
+```sql
+SELECT * FROM subtasks ORDER BY UPPERCASE("title") DESC;
+```
+
+In queries that use [associations](../associations/basics.md), you can order by an associated model's attribute:
+
+```ts
+Task.findAll({
+  include: [Task.associations.subtasks],
+    order: [
+      // The following examples are equivalent.
+      
+      // Will order by an associated model's title using the name of the association.
+      ['subtasks', 'title', 'DESC'],
+    
+      // Will order by an associated model's title using an association object.
+      [Task.associations.subtasks, 'title', 'DESC'],
+    ],
+});
+```
+
+And of course, you can also order by a nested associated model's attribute:
+
+```ts
+Task.findAll({
+  include: [{
+    association: Task.associations.subtasks,
+    include: [Subtask.associations.author],
+  }],
+  order: [
+    // The following examples are equivalent.
+    
+    // Will order by a nested associated model's title using the names of the associations.
+    ['subtasks', 'author', 'firstName', 'DESC'],
+
+    // Will order by a nested associated model's title using association objects.
+    [Task.associations.subtasks, Subtask.associations.author, 'firstName', 'DESC'],
+  ],
+});
+```
+
+## Grouping
+
+:::caution
+
+Finder methods such as `findAll`, `findOne`, `findAndCountAll` are designed to return instances of a model.
+
+Grouping produces a result that will typically not be mapped to the model properly. 
+Be aware that using this feature may result in unexpected behavior.
+
+While this feature will not be removed, we are researching this subject and will introduce a better way to use it in the future. 
+See [#15260](https://github.com/sequelize/sequelize/issues/15260) to follow the discussion.
+
+:::
+
+The `group` options controls the `GROUP BY` clause of the SQL query. It can be used to group the results of a query.
+
+This option takes an array of attributes or [raw SQL](./raw-queries.md) to group by. Its most basic form is just an attribute name:
+
+```ts
+Project.findAll({ group: ['name'] });
+```
+
+```sql
+SELECT * FROM "projects" GROUP BY "name";
+```
+
+:::warning
+
+It's possible to set the `group` option to a string, which will be treated as raw SQL, but this is not recommended. [Use the `sql` tag instead](./raw-queries.md).
+
+The ability to treat a non-`sql` tagged string as raw SQL will be removed in a future version of Sequelize.
+
+:::
 
 ## Limits and Pagination
+
+:::caution Interaction with includes
+
+This option is designed to limit the number of instances of a model, not the total number of rows returned by the query.
+
+For instance, the following query will return 2 users, and all of the projects of these two users:
+
+```ts
+User.findAll({
+  include: [User.associations.projects],
+  limit: 2,
+});
+```
+
+For this reason, using `limit` with `include` can drastically change how your query is generated, and currently has
+unexpected behaviors.
+
+We are researching this subject and will introduce a better way to use it in the future.
+See [#15260](https://github.com/sequelize/sequelize/issues/15260) to follow the discussion.
+
+:::
 
 The `limit` and `offset` options allow you to work with limiting / pagination:
 
@@ -411,25 +448,3 @@ Project.findAll({ offset: 5, limit: 5 });
 ```
 
 Usually these are used alongside the `order` option.
-
-## Literals (raw SQL)
-
-It's not always possible for Sequelize to support every SQL feature in a clean way. It can sometimes be better to write the SQL query yourself.
-
-This can be done in two ways:
-
-- Either write a complete [raw query](./raw-queries.md) yourself,
-- or use the [`literal()`](pathname:///api/v7/index.html#literal) function provided by Sequelize to insert raw SQL almost anywhere in queries built by Sequelize.
-
-```typescript
-import { literal } from '@sequelize/core';
-
-User.findAll({
-  where: literal('id = $id'),
-  bind: {
-    id: 5,
-  },
-});
-```
-
-`literal()` supports both [replacements](./raw-queries.md#replacements) and [bind parameters](./raw-queries.md#bind-parameters) as ways to safely include user input in your query.

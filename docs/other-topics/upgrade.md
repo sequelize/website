@@ -68,7 +68,7 @@ If you do that, we recommend pinning the Sequelize version your project uses as 
 
 :::info
 
-[CLS Transactions](../other-topics/transactions.md#automatically-pass-transactions-to-all-queries) are now enabled by default.
+[CLS Transactions](docs/querying/transactions.md#automatically-pass-transactions-to-all-queries) are now enabled by default.
 You can use the [`disableClsTransactions`](pathname:///api/v7/interfaces/Options.html#disableClsTransactions) global option to disable them.
 
 :::

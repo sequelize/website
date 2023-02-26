@@ -44,6 +44,21 @@ if (project === null) {
 }
 ```
 
+:::info `rejectOnEmpty`
+
+`findOne` supports a useful option called `rejectOnEmpty`. If set to `true`, it will throw a `SequelizeEmptyResultError` if no entry is found. 
+This is useful in TypeScript if you're certain that the entry exists, and want to avoid having to use a redundant `null` check.
+
+```ts
+// project will be of type Project, not Project | null
+const project = await Project.findOne({ 
+  where: { title: 'My Title' }, 
+  rejectOnEmpty: true,
+});
+```
+
+:::
+
 ## `findByPk`
 
 The [`findByPk`](pathname:///api/v7/classes/Model.html#findByPk) method obtains only a single entry from the table, using the provided primary key.

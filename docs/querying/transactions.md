@@ -1,6 +1,6 @@
 ---
 title: Transactions
-sidebar_position: 1
+sidebar_position: 10
 ---
 
 Sequelize does not use [transactions](https://en.wikipedia.org/wiki/Database_transaction) by default. However, for production-ready usage of Sequelize, you should definitely configure Sequelize to use transactions.

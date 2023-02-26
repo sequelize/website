@@ -1,166 +1,104 @@
 ---
 title: Subqueries
+sidebar_position: 9
 ---
+
+Subqueries are queries that are nested inside another query. They are a powerful tool that can be used to achieve complex queries that would otherwise be impossible to write.
+
+In Sequelize, subqueries currently require writing raw SQL. However, Sequelize can help you with the main query, and you can use [the `sql` tag](./raw-queries.md) to insert the sub-query into the main query.
+
+__Example__:
 
 Consider you have two models, `Post` and `Reaction`, with a One-to-Many relationship set up, so that one post has many reactions:
 
-```js
-const Post = sequelize.define('post', {
-    content: DataTypes.STRING
-}, { timestamps: false });
+<details>
+<summary>Click to see the model definition of Post & Reaction</summary>
 
-const Reaction = sequelize.define('reaction', {
-    type: DataTypes.STRING
-}, { timestamps: false });
+```ts
+import { Model, DataTypes, InferCreationAttributes, InferAttributes } from '@sequelize/core';
+import { Attribute, AutoIncrement, PrimaryKey, NotNull, HasMany } from '@sequelize/decorators-legacy';
 
-Post.hasMany(Reaction);
-Reaction.belongsTo(Post);
-```
-
-*Note: we have disabled timestamps just to have shorter queries for the next examples.*
-
-Let's fill our tables with some data:
-
-```js
-async function makePostWithReactions(content, reactionTypes) {
-    const post = await Post.create({ content });
-    await Reaction.bulkCreate(
-        reactionTypes.map(type => ({ type, postId: post.id }))
-    );
-    return post;
+class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
+  @PrimaryKey
+  @Attribute(DataTypes.INTEGER)
+  @AutoIncrement
+  declare id: number;
+    
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare content: string;
+    
+  @HasMany(() => Reaction, 'postId')
+  declare reactions?: NonAttribute<Reaction[]>;
 }
 
-await makePostWithReactions('Hello World', [
-    'Like', 'Angry', 'Laugh', 'Like', 'Like', 'Angry', 'Sad', 'Like'
-]);
-await makePostWithReactions('My Second Post', [
-    'Laugh', 'Laugh', 'Like', 'Laugh'
-]);
-```
+enum ReactionType {
+  Like = 'Like',
+  Angry = 'Angry',
+  Laugh = 'Laugh',
+  Sad = 'Sad',
+}
 
-Now, we are ready for examples of the power of subqueries.
+class Reaction extends Model {
+  @PrimaryKey
+  @Attribute(DataTypes.INTEGER)
+  @AutoIncrement
+  declare id: number;
+    
+  @Attribute(DataTypes.ENUM(Object.keys(ReactionType)))
+  @NotNull
+  declare type: ReactionType;
+    
+  @Attribute(DataTypes.INTEGER)
+  @NotNull
+  declare postId: number;
+}
 
-Let's say we wanted to compute via SQL a `laughReactionsCount` for each post. We can achieve that with a sub-query, such as the following:
-
-```sql
-SELECT
-    *,
-    (
-        SELECT COUNT(*)
-        FROM reactions AS reaction
-        WHERE
-            reaction.postId = post.id
-            AND
-            reaction.type = "Laugh"
-    ) AS laughReactionsCount
-FROM posts AS post
-```
-
-If we run the above raw SQL query through Sequelize, we get:
-
-```json
-[
-  {
-    "id": 1,
-    "content": "Hello World",
-    "laughReactionsCount": 1
-  },
-  {
-    "id": 2,
-    "content": "My Second Post",
-    "laughReactionsCount": 3
-  }
-]
-```
-
-So how can we achieve that with more help from Sequelize, without having to write the whole raw query by hand?
-
-The answer: by combining the `attributes` option of the finder methods (such as `findAll`) with the `sequelize.literal` utility function, that allows you to directly insert arbitrary content into the query without any automatic escaping.
-
-This means that Sequelize will help you with the main, larger query, but you will still have to write that sub-query by yourself:
-
-```js
-Post.findAll({
-    attributes: {
-        include: [
-            [
-                // Note the wrapping parentheses in the call below!
-                sequelize.literal(`(
-                    SELECT COUNT(*)
-                    FROM reactions AS reaction
-                    WHERE
-                        reaction.postId = post.id
-                        AND
-                        reaction.type = "Laugh"
-                )`),
-                'laughReactionsCount'
-            ]
-        ]
-    }
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: ':memory:',
+  models: [Post, Reaction],
 });
 ```
 
-*Important Note: Since `sequelize.literal` inserts arbitrary content without escaping to the query, it deserves very special attention since it may be a source of (major) security vulnerabilities. It should not be used on user-generated content.* However, here, we are using `sequelize.literal` with a fixed string, carefully written by us (the coders). This is ok, since we know what we are doing.
+</details>
 
-The above gives the following output:
+If you want to get all posts that have at least one reaction of type `Laugh`, you can do that with a sub-query:
 
-```json
-[
-  {
-    "id": 1,
-    "content": "Hello World",
-    "laughReactionsCount": 1
-  },
-  {
-    "id": 2,
-    "content": "My Second Post",
-    "laughReactionsCount": 3
-  }
-]
-```
+```ts
+import { sql, Op } from '@sequelize/core';
 
-Success!
-
-## Using sub-queries for complex ordering
-
-This idea can be used to enable complex ordering, such as ordering posts by the number of laugh reactions they have:
-
-```js
 Post.findAll({
-    attributes: {
-        include: [
-            [
-                sequelize.literal(`(
-                    SELECT COUNT(*)
-                    FROM reactions AS reaction
-                    WHERE
-                        reaction.postId = post.id
-                        AND
-                        reaction.type = "Laugh"
-                )`),
-                'laughReactionsCount'
-            ]
-        ]
+  where: {
+    id: {
+      [Op.in]: sql`
+        SELECT DISTINCT "postId"
+        FROM "reactions" AS "reaction"
+        WHERE "reaction"."type" = 'Laugh'
+      `,
     },
-    order: [
-        [sequelize.literal('laughReactionsCount'), 'DESC']
-    ]
+  },
 });
 ```
 
-Result:
+And thanks to the flexibility of the `sql` tag, you can customize the sub-query to your needs:
 
-```json
-[
-  {
-    "id": 2,
-    "content": "My Second Post",
-    "laughReactionsCount": 3
-  },
-  {
-    "id": 1,
-    "content": "Hello World",
-    "laughReactionsCount": 1
-  }
-]
+```ts
+import { sql, Op } from '@sequelize/core';
+
+function postHasReactionOfType(type: ReactionType) {
+  return {
+    id: { 
+      [Op.in]: sql`
+        SELECT DISTINCT "postId"
+        FROM "reactions" AS "reaction"
+        WHERE "reaction"."type" = ${type}
+      `
+    }
+  };
+}
+
+Post.findAll({
+  where: postHasReactionOfType(ReactionType.Laugh),
+});
 ```
