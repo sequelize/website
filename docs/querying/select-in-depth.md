@@ -413,27 +413,6 @@ The ability to treat a non-`sql` tagged string as raw SQL will be removed in a f
 
 ## Limits and Pagination
 
-:::caution Interaction with includes
-
-This option is designed to limit the number of instances of a model, not the total number of rows returned by the query.
-
-For instance, the following query will return 2 users, and all of the projects of these two users:
-
-```ts
-User.findAll({
-  include: [User.associations.projects],
-  limit: 2,
-});
-```
-
-For this reason, using `limit` with `include` can drastically change how your query is generated, and currently has
-unexpected behaviors.
-
-We are researching this subject and will introduce a better way to use it in the future.
-See [#15260](https://github.com/sequelize/sequelize/issues/15260) to follow the discussion.
-
-:::
-
 The `limit` and `offset` options allow you to work with limiting / pagination:
 
 ```js
@@ -448,3 +427,76 @@ Project.findAll({ offset: 5, limit: 5 });
 ```
 
 Usually these are used alongside the `order` option.
+
+:::caution Interaction with includes
+
+This option is designed to limit the number of instances of a model, not the total number of rows returned by the query.
+
+For instance, the following query will return 2 users, but all projects that belong to these two users:
+
+```ts
+User.findAll({
+  include: [User.associations.projects],
+  limit: 2,
+});
+```
+
+Due to how SQL works, the `limit` option will turn the query into a subquery. As a consequence,
+the top-level `where` option will not be able to reference attributes from the included models.
+
+```ts
+User.findAll({
+  include: [User.associations.projects],
+  where: {
+    // error-start
+    // This will not work.
+    '$projects.name$': 'Project 1',
+    // error-end
+  },
+  limit: 2,
+});
+```
+
+You can remove that subquery, and revert back to a plain JOIN, by using the `subquery: false` option:
+
+```ts
+User.findAll({
+  include: [User.associations.projects],
+  where: {
+    '$projects.name$': 'Project 1',
+  },
+  limit: 2,
+  // highlight-next-line
+  subquery: false,
+});
+```
+
+However, this will make the limit option apply to the total number of rows returned by the query, 
+not the number of instances of the model. This is not a problem if your include can only return one row per instance,
+but it will be a problem if it can return multiple rows per instance.
+
+Another solution is to use a subquery to filter your model:
+
+```ts
+User.findAll({
+  include: [{
+    association: User.associations.projects,
+  }],
+  // highlight-start
+  where: {
+    id: {
+      [Op.in]: sql`
+        SELECT DISTINCT "projects"."authorId" WHERE "projects"."name" = 'Project 1'
+      `,
+    }
+  },
+  // highlight-end
+  limit: 2,
+});
+```
+
+Subqueries are written in raw SQL. See [Raw Queries](./raw-queries.md) to learn how to write them.
+
+We are redesigning this to make this more flexible. See [#15260](https://github.com/sequelize/sequelize/issues/15260) to follow the discussion.
+
+:::
