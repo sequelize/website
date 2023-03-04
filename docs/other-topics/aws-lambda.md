@@ -568,7 +568,7 @@ new Runtime(client, handler, errorCallbacks).scheduleIteration();
 ```
 
 All SQL queries invoked by a Lambda handler using `sequelize` are ultimately executed using
-[Sequelize.prototype.query()](pathname:///api/v7/classes/Sequelize.html#query).
+[Sequelize#query()](pathname:///api/v7/classes/Sequelize.html#query).
 This method is responsible for obtaining a connection from the pool, executing the query, and
 releasing the connection back to the pool when the query completes. The following snippet shows
 a simplification of the method's logic for queries without transactions:

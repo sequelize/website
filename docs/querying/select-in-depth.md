@@ -65,7 +65,7 @@ User.findAll({
   attributes: {
     include: [
       // This will include a dynamically computed "age" property on all returned instances.
-      [literal('DATEDIFF(year, "birthdate", GETDATE())'), 'age'],
+      [sql`DATEDIFF(year, "birthdate", GETDATE())`, 'age'],
     ],
   },
 });
@@ -86,7 +86,7 @@ If they are not part of your model,
 One way to type these attributes is to use the `raw` option, which will return a plain object instead of an instance of the model class:
 
 ```ts
-import { fn, col } from '@sequelize/core';
+import { sql } from '@sequelize/core';
 
 interface Data {
   authorId: number;
@@ -96,7 +96,7 @@ interface Data {
 // this will return an array of plain objects with the shape of the "Data" interface
 const data: Data[] = await Post.findAll<Data>({
   attributes: [
-    [fn('COUNT', col('id')), 'postCount'],
+    [sql`COUNT(${sql.attribute('id')})`, 'postCount'],
   ],
   group: ['authorId'],
   raw: true,

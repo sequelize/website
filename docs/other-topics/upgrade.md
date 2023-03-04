@@ -365,11 +365,9 @@ The previous behavior is still available, but you need to explicitly opt-in to i
 ```ts
 User.findAll({
   attributes: [
-    col('*'),
-    col('a.*'),
-    [literal('count(*)'), 'count'],
-    // or
-    // [fn('count', col('*')), 'count'],
+    sql.col('*'),
+    sql.col('a.*'),
+    [sql`count(*)`, 'count'],
   ],
 });
 ```
@@ -406,7 +404,7 @@ Starting with Sequelize 7, this sub-option has been split into two options: `mod
 // Before
 const User = sequelize.define('User', {
   countryId: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     references: {
       // This referenced the TABLE named "countries", not the MODEL called "countries".
       model: 'countries',
@@ -418,7 +416,7 @@ const User = sequelize.define('User', {
 // After (table version)
 const User = sequelize.define('User', {
   countryId: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     references: {
       // It is now clear that this references the table called "countries"
       table: 'countries',
@@ -430,7 +428,7 @@ const User = sequelize.define('User', {
 // After (model version)
 const User = sequelize.define('User', {
   countryId: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     references: {
       // It is now clear that this references the Country model, from which the table name will be inferred.
       model: Country,
@@ -459,7 +457,7 @@ const User = sequelize.define('User', {
   createdAt: {
     // This will cause an error because sequelize expects a DATE type, not DATEONLY.
     // error-next-line
-    type: Sequelize.DATEONLY,
+    type: DataTypes.DATEONLY,
   },
 });
 ```

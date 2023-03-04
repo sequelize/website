@@ -32,7 +32,7 @@ You can choose to [avoid using decorators](#without-decorators), but you should 
 
 <DecoratorInfo />
 
-To learn with an example, we will consider that we want to create a model to represent users, which have a `firstName` and a `lastName`. 
+To learn with an example, we will consider that we want to create a model to represent users, which have a `firstName` and a `lastName`.
 We want our model to be called `User`, and the table it represents is called `users` in the database.
 
 Defining a model is simple: Create a class that extends the [`Model`] class and add instance properties to it.
@@ -54,7 +54,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   @Attribute(DataTypes.STRING)
   @NotNull
   declare firstName: string;
- 
+
   @Attribute(DataTypes.STRING)
   declare lastName: string | null;
 }
@@ -77,16 +77,16 @@ export class User extends Model {
   @Attribute(DataTypes.STRING)
   @NotNull
   firstName;
- 
+
   @Attribute(DataTypes.STRING)
   lastName;
 }
 ```
 
-</TabItem>  
+</TabItem>
 </Tabs>
 
-Many decorators are available to configure your attributes. [You can find the list of decorators here](pathname:///api/v7/modules/decorators_legacy.html).  
+Many decorators are available to configure your attributes. [You can find the list of decorators here](pathname:///api/v7/modules/decorators_legacy.html).
 You can also [define associations between models](../associations/basics.md), which will be covered in a following chapter.
 
 ### Initializing the Model
@@ -155,7 +155,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   // highlight-next-line
   @NotNull
   declare firstName: string;
-  
+
   @Attribute(DataTypes.STRING)
   declare lastName: string | null;
 }
@@ -174,14 +174,14 @@ class User extends Model {
   // highlight-next-line
   @NotNull
   firstName;
-  
+
   // This attribute is nullable
   @Attribute(DataTypes.STRING)
   lastName;
 }
 ```
 
-</TabItem>  
+</TabItem>
 </Tabs>
 
 ## Default Values
@@ -228,7 +228,7 @@ class User extends Model {
 }
 ```
 
-</TabItem>  
+</TabItem>
 </Tabs>
 
 ### Dynamic JS default values
@@ -291,7 +291,7 @@ class User extends Model {
 }
 ```
 
-</TabItem>  
+</TabItem>
 </Tabs>
 
 ### Dynamic SQL default values
@@ -305,7 +305,7 @@ For instance, if your dialect provides a built-in SQL function to generate UUIDs
 <TabItem value="ts" label="TypeScript">
 
 ```ts
-import { DataTypes, Model, fn, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import { DataTypes, Model, sql, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
 import { Attribute, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
@@ -314,7 +314,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   // 'uuid_generate_v4' is only available in postgres + uuid-ossp
   // other dialects may support this function under different names.
   // highlight-next-line
-  @Default(fn('uuid_generate_v4'))
+  @Default(sql.fn('uuid_generate_v4'))
   declare id: CreationOptional<string>;
 }
 ```
@@ -323,7 +323,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 <TabItem value="js" label="JavaScript">
 
 ```js
-import { DataTypes, Model, fn } from '@sequelize/core';
+import { DataTypes, Model, sql } from '@sequelize/core';
 import { Attribute, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
 
 class User extends Model {
@@ -332,12 +332,12 @@ class User extends Model {
   // 'uuid_generate_v4' is only available in postgres + uuid-ossp
   // other dialects may support this function under different names.
   // highlight-next-line
-  @Default(fn('uuid_generate_v4'))
+  @Default(sql.fn('uuid_generate_v4'))
   id;
 }
 ```
 
-</TabItem>  
+</TabItem>
 </Tabs>
 
 ## Primary Keys
@@ -498,7 +498,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   @Attribute(DataTypes.STRING)
   @NotNull
   declare firstname: string;
-  
+
   @Attribute(DataTypes.STRING)
   @NotNull
   declare lastname: string;

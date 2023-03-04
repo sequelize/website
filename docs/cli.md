@@ -130,12 +130,14 @@ yarn sequelize-cli migration:generate --name migration-example
 The passed `queryInterface` object can be used to modify the database. The `Sequelize` object stores the available data types such as `STRING` or `INTEGER`. Function `up` or `down` should return a `Promise`. Let's look at an example:
 
 ```js
+const { DataTypes } = require('@sequelize/core');
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Person', {
-      name: Sequelize.DataTypes.STRING,
+      name: DataTypes.STRING,
       isBetaMember: {
-        type: Sequelize.DataTypes.BOOLEAN,
+        type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: false
       }
@@ -150,15 +152,17 @@ module.exports = {
 The following is an example of a migration that performs two changes in the database, using an automatically-managed transaction to ensure that all instructions are successfully executed or rolled back in case of failure:
 
 ```js
+const { DataTypes } = require('@sequelize/core');
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.sequelize.transaction(t => {
       return Promise.all([
         queryInterface.addColumn('Person', 'petName', {
-          type: Sequelize.DataTypes.STRING
+          type: DataTypes.STRING
         }, { transaction: t }),
         queryInterface.addColumn('Person', 'favoriteColor', {
-          type: Sequelize.DataTypes.STRING,
+          type: DataTypes.STRING,
         }, { transaction: t })
       ]);
     });
@@ -177,17 +181,19 @@ module.exports = {
 The next example is of a migration that has a foreign key. You can use references to specify a foreign key:
 
 ```js
+const { DataTypes } = require('@sequelize/core');
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface) => {
     return queryInterface.createTable('Person', {
-      name: Sequelize.DataTypes.STRING,
+      name: DataTypes.STRING,
       isBetaMember: {
-        type: Sequelize.DataTypes.BOOLEAN,
+        type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: false
       },
       userId: {
-        type: Sequelize.DataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: 'users',
@@ -208,15 +214,17 @@ module.exports = {
 The next example is of a migration that uses async/await where you create an unique index on a new column, with a manually-managed transaction:
 
 ```js
+const { DataTypes } = require('@sequelize/core');
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.addColumn(
         'Person',
         'petName',
         {
-          type: Sequelize.DataTypes.STRING,
+          type: DataTypes.STRING,
         },
         { transaction }
       );
@@ -235,7 +243,7 @@ module.exports = {
       throw err;
     }
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.removeColumn('Person', 'petName', { transaction });
@@ -251,12 +259,14 @@ module.exports = {
 The next example is of a migration that creates an unique index composed of multiple fields with a condition, which allows a relation to exist multiple times but only one can satisfy the condition:
 
 ```js
+const { DataTypes } = require('@sequelize/core');
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface) => {
     queryInterface.createTable('Person', {
-      name: Sequelize.DataTypes.STRING,
+      name: DataTypes.STRING,
       bool: {
-        type: Sequelize.DataTypes.BOOLEAN,
+        type: DataTypes.BOOLEAN,
         defaultValue: false
       }
     }).then((queryInterface, Sequelize) => {
@@ -270,7 +280,7 @@ module.exports = {
       );
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('Person');
   }
 }
