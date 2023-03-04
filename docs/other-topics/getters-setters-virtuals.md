@@ -148,7 +148,7 @@ class User extends Model {
   declare lastName: string;
 
   // highlight-start
-  get fullName(): string {
+  get fullName(): NonAttribute<string> {
     return `${this.firstName} ${this.lastName}`;
   }
   // highlight-end
