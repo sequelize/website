@@ -311,8 +311,6 @@ There are 2 valid directions: `ASC` (default) and `DESC`. You can also specify `
 - `DESC NULLS FIRST`
 - `ASC NULLS LAST`
 - `DESC NULLS LAST`
-- `NULLS FIRST`
-- `NULLS LAST`
 
 You can also use [raw SQL](./raw-queries.md) to order by an expression:
 
