@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Advanced M:N Associations
 ---
 

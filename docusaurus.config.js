@@ -17,6 +17,10 @@ const config = {
   trailingSlash: true,
   projectName: 'sequelize',
   plugins: ['docusaurus-plugin-sass'],
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
   presets: [
     [
       'classic',

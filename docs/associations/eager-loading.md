@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Eager Loading
 ---
 
@@ -176,7 +175,7 @@ Project.findAll({
   include: {
     model: Task,
     where: {
-      state: Sequelize.col('project.state')
+      state: sql.col('project.state')
     }
   }
 })

@@ -1,1 +1,4 @@
 - document "references" API
+- document foreign key nullability
+
+self-relationships
