@@ -3,33 +3,14 @@
 The four association types are defined in a very similar way. Let's say we have two models, `A` and `B`. Telling Sequelize that you want an association between the two needs just a function call:
 
 ```js
-const A = sequelize.define('A', /* ... */);
-const B = sequelize.define('B', /* ... */);
-
-A.hasOne(B); // A HasOne B
-A.belongsTo(B); // A BelongsTo B
-A.hasMany(B); // A HasMany B
 A.belongsToMany(B, { through: 'C' }); // A BelongsToMany B through the junction table C
 ```
 
 They all accept an options object as a second parameter (optional for the first three, mandatory for `belongsToMany` containing at least the `through` property):
 
 ```js
-A.hasOne(B, { /* options */ });
-A.belongsTo(B, { /* options */ });
-A.hasMany(B, { /* options */ });
 A.belongsToMany(B, { through: 'C', /* options */ });
 ```
-
-The order in which the association is defined is relevant. In other words, the order matters, for the four cases. In all examples above, `A` is called the **source** model and `B` is called the **target** model. This terminology is important.
-
-The `A.hasOne(B)` association means that a One-To-One relationship exists between `A` and `B`, with the foreign key being defined in the target model (`B`).
-
-The `A.belongsTo(B)` association means that a One-To-One relationship exists between `A` and `B`, with the foreign key being defined in the source model (`A`).
-
-The `A.hasMany(B)` association means that a One-To-Many relationship exists between `A` and `B`, with the foreign key being defined in the target model (`B`).
-
-These three calls will cause Sequelize to automatically add foreign keys to the appropriate models (unless they are already present).
 
 The `A.belongsToMany(B, { through: 'C' })` association means that a Many-To-Many relationship exists between `A` and `B`, using table `C` as [junction table](https://en.wikipedia.org/wiki/Associative_entity), which will have the foreign keys (`aId` and `bId`, for example). Sequelize will automatically create this model `C` (unless it already exists) and define the appropriate foreign keys on it.
 
@@ -49,42 +30,6 @@ As mentioned, usually the Sequelize associations are defined in pairs. In summar
 This will all be seen in detail next. The advantages of using these pairs instead of one single association will be discussed in the end of this chapter.
 
 ## One-To-One relationships
-
-### Philosophy
-
-Before digging into the aspects of using Sequelize, it is useful to take a step back to consider what happens with a One-To-One relationship.
-
-Let's say we have two models, `Foo` and `Bar`. We want to establish a One-To-One relationship between Foo and Bar. We know that in a relational database, this will be done by establishing a foreign key in one of the tables. So in this case, a very relevant question is: in which table do we want this foreign key to be? In other words, do we want `Foo` to have a `barId` column, or should `Bar` have a `fooId` column instead?
-
-In principle, both options are a valid way to establish a One-To-One relationship between Foo and Bar. However, when we say something like *"there is a One-To-One relationship between Foo and Bar"*, it is unclear whether or not the relationship is *mandatory* or optional. In other words, can a Foo exist without a Bar? Can a Bar exist without a Foo? The answers to these questions help figuring out where we want the foreign key column to be.
-
-### Goal
-
-For the rest of this example, let's assume that we have two models, `Foo` and `Bar`. We want to setup a One-To-One relationship between them such that `Bar` gets a `fooId` column.
-
-### Implementation
-
-The main setup to achieve the goal is as follows:
-
-```js
-Foo.hasOne(Bar);
-Bar.belongsTo(Foo);
-```
-
-Since no option was passed, Sequelize will infer what to do from the names of the models. In this case, Sequelize knows that a `fooId` column must be added to `Bar`.
-
-This way, calling `Bar.sync()` after the above will yield the following SQL (on PostgreSQL, for example):
-
-```sql
-CREATE TABLE IF NOT EXISTS "foos" (
-  /* ... */
-);
-CREATE TABLE IF NOT EXISTS "bars" (
-  /* ... */
-  "fooId" INTEGER REFERENCES "foos" ("id") ON DELETE SET NULL ON UPDATE CASCADE
-  /* ... */
-);
-```
 
 ### Options
 
@@ -109,36 +54,6 @@ The defaults for the One-To-One associations is `SET NULL` for `ON DELETE` and `
 #### Customizing the foreign key
 
 Both the `hasOne` and `belongsTo` calls shown above will infer that the foreign key to be created should be called `fooId`. To use a different name, such as `myFooId`:
-
-```js
-// Option 1
-Foo.hasOne(Bar, {
-  foreignKey: 'myFooId'
-});
-Bar.belongsTo(Foo);
-
-// Option 2
-Foo.hasOne(Bar, {
-  foreignKey: {
-    name: 'myFooId'
-  }
-});
-Bar.belongsTo(Foo);
-
-// Option 3
-Foo.hasOne(Bar);
-Bar.belongsTo(Foo, {
-  foreignKey: 'myFooId'
-});
-
-// Option 4
-Foo.hasOne(Bar);
-Bar.belongsTo(Foo, {
-  foreignKey: {
-    name: 'myFooId'
-  }
-});
-```
 
 As shown above, the `foreignKey` option accepts a string or an object. When receiving an object, this object will be used as the definition for the column just like it would do in a standard `sequelize.define` call. Therefore, specifying options such as `type`, `allowNull`, `defaultValue`, etc, just  work.
 
@@ -170,40 +85,6 @@ Foo.hasOne(Bar, {
 ```
 
 ## One-To-Many relationships
-
-### Philosophy
-
-One-To-Many associations are connecting one source with multiple targets, while all these targets are connected only with this single source.
-
-This means that, unlike the One-To-One association, in which we had to choose where the foreign key would be placed, there is only one option in One-To-Many associations. For example, if one Foo has many Bars (and this way each Bar belongs to one Foo), then the only sensible implementation is to have a `fooId` column in the `Bar` table. The opposite is impossible, since one Foo has many Bars.
-
-### Goal
-
-In this example, we have the models `Team` and `Player`. We want to tell Sequelize that there is a One-To-Many relationship between them, meaning that one Team has many Players, while each Player belongs to a single Team.
-
-### Implementation
-
-The main way to do this is as follows:
-
-```js
-Team.hasMany(Player);
-Player.belongsTo(Team);
-```
-
-Again, as mentioned, the main way to do it used a pair of Sequelize associations (`hasMany` and `belongsTo`).
-
-For example, in PostgreSQL, the above setup will yield the following SQL upon `sync()`:
-
-```sql
-CREATE TABLE IF NOT EXISTS "Teams" (
-  /* ... */
-);
-CREATE TABLE IF NOT EXISTS "Players" (
-  /* ... */
-  "TeamId" INTEGER REFERENCES "Teams" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
-  /* ... */
-);
-```
 
 ### Options
 
