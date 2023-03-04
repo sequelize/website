@@ -172,9 +172,9 @@ Using `.scope('scope1', 'scope2')` will yield the following WHERE clause:
 WHERE firstName = 'bob' AND age > 20 AND age < 30 LIMIT 10
 ```
 
-Note how `limit` is overwritten by `scope2`, while `firstName` and both conditions on `age` are preserved. The `limit`, `offset`, `order`, `paranoid`, `lock` and `raw` fields are overwritten, while `where` fields are merged using the `AND` operator. The merge strategy for `include` will be discussed later on.
+Note how `limit` is overwritten by `scope2`, while `firstName` and both conditions on `age` are preserved. The `limit`, `offset`, `order`, `paranoid`, `lock` and `raw` options are overwritten, while `where` options are merged using the `AND` operator. The merge strategy for `include` will be discussed later on.
 
-Note that `attributes` keys of multiple applied scopes are merged in such a way that `attributes.exclude` are always preserved. This allows merging several scopes and never leaking sensitive fields in final scope.
+Note that `attributes` keys of multiple applied scopes are merged in such a way that `attributes.exclude` are always preserved. This allows merging several scopes and never leaking sensitive attributes in final scope.
 
 The same merge logic applies when passing a find object directly to `findAll` (and similar finders) on a scoped model:
 

@@ -222,7 +222,7 @@ For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL 
 
 ### Built-in Default Values for UUID
 
-Sequelize can generate UUIDs automatically for these fields, simply use `DataTypes.UUIDV1` or `DataTypes.UUIDV4` as the default value:
+Sequelize can generate UUIDs automatically for these attributes, simply use `DataTypes.UUIDV1` or `DataTypes.UUIDV4` as the default value:
 
 ```javascript
 MyModel.init({
@@ -443,7 +443,7 @@ User.init({
 
 ## Virtual
 
-`DataTypes.VIRTUAL` is a special DataType used to declare [virtual attributes](../other-topics/getters-setters-virtuals.md#virtual-fields).
+`DataTypes.VIRTUAL` is a special DataType used to declare [virtual attributes](../other-topics/getters-setters-virtuals.md#virtual-attributes).
 It does not create an actual column.
 
 :::caution

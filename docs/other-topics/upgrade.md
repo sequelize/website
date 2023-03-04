@@ -505,17 +505,17 @@ User.init({
   '$myAttribute$': {
     type: DataTypes.STRING,
     // 'field' sets the column name
-    field: '$myAttribute$',
+    columnName: '$myAttribute$',
   },
   // The JavaScript name is not allowed to include a dot anymore.
   'another.attribute': {
     type: DataTypes.STRING,
-    field: 'another.attribute',
+    columnName: 'another.attribute',
   },
   // The JavaScript name is not allowed to include '::' anymore.
   'other::attribute': {
     type: DataTypes.STRING,
-    field: 'other::attribute',
+    columnName: 'other::attribute',
   },
 }, { sequelize });
 ```
@@ -535,17 +535,17 @@ User.init({
   myAttribute: {
     type: DataTypes.STRING,
     // Column names are still allowed to start & end with $
-    field: '$myAttribute$', // this sets the column name
+    columnName: '$myAttribute$', // this sets the column name
   },
   anotherAttribute: {
     type: DataTypes.STRING,
     // Column names are still allowed to include dots
-    field: 'another.attribute',
+    columnName: 'another.attribute',
   },
   otherAttribute: {
     type: DataTypes.STRING,
     // Column names are still allowed to include ::
-    field: 'other::attribute',
+    columnName: 'other::attribute',
   },
 }, { sequelize });
 ```
@@ -656,7 +656,7 @@ Would have returned all users in the database. In Sequelize 7, this will throw a
 ### Removal of previously deprecated APIs
 
 - `WhereValue`, `AnyOperator`, `AllOperator`, `AndOperator` and `OrOperator` types: They did not reflect the reality of how the `where` option is typed (see [this PR](https://github.com/sequelize/sequelize/pull/14022))
-- `setterMethods` and `getterMethods` model options: They were deprecated in v6 and are now removed. Use [VIRTUAL](../other-topics/getters-setters-virtuals.md#virtual-fields) attributes, or class getter & setters instead.
+- `setterMethods` and `getterMethods` model options: They were deprecated in v6 and are now removed. Use [VIRTUAL](../other-topics/getters-setters-virtuals.md#virtual-attributes) attributes, or class getter & setters instead.
 - Models had an instance property called `validators`. This property has been removed because almost all attributes have at least one validator (based on their nullability and data type). 
   The information you need to replace this property is available in the [`modelDefinition`](pathname:///api/v7/classes/Model.html#modelDefinition) static property.
 - The `Utils` export has been removed. It exposed internal utilities that were not meant to be used by end users. If you used any of these utilities, please open an issue to discuss how to expose them in a future-proof way.  

@@ -231,8 +231,8 @@ Foo.init({
   // autoIncrement can be used to create auto_incrementing integer columns
   incrementMe: { type: DataTypes.INTEGER, autoIncrement: true },
 
-  // You can specify a custom column name via the 'field' attribute:
-  fieldWithUnderscores: { type: DataTypes.STRING, field: 'field_with_underscores' },
+  // You can specify a custom column name via the 'columnName' attribute:
+  fieldWithUnderscores: { type: DataTypes.STRING, columnName: 'field_with_underscores' },
 
   // It is possible to create foreign keys:
   bar_id: {

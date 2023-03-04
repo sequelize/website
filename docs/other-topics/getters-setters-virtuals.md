@@ -5,156 +5,206 @@ title: Getters, Setters & Virtuals
 
 Sequelize allows you to define custom getters and setters for the attributes of your models.
 
-Sequelize also allows you to specify the so-called *virtual attributes*, which are attributes on the Sequelize Model that doesn't really exist in the underlying SQL table, but instead are populated automatically by Sequelize. They are very useful to create custom attributes which also could simplify your code, for example.
+Sequelize also allows you to specify the so-called [*virtual attributes*](#virtual-attributes), 
+which are attributes on the Sequelize Model that doesn't really exist in the underlying SQL table, but instead are populated automatically by Sequelize. 
+They are very useful to create custom attributes which also could simplify your code.
 
-## Getters
+## Attribute Getters & Setters
 
-A getter is a `get()` function defined for one column in the model definition:
+Attribute Getters & Setters are like any other JavaScript getter and setters, but cause the creation of an attribute in the model definition.
+The main advantage is that Sequelize will call these getters and setters automatically when the attribute is read or set.
 
-```js
-const User = sequelize.define('user', {
-  // Let's say we wanted to see every username in uppercase, even
-  // though they are not necessarily uppercase in the database itself
-  username: {
-    type: DataTypes.STRING,
-    get() {
-      const rawValue = this.getDataValue('username');
-      return rawValue ? rawValue.toUpperCase() : null;
-    }
+You must decorate your getter or setter with [attribute decorators](../models/defining-models.mdx), just like you would with any other attribute.
+
+Unlike the standard JavaScript getters & setters, __you do not need to define both a getter and a setter for the same attribute__.
+Sequelize will automatically create a setter for you if you only define a getter, and vice versa. You can of course define
+both if you need to.
+
+### Getters
+
+Getters will be called automatically when the attribute is read, be it through `model.get('attribute')`, or `model.attribute`.  
+The only exception is `model.getDataValue('attribute')`, which will return the raw value of the attribute, without calling the getter.
+
+```ts
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  get username(): string {
+    return this.getDataValue('username').toUpperCase();
   }
-});
-```
+}
 
-This getter, just like a standard JavaScript getter, is called automatically when the field value is read:
-
-```js
 const user = User.build({ username: 'SuperUser123' });
+
+// This will call the getter
 console.log(user.username); // 'SUPERUSER123'
+
+// This will not call the getter
 console.log(user.getDataValue('username')); // 'SuperUser123'
 ```
 
-Note that, although `SUPERUSER123` was logged above, the value truly stored in the database is still `SuperUser123`. We used `this.getDataValue('username')` to obtain this value, and converted it to uppercase.
+:::caution Accessing the attribute value
 
-Had we tried to use `this.username` in the getter instead, we would have gotten an infinite loop! This is why Sequelize provides the `getDataValue` method.
+Inside your getter or setter, you should use `this.getDataValue('attributeName')` to access the value of the attribute, and
+`this.setDataValue('attributeName', value)` to set the value of the attribute.
 
-## Setters
+If you try to access the attribute directly, you will get an infinite loop.
 
-A setter is a `set()` function defined for one column in the model definition. It receives the value being set:
-
-```js
-const User = sequelize.define('user', {
-  username: DataTypes.STRING,
-  password: {
-    type: DataTypes.STRING,
-    set(value) {
-      // Storing passwords in plaintext in the database is terrible.
-      // Hashing the value with an appropriate cryptographic hash function is better.
-      this.setDataValue('password', hash(value));
-    }
+```ts
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  get username(): string {
+    // This will call the getter again
+    // error-next-line
+    return this.username.toUpperCase();
   }
+}
+```
+
+:::
+
+### Setters
+
+Setters will be called automatically when the attribute is set, be it through `model.set('attribute', value)`, or `model.attribute = value`.  
+The only exception is `model.setDataValue('attribute', value)`, which will set the raw value of the attribute, without calling the setter.
+
+```ts
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  set username(value: string) {
+    this.setDataValue('username', value.toUpperCase());
+  }
+}
+```
+
+:::caution Static Methods
+
+Static model methods do not interact with the instance of the model, and therefore will ignore any getters or setters defined for the model.
+
+```ts
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  set username(value: string) {
+    this.setDataValue('username', value.toUpperCase());
+  }
+}
+
+// This will insert the value as-is, without calling the setter,
+// so it will not be converted to uppercase
+await User.update({
+  username: 'ephys',
+}, {
+  where: { id: 1 },
 });
 ```
 
-```js
-const user = User.build({ username: 'someone', password: 'NotSo§tr0ngP4$SW0RD!' });
-console.log(user.password); // '7cfc84b8ea898bb72462e78b4643cfccd77e9f05678ec2ce78754147ba947acc'
-console.log(user.getDataValue('password')); // '7cfc84b8ea898bb72462e78b4643cfccd77e9f05678ec2ce78754147ba947acc'
-```
+:::
 
-Observe that Sequelize called the setter automatically, before even sending data to the database. The only data the database ever saw was the already hashed value.
+:::caution Setter dependencies
 
-If we wanted to involve another field from our model instance in the computation, that is possible and very easy!
+While it is possible for a setter to use the value of another attribute,
+be aware that the setter will not be called again if the other attribute changes.
 
-```js
-const User = sequelize.define('user', {
-  username: DataTypes.STRING,
-  password: {
-    type: DataTypes.STRING,
-    set(value) {
-      // Storing passwords in plaintext in the database is terrible.
-      // Hashing the value with an appropriate cryptographic hash function is better.
-      // Using the username as a salt is better.
-      this.setDataValue('password', hash(this.username + value));
-    }
+The setter is only called when the value of the attribute is set, and is called immediately. Accessing the value 
+of another attribute inside the setter can lead to unexpected results depending on the order of operations.
+
+```ts
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare username: string;
+  
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  set password(value): string {
+    // Accessing the value of another attribute inside the setter can lead to unexpected results
+    // error-next-line
+    this.setDataValue('password', hash(this.username + value));
   }
-});
+}
 ```
 
-**Note:** The above examples involving password handling, although much better than simply storing the password in plaintext, are far from perfect security. Handling passwords properly is hard, everything here is just for the sake of an example to show Sequelize functionality. We suggest involving a cybersecurity expert and/or reading [OWASP](https://www.owasp.org/) documents and/or visiting the [InfoSec StackExchange](https://security.stackexchange.com/).
+:::
 
-## Combining getters and setters
+## Virtual attributes
 
-Getters and setters can be both defined in the same field.
+Virtual attributes are attributes that Sequelize populates under the hood, but in reality they don't even exist in the database.
 
-For the sake of an example, let's say we are modeling a `Post`, whose `content` is a text of unlimited length. To improve memory usage, let's say we want to store a gzipped version of the content.
+For example, let's say we have a User model with `firstName` and `lastName`[^1] attributes.  
+It would be nice to have a simple way to obtain the *full name* directly!  
+A simple solution is to add a regular JavaScript getter to the model:
 
-*Note: modern databases should do some compression automatically in these cases. Please note that this is just for the sake of an example.*
+```ts
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare firstName: string;
 
-```js
-import { gzipSync, gunzipSync } from 'zlib';
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare lastName: string;
 
-const Post = sequelize.define('post', {
-  content: {
-    type: DataTypes.TEXT,
-    get() {
-      const storedValue = this.getDataValue('content');
-      const gzippedBuffer = Buffer.from(storedValue, 'base64');
-      const unzippedBuffer = gunzipSync(gzippedBuffer);
-      return unzippedBuffer.toString();
-    },
-    set(value) {
-      const gzippedBuffer = gzipSync(value);
-      this.setDataValue('content', gzippedBuffer.toString('base64'));
-    }
+  // highlight-start
+  get fullName(): string {
+    return `${this.firstName} ${this.lastName}`;
   }
-});
+  // highlight-end
+}
 ```
 
-With the above setup, whenever we try to interact with the `content` field of our `Post` model, Sequelize will automatically handle the custom getter and setter. For example:
+This works, but you can also make it an attribute and use the `VIRTUAL` Data Type.
 
-```js
-const post = await Post.create({ content: 'Hello everyone!' });
+The `VIRTUAL` attribute does not create an actual column in the table. The model will not have a `fullName` column,
+but the attribute can still be used in JavaScript.
 
-console.log(post.content); // 'Hello everyone!'
-// Everything is happening under the hood, so we can even forget that the
-// content is actually being stored as a gzipped base64 string!
+We can combine the idea of `getters` with the special data type Sequelize provides for this kind of situation: `DataTypes.VIRTUAL`:
 
-// However, if we are really curious, we can get the 'raw' data...
-console.log(post.getDataValue('content'));
-// Output: 'H4sIAAAAAAAACvNIzcnJV0gtSy2qzM9LVQQAUuk9jQ8AAAA='
-```
-
-## Virtual fields
-
-Virtual fields are fields that Sequelize populates under the hood, but in reality they don't even exist in the database.
-
-For example, let's say we have the `firstName` and `lastName` attributes for a User.
-
-*Again, this is [only for the sake of an example](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/).*
-
-It would be nice to have a simple way to obtain the *full name* directly! We can combine the idea of `getters` with the special data type Sequelize provides for this kind of situation: `DataTypes.VIRTUAL`:
-
-```js
+```ts
 import { DataTypes } from '@sequelize/core';
 
-const User = sequelize.define('user', {
-  firstName: DataTypes.TEXT,
-  lastName: DataTypes.TEXT,
-  fullName: {
-    type: DataTypes.VIRTUAL,
-    get() {
-      return `${this.firstName} ${this.lastName}`;
-    },
-    set(value) {
-      throw new Error('Do not try to set the `fullName` value!');
-    }
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare firstName: string;
+
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare lastName: string;
+
+  // highlight-next-line
+  @Attribute(DataTypes.VIRTUAL(DataTypes.STRING, ['firstName', 'lastName']))
+  get fullName(): string {
+    return `${this.firstName} ${this.lastName}`;
   }
+}
+```
+
+The `VIRTUAL` attribute has a few advantages over the regular getter:
+
+- It can be used as an attribute in the attribute list of queries, which will make the query load its dependencies.
+- the `.get()` method of your model will return the value of the virtual attribute, instead of `undefined`.
+
+:::caution Uses in queries
+
+Remember, the `VIRTUAL` attribute does not exist in the database. Sequelize lets you specify it in the attribute list of queries,
+but it will not be included in the actual query, and cannot be used anywhere else in the query.
+
+```ts
+const users = await User.findAll({
+  // 'fullName' is a virtual attribute, which will make Sequelize
+  // load 'firstName' and 'lastName' instead.
+  attributes: ['id', 'fullName'],
+  where: {
+    // This will not work.
+    // error-next-line
+    fullName: 'John Doe',
+  },
 });
 ```
 
-The `VIRTUAL` field does not cause a column in the table to exist. In other words, the model above will not have a `fullName` column. However, it will appear to have it!
+:::
 
-```js
-const user = await User.create({ firstName: 'John', lastName: 'Doe' });
-console.log(user.fullName); // 'John Doe'
-```
+[^1]: Did you know? Not everyone's name can be neatly separated into [first name & last name](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/). 

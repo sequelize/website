@@ -2,7 +2,7 @@
 title: Working with Legacy Tables
 ---
 
-While out of the box Sequelize will seem a bit opinionated it's easy to work legacy tables and forward proof your application by defining (otherwise generated) table and field names.
+While out of the box Sequelize will seem a bit opinionated it's easy to work legacy tables and forward proof your application by defining (otherwise generated) table and column names.
 
 ## Tables
 
@@ -24,7 +24,7 @@ class MyModel extends Model {}
 MyModel.init({
   userId: {
     type: DataTypes.INTEGER,
-    field: 'user_id'
+    columnName: 'user_id'
   }
 }, { sequelize });
 ```

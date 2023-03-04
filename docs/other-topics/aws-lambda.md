@@ -630,7 +630,7 @@ class ConnectionManager {
 }
 ```
 
-The field `this.lib` refers to [`mysql2`](https://www.npmjs.com/package/mysql2) and the function
+The property `this.lib` refers to [`mysql2`](https://www.npmjs.com/package/mysql2) and the function
 `createConnection()` creates a connection by creating an instance of a `Connection` class. The
 relevant subset of this class is as follows:
 

@@ -20,7 +20,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 });
 ```
 
-The following fields may be passed to Postgres `dialectOptions`:
+The following options may be passed to Postgres `dialectOptions`:
 
 - `application_name`: Name of application in pg_stat_activity. See the [Postgres docs](https://www.postgresql.org/docs/current/runtime-config-logging.html#GUC-APPLICATION-NAME) for details.
 - `ssl`: SSL options. See the [`pg` docs](https://node-postgres.com/features/ssl) for details.
@@ -113,7 +113,7 @@ You can provide custom options to it using `dialectOptions.options` in the Seque
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'mssql',
   dialectOptions: {
-    // Observe the need for this nested `options` field for MSSQL
+    // Observe the need for this nested `options` property for MSSQL
     options: {
       // Your tedious options here
       useUTC: false,

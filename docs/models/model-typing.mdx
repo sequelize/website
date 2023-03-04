@@ -23,7 +23,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   @Attribute(DataTypes.INTEGER)
   @PrimaryKey
   @AutoIncrement
-  // 'CreationOptional' is a special type that marks the field as optional
+  // 'CreationOptional' is a special type that marks the attribute as optional
   // when creating an instance of the model (such as using Model.create()).
   declare id: CreationOptional<number>;
   
