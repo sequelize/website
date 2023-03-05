@@ -391,3 +391,22 @@ const post = await Post.findByPk(1);
 const count = await post.countComments();
 // highlight-end
 ```
+
+## Foreign Key targets (`sourceKey`)
+
+By default, Sequelize will use the primary key of the source model as the attribute the foreign key references.
+You can customize this by using the `sourceKey` option.
+
+```ts
+class Post extends Model {
+  declare id: CreationOptional<number>;
+  
+  @HasMany(() => Comment, {
+    foreignKey: 'postId',
+    // highlight-next-line
+    // The foreign key will reference the `id` attribute of the `Post` model
+    sourceKey: 'id',
+  })
+  declare comments?: NonAttribute<Comment[]>;
+}
+```

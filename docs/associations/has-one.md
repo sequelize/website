@@ -116,7 +116,7 @@ All associations add methods to the source model[^1]. These methods can be used 
 
 If you use TypeScript, you will need to declare these methods on your model class.
 
-### Association Getter
+### Association Getter (`getX`)
 
 The association getter is used to fetch the associated model. It is always named `get<AssociationName>`:
 
@@ -141,7 +141,7 @@ const drivingLicense: DrivingLicense | null = await person.getDrivingLicense();
 // highlight-end
 ```
 
-### Association Setter
+### Association Setter (`setX`)
 
 The association setter is used to set (or unset) which model is associated to this one. It is always named `set<AssociationName>`.  
 It accepts a single model instance, or `null` to unset the association.
@@ -190,7 +190,7 @@ Take a look at issue [#14048](https://github.com/sequelize/sequelize/issues/1404
 
 :::
 
-### Association Creator
+### Association Creator (`createX`)
 
 The association creator is used to create a new associated model. It is always named `create<AssociationName>`.
 It accepts the same arguments as the associated model's `create` method.
@@ -246,5 +246,24 @@ erDiagram
 ```
 
 In practice however, it is impossible to enforce this relationship in a database. You need to handle this in your business logic.
+
+## Foreign Key targets (`sourceKey`)
+
+By default, Sequelize will use the primary key of the source model as the attribute the foreign key references.
+You can customize this by using the `sourceKey` option.
+
+```ts
+class Person extends Model {
+  declare id: CreationOptional<number>;
+  
+  @HasOne(() => DrivingLicense, {
+    foreignKey: 'ownerId',
+    // highlight-next-line
+    // The foreign key will reference the `id` attribute of the `Person` model
+    sourceKey: 'id',
+  })
+  declare drivingLicense?: NonAttribute<DrivingLicense>;
+}
+```
 
 [^1]: The source model is the model that defines the association.

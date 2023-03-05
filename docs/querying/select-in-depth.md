@@ -473,7 +473,7 @@ However, this will make the limit option apply to the total number of rows retur
 not the number of instances of the model. This is not a problem if your include can only return one row per instance,
 but it will be a problem if it can return multiple rows per instance.
 
-Another solution is to use a subquery to filter your model:
+Another solution is to use a [subquery](./sub-queries.md) to filter your model:
 
 ```ts
 User.findAll({
@@ -492,8 +492,6 @@ User.findAll({
   limit: 2,
 });
 ```
-
-Subqueries are written in raw SQL. See [Raw Queries](./raw-queries.md) to learn how to write them.
 
 We are redesigning this to make this more flexible. See [#15260](https://github.com/sequelize/sequelize/issues/15260) to follow the discussion.
 

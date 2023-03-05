@@ -180,8 +180,8 @@ await comment.setPost(post);
 await comment.setPost(1);
 ```
 
-It is also possible to delay the call to `save` by setting the `save` option to `false`, however this is not very useful,
-as it is equivalent to setting the foreign key directly, but using an (pointlessly) asynchronous method.
+It is also possible to delay the call to `save` by setting the `save` option to `false`, however __this is not very useful__,
+as it is equivalent to setting the foreign key directly, but using a (pointlessly) asynchronous method.
 
 ```ts
 await comment.setPost(post, { save: false });
@@ -249,3 +249,22 @@ const comment = await post.createComment({
 ```
 
 :::
+
+## Foreign Key targets (`targetKey`)
+
+By default, Sequelize will use the primary key of the target model as the attribute the foreign key references.
+You can customize this by using the `targetKey` option.
+
+```ts
+class Comment extends Model {
+  declare id: CreationOptional<number>;
+  
+  @BelongsTo(() => Post, {
+    foreignKey: 'postId',
+    // highlight-next-line
+    // The foreign key will reference the 'id' attribute of the Post model
+    targetKey: 'id',
+  })
+  declare post?: NonAttribute<Post>;
+}
+```

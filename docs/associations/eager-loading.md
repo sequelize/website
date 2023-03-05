@@ -666,3 +666,201 @@ User.findAndCountAll({
 ```
 
 The query above will only count users who have an active profile, because `required` is implicitly set to true when you add a where clause to the include.
+
+## Basics of queries involving associations
+
+With the basics of defining associations covered, we can look at queries involving associations. The most common queries on this matter are the *read* queries (i.e. SELECTs). Later on, other types of queries will be shown.
+
+In order to study this, we will consider an example in which we have Ships and Captains, and a one-to-one relationship between them. We will allow null on foreign keys (the default), meaning that a Ship can exist without a Captain and vice-versa.
+
+```js
+// This is the setup of our models for the examples below
+const Ship = sequelize.define('ship', {
+  name: DataTypes.TEXT,
+  crewCapacity: DataTypes.INTEGER,
+  amountOfSails: DataTypes.INTEGER
+}, { timestamps: false });
+const Captain = sequelize.define('captain', {
+  name: DataTypes.TEXT,
+  skillLevel: {
+    type: DataTypes.INTEGER,
+    validate: { min: 1, max: 10 }
+  }
+}, { timestamps: false });
+Captain.hasOne(Ship);
+Ship.belongsTo(Captain);
+```
+
+### Fetching associations - Eager Loading vs Lazy Loading
+
+The concepts of Eager Loading and Lazy Loading are fundamental to understand how fetching associations work in Sequelize. Lazy Loading refers to the technique of fetching the associated data only when you really want it; Eager Loading, on the other hand, refers to the technique of fetching everything at once, since the beginning, with a larger query.
+
+#### Lazy Loading example
+
+```js
+const awesomeCaptain = await Captain.findOne({
+  where: {
+    name: "Jack Sparrow"
+  }
+});
+// Do stuff with the fetched captain
+console.log('Name:', awesomeCaptain.name);
+console.log('Skill Level:', awesomeCaptain.skillLevel);
+// Now we want information about his ship!
+const hisShip = await awesomeCaptain.getShip();
+// Do stuff with the ship
+console.log('Ship Name:', hisShip.name);
+console.log('Amount of Sails:', hisShip.amountOfSails);
+```
+
+Observe that in the example above, we made two queries, only fetching the associated ship when we wanted to use it. This can be especially useful if we may or may not need the ship, perhaps we want to fetch it conditionally, only in a few cases; this way we can save time and memory by only fetching it when necessary.
+
+Note: the `getShip()` instance method used above is one of the methods Sequelize automatically adds to `Captain` instances. There are others. You will learn more about them later in this guide.
+
+#### Eager Loading Example
+
+```js
+const awesomeCaptain = await Captain.findOne({
+  where: {
+    name: "Jack Sparrow"
+  },
+  include: Ship
+});
+// Now the ship comes with it
+console.log('Name:', awesomeCaptain.name);
+console.log('Skill Level:', awesomeCaptain.skillLevel);
+console.log('Ship Name:', awesomeCaptain.ship.name);
+console.log('Amount of Sails:', awesomeCaptain.ship.amountOfSails);
+```
+
+As shown above, Eager Loading is performed in Sequelize by using the `include` option. Observe that here only one query was performed to the database (which brings the associated data along with the instance).
+
+This was just a quick introduction to Eager Loading in Sequelize. There is a lot more to it, which you can learn at [the dedicated guide on Eager Loading](docs/associations/eager-loading.md).
+
+### Creating, updating and deleting
+
+The above showed the basics on queries for fetching data involving associations. For creating, updating and deleting, you can either:
+
+* Use the standard model queries directly:
+
+  ```js
+  // Example: creating an associated model using the standard methods
+  Bar.create({
+    name: 'My Bar',
+    fooId: 5
+  });
+  // This creates a Bar belonging to the Foo of ID 5 (since fooId is
+  // a regular column, after all). Nothing very clever going on here.
+  ```
+
+* Or use the *[special methods/mixins](#special-methodsmixins-added-to-instances)* available for associated models, which are explained later on this page.
+
+**Note:** The [`save()` instance method](pathname:///api/v7/classes/Model.html#save) is not aware of associations. In other words, if you change a value from a *child* object that was eager loaded along a *parent* object, calling `save()` on the parent will completely ignore the change that happened on the child.
+
+
+## Specifying attributes from the through table
+
+By default, when eager loading a many-to-many relationship, Sequelize will return data in the following structure (based on the first example in this guide):
+
+```json
+// User.findOne({ include: Profile })
+{
+  "id": 4,
+  "username": "p4dm3",
+  "points": 1000,
+  "profiles": [
+    {
+      "id": 6,
+      "name": "queen",
+      "grant": {
+        "userId": 4,
+        "profileId": 6,
+        "selfGranted": false
+      }
+    }
+  ]
+}
+```
+
+Notice that the outer object is an `User`, which has a field called `profiles`, which is a `Profile` array, such that each `Profile` comes with an extra field called `grant` which is a `Grant` instance. This is the default structure created by Sequelize when eager loading from a Many-to-Many relationship.
+
+However, if you want only some of the attributes of the through table, you can provide an array with the attributes you want in the `attributes` option. For example, if you only want the `selfGranted` attribute from the through table:
+
+```js
+User.findOne({
+  include: {
+    model: Profile,
+    through: {
+      attributes: ['selfGranted']
+    }
+  }
+});
+```
+
+Output:
+
+```json
+{
+  "id": 4,
+  "username": "p4dm3",
+  "points": 1000,
+  "profiles": [
+    {
+      "id": 6,
+      "name": "queen",
+      "grant": {
+        "selfGranted": false
+      }
+    }
+  ]
+}
+```
+
+If you don't want the nested `grant` field at all, use `attributes: []`:
+
+```js
+User.findOne({
+  include: {
+    model: Profile,
+    through: {
+      attributes: []
+    }
+  }
+});
+```
+
+Output:
+
+```json
+{
+  "id": 4,
+  "username": "p4dm3",
+  "points": 1000,
+  "profiles": [
+    {
+      "id": 6,
+      "name": "queen"
+    }
+  ]
+}
+```
+
+If you are using mixins (such as `user.getProfiles()`) instead of finder methods (such as `User.findAll()`), you have to use the `joinTableAttributes` option instead:
+
+```js
+someUser.getProfiles({ joinTableAttributes: ['selfGranted'] });
+```
+
+Output:
+
+```json
+[
+  {
+    "id": 6,
+    "name": "queen",
+    "grant": {
+      "selfGranted": false
+    }
+  }
+]
+```
