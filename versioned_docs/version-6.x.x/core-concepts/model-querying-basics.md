@@ -519,7 +519,7 @@ However, by default, `bulkCreate` does not run validations on each object that i
 
 ```js
 const Foo = sequelize.define('foo', {
-  bar: {
+  name: {
     type: DataTypes.TEXT,
     validate: {
       len: [4, 6]
