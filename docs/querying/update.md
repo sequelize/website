@@ -49,7 +49,7 @@ Do this:
 ```ts
 const jane = await User.create({ name: "Jane", role: ['admin'] });
 
-// `save` will not be able to detect this change, because `role` was mutated
+// `save` will be able to detect this change, because `role` has been replaced
 // success-next-line
 jane.role = [...jane.role, 'admin'];
 
