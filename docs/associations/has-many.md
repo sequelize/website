@@ -54,9 +54,6 @@ class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Co
 Note that in the example above, the `Comment` model has a foreign key to the `Post` model. __`HasMany` adds the foreign key
 on the model the association targets.__
 
-Unlike `HasOne`, __`HasMany` does not make the foreign key unique by default__.
-This means that multiple different people can have the same birthplace.
-
 ## Inverse association
 
 The `HasMany` association automatically creates an inverse association on the target model.

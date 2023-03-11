@@ -62,8 +62,23 @@ It is however possible to create a Person without a Passport.
 
 If you made the foreign key nullable, the relationship would be optional on both sides.
 
-When using the `HasOne` association, __Sequelize also makes the foreign key unique by default__.
-This means that it is impossible to create two Passports for the same Person.
+:::info Unique FK
+
+When using `HasOne`, you may want to add a unique constraint on the foreign key to ensure that only one row can be associated with the source row.
+
+You can do this by using the `@Unique` decorator on the foreign key:
+
+```ts
+class DrivingLicense extends Model<InferAttributes<DrivingLicense>, InferCreationAttributes<DrivingLicense>> {
+  @Attribute(DataTypes.INTEGER)
+  @NotNull
+  // highlight-next-line
+  @Unique
+  declare ownerId: number;
+}
+```
+
+:::
 
 ## Inverse association
 

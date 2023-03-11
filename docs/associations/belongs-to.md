@@ -51,7 +51,7 @@ And here is how you would create the association we described in the [`HasOne`](
 
 ```ts
 import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute } from '@sequelize/core';
-import { PrimaryKey, Attribute, AutoIncrement, NotNull, HasOne, BelongsTo, Unique } from '@sequelize/core/decorators-legacy';
+import { PrimaryKey, Attribute, AutoIncrement, NotNull, HasOne, BelongsTo } from '@sequelize/core/decorators-legacy';
 
 class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Person>> {
   @Attribute(DataTypes.INTEGER)
@@ -73,18 +73,10 @@ class DrivingLicense extends Model<InferAttributes<DrivingLicense>, InferCreatio
   // This is the foreign key
   @Attribute(DataTypes.INTEGER)
   @NotNull
-  @Unique
   declare ownerId: number;
   // highlight-end
 }
 ```
-
-:::info One-To-One unique constraint
-
-Unlike the `HasOne` association, the `BelongsTo` association does not automatically create a unique constraint on the foreign key.  
-You need to create it manually, like depicted above.
-
-:::
 
 ## Inverse Association
 
