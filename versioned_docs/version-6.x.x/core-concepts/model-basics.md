@@ -427,6 +427,7 @@ Foo.init({
   // boolean, or a string. If you provide the same string for multiple columns, they will form a
   // composite unique key. Note that this does not work with neither Sequelize.define() nor 
   // QueryInterface.createTable(). Details here: https://github.com/sequelize/sequelize/issues/14039
+  // In such cases, you should use the `unique` property of the `indexes` options argument
   uniqueOne: { type: DataTypes.STRING,  unique: 'compositeIndex' },
   uniqueTwo: { type: DataTypes.INTEGER, unique: 'compositeIndex' },
 
