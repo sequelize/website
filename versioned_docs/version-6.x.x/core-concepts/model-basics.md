@@ -425,7 +425,8 @@ Foo.init({
 
   // Creating two objects with the same value will throw an error. The unique property can be either a
   // boolean, or a string. If you provide the same string for multiple columns, they will form a
-  // composite unique key.
+  // composite unique key. Note that this does not work with neither Sequelize.define() nor 
+  // QueryInterface.createTable(). Details here: https://github.com/sequelize/sequelize/issues/14039
   uniqueOne: { type: DataTypes.STRING,  unique: 'compositeIndex' },
   uniqueTwo: { type: DataTypes.INTEGER, unique: 'compositeIndex' },
 
