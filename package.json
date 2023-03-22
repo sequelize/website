@@ -31,22 +31,22 @@
     "react-dom": "18.2.0",
     "react-feather": "2.0.10",
     "react-responsive-carousel": "3.2.23",
-    "sass": "1.58.0"
+    "sass": "1.59.3"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.3.1",
     "@ephys/eslint-config-typescript": "18.0.1",
     "@rushstack/eslint-patch": "1.2.0",
-    "@tsconfig/docusaurus": "1.0.6",
-    "eslint": "8.34.0",
+    "@tsconfig/docusaurus": "1.0.7",
+    "eslint": "8.36.0",
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-mdx": "1.17.1",
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "husky": "8.0.3",
-    "lint-staged": "13.1.1",
-    "prettier": "2.8.4",
-    "typescript": "4.9.5"
+    "lint-staged": "13.2.0",
+    "prettier": "2.8.6",
+    "typescript": "5.0.2"
   },
   "browserslist": {
     "production": [
