@@ -3,7 +3,7 @@ sidebar_position: 2
 title: Getting Started
 ---
 
-In this tutorial you will learn to make a simple setup of Sequelize.
+In this tutorial you will learn to set up Sequelize.
 
 ## Installing
 
@@ -27,7 +27,7 @@ $ npm install --save oracledb # Oracle Database
 
 ## Connecting to a database
 
-To connect to the database, you must create a Sequelize instance. This can be done by either passing the connection parameters separately to the Sequelize constructor or by passing a single connection URI:
+To connect to the database, you must create a Sequelize instance. You can either pass the connection parameters separately to the Sequelize constructor or pass a single connection URI:
 
 ```js
 const { Sequelize } = require('sequelize');
@@ -49,11 +49,17 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 });
 ```
 
-The Sequelize constructor accepts a lot of options. They are documented in the [API Reference](pathname:///api/v6/class/src/sequelize.js~Sequelize.html#instance-constructor-constructor).
+The Sequelize constructor accepts many options which are documented in the [API Reference](pathname:///api/v6/class/src/sequelize.js~Sequelize.html#instance-constructor-constructor).
+
+:::note
+
+In the example above, `Sequelize` refers to the library itself while `sequelize` refers to an instance of Sequelize, which represents a connection to one database. This convention will be followed throughout the documentation.
+
+:::
 
 ### Testing the connection
 
-You can use the `.authenticate()` function to test if the connection is OK:
+To test if the connection is OK, use the `.authenticate()` function:
 
 ```js
 try {
@@ -70,17 +76,13 @@ Sequelize will keep the connection open by default, and use the same connection 
 
 :::note
 
-Once `sequelize.close()` has been called, it's impossible to open a new connection. You will need to create a new Sequelize instance to access your database again.
+Once `sequelize.close()` has been called, you cannot open a new connection. To access your database again, create a new Sequelize instance.
 
 :::
 
-## Terminology convention
+## Tips for running code examples locally
 
-Observe that, in the examples above, `Sequelize` refers to the library itself while `sequelize` refers to an instance of Sequelize, which represents a connection to one database. This is the recommended convention and it will be followed throughout the documentation.
-
-## Tip for reading the docs
-
-You are encouraged to run code examples locally while reading the Sequelize docs. This will help you learn faster. The easiest way to do this is using the SQLite dialect:
+To help you learn faster, you are encouraged to run code examples locally while reading the Sequelize docs. The easiest way to do this is using the SQLite dialect:
 
 ```js
 const { Sequelize, Op, Model, DataTypes } = require("sequelize");
@@ -91,15 +93,13 @@ const sequelize = new Sequelize("sqlite::memory:");
 
 To experiment with the other dialects, which are harder to setup locally, you can use the [Sequelize SSCCE](https://github.com/papb/sequelize-sscce) GitHub repository, which allows you to run code on all supported dialects directly from GitHub, for free, without any setup!
 
-## New databases versus existing databases
+## New versus existing databases
 
-If you are starting a project from scratch, and your database is still empty, Sequelize can be used from the beginning in order to automate the creation of every table in your database.
-
-Also, if you want to use Sequelize to connect to a database that is already filled with tables and data, that works as well! Sequelize has got you covered in both cases.
+If the database of your new project is still empty, use Sequelize from the beginning to automate the creation of every table in your database. Sequelize can also connect to a database that is already filled with tables and data. You will learn more in the concepts section and other parts of the documentation.
 
 ## Logging
 
-By default, Sequelize will log to console every SQL query it performs. The `options.logging` option can be used to customize this behavior, by defining the function that gets executed every time Sequelize would log something. The default value is `console.log` and when using that only the first log parameter of log function call is displayed. For example, for query logging the first parameter is the raw query and the second (hidden by default) is the Sequelize object.
+By default, Sequelize will log every SQL query to console. To customize this behavior, use the `options.logging` option (defaults to `console.log`) and define the function that gets executed every time Sequelize would log something. By default, only the first log parameter of log function call is displayed. For example, for query logging the first parameter is the raw query and the second is the Sequelize object.
 
 Common useful values for `options.logging`:
 
@@ -116,6 +116,4 @@ const sequelize = new Sequelize('sqlite::memory:', {
 
 ## Promises and async/await
 
-Most of the methods provided by Sequelize are asynchronous and therefore return Promises. They are all [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) , so you can use the Promise API (for example, using `then`, `catch`, `finally`) out of the box.
-
-Of course, using `async` and `await` works normally as well.
+Most of the methods provided by Sequelize are asynchronous and therefore return [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). You can use the Promise API (for example, using `then`, `catch`, `finally`) out of the box. Of course, using `async` and `await` also works.
