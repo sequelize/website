@@ -5,7 +5,7 @@ title: Validations & Constraints
 
 In this tutorial you will learn how to setup validations and constraints for your models in Sequelize.
 
-For this tutorial, the following setup will be assumed:
+For this tutorial, assume the following setup:
 
 ```js
 const { Sequelize, Op, Model, DataTypes } = require("sequelize");
@@ -35,7 +35,7 @@ const User = sequelize.define("user", {
 
 Validations are checks performed in the Sequelize level, in pure JavaScript. They can be arbitrarily complex if you provide a custom validator function, or can be one of the built-in validators offered by Sequelize. If a validation fails, no SQL query will be sent to the database at all.
 
-On the other hand, constraints are rules defined at SQL level. The most basic example of constraint is an Unique Constraint. If a constraint check fails, an error will be thrown by the database and Sequelize will forward this error to JavaScript (in this example, throwing a `SequelizeUniqueConstraintError`). Note that in this case, the SQL query was performed, unlike the case for validations.
+Constraints are rules defined at SQL level. The most basic example of constraint is an Unique Constraint. If a constraint check fails, an error will be thrown by the database and Sequelize will forward this error to JavaScript (in this example, throwing a `SequelizeUniqueConstraintError`). Note that in this case, the SQL query was performed, unlike the case for validations.
 
 ## Unique Constraint
 
@@ -51,11 +51,13 @@ Our code example above defines a unique constraint on the `username` field:
 } /* ... */
 ```
 
-When this model is synchronized (by calling `sequelize.sync` for example), the `username` field will be created in the table as `` `username` TEXT UNIQUE``, and an attempt to insert an username that already exists there will throw a `SequelizeUniqueConstraintError`.
+When this model is [synchronized](https://sequelize.org/docs/v6/core-concepts/model-basics/#model-synchronization), the `username` field will be created in the table as `` `username` TEXT UNIQUE``. An attempt to insert a username that already exists will throw a `SequelizeUniqueConstraintError`.
 
 ## Allowing/disallowing null values
 
-By default, `null` is an allowed value for every column of a model. This can be disabled setting the `allowNull: false` option for a column, as it was done in the `username` field from our code example:
+By default, `null` is an allowed value for every column of a model, the call `User.create({})` will work.
+
+To change this, set the `allowNull: false` option for a column:
 
 ```js
 /* ... */ {
@@ -67,22 +69,17 @@ By default, `null` is an allowed value for every column of a model. This can be 
 } /* ... */
 ```
 
-Without `allowNull: false`, the call `User.create({})` would work.
-
-### Note about `allowNull` implementation
-
-The `allowNull` check is the only check in Sequelize that is a mix of a *validation* and a *constraint* in the senses described at the beginning of this tutorial. This is because:
-
-* If an attempt is made to set `null` to a field that does not allow null, a `ValidationError` will be thrown *without any SQL query being performed*.
-* In addition, after `sequelize.sync`, the column that has `allowNull: false` will be defined with a `NOT NULL` SQL constraint. This way, direct SQL queries that attempt to set the value to `null` will also fail.
+`allowNull` is the only check in Sequelize that is a mix of a *validation* and a *constraint*:
+- A query to set the username to null will throw a `ValidationError`. The SQL query is not performed.
+- After synchronization, the column that has `allowNull: false` will be defined with a `NOT NULL` SQL constraint. SQL queries to set `null` will fail.
 
 ## Validators
 
-Model validators allow you to specify format/content/inheritance validations for each attribute of the model. Validations are automatically run on `create`, `update` and `save`. You can also call `validate()` to manually validate an instance.
+Model validators allow you to specify format/content/inheritance validations for each attribute of the model. Validations are automatically run on `create`, `update` and `save`. You can also call `validate()` to validate an instance.
 
 ### Per-attribute validations
 
-You can define your custom validators or use several built-in validators, implemented by [validator.js (10.11.0)](https://github.com/chriso/validator.js), as shown below.
+You can define your custom validators or use several built-in validators, implemented by [validator.js (10.11.0)](https://github.com/chriso/validator.js):
 
 ```js
 sequelize.define('foo', {
@@ -139,9 +136,9 @@ sequelize.define('foo', {
 });
 ```
 
-Note that where multiple arguments need to be passed to the built-in validation functions, the arguments to be passed must be in an array. But if a single array argument is to be passed, for instance an array of acceptable strings for `isIn`, this will be interpreted as multiple string arguments instead of one array argument. To work around this pass a single-length array of arguments, such as `[['foo', 'bar']]` as shown above.
+If you need to pass multiple arguments to the built-in validation functions, pass an array. But if a single array argument is to be passed, for example an array of acceptable strings for `isIn`, this is interpreted as multiple string arguments instead of one array argument. To work around this, pass a single-length array of arguments, such as `[['foo', 'bar']]`.
 
-To use a custom error message instead of that provided by [validator.js](https://github.com/chriso/validator.js), use an object instead of the plain value or array of arguments, for example a validator which needs no argument can be given a custom message with
+To use a custom error message instead of built-in validation methods provided by [validator.js](https://github.com/chriso/validator.js), use an object instead of the plain value or array of arguments. For example, include a validator with no argument as a custom message:
 
 ```js
 isInt: {
@@ -149,7 +146,7 @@ isInt: {
 }
 ```
 
-or if arguments need to also be passed add an `args` property:
+If arguments also need to be passed, add an `args` property:
 
 ```js
 isIn: {
@@ -158,19 +155,17 @@ isIn: {
 }
 ```
 
-When using custom validator functions the error message will be whatever message the thrown `Error` object holds.
-
-See [the validator.js project](https://github.com/chriso/validator.js) for more details on the built in validation methods.
+When using custom validator functions, the error message will be whatever message the thrown `Error` object holds.
 
 **Hint:** You can also define a custom function for the logging part. Just pass a function. The first parameter will be the string that is logged.
 
-### `allowNull` interaction with other validators
+### `allowNull: true` with custom validators
 
-If a particular field of a model is set to not allow null (with `allowNull: false`) and that value has been set to `null`, all validators will be skipped and a `ValidationError` will be thrown.
+If a field that does not allow null values is set to null, all validators will be skipped. A `ValidationError` will be thrown.
 
-On the other hand, if it is set to allow null (with `allowNull: true`) and that value has been set to `null`, only the built-in validators will be skipped, while the custom validators will still run.
+If a field that allows null values (`allowNull: true`) is set to null, only the built-in validators will be skipped. Custom validators will still run.
 
-This means you can, for instance, have a string field which validates its length to be between 5 and 10 characters, but which also allows `null` (since the length validator will be skipped automatically when the value is `null`):
+This can be useful, for example, if you have a string field that can have a length between 5 and 10 characters but also allows `null`. If the value is `null`, the length validator is skipped:
 
 ```js
 class User extends Model {}
@@ -224,7 +219,7 @@ User.init({
 
 ### Model-wide validations
 
-Validations can also be defined to check the model after the field-specific validators. Using this you could, for example, ensure either neither of `latitude` and `longitude` are set or both, and fail if one but not the other is set.
+Validations can also be defined to check the model after the field-specific validators. For example, you could ensure either neither of `latitude` and `longitude` are set or both, and fail if one but not the other is set.
 
 Model validator methods are called with the model object's context and are deemed to fail if they throw an error, otherwise pass. This is just the same as with custom field-specific validators.
 
@@ -263,7 +258,7 @@ Place.init({
 })
 ```
 
-In this simple case an object fails validation if either latitude or longitude is given, but not both. If we try to build one with an out-of-range latitude and no longitude, `somePlace.validate()` might return:
+In this simple case, an object fails validation if either latitude or longitude is given, but not both. If we try to build one with an out-of-range latitude and no longitude, `somePlace.validate()` might return:
 
 ```js
 {
