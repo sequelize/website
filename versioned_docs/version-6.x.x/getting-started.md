@@ -59,7 +59,7 @@ In the example above, `Sequelize` refers to the library itself while `sequelize`
 
 ### Testing the connection
 
-To test if the connection is OK, use the `.authenticate()` function:
+To test if the connection is OK, you can use the `.authenticate()` function:
 
 ```js
 try {
@@ -99,9 +99,9 @@ If the database of your new project is still empty, use Sequelize from the begin
 
 ## Logging
 
-By default, Sequelize will log every SQL query to console. To customize this behavior, use the `options.logging` option (defaults to `console.log`) and define the function that gets executed every time Sequelize would log something. By default, only the first log parameter of log function call is displayed. For example, for query logging the first parameter is the raw query and the second is the Sequelize object.
+By default, Sequelize will log every SQL query to console. To customize this behavior, use the `logging` option (defaults to `console.log`) and define the function that gets executed every time Sequelize would log something. By default, only the first log parameter of log function call is displayed. For example, for query logging the first parameter is the raw query and the second is the Sequelize object.
 
-Common useful values for `options.logging`:
+Common useful values for `logging`:
 
 ```js
 const sequelize = new Sequelize('sqlite::memory:', {
