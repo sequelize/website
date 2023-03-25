@@ -161,11 +161,11 @@ When using custom validator functions, the error message will be whatever messag
 
 ### `allowNull: true` with custom validators
 
-If a field that does not allow null values is set to null, all validators will be skipped. A `ValidationError` will be thrown.
+If you null a field that does not allow null values, you will see a `ValidationError`. All validators will be skipped.
 
-If a field that allows null values (`allowNull: true`) is set to null, only the built-in validators will be skipped. Custom validators will still run.
+If you null a field that allows null values (`allowNull: true`), only the built-in validators will be skipped, but custom validators will still run.
 
-This can be useful, for example, if you have a string field that can have a length between 5 and 10 characters but also allows `null`. If the value is `null`, the length validator is skipped:
+This may be useful for string fields that allow 5 to 10 characters but also `null`. If the value is `null`, the length validator is skipped:
 
 ```js
 class User extends Model {}
