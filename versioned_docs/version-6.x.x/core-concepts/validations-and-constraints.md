@@ -138,7 +138,7 @@ sequelize.define('foo', {
 
 If you need to pass multiple arguments to the built-in validation functions, pass an array. But if a single array argument is to be passed, for example an array of acceptable strings for `isIn`, this is interpreted as multiple string arguments instead of one array argument. To work around this, pass a single-length array of arguments, such as `[['foo', 'bar']]`.
 
-To use a custom error message instead of built-in validation methods provided by [validator.js](https://github.com/chriso/validator.js), use an object instead of the plain value or array of arguments. For example, include a validator with no argument as a custom message:
+To use a custom error message instead of built-in string validators provided by [validator.js](https://github.com/chriso/validator.js), use an object instead of the plain value or array of arguments. For example, include a validator with no argument as a custom message:
 
 ```js
 isInt: {
