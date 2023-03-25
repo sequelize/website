@@ -11,7 +11,7 @@ sidebar_label: Introduction
 [![Last commit](https://badgen.net/github/last-commit/sequelize/sequelize/v6)](https://github.com/sequelize/sequelize)
 [![Merged PRs](https://badgen.net/github/merged-prs/sequelize/sequelize)](https://github.com/sequelize/sequelize)
 [![GitHub stars](https://badgen.net/github/stars/sequelize/sequelize)](https://github.com/sequelize/sequelize)
-[![Slack Status](https://img.shields.io/badge/Slack-4A154B?logo=slack&logoColor=white)](https://join.slack.com/t/sequelize/shared_invite/zt-1igt9hx8h-tGWU4AI1bRPvkRdEK5wnuQ)
+[![Slack Status](https://img.shields.io/badge/Slack-4A154B?logo=slack&logoColor=white)](https://sequelize.org/slack)
 [![node](https://badgen.net/npm/node/sequelize/)](https://www.npmjs.com/package/sequelize)
 [![License](https://badgen.net/github/license/sequelize/sequelize)](https://github.com/sequelize/sequelize/blob/main/LICENSE)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
