@@ -99,9 +99,9 @@ If the database of your new project is still empty, use Sequelize from the begin
 
 ## Logging
 
-By default, Sequelize will log every SQL query to console. To customize this behavior, use the `logging` option (defaults to `console.log`) and define the function that gets executed every time Sequelize would log something. By default, only the first log parameter of log function call is displayed. For example, for query logging the first parameter is the raw query and the second is the Sequelize object.
+By default, Sequelize will log every SQL query to the console. To customize this behavior, define a different function in the `logging` option, which defaults to `console.log`.
 
-Common useful values for `logging`:
+By using a different value for `logging` as follows, you can either return only the first or all function call parameters, e.g. the query and the Sequelize object:
 
 ```js
 const sequelize = new Sequelize('sqlite::memory:', {
