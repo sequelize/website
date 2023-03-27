@@ -36,7 +36,7 @@ Sequelize.hooks.addListener('beforeInit', () => {
 | `beforeBulkSync`, `afterBulkSync`     | ✅     | `sequelize.sync` is called                                 |
 | `beforeConnect`, `afterConnect`       | ✅     | Whenever a new connection to the database is being created |
 | `beforeDisconnect`, `afterDisconnect` | ✅     | Whenever a connection to the database is being closed      |
-| `beforePoolConnection`, `afterPoolConnection` | ✅     | Whenever a new connection from pool is being acquired |
+| `beforePoolAcquire`, `afterPoolAcquire` | ✅     | Whenever a new connection from pool is being acquired |
 
 :::info
 
