@@ -972,6 +972,7 @@ stop working in a future major release.
   - `cast`
   - `literal`
   - `where`
+- The `quoteIdentifiers` option in the sequelize constructor could be set to false to skip quoting of table names and attributes in postgres. This is potentially unsafe and therefore deprecated.
 
 [#14352]: https://github.com/sequelize/sequelize/pull/14352
 [#14447]: https://github.com/sequelize/sequelize/pull/14447
