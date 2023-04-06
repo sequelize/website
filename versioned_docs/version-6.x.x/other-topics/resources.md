@@ -56,6 +56,7 @@ title: Resources
 ### Migrations
 
 * [umzug](https://github.com/sequelize/umzug)
+* [sequelizemm](github.com/hasinoorit/sequelizemm) CLI tool to generate migration script from models within minute.
 
 ### Slugification
 
