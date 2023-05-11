@@ -680,14 +680,53 @@ Practical demonstration:
   await Bar.findOne({ include: Foo });
   ```
 
-## Multiple associations involving the same models
+## Multiple associations between the same models
 
 In Sequelize, it is possible to define multiple associations between the same models. You just have to define different aliases for them:
 
-```js
-Team.hasOne(Game, { as: 'HomeTeam', foreignKey: 'homeTeamId' });
-Team.hasOne(Game, { as: 'AwayTeam', foreignKey: 'awayTeamId' });
+```typescript
+const Team = sequelize.define('team', {
+  name: DataTypes.TEXT,
+}, { timestamps: true });
+const Game = sequelize.define('game', {
+  name: DataTypes.TEXT,
+}, { timestamps: true });
+
+Team.hasOne(Game, { as: 'HomeGame', foreignKey: 'homeGameId' });
+Team.hasOne(Game, { as: 'AwayGame', foreignKey: 'awayGameId' });
 Game.belongsTo(Team);
+```
+
+Now you able to use the associations with Lazy Loading:
+
+```typescript
+// Find the home team name
+const awesomeHomeTeam = await Team.findOne({
+  where: {
+    name: "Home Ball Team"
+  },
+});
+
+// Find the home team game
+const selectedHomeTeamGame = await awesomeHomeTeam.getHomeGame();
+
+console.log('Team Name:', awesomeHomeTeam.name); // Home Ball Team
+console.log('Team Game Name:', selectedHomeTeamGame.name); // Home Ball Game
+```
+
+or with Eager Loading:
+
+```typescript
+// Find the home team name
+const awesomeHomeTeam = await Team.findOne({
+  where: {
+    name: "Home Ball Team"
+  },
+  include: Game, // Add `include` option to use eager loading
+});
+
+console.log('Team Name:', awesomeHomeTeam.name); // Home Ball Team
+console.log('Team Game Name:', awesomeHomeTeam.game.name); // Home Ball Game
 ```
 
 ## Creating associations referencing a field which is not the primary key
