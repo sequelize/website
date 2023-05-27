@@ -6,7 +6,7 @@ A curated list of awesome projects surrounding Sequelize.
 
 ## Integrations
 
-* [sequelize-typescript](https://www.npmjs.com/package/sequelize-typescript) - Decorators and some other features for sequelize.
+* [sequelize-typescript](https://www.npmjs.com/package/sequelize-typescript) - Decorators and some other features for sequelize (built-in as of Sequelize 7).
 * [Sequelize-Nest](https://docs.nestjs.com/recipes/sql-sequelize) - Sequelize integration in [nest](https://github.com/nestjs/nest).
 * [sequelizejs-decorators](https://www.npmjs.com/package/sequelizejs-decorators) decorators for composing sequelize models.
 
@@ -29,6 +29,7 @@ A curated list of awesome projects surrounding Sequelize.
 * [umzug](https://github.com/sequelize/umzug) - framework-agnostic migration tool for Node.
 * [sequelize-cli](https://github.com/sequelize/cli) - The Sequelize Command Line Interface. Includes umzug-based migrations.
 * [sequelize-mig](https://github.com/MRVMV/sequelize-mig) - Sequelize migration generator
+* [sequelizemm](https://github.com/hasinoorit/sequelizemm) - CLI tool to generate a migration script from models
 
 ## Miscellaneous
  
@@ -42,6 +43,7 @@ A curated list of awesome projects surrounding Sequelize.
 * [sequelize-slugify](https://www.npmjs.com/package/sequelize-slugify) - Add slugs to sequelize models
 * [sequelize-tokenify](https://github.com/pipll/sequelize-tokenify) - Add unique tokens to sequelize models
 * [sqlcommenter-sequelize](https://github.com/google/sqlcommenter/tree/master/nodejs/sqlcommenter-nodejs/packages/sqlcommenter-sequelize) A [sqlcommenter](https://google.github.io/sqlcommenter/) plugin with [support for Sequelize](https://google.github.io/sqlcommenter/node/sequelize/) to augment SQL statements with comments that can be used later to correlate application code with SQL statements.
+* [@rematter/sequelize-paranoid-delete](https://www.npmjs.com/package/@rematter/sequelize-paranoid-delete) - Enables onDelete when using paranoid mode.
 
 ## Outdated
 

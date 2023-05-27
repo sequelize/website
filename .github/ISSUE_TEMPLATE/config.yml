@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Help & Questions
+    url: https://github.com/sequelize/sequelize/discussions
+    about: This issue tracker is for documentation issues. Use GitHub Discussions for question and help requests.
+  - name: 🔧 Having issues with Sequelize features?
+    url: https://github.com/sequelize/sequelize/issues/new/choose
+    about: Please file an issue in the Sequelize repository.

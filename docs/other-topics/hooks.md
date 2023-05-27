@@ -142,7 +142,7 @@ Instance Sequelize hooks can be registered in three ways:
 3. Using decorators
    ```typescript
    import { Sequelize, Model, Hook } from '@sequelize/core';
-   import { BeforeFind } from 'sequelize-typescript';
+   import { BeforeFind } from '@sequelize/core/decorators-legacy';
    
    export class MyModel extends Model {
      // highlight-next-line
@@ -192,7 +192,7 @@ Hooks added by decorators cannot be removed using the callback instance, but can
 
 ```typescript
 import { Sequelize, Model, Hook } from '@sequelize/core';
-import { BeforeFind } from 'sequelize-typescript';
+import { BeforeFind } from '@sequelize/core/decorators-legacy';
 
 export class MyModel extends Model {
   @BeforeFind({ name: 'yourHookIdentifier' })
@@ -220,6 +220,100 @@ Methods added by [Associations](../core-concepts/assocs.md) on your model do pro
 of regular model methods, which will trigger hooks.
 
 For instance, using the `add` / `set` mixin methods will trigger the `beforeUpdate` and `afterUpdate` hooks.
+
+## `individualHooks`
+
+:::caution
+
+Using this option is discouraged for two reasons:
+
+- Unlike the "normal" hook, the data provided to events emitted by `individualHooks` cannot be modified. Only the "bulk" event's data can be modified.
+- This option is slow, as it will need to fetch the instances that need to be destroyed.
+
+Use with care. If you need to react to database changes, consider using your database's triggers and notification system instead.
+
+:::
+
+When using static model methods such as `Model.destroy` or `Model.update`, only their corresponding "bulk" hook (such as `beforeBulkDestroy`) will be called, not the instance hooks (such as `beforeDestroy`).
+
+If you want to trigger the instance hooks, you use the `individualHooks` option to the method to run the instance hooks for each row that will be impacted.  
+The following example will trigger the `beforeDestroy` and `afterDestroy` hooks for each row that will be deleted:
+
+```js
+User.destroy({
+  where: {
+    id: [1, 2, 3],
+  },
+  individualHooks: true,
+});
+```
+
+## Exceptions
+
+Only __Model methods__ trigger hooks. This means there are a number of cases where Sequelize will interact with the database without triggering hooks.
+These include but are not limited to:
+
+- Instances being deleted by the database because of an `ON DELETE CASCADE` constraint, [except if the `hooks` option is true](#hooks-for-cascade-deletes).
+- Instances being updated by the database because of a `SET NULL` or `SET DEFAULT` constraint.
+- [Raw queries](../core-concepts/raw-queries.md).
+- All QueryInterface methods.
+
+If you need to react to these events, consider using your database's native and notification system instead.
+
+## Hooks for cascade deletes
+
+As indicated in [Exceptions](#exceptions), Sequelize will not trigger hooks when instances are deleted by the database because of an `ON DELETE CASCADE` constraint.
+
+However, if you set the `hooks` option to `true` when defining your association, Sequelize will trigger the `beforeDestroy` and `afterDestroy` hooks for the deleted instances.
+
+:::caution
+
+Using this option is discouraged for the following reasons:
+
+- This option requires many extra queries. The `destroy` method normally executes a single query.
+  If this option is enabled, an extra `SELECT` query, as well as an extra `DELETE` query for each row returned by the select will be executed.
+- If you do not run this query in a transaction, and an error occurs, you may end up with some rows deleted and some not deleted.
+- This option only works when the *instance* version of `destroy` is used. The static version will not trigger the hooks, even with `individualHooks`.
+- This option will not work in `paranoid` mode.
+- This option will not work if you only define the association on the model that owns the foreign key. You need to define the reverse association as well.
+
+This option is considered legacy. We highly recommend using your database's triggers and notification system if you need to be notified of database changes.
+
+:::
+
+Here is an example of how to use this option:
+
+```ts
+import { Model } from '@sequelize/core';
+import { HasMany, BeforeDestroy } from '@sequelize/core/decorators-legacy';
+
+class User extends Model {
+  // This "hooks" option will cause the "beforeDestroy" and "afterDestroy"
+  // highlight-next-line
+  @HasMany(() => Post, { hooks: true })
+  declare posts: Post[];
+}
+
+class Post extends Model {
+  @BeforeDestroy
+  static logDestroy() {
+    console.log('Post has been destroyed');
+  }
+}
+
+const sequelize = new Sequelize({
+  /* options */
+  models: [User, Post], 
+});
+
+await sequelize.sync({ force: true });
+
+const user = await User.create();
+const post = await Post.create({ userId: user.id });
+
+// this will log "Post has been destroyed"
+await user.destroy();
+```
 
 ## Hooks and Transactions
 

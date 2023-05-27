@@ -62,6 +62,20 @@ import { Model } from '@sequelize/core/_non-semver-use-at-your-own-risk_/model.j
 
 If you do that, we recommend pinning the Sequelize version your project uses as **breaking changes can be introduced in these files** in any new release of Sequelize, including patch.
 
+### CLS Transactions
+
+*Pull Request [#15292]*
+
+:::info
+
+[CLS Transactions](../other-topics/transactions.md#automatically-pass-transactions-to-all-queries) are now enabled by default.
+You can use the [`disableClsTransactions`](pathname:///api/v7/interfaces/Options.html#disableClsTransactions) global option to disable them.
+
+:::
+
+Sequelize's CLS implementation has been migrated to use Node's built-in AsyncLocalStorage. This means you do not need to install the `continuation-local-storage` or `cls-hooked` packages anymore,
+and that the `Sequelize.useCLS` method has been removed.
+
 ### `$bind` parameters in strings must not be escaped anymore
 
 *Pull Request [#14447]*
@@ -188,6 +202,22 @@ Sequelize also uses a different store per Sequelize instance, instead of a globa
 In order to discourage [unmanaged transactions](./transactions.md#unmanaged-transactions), which we consider to be error-prone, `sequelize.transaction()` cannot be used to create unmanaged transactions anymore.
 You must use `sequelize.startUnmanagedTransaction()` for that. 
 [Managed transactions](./transactions.md#managed-transactions-recommended) continue to use `sequelize.transaction()`.
+
+### `DataTypes.DATE` date parsing
+
+When using strings instead of `Date` instances with `DataTypes.DATE`, Sequelize parses that string into a `Date` for you. This means the following query is valid:
+
+```ts
+const MyModel = sequelize.define('MyModel', {
+  date: DataTypes.DATE,
+});
+
+await MyModel.findOne({ where: { date: '2022-11-06T00:00:00Z' } });
+```
+
+In Sequelize 6, an input such as `2022-11-06` was parsed as local time. If your server's timezone were GMT+1, that input would have resulted in `2022-11-05T23:00:00.000Z`.
+
+Starting with Sequelize 7, that input is parsed as UTC and results in `2022-11-06T00:00:00.000Z` no matter the timezone of your server.
 
 ### Associations names are now unique
 
@@ -317,7 +347,334 @@ User.belongsToMany(Country, {
   The database still requires this to be the case, but we don't do it silently for you anymore.
 - A few bugs in how indexes were named have been fixed. This means your index names could change.
 
+### Attributes are always escaped
+
+*Pull Request [#15374]*
+
+In Sequelize 6, some attributes specified in the finder (`findAll`, `findOne`, etc…) "attributes" option had special meaning and were not escaped.
+
+For instance, the following query:
+
+```ts
+await User.findAll({
+  attributes: [
+    '*',
+    'a.*',
+    ['count(id)', 'count'],
+  ]
+});
+```
+
+Would produce the following SQL:
+
+```sql
+SELECT *, "a".*, count(id) AS "count" FROM "users"
+```
+
+Starting with v7, it will produce the following SQL:
+
+```sql
+SELECT "*", "a.*", "count(id)" AS "count" FROM "users"
+```
+
+This was done to improve the security of Sequelize, by reducing the attack surface of the ORM. 
+The previous behavior is still available, but you need to explicitly opt-in to it by using the [`literal`](pathname:///api/v7/functions/literal-1.html), 
+[`col`](pathname:///api/v7/functions/col-1.html) or [`fn`](pathname:///api/v7/functions/fn-1.html) functions:
+
+```ts
+User.findAll({
+  attributes: [
+    col('*'),
+    col('a.*'),
+    [literal('count(*)'), 'count'],
+    // or
+    // [fn('count', col('*')), 'count'],
+  ],
+});
+```
+
+### Instance methods cannot be used without primary key.
+
+*Pull Request [#15108]*
+
+Model instance methods `save`, `update`, `reload`, `destroy`, `restore`, `decrement`, and `increment` cannot be used anymore 
+if the model definition does not have a primary key, or if the primary key was not loaded.
+
+Sequelize used to include a hack to allow you to call these methods even if your model did not have a primary key. 
+This hack was not reliable and using it could lead to your data being corrupted. We have removed it.
+
+If you wish to use these methods but your model definition does not have a primary key, you can use their static version instead.
+
+### `Op.not` always produces `NOT (x)` instead of `<> x` or `IS NOT x`
+
+*Pull Request [#15598]*
+
+In Sequelize 6, the `Op.not` operator would produce `<> x`, `IS NOT x` or `NOT (x)` depending on the type of the value.
+
+Starting with Sequelize 7, it will always produce `NOT (x)`. You need to use `Op.isNot` and `Op.ne` if you want to produce `IS NOT x` and `<> x` respectively:
+
+While this is a breaking change, your queries should remain valid as writing `{ [Op.not]: 1 }` 
+will be interpreted as `{ [Op.not]: { [Op.eq]: 1 } }` and will result in `NOT (x = 1)` instead of `x != 1`,
+and writing `{ [Op.not]: null }` will be interpreted as `{ [Op.not]: { [Op.is]: null } }` 
+and will result in `NOT (x IS NULL)` instead of `x IS NOT NULL`.
+
+### Removed string-based operators
+
+*Pull Request [#15598]*
+
+The `where()` function used to accept string-based operators, such as `where(col('name'), 'LIKE', 'foo')`.
+
+This syntax has been removed in Sequelize 7. You need to use the `Op` object instead:
+
+```ts
+sql.where(sql.attribute('name'), Op.like, 'foo');
+```
+
+This change was made because how values are escaped depends on the operator, and the string-based syntax did not allow us to do that.
+
+You can still use the string-based syntax if you wish, but you need to use the `sql` template tag instead:
+
+```ts
+import { Expression, Literal, sql } from '@sequelize/core';
+
+function myCustomLikeOperator(left: Expression, right: Expression): Literal {
+  return sql`${left} LIKE ${right}`;
+}
+
+User.findAll({
+  where: myCustomLikeOperator(sql.attribute('firstName'), '%zoe%'),
+});
+```
+
+### JSON extraction does not unquote by default
+
+*Pull Request [#15598]*
+
+In Sequelize 6, doing [JSON extraction](../../versioned_docs/version-6.x.x/other-topics/other-data-types.mdx#json-sqlite-mysql-mariadb-oracle-and-postgresql-only) would unquote the value by default.
+This was convenient as it was easy to use text-based operators such as `LIKE` or `IN` with the extracted value, but made it difficult to use JSONB operators such as `?` or `?|`.
+
+Starting with Sequelize 7, JSON extraction does not unquote the value by default. You need to use the `unquote` modifier to unquote the value:
+
+```ts
+// Sequelize 6
+User.findAll({
+  where: {
+    jsonAttribute: {
+      firstName: {
+        [Op.like]: '%zoe%',
+      },
+    },
+  },
+});
+
+// Sequelize 7
+User.findAll({
+  where: {
+    jsonAttribute: {
+      'firstName:unquote': {
+        [Op.like]: '%zoe%',
+      },
+    },
+  },
+});
+```
+
+This `:unquote` modifier is also available on the top-level value itself, not just values extracted from it.
+
+This change makes it possible to use JSON operators with JSON extraction, which was simply not possible in Sequelize 6:
+
+```ts
+User.findAll({
+  where: {
+    jsonAttribute: {
+      address: {
+        // This is the postgres JSONB ?& operator.
+        [Op.hasAllKeys]: ['street', 'city'],
+      },
+    },
+  },
+});
+```
+
+### Array replacements are treated as SQL arrays instead of SQL lists
+
+*Pull Request [#15598]*
+
+In Sequelize 6, using a JS array in a replacement was treated as an SQL list, but as SQL arrays in bind parameters.
+Using an SQL array in a replacement required ugly workarounds.
+
+In Sequelize 7, we have unified the behavior of bind parameters & replacements, and now both use SQL arrays by default.
+
+You can still use SQL lists by using the `sql.list` function:
+
+```ts
+sequelize.query('SELECT * FROM users WHERE id = ANY(:ids)', {
+  replacements: {
+    ids: [1, 2, 3],
+  },
+});
+```
+
+Will produce
+
+```sql
+SELECT * FROM users WHERE id = ANY(ARRAY[1, 2, 3])
+```
+
+Whereas this:
+
+```ts
+import { sql } from '@sequelize/core';
+
+sequelize.query('SELECT * FROM users WHERE id IN :ids', {
+  replacements: {
+    ids: sql.list([1, 2, 3]),
+  },
+});
+```
+
+Will produce
+
+```sql
+SELECT * FROM users WHERE id IN (1, 2, 3)
+```
+
+:::caution
+
+`sql.list` can be used with bind parameters, but it is not recommended as it will produce a new query every time the length of your list changes:
+
+```ts
+sequelize.query('SELECT * FROM users WHERE id IN $ids', {
+  bind: {
+    ids: sql.list([1, 2, 3]),
+  },
+});
+```
+
+Will produce
+
+```sql
+-- The bind parameter syntax changes depending on the dialect, they are represented here as "?"
+-- As you can see, this produced 3 bind parameters, one for each value in the list
+SELECT * FROM users WHERE id IN (?, ?, ?)
+```
+
+:::
+
+### `where` doesn't accept primitives anymore
+
+*Pull Request [#15598]*
+
+In Sequelize 6, you could set the value of a `where` condition to a primitive, and Sequelize would assume you
+meant to compare it to the primary key of the model:
+
+```ts
+User.findAll({
+  where: 1,
+});
+```
+
+Would produce
+
+```sql
+SELECT * FROM users WHERE id = 1
+```
+
+This behavior has been removed in Sequelize 7 as it was undocumented and redundant with `findByPk`. You should
+either use `findByPk` or use specify the attribute you want to compare to:
+
+```ts
+User.findAll({
+  where: {
+    id: 1,
+  },
+});
+
+// or
+
+User.findByPk(1);
+```
+
 ## Minor Breaking changes
+
+These are less likely to impact you, but you should still be aware of them.
+
+### Renamed APIs
+
+- `QueryInterface` has been renamed to `AbstractQueryInterface`.
+- `ModelColumnAttributeOptions` has been renamed to `AttributeOptions`.
+- `SequelizeMethod` has been renamed to `BaseSqlExpression`
+
+### Attribute `references` option
+
+*Pull Request [#15431]*
+
+The `references` option, used to define foreign keys, has been reworked. Prior to Sequelize 7, this option accepted a sub-option called "model", but
+this sub-option also accepted table names.
+
+Starting with Sequelize 7, this sub-option has been split into two options: `model` and `table`. You only need to specify one of them:
+
+```typescript
+// Before
+const User = sequelize.define('User', {
+  countryId: {
+    type: Sequelize.INTEGER,
+    references: {
+      // This referenced the TABLE named "countries", not the MODEL called "countries".
+      model: 'countries',
+      key: 'id',
+    },
+  },
+});
+
+// After (table version)
+const User = sequelize.define('User', {
+  countryId: {
+    type: Sequelize.INTEGER,
+    references: {
+      // It is now clear that this references the table called "countries"
+      table: 'countries',
+      key: 'id',
+    },
+  },
+});
+
+// After (model version)
+const User = sequelize.define('User', {
+  countryId: {
+    type: Sequelize.INTEGER,
+    references: {
+      // It is now clear that this references the Country model, from which the table name will be inferred.
+      model: Country,
+      key: 'id',
+    },
+  },
+});
+```
+
+### Strict Auto-Timestamp & Auto-version attributes
+
+*Pull Request [#15431]*
+
+Sequelize can add 4 special attributes to your models: `createdAt`, `updatedAt`, `deletedAt` and `version`. 
+These attributes are handled automatically by Sequelize, and therefore must follow a specific format.
+
+If you defined these attributes manually, but with options that are incompatible with Sequelize's behavior,
+Sequelize would silently ignore your options and replace them with its own.
+
+Starting with Sequelize 7, Sequelize will throw an error if you try to define these attributes with incompatible options.
+
+For instance, if you try to define a `createdAt` attribute with an incompatible type, Sequelize will throw an error:
+
+```typescript
+const User = sequelize.define('User', {
+  createdAt: {
+    // This will cause an error because sequelize expects a DATE type, not DATEONLY.
+    // error-next-line
+    type: Sequelize.DATEONLY,
+  },
+});
+```
 
 ### TypeScript conversion
 
@@ -492,11 +849,109 @@ This behaviour has been changed to better meet expectations of how this callback
 
 See [issue 14902](https://github.com/sequelize/sequelize/issues/14902) and [PR 14903](https://github.com/sequelize/sequelize/pull/14903) for more details.
 
+### The `where` options throws if the value is not a valid option
+
+*Pull Request [#15375]*
+
+In Sequelize v6, the `where` option was ignored if the value it received was not a valid option.
+
+For instance, the following query:
+
+```ts
+User.findAll({
+  where: new Date(),
+});
+```
+
+Would have returned all users in the database. In Sequelize 7, this will throw an error.
+
+### Where does not accept attribute objects anymore
+
+*Pull Request [#15598]*
+
+The `where()` function used to accept values coming from `Model.rawAttributes` as one of its values.
+This was poorly documented, and almost completely unused. We replaced this feature with the new `sql.attribute()`.
+
+Instead of writing:
+
+```ts
+where(User.rawAttributes.firstName, Op.like, 'foo');
+```
+
+You can now write the following:
+
+```ts
+sql.where(sql.attribute('firstName'), Op.like, 'foo');
+```
+
+### Changes to empty `OR` & `NOT` operators
+
+*Pull Request [#15598]*
+
+Both `Op.or` and `Op.not` used to produce `'0=1'` if their object or array was empty. Both of them are not completely ignored instead:
+
+```ts
+User.findAll({
+  where: or([]),
+});
+
+User.findAll({
+  where: not({}),
+});
+```
+
+Both produce the following query:
+
+```sql
+SELECT * FROM "users"
+```
+
+### Removed support for raw SQL in `json()`
+
+*Pull Request [#15598]*
+
+In Sequelize 6, you could use raw SQL in `json()` functions:
+
+```ts
+import { json } from 'sequelize';
+
+// This was valid in Sequelize 6
+User.findAll({
+  where: where(json(`("data"->id)`), Op.eq, id),
+});
+```
+
+To prevent any risk of SQL injection, the only way to use raw SQL in Sequelize is meant to be done via either the `sql` template tag,
+the `literal` function, or `sequelize.query`.
+
+As such, we have removed this poorly documented feature in Sequelize 7. Its replacement is to use the `sql` template tag:
+
+```ts
+import { sql } from '@sequelize/core';
+
+// This is valid in Sequelize 7
+User.findAll({
+  where: sql`"data"->'id' = ${id}`,
+});
+```
+
+:::info
+
+The `sql` tag automatically escapes values, so you don't need to worry about SQL injection.
+
+:::
+
 ## Deprecations & Removals
 
 ### Removal of previously deprecated APIs
 
 - `WhereValue`, `AnyOperator`, `AllOperator`, `AndOperator` and `OrOperator` types: They did not reflect the reality of how the `where` option is typed (see [this PR](https://github.com/sequelize/sequelize/pull/14022))
+- `setterMethods` and `getterMethods` model options: They were deprecated in v6 and are now removed. Use [VIRTUAL](../core-concepts/getters-setters-virtuals.md) attributes, or class getter & setters instead.
+- Models had an instance property called `validators`. This property has been removed because almost all attributes have at least one validator (based on their nullability and data type). 
+  The information you need to replace this property is available in the [`modelDefinition`](pathname:///api/v7/classes/Model.html#modelDefinition) static property.
+- The `Utils` export has been removed. It exposed internal utilities that were not meant to be used by end users. If you used any of these utilities, please open an issue to discuss how to expose them in a future-proof way.  
+  This export included classes `Fn`, `Col`, `Cast`, `Literal`, `Json`, and `Where`, which are useful for typing purposes. They now have their own exports instead of being part of `Utils`.
+- Operator Aliases have been removed.
 
 ## New Deprecations
 
@@ -526,9 +981,26 @@ stop working in a future major release.
   DataTypes.INTEGER
   ```
 - The `as` & `model` options in `include` are deprecated, we recommend using the `association` option instead.
+- `Op.col` is deprecated, use `sql.col()`, `sql.attribute()`, or `sql.identifier()` instead.
+- `Sequelize.json()` is deprecated, use `sql.attribute()`, `sql.where()` or `sql.jsonPath()` instead.
+  - The `Json` class, that is produced by `json()` has been removed, as `json()` now simply calls `sql.attribute()` or `sql.where()` depending on its parameters.
+- The following methods are available on both the `Sequelize` class, `sequelize` instances, and as named imports. They are deprecated and
+  should be accessed on the `sql` export instead:
+  - `fn`
+  - `col`
+  - `cast`
+  - `literal`
+  - `where`
+- The `quoteIdentifiers` option in the sequelize constructor could be set to false to skip quoting of table names and attributes in postgres. This is potentially unsafe and therefore deprecated.
 
 [#14352]: https://github.com/sequelize/sequelize/pull/14352
 [#14447]: https://github.com/sequelize/sequelize/pull/14447
 [#14505]: https://github.com/sequelize/sequelize/pull/14505
 [#14280]: https://github.com/sequelize/sequelize/pull/14280
 [#14619]: https://github.com/sequelize/sequelize/pull/14619
+[#15431]: https://github.com/sequelize/sequelize/pull/15431
+[#15374]: https://github.com/sequelize/sequelize/pull/15374
+[#15375]: https://github.com/sequelize/sequelize/pull/15375
+[#15108]: https://github.com/sequelize/sequelize/pull/15108
+[#15292]: https://github.com/sequelize/sequelize/pull/15292
+[#15598]: https://github.com/sequelize/sequelize/pull/15598
