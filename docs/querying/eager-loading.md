@@ -2,7 +2,7 @@
 title: Eager Loading
 ---
 
-As briefly mentioned in [the associations guide](./basics.md), eager Loading is the act of querying data of several models at once (one 'main' model and one or more associated models). At the SQL level, this is a query with one or more [joins](https://en.wikipedia.org/wiki/Join_\(SQL\)).
+As briefly mentioned in [the associations guide](../associations/basics.md), eager Loading is the act of querying data of several models at once (one 'main' model and one or more associated models). At the SQL level, this is a query with one or more [joins](https://en.wikipedia.org/wiki/Join_\(SQL\)).
 
 When this is done, the associated models will be added by Sequelize in appropriately named, automatically created field(s) in the returned objects.
 
@@ -584,7 +584,7 @@ User.findAll({
 
 ### Complex ordering involving sub-queries
 
-Take a look at the [guide on sub-queries](../querying/sub-queries.md) for an example of how to use a sub-query to assist a more complex ordering.
+Take a look at the [guide on sub-queries](sub-queries.md) for an example of how to use a sub-query to assist a more complex ordering.
 
 ## Nested eager loading
 

@@ -106,3 +106,102 @@ await User.bulkCreate([
   },
 ], { fields: ['username'] });
 ```
+
+## Inserting Associated Records
+
+:::note
+
+This section assumes you understand [how to associate models](../associations/basics.md).
+
+:::
+
+
+If two models are associated, you can create both instances in one go by using the `include` option,
+which is available on the `create` method.
+
+In the following example, we want to immediately assign an `Address` to a `User`, as soon as a `User` is created.
+
+```ts
+await User.create({
+  name: 'Mary Read',
+  // highlight-start
+  address: {
+    // you can specify the attributes of the associated model you want to create
+    city: 'Nassau',
+    country: 'Bahamas'
+  },
+  // highlight-end
+}, {
+  // highlight-start
+  // you must specify which associated models must be created here
+  include: ['address'],
+  // highlight-end
+})
+```
+
+:::tip
+
+If your association's type is [`HasMany`](../associations/has-many.md) or [`BelongsToMany`](../associations/belongs-to-many.md),
+you can create multiple associated models at once:
+
+```ts
+await User.create({
+  name: 'Mary Read',
+  // highlight-start
+  addresses: [
+    {
+      city: 'Nassau',
+      country: 'Bahamas',
+    },
+    {
+      city: 'London',
+      country: 'England',
+    }
+  ],
+  // highlight-end
+}, {
+  // highlight-start
+  include: ['addresses'],
+  // highlight-end
+})
+```
+
+:::
+
+:::caution
+
+The feature described above only works if you need to create the associated model, and not if you need to associate an existing model.
+
+If you need to associate an existing model upon creation of the main model,
+you must specify its foreign key (when possible), or associate it after creation:
+
+```ts
+const address = await Address.create();
+
+// This will not work
+await User.create({
+  name: 'Mary Read',
+  // error-next-line
+  address,
+});
+
+// This will work (assuming the foreign key is on User, and not Address)
+await User.create({
+  name: 'Mary Read',
+  // success-next-line
+  addressId: address.id,
+});
+
+// This also works (no matter where the foreign key is)
+await User.create({
+  name: 'Mary Read',
+})
+
+// success-next-line
+await user.setAddress(address);
+```
+
+We intend on improving this feature in a future version of Sequelize. 
+Read more on this on [issue #15233](https://github.com/sequelize/sequelize/issues/15233)
+
+:::

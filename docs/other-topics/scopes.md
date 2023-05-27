@@ -2,6 +2,18 @@
 title: Scopes
 ---
 
+:::warning
+
+Scopes are a fragile feature that we do not recommend using beyond very simple scopes. Proceed with caution.
+
+:::
+
+:::info
+
+This section concerns association scopes, not to be confused with [association scopes](../associations/association-scopes.md).
+
+:::
+
 Scopes are used to help you reuse code. You can define commonly used queries, specifying options such as `where`, `include`, `limit`, etc.
 
 This guide concerns model scopes. You might also be interested in the [guide for association scopes](docs/associations/association-scopes.md), which are similar but not the same thing.

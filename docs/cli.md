@@ -3,6 +3,15 @@ title: Sequelize CLI
 sidebar_position: 8
 ---
 
+:::warning
+
+Neither the Sequelize CLI nor its documentation are ready for use in Sequelize 7. If you rely on the CLI, please stay on Sequelize 6 for now.
+
+Considering the main purpose of the CLI is to run migrations, you can also try using [umzug](https://github.com/sequelize/umzug), or any 
+other database migration tool instead.
+
+:::
+
 Just like you use [version control](https://en.wikipedia.org/wiki/Version_control) systems such as [Git](https://en.wikipedia.org/wiki/Git) to manage changes in your source code, you can use **migrations** to keep track of changes to the database. With migrations you can transfer your existing database into another state and vice versa: Those state transitions are saved in migration files, which describe how to get to the new state and how to revert the changes in order to get back to the old state.
 
 You will need the [Sequelize Command-Line Interface (CLI)](https://github.com/sequelize/cli). The CLI ships support for migrations and project bootstrapping.

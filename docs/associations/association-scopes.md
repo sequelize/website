@@ -2,65 +2,127 @@
 title: Association Scopes
 ---
 
-This section concerns association scopes, which are similar but not the same as [model scopes](../other-topics/scopes.md).
+:::info
 
-Association scopes can be placed both on the associated model (the target of the association) and on the through table for Many-to-Many relationships.
+This section concerns association scopes, not to be confused with [model scopes](../other-topics/scopes.md).
 
-## Concept
+:::
 
-Similarly to how a [model scope](../other-topics/scopes.md) is automatically applied on the model static calls, such as `Model.scope('foo').findAll()`, an association scope is a rule (more precisely, a set of default attributes and options) that is automatically applied on instance calls from the model. Here, *instance calls* mean method calls that are called from an instance (rather than from the Model itself). Mixins are the main example of instance methods (`instance.getSomething`, `instance.setSomething`, `instance.addSomething` and `instance.createSomething`).
+Association scopes are a way to automatically apply default filters on associated models.
 
-Association scopes behave just like model scopes, in the sense that both cause an automatic application of things like `where` clauses to finder calls; the difference being that instead of applying to static finder calls (which is the case for model scopes), the association scopes automatically apply to instance finder calls (such as mixins).
-
-## Example
-
-A basic example of an association scope for the One-to-Many association between models `Foo` and `Bar` is shown below.
-
-* Setup:
-
-    ```js
-    const Foo = sequelize.define('foo', { name: DataTypes.STRING });
-    const Bar = sequelize.define('bar', { status: DataTypes.STRING });
-    Foo.hasMany(Bar, {
-        scope: {
-            status: 'open'
-        },
-        as: 'openBars'
-    });
-    await sequelize.sync();
-    const myFoo = await Foo.create({ name: "My Foo" });
-    ```
-
-* After this setup, calling `myFoo.getOpenBars()` generates the following SQL:
-
-    ```sql
-    SELECT
-        `id`, `status`, `createdAt`, `updatedAt`, `fooId`
-    FROM `bars` AS `bar`
-    WHERE `bar`.`status` = 'open' AND `bar`.`fooId` = 1;
-    ```
-
-With this we can see that upon calling the `.getOpenBars()` mixin, the association scope `{ status: 'open' }` was automatically applied into the `WHERE` clause of the generated SQL.
-
-## Achieving the same behavior with standard scopes
-
-We could have achieved the same behavior with standard scopes:
+For instance, you could define an association from `City` to `Restaurant` with a scope that only returns restaurants that are open:
 
 ```js
-// Foo.hasMany(Bar, {
-//     scope: {
-//         status: 'open'
-//     },
-//     as: 'openBars'
-// });
+class City extends Model {
+  @Attribute(DataTypes.STRING)
+  name;
 
-Bar.addScope('open', {
-    where: {
-        status: 'open'
-    }
-});
-Foo.hasMany(Bar);
-Foo.hasMany(Bar.scope('open'), { as: 'openBars' });
+  /** this association returns all restaurants */
+  @HasMany(() => Restaurant, 'cityId')
+  restaurants;
+
+  /** this association only returns open restaurants */
+  @HasMany(() => Restaurant, {
+    foreignKey: 'cityId',
+    // highlight-next-line
+    scope: { status: 'open' },
+  })
+  openRestaurants;
+}
+
+class Restaurant extends Model {
+  @Attribute(DataTypes.STRING)
+  status;
+}
+
+const city = await City.findByPk(1);
+
+// this will return all restaurants
+const restaurants = await city.getRestaurants();
+
+// this will return only open restaurants
+const openRestaurants = await city.getOpenRestaurants();
 ```
 
-With the above code, `myFoo.getOpenBars()` yields the same SQL shown above.
+This last query would roughly generate the following SQL:
+
+```sql
+SELECT * FROM `restaurants` WHERE `restaurants`.`status` = 'open' AND `restaurants`.`cityId` = 1;
+```
+
+## BelongsToMany scope
+
+All associations support specifying a scope to filter the target model, but the `BelongsToMany` association 
+also supports specifying a scope to filter the join table. This is useful when you want to filter based on extra information
+stored in the join table.
+
+It is done by setting the `through.scope` option.
+
+Here is a simple example. We want to store which person worked on a game, but we also want to store the role they had in its creation:
+
+```js
+class GameAuthor extends Model {
+  @Attribute(DataTypes.STRING)
+  role;
+}
+
+class Person extends Model {}
+
+class Game extends Model {
+  /** This association will list everyone that worked on the game */
+  @BelongsToMany(() => Person, {
+    through: GameAuthor
+  })
+  allAuthors;
+}
+```
+
+In the above example, we can use the `allAuthors` association to list everyone that worked on the game, but we can
+also add other associations to filter the authors based on their role:
+
+```js
+class Game extends Model {
+  /** This association will list everyone that worked on the game */
+  @BelongsToMany(() => Person, {
+    through: GameAuthor,
+    foreignKey: 'gameId',
+    otherKey: 'personId',
+  })
+  allAuthors;
+  
+  /** This association will list everyone that worked on the game as a programmer */
+  @BelongsToMany(() => Person, {
+    through: { 
+      model: GameAuthor,
+      foreignKey: 'gameId',
+      otherKey: 'personId',
+      // highlight-next-line
+      scope: { role: 'programmer' },
+    },
+  })
+  programmers;
+  
+  /** This association will list everyone that worked on the game as a designer */
+  @BelongsToMany(() => Person, {
+    through: {
+      model: GameAuthor,
+      foreignKey: 'gameId',
+      otherKey: 'personId',
+      // highlight-next-line
+      scope: { role: 'designer' },
+    },
+  })
+  designers;
+}
+
+const game = await Game.findByPk(1);
+
+// this will return all authors
+const allAuthors = await game.getAllAuthors();
+
+// this will return only programmers
+const programmers = await game.getProgrammers();
+
+// this will return only designers
+const designers = await game.getDesigners();
+```

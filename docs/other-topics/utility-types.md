@@ -12,10 +12,10 @@ import { ModelStatic, ModelAttributeColumnOptions, Model, InferAttributes, Infer
 /**
  * Returns the list of attributes that are part of the model's primary key.
  */
-export function getPrimaryKeyAttributes(model: ModelStatic<any>): ModelAttributeColumnOptions[] {
-  const attributes: ModelAttributeColumnOptions[] = [];
+export function getPrimaryKeyAttributes(model: ModelStatic<any>): NormalizedAttributeOptions[] {
+  const attributes: NormalizedAttributeOptions[] = [];
 
-  for (const attribute of Object.values(model.rawAttributes)) {
+  for (const attribute of model.modelDefinition.attributes.values()) {
     if (attribute.primaryKey) {
       attributes.push(attribute);
     }
@@ -69,7 +69,7 @@ import {
 } from '@sequelize/core';
 
 export function getAttributeMetadata<M extends Model>(model: ModelStatic<M>, attributeName: keyof Attributes<M>): ModelAttributeColumnOptions {
-  const attribute = model.rawAttributes[attributeName];
+  const attribute = model.modelDefinition.attributes.get(attributeName);
   if (attribute == null) {
     throw new Error(`Attribute ${attributeName} does not exist on model ${model.name}`);
   }

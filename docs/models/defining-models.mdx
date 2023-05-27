@@ -42,6 +42,7 @@ Defining a model is simple: Create a class that extends the [`Model`] class and 
 
 ```ts
 import { Sequelize, DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/decorators-legacy';
 
 const sequelize = new Sequelize('sqlite::memory:');
 
@@ -65,6 +66,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
 
 ```js
 import { Sequelize, DataTypes, Model } from '@sequelize/core';
+import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/decorators-legacy';
 
 const sequelize = new Sequelize('sqlite::memory:');
 
@@ -103,7 +105,7 @@ export const sequelize = new Sequelize('sqlite::memory:', {
 });
 ```
 
-You can also load all your models dynamically by using [`importModels`]. Note that this method is **async**, 
+You can also load all your models dynamically by using [`importModels`]. Note that this method is **async**,
 and uses [`import`] (esm), not [`require`] (commonjs):
 
 ```ts
@@ -126,7 +128,7 @@ export const sequelize = new Sequelize('sqlite::memory:', {
 If you're working on a project that was created before Sequelize 7, you're likely using the old way of defining models.
 This is still supported, but we recommend to use the [new way of defining models](#defining-a-model).
 
-If you do not want to use decorators, you can continue to use the old way of defining models.  
+If you do not want to use decorators, you can continue to use the old way of defining models.
 Head to [our page about Legacy Model Definitions](../other-topics/legacy-model-definitions.mdx) to learn more about the old API.
 
 ## Column Data Types
@@ -207,7 +209,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
 :::info `CreationOptional`
 
-If you use [`@Default`], your attribute won't need to be specified when calling methods such as `User.create`.  
+If you use [`@Default`], your attribute won't need to be specified when calling methods such as `User.create`.
 To let TypeScript know that this attribute has a default value, you can use the [`CreationOptional`] type, like in the example above.
 
 :::
@@ -296,7 +298,7 @@ class User extends Model {
 
 ### Dynamic SQL default values
 
-You can also use a SQL function as a default value using either [`fn`] or [`literal`]. 
+You can also use a SQL function as a default value using either [`fn`] or [`literal`].
 This has the advantage over [dynamic JS default values](#dynamic-js-default-values) that the function will always be called, since it is handled by the database, not by Sequelize.
 
 For instance, if your dialect provides a built-in SQL function to generate UUIDs, you can use [`fn`] to set a default value on the SQL layer:
@@ -342,7 +344,7 @@ class User extends Model {
 
 ## Primary Keys
 
-Sequelize automatically adds an auto-incremented integer attribute called `id` as primary key if none is specified.  
+Sequelize automatically adds an auto-incremented integer attribute called `id` as primary key if none is specified.
 
 If you want to use a different attribute, type, or want to use a composite primary key, you can use the [`@PrimaryKey`] decorator:
 
@@ -365,7 +367,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
 :::info `CreationOptional`
 
-If you use [`@AutoIncrement`], your attribute won't need to be specified when calling methods such as `User.create`.  
+If you use [`@AutoIncrement`], your attribute won't need to be specified when calling methods such as `User.create`.
 To let TypeScript know that this attribute has a default value, you can use the [`CreationOptional`] type, like in the example above.
 
 :::

@@ -34,6 +34,18 @@ await User.destroy({
 });
 ```
 
+:::info Global Destroy
+
+`destroyAll` can be called on the sequelize instance to delete all data in the database. 
+This is useful if you want to reset the database state between tests.
+
+```ts
+await sequelize.destroyAll();
+```
+
+:::
+
+
 ## Truncating
 
 Models also expose a [`truncate`](pathname:///api/v7/classes/Model.html#truncate) method that will delete all rows in a table.
@@ -42,3 +54,16 @@ Models also expose a [`truncate`](pathname:///api/v7/classes/Model.html#truncate
 // Truncate the table
 await User.truncate();
 ```
+
+:::info Global Truncate
+
+`truncate` can also be called on the sequelize instance to delete all data in the database. 
+This is useful if you want to reset the database state between tests.
+
+This operation is faster than calling `destroyAll`, but may not work if you have foreign key constraints.
+
+```ts
+await sequelize.truncate();
+```
+
+:::
