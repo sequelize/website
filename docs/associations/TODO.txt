@@ -1,7 +1,0 @@
-- document "references" API
-- document foreign key nullability
-- document how to change the target of the foreign key
-- add JavaScript examples
-- polymorphic relationships & disabling foreign key constraints
-
-self-relationships

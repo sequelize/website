@@ -1,2 +1,0 @@
-Add "versions" documentation
-Document model inheritance
