@@ -62,6 +62,6 @@
     ]
   },
   "lint-staged": {
-    "*.{scss}": "prettier --write"
+    "*.scss": "prettier --write"
   }
 }
