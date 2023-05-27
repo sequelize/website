@@ -68,13 +68,21 @@ If you do that, we recommend pinning the Sequelize version your project uses as 
 
 :::info
 
-[CLS Transactions](../other-topics/transactions.md#automatically-pass-transactions-to-all-queries) are now enabled by default.
+[CLS Transactions](../other-topics/transactions.md#disabling-cls) are now enabled by default.
 You can use the [`disableClsTransactions`](pathname:///api/v7/interfaces/Options.html#disableClsTransactions) global option to disable them.
 
 :::
 
 Sequelize's CLS implementation has been migrated to use Node's built-in AsyncLocalStorage. This means you do not need to install the `continuation-local-storage` or `cls-hooked` packages anymore,
 and that the `Sequelize.useCLS` method has been removed.
+
+### Unmanaged transactions
+
+*Pull Request [#15292](https://github.com/sequelize/sequelize/pull/15292)*
+
+In order to discourage [unmanaged transactions](./transactions.md#unmanaged-transactions), which we consider to be error-prone, `sequelize.transaction()` cannot be used to create unmanaged transactions anymore.
+You must use `sequelize.startUnmanagedTransaction()` for that.
+[Managed transactions](./transactions.md#managed-transactions-recommended) continue to use `sequelize.transaction()`.
 
 ### `$bind` parameters in strings must not be escaped anymore
 
@@ -183,25 +191,6 @@ sequelize.define('MyModel', {
   },
 });
 ```
-
-### Transactions & AsyncLocalStorage
-
-*Pull Request [#15292](https://github.com/sequelize/sequelize/pull/15292)*
-
-Sequelize 7 now uses [AsyncLocalStorage](https://nodejs.org/api/async_context.html#class-asynclocalstorage) to pass transactions to methods automatically by default. Read more on [Transactions & ALS here](./transactions.md#managed-transactions-recommended).
-
-If this behavior is undesired, you can set the `disableAlsTransactions` option to `true` in the Sequelize options to restore Sequelize 6's behavior.
-
-With the move to ALS, the `Sequelize.useCLS` method has been removed, and `continuation-local-storage` is not needed anymore.
-Sequelize also uses a different store per Sequelize instance, instead of a global one.
-
-### Unmanaged transactions
-
-*Pull Request [#15292](https://github.com/sequelize/sequelize/pull/15292)*
-
-In order to discourage [unmanaged transactions](./transactions.md#unmanaged-transactions), which we consider to be error-prone, `sequelize.transaction()` cannot be used to create unmanaged transactions anymore.
-You must use `sequelize.startUnmanagedTransaction()` for that. 
-[Managed transactions](./transactions.md#managed-transactions-recommended) continue to use `sequelize.transaction()`.
 
 ### `DataTypes.DATE` date parsing
 

@@ -66,7 +66,7 @@ await sequelize.transaction(async (transaction) => {
 
 :::caution
 
-Even with ALS enabled, you currently must **pass the current transaction** to [`sequelize.transaction`](pathname:///api/v7/classes/Sequelize.html#transaction) if you want to create a save point.
+Even with CLS enabled, you currently must **pass the current transaction** to [`sequelize.transaction`](pathname:///api/v7/classes/Sequelize.html#transaction) if you want to create a save point.
 If you don't, a new transaction will be created instead.
 
 :::
@@ -74,16 +74,16 @@ If you don't, a new transaction will be created instead.
 ### Getting the current transaction
 
 If you need to access the current transaction object, [`sequelize.transaction`](pathname:///api/v7/classes/Sequelize.html#transaction) passes
-the transaction object to your callback. You can also access it by calling [`sequelize.getCurrentAlsTransaction`](pathname:///api/v7/classes/Sequelize.html#getCurrentAlsTransaction)
+the transaction object to your callback. You can also access it by calling [`sequelize.getCurrentClsTransaction`](pathname:///api/v7/classes/Sequelize.html#getCurrentClsTransaction)
 
 ```ts
 const result = await sequelize.transaction(async (transaction) => {
   // true
-  console.log(sequelize.getCurrentAlsTransaction() === transaction);
+  console.log(sequelize.getCurrentClsTransaction() === transaction);
 });
 ```
 
-This can be helpful if you need to [use two different transactions in the same block](#using-multiple-transactions-or-none-at-all), or if you [disable ALS](#disabling-als)
+This can be helpful if you need to [use two different transactions in the same block](#concurrent--partial-transactions), or if you [disable CLS](#disabling-cls)
 
 ### Concurrent & Partial transactions
 
@@ -101,7 +101,7 @@ sequelize.transaction((t1) => {
       // runs query in transaction t3
       User.create({ name: 'Mallory' }, { transaction: t2 }),
         
-      // if ALS is enabled, this method uses t2 automatically
+      // if CLS is enabled, this method uses t2 automatically
       // otherwise, it uses neither transactions (like if transaction were set to null).
       User.create({ name: 'John' }),
     ]);
@@ -109,12 +109,12 @@ sequelize.transaction((t1) => {
 });
 ```
 
-### Disabling ALS
+### Disabling CLS
 
 By default, Sequelize uses [AsyncLocalStorage](https://nodejs.org/api/async_context.html#class-asynclocalstorage) 
 to automatically use the active transaction in all queries started in the transaction callback.
 
-This behavior can be disabled by setting the Sequelize `disableAlsTransactions` option to true.
+This behavior can be disabled by setting the Sequelize `disableClsTransactions` option to true.
 
 [`sequelize.transaction`](pathname:///api/v7/classes/Sequelize.html#transaction) passes 
 the transaction object to your callback, and you must pass it to the querying methods yourself if this behavior is disabled.
@@ -122,7 +122,7 @@ the transaction object to your callback, and you must pass it to the querying me
 ```ts
 const sequelize = new Sequelize({
   // ... credentials
-  disableAlsTransactions: true,
+  disableClsTransactions: true,
 });
 
 const result = await sequelize.transaction(async transaction => {
@@ -130,7 +130,7 @@ const result = await sequelize.transaction(async transaction => {
     firstName: 'Abraham',
     lastName: 'Lincoln',
   }, {
-    // You must specify this option when disableAlsTransactions is true, or 
+    // You must specify this option when disableClsTransactions is true, or 
     // this query will run outside of the transaction
     // highlight-next-line
     transaction,
@@ -182,7 +182,7 @@ Note that innoDB (MariaDB and MySQL) will still automatically rollback transacti
 
 :::caution
 
-Unmanaged transactions are incompatible with ALS. You must always pass them to your queries manually.
+Unmanaged transactions are incompatible with CLS. You must always pass them to your queries manually.
 
 :::
 
@@ -264,7 +264,7 @@ Notes:
 * The `afterCommit` hook is not called if the transaction is rolled back;
 * The `afterCommit` hook does not modify the return value of the transaction (unlike most hooks)
 
-You can use the `afterCommit` hook in conjunction with model hooks to know when a instance is saved and available outside of a transaction
+You can use the `afterCommit` hook in conjunction with model hooks to know when an instance is saved and available outside a transaction
 
 ```js
 User.hooks.addListener('afterSave', (instance, options) => {
