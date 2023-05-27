@@ -349,6 +349,8 @@ SELECT * FROM "posts" WHERE "authorId" NOT IN (2, 3);
 </TabItem>
 </Tabs>
 
+## String Operators
+
 ### LIKE Operator
 
 The `Op.like` and `Op.notLike` operators are used to check if a value matches a pattern.
@@ -514,6 +516,13 @@ not a pattern match.
 These operators do not exist natively in most dialects, but are still available through Sequelize as Sequelize
 will generate the appropriate replacement.
 
+:::caution
+
+Currently, `Op.startsWith` and `Op.endsWith` both use LIKE under the hood and do not escape LIKE pattern characters.
+This is considered to be a bug and will be fixed in a future release.
+
+:::
+
 ### Contains String Operator
 
 The `Op.substring` and `Op.notSubstring` operators are used to check if a value contains a string.
@@ -524,41 +533,14 @@ not a pattern match.
 Just like `Op.startsWith` and `Op.endsWith`, these operators do not exist natively in most dialects,
 but are still available through Sequelize as Sequelize.
 
-### TSQuery Matching Operator
+:::caution
 
-<SupportTable
-  dialectLinks={{
-    PostgreSQL: 'https://www.postgresql.org/docs/current/functions-textsearch.html',
-  }}
-/>
+Currently, `Op.substring` uses LIKE under the hood and does not escape LIKE pattern characters.
+This is considered to be a bug and will be fixed in a future release.
 
-The `Op.match` operator is a postgres-specific operator that allows you to match a [`tsvector`](../models/data-types.mdx#strings) against a `tsquery`.
-It is equal to the `@@` postgres operator.
+:::
 
-It is one of the only operators that do not accept JavaScript values. Instead you must provide a built `tsquery` object, which
-you can get using the `sql` tag or the `sql.fn` function:
-
-```ts
-import { sql } from '@sequelize/core';
-
-Document.findAll({
-  where: {
-    // in this example, it is assumed that this attribute has been previously populated using
-    // postgres' to_tsvector function.
-    searchTsVector: {
-      [Op.match]: sql`to_tsquery('english', 'cat & rat')`,
-    },
-  },
-});
-```
-
-```sql
-SELECT * FROM "documents" WHERE "searchTsVector" @@ to_tsquery('english', 'cat & rat');
-```
-
-To learn more, see [PostgreSQL's documentation on Full Text Search](https://www.postgresql.org/docs/current/textsearch.html).
-
-### Array Operators
+## Array Operators
 
 <SupportTable
   dialectLinks={{
@@ -566,7 +548,9 @@ To learn more, see [PostgreSQL's documentation on Full Text Search](https://www.
   }}
 />
 
-`Op.contains` and `Op.contained` are used to check if an array contains or is contained by another array.
+### Array Contains Operator
+
+`Op.contains` and `Op.contained` are used to check whether an [array] contains or is contained by another [array].
 
 <Tabs>
 <TabItem value="Op.contains">
@@ -601,7 +585,7 @@ SELECT * FROM "posts" WHERE "tags" <@ ARRAY['popular', 'trending'];
 </TabItem>
 </Tabs>
 
-:::caution
+:::info
 
 Both operands of the `Op.contains` and `Op.contained` operators must be arrays.
 - If you need to check whether an array contains a single value, you need to wrap the value in an array.
@@ -609,7 +593,9 @@ Both operands of the `Op.contains` and `Op.contained` operators must be arrays.
 
 :::
 
-A third array operator, `Op.overlap` can be used to check whether two arrays have at least one value in common:
+### Array Overlaps Operator
+
+The `Op.overlap` operator can be used to check whether two [arrays] have at least one value in common:
 
 ```ts
 Post.findAll({
@@ -623,7 +609,7 @@ Post.findAll({
 SELECT * FROM "posts" WHERE "tags" && ARRAY['popular', 'trending'];
 ```
 
-### Range Operators (`Op.overlap`, `Op.contains`, `Op.contained`, `Op.adjacent`, `Op.strictLeft`, `Op.strictRight`, `Op.noExtendRight`, `Op.noExtendLeft`)
+## Range Operators
 
 <SupportTable
   dialectLinks={{
@@ -631,23 +617,308 @@ SELECT * FROM "posts" WHERE "tags" && ARRAY['popular', 'trending'];
   }}
 />
 
-Range types can be queried with all supported operators.
+### Range Contains Operator
 
-Keep in mind, the provided range value can [define the bound inclusion/exclusion](../models/data-types.mdx#ranges-postgresql-only) as well.
+These operators check for the containment relationship between two ranges.
 
-```js
-[Op.contains]: 2,            // @> '2'::integer  (PG range contains element operator)
-[Op.contains]: [1, 2],       // @> [1, 2)        (PG range contains range operator)
-[Op.contained]: [1, 2],      // <@ [1, 2)        (PG range is contained by operator)
-[Op.overlap]: [1, 2],        // && [1, 2)        (PG range overlap (have points in common) operator)
-[Op.adjacent]: [1, 2],       // -|- [1, 2)       (PG range is adjacent to operator)
-[Op.strictLeft]: [1, 2],     // << [1, 2)        (PG range strictly left of operator)
-[Op.strictRight]: [1, 2],    // >> [1, 2)        (PG range strictly right of operator)
-[Op.noExtendRight]: [1, 2],  // &< [1, 2)        (PG range does not extend to the right of operator)
-[Op.noExtendLeft]: [1, 2],   // &> [1, 2)        (PG range does not extend to the left of operator)
+The `Op.contains` operator returns true if the left [range] completely contains the other,
+while the `Op.contained` operator returns true if the left [range] is completely contained within the other.
+
+The contained value can be a single element or a [range].
+
+<Tabs>
+<TabItem value="Op.contains">
+
+```ts
+Post.findAll({
+  where: {
+    // publishedDuring is a range of dates
+    // This checks if a single date is present in the range
+    publishedDuring: { [Op.contains]: new Date() },
+  },
+});
 ```
 
-### JSONB Operators (`Op.anyKeyExists`, `Op.allKeysExist`)
+```sql
+SELECT * FROM "posts" WHERE "publishedDuring" @> '2020-01-01';
+```
+
+```ts
+Post.findAll({
+  where: {
+    // publishedDuring is a range of dates
+    // This checks if a date range is fully contained within the publishedDuring range
+    publishedDuring: { [Op.contains]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+  },
+});
+```
+
+```sql
+SELECT * FROM "posts" WHERE "publishedDuring" @> '[2019-01-01, 2023-01-01)';
+```
+
+</TabItem>
+<TabItem value="Op.contained">
+
+```ts
+Post.findAll({
+  where: {
+    // The left-hand value can be a range or a single value
+    publishedAt: { [Op.contained]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+  },
+});
+```
+
+```sql
+SELECT * FROM "posts" WHERE "publishedAt" <@ '[2019-01-01, 2023-01-01)';
+```
+
+</TabItem>
+</Tabs>
+
+### Range Overlaps Operator
+
+The `Op.overlaps` operator determines whether two [ranges] have at least one value in common.
+
+```ts
+Post.findAll({
+  where: {
+    publishedDuring: { [Op.overlap]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+  },
+});
+```
+
+```sql
+SELECT * FROM "posts" WHERE "publishedDuring" && '[2019-01-01, 2023-01-01)';
+```
+
+### Adjacent Overlaps Operator
+
+The `Op.adjacent` operator checks whether two ranges are consecutive without gaps between them, nor overlaps.
+
+```ts
+Event.findAll({
+  where: {
+    occursDuring: { [Op.adjacent]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+  },
+});
+```
+
+```sql
+SELECT * FROM "events" WHERE "occursDuring" -|- '[2019-01-01, 2023-01-01)';
+```
+
+### Range Left/Right Operators
+
+These operators can be used to check where the values of a [range] are located relative to the values of another [range].
+
+<Tabs>
+<TabItem value="Op.strictLeft">
+
+The `Op.noExtendRight` operator check whether all values of the left range are __less than__
+any value of the other range.
+
+```ts
+Event.findAll({
+  where: {
+    occursDuring: { [Op.strictLeft]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+  },
+});
+```
+
+```sql
+SELECT * FROM "events" WHERE "occursDuring" << '[2019-01-01, 2023-01-01)';
+```
+
+</TabItem>
+<TabItem value="Op.strictRight">
+
+The `Op.noExtendRight` operator check whether all values of the left range are __greather than__
+any value of the other range.
+
+```ts
+Event.findAll({
+  where: {
+    occursDuring: { [Op.strictRight]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+  },
+});
+```
+
+```sql
+SELECT * FROM "events" WHERE "occursDuring" >> '[2019-01-01, 2023-01-01)';
+```
+
+</TabItem>
+<TabItem value="Op.noExtendRight">
+
+The `Op.noExtendRight` operator check whether all values of the left range are __less than or equal to__
+any value of the other range.
+
+```ts
+Event.findAll({
+  where: {
+    occursDuring: { [Op.noExtendRight]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+  },
+});
+```
+
+```sql
+SELECT * FROM "events" WHERE "occursDuring" &< '[2019-01-01, 2023-01-01)';
+```
+
+</TabItem>
+<TabItem value="Op.noExtendLeft">
+
+The `Op.noExtendRight` operator check whether all values of the left range are __greater than or equal to__
+any value of the other range.
+
+```ts
+Event.findAll({
+  where: {
+    occursDuring: { [Op.noExtendLeft]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+  },
+});
+```
+
+```sql
+SELECT * FROM "events" WHERE "occursDuring" &> '[2019-01-01, 2023-01-01)';
+```
+
+</TabItem>
+</Tabs>
+
+## JSONB Operators
+
+<SupportTable
+  dialectLinks={{
+    PostgreSQL: 'https://www.postgresql.org/docs/current/functions-json.html',
+  }}
+/>
+
+:::info Querying JSON
+
+Sequelize offers a convenient syntax to access nested JSON properties. That syntax works
+with JSONB operators as well. See [Querying JSON](./json.mdx) for more information.
+
+:::
+
+### JSON Contains Operator
+
+The `Op.contains` and `Op.contained` operators can be used to check whether a [JSONB] value contains another JSONB value.
+Read more about [JSONB containment](https://www.postgresql.org/docs/current/datatype-json.html#JSON-CONTAINMENT).
+
+<Tabs>
+<TabItem value="Op.contains">
+
+```ts
+Post.findAll({
+  where: {
+    meta: { [Op.contains]: { keywords: 'orm, javascript, sequelize' } },
+  },
+});
+```
+
+```sql
+SELECT * FROM "posts" WHERE "meta" @> '{"keywords": "orm, javascript, sequelize"}';
+```
+
+</TabItem>
+<TabItem value="Op.contained">
+
+```ts
+Post.findAll({
+  where: {
+    meta: { [Op.contained]: { keywords: 'orm, javascript, sequelize' } },
+  },
+});
+```
+
+```sql
+SELECT * FROM "posts" WHERE "meta" <@ '{"keywords": "orm, javascript, sequelize"}';
+```
+
+</TabItem>
+</Tabs>
+
+:::info
+
+Sequelize stringifies JSON values for you, so you can use JavaScript values instead of using JSON strings.
+
+:::
+
+### JSON Key Existence Operators
+
+The `Op.anyKeyExists` and `Op.allKeysExist` check whether a [JSONB] value contains any or all of the given keys, respectively.
+
+
+<Tabs>
+<TabItem value="Op.anyKeyExists">
+
+```ts
+Post.findAll({
+  where: {
+    meta: { [Op.anyKeyExists]: ['keywords', 'description'] },
+  },
+});
+```
+
+```sql
+SELECT * FROM "posts" WHERE "meta" ?| ARRAY['keywords', 'description'];
+```
+
+</TabItem>
+<TabItem value="Op.allKeysExist">
+
+```ts
+Post.findAll({
+  where: {
+    meta: { [Op.allKeysExist]: ['keywords', 'description'] },
+  },
+});
+```
+
+```sql
+SELECT * FROM "posts" WHERE "meta" ?& ARRAY['keywords', 'description'];
+```
+
+</TabItem>
+</Tabs>
+
+## Misc Operators
+
+### TSQuery Matching Operator
+
+<SupportTable
+  dialectLinks={{
+    PostgreSQL: 'https://www.postgresql.org/docs/current/functions-textsearch.html',
+  }}
+/>
+
+The `Op.match` operator is a postgres-specific operator that allows you to match a [`tsvector`](../models/data-types.mdx#strings) against a `tsquery`.
+It is equal to the `@@` postgres operator.
+
+It is one of the only operators that do not accept JavaScript values. Instead you must provide a built `tsquery` object, which
+you can get using the `sql` tag or the `sql.fn` function:
+
+```ts
+import { sql } from '@sequelize/core';
+
+Document.findAll({
+  where: {
+    // in this example, it is assumed that this attribute has been previously populated using
+    // postgres' to_tsvector function.
+    searchTsVector: {
+      [Op.match]: sql`to_tsquery('english', 'cat & rat')`,
+    },
+  },
+});
+```
+
+```sql
+SELECT * FROM "documents" WHERE "searchTsVector" @@ to_tsquery('english', 'cat & rat');
+```
+
+To learn more, see [PostgreSQL's documentation on Full Text Search](https://www.postgresql.org/docs/current/textsearch.html).
 
 ## Logical combinations (OR, AND, NOT)
 
@@ -826,3 +1097,9 @@ WHERE (
 ```
 
 ## Custom Operators
+
+[range]: ../../models/data-types#ranges
+[ranges]: ../../models/data-types#ranges
+[array]: ../../models/data-types#arrays
+[arrays]: ../../models/data-types#arrays
+[JSONB]: ../../models/data-types#json--jsonb
