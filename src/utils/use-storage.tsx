@@ -2,7 +2,7 @@
  * Source: https://gist.github.com/Ephys/79974c286e92665dcaae9c8f5344afaf
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const eventTargets = new WeakMap();
 

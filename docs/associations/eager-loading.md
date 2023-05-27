@@ -135,7 +135,7 @@ When eager loading, we can also filter the associated model using the `where` op
 User.findAll({
   include: {
     model: Tool,
-    as: 'Instruments'
+    as: 'Instruments',
     where: {
       size: {
         [Op.ne]: 'small'

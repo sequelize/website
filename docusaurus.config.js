@@ -121,7 +121,7 @@ const config = {
             ],
           },
           {
-            href: 'https://join.slack.com/t/sequelize/shared_invite/zt-1igt9hx8h-tGWU4AI1bRPvkRdEK5wnuQ',
+            href: 'https://sequelize.org/slack',
             label: 'Slack',
             position: 'right',
           },
@@ -180,7 +180,7 @@ const config = {
               },
               {
                 label: 'Slack',
-                href: 'https://join.slack.com/t/sequelize/shared_invite/zt-1igt9hx8h-tGWU4AI1bRPvkRdEK5wnuQ',
+                href: 'https://sequelize.org/slack',
               },
               {
                 label: 'Twitter',
