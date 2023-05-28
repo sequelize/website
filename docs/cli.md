@@ -16,7 +16,7 @@ Just like you use [version control](https://en.wikipedia.org/wiki/Version_contro
 
 You will need the [Sequelize Command-Line Interface (CLI)](https://github.com/sequelize/cli). The CLI ships support for migrations and project bootstrapping.
 
-A Migration in Sequelize is javascript file which exports two functions, `up` and `down`, that dictate how to perform the migration and undo it. You define those functions manually, but you don't call them manually; they will be called automatically by the CLI. In these functions, you should simply perform whatever queries you need, with the help of `sequelize.query` and whichever other methods Sequelize provides to you. There is no extra magic beyond that.
+A Migration in Sequelize is JavaScript file which exports two functions, `up` and `down`, that dictate how to perform the migration and undo it. You define those functions manually, but you don't call them manually; they will be called automatically by the CLI. In these functions, you should simply perform whatever queries you need, with the help of `sequelize.query` and whichever other methods Sequelize provides to you. There is no extra magic beyond that.
 
 ## Installing the CLI
 

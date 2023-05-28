@@ -134,8 +134,7 @@ class User extends Model {
 Virtual attributes are attributes that Sequelize populates under the hood, but in reality they don't even exist in the database.
 
 For example, let's say we have a User model with `firstName` and `lastName`[^1] attributes.  
-It would be nice to have a simple way to obtain the *full name* directly!  
-A simple solution is to add a regular JavaScript getter to the model:
+We could decide to add a model getter to obtain the *full name* directly:
 
 ```ts
 class User extends Model {
@@ -155,12 +154,19 @@ class User extends Model {
 }
 ```
 
-This works, but you can also make it an attribute and use the `VIRTUAL` Data Type.
+This works, but it does not behave like a regular attribute:
 
-The `VIRTUAL` attribute does not create an actual column in the table. The model will not have a `fullName` column,
+- It cannot be obtained through `model.get('fullName')`.
+- It cannot be used in the attribute list of queries.
+
+To remedy this, we can declare it as a virtual attribute using the `DataTypes.VIRTUAL` data type.
+This attribute type does not create an actual column in the table,
 but the attribute can still be used in JavaScript.
 
-We can combine the idea of `getters` with the special data type Sequelize provides for this kind of situation: `DataTypes.VIRTUAL`:
+This attribute type takes two arguments:
+
+- The type of the value.
+- The list of attributes it depends on. This is used to automatically load the dependencies when the attribute included in the attribute list of a query.
 
 ```ts
 import { DataTypes } from '@sequelize/core';
@@ -181,11 +187,6 @@ class User extends Model {
   }
 }
 ```
-
-The `VIRTUAL` attribute has a few advantages over the regular getter:
-
-- It can be used as an attribute in the attribute list of queries, which will make the query load its dependencies.
-- the `.get()` method of your model will return the value of the virtual attribute, instead of `undefined`.
 
 :::caution Uses in queries
 

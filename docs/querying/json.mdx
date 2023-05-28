@@ -39,7 +39,7 @@ JSON_EXTRACT(`jsonAttribute`, '$.address.country') = '"Belgium"';
 
 :::caution Nested properties are JSON too
 
-This syntax to access nested properties produces JSON. In the example above, you can see the the right-hand side of the comparison has been stringified
+This syntax to access nested properties produces JSON. In the example above, you can see that the right-hand side of the comparison has been stringified
 to JSON by Sequelize.
 
 This means that JSON operators, such as [`Op.anyKeyExists`](./operators.mdx#jsonb-operators) can be used on nested properties:

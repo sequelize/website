@@ -91,7 +91,10 @@ await jane.save();
 
 It is possible to define which attributes should be saved when calling `save`, by passing an array of column names.
 
-This is useful when you set attributes based on a previously defined object, for example, when you get the values of an object via a form of a web app. Furthermore, this is used internally in the `update` implementation. This is how it looks like:
+This is useful when you set attributes based on a previously defined object. 
+For example, when you get the values of an object from a web app form. 
+
+This is what it looks like:
 
 ```js
 const jane = await User.create({ name: "Jane" });

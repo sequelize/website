@@ -16,8 +16,6 @@ This section concerns association scopes, not to be confused with [association s
 
 Scopes are used to help you reuse code. You can define commonly used queries, specifying options such as `where`, `include`, `limit`, etc.
 
-This guide concerns model scopes. You might also be interested in the [guide for association scopes](docs/associations/association-scopes.md), which are similar but not the same thing.
-
 ## Definition
 
 Scopes are defined in the model definition and can be finder objects, or functions returning finder objects - except for the default scope, which can only be an object:

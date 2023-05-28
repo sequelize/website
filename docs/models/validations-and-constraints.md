@@ -27,10 +27,10 @@ Unique constraints are created as unique indexes in the database. Read more abou
 
 ## Foreign Key Constraints
 
-There are two ways to define foreign key constraints in Sequelize:
+There are two ways of defining foreign key constraints in Sequelize:
 
-1. Using the [`references`](pathname:///api/v7/interfaces/index.ForeignKeyOptions.html#references) option of the [`@Attribute`] decorator.
-2. By [defining an association](../associations/basics.md) between two models (**recommended**).
+- By [defining an association](../associations/basics.md) between two models (**recommended**).
+- Using the [`references`](pathname:///api/v7/interfaces/index.ForeignKeyOptions.html#references) option of the [`@Attribute`] decorator.
 
 ## Check Constraints
 
@@ -38,11 +38,11 @@ There are two ways to define foreign key constraints in Sequelize:
 
 Sequelize does not provide any way to declare Check Constraints on tables yet, but you can use the low-level [`QueryInterface#addConstraint`] API to add one yourself.
 
-We will eventually add a way to easily declare check constraints on models. See [issue #11211](https://github.com/sequelize/sequelize/issues/11211).
+We plan on adding a way to easily declare check constraints on models. See [issue #11211](https://github.com/sequelize/sequelize/issues/11211).
 
 :::
 
-Here is an example that adds a check constraint after the table has been created using [`sync`](./model-synchronization.md).
+This example showcases how to add a check constraint after a table has been created though [`sync`](./model-synchronization.md):
 
 ```ts
 import { Sequelize, Model, InferAttributes, InferCreationAttributes } from '@sequelize/core';
@@ -83,7 +83,7 @@ We do not recommend using `sync` in production, as it can lead to data loss. See
 
 ## Validators
 
-Validators are javascript functions that are run before an instance is persisted or updated to the database. 
+Validators are JavaScript functions that are run before an instance is persisted or updated in the database. 
 You can also run validators manually using [`Model#validate`](pathname:///api/v7/classes/model.html#validate).
 
 ### Attribute validators
@@ -137,21 +137,18 @@ Head to [its TypeDoc page](pathname:///api/v7/modules/_sequelize_validator_js.ht
 
 :::note Future development
 
-We're working on adding support for more validation libraries, See [issue #15497](https://github.com/sequelize/sequelize/issues/15497).
+We're working on adding support for more validation libraries, see [issue #15497](https://github.com/sequelize/sequelize/issues/15497).
 
 :::
 
 ### Model validators
 
-Validations can also be defined to check the model after the attribute-specific validators.
+You can also define validators that run on the whole model, rather than on a single attribute.
 
-Using this you could, for example, ensure either neither of `latitude` and `longitude` are set or both, and fail if one but not the other is set.
+Model validator methods are called with the model object's context and are deemed to fail if they throw an error, otherwise pass. 
+This is just the same as with custom attribute-specific validators.
 
-Model validator methods are called with the model object's context and are deemed to fail if they throw an error, otherwise pass. This is just the same as with custom attribute-specific validators.
-
-Any error messages collected are put in the validation result object alongside the attribute validation errors, with keys named after the failed validation method's key in the `validate` option object. Even though there can only be one error message for each model validation method at any one time, it is presented as a single string error in an array, to maximize consistency with the field errors.
-
-An example:
+For example, you could ensure that either `latitude` and `longitude` are both set, or neither are.
 
 ```ts
 class Place extends Model {
@@ -171,8 +168,6 @@ class Place extends Model {
   // highlight-end
 }
 ```
-
-This will ensure that if either `latitude` or `longitude` is set, then both are set, and if neither is set, then neither is set.
 
 If you need to validate an attribute based on the value of another attribute, we highly recommend using Model Validators instead of Attribute Validators,
 because Model Validators are always run, while Attribute Validators are only run if the attribute's value has changed.
