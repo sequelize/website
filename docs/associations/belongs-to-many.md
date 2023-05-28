@@ -69,7 +69,6 @@ import { BelongsToMany, Attribute, NotNull } from '@sequelize/core/decorators-le
 import { PrimaryKey } from './attribute.js';
 
 class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Person>> {
-  
   @BelongsToMany(() => Toot, {
     through: () => LikedToot,
   })

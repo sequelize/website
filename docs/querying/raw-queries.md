@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 8
 title: Raw SQL (literals)
 ---
 
@@ -110,7 +110,7 @@ The `bind` option must contain all bound values, or Sequelize will throw an erro
 :::info
 
 Bind Parameters can only be used for data values. Bind Parameters cannot be used to dynamically change the name of a table, a column, or other non-data values parts of the query,
-but you can use [`sql.attribute`](#attribute), and [`sql.identifier`](#identifier) for that.
+but you can use [`sql.attribute`](#sqlattribute), and [`sql.identifier`](#sqlidentifier) for that.
 
 Your database may have further restrictions with bind parameters.
 
@@ -396,7 +396,7 @@ On top of this mapping, `sql.attribute` also supports the entire range of the at
 
 #### Use the association reference syntax
 
-You can reference includes using the association reference syntax.
+When [eager loading associated models](./select-in-depth.md#eager-loading-include), you can reference includes using the association reference syntax.
 
 The name of the association must start & end with a `$` character, and the name of the attribute must be separated from the association name with a `.` character.
 

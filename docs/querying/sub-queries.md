@@ -1,6 +1,6 @@
 ---
 title: Subqueries
-sidebar_position: 9
+sidebar_position: 10
 ---
 
 Subqueries are queries that are nested inside another query. They are a powerful tool that can be used to achieve complex queries that would otherwise be impossible to write.
@@ -15,7 +15,7 @@ Consider you have two models, `Post` and `Reaction`, with a One-to-Many relation
 <summary>Click to see the model definition of Post & Reaction</summary>
 
 ```ts
-import { Model, DataTypes, InferCreationAttributes, InferAttributes } from '@sequelize/core';
+import { Sequelize, Model, DataTypes, InferCreationAttributes, InferAttributes } from '@sequelize/core';
 import { Attribute, AutoIncrement, PrimaryKey, NotNull, HasMany } from '@sequelize/decorators-legacy';
 
 class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {

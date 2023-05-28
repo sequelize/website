@@ -115,7 +115,6 @@ This section assumes you understand [how to associate models](../associations/ba
 
 :::
 
-
 If two models are associated, you can create both instances in one go by using the `include` option,
 which is available on the `create` method.
 

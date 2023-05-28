@@ -3,7 +3,7 @@ sidebar_position: 1
 title: Basics
 ---
 
-# Basics
+# Association Basics
 
 Sequelize provides what are called __associations__.
 These can be declared on your models to define common [__relationships__](https://en.wikipedia.org/wiki/Cardinality_(data_modeling)) between your tables.

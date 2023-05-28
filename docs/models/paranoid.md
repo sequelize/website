@@ -107,3 +107,22 @@ await Post.findAll({
   paranoid: false
 }); // This will also retrieve soft-deleted records
 ```
+
+### Eager-loading soft-deleted records
+
+:::note
+
+Eager-loading is described in depth in the [SELECT Queries: In Depth guide](../querying/select-in-depth.md#eager-loading-include).
+
+:::
+
+If you want to eager load soft deleted records, you can do that by setting `include.paranoid` to `false`:
+
+```js
+User.findAll({
+  include: [{
+    association: 'projects',
+    paranoid: false,
+  }],
+});
+```
