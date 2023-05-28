@@ -197,11 +197,15 @@ await person.setDrivingLicense(null);
 
 :::caution
 
-Setting the association to `null` does not delete the associated model. It only removes the association.  
-If the foreign key is not nullable, doing so will result in a validation error, as Sequelize will try to set the foreign key to `null`.
+If the foreign key is not nullable, calling this method will delete the previously associated model (if any),
+as setting its foreign key to `null` would result in a validation error.
 
-We're working on adding an option to delete the associated model when setting the association to `null`. 
-Take a look at issue [#14048](https://github.com/sequelize/sequelize/issues/14048) to learn more. 
+If the foreign key is nullable, it will by default set it to null. You can use the `destroyPrevious` option to delete
+the previously associated model instead:
+
+```ts
+await person.setDrivingLicense(newDrivingLicense, { destroyPrevious: true });
+```
 
 :::
 

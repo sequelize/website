@@ -187,3 +187,282 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
 ```
 
 ## Association Methods
+
+All associations add methods to the source model[^1]. These methods can be used to fetch, create, and delete associated models.
+
+If you use TypeScript, you will need to declare these methods on your model class.
+
+### Association Getter (`getX`)
+
+The association getter is used to fetch the associated models. It is always named `get<AssociationName>`:
+
+```ts
+import { BelongsToManyGetAssociationsMixin } from '@sequelize/core';
+
+class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Author>> {
+  @BelongsToMany(() => Book, { through: 'BookAuthor' })
+  declare books?: NonAttribute<Book[]>;
+
+  // highlight-start
+  declare getBooks: BelongsToManyGetAssociationsMixin<Book>;
+  // highlight-end
+}
+
+// ...
+
+const post = await Post.findByPk(1);
+
+// highlight-start
+const books: Book[] = await post.getBooks();
+// highlight-end
+```
+
+### Association Setter (`setX`)
+
+The association setter is used to set the associated models. It is always named `set<AssociationName>`.
+
+If the model is already associated to one or more models, the old associations are removed before the new ones are added.
+
+```ts
+import { BelongsToManySetAssociationsMixin } from '@sequelize/core';
+
+class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Author>> {
+  @BelongsToMany(() => Book, { through: 'BookAuthor' })
+  declare books?: NonAttribute<Book[]>;
+
+  // highlight-start
+  declare setBooks: BelongsToManySetAssociationsMixin<
+    Book,
+    /* this is the type of the primary key of the target */
+    Book['id']
+  >;
+  // highlight-end
+}
+
+// ...
+
+const post = await Post.findByPk(1);
+const [book1, book2, book3] = await Book.findAll({ limit: 3 });
+
+// highlight-start
+// Remove all previous associations and set the new ones
+await post.setBooks([book1, book2, book3]);
+
+// You can also use the primary key of the newly associated model as a way to identify it
+// without having to fetch it first.
+await post.setBooks([1, 2, 3]);
+// highlight-end
+```
+
+### Association Adder (`addX`)
+
+The association adder is used to add one or more new associated models without removing existing ones.
+There are two versions of this method:
+
+- `add<SingularAssociationName>`: Associates a single new model.
+- `add<PluralAssociationName>`: Associates multiple new models.
+
+```ts
+import { BelongsToManyAddAssociationMixin, BelongsToManyAddAssociationsMixin } from '@sequelize/core';
+
+class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Author>> {
+  @BelongsToMany(() => Book, { through: 'BookAuthor' })
+  declare books?: NonAttribute<Book[]>;
+
+  // highlight-start
+  declare addBook: BelongsToManyAddAssociationMixin<
+    Book,
+    /* this is the type of the primary key of the target */
+    Book['id']
+  >;
+
+  declare addBooks: BelongsToManyAddAssociationsMixin<
+    Book,
+    /* this is the type of the primary key of the target */
+    Book['id']
+  >;
+  // highlight-end
+}
+
+// ...
+
+const post = await Post.findByPk(1);
+const [book1, book2, book3] = await Book.findAll({ limit: 3 });
+
+// highlight-start
+// Add a single book, without removing existing ones
+await post.addBook(book1);
+
+// Add multiple books, without removing existing ones
+await post.addBooks([book1, book2]);
+
+// You can also use the primary key of the newly associated model as a way to identify it
+// without having to fetch it first.
+await post.addBook(1);
+await post.addBooks([1, 2, 3]);
+// highlight-end
+```
+
+### Association Remover (`removeX`)
+
+The association remover is used to remove one or more associated models.
+
+There are two versions of this method:
+
+- `remove<SingularAssociationName>`: Removes a single associated model.
+- `remove<PluralAssociationName>`: Removes multiple associated models.
+
+
+```ts
+import { BelongsToManyRemoveAssociationMixin, BelongsToManyRemoveAssociationsMixin } from '@sequelize/core';
+
+class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Author>> {
+  @BelongsToMany(() => Book, { through: 'BookAuthor' })
+  declare books?: NonAttribute<Book[]>;
+
+  // highlight-start
+  declare removeBook: BelongsToManyRemoveAssociationMixin<
+    Book,
+    /* this is the type of the primary key of the target */
+    Book['id']
+  >;
+
+  declare removeBooks: BelongsToManyRemoveAssociationsMixin<
+    Book,
+    /* this is the type of the primary key of the target */
+    Book['id']
+  >;
+  // highlight-end
+}
+
+// ...
+
+const post = await Post.findByPk(1);
+const [book1, book2, book3] = await Book.findAll({ limit: 3 });
+
+// highlight-start
+// Remove a single book, without removing existing ones
+await post.removeBook(book1);
+
+// Remove multiple books, without removing existing ones
+await post.removeBooks([book1, book2]);
+
+// You can also use the primary key of the newly associated model as a way to identify it
+// without having to fetch it first.
+await post.removeBook(1);
+await post.removeBooks([1, 2, 3]);
+// highlight-end
+```
+
+### Association Creator (`createX`)
+
+The association creator is used to create a new associated model and associate it with the source model. It is always named `create<AssociationName>`.
+
+```ts
+import { BelongsToManyCreateAssociationMixin } from '@sequelize/core';
+
+class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Author>> {
+  @BelongsToMany(() => Book, { through: 'BookAuthor' })
+  declare books?: NonAttribute<Book[]>;
+
+  // highlight-start
+  declare createBook: BelongsToManyCreateAssociationMixin<Book, 'postId'>;
+  // highlight-end
+}
+
+// ...
+
+const post = await Post.findByPk(1);
+
+// highlight-start
+const book = await post.createBook({
+  content: 'This is a book',
+});
+// highlight-end
+```
+
+:::info Omitting the foreign key
+
+In the example above, we did not need to specify the `postId` attribute. This is because Sequelize will automatically add it to the creation attributes.
+
+If you use TypeScript, you need to let TypeScript know that the foreign key is not required. You can do so using the second generic argument of the `BelongsToManyCreateAssociationMixin` type.
+
+```ts
+BelongsToManyCreateAssociationMixin<Book, 'postId'>
+                                        ^ Here
+```
+
+:::
+
+### Association Checker (`hasX`)
+
+The association checker is used to check if a model is associated with another model. It has two versions:
+
+- `has<SingularAssociationName>`: Checks if a single model is associated.
+- `has<PluralAssociationName>`: Checks whether all the specified models are associated.
+
+```ts
+import { BelongsToManyHasAssociationMixin, BelongsToManyHasAssociationsMixin } from '@sequelize/core';
+
+class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Author>> {
+  @BelongsToMany(() => Book, { through: 'BookAuthor' })
+  declare books?: NonAttribute<Book[]>;
+
+  // highlight-start
+  declare hasBook: BelongsToManyHasAssociationMixin<
+    Book,
+    /* this is the type of the primary key of the target */
+    Book['id']
+  >;
+
+  declare hasBooks: BelongsToManyHasAssociationsMixin<
+    Book,
+    /* this is the type of the primary key of the target */
+    Book['id']
+  >;
+  // highlight-end
+}
+
+// ...
+
+const post = await Post.findByPk(1);
+
+// highlight-start
+// Returns true if the post has a book with id 1
+const isAssociated = await post.hasBook(book1);
+
+// Returns true if the post is associated to all specified books
+const isAssociated = await post.hasBooks([book1, book2, book3]);
+
+// Like other association methods, you can also use the primary key of the associated model as a way to identify it
+const isAssociated = await post.hasBooks([1, 2, 3]);
+// highlight-end
+```
+
+### Association Counter (`countX`)
+
+The association counter is used to count the number of associated models. It is always named `count<AssociationName>`.
+
+```ts
+import { BelongsToManyCountAssociationsMixin } from '@sequelize/core';
+
+class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Author>> {
+  @BelongsToMany(() => Book, { through: 'BookAuthor' })
+  declare books?: NonAttribute<Book[]>;
+
+  // highlight-start
+  declare countBooks: BelongsToManyCountAssociationsMixin<Book>;
+  // highlight-end
+}
+
+// ...
+
+const post = await Post.findByPk(1);
+
+// highlight-start
+// Returns the number of associated books
+const count = await post.countBooks();
+// highlight-end
+```
+
+[^1]: The source model is the model that defines the association.

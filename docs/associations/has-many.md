@@ -108,7 +108,7 @@ If you use TypeScript, you will need to declare these methods on your model clas
 
 ### Association Getter (`getX`)
 
-The association getter is used to fetch the associated model. It is always named `get<AssociationName>`:
+The association getter is used to fetch the associated models. It is always named `get<AssociationName>`:
 
 ```ts
 import { HasManyGetAssociationsMixin } from '@sequelize/core';
@@ -170,11 +170,16 @@ await post.setComments([1, 2, 3]);
 
 :::caution
 
-If the foreign key is not nullable, using this method on a model that is already associated to one or more models will result in a validation error.
-This is because Sequelize will try to set the foreign key of the target model to `null`.
+If the foreign key is not nullable, calling this method will delete the previously associated models (if any),
+as setting their foreign key to `null` would result in a validation error.
 
-We're working on adding an option to delete the associated models instead of setting their foreign keys to `null`.
-Take a look at issue [#14048](https://github.com/sequelize/sequelize/issues/14048) to learn more.
+If the foreign key is nullable, it will by default set it to null on all previously associated models. 
+You can use the `destroyPrevious` option to delete the previously associated models instead:
+
+```ts
+// this will delete all previously associated models
+await post.setComments([], { destroyPrevious: true });
+```
 
 :::
 
@@ -277,6 +282,21 @@ await post.removeComment(1);
 await post.removeComments([1, 2, 3]);
 // highlight-end
 ```
+
+:::caution
+
+If the foreign key is not nullable, calling this method will delete the specified models,
+as setting their foreign key to `null` would result in a validation error.
+
+If the foreign key is nullable, it will by default set it to null on all specified models.
+You can use the `destroy` option to delete the previously associated models instead:
+
+```ts
+// this will delete comments with PKs 1, 2 and 3
+await post.removeComments([1, 2, 3], { destroy: true });
+```
+
+:::
 
 ### Association Creator (`createX`)
 
@@ -407,3 +427,5 @@ class Post extends Model {
   declare comments?: NonAttribute<Comment[]>;
 }
 ```
+
+[^1]: The source model is the model that defines the association.
