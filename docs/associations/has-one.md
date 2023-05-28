@@ -58,7 +58,7 @@ on the model the association targets.__
 Always think about which model should own the foreign key, as the foreign key is the one that enforces the relationship.
 
 In this case, because the passport model has a non-null foreign key, it is impossible to create a Passport without assigning it to a Person.  
-It is however possible to create a Person without a Passport.
+However, it's possible to create a Person without a Passport.
 
 If you made the foreign key nullable, the relationship would be optional on both sides.
 

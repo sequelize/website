@@ -8,7 +8,7 @@ When you define a model, you're telling Sequelize a few things about its table i
 
 This is where model synchronization comes in. A model can be synchronized with the database by calling [`model.sync(options)`](pathname:///api/v7/classes/Model.html#sync),
 an asynchronous function (that returns a Promise). With this call, Sequelize will automatically perform an SQL query to the database.
-Note that this changes only the table in the database, not the model in the JavaScript side.
+Note that this only changes the table in the database, not the model on the JavaScript side.
 
 * `User.sync()` - This creates the table if it doesn't exist (and does nothing if it already exists)
 * `User.sync({ force: true })` - This creates the table, dropping it first if it already existed
