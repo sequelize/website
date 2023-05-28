@@ -184,7 +184,7 @@ class User extends Model {
 
 Another way to define an index is to use the `@Table` decorator on your model. This decorator accepts an `indexes` option, which is an array of index definitions.
 
-This option is able to define any and all indexes that can be defined using either the `@Index` decorator, or the `createIndexDecorator` API, but can be more cumbersome to use. Here is an example:
+This option can define any index that can be defined using either the `@Index` decorator, or the `createIndexDecorator` API, but it can be more cumbersome to use. Here is an example:
 
 ```ts
 import { Model, DataTypes } from '@sequelize/core';

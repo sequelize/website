@@ -141,8 +141,7 @@ console.log(User.table.tableName);
 
 ### Manually setting the table name
 
-You can simply tell Sequelize the name of the table directly as well.
-This bypasses any automatic table name generation option. Neither snake_casing nor pluralization will be done:
+You can also tell Sequelize the name of the table directly. This will skip any automatic table name generation options and bypass snake_casing and pluralization.
 
 ```ts
 import { Model } from '@sequelize/core';

@@ -37,7 +37,7 @@ const sequelize = new Sequelize({
 
 When defining a model, the name of the model will, by default, be the name of your class.
 
-If you minify your code, it is possible that the class' name — and therefore its model name — will be changed by your minifier.
+If you minify your code, the class name — and therefore its model name — may be changed by your minifier.
 This can be an issue, as many systems use your modelName, from [sequelize.models](pathname:///api/v7/classes/Sequelize.html#models)
 to [the name of the table associated to the model](./naming-strategies.mdx).
 
