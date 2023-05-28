@@ -2,428 +2,238 @@
 title: Polymorphic Associations
 ---
 
-_**Note:** the usage of polymorphic associations in Sequelize, as outlined in this guide, should be done with caution. Don't just copy-paste code from here, otherwise you might easily make mistakes and introduce bugs in your code. Make sure you understand what is going on._
+A **polymorphic association** is an association that can target multiple models. For example, imagine a `Comment` model that can belong to either a `Article` or a `Video`.
 
-## Concept
+Sequelize offers three ways of implementing polymorphic associations, in order of recommendation:
 
-A **polymorphic association** consists on two (or more) associations happening with the same foreign key.
+- A. Using [Model Inheritance](#inheritance-based-polymorphic-associations) (recommended)
+  - 👍 This solution supports foreign keys
+  - 👍 Tables are lighter, more performant
+  - 👍 Can easily add model-specific attributes
+  - ❌ This solution requires more tables
+- B. Using a [single model with multiple foreign keys](#single-model-multiple-foreign-key-polymorphic-associations)
+  - 👍 This solution supports foreign keys
+  - 👍 Uses a single table
+- C. Using a [single model with a single foreign key](#single-model-single-foreign-key-polymorphic-associations)
+  - 👍 Uses a single table
+  - ❌ Does not support foreign keys
 
-For example, consider the models `Image`, `Video` and `Comment`. The first two represent something that a user might post. We want to allow comments to be placed in both of them. This way, we immediately think of establishing the following associations:
+## Inheritance-based polymorphic associations
 
-* A One-to-Many association between `Image` and `Comment`:
+The way this polymorphic association works is by creating a base model, such as `AbstractComment`,
+which defines the common fields between all comments.
+Then, we create models that inherit from it
+for each model that can have comments, such as `ArticleComment` and `VideoComment`.
 
-  ```js
-  Image.hasMany(Comment);
-  Comment.belongsTo(Image);
-  ```
+```ts
+// This is the base model, which defines the common fields between all comments.
+@AbstractModel
+abstract class AbstractComment<Attributes, CreationAttributes> extends Model<Attributes, CreationAttributes> {
+  declare id: number;
 
-* A One-to-Many association between `Video` and `Comment`:
+  @Attributes(DataTypes.STRING)
+  @NotNull
+  declare content: string;
 
-  ```js
-  Video.hasMany(Comment);
-  Comment.belongsTo(Video);
-  ```
+  @Attributes(DataTypes.INTEGER)
+  @NotNull
+  declare targetId: number;
+}
 
-However, the above would cause Sequelize to create two foreign keys on the `Comment` table: `ImageId` and `VideoId`. This is not ideal because this structure makes it look like a comment can be attached at the same time to one image and one video, which isn't true. Instead, what we really want here is precisely a polymorphic association, in which a `Comment` points to a single **Commentable**, an abstract polymorphic entity that represents one of `Image` or `Video`.
+// This is the model for comments on articles.
+class ArticleComment extends AbstractComment<InferAttributes<ArticleComment>, InferCreationAttributes<ArticleComment>> {
+  @BelongsTo(() => Article, 'targetId')
+  declare target?: Article;
+}
 
-Before proceeding to how to configure such an association, let's see how using it looks like:
-
-```js
-const image = await Image.create({ url: "https://placekitten.com/408/287" });
-const comment = await image.createComment({ content: "Awesome!" });
-
-console.log(comment.commentableId === image.id); // true
-
-// We can also retrieve which type of commentable a comment is associated to.
-// The following prints the model name of the associated commentable instance.
-console.log(comment.commentableType); // "Image"
-
-// We can use a polymorphic method to retrieve the associated commentable, without
-// having to worry whether it's an Image or a Video.
-const associatedCommentable = await comment.getCommentable();
-
-// In this example, `associatedCommentable` is the same thing as `image`:
-import isDeepEqual from 'deep-equal';
-console.log(isDeepEqual(image, commentable)); // true
+// This is the model for comments on videos.
+class VideoComment extends AbstractComment<InferAttributes<VideoComment>, InferCreationAttributes<VideoComment>> {
+  @BelongsTo(() => Video, 'targetId')
+  declare target?: Video;
+}
 ```
 
-## Configuring a One-to-Many polymorphic association
+The above code will create two tables: `ArticleComments` and `VideoComments`.
 
-To setup the polymorphic association for the example above (which is an example of One-to-Many polymorphic association), we have the following steps:
+## Single-model, multiple-foreign-key polymorphic associations
 
-* Define a string field called `commentableType` in the `Comment` model;
-* Define the `hasMany` and `belongsTo` association between `Image`/`Video` and `Comment`:
-  * Disabling constraints (i.e. using `{ constraints: false }`), since the same foreign key is referencing multiple tables;
-  * Specifying the appropriate [association scopes](./association-scopes.md);
-* To properly support lazy loading, define a new instance method on the `Comment` model called `getCommentable` which calls, under the hood, the correct mixin to fetch the appropriate commentable;
-* To properly support eager loading, define an `afterFind` hook on the `Comment` model that automatically populates the `commentable` field in every instance;
-* To prevent bugs/mistakes in eager loading, you can also delete the concrete fields `image` and `video` from Comment instances in the same `afterFind` hook, leaving only the abstract `commentable` field available.
+This solution only requires a single table, to which we add multiple, mutually-exclusive foreign keys:
 
-Here is an example:
+```ts
+class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>> {
+  declare id: number;
 
-```js
-// Helper function
-const uppercaseFirst = str => `${str[0].toUpperCase()}${str.substr(1)}`;
+  @Attributes(DataTypes.STRING)
+  @NotNull
+  declare content: string;
 
-class Image extends Model {}
-Image.init({
-  title: DataTypes.STRING,
-  url: DataTypes.STRING
-}, { sequelize, modelName: 'image' });
+  @Attributes(DataTypes.INTEGER)
+  declare articleId: number | null;
 
-class Video extends Model {}
-Video.init({
-  title: DataTypes.STRING,
-  text: DataTypes.STRING
-}, { sequelize, modelName: 'video' });
+  @BelongsTo(() => Article, 'articleId')
+  declare article?: Article;
 
-class Comment extends Model {
-  getCommentable(options) {
-    if (!this.commentableType) return Promise.resolve(null);
-    const mixinMethodName = `get${uppercaseFirst(this.commentableType)}`;
-    return this[mixinMethodName](options);
+  @Attributes(DataTypes.INTEGER)
+  declare videoId: number | null;
+
+  @BelongsTo(() => Video, 'videoId')
+  declare video?: Video;
+}
+```
+
+You can then determine which foreign key to use by checking which one is `null`.
+
+We recommend that you add a [`CHECK` constraint](../models/validations-and-constraints.md#check-constraints) on this table to ensure that only one of the foreign keys is not null at a time.
+
+## Single-model, single-foreign-key polymorphic associations
+
+:::caution
+
+This type of polymorphic associations cannot use foreign keys, as a single column can only ever reference one other table.
+This may be a problem if you want to use foreign keys for data integrity, as well as for `SELECT` performance.
+
+Due to using the same column for multiple associations, you also put yourself at greater risk of creating a data integrity issue.
+
+For these reasons, we highly recommend using one of the other two solutions instead. Proceed with caution.
+
+:::
+
+In this type of polymorphic association, we don't use foreign keys at all. 
+Instead, we use two columns: one to store the type of the associated model, and one to store the ID of the associated model.
+
+As stated above, we must disable the foreign key constraints on the association, as the same column is referencing multiple tables.
+This can be done by using the `constraints: false`.
+
+We then use [association scopes](./association-scopes.md) to filter which comments belong to which models.
+
+```ts
+class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>> {
+  declare id: number;
+
+  @Attributes(DataTypes.STRING)
+  @NotNull
+  declare content: string;
+
+  @Attributes(DataTypes.STRING)
+  @NotNull
+  declare targetModel: 'article' | 'video';
+
+  @Attributes(DataTypes.INTEGER)
+  @NotNull
+  declare targetId: number;
+ 
+  /** Defined by {@link Article#comments} */
+  declare article?: NonAttribute<Article>;
+  
+  /** Defined by {@link Video#comments} */
+  declare video?: NonAttribute<Video>;
+  
+  get target(): NonAttribute<Article | Video | undefined> {
+    if (this.targetModel === 'article') {
+      return this.article;
+    } else {
+      return this.video;
+    }
   }
 }
-Comment.init({
-  title: DataTypes.STRING,
-  commentableId: DataTypes.INTEGER,
-  commentableType: DataTypes.STRING
-}, { sequelize, modelName: 'comment' });
 
-Image.hasMany(Comment, {
-  foreignKey: 'commentableId',
-  constraints: false,
-  scope: {
-    commentableType: 'image'
-  }
-});
-Comment.belongsTo(Image, { foreignKey: 'commentableId', constraints: false });
+class Video extends Model<InferAttributes<Video>, InferCreationAttributes<Video>> {
+  declare id: number;
 
-Video.hasMany(Comment, {
-  foreignKey: 'commentableId',
-  constraints: false,
-  scope: {
-    commentableType: 'video'
-  }
-});
-Comment.belongsTo(Video, { foreignKey: 'commentableId', constraints: false });
+  @HasMany(() => Comment, {
+    inverse: {
+      as: 'videos',
+    },
+    foreignKey: 'targetId',
+    // highlight-start
+    // Foreign Keys must be disabled.
+    constraints: false,
+    // This scope ensures that loading the "comments" association only loads comments that belong to videos.
+    scope: {
+      targetModel: 'video',
+    },
+    // highlight-end
+  })
+  declare comments: Comment[];
+}
 
-Comment.hooks.addListener("afterFind", findResult => {
-  if (!Array.isArray(findResult)) findResult = [findResult];
-  for (const instance of findResult) {
-    if (instance.commentableType === "image" && instance.image !== undefined) {
-      instance.commentable = instance.image;
-    } else if (instance.commentableType === "video" && instance.video !== undefined) {
-      instance.commentable = instance.video;
-    }
-    // To prevent mistakes:
-    delete instance.image;
-    delete instance.dataValues.image;
-    delete instance.video;
-    delete instance.dataValues.video;
-  }
+class Article extends Model<InferAttributes<Article>, InferCreationAttributes<Article>> {
+  declare id: number;
+
+  @HasMany(() => Comment, {
+    inverse: {
+      as: 'articles',
+    },
+    foreignKey: 'targetId',
+    constraints: false,
+    scope: {
+      targetModel: 'article',
+    },
+  })
+  declare comments: Comment[];
+}
+```
+
+You can then eager-load `Comment` when loading `Article` or `Video`:
+
+```ts
+const article = await Article.findOne({
+  // this will only include the comments that belong to articles
+  include: ['comments'],
 });
 ```
 
-Since the `commentableId` column references several tables (two in this case), we cannot add a `REFERENCES` constraint to it. This is why the `constraints: false` option was used.
+Or lazy-load them:
 
-Note that, in the code above:
+```ts
+const article = await Article.findOne();
 
-* The *Image -> Comment* association defined an association scope: `{ commentableType: 'image' }`
-* The *Video -> Comment* association defined an association scope: `{ commentableType: 'video' }`
+// this will only include the comments that belong to this article
+const comments = await article.getComments();
+```
 
-These scopes are automatically applied when using the association functions (as explained in the [Association Scopes](./association-scopes.md) guide). Some examples are below, with their generated SQL statements:
+:::warning
 
-* `image.getComments()`:
+Do not use the inverse association without extra filtering! 
 
-  ```sql
-  SELECT "id", "title", "commentableType", "commentableId", "createdAt", "updatedAt"
-  FROM "comments" AS "comment"
-  WHERE "comment"."commentableType" = 'image' AND "comment"."commentableId" = 1;
-  ```
+While using the association from Article or Video to Comment is safe,
+using the inverse association from Comment to Article or Video is not safe.
 
-  Here we can see that `` `comment`.`commentableType` = 'image'`` was automatically added to the `WHERE` clause of the generated SQL. This is exactly the behavior we want.
+The following is unsafe:
 
-* `image.createComment({ title: 'Awesome!' })`:
-
-  ```sql
-  INSERT INTO "comments" (
-    "id", "title", "commentableType", "commentableId", "createdAt", "updatedAt"
-  ) VALUES (
-    DEFAULT, 'Awesome!', 'image', 1,
-    '2018-04-17 05:36:40.454 +00:00', '2018-04-17 05:36:40.454 +00:00'
-  ) RETURNING *;
-  ```
-
-* `image.addComment(comment)`:
-
-  ```sql
-  UPDATE "comments"
-  SET "commentableId"=1, "commentableType"='image', "updatedAt"='2018-04-17 05:38:43.948 +00:00'
-  WHERE "id" IN (1)
-  ```
-
-### Polymorphic lazy loading
-
-The `getCommentable` instance method on `Comment` provides an abstraction for lazy loading the associated commentable - working whether the comment belongs to an Image or a Video.
-
-It works by simply converting the `commentableType` string into a call to the correct mixin (either `getImage` or `getVideo`).
-
-Note that the `getCommentable` implementation above:
-
-* Returns `null` when no association is present (which is good);
-* Allows you to pass an options object to `getCommentable(options)`, just like any other standard Sequelize method. This is useful to specify where-conditions or includes, for example.
-
-### Polymorphic eager loading
-
-Now, we want to perform a polymorphic eager loading of the associated commentables for one (or more) comments. We want to achieve something similar to the following idea:
-
-```js
+```ts
 const comment = await Comment.findOne({
-  include: [ /* What to put here? */ ]
+  include: ['article'],
 });
-console.log(comment.commentable); // This is our goal
 ```
 
-The solution is to tell Sequelize to include both Images and Videos, so that our `afterFind` hook defined above will do the work, automatically adding the `commentable` field to the instance object, providing the abstraction we want.
+This is because an association scope only applies to the target model, not the source model.
+The above query will try to load the "article" association of the comment, even if the comment belongs to a video.
+Worse yet, it will try to load the article using the primary key of the video.
 
-For example:
+If you wish to do this, you must make sure that you filter the comment model yourself:
 
-```js
-const comments = await Comment.findAll({
-  include: [Image, Video]
+```ts
+const comment = await Comment.findOne({
+  include: ['article'],
+  where: {
+    // highlight-next-line
+    targetModel: 'article',
+  },
 });
-for (const comment of comments) {
-  const message = `Found comment #${comment.id} with ${comment.commentableType} commentable:`;
-  console.log(message, comment.commentable.toJSON());
+```
+
+Or, when lazy-loading, that you use the right accessor:
+
+```ts
+const comment = await Comment.findOne();
+
+// highlight-start
+if (comment.targetModel === 'article') {
+  const article = await comment.getArticle();
+} else {
+  const video = await comment.getVideo();
 }
 ```
 
-Output example:
-
-```text
-Found comment #1 with image commentable: { id: 1,
-  title: 'Meow',
-  url: 'https://placekitten.com/408/287',
-  createdAt: 2019-12-26T15:04:53.047Z,
-  updatedAt: 2019-12-26T15:04:53.047Z }
-```
-
-### Caution - possibly invalid eager/lazy loading!
-
-Consider a comment `Foo` whose `commentableId` is 2 and `commentableType` is `image`. Consider also that `Image A` and `Video X` both happen to have an id equal to 2. Conceptually, it is clear that `Video X` is not associated to `Foo`, because even though its id is 2, the `commentableType` of `Foo` is `image`, not `video`. However, this distinction is made by Sequelize only at the level of the abstractions performed by `getCommentable` and the hook we created above.
-
-This means that if you call `Comment.findAll({ include: Video })` in the situation above, `Video X` will be eager loaded into `Foo`. Thankfully, our `afterFind` hook will delete it automatically, to help prevent bugs, but regardless it is important that you understand what is going on.
-
-The best way to prevent this kind of mistake is to **avoid using the concrete accessors and mixins directly at all costs** (such as `.image`, `.getVideo()`, `.setImage()`, etc), always preferring the abstractions we created, such as `.getCommentable()` and `.commentable`. If you really need to access eager-loaded `.image` and `.video` for some reason, make sure you wrap that in a type check such as `comment.commentableType === 'image'`.
-
-## Configuring a Many-to-Many polymorphic association
-
-In the above example, we had the models `Image` and `Video` being abstractly called *commentables*, with one *commentable* having many comments. However, one given comment would belong to a single *commentable* - this is why the whole situation is a One-to-Many polymorphic association.
-
-Now, to consider a Many-to-Many polymorphic association, instead of considering comments, we will consider tags. For convenience, instead of calling Image and Video as *commentables*, we will now call them *taggables*. One *taggable* may have several tags, and at the same time one tag can be placed in several *taggables*.
-
-The setup for this goes as follows:
-
-* Define the junction model explicitly, specifying the two foreign keys as `tagId` and `taggableId` (this way it is a junction model for a Many-to-Many relationship between `Tag` and the abstract concept of *taggable*);
-* Define a string field called `taggableType` in the junction model;
-* Define the `belongsToMany` associations between the two models and `Tag`:
-  * Disabling constraints (i.e. using `{ constraints: false }`), since the same foreign key is referencing multiple tables;
-  * Specifying the appropriate [association scopes](./association-scopes.md);
-* Define a new instance method on the `Tag` model called `getTaggables` which calls, under the hood, the correct mixin to fetch the appropriate taggables.
-
-Implementation:
-
-```js
-class Tag extends Model {
-  getTaggables(options) {
-    const images = await this.getImages(options);
-    const videos = await this.getVideos(options);
-    // Concat images and videos in a single array of taggables
-    return images.concat(videos);
-  }
-}
-Tag.init({
-  name: DataTypes.STRING
-}, { sequelize, modelName: 'tag' });
-
-// Here we define the junction model explicitly
-class Tag_Taggable extends Model {}
-Tag_Taggable.init({
-  tagId: {
-    type: DataTypes.INTEGER,
-    unique: 'tt_unique_constraint'
-  },
-  taggableId: {
-    type: DataTypes.INTEGER,
-    unique: 'tt_unique_constraint',
-    references: null
-  },
-  taggableType: {
-    type: DataTypes.STRING,
-    unique: 'tt_unique_constraint'
-  }
-}, { sequelize, modelName: 'tag_taggable' });
-
-Image.belongsToMany(Tag, {
-  through: {
-    model: Tag_Taggable,
-    unique: false,
-    scope: {
-      taggableType: 'image'
-    }
-  },
-  foreignKey: 'taggableId',
-  constraints: false
-});
-Tag.belongsToMany(Image, {
-  through: {
-    model: Tag_Taggable,
-    unique: false
-  },
-  foreignKey: 'tagId',
-  constraints: false
-});
-
-Video.belongsToMany(Tag, {
-  through: {
-    model: Tag_Taggable,
-    unique: false,
-    scope: {
-      taggableType: 'video'
-    }
-  },
-  foreignKey: 'taggableId',
-  constraints: false
-});
-Tag.belongsToMany(Video, {
-  through: {
-    model: Tag_Taggable,
-    unique: false
-  },
-  foreignKey: 'tagId',
-  constraints: false
-});
-```
-
-The `constraints: false` option disables references constraints, as the `taggableId` column references several tables, we cannot add a `REFERENCES` constraint to it.
-
-Note that:
-
-* The *Image -> Tag* association defined an association scope: `{ taggableType: 'image' }`
-* The *Video -> Tag* association defined an association scope: `{ taggableType: 'video' }`
-
-These scopes are automatically applied when using the association functions. Some examples are below, with their generated SQL statements:
-
-* `image.getTags()`:
-
-  ```sql
-  SELECT
-    `tag`.`id`,
-    `tag`.`name`,
-    `tag`.`createdAt`,
-    `tag`.`updatedAt`,
-    `tag_taggable`.`tagId` AS `tag_taggable.tagId`,
-    `tag_taggable`.`taggableId` AS `tag_taggable.taggableId`,
-    `tag_taggable`.`taggableType` AS `tag_taggable.taggableType`,
-    `tag_taggable`.`createdAt` AS `tag_taggable.createdAt`,
-    `tag_taggable`.`updatedAt` AS `tag_taggable.updatedAt`
-  FROM `tags` AS `tag`
-  INNER JOIN `tag_taggables` AS `tag_taggable` ON
-    `tag`.`id` = `tag_taggable`.`tagId` AND
-    `tag_taggable`.`taggableId` = 1 AND
-    `tag_taggable`.`taggableType` = 'image';
-  ```
-
-  Here we can see that `` `tag_taggable`.`taggableType` = 'image'`` was automatically added to the `WHERE` clause of the generated SQL. This is exactly the behavior we want.
-
-* `tag.getTaggables()`:
-
-  ```sql
-  SELECT
-    `image`.`id`,
-    `image`.`url`,
-    `image`.`createdAt`,
-    `image`.`updatedAt`,
-    `tag_taggable`.`tagId` AS `tag_taggable.tagId`,
-    `tag_taggable`.`taggableId` AS `tag_taggable.taggableId`,
-    `tag_taggable`.`taggableType` AS `tag_taggable.taggableType`,
-    `tag_taggable`.`createdAt` AS `tag_taggable.createdAt`,
-    `tag_taggable`.`updatedAt` AS `tag_taggable.updatedAt`
-  FROM `images` AS `image`
-  INNER JOIN `tag_taggables` AS `tag_taggable` ON
-    `image`.`id` = `tag_taggable`.`taggableId` AND
-    `tag_taggable`.`tagId` = 1;
-
-  SELECT
-    `video`.`id`,
-    `video`.`url`,
-    `video`.`createdAt`,
-    `video`.`updatedAt`,
-    `tag_taggable`.`tagId` AS `tag_taggable.tagId`,
-    `tag_taggable`.`taggableId` AS `tag_taggable.taggableId`,
-    `tag_taggable`.`taggableType` AS `tag_taggable.taggableType`,
-    `tag_taggable`.`createdAt` AS `tag_taggable.createdAt`,
-    `tag_taggable`.`updatedAt` AS `tag_taggable.updatedAt`
-  FROM `videos` AS `video`
-  INNER JOIN `tag_taggables` AS `tag_taggable` ON
-    `video`.`id` = `tag_taggable`.`taggableId` AND
-    `tag_taggable`.`tagId` = 1;
-  ```
-
-Note that the above implementation of `getTaggables()` allows you to pass an options object to `getCommentable(options)`, just like any other standard Sequelize method. This is useful to specify where-conditions or includes, for example.
-
-### Applying scopes on the target model
-
-In the example above, the `scope` options (such as `scope: { taggableType: 'image' }`) were applied to the *through* model, not the *target* model, since it was used under the `through` option.
-
-We can also apply an association scope on the target model. We can even do both at the same time.
-
-To illustrate this, consider an extension of the above example between tags and taggables, where each tag has a status. This way, to get all pending tags of an image, we could establish another `belognsToMany` relationship between `Image` and `Tag`, this time applying a scope on the through model and another scope on the target model:
-
-```js
-Image.belongsToMany(Tag, {
-  through: {
-    model: Tag_Taggable,
-    unique: false,
-    scope: {
-      taggableType: 'image'
-    }
-  },
-  scope: {
-    status: 'pending'
-  },
-  as: 'pendingTags',
-  foreignKey: 'taggableId',
-  constraints: false
-});
-```
-
-This way, when calling `image.getPendingTags()`, the following SQL query will be generated:
-
-```sql
-SELECT
-  `tag`.`id`,
-  `tag`.`name`,
-  `tag`.`status`,
-  `tag`.`createdAt`,
-  `tag`.`updatedAt`,
-  `tag_taggable`.`tagId` AS `tag_taggable.tagId`,
-  `tag_taggable`.`taggableId` AS `tag_taggable.taggableId`,
-  `tag_taggable`.`taggableType` AS `tag_taggable.taggableType`,
-  `tag_taggable`.`createdAt` AS `tag_taggable.createdAt`,
-  `tag_taggable`.`updatedAt` AS `tag_taggable.updatedAt`
-FROM `tags` AS `tag`
-INNER JOIN `tag_taggables` AS `tag_taggable` ON
-  `tag`.`id` = `tag_taggable`.`tagId` AND
-  `tag_taggable`.`taggableId` = 1 AND
-  `tag_taggable`.`taggableType` = 'image'
-WHERE (
-  `tag`.`status` = 'pending'
-);
-```
-
-We can see that both scopes were applied automatically:
-
-* `` `tag_taggable`.`taggableType` = 'image'`` was added automatically to the `INNER JOIN`;
-* `` `tag`.`status` = 'pending'`` was added automatically to an outer where clause.
+:::
