@@ -57,26 +57,32 @@ console.log(jane.toJSON());
 ```
 
 </TabItem>
-<TabItem value="js" label="JavaScript (CJS)">
+<TabItem value="js" label="JavaScript">
 
-```javascript
+```typescript
 import { Sequelize, Model, DataTypes } from '@sequelize/core';
-const sequelize = new Sequelize('sqlite::memory:');
+import { Attribute } from '@sequelize/core/decorators-legacy';
 
-class User extends Model {}
-User.init({
-  username: DataTypes.STRING,
-  birthday: DataTypes.DATE
-}, { sequelize, modelName: 'user' });
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  username;
 
-(async () => {
-  await sequelize.sync();
-  const jane = await User.create({
-    username: 'janedoe',
-    birthday: new Date(1980, 6, 20),
-  });
-  console.log(jane.toJSON());
-})();
+  @Attribute(DataTypes.DATE)
+  birthday;
+}
+
+const sequelize = new Sequelize('sqlite::memory:', {
+  models: [User],
+});
+
+await sequelize.sync();
+
+const jane = await User.create({
+  username: 'janedoe',
+  birthday: new Date(1980, 6, 20),
+});
+
+console.log(jane.toJSON());
 ```
 
 </TabItem>
