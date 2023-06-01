@@ -4,6 +4,11 @@ sidebar_position: 1000
 
 # Terminology
 
+## `Sequelize` vs `sequelize`
+
+In our documentation, `Sequelize` refers to the library itself while the lowercase `sequelize` refers to an instance of Sequelize.
+This is the recommended convention, and it will be followed throughout the documentation.
+
 ## Tables, Models & Entities
 
 In Sequelize, Models are the JavaScript classes that represent [Database Tables](https://en.wikipedia.org/wiki/Table_(database)).

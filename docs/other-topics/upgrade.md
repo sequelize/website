@@ -367,7 +367,7 @@ User.findAll({
   attributes: [
     sql.col('*'),
     sql.col('a.*'),
-    [sql`count(*)`, 'count'],
+    [sql`count(id)`, 'count'],
   ],
 });
 ```
@@ -697,7 +697,6 @@ User.init({
   // It's not allowed to start or end with $ anymore.
   '$myAttribute$': {
     type: DataTypes.STRING,
-    // 'field' sets the column name
     columnName: '$myAttribute$',
   },
   // The JavaScript name is not allowed to include a dot anymore.

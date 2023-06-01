@@ -157,7 +157,7 @@ Numeric options can be combined:<br/>
 :::caution
 
 Exact Decimal Numbers are not representable in JavaScript [yet](https://github.com/tc39/proposal-decimal).
-The JavaScript [`number`][mdn-number] type is a double-precision 64-bit binary format [IEEE 754][ieee-754] value, better represented by [Inexact Decimal types](#inexact-decimal-numbers).
+The JavaScript [`number`][mdn-number] type is a double-precision 64-bit binary format [IEEE 754][ieee-754] value, better represented by [Approximate Decimal types](#approximate-decimal-numbers).
 
 To avoid any loss of precision, we recommend using [`string`][mdn-string] to represent Exact Decimal Numbers in JavaScript.
 
@@ -308,8 +308,6 @@ Sequelize provides a special syntax to query the contents of a JSON object. [Rea
 :::note
 
 In Postgres, the GEOMETRY and GEOGRAPHY types are implemented by [the PostGIS extension](https://postgis.net/workshops/postgis-intro/geometries.html).
-
-In Postgres, You must install the [pg-hstore](https://www.npmjs.com/package/pg-hstore) package if you use `DataTypes.HSTORE`
 
 :::
 

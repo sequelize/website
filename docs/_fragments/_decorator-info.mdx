@@ -1,7 +1,7 @@
 :::info
 
-Sequelize currently only supports the legacy decorator proposal, which is what [TypeScript](https://www.typescriptlang.org/docs/handbook/decorators.html#decorators) supports.  
-Support for the new proposal will be implemented once TypeScript supports it.
+Sequelize currently only supports the [_legacy/experimental decorator format_](https://github.com/tc39/proposal-decorators#how-does-this-proposal-compare-to-other-versions-of-decorators).
+Support for the [_new decorator format_](https://github.com/tc39/proposal-decorators) will be added in a future release.
 
 All decorators must be imported from `@sequelize/core/decorators-legacy`:
 
@@ -9,7 +9,8 @@ All decorators must be imported from `@sequelize/core/decorators-legacy`:
 import { Attribute, Table } from '@sequelize/core/decorators-legacy';
 ```
 
-Not using TypeScript? You can still use decorators, but you will need to use a transpiler such as babel to compile them to JavaScript. 
-Alternatively, Sequelize also supports an approach that does not require using decorators.
+Using legacy decorators requires to use a transpiler such as [TypeScript](https://www.typescriptlang.org/docs/handbook/decorators.html#decorators),
+[Babel](https://babeljs.io/docs/babel-plugin-proposal-decorators) or others to compile them to JavaScript.
+Alternatively, Sequelize also supports [a legacy approach](../other-topics/legacy-model-definitions.mdx) that does not require using decorators, but this is discouraged.
 
 :::

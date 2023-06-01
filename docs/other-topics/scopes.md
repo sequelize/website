@@ -10,7 +10,7 @@ Scopes are a fragile feature that we do not recommend using beyond very simple s
 
 :::info
 
-This section concerns association scopes, not to be confused with [association scopes](../associations/association-scopes.md).
+This section concerns model scopes, not to be confused with [association scopes](../associations/association-scopes.md).
 
 :::
 
