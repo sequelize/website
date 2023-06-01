@@ -7,13 +7,13 @@ sidebar_position: 5
 import { SupportTable } from '@site/src/components/support-table';
 
 [In Finder Methods](./select-methods.md), we've seen what the various finder methods are. In this guide,
-we'll focus on how to use [`findAll`](pathname:///api/v7/classes/Model.html#findAll) in depth. The information of this guide
+we'll focus on how to use [`findAll`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAll) in depth. The information of this guide
 is still relevant for other finder methods, as they are built on top of `findAll`.
 
 ## Simple SELECT queries
 
-Without any options, [`findAll`](pathname:///api/v7/classes/Model.html#findAll) will return all rows of a table as instances of the model,
-and [`findOne`](pathname:///api/v7/classes/Model.html#findOne) will return the first row of a table as an instance of the model:
+Without any options, [`findAll`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAll) will return all rows of a table as instances of the model,
+and [`findOne`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findOne) will return the first row of a table as an instance of the model:
 
 ```ts
 const users = await User.findAll();
@@ -25,7 +25,7 @@ SELECT * FROM users;
 
 ## Selecting Attributes
 
-By default, querying methods will load all attributes of the model. You can control which attributes are loaded by using the [`attributes`](pathname:///api/v7/interfaces/_sequelize_core.Projectable.html) option:
+By default, querying methods will load all attributes of the model. You can control which attributes are loaded by using the [`attributes`](pathname:///api/v7/interfaces/_sequelize_core.index.Projectable.html) option:
 
 To select a specific list of attributes, set that option to an array of attribute names, like this:
 
@@ -139,7 +139,7 @@ Post.findAll({
 SELECT * FROM posts WHERE "authorId" = 2 AND "status" = 'active';
 ```
 
-If you need to specify an `OR` condition, you can use the [Op.or](./operators.mdx#logical-combinations-or-and-not) operator or the [`or`](pathname:///api/v7/functions/_sequelize_core.or.html) function:
+If you need to specify an `OR` condition, you can use the [Op.or](./operators.mdx#logical-combinations-or-and-not) operator or the [`or`](pathname:///api/v7/functions/_sequelize_core.index.or.html) function:
 
 ```js
 import { or } from '@sequelize/core';

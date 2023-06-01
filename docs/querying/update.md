@@ -12,7 +12,7 @@ In the examples below, we will use the `User` class, which is a Model.
 
 ## Updating a row using `Model#save`
 
-If you change the value of an instance's attribute, calling [`save`](pathname:///api/v7/classes/Model.html#save) again will update it accordingly.
+If you change the value of an instance's attribute, calling [`save`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#save) again will update it accordingly.
 
 `save()` will persist any other changes that have been made on this instance since it was retrieved, or last saved.
 
@@ -56,7 +56,7 @@ jane.role = [...jane.role, 'admin'];
 await jane.save();
 ```
 
-Alternatively, you can use [`Model#changed`](pathname:///api/v7/classes/Model.html#changed) to force `save` to consider it changed:
+Alternatively, you can use [`Model#changed`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#changed) to force `save` to consider it changed:
 
 ```ts
 const jane = await User.create({ name: "Jane", role: ['admin'] });
@@ -71,7 +71,7 @@ await jane.save();
 
 :::
 
-You can modify several fields at once with the [`set`](pathname:///api/v7/classes/Model.html#set) method:
+You can modify several fields at once with the [`set`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#set) method:
 
 ```ts
 const jane = await User.create({ name: "Jane" });
@@ -114,7 +114,7 @@ console.log(jane.favoriteColor); // "green"
 
 ## Updating a row using `Model#update`
 
-Models have an **instance method** called [`update`](pathname:///api/v7/classes/Model.html#update-1) that can be used as 
+Models have an **instance method** called [`update`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#update-1) that can be used as 
 an alternative way to update a single record in the database.
 
 Unlike [`save`](#using-modelsave), `update` only updates the fields that you specify.
@@ -131,7 +131,7 @@ await jane.save()
 
 ## Updating in bulk
 
-Sequelize also provides a **static Model method** called [`update`](pathname:///api/v7/classes/Model.html#update-1) to update multiple records at once:
+Sequelize also provides a **static Model method** called [`update`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#update-1) to update multiple records at once:
 
 ```ts
 // Change everyone without a last name to "Doe"
@@ -145,7 +145,7 @@ await User.update({ lastName: "Doe" }, {
 ## Incrementing and decrementing integer values
 
 In order to increment/decrement values of an instance without running into concurrency issues, 
-Sequelize provides the [`increment`](pathname:///api/v7/classes/Model.html#increment) and [`decrement`](pathname:///api/v7/classes/Model.html#decrement) instance methods.
+Sequelize provides the [`increment`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#increment) and [`decrement`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#decrement) instance methods.
 
 ```js
 const jane = await User.create({ name: "Jane", age: 100 });
@@ -177,7 +177,7 @@ Decrementing works in the exact same way.
 
 The same methods are also available as static methods on the model, which will update all instances that match the given criteria:
 
-- [`Model.increment`](pathname:///api/v7/classes/Model.html#increment-1)
-- [`Model.decrement`](pathname:///api/v7/classes/Model.html#decrement-1)
+- [`Model.increment`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#increment-1)
+- [`Model.decrement`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#decrement-1)
 
 :::

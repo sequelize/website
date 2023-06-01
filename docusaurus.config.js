@@ -169,6 +169,10 @@ const config = {
                 label: 'Changelog',
                 href: 'https://github.com/sequelize/sequelize/releases',
               },
+              {
+                label: 'Legal',
+                href: '/legal',
+              },
             ],
           },
           {

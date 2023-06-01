@@ -30,7 +30,7 @@ Unique constraints are created as unique indexes in the database. Read more abou
 There are two ways of defining foreign key constraints in Sequelize:
 
 - By [defining an association](../associations/basics.md) between two models (**recommended**).
-- Using the [`references`](pathname:///api/v7/interfaces/index.ForeignKeyOptions.html#references) option of the [`@Attribute`] decorator.
+- Using the [`references`](pathname:///api/v7/interfaces/_sequelize_core.index.ForeignKeyOptions.html#references) option of the [`@Attribute`] decorator.
 
 ## Check Constraints
 
@@ -84,7 +84,7 @@ We do not recommend using `sync` in production, as it can lead to data loss. See
 ## Validators
 
 Validators are JavaScript functions that are run before an instance is persisted or updated in the database. 
-You can also run validators manually using [`Model#validate`](pathname:///api/v7/classes/model.html#validate).
+You can also run validators manually using [`Model#validate`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#validate).
 
 ### Attribute validators
 
@@ -218,21 +218,21 @@ class User extends Model {
 }
 ```
 
-[`Model`]: pathname:///api/v7/classes/Model.html
-[`@Table`]: pathname:///api/v7/functions/decorators_legacy.Table.html
-[`@Attribute`]: pathname:///api/v7/functions/decorators_legacy.Attribute.html
-[`@NotNull`]: pathname:///api/v7/functions/decorators_legacy.NotNull.html
-[`@Default`]: pathname:///api/v7/functions/decorators_legacy.Default.html
-[`@PrimaryKey`]: pathname:///api/v7/functions/decorators_legacy.PrimaryKey.html
-[`@AutoIncrement`]: pathname:///api/v7/functions/decorators_legacy.AutoIncrement.html
-[`importModels`]: pathname:///api/v7/functions/importModels.html
+[`Model`]: pathname:///api/v7/classes/_sequelize_core.index.Model.html
+[`@Table`]: pathname:///api/v7/functions/_sequelize_core.decorators_legacy.Table.html
+[`@Attribute`]: pathname:///api/v7/functions/_sequelize_core.decorators_legacy.Attribute.html
+[`@NotNull`]: pathname:///api/v7/functions/_sequelize_core.decorators_legacy.NotNull.html
+[`@Default`]: pathname:///api/v7/functions/_sequelize_core.decorators_legacy.Default.html
+[`@PrimaryKey`]: pathname:///api/v7/functions/_sequelize_core.decorators_legacy.PrimaryKey.html
+[`@AutoIncrement`]: pathname:///api/v7/functions/_sequelize_core.decorators_legacy.AutoIncrement.html
+[`importModels`]: pathname:///api/v7/functions/_sequelize_core.index.importModels.html
 [`import`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
 [`require`]: https://nodejs.org/api/modules.html#requireid
-[`CreationOptional`]: pathname:///api/v7/types/CreationOptional.html
-[`fn`]: pathname:///api/v7/functions/fn-1.html
-[`literal`]: pathname:///api/v7/functions/literal-1.html
-[`Sequelize`]: pathname:///api/v7/classes/Sequelize.html
-[`ValidationError`]: pathname:///api/v7/classes/index.ValidationError.html
-[`QueryInterface#addConstraint`]: pathname:///api/v7/classes/index.AbstractQueryInterface.html#addConstraint
+[`CreationOptional`]: pathname:///api/v7/types/_sequelize_core.index.CreationOptional.html
+[`fn`]: pathname:///api/v7/variables/_sequelize_core.index.sql.fn.html
+[`literal`]: pathname:///api/v7/variables/_sequelize_core.index.sql.literal.html
+[`Sequelize`]: pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html
+[`ValidationError`]: pathname:///api/v7/classes/_sequelize_core.index.ValidationError.html
+[`QueryInterface#addConstraint`]: pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#addConstraint
 [`Model#validate`]: pathname:///api/v7/classes/index.Model.html#validate
-[`@ValidateAttribute`]: pathname:///api/v7/functions/decorators_legacy.ValidateAttribute.html
+[`@ValidateAttribute`]: pathname:///api/v7/functions/_sequelize_core.decorators_legacy.ValidateAttribute.html

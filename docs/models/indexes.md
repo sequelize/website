@@ -27,7 +27,7 @@ class User extends Model {
 ```
 
 The `@Index` decorator accepts an optional options bag as a parameter. 
-The list of available options is available in the [API documentation](pathname:///api/v7/interfaces/_sequelize_core.AttributeIndexOptions.html#attribute).
+The list of available options is available in the [API documentation](pathname:///api/v7/interfaces/_sequelize_core.index.AttributeIndexOptions.html#attribute).
 
 Here is an example of a single-column _gin_ index:
 

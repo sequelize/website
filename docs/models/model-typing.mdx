@@ -45,7 +45,7 @@ they will select all declared properties of the class, except for:
 - Those whose type uses the branded type [`NonAttribute`](pathname:///api/v7/index.html#NonAttribute).
 - Those excluded by using InferAttributes like this: `InferAttributes<User, { omit: 'properties' | 'to' | 'omit' }>`.
 - Those declared by the Model superclass (but not intermediary classes!).
-  If one of your attributes shares the same name as one of the properties of [`Model`](pathname:///api/v7/classes/Model.html), change its name.
+  If one of your attributes shares the same name as one of the properties of [`Model`](pathname:///api/v7/classes/_sequelize_core.index.Model.html), change its name.
   Doing this is likely to cause issues anyway.
 - Getter & setters are not automatically excluded. Set their return / parameter type to [`NonAttribute`](pathname:///api/v7/index.html#NonAttribute),
   or add them to `omit` to exclude them.

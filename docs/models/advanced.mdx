@@ -12,8 +12,8 @@ Many models instance methods, such as `update`, `save`, `destroy`, `reload`, `in
 
 :::
 
-By default, Sequelize automatically adds the primary key attribute `id` to every model when no primary key has been defined manually. 
-To prevent this you can set the [`noPrimaryKey`](pathname:///api/v7/interfaces/ModelOptions.html#noPrimaryKey) option to true when defining the model.
+By default, Sequelize automatically adds the primary key attribute `id` to every model when no primary key has been defined manually.
+To prevent this you can set the [`noPrimaryKey`](pathname:///api/v7/interfaces/_sequelize_core.index.ModelOptions.html#noPrimaryKey) option to true when defining the model.
 
 ```typescript
 @Table({ noPrimaryKey: true })
@@ -38,7 +38,7 @@ const sequelize = new Sequelize({
 When defining a model, the name of the model will, by default, be the name of your class.
 
 If you minify your code, the class name — and therefore its model name — may be changed by your minifier.
-This can be an issue, as many systems use your modelName, from [sequelize.models](pathname:///api/v7/classes/Sequelize.html#models)
+This can be an issue, as many systems use your modelName, from [sequelize.models](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#models)
 to [the name of the table associated to the model](./naming-strategies.mdx).
 
 The solution to prevent this issue is to explicitly set the `modelName` option:

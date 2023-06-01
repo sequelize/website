@@ -171,4 +171,4 @@ When using `DataTypes.ENUM`, Sequelize will automatically create the enum type i
 If you need to create a custom type, you will need to create it manually in the database before you can use it in one of your models.
 
 [^caveat-1]: `parseDatabaseValue` is only called if a Sequelize Data Type is specified in the query. 
-This is the case when using model methods, but not when using [raw queries](../querying/raw-queries.md) or when not specifying the model in [`QueryInterface`](pathname:///api/v7/classes/QueryInterface.html) methods
+This is the case when using model methods, but not when using [raw queries](../querying/raw-queries.md) or when not specifying the model in [`QueryInterface`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html) methods

@@ -38,7 +38,7 @@ You don't need to decorate them, as they're automatically configured by Sequeliz
 
 ## Disabling Auto-Timestamp Attributes
 
-All auto-generated timestamp attributes can be removed from your model by setting the [`timestamps`](pathname:///api/v7/interfaces/ModelOptions.html#timestamps) option to `false`:
+All auto-generated timestamp attributes can be removed from your model by setting the [`timestamps`](pathname:///api/v7/interfaces/_sequelize_core.index.ModelOptions.html#timestamps) option to `false`:
 
 ```ts
 // highlight-next-line
@@ -61,7 +61,7 @@ const sequelize = new Sequelize({
 ```
 
 It is also possible to disable only some auto-generated timestamp attributes
-by setting the [`createdAt`](pathname:///api/v7/interfaces/ModelOptions.html#createdAt) or [`updatedAt`](pathname:///api/v7/interfaces/ModelOptions.html#updatedAt) option to false:
+by setting the [`createdAt`](pathname:///api/v7/interfaces/_sequelize_core.index.ModelOptions.html#createdAt) or [`updatedAt`](pathname:///api/v7/interfaces/_sequelize_core.index.ModelOptions.html#updatedAt) option to false:
 
 ```js
 @Table({
@@ -134,7 +134,7 @@ class User extends Model {}
 
 ### Changing the Column Name
 
-Changing the Column Name is done by using the `@ColumnName` decorator on the timestamp attribute.  
+Changing the Column Name is done by using the `@ColumnName` decorator on the timestamp attribute.
 If `@ColumnName` is not used, the Column Name will be automatically inferred from the Attribute Name.
 
 Read more on this in [the Naming Strategies API](./naming-strategies.mdx) documentation.

@@ -12,7 +12,7 @@ In the examples below, we will use the `User` class, which is a Model.
 
 ## Deleting a single row
 
-You can delete an instance by calling the [`destroy`](pathname:///api/v7/classes/Model.html#destroy) instance method on your model:
+You can delete an instance by calling the [`destroy`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#destroy) instance method on your model:
 
 ```js
 const jane = await User.create({ name: "Jane" });
@@ -48,7 +48,7 @@ await sequelize.destroyAll();
 
 ## Truncating
 
-Models also expose a [`truncate`](pathname:///api/v7/classes/Model.html#truncate) method that will delete all rows in a table.
+Models also expose a [`truncate`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#truncate) method that will delete all rows in a table.
 
 ```js
 // Truncate the table

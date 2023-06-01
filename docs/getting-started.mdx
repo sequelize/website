@@ -86,11 +86,11 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 ```
 
 The Sequelize constructor accepts a lot of options.
-They are documented in the [API Reference](pathname:///api/v7/classes/Sequelize.html#constructor).
+They are documented in the [API Reference](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#constructor).
 
 ### Testing the connection
 
-You can use the `.authenticate()` function to test if the connection is OK.  
+You can use the `.authenticate()` function to test if the connection is OK.
 Note that this is completely optional, but recommended as Sequelize fetches your Database version on the first connection.
 That version is then used to determine which SQL features are available.
 
@@ -105,8 +105,8 @@ try {
 
 ### Closing the connection
 
-Sequelize uses a connection pool to manage connections to the database. This means some connection can remain open even after you're done with them.  
-If you wish to gracefully shut down your application, you can use [`sequelize.close()`](pathname:///api/v7/classes/Sequelize.html#close) to close all active connections.
+Sequelize uses a connection pool to manage connections to the database. This means some connection can remain open even after you're done with them.
+If you wish to gracefully shut down your application, you can use [`sequelize.close()`](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#close) to close all active connections.
 
 :::caution
 
@@ -123,13 +123,13 @@ This is the recommended convention and it will be followed throughout the docume
 
 Sequelize provides built-in TypeScript support.
 
-Head to [The Version Policy page](/releases) to know which versions of TypeScript are supported, 
+Head to [The Version Policy page](/releases) to know which versions of TypeScript are supported,
 and make sure that the [`@types/node`](https://www.npmjs.com/package/@types/node) package corresponding to your Node.js version is installed
 in your project.
 
 ## CommonJS or ESM?
 
-Our documentation makes heavy use of ECMAScript Modules (ESM), but CommonJS is fully supported by Sequelize. 
+Our documentation makes heavy use of ECMAScript Modules (ESM), but CommonJS is fully supported by Sequelize.
 To use Sequelize in a CommonJS project, simply use `require` instead of `import`:
 
 ```js
@@ -141,7 +141,7 @@ const { Sequelize, Op, Model, DataTypes } = require('@sequelize/core');
 ```
 
 Most of the methods provided by Sequelize are asynchronous and therefore return [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
-we highly recommend using **ECMAScript Modules**, as they give you access to [Top-Level Await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await), which we use extensively in our examples. 
+we highly recommend using **ECMAScript Modules**, as they give you access to [Top-Level Await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await), which we use extensively in our examples.
 Head to [Node.js' documentation](https://nodejs.org/api/esm.html) to learn how to use them in Node.js.
 
 ## Logging

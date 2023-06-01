@@ -14,7 +14,7 @@ In the examples below, we will use the `User` class, which is a Model.
 
 ## Inserting a single entity
 
-The simplest way to create a new record is to use the [`create`](pathname:///api/v7/classes/Model.html#create) method of your model:
+The simplest way to create a new record is to use the [`create`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#create) method of your model:
 
 ```ts
 // Create a new user
@@ -23,9 +23,9 @@ const jane = await User.create({ firstName: "Jane", lastName: "Doe" });
 console.log("Jane's auto-generated ID:", jane.id);
 ```
 
-The [`Model.create()`](pathname:///api/v7/classes/Model.html#create) method is a shorthand
-for building an unsaved instance with [`Model.build()`](pathname:///api/v7/classes/Model.html#build) then
-saving the instance with [`instance.save()`](pathname:///api/v7/classes/Model.html#save). You can do the individual steps yourself if you need more control:
+The [`Model.create()`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#create) method is a shorthand
+for building an unsaved instance with [`Model.build()`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#build) then
+saving the instance with [`instance.save()`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#save). You can do the individual steps yourself if you need more control:
 
 ```ts
 const jane = User.build({ firstName: "Jane", lastName: "Doe" });
@@ -42,7 +42,7 @@ Note, from the usage of `await` in the snippet above, that `save` is an asynchro
 
 ## `findOrCreate`
 
-The method [`findOrCreate`](pathname:///api/v7/classes/Model.html#findOrCreate) will create an entry in the table unless it can find one fulfilling the query options. In both cases, it will return an instance (either the found instance or the created instance) and a boolean indicating whether that instance was created or already existed.
+The method [`findOrCreate`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findOrCreate) will create an entry in the table unless it can find one fulfilling the query options. In both cases, it will return an instance (either the found instance or the created instance) and a boolean indicating whether that instance was created or already existed.
 
 The `where` option is considered for finding the entry, and the `defaults` option is used to define what must be created in case nothing was found. If the `defaults` do not contain values for every column, Sequelize will take the values given to `where` (if present).
 
@@ -66,10 +66,10 @@ if (created) {
 
 :::caution
 
-[`findOrCreate`](pathname:///api/v7/classes/Model.html#findOrCreate) wraps its operations in a transaction (or a savepoint if a transaction is already in progress).  
-You may want to use [`findCreateFind`](pathname:///api/v7/classes/Model.html#findCreateFind) instead if you want to avoid this. 
+[`findOrCreate`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findOrCreate) wraps its operations in a transaction (or a savepoint if a transaction is already in progress).  
+You may want to use [`findCreateFind`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findCreateFind) instead if you want to avoid this. 
 
-[`findOrBuild`](pathname:///api/v7/classes/Model.html#findOrBuild) is also available if you want to avoid saving the new instance.
+[`findOrBuild`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findOrBuild) is also available if you want to avoid saving the new instance.
 
 :::
 

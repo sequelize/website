@@ -50,7 +50,7 @@ console.log(User.table.tableName);
 By default, Sequelize does not change the casing of your model name when inferring the table name.
 
 In some databases, it is conventional to have table names in [snake_case](https://en.wikipedia.org/wiki/Snake_case).
-You can make Sequelize generate a snake_cased table name by setting the [`underscored`](pathname:///api/interfaces/ModelOptions.html#underscored) option.
+You can make Sequelize generate a snake_cased table name by setting the [`underscored`](pathname:///api/v7/interfaces/_sequelize_core.index.ModelOptions.html#underscored) option.
 
 :::info
 
@@ -97,7 +97,7 @@ console.log(User.table.tableName);
 
 ### Enforcing the table name to be equal to the model name
 
-You can stop the auto-pluralization performed by Sequelize using the [`freezeTableName: true`](pathname:///api/interfaces/ModelOptions.html#freezeTableName) option.
+You can stop the auto-pluralization performed by Sequelize using the [`freezeTableName: true`](pathname:///api/v7/interfaces/_sequelize_core.index.ModelOptions.html#freezeTableName) option.
 Sequelize will use the model name as the table name, without any modifications.
 
 Note that setting `freezeTableName` also causes Sequelize to ignore the `underscored` option for table names.

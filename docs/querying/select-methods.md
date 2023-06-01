@@ -8,7 +8,7 @@ Finder methods are the ones that generate `SELECT` queries. All of the following
 
 ## `findAll`
 
-The [`findAll`](pathname:///api/v7/classes/Model.html#findAll) method is the most basic finder method. 
+The [`findAll`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAll) method is the most basic finder method. 
 It returns all the records in the database that match the query.
 
 It generates a standard `SELECT` query which will retrieve all entries from the table (unless restricted by something like a `where` clause, for example).
@@ -31,7 +31,7 @@ This method accepts many options, which are described in detail in [the second p
 
 ## `findOne`
 
-The [`findOne`](pathname:///api/v7/classes/Model.html#findAll) method obtains the first entry it finds (that fulfills the optional query options, if provided).  
+The [`findOne`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAll) method obtains the first entry it finds (that fulfills the optional query options, if provided).  
 It is equivalent to using `limit: 1` in a [`findAll`](#findall) query.
 
 ```js
@@ -61,7 +61,7 @@ const project = await Project.findOne({
 
 ## `findByPk`
 
-The [`findByPk`](pathname:///api/v7/classes/Model.html#findByPk) method obtains only a single entry from the table, using the provided primary key.
+The [`findByPk`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findByPk) method obtains only a single entry from the table, using the provided primary key.
 
 ```js
 const project = await Project.findByPk(123);
@@ -75,7 +75,7 @@ if (project === null) {
 
 ## `findAndCountAll`
 
-The [`findAndCountAll`](pathname:///api/v7/classes/Model.html#findAndCountAll)  method is a convenience method that combines `findAll` and `count`. This is useful when dealing with queries related to pagination where you want to retrieve data with a `limit` and `offset` but also need to know the total number of records that match the query.
+The [`findAndCountAll`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAndCountAll)  method is a convenience method that combines `findAll` and `count`. This is useful when dealing with queries related to pagination where you want to retrieve data with a `limit` and `offset` but also need to know the total number of records that match the query.
 
 ### Interactions with the `group` option
 
@@ -126,7 +126,7 @@ Sequelize also provides a few utility methods.
 
 ### `count`
 
-The [`count`](pathname:///api/v7/classes/Model.html#count) method simply counts the occurrences of elements in the database.
+The [`count`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#count) method simply counts the occurrences of elements in the database.
 
 ```js
 console.log(`There are ${await Project.count()} projects`);
@@ -143,7 +143,7 @@ console.log(`There are ${amount} projects with an id greater than 25`);
 
 ### `max`, `min` and `sum`
 
-Sequelize also provides the [`max`](pathname:///api/v7/classes/Model.html#max), [`min`](pathname:///api/v7/classes/Model.html#min), and [`sum`](pathname:///api/v7/classes/Model.html#sum) convenience methods.
+Sequelize also provides the [`max`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#max), [`min`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#min), and [`sum`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#sum) convenience methods.
 
 Let's assume we have three users, whose ages are 10, 5, and 40.
 
@@ -158,7 +158,7 @@ await User.sum('age', { where: { age: { [Op.gt]: 5 } } }); // 50
 
 ## Reloading an instance
 
-You can reload an instance from the database by calling the [`reload`](pathname:///api/v7/classes/Model.html#reload) **instance** method:
+You can reload an instance from the database by calling the [`reload`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#reload) **instance** method:
 
 ```js
 const jane = await User.create({ name: "Jane" });
@@ -176,4 +176,4 @@ The reload call generates a `SELECT` query to get the up-to-date data from the d
 By default, the results of all finder methods are instances of the model class (as opposed to being just plain JavaScript objects).
 This means that after the database returns the results, Sequelize automatically wraps everything in proper instance objects.
 In a few cases, when there are too many results, this wrapping can be inefficient.
-To disable this wrapping and receive a plain response instead, pass [`{ raw: true }`](pathname:///api/v7/interfaces/FindOptions.html#raw) as an option to the finder method.
+To disable this wrapping and receive a plain response instead, pass [`{ raw: true }`](pathname:///api/v7/interfaces/_sequelize_core.index.FindOptions.html#raw) as an option to the finder method.

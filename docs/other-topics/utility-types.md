@@ -49,11 +49,11 @@ They will return the Attributes (and Creation Attributes) of the Model passed as
 Don't confuse them with [`InferAttributes`](pathname:///api/v7/index.html#InferAttributes)
 and [`InferCreationAttributes`](pathname:///api/v7/index.html#InferCreationAttributes). These two utility types should only ever be used
 in the definition of a Model to automatically create the list of attributes from the model's public class fields. They only work
-with class-based model definitions (When using [`Model.init`](pathname:///api/v7/classes/Model.html#init)).
+with class-based model definitions (When using [`Model.init`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#init)).
 
 [`Attributes<Model>`](pathname:///api/v7/index.html#Attributes) and [`CreationAttributes<Model>`](pathname:///api/v7/index.html#CreationAttributes)
-will return the list of attributes of any model, no matter how they were created (be it [`Model.init`](pathname:///api/v7/classes/Model.html#init)
-or [`Sequelize#define`](pathname:///api/v7/classes/Sequelize.html#define)).
+will return the list of attributes of any model, no matter how they were created (be it [`Model.init`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#init)
+or [`Sequelize#define`](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#define)).
 
 Here is an example of a utility function that requests a Model Class, and the name of an attribute ; and returns the corresponding attribute metadata.
 

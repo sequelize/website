@@ -22,6 +22,6 @@ Learn more about Attributes in [Defining a Model](./models/defining-models.mdx)
 
 ## Associations & Relationships
 
-An association is the JavaScript representation of a [Table Relationship](https://en.wikipedia.org/wiki/Database_relationship).
+An association is the JavaScript representation of a [Table Relationship](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model).
 
-See [Associations](docs/associations/basics.md) for more information.
+See [Associations](./associations/basics.md) for more information.

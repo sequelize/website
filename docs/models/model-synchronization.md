@@ -6,7 +6,7 @@ sidebar_position: 11
 
 When you define a model, you're telling Sequelize a few things about its table in the database. However, what if the table actually doesn't even exist in the database? What if it exists, but it has different columns, less columns, or any other difference?
 
-This is where model synchronization comes in. A model can be synchronized with the database by calling [`model.sync(options)`](pathname:///api/v7/classes/Model.html#sync),
+This is where model synchronization comes in. A model can be synchronized with the database by calling [`model.sync(options)`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#sync),
 an asynchronous function (that returns a Promise). With this call, Sequelize will automatically perform an SQL query to the database.
 Note that this only changes the table in the database, not the model on the JavaScript side.
 
@@ -30,7 +30,7 @@ console.log('The table for the User model was just (re)created!');
 
 ## Synchronizing all models at once
 
-You can use [`sequelize.sync()`](pathname:///api/v7/classes/Sequelize.html#sync) to automatically synchronize all models. Example:
+You can use [`sequelize.sync()`](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#sync) to automatically synchronize all models. Example:
 
 ```js
 await sequelize.sync({ force: true });

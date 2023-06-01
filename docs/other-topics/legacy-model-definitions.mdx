@@ -15,10 +15,10 @@ as this legacy API can easily make your models complex if you need to declare an
 
 There are two legacy ways of defining models:
 
-* Extending [Model](pathname:///api/v7/classes/Model.html), and calling its [`init(attributes, options)`](pathname:///api/v7/classes/Model.html#init) static method
-* Calling [`sequelize.define(modelName, attributes, options)`](pathname:///api/v7/classes/Sequelize.html#define)
+* Extending [Model](pathname:///api/v7/classes/_sequelize_core.index.Model.html), and calling its [`init(attributes, options)`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#init) static method
+* Calling [`sequelize.define(modelName, attributes, options)`](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#define)
 
-## Extending [Model](pathname:///api/v7/classes/Model.html)
+## Extending [Model](pathname:///api/v7/classes/_sequelize_core.index.Model.html)
 
 <Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
@@ -89,7 +89,7 @@ console.log(User === sequelize.models.User); // true
 </TabItem>
 </Tabs>
 
-## Using [`sequelize.define`](pathname:///api/v7/classes/Sequelize.html#define)
+## Using [`sequelize.define`](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#define)
 
 Internally, `sequelize.define` calls `Model.init`, so both approaches are equivalent.
 
@@ -186,7 +186,7 @@ import modelInitNoAttributesExample from '!!raw-loader!@site/.sequelize/v7/packa
 
 ### Usage of `Sequelize#define`
 
-In Sequelize versions before v5, the default way of defining a model involved using [`Sequelize#define`](pathname:///api/v7/classes/Sequelize.html#define).
+In Sequelize versions before v5, the default way of defining a model involved using [`Sequelize#define`](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#define).
 It's still possible to define models with that, and you can also add typings to these models using interfaces.
 
 import defineExample from '!!raw-loader!@site/.sequelize/v7/packages/core/test/types/typescript-docs/define.ts';

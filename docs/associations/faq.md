@@ -47,7 +47,7 @@ Sequelize will generate foreign keys automatically, but you can customize how. T
 can be set to a string to specify the name of the foreign key, or to an object to specify the name of the foreign key and other options.
 
 When set to an object, the `foreignKey` option accepts all options that regular attributes accept, including `allowNull` and `defaultValue`.  
-See the [API reference](pathname:///api/v7/interfaces/_sequelize_core.ForeignKeyOptions.html).
+See the [API reference](pathname:///api/v7/interfaces/_sequelize_core.index.ForeignKeyOptions.html).
 
 ```ts
 class Person extends Model {
