@@ -710,6 +710,6 @@ Sequelize also provides the `increment` convenience method.
 Let's assume we have a user, whose age is 10.
 
 ```js
-await User.increment({age: 5}, { where: { id: 1 } }) // Will increase age to 15
+await User.increment({age: 5}, { where: { id: 1 } }) // Will increase age to 5
 await User.increment({age: -5}, { where: { id: 1 } }) // Will decrease age to 5
 ```
