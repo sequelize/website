@@ -32,7 +32,7 @@ A curated list of awesome projects surrounding Sequelize.
 * [sequelizemm](https://github.com/hasinoorit/sequelizemm) - CLI tool to generate a migration script from models
 
 ## Miscellaneous
- 
+
 * [sequelize-pg-utilities](https://github.com/davesag/sequelize-pg-utilities) - Opinionated set of database utilities.
 * [sequelize-test-helpers](https://github.com/davesag/sequelize-test-helpers) - A collection of utilities to help with unit-testing Sequelize models and code that needs those models.
 * [Sequelize-fixtures](https://github.com/domasx2/sequelize-fixtures) - Simple lib to load data to database using sequelize.
@@ -44,6 +44,7 @@ A curated list of awesome projects surrounding Sequelize.
 * [sequelize-tokenify](https://github.com/pipll/sequelize-tokenify) - Add unique tokens to sequelize models
 * [sqlcommenter-sequelize](https://github.com/google/sqlcommenter/tree/master/nodejs/sqlcommenter-nodejs/packages/sqlcommenter-sequelize) A [sqlcommenter](https://google.github.io/sqlcommenter/) plugin with [support for Sequelize](https://google.github.io/sqlcommenter/node/sequelize/) to augment SQL statements with comments that can be used later to correlate application code with SQL statements.
 * [@rematter/sequelize-paranoid-delete](https://www.npmjs.com/package/@rematter/sequelize-paranoid-delete) - Enables onDelete when using paranoid mode.
+* [@hatchifyjs/sequelize-create-with-associations](https://github.com/bitovi/sequelize-create-with-associations) - Update or create with less code
 
 ## Outdated
 
