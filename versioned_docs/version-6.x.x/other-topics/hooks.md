@@ -227,6 +227,12 @@ sequelize.beforeConnect(async (config) => {
   config.password = await getAuthToken();
 });
 ```
+You can also use two hooks that are executed immediately before and after a pool connection is acquired:
+
+* `sequelize.beforePoolAcquire(callback)`
+  * The callback has the form `async (config) => /* ... */`
+* `sequelize.afterPoolAcquire(callback)`
+  * The callback has the form `async (connection, config) => /* ... */`
 
 These hooks may *only* be declared as a permanent global hook, as the connection pool is shared by all models.
 
