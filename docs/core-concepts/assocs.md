@@ -432,12 +432,12 @@ By using simply `Ship.belongsTo(Captain)`, sequelize will generate the foreign k
 Ship.belongsTo(Captain); // This creates the `captainId` foreign key in Ship.
 
 // Eager Loading is done by passing the model to `include`:
-console.log((await Ship.findAll({ include: Captain })).toJSON());
+console.log((await Ship.findAll({ include: Captain })));
 // Or by providing the associated model name:
-console.log((await Ship.findAll({ include: 'captain' })).toJSON());
+console.log((await Ship.findAll({ include: 'captain' })));
 
 // Also, instances obtain a `getCaptain()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getCaptain()).toJSON());
 ```
 
@@ -449,12 +449,12 @@ The foreign key name can be provided directly with an option in the association 
 Ship.belongsTo(Captain, { foreignKey: 'bossId' }); // This creates the `bossId` foreign key in Ship.
 
 // Eager Loading is done by passing the model to `include`:
-console.log((await Ship.findAll({ include: Captain })).toJSON());
+console.log((await Ship.findAll({ include: Captain })));
 // Or by providing the associated model name:
-console.log((await Ship.findAll({ include: 'Captain' })).toJSON());
+console.log((await Ship.findAll({ include: 'Captain' })));
 
 // Also, instances obtain a `getCaptain()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getCaptain()).toJSON());
 ```
 
@@ -468,19 +468,19 @@ Defining an Alias is more powerful than simply specifying a custom name for the 
 Ship.belongsTo(Captain, { as: 'leader' }); // This creates the `leaderId` foreign key in Ship.
 
 // Eager Loading no longer works by passing the model to `include`:
-console.log((await Ship.findAll({ include: Captain })).toJSON()); // Throws an error
+console.log((await Ship.findAll({ include: Captain }))); // Throws an error
 // Instead, you have to pass the alias:
-console.log((await Ship.findAll({ include: 'leader' })).toJSON());
+console.log((await Ship.findAll({ include: 'leader' })));
 // Or you can pass an object specifying the model and alias:
 console.log((await Ship.findAll({
   include: {
     model: Captain,
     as: 'leader'
   }
-})).toJSON());
+})));
 
 // Also, instances obtain a `getLeader()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getLeader()).toJSON());
 ```
 
@@ -496,19 +496,19 @@ We can define and alias and also directly define the foreign key:
 Ship.belongsTo(Captain, { as: 'leader', foreignKey: 'bossId' }); // This creates the `bossId` foreign key in Ship.
 
 // Since an alias was defined, eager Loading doesn't work by simply passing the model to `include`:
-console.log((await Ship.findAll({ include: Captain })).toJSON()); // Throws an error
+console.log((await Ship.findAll({ include: Captain }))); // Throws an error
 // Instead, you have to pass the alias:
-console.log((await Ship.findAll({ include: 'leader' })).toJSON());
+console.log((await Ship.findAll({ include: 'leader' })));
 // Or you can pass an object specifying the model and alias:
 console.log((await Ship.findAll({
   include: {
     model: Captain,
     as: 'leader'
   }
-})).toJSON());
+})));
 
 // Also, instances obtain a `getLeader()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getLeader()).toJSON());
 ```
 
@@ -617,7 +617,7 @@ The same ones from `Foo.hasMany(Bar)`:
 For belongsToMany relationships, by default `getBars()` will return all fields from the join table. Note that any `include` options will apply to the target `Bar` object, so trying to set options for the join table as you would when eager loading with `find` methods is not possible. To choose what attributes of the join table to include, `getBars()` supports a `joinTableAttributes` option that can be used similarly to setting `through.attributes` in an `include`. As an example, given Foo belongsToMany Bar, the following will both output results without join table fields:
 
 ```js
-const foo = Foo.findByPk(id, {
+const foo = await Foo.findByPk(id, {
   include: [{
     model: Bar,
     through: { attributes: [] }
@@ -625,7 +625,7 @@ const foo = Foo.findByPk(id, {
 })
 console.log(foo.bars)
 
-const foo = Foo.findByPk(id)
+const foo = await Foo.findByPk(id)
 console.log(foo.getBars({ joinTableAttributes: [] }))
 ```
 
