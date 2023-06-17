@@ -88,7 +88,7 @@ const captains = await Captain.bulkCreate([
 console.log(captains.length); // 2
 console.log(captains[0] instanceof Captain); // true
 console.log(captains[0].name); // 'Jack Sparrow'
-console.log(captains[0].id); // 1 // (or another auto-generated value)
+console.log(captains[0].id); // 1 (or another auto-generated value)
 ```
 
 If you are accepting values directly from the user, it might be beneficial to limit the columns that you want to actually insert. 

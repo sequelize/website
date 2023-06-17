@@ -240,7 +240,7 @@ This option is available in all ways of defining indexes.
 
 ### Shorthand Syntax
 
-If all you need is for the attribute(s) to be unique, and don't actually care about the other index options, you can use the `@Index` decorator as a shorthand for the `unique` option:
+If all you need is for the attribute(s) to be unique, and don't actually care about the other index options, you can use the `@Unique` decorator as a shorthand for the `unique` option:
 
 ```ts
 import { Model, DataTypes } from '@sequelize/core';

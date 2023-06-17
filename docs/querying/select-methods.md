@@ -31,7 +31,7 @@ This method accepts many options, which are described in detail in [the second p
 
 ## `findOne`
 
-The [`findOne`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAll) method obtains the first entry it finds (that fulfills the optional query options, if provided).  
+The [`findOne`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findOne) method obtains the first entry it finds (that fulfills the optional query options, if provided).  
 It is equivalent to using `limit: 1` in a [`findAll`](#findall) query.
 
 ```js

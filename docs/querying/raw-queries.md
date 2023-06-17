@@ -431,7 +431,7 @@ User.findAll({
 
 #### Use the JSON Extraction syntax
 
-You can use the JSON extraction syntax to access JSON properties, just like in [POJO attributes](./select-in-depth.md#json-extraction)
+You can use the [JSON extraction syntax](./json.mdx) to access JSON properties, just like in POJO attributes
 
 ```ts
 User.findAll({
@@ -529,7 +529,7 @@ If a number is used, it will be treated as an index (used to access an array ele
 
 Make sure to use the correct type for your use case, as using the string `'0'` will try to access the property named `'0'` instead of the first element of the array.
 
-Read more about this feature in the [JSON Extraction](./select-in-depth.md#json-extraction) chapter.
+Read more about this feature in the [JSON Extraction](./json.mdx) chapter.
 
 :::info
 
@@ -555,26 +555,26 @@ SELECT data#>>ARRAY['addresses', '0', 'country'] AS country FROM users
 SELECT JSON_UNQUOTE(JSON_EXTRACT(data, '$.addresses[0].country')) AS country FROM users
 ```
 
-Read more about this feature in the [JSON Extraction](./select-in-depth.md#json-extraction) chapter.
+Read more about this feature in the [JSON Extraction](./json.mdx) chapter.
 
 ### `sql.fn`
 
 This function exists for backwards compatibility with older versions of Sequelize but is not recommended for new code, as `sql` can be used to write
 SQL functions in a more natural way.
 
-For instance, the old way of writing a `lower` function would be:
+For instance, the old way of writing a `lower` function was:
 
 ```ts
 sql.fn('LOWER', sql.attribute('name'));
 ```
 
-And can now be written as:
+Which can now be written as:
 
 ```ts
 sql`LOWER(${sql.attribute('name')})`;
 ```
 
-Both result in
+Both result in:
 
 ```sql
 LOWER("name")

@@ -10,7 +10,7 @@ import { SupportTable } from '@site/src/components/support-table';
 
 Sequelize provides a large number of operators to help you build complex queries. They are available in the `Op` object, which can be imported from `@sequelize/core`.
 
-They can be used in two ways: Either using `sql.where`, or as a key in where POJOs:
+They can be used in two ways; either using `sql.where`, or as a key in where POJOs:
 
 ```ts
 import { Op } from '@sequelize/core';
@@ -593,7 +593,7 @@ Both operands of the `Op.contains` and `Op.contained` operators must be arrays.
 
 :::
 
-### Array Overlaps Operator
+### Array Overlap Operator
 
 The `Op.overlap` operator can be used to check whether two [arrays] have at least one value in common:
 
@@ -676,9 +676,9 @@ SELECT * FROM "posts" WHERE "publishedAt" <@ '[2019-01-01, 2023-01-01)';
 </TabItem>
 </Tabs>
 
-### Range Overlaps Operator
+### Range Overlap Operator
 
-The `Op.overlaps` operator determines whether two [ranges] have at least one value in common.
+The `Op.overlap` operator determines whether two [ranges] have at least one value in common.
 
 ```ts
 Post.findAll({
@@ -715,7 +715,7 @@ These operators can be used to check where the values of a [range] are located r
 <Tabs>
 <TabItem value="Op.strictLeft">
 
-The `Op.noExtendRight` operator check whether all values of the left range are __less than__
+The `Op.strictLeft` operator check whether all values of the left range are __less than__
 any value of the other range.
 
 ```ts
@@ -733,7 +733,7 @@ SELECT * FROM "events" WHERE "occursDuring" << '[2019-01-01, 2023-01-01)';
 </TabItem>
 <TabItem value="Op.strictRight">
 
-The `Op.noExtendRight` operator check whether all values of the left range are __greather than__
+The `Op.strictRight` operator check whether all values of the left range are __greather than__
 any value of the other range.
 
 ```ts
@@ -769,7 +769,7 @@ SELECT * FROM "events" WHERE "occursDuring" &< '[2019-01-01, 2023-01-01)';
 </TabItem>
 <TabItem value="Op.noExtendLeft">
 
-The `Op.noExtendRight` operator check whether all values of the left range are __greater than or equal to__
+The `Op.noExtendLeft` operator check whether all values of the left range are __greater than or equal to__
 any value of the other range.
 
 ```ts

@@ -3,12 +3,12 @@ sidebar_position: 6
 title: Validations & Constraints
 ---
 
-[Validations](#validators) are checks performed by Sequelize, **in pure JavaScript**.  
+[__Validations__](#validators) are checks performed by Sequelize, **in pure JavaScript**.  
 They can be arbitrarily complex if you provide a custom validator function, 
 or can be one of the [built-in validators](#attribute-validators) offered by Sequelize.  
 If validation fails, no SQL query will be sent to the database at all.
 
-[Constraints](#constraints) are rules defined **at the SQL level** and are enforced by the Database.  
+__Constraints__ are rules defined **at the SQL level** and are enforced by the Database.  
 Common examples are `UNIQUE`. `NOT NULL` and foreign key constraints.
 
 ## Not Null Constraints

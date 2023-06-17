@@ -48,7 +48,7 @@ You also have the option to exclude attributes from the result set:
 
 ```js
 User.findAll({
-  // "password" is attributes of the "User" model
+  // "password" is an attribute of the "User" model
   attributes: { exclude: ['password'] },
 });
 ```
@@ -73,7 +73,7 @@ User.findAll({
 });
 ```
 
-You can use [SQL Literals](./raw-queries.md#literals--raw-sql-) to select any SQL expression instead of a column.
+You can use [SQL Literals](./raw-queries.md) to select any SQL expression instead of a column.
 When using SQL expressions like in the above example, you must give it an alias to be able to access it from the model.
 In the above example, the alias is `age`.
 
@@ -84,8 +84,9 @@ instances of the model class.
 
 If these attributes are part of your model, you could declare them as optional attributes on your model.
 
-If they are not part of your model, 
-One way to type these attributes is to use the `raw` option, which will return a plain object instead of an instance of the model class:
+If they are not part of your model;
+one way to type these attributes is to use the `raw` option, 
+which will return a plain object instead of an instance of the model class:
 
 ```ts
 import { sql } from '@sequelize/core';
@@ -124,64 +125,6 @@ Post.findAll({
 SELECT * FROM posts WHERE "authorId" = 2;
 ```
 
-You can specify multiple attributes in the `where` object, and they will be joined by an `AND` operator:
-
-```js
-Post.findAll({
-  where: {
-    authorId: 2,
-    status: 'active',
-  },
-});
-```
-
-```sql
-SELECT * FROM posts WHERE "authorId" = 2 AND "status" = 'active';
-```
-
-If you need to specify an `OR` condition, you can use the [Op.or](./operators.mdx#logical-combinations-or-and-not) operator or the [`or`](pathname:///api/v7/functions/_sequelize_core.index.or.html) function:
-
-```js
-import { or } from '@sequelize/core';
-
-Post.findAll({
-  where: or({
-    authorId: 2,
-    status: 'active',
-  }),
-});
-```
-
-```sql
-SELECT * FROM posts WHERE "authorId" = 2 OR "status" = 'active';
-```
-
-Of course, you can also nest and mix these operators:
-
-```js
-import { or, and } from '@sequelize/core';
-
-Post.findAll({
-  where: and(
-    {
-      authorId: 2,
-      status: 'active',
-    },
-    or(
-      { title: 'foo' },
-      { title: 'bar' },
-    ),
-  ),
-});
-```
-
-```sql
-SELECT * FROM posts 
-WHERE "authorId" = 2 
-  AND "status" = 'active' 
-  AND ("title" = 'foo' OR "title" = 'bar');
-```
-
 ### Operators
 
 Sequelize supports many operators, which can be used to create more complex queries. Here is a short example:
@@ -206,6 +149,29 @@ SELECT * FROM posts WHERE "views" > 100 AND "views" <= 500;
 ```
 
 You can find the complete list of operators, and more, in the [Operators guide](./operators.mdx).
+
+
+### Logical Combinations
+
+You can use `Op.and`, `Op.or`, and `Op.not` to create more complex conditions.
+Read about them in the [chapter about logical combinations](./operators.mdx#logical-combinations):
+
+```ts
+import { Op } from '@sequelize/core';
+
+Post.findAll({
+  where: {
+    [Op.or]: {
+      authorId: 12,
+      status: 'active',
+    },
+  },
+});
+```
+
+```sql
+SELECT * FROM "posts" WHERE "authorId" = 12 OR "status" = 'active';
+```
 
 ### Casting
 
@@ -470,8 +436,8 @@ ibmi: 'https://www.ibm.com/docs/en/i/7.4?topic=table-right-outer-join',
 
 In preceding sections, we have seen how to load associated models using either a `LEFT OUTER JOIN` or an `INNER JOIN`.
 
-Some dialects also support `RIGHT OUTER JOIN`, which sequelize supports by setting the `right` option to `true`.
-This option is incompatible with the [`required` option](#required-eager-loading--inner-join).
+Some dialects also support `RIGHT OUTER JOIN`, which Sequelize supports by setting the `right` option to `true`.
+This option is incompatible with the [`required` option](#required-eager-loading-inner-join).
 
 ```ts
 const posts = await Post.findAll({

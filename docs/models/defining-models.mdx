@@ -109,7 +109,7 @@ You can also load all your models dynamically by using [`importModels`]. Note th
 and uses [`import`] (esm), not [`require`] (commonjs):
 
 ```ts
-import { Sequelize } from '@sequelize/core';
+import { Sequelize, importModels } from '@sequelize/core';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 
