@@ -32,7 +32,7 @@ await sequelize.authenticate();
 Sequelize v7 only supports the versions of Node.js, and databases that were not EOL at the time of release.[^issue-1]  
 Sequelize v7 also supports versions of TypeScript that were released in the past year prior to the time of release.
 
-This means Sequelize v7 supports **Node ^14.17.0 || >=16.0.0**, and **TypeScript >= 4.5**.
+This means Sequelize v7 supports **>=16.0.0**, and **TypeScript >= 4.7**.
 
 Head to our [Versioning Policy page](/releases) to see exactly which databases are supported by Sequelize v7.
 
