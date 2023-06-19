@@ -44,7 +44,7 @@ A curated list of awesome projects surrounding Sequelize.
 * [sequelize-tokenify](https://github.com/pipll/sequelize-tokenify) - Add unique tokens to sequelize models
 * [sqlcommenter-sequelize](https://github.com/google/sqlcommenter/tree/master/nodejs/sqlcommenter-nodejs/packages/sqlcommenter-sequelize) A [sqlcommenter](https://google.github.io/sqlcommenter/) plugin with [support for Sequelize](https://google.github.io/sqlcommenter/node/sequelize/) to augment SQL statements with comments that can be used later to correlate application code with SQL statements.
 * [@rematter/sequelize-paranoid-delete](https://www.npmjs.com/package/@rematter/sequelize-paranoid-delete) - Enables onDelete when using paranoid mode.
-* [@hatchifyjs/sequelize-create-with-associations](https://github.com/bitovi/sequelize-create-with-associations) - Update or create with less code
+* [@hatchifyjs/sequelize-create-with-associations](https://github.com/bitovi/sequelize-create-with-associations) - More elegant Update or create
 
 ## Outdated
 
