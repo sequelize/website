@@ -74,4 +74,4 @@ title: Resources
 * [automated-express-backend](https://github.com/ruyd/automated-express-backend) - Sample Sequelize Backend with runtime generation of API
 * [@rematter/paranoid-sql](https://www.npmjs.com/package/@rematter/paranoid-sql) - Add conditions to verify rows are not soft deleted.
 * [@rematter/sequelize-paranoid-delete](https://www.npmjs.com/package/@rematter/sequelize-paranoid-delete) - Enables onDelete when using paranoid mode.
-* [@hatchifyjs/sequelize-create-with-associations](https://github.com/bitovi/sequelize-create-with-associations) - More elegant Update or create
+* [@hatchifyjs/sequelize-create-with-associations](https://github.com/bitovi/sequelize-create-with-associations) - More elegant update or create
