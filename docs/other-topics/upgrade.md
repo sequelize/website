@@ -21,7 +21,7 @@ Starting with Sequelize v7, we are introducing scoped modules and renamed the fo
 As a result, you now use Sequelize as follows:
 
 ```javascript
-const { Sequelize } = require('@sequelize/core');
+import { Sequelize } from '@sequelize/core';
 const sequelize = new Sequelize({ dialect: 'sqlite' });
 
 await sequelize.authenticate();
@@ -68,8 +68,8 @@ If you do that, we recommend pinning the Sequelize version your project uses as 
 
 :::info
 
-[CLS Transactions](../other-topics/transactions.md#automatically-pass-transactions-to-all-queries) are now enabled by default.
-You can use the [`disableClsTransactions`](pathname:///api/v7/interfaces/Options.html#disableClsTransactions) global option to disable them.
+[CLS Transactions](../querying/transactions.md#automatically-pass-transactions-to-all-queries) are now enabled by default.
+You can use the [`disableClsTransactions`](pathname:///api/v7/interfaces/_sequelize_core.index.Options.html#disableClsTransactions) global option to disable them.
 
 :::
 
@@ -141,7 +141,7 @@ and new ones have been added. You can find the new API in the [Custom Data Types
 
 Other changes:
 
-- Which SQL Data Type corresponds to each Sequelize Data Type has also been changed. Refer to [our list of Data Types](../other-topics/other-data-types.mdx) for an up-to-date description.
+- Which SQL Data Type corresponds to each Sequelize Data Type has also been changed. Refer to [our list of Data Types](../models/data-types.mdx) for an up-to-date description.
 - Type validation is now enabled by default. The `typeValidation` sequelize option has been renamed to `noTypeValidation`.
 - Integer Data Types will throw an error if they receive a JavaScript number bigger than `MAX_SAFE_INTEGER` or smaller than `MIN_SAFE_INTEGER`.
 - `DataTypes.NUMERIC` has been removed, use `DataTypes.DECIMAL` instead.
@@ -212,7 +212,7 @@ Project.belongsTo(User, { as: 'owner' });
 ```
 
 Doing this was already very broken in v6 because the association methods added to `Project`, such as `project.getOwner`,
-belonged to the first association, while [`Project.associations.owner`](pathname:///api/v7/classes/model#associations) was equal to the second association.
+belonged to the first association, while [`Project.associations.owner`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#associations) was equal to the second association.
 
 ### Association resolution in `include`
 
@@ -225,7 +225,7 @@ User.hasMany(Project, { as: 'projects' });
 User.hasMany(Project);
 ```
 
-And you could distinguish them when eager-loading them by specifying the [`as`](pathname:///api/v7/interfaces/includeoptions#as) option in your [`include`](pathname:///api/v7/interfaces/findoptions#include) too:
+And you could distinguish them when eager-loading them by specifying the [`as`](pathname:///api/v7/interfaces/_sequelize_core.index.IncludeOptions.html#as) option in your [`include`](pathname:///api/v7/interfaces/_sequelize_core.index.FindOptions.html#include) too:
 
 ```typescript
 await User.findAll({
@@ -239,16 +239,16 @@ await User.findAll({
 ```
 
 This caused issues, because they still shared the same association name.
-Resulting in inconsistent values for [`User.associations.projects`](pathname:///api/v7/classes/model#associations), and association mixin methods (e.g. `user.getProjects()`).
+Resulting in inconsistent values for [`User.associations.projects`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#associations), and association mixin methods (e.g. `user.getProjects()`).
 Both would also try to eager-load under the same key.
 
-In Sequelize v7, the [`as`](pathname:///api/v7/interfaces/includeoptions#as) parameter now defaults to the plural name of the target model (in this scenario, `projects`) for multi associations (`hasMany`, `belongsToMany`), 
+In Sequelize v7, the [`as`](pathname:///api/v7/interfaces/_sequelize_core.index.IncludeOptions.html#as) parameter now defaults to the plural name of the target model (in this scenario, `projects`) for multi associations (`hasMany`, `belongsToMany`), 
 and the singular name of the model otherwise.
 
 As a consequence, how `include` is resolved has changed too: 
-You can only omit the [`as`](pathname:///api/v7/interfaces/includeoptions#as) parameter if no more than one association has been defined between the two models.
+You can only omit the [`as`](pathname:///api/v7/interfaces/_sequelize_core.index.IncludeOptions.html#as) parameter if no more than one association has been defined between the two models.
 
-This change also means that the [`include.association`](pathname:///api/v7/interfaces/includeoptions#association) option is the best way to specify
+This change also means that the [`include.association`](pathname:///api/v7/interfaces/_sequelize_core.index.IncludeOptions.html#association) option is the best way to specify
 your association, and we recommend always using it over a combination of `as` + `model`. `as` has also been deprecated in favor of `association`.
 
 ```typescript
@@ -299,7 +299,7 @@ Country.belongsToMany(User, { otherKey: 'user_id' });
 ```
 
 This requirement increases the verbosity of your associations, 
-se we introduced a new option to solve that problem: [`inverse`](pathname:///api/v7/classes/belongsto#inverse). 
+se we introduced a new option to solve that problem: [`inverse`](pathname:///api/v7/interfaces/_sequelize_core.index.BelongsToOptions.html#inverse#inverse). 
 This option lets you define both sides of the association at the same time.
 This removes the need to repeat options that are common to both associations.
 
@@ -359,17 +359,15 @@ SELECT "*", "a.*", "count(id)" AS "count" FROM "users"
 ```
 
 This was done to improve the security of Sequelize, by reducing the attack surface of the ORM. 
-The previous behavior is still available, but you need to explicitly opt-in to it by using the [`literal`](pathname:///api/v7/functions/literal-1.html), 
-[`col`](pathname:///api/v7/functions/col-1.html) or [`fn`](pathname:///api/v7/functions/fn-1.html) functions:
+The previous behavior is still available, but you need to explicitly opt-in to it by using the [`literal`](pathname:///api/v7/variables/_sequelize_core.index.sql.literal.html), 
+[`col`](pathname:///api/v7/variables/_sequelize_core.index.sql.col.html) or [`fn`](pathname:///api/v7/variables/_sequelize_core.index.sql.fn.html) functions:
 
 ```ts
 User.findAll({
   attributes: [
-    col('*'),
-    col('a.*'),
-    [literal('count(*)'), 'count'],
-    // or
-    // [fn('count', col('*')), 'count'],
+    sql.col('*'),
+    sql.col('a.*'),
+    [sql`count(id)`, 'count'],
   ],
 });
 ```
@@ -599,7 +597,7 @@ Starting with Sequelize 7, this sub-option has been split into two options: `mod
 // Before
 const User = sequelize.define('User', {
   countryId: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     references: {
       // This referenced the TABLE named "countries", not the MODEL called "countries".
       model: 'countries',
@@ -611,7 +609,7 @@ const User = sequelize.define('User', {
 // After (table version)
 const User = sequelize.define('User', {
   countryId: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     references: {
       // It is now clear that this references the table called "countries"
       table: 'countries',
@@ -623,7 +621,7 @@ const User = sequelize.define('User', {
 // After (model version)
 const User = sequelize.define('User', {
   countryId: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     references: {
       // It is now clear that this references the Country model, from which the table name will be inferred.
       model: Country,
@@ -652,7 +650,7 @@ const User = sequelize.define('User', {
   createdAt: {
     // This will cause an error because sequelize expects a DATE type, not DATEONLY.
     // error-next-line
-    type: Sequelize.DATEONLY,
+    type: DataTypes.DATEONLY,
   },
 });
 ```
@@ -699,18 +697,17 @@ User.init({
   // It's not allowed to start or end with $ anymore.
   '$myAttribute$': {
     type: DataTypes.STRING,
-    // 'field' sets the column name
-    field: '$myAttribute$',
+    columnName: '$myAttribute$',
   },
   // The JavaScript name is not allowed to include a dot anymore.
   'another.attribute': {
     type: DataTypes.STRING,
-    field: 'another.attribute',
+    columnName: 'another.attribute',
   },
   // The JavaScript name is not allowed to include '::' anymore.
   'other::attribute': {
     type: DataTypes.STRING,
-    field: 'other::attribute',
+    columnName: 'other::attribute',
   },
 }, { sequelize });
 ```
@@ -730,17 +727,17 @@ User.init({
   myAttribute: {
     type: DataTypes.STRING,
     // Column names are still allowed to start & end with $
-    field: '$myAttribute$', // this sets the column name
+    columnName: '$myAttribute$', // this sets the column name
   },
   anotherAttribute: {
     type: DataTypes.STRING,
     // Column names are still allowed to include dots
-    field: 'another.attribute',
+    columnName: 'another.attribute',
   },
   otherAttribute: {
     type: DataTypes.STRING,
     // Column names are still allowed to include ::
-    field: 'other::attribute',
+    columnName: 'other::attribute',
   },
 }, { sequelize });
 ```
@@ -927,9 +924,9 @@ The `sql` tag automatically escapes values, so you don't need to worry about SQL
 ### Removal of previously deprecated APIs
 
 - `WhereValue`, `AnyOperator`, `AllOperator`, `AndOperator` and `OrOperator` types: They did not reflect the reality of how the `where` option is typed (see [this PR](https://github.com/sequelize/sequelize/pull/14022))
-- `setterMethods` and `getterMethods` model options: They were deprecated in v6 and are now removed. Use [VIRTUAL](../core-concepts/getters-setters-virtuals.md) attributes, or class getter & setters instead.
+- `setterMethods` and `getterMethods` model options: They were deprecated in v6 and are now removed. Use [VIRTUAL](../other-topics/getters-setters-virtuals.md#virtual-attributes) attributes, or class getter & setters instead.
 - Models had an instance property called `validators`. This property has been removed because almost all attributes have at least one validator (based on their nullability and data type). 
-  The information you need to replace this property is available in the [`modelDefinition`](pathname:///api/v7/classes/Model.html#modelDefinition) static property.
+  The information you need to replace this property is available in the [`modelDefinition`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#modelDefinition) static property.
 - The `Utils` export has been removed. It exposed internal utilities that were not meant to be used by end users. If you used any of these utilities, please open an issue to discuss how to expose them in a future-proof way.  
   This export included classes `Fn`, `Col`, `Cast`, `Literal`, `Json`, and `Where`, which are useful for typing purposes. They now have their own exports instead of being part of `Utils`.
 - Operator Aliases have been removed.
@@ -939,13 +936,13 @@ The `sql` tag automatically escapes values, so you don't need to worry about SQL
 Sequelize 7 also includes a series of new deprecation. These APIs will continue to work in v7 but expect them to
 stop working in a future major release.
 
-- All hook methods are deprecated in favor of using the `hooks` property available on models and Sequelize classes. See the documentation on [hooks](./hooks.md) to learn more.
+- All hook methods are deprecated in favor of using the `hooks` property available on models and Sequelize classes. See the documentation on [hooks](./hooks.mdx) to learn more.
 - `DataTypes.REAL` is redundant with `DataTypes.FLOAT`, and is deprecated.
 - `Model.scope()` has been renamed to `Model.withScope()`
 - `Model.unscoped()` has been renamed to `Model.withoutScope()` (due to the addition of `Model.withOriginalScope()`)
 - `Model.schema()` has been renamed to `Model.withSchema()`
 - `Model.setAttributes()` is deprecated in favor of `Model.set()`, as it was just an alias
-- `Model.dropSchema()` is deprecated as it is unrelated to Model, use [`Sequelize#dropSchema`](pathname:///api/v7/classes/sequelize#dropSchema) or [`QueryInterface#dropSchema`](pathname:///api/v7/classes/queryinterface#dropSchema) instead.
+- `Model.dropSchema()` is deprecated as it is unrelated to Model, use [`Sequelize#dropSchema`](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#dropSchema) or [`QueryInterface#dropSchema`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#dropSchema) instead.
 - The `parent` and `original` properties on Error classes are deprecated in favor of the native `cause` property, which should improve error messages.
 - Accessing DataTypes on the Sequelize constructor is deprecated. Instead of doing this:
   ```typescript

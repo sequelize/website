@@ -1,0 +1,331 @@
+---
+sidebar_position: 9
+---
+
+# Querying JSON
+
+import { SupportTable } from '@site/src/components/support-table';
+
+<SupportTable
+  dialectLinks={{
+    PostgreSQL: 'https://www.postgresql.org/docs/current/functions-json.html',
+    MySQL: 'https://dev.mysql.com/doc/refman/8.0/en/json-search-functions.html',
+    MariaDB: 'https://mariadb.com/kb/en/json-functions/',
+  }}
+/>
+
+## Basics
+
+JSON columns are a great way to opt-in to a document approach to data storage while preserving the advantages of relational databases.
+
+Sequelize has first class support for querying JSON columns, including support for accessing nested properties.
+This is done thanks to the `.` syntax supported by [attributes](./raw-queries.md#sqlattribute):
+
+```ts
+User.findAll({
+  where: {
+    'jsonAttribute.address.country': 'Belgium',
+  },
+});
+```
+
+```sql
+-- postgres
+"jsonAttribute"#>ARRAY['address','country'] = '"Belgium"';
+
+-- mysql & friends
+JSON_EXTRACT(`jsonAttribute`, '$.address.country') = '"Belgium"';
+```
+
+:::caution Nested properties are JSON too
+
+This syntax to access nested properties produces JSON. In the example above, you can see that the right-hand side of the comparison has been stringified
+to JSON by Sequelize.
+
+This means that JSON operators, such as [`Op.anyKeyExists`](./operators.mdx#jsonb-operators) can be used on nested properties:
+
+```ts
+User.findAll({
+  where: {
+    'jsonAttribute.address': { [Op.anyKeyExists]: ['country', 'street'] },
+  },
+});
+```
+
+```sql
+-- anyKeyExists is only available in postgres
+"jsonAttribute"->'address' ?| ARRAY['country','street'];
+```
+
+However it also means that you can't use operators such as [`Op.like`](./operators.mdx#like-operator) on nested properties without
+either casting the value to a string, or [unquoting it](#unquoting-json) first.
+
+In PostgreSQL, only JSONB values can be compared to other JSONB values, not JSON. Be mindful of this when choosing between
+JSON and JSONB for your columns.
+
+:::
+
+## Array Index Access
+
+Most dialects use a different syntax for array index access than for object property access. In order to differentiate between the two,
+we use the `[]` syntax for array index access, and `.` for object property access:
+
+```ts
+User.findAll({
+  where: {
+    'gameData.passwords[0]': 0451,
+  },
+});
+```
+
+produces
+
+```sql
+-- postgres
+-- while it may not look like it, it's still important to use the [] syntax
+-- when accessing array indexes in postgres,
+-- as Sequelize can sometimes use the "->" operator instead of "#>" for performance,
+-- which uses a different syntax for indexes & keys
+"gameData"#>ARRAY['passwords','0'] = '0451';
+
+-- mysql & friends
+JSON_EXTRACT(`gameData`, '$.passwords[0]') = '0451';
+```
+
+## Comparing JSON values
+
+When comparing JSON values, Sequelize automatically stringifies the value to JSON:
+
+```ts
+User.findAll({
+  where: {
+    'jsonAttribute.address.street': 'Belgium',
+  },
+});
+```
+
+Produces
+
+```sql
+-- postgres. Note that this only works with JSONB as `JSON = string` does not exist in postgres
+"jsonAttribute"#>ARRAY['address','street'] = '"Belgium"';
+
+-- mysql & friends
+JSON_EXTRACT(`jsonAttribute`, '$.address.street') = '"Belgium"';
+```
+
+## Casting JSON values
+
+To compare the value, you can use the [`::` cast syntax](./select-in-depth.md#casting) to cast your value to the desired type:
+
+```ts
+User.findAll({
+  where: {
+    // The exact cast type depends on the dialect
+    // For instance, in postgres you would use `::integer`,
+    // While in mysql you would use `::signed` or `::unsigned`
+    'jsonAttribute.age::integer': { [Op.gt]: 18 },
+  },
+});
+```
+
+```sql
+-- postgres
+-- ℹ️ in postgres, you can only cast JSONB columns, not JSON.
+-- to compare JSON columns, you can either unquote first (see below)
+-- or cast to text then the desired type (::text::integer)
+CAST("jsonAttribute"->'age' AS integer) > 18;
+
+-- mysql & friends
+CAST(`jsonAttribute`->"$.age" AS signed) > 18;
+```
+
+## Unquoting JSON
+
+Unquoting JSON values is a way to access the contents of a JSON string. This can be more useful than casting to text, as
+casting to text will preserve the JSON quotes (e.g. `"abc"`), while unquoting will remove them (e.g. `abc`).
+
+You can unquote by using the `:unquote` modifier. Note the single `:` instead of the double `::` used for casting.
+
+```ts
+User.findAll({
+  where: {
+    'jsonAddress.country:unquote': 'Belgium',
+  },
+});
+```
+
+```sql
+-- postgres (the ->> operator extracts & unquotes)
+"jsonAddress"->>'country' = 'Belgium';
+
+-- mysql & friends
+JSON_UNQUOTE(JSON_EXTRACT(`jsonAddress`, '$.country')) = 'Belgium';
+```
+
+You can of course also use the `::` cast syntax to cast the unquoted value to the desired type.
+
+:::caution
+
+You should only use this if the value can only be a string.
+
+Using `:unquote` on a mixed-type property can produce unexpected results, as unquoting something
+that is not a string will not do anything, making it impossible to distinguish between a JSON string `"null"` and a JSON `null`,
+as they will both return `null`.
+
+:::
+
+## Nested extraction syntax
+
+You can also nest JSON objects as an alternative to the `.` syntax.
+
+For instance, the two following queries are equivalent:
+
+```ts
+User.findAll({
+  where: {
+    jsonAttribute: {
+      address: {
+        country: 'Belgium',
+        street: 'Rue de la Loi',
+      },
+      'age::integer': { [Op.gt]: 18 },
+    },
+  },
+});
+
+User.findAll({
+  where: {
+    'jsonAttribute.address.country': 'Belgium',
+    'jsonAttribute.address.street': 'Rue de la Loi',
+    'jsonAttribute.age::integer': { [Op.gt]: 18 },
+  },
+});
+```
+
+ℹ️ Nesting a JSON object uses the `.` operator by default, but you can use the `[index]` operator at the start of the path to change the default operator:
+
+```ts
+User.findAll({
+  where: {
+    jsonAttribute: {
+      age: 18,
+      '[0]': '1'
+    },
+  },
+});
+```
+
+produces
+
+```sql
+-- postgres
+"jsonAttribute"->'age' = 18 AND "jsonAttribute"->0 = '"1"';
+
+-- mysql & friends
+JSON_EXTRACT(`jsonAttribute`, '$.age') = 18 AND JSON_EXTRACT(`jsonAttribute`, '$[0]') = '"1"';
+```
+
+## Path Segment Escaping
+
+If one of your properties contains characters that Sequelize gives special meaning to, such as `.`, `::`, `:` and `[]`,
+you can escape by surrounding that path segment with double quotes:
+
+```ts
+User.findAll({
+  where: {
+    // This will access the property named `address.country` on `jsonAttribute`,
+    // instead of accessing the `country` property on the `address` object
+    'jsonAttribute."address.country"': 'Belgium',
+  },
+});
+```
+
+```sql
+-- postgres
+"jsonAttribute"->'address.country' = '"Belgium"';
+
+-- mysql & friends
+JSON_EXTRACT(`jsonAttribute`, '$."address.country"') = '"Belgium"';
+```
+
+Double quotes themselves can be escaped by using backslashes:
+
+```ts
+User.findAll({
+  where: {
+    // This will access the property named `address."country` on `jsonAttribute`,
+    'jsonAttribute.address."\\"country"': 'Belgium',
+  },
+});
+```
+
+## JSON `null` vs SQL `NULL`
+
+When using JSON values in SQL, you should be aware of the difference between JSON `null` and SQL `NULL`, as they are
+distinct values.
+
+- You can view the JSON `null` value as a string that contains the word `null`.
+- While the SQL `NULL` value is a special value that represents the absence of a value.
+
+When extracting a JSON value, if the value exists and is the JSON `null`, the JSON `null` will be returned.
+If the value does not exist, the SQL `NULL` will be returned.
+
+However, when inserting or comparing the JavaScript `null` value against a JSON column, Sequelize will stringify it as JSON.
+
+This means that the following query will check that the `name` property exists and is set to the JSON `null` value:
+
+```ts
+User.findAll({
+  where: {
+    'jsonAttribute.name': null,
+  },
+});
+```
+
+```sql
+-- postgres
+"jsonAttribute"->'name' = 'null';
+
+-- mysql & friends
+JSON_EXTRACT(`jsonAttribute`, '$.name') = 'null';
+```
+
+If you want to check that something is the SQL `NULL`, you have to use the `IS NULL` operator instead of the `=` operator:
+
+```ts
+User.findAll({
+  where: {
+    'jsonAttribute.name': { [Op.is]: null },
+  },
+});
+```
+
+```sql
+-- postgres
+"jsonAttribute"->'name' IS NULL;
+
+-- mysql & friends
+JSON_EXTRACT(`jsonAttribute`, '$.name') IS NULL;
+```
+
+If you want to check that something is either the JSON `null`, or the SQL `NULL`, you must use both operators:
+
+```ts
+User.findAll({
+  where: or(
+    { 'jsonAttribute.name': { [Op.eq]: null } },
+    { 'jsonAttribute.name': { [Op.is]: null } },
+  ),
+});
+```
+
+```sql
+-- postgres
+   "jsonAttribute"->'name' = 'null'
+OR "jsonAttribute"->'name' IS NULL;
+
+-- mysql & friends
+   JSON_EXTRACT(`jsonAttribute`, '$.name') = 'null'
+OR JSON_EXTRACT(`jsonAttribute`, '$.name') IS NULL;
+```
