@@ -16,6 +16,7 @@ export function SupportTable(props: Props) {
       <table>
         <thead>
           <tr>
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label -- false positive */}
             <td />
             {Array.from(SUPPORTED_DIALECTS).map(dialect => <td key={dialect}>{dialect}</td>)}
           </tr>
