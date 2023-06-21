@@ -72,10 +72,10 @@ class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
   declare id: CreationOptional<number>;
   
   @HasMany(() => Comment, {
-    foreignKey: 'birthplaceId',
+    foreignKey: 'postId',
     // highlight-start
     inverse: {
-      as: 'birthplace',
+      as: 'post',
     },
     // highlight-end
   })
@@ -89,7 +89,7 @@ class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Co
   declare id: CreationOptional<number>;
 
   // highlight-start
-  /** Defined by {@link City.bornPeople} */
+  /** Defined by {@link Post.comments} */
   declare post?: NonAttribute<Post>;
   // highlight-end
   
