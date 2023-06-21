@@ -1,13 +1,360 @@
 ---
 sidebar_position: 2
-title: Other Data Types
+title: Data Types
 ---
 
+# Data Types
+
 import { DialectTableFilter } from '@site/src/components/dialect-table-filter.tsx';
+import { Deprecated } from '@site/src/components/deprecated.tsx';
 
-Apart from the most common data types mentioned in the Model Basics guide, Sequelize provides several other data types.
+Sequelize provides [a lot of built-in data types](https://github.com/sequelize/sequelize/blob/main/src/data-types.js). To access a built-in data type, you must import `DataTypes`:
 
-## Ranges (PostgreSQL only)
+```js
+// Import the built-in data types
+import { DataTypes } from 'sequelize';
+```
+
+Below is a series of support table describing which SQL Type is used for each Sequelize DataType.
+
+:::info
+
+Most of our DataTypes also accept option bags. Click on one of our DataTypes in the tables below to view their signature.
+
+:::
+
+A ❌ means the dialect does not support that DataType.
+
+## Strings
+
+<DialectTableFilter>
+
+| Sequelize DataType                                                                 | PostgreSQL                                                      | MariaDB                            | MySQL                        | MSSQL                          | [SQLite][sqlite-datatypes] | [Snowflake](https://docs.snowflake.com/en/sql-reference/data-types-text.html) | db2                         | ibmi            |
+|------------------------------------------------------------------------------------|-----------------------------------------------------------------|------------------------------------|------------------------------|--------------------------------|----------------------------|-------------------------------------------------------------------------------|-----------------------------|-----------------|
+| [`STRING`](pathname:///api/v6/class/src/data-types.js~string) | [`VARCHAR(255)`][postgres-char]                                 | [`VARCHAR(255)`][mariadb-varchar]  | [`VARCHAR(255)`][mysql-char] | [`NVARCHAR(255)`][mssql-nchar] | `VARCHAR(255)`             | `VARCHAR(255)`                                                                | `VARCHAR(255)`              | `VARCHAR(255)`  |
+| `STRING(100)`                                                                      | `VARCHAR(100)`                                                  | `VARCHAR(100)`                     | `VARCHAR(100)`               | `NVARCHAR(100)`                | `VARCHAR(100)`             | `VARCHAR(100)`                                                                | `VARCHAR(100)`              | `VARCHAR(100)`  |
+| `STRING.BINARY`                                                                    | [`BYTEA`][postgres-binary]                                      | `VARCHAR(255) BINARY`              | `VARCHAR(255) BINARY`        | [`BINARY(255)`][mssql-binary]  | `VARCHAR BINARY(255)`      | `VARCHAR(255) BINARY`                                                         | `VARCHAR(255) FOR BIT DATA` | `BINARY(255)`   |
+| `STRING(100).BINARY`                                                               | ❌                                                               | `VARCHAR(100) BINARY`              | `VARCHAR(100) BINARY`        | `BINARY(100)`                  | `VARCHAR BINARY(100)`      | `VARCHAR(100) BINARY`                                                         | `VARCHAR(100) FOR BIT DATA` | `BINARY(100)`   |
+| [`TEXT`](pathname:///api/v6/class/src/data-types.js~text)     | [`TEXT`][postgres-char]                                         | [`TEXT`][mariadb-text]             | [`TEXT`][mysql-text]         | `NVARCHAR(MAX)`                | `TEXT`                     | `TEXT`                                                                        | `VARCHAR(32672)`            | `VARCHAR(8192)` |
+| `TEXT('tiny')`                                                                     | ❌                                                               | [`TINYTEXT`][mariadb-tinytext]     | [`TINYTEXT`][mysql-text]     | `NVARCHAR(256)`                | ❌                          | ❌                                                                             | `VARCHAR(256)`              | `VARCHAR(256)`  |
+| `TEXT('medium')`                                                                   | ❌                                                               | [`MEDIUMTEXT`][mariadb-mediumtext] | [`MEDIUMTEXT`][mysql-text]   | ❌                              | ❌                          | ❌                                                                             | `VARCHAR(8192)`             | `VARCHAR(8192)` |
+| `TEXT('long')`                                                                     | ❌                                                               | [`LONGTEXT`][mariadb-longtext]     | [`LONGTEXT`][mysql-text]     | ❌                              | ❌                          | ❌                                                                             | `CLOB(65536)`               | `CLOB(65536)`   |
+| [`CHAR`](pathname:///api/v6/class/src/data-types.js~char)     | [`CHAR(255)`][postgres-char]                                    | [`CHAR(255)`][mariadb-char]        | [`CHAR(255)`][mysql-char]    | [`CHAR(255)`][mssql-char]      | `CHAR(255)`                | `CHAR(255)`                                                                   | `CHAR(255)`                 | `CHAR(255)`     |
+| `CHAR(100)`                                                                        | `CHAR(100)`                                                     | `CHAR(100)`                        | `CHAR(100)`                  | `CHAR(100)`                    | `CHAR(100)`                | `CHAR(100)`                                                                   | `CHAR(100)`                 | `CHAR(100)`     |
+| `CHAR.BINARY`                                                                      | `BYTEA`                                                         | `CHAR(255) BINARY`                 | `CHAR(255) BINARY`           | `CHAR(255) BINARY`             | `CHAR BINARY(255)`         | `CHAR(255) BINARY`                                                            | `CHAR(255) BINARY`          | `CLOB(255)`     |
+| `CHAR(100).BINARY`                                                                 | ❌                                                               | `CHAR(100) BINARY`                 | `CHAR(100) BINARY`           | `CHAR(100) BINARY`             | `CHAR BINARY(100)`         | `CHAR(100) BINARY`                                                            | `CHAR(100) BINARY`          | `CLOB(100)`     |
+| `CITEXT`                                                                           | [`CITEXT`](https://www.postgresql.org/docs/current/citext.html) | ❌                                  | ❌                            | ❌                              | `TEXT COLLATE NOCASE`      | ❌                                                                             | ❌                           | ❌               |
+| `TSVECTOR`                                                                         | [`TSVECTOR`][postgres-tsvector]                                 | ❌                                  | ❌                            | ❌                              | ❌                          | ❌                                                                             | ❌                           | ❌               |
+
+</DialectTableFilter>
+
+## Boolean
+
+<DialectTableFilter>
+
+| Sequelize DataType | PostgreSQL                                                                 | MariaDB                         | MySQL                         | MSSQL                                                                                                 | SQLite                           | Snowflake                                                                        | db2       | ibmi       |
+|--------------------|----------------------------------------------------------------------------|---------------------------------|-------------------------------|-------------------------------------------------------------------------------------------------------|----------------------------------|----------------------------------------------------------------------------------|-----------|------------|
+| `BOOLEAN`          | [`BOOLEAN`](https://www.postgresql.org/docs/current/datatype-boolean.html) | [`TINYINT(1)`][mariadb-tinyint] | [`TINYINT(1)`][mysql-numeric] | [`BIT`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/bit-transact-sql?view=sql-server-ver15) | [`TINYINT(1)`][sqlite-datatypes] | [`BOOLEAN`](https://docs.snowflake.com/en/sql-reference/data-types-logical.html) | `BOOLEAN` | `SMALLINT` |
+
+</DialectTableFilter>
+
+## Integers
+
+<DialectTableFilter>
+
+| Sequelize DataType                                                                           | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                          | [MySQL][mysql-numeric] | [MSSQL][mssql-ints] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2                  | ibmi                 |
+|----------------------------------------------------------------------------------------------|--------------------------------|-----------------------------------------------------|------------------------|---------------------|----------------------------|--------------------------------|----------------------|----------------------|
+| [`TINYINT`](pathname:///api/v6/class/src/data-types.js~tinyint)     | ❌                              | [`TINYINT`][mariadb-tinyint]                        | `TINYINT`              | `TINYINT`           | ❌                          | `TINYINT`                      | `TINYINT`            | `TINYINT`            |
+| `TINYINT(1)`                                                                                 | ❌                              | `TINYINT(1)`                                        | `TINYINT(1)`           | ❌                   | ❌                          | `TINYINT(1)`                   | ❌                    | `TINYINT(1)`         |
+| `TINYINT.UNSIGNED`                                                                           | ❌                              | `TINYINT UNSIGNED`                                  | `TINYINT UNSIGNED`     | ❌                   | ❌                          | ❌                              | ❌                    | `TINYINT UNSIGNED`   |
+| `TINYINT.ZEROFILL`                                                                           | ❌                              | `TINYINT ZEROFILL`                                  | `TINYINT ZEROFILL`     | ❌                   | ❌                          | ❌                              | ❌                    | `TINYINT ZEROFILL`   |
+| [`SMALLINT`](pathname:///api/v6/class/src/data-types.js~smallint)   | `SMALLINT`                     | [`SMALLINT`](https://mariadb.com/kb/en/smallint/)   | `SMALLINT`             | `SMALLINT`          | ❌                          | `SMALLINT`                     | `SMALLINT`           | `SMALLINT`           |
+| `SMALLINT(1)`                                                                                | ❌                              | `SMALLINT(1)`                                       | `SMALLINT(1)`          | ❌                   | ❌                          | `SMALLINT(1)`                  | ❌                    | ❌                    |
+| `SMALLINT.UNSIGNED`                                                                          | ❌                              | `SMALLINT UNSIGNED`                                 | `SMALLINT UNSIGNED`    | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+| `SMALLINT.ZEROFILL`                                                                          | ❌                              | `SMALLINT ZEROFILL`                                 | `SMALLINT ZEROFILL`    | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+| [`MEDIUMINT`](pathname:///api/v6/class/src/data-types.js~mediumint) | ❌                              | [`MEDIUMINT`](https://mariadb.com/kb/en/mediumint/) | `MEDIUMINT`            | ❌                   | ❌                          | ❌                              | `MEDIUMINT`          | `MEDIUMINT`          |
+| `MEDIUMINT(1)`                                                                               | ❌                              | `MEDIUMINT(1)`                                      | `MEDIUMINT(1)`         | ❌                   | ❌                          | ❌                              | `MEDIUMINT(1)`       | `MEDIUMINT(1)`       |
+| `MEDIUMINT.UNSIGNED`                                                                         | ❌                              | `MEDIUMINT UNSIGNED`                                | `MEDIUMINT UNSIGNED`   | ❌                   | ❌                          | ❌                              | `MEDIUMINT UNSIGNED` | `MEDIUMINT UNSIGNED` |
+| `MEDIUMINT.ZEROFILL`                                                                         | ❌                              | `MEDIUMINT ZEROFILL`                                | `MEDIUMINT ZEROFILL`   | ❌                   | ❌                          | ❌                              | `MEDIUMINT ZEROFILL` | `MEDIUMINT ZEROFILL` |
+| [`INTEGER`](pathname:///api/v6/class/src/data-types.js~integer)                   | `INTEGER`                      | [`INTEGER`](https://mariadb.com/kb/en/integer/)     | `INTEGER`              | `INTEGER`           | `INTEGER`                  | `INTEGER`                      | `INTEGER`            | `INTEGER`            |
+| `INTEGER(1)`                                                                                 | ❌                              | `INTEGER(1)`                                        | `INTEGER(1)`           | ❌                   | ❌                          | `INTEGER(1)`                   | ❌                    | ❌                    |
+| `INTEGER.UNSIGNED`                                                                           | ❌                              | `INTEGER UNSIGNED`                                  | `INTEGER UNSIGNED`     | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+| `INTEGER.ZEROFILL`                                                                           | ❌                              | `INTEGER ZEROFILL`                                  | `INTEGER ZEROFILL`     | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+| [`BIGINT`](pathname:///api/v6/class/src/data-types.js~bigint)           | `BIGINT`                       | [`BIGINT`](https://mariadb.com/kb/en/bigint/)       | `BIGINT`               | `BIGINT`            | ❌                          | `BIGINT`                       | `BIGINT`             | `BIGINT`             |
+| `BIGINT(1)`                                                                                  | ❌                              | `BIGINT(1)`                                         | `BIGINT(1)`            | ❌                   | ❌                          | `BIGINT(1)`                    | ❌                    | ❌                    |
+| `BIGINT.UNSIGNED`                                                                            | ❌                              | `BIGINT UNSIGNED`                                   | `BIGINT UNSIGNED`      | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+| `BIGINT.ZEROFILL`                                                                            | ❌                              | `BIGINT ZEROFILL`                                   | `BIGINT ZEROFILL`      | ❌                   | ❌                          | ❌                              | ❌                    | ❌                    |
+
+</DialectTableFilter>
+
+:::caution
+
+The JavaScript [`number`][mdn-number] type can represent ints ranging from [`-9007199254740991`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_SAFE_INTEGER) 
+to [`9007199254740991`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER).
+
+If your SQL type supports integer values outside this range, we recommend using [`bigint`][mdn-bigint] or [`string`][mdn-string] to represent your integers.
+
+:::
+
+:::info
+
+Numeric options can be combined:<br/>
+`DataTypes.INTEGER(1).UNSIGNED.ZEROFILL`will result in a column of type `INTEGER(1) UNSIGNED ZEROFILL` in MySQL.
+
+:::
+
+## Inexact Decimal Numbers
+
+The types in the following table are typically represented as an [IEEE 754 floating point number][ieee-754], like the JavaScript [`number`][mdn-number] type.
+
+<DialectTableFilter>
+
+| Sequelize DataType                                                                 | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                              | [MySQL][mysql-numeric]               | [MSSQL][mssql-inexact-decimals] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2         | ibmi                        |
+|------------------------------------------------------------------------------------|--------------------------------|---------------------------------------------------------|--------------------------------------|---------------------------------|----------------------------|--------------------------------|-------------|-----------------------------|
+| [`REAL`](pathname:///api/v6/class/src/data-types.js~real)     | `REAL`                         | [`REAL`](https://mariadb.com/kb/en/double/)             | `REAL`                               | `REAL`                          | `REAL`                     | `REAL`                         | `REAL`      | `REAL`                      |
+| `REAL(11, 10)`                                                                     | ❌                              | `REAL(11,10)`                                           | `REAL(11,10)`                        | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| `REAL.UNSIGNED`                                                                    | ❌                              | `REAL UNSIGNED`                                         | `REAL UNSIGNED`                      | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| `REAL.ZEROFILL`                                                                    | ❌                              | `REAL ZEROFILL`                                         | `REAL ZEROFILL`                      | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| [`FLOAT`](pathname:///api/v6/class/src/data-types.js~float)   | `FLOAT`                        | [`FLOAT`](https://mariadb.com/kb/en/float/)             | `FLOAT`                              | `FLOAT`                         | ❌                          | `FLOAT`                        | `FLOAT`     | `FLOAT`                     |
+| `FLOAT(11)`                                                                        | `FLOAT(11)`                    | ❌                                                       | <Deprecated>`FLOAT(11)`</Deprecated> | `FLOAT(11)`                     | ❌                          | ❌                              | `FLOAT(11)` | `FLOAT(11)`                 |
+| `FLOAT(11, 10)`                                                                    | ❌                              | `FLOAT(11,10)`                                          | `FLOAT(11,10)`                       | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| `FLOAT.UNSIGNED`                                                                   | ❌                              | `FLOAT UNSIGNED`                                        | `FLOAT UNSIGNED`                     | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| `FLOAT.ZEROFILL`                                                                   | ❌                              | `FLOAT ZEROFILL`                                        | `FLOAT ZEROFILL`                     | ❌                               | ❌                          | ❌                              | ❌           | ❌                           |
+| [`DOUBLE`](pathname:///api/v6/class/src/data-types.js~double) | `DOUBLE PRECISION`             | [`DOUBLE PRECISION`](https://mariadb.com/kb/en/double/) | `DOUBLE PRECISION`                   | `DOUBLE PRECISION`              | ❌                          | `DOUBLE PRECISION`             | `DOUBLE`    | `DOUBLE PRECISION`          |
+| `DOUBLE(11, 10)`                                                                   | ❌                              | `DOUBLE PRECISION(11, 10)`                              | `DOUBLE PRECISION(11, 10)`           | ❌                               | ❌                          | ❌                              | ❌           | `DOUBLE PRECISION(11, 10)`  |
+| `DOUBLE.UNSIGNED`                                                                  | ❌                              | `DOUBLE PRECISION UNSIGNED`                             | `DOUBLE PRECISION UNSIGNED`          | ❌                               | ❌                          | ❌                              | ❌           | `DOUBLE PRECISION UNSIGNED` |
+| `DOUBLE.ZEROFILL`                                                                  | ❌                              | `DOUBLE PRECISION ZEROFILL`                             | `DOUBLE PRECISION ZEROFILL`          | ❌                               | ❌                          | ❌                              | ❌           | `DOUBLE PRECISION ZEROFILL` |
+
+</DialectTableFilter>
+
+:::caution
+
+The first parameter in `FLOAT(11)` and `FLOAT(11,10)` have different meanings.  
+Refer to your dialect's manual to learn more about the difference.
+
+:::
+
+:::info
+
+Numeric options can be combined:<br/>
+`DataTypes.INTEGER(1).UNSIGNED.ZEROFILL`will result in a column of type `INTEGER(1) UNSIGNED ZEROFILL` in MySQL.
+
+:::
+
+## Exact Decimal Numbers
+
+<DialectTableFilter>
+
+| Sequelize DataType                                                                   | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                      | [MySQL][mysql-numeric] | [MSSQL][mssql-exact-decimals] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2              | ibmi             |
+|--------------------------------------------------------------------------------------|--------------------------------|-------------------------------------------------|------------------------|-------------------------------|----------------------------|--------------------------------|------------------|------------------|
+| [`DECIMAL`](pathname:///api/v6/class/src/data-types.js~decimal) | `DECIMAL`                      | [`DECIMAL`](https://mariadb.com/kb/en/decimal/) | `DECIMAL`              | `DECIMAL`                     | `DECIMAL`                  | `DECIMAL`                      | `DECIMAL`        | `DECIMAL`        |
+| `DECIMAL(11)`                                                                        | `DECIMAL(11)`                  | `DECIMAL(11)`                                   | `DECIMAL(11)`          | `DECIMAL(11)`                 | ❌                          | `DECIMAL(11)`                  | `DECIMAL(11)`    | `DECIMAL(11)`    |
+| `DECIMAL(11, 10)`                                                                    | `DECIMAL(11, 10)`              | `DECIMAL(11,10)`                                | `DECIMAL(11,10)`       | `DECIMAL(11,10)`              | ❌                          | `DECIMAL(11,10)`               | `DECIMAL(11,10)` | `DECIMAL(11,10)` |
+| `DECIMAL.UNSIGNED`                                                                   | ❌                              | `DECIMAL UNSIGNED`                              | `DECIMAL UNSIGNED`     | ❌                             | ❌                          | ❌                              | ❌                | ❌                |
+| `DECIMAL.ZEROFILL`                                                                   | ❌                              | `DECIMAL ZEROFILL`                              | `DECIMAL ZEROFILL`     | ❌                             | ❌                          | ❌                              | ❌                | ❌                |
+
+</DialectTableFilter>
+
+:::caution
+
+Exact Decimal Numbers are not representable in JavaScript [yet](https://github.com/tc39/proposal-decimal).
+The JavaScript [`number`][mdn-number] type is a double-precision 64-bit binary format [IEEE 754][ieee-754] value, better represented by [Inexact Decimal types](#inexact-decimal-numbers).
+
+To avoid any loss of precision, we recommend using [`string`][mdn-string] to represent Exact Decimal Numbers in JavaScript.
+
+:::
+
+:::info
+
+Numeric options can be combined:<br/>
+`DataTypes.INTEGER(1).UNSIGNED.ZEROFILL`will result in a column of type `INTEGER(1) UNSIGNED ZEROFILL` in MySQL.
+
+:::
+
+## Dates
+
+<DialectTableFilter>
+
+| Sequelize DataType                                                             | [PostgreSQL][postgres-temporal] | [MariaDB][mariadb-temporal]                       | [MySQL][mysql-temporal]                                             | MSSQL                                                                                                 | SQLite | [Snowflake][snowflake-temporal] | db2            | ibmi        |
+|--------------------------------------------------------------------------------|---------------------------------|---------------------------------------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|--------|---------------------------------|----------------|-------------|
+| [`DATE`](pathname:///api/v6/class/src/data-types.js~date) | `TIMESTAMP WITH TIME ZONE`      | [`DATETIME`](https://mariadb.com/kb/en/datetime/) | [`DATETIME`](https://dev.mysql.com/doc/refman/8.0/en/datetime.html) | [`DATETIMEOFFSET`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/datetimeoffset-transact-sql) | ❌      | `TIMESTAMP`                     | `TIMESTAMP`    | `TIMESTAMP` |
+| `DATE(6)`                                                                      | ❌                               | `DATETIME(6)`                                     | `DATETIME(6)`                                                       | ❌                                                                                                     | ❌      | ❌                               | `TIMESTAMP(6)` | ❌           |
+| `DATEONLY`                                                                     | `DATE`                          | [`DATE`](https://mariadb.com/kb/en/date/)         | [`DATE`](https://dev.mysql.com/doc/refman/8.0/en/datetime.html)     | [`DATE`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/date-transact-sql)                     | ❌      | `DATE`                          | `DATE`         | `DATE`      |
+| `TIME`                                                                         | `TIME`                          | [`TIME`](https://mariadb.com/kb/en/time/)         | [`TIME`](https://dev.mysql.com/doc/refman/8.0/en/time.html)         | [`TIME`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/time-transact-sql)                     | ❌      | `TIME`                          | `TIME`         | `TIME`      |
+
+</DialectTableFilter>
+
+### Built-in Default Values for Dates
+
+Along with regular [default values](../core-concepts/model-basics.md#default-values), Sequelize provides `DataTypes.NOW` 
+which will use the appropriate native SQL function based on your dialect.
+
+<DialectTableFilter>
+
+| Sequelize DataType | PostgreSQL                                                           | MariaDB                                 | MySQL                                                                         | MSSQL                                                                                                          | SQLite | Snowflake | db2            | ibmi  |
+|--------------------|----------------------------------------------------------------------|-----------------------------------------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|--------|-----------|----------------|-------|
+| `NOW`              | [`NOW`](https://www.postgresql.org/docs/8.2/functions-datetime.html) | [`NOW`](https://mariadb.com/kb/en/now/) | [`NOW`](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html) | [`GETDATE()`](https://docs.microsoft.com/en-us/sql/t-sql/functions/getdate-transact-sql?view=sql-server-ver15) | ❌      | ❌         | `CURRENT TIME` | `NOW` |
+
+</DialectTableFilter>
+
+```javascript
+MyModel.init({
+  myDate: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
+});
+```
+
+## UUIDs
+
+For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL and SQLite, and `CHAR(36)` for MySQL.
+
+<DialectTableFilter>
+
+| Sequelize DataType | PostgreSQL                                                           | MariaDB           | MySQL             | MSSQL      | SQLite | Snowflake     | db2                     | ibmi       |
+|--------------------|----------------------------------------------------------------------|-------------------|-------------------|------------|--------|---------------|-------------------------|------------|
+| `UUID`             | [`UUID`](https://www.postgresql.org/docs/current/datatype-uuid.html) | `CHAR(36) BINARY` | `CHAR(36) BINARY` | `CHAR(36)` | ❌      | `VARCHAR(36)` | `CHAR(36) FOR BIT DATA` | `CHAR(36)` |
+
+</DialectTableFilter>
+
+### Built-in Default Values for UUID
+
+Sequelize can generate UUIDs automatically for these fields, simply use `DataTypes.UUIDV1` or `DataTypes.UUIDV4` as the default value:
+
+```javascript
+MyModel.init({
+  myUuid: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
+  },
+});
+```
+
+:::caution
+
+The generation of values for `DataTypes.UUIDV1` and `DataTypes.UUIDV4` is done by the Sequelize layer, in JavaScript.
+For this reason, it is only used when interacting with Models. It cannot be used in [migrations](./migrations.md).
+
+If your dialect provides a built-in SQL function to generate UUIDs, you can use `fn` to set a default value on the SQL layer.
+Making it usable with raw queries, and migrations.
+
+```javascript
+import { fn } from 'sequelize';
+MyModel.init({
+  myUuid: {
+    type: DataTypes.UUID,
+    // 'uuid_generate_v4' is only available in postgres + uuid-ossp
+    // other dialects may support this function under different names.
+    defaultValue: fn('uuid_generate_v4'),
+  },
+});
+```
+
+:::
+
+## BLOBs
+
+The blob datatype allows you to insert data both as strings and buffers. However, when a blob is retrieved from database with Sequelize, it will always be retrieved as a [Node Buffer](https://nodejs.org/api/buffer.html).
+
+<DialectTableFilter>
+
+| Sequelize DataType                                                             | PostgreSQL | MariaDB      | MySQL        | MSSQL            | [SQLite][sqlite-datatypes] | Snowflake | db2         | ibmi        |
+|--------------------------------------------------------------------------------|------------|--------------|--------------|------------------|----------------------------|-----------|-------------|-------------|
+| [`BLOB`](pathname:///api/v6/class/src/data-types.js~blob) | `BYTEA`    | `BLOB`       | `BLOB`       | `VARBINARY(MAX)` | `BLOB`                     | ❌         | `BLOB`      | `BLOB(1M)`  |
+| `BLOB('tiny')`                                                                 | ❌          | `TINYBLOB`   | `TINYBLOB`   | `VARBINARY(256)` | ❌                          | ❌         | `BLOB(255)` | `BLOB(255)` |
+| `BLOB('medium')`                                                               | ❌          | `MEDIUMBLOB` | `MEDIUMBLOB` | ❌                | ❌                          | ❌         | `BLOB(16M)` | `BLOB(16M)` |
+| `BLOB('medium')`                                                               | ❌          | `LONGBLOB`   | `LONGBLOB`   | ❌                | ❌                          | ❌         | `BLOB(2G)`  | `BLOB(2G)`  |
+
+</DialectTableFilter>
+
+## ENUMs
+
+:::note
+
+Enums are only available in [PostgreSQL](https://www.postgresql.org/docs/current/datatype-enum.html), [MariaDB](https://mariadb.com/kb/en/enum/), and [MySQL](https://dev.mysql.com/doc/refman/8.0/en/enum.html)
+
+:::
+
+The ENUM is a data type that accepts only a few values, specified as a list.
+
+```js
+DataTypes.ENUM('foo', 'bar') // An ENUM with allowed values 'foo' and 'bar'
+```
+
+See [the API Reference for DataTypes.ENUM](pathname:///api/v6/class/src/data-types.js~enum) for more information about the options this DataType accepts.
+
+## JSON & JSONB
+
+The `DataTypes.JSON` data type is only supported for SQLite, MySQL, MariaDB and PostgreSQL. However, there is a minimum support for MSSQL (see below).
+
+<DialectTableFilter>
+
+| Sequelize DataType | PostgreSQL                                                        | MariaDB                                             | MySQL                                                       | MSSQL | [SQLite][sqlite-datatypes] | Snowflake | db2 | ibmi |
+|--------------------|-------------------------------------------------------------------|-----------------------------------------------------|-------------------------------------------------------------|-------|----------------------------|-----------|-----|------|
+| `JSON`             | [`JSON`](https://www.postgresql.org/docs/9.4/datatype-json.html)  | [`JSON`](https://mariadb.com/kb/en/json-data-type/) | [`JSON`](https://dev.mysql.com/doc/refman/8.0/en/json.html) | ❌     | ❌                          | ❌         | ❌   | ❌    |
+| `JSONB`            | [`JSONB`](https://www.postgresql.org/docs/9.4/datatype-json.html) | ❌                                                   | ❌                                                           | ❌     | ❌                          | ❌         | ❌   | ❌    |
+
+</DialectTableFilter>
+
+The JSON data type in PostgreSQL stores the value as plain text, as opposed to binary representation.
+
+If you simply want to store and retrieve a JSON representation, using JSON will take less disk space and less time to build from its input representation. However, if you want to do any operations on the JSON value, you should prefer the JSONB data type.
+
+:::info Querying JSON
+
+Sequelize provides a special syntax to query the contents of a JSON object. [Read more about querying JSON](../core-concepts/model-querying-basics.md#querying-json).
+
+:::
+
+## Miscellaneous DataTypes
+
+<DialectTableFilter>
+
+| Sequelize DataType                                                                       | PostgreSQL                                                                | [MariaDB](https://mariadb.com/kb/en/geometry-types/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) | MSSQL | SQLite | Snowflake | db2 | ibmi |
+|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|------------------------------------------------------|-----------------------------------------------------------------------------|-------|--------|-----------|-----|------|
+| [`GEOMETRY`](pathname:///api/v6/class/src/data-types.js~geometry)   | [`GEOMETRY`](https://postgis.net/workshops/postgis-intro/geometries.html) | `GEOMETRY`                                           | `GEOMETRY`                                                                  | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('POINT')`                                                                      | `GEOMETRY(POINT)`                                                         | `POINT`                                              | `POINT`                                                                     | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('POINT', 4326)`                                                                | `GEOMETRY(POINT,4326)`                                                    | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('POLYGON')`                                                                    | `GEOMETRY(POLYGON)`                                                       | `POLYGON`                                            | `POLYGON`                                                                   | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `GEOMETRY('LINESTRING')`                                                                 | `GEOMETRY(LINESTRING)`                                                    | `LINESTRING`                                         | `LINESTRING`                                                                | ❌     | ❌      | ❌         | ❌   | ❌    |
+| [`GEOGRAPHY`](pathname:///api/v6/class/src/data-types.js~geography) | [`GEOGRAPHY`](https://postgis.net/workshops/postgis-intro/geography.html) | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `HSTORE`                                                                                 | [`HSTORE`](https://www.postgresql.org/docs/9.1/hstore.html)               | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
+
+</DialectTableFilter>
+
+:::note
+
+In Postgres, the GEOMETRY and GEOGRAPHY types are implemented by [the PostGIS extension](https://postgis.net/workshops/postgis-intro/geometries.html).
+
+:::
+
+## DataTypes exclusive to PostgreSQL
+
+### Arrays
+
+:::note
+
+[Arrays](https://www.postgresql.org/docs/current/arrays.html) are only available in PostgreSQL.
+
+:::
+
+```typescript
+// Defines an array of DataTypes.SOMETHING.
+DataTypes.ARRAY(/* DataTypes.SOMETHING */)
+// VARCHAR(255)[]
+DataTypes.ARRAY(DataTypes.STRING)
+// VARCHAR(255)[][]
+DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
+```
+
+### Ranges
+
+:::note
+
+[Ranges](https://www.postgresql.org/docs/current/rangetypes.html) are only available in PostgreSQL.
+
+:::
 
 ```js
 DataTypes.RANGE(DataTypes.INTEGER)    // int4range
@@ -28,25 +375,21 @@ const range = [
   new Date(Date.UTC(2016, 1, 1))
 ];
 // '["2016-01-01 00:00:00+00:00", "2016-02-01 00:00:00+00:00")'
-
 // control inclusion
 const range = [
   { value: new Date(Date.UTC(2016, 0, 1)), inclusive: false },
   { value: new Date(Date.UTC(2016, 1, 1)), inclusive: true },
 ];
 // '("2016-01-01 00:00:00+00:00", "2016-02-01 00:00:00+00:00"]'
-
 // composite form
 const range = [
   { value: new Date(Date.UTC(2016, 0, 1)), inclusive: false },
   new Date(Date.UTC(2016, 1, 1)),
 ];
 // '("2016-01-01 00:00:00+00:00", "2016-02-01 00:00:00+00:00")'
-
 const Timeline = sequelize.define('Timeline', {
   range: DataTypes.RANGE(DataTypes.DATE)
 });
-
 await Timeline.create({ range });
 ```
 
@@ -61,23 +404,21 @@ However, retrieved range values always come in the form of an array of objects. 
 
 You will need to call `reload()` after updating an instance with a range type or use the `returning: true` option.
 
-### Special Cases
+#### Special Cases
 
 ```js
 // empty range:
 Timeline.create({ range: [] }); // range = 'empty'
-
 // Unbounded range:
 Timeline.create({ range: [null, null] }); // range = '[,)'
 // range = '[,"2016-01-01 00:00:00+00:00")'
 Timeline.create({ range: [null, new Date(Date.UTC(2016, 0, 1))] });
-
 // Infinite range:
 // range = '[-infinity,"2016-01-01 00:00:00+00:00")'
 Timeline.create({ range: [-Infinity, new Date(Date.UTC(2016, 0, 1))] });
 ```
 
-## Network Addresses
+### Network Addresses
 
 <DialectTableFilter>
 
@@ -89,144 +430,75 @@ Timeline.create({ range: [-Infinity, new Date(Date.UTC(2016, 0, 1))] });
 
 </DialectTableFilter>
 
-## Arrays (PostgreSQL only)
+## Virtual
 
-```typescript
-// Defines an array of DataTypes.SOMETHING.
-DataTypes.ARRAY(/* DataTypes.SOMETHING */)
+`DataTypes.VIRTUAL` is a special DataType used to declare [virtual attributes](../core-concepts/getters-setters-virtuals.md#virtual-fields).
+It does not create an actual column.
 
-// For example
-// VARCHAR(255)[]
-DataTypes.ARRAY(DataTypes.STRING)
-// VARCHAR(255)[][]
-DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
-```
+:::caution
 
-## BLOBs
-
-```js
-DataTypes.BLOB                // BLOB (bytea for PostgreSQL)
-DataTypes.BLOB('tiny')        // TINYBLOB (bytea for PostgreSQL)
-DataTypes.BLOB('medium')      // MEDIUMBLOB (bytea for PostgreSQL)
-DataTypes.BLOB('long')        // LONGBLOB (bytea for PostgreSQL)
-```
-
-The blob datatype allows you to insert data both as strings and as buffers. However, when a blob is retrieved from database with Sequelize, it will always be retrieved as a buffer.
-
-## ENUMs
-
-The ENUM is a data type that accepts only a few values, specified as a list.
-
-```js
-DataTypes.ENUM('foo', 'bar') // An ENUM with allowed values 'foo' and 'bar'
-```
-
-ENUMs can also be specified with the `values` field of the column definition, as follows:
-
-```js
-sequelize.define('foo', {
-  states: {
-    type: DataTypes.ENUM,
-    values: ['active', 'pending', 'deleted']
-  }
-});
-```
-
-## JSON (SQLite, MySQL, MariaDB, Oracle and PostgreSQL only)
-
-The `DataTypes.JSON` data type is only supported for SQLite, MySQL, MariaDB, Oracle and PostgreSQL. However, there is a minimum support for MSSQL (see below).
-
-### Note for PostgreSQL
-
-The JSON data type in PostgreSQL stores the value as plain text, as opposed to binary representation. If you simply want to store and retrieve a JSON representation, using JSON will take less disk space and less time to build from its input representation. However, if you want to do any operations on the JSON value, you should prefer the JSONB data type described below.
-
-### JSONB (PostgreSQL only)
-
-PostgreSQL also supports a JSONB data type: `DataTypes.JSONB`. It can be queried in three different ways:
-
-```js
-// Nested object
-await Foo.findOne({
-  where: {
-    meta: {
-      video: {
-        url: {
-          [Op.ne]: null
-        }
-      }
-    }
-  }
-});
-
-// Nested key
-await Foo.findOne({
-  where: {
-    "meta.audio.length": {
-      [Op.gt]: 20
-    }
-  }
-});
-
-// Containment
-await Foo.findOne({
-  where: {
-    meta: {
-      [Op.contains]: {
-        site: {
-          url: 'https://google.com'
-        }
-      }
-    }
-  }
-});
-```
-
-### MSSQL
-
-MSSQL does not have a JSON data type, however it does provide some support for JSON stored as strings through certain functions since SQL Server 2016. Using these functions, you will be able to query the JSON stored in the string, but any returned values will need to be parsed separately.
-
-```js
-// ISJSON - to test if a string contains valid JSON
-await User.findAll({
-  where: sequelize.where(sequelize.fn('ISJSON', sequelize.col('userDetails')), 1)
-})
-
-// JSON_VALUE - extract a scalar value from a JSON string
-await User.findAll({
-  attributes: [[ sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), 'address line 1']]
-})
-
-// JSON_VALUE - query a scalar value from a JSON string
-await User.findAll({
-  where: sequelize.where(sequelize.fn('JSON_VALUE', sequelize.col('userDetails'), '$.address.Line1'), '14, Foo Street')
-})
-
-// JSON_QUERY - extract an object or array
-await User.findAll({
-  attributes: [[ sequelize.fn('JSON_QUERY', sequelize.col('userDetails'), '$.address'), 'full address']]
-})
-```
-
-## Miscellaneous DataTypes
-
-<DialectTableFilter>
-
-| Sequelize DataType                                                                       | PostgreSQL                                                                | [MariaDB](https://mariadb.com/kb/en/geometry-types/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) | MSSQL | SQLite | Snowflake | db2 | ibmi |
-|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|------------------------------------------------------|-----------------------------------------------------------------------------|-------|--------|-----------|-----|------|
-| [`GEOMETRY`](https://sequelize.org/api/v6/class/src/data-types.js~geometry)   | [`GEOMETRY`](https://postgis.net/workshops/postgis-intro/geometries.html) | `GEOMETRY`                                           | `GEOMETRY`                                                                  | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `GEOMETRY('POINT')`                                                                      | `GEOMETRY(POINT)`                                                         | `POINT`                                              | `POINT`                                                                     | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `GEOMETRY('POINT', 4326)`                                                                | `GEOMETRY(POINT,4326)`                                                    | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `GEOMETRY('POLYGON')`                                                                    | `GEOMETRY(POLYGON)`                                                       | `POLYGON`                                            | `POLYGON`                                                                   | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `GEOMETRY('LINESTRING')`                                                                 | `GEOMETRY(LINESTRING)`                                                    | `LINESTRING`                                         | `LINESTRING`                                                                | ❌     | ❌      | ❌         | ❌   | ❌    |
-| [`GEOGRAPHY`](https://sequelize.org/api/v6/class/src/data-types.js~geography) | [`GEOGRAPHY`](https://postgis.net/workshops/postgis-intro/geography.html) | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `HSTORE`                                                                                 | [`HSTORE`](https://www.postgresql.org/docs/9.1/hstore.html)               | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
-
-</DialectTableFilter>
-
-:::note
-
-In Postgres, the GEOMETRY and GEOGRAPHY types are implemented by [the PostGIS extension](https://postgis.net/workshops/postgis-intro/geometries.html).
-
-In Postgres, You must install the [pg-hstore](https://www.npmjs.com/package/pg-hstore) package if you use `DataTypes.HSTORE`
+Unlike `GENERATED` columns, `DataTypes.VIRTUAL` columns are handled in the JavaScript Layer. They are not created on the database table.
+See [the issue about generated columns](https://github.com/sequelize/sequelize/issues/12718) to learn more.
 
 :::
+
+## Custom Data Types
+
+Databases support more Data Types that are not covered by the ones built-in in Sequelize. 
+If you need to use such a Data Types, you can [create your own DataType](./extending-data-types.md).
+
+It is also possible to use a raw SQL string as the type of your attribute. 
+This string will be used as-is as the type of your column when creating the table.
+
+```typescript
+User = sequelize.define('user', {
+  password: {
+    type: 'VARBINARY(50)',
+  },
+});
+```
+
+**Caution:** Sequelize will not do any extra type transformation or validation on an attribute declared like this. Use wisely!
+
+And, of course, you can open a feature request in [the Sequelize repository](https://github.com/sequelize/sequelize) 
+to request the addition of a new built-in DataType.
+
+[mdn-number]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+[mdn-bigint]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+[mdn-string]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[ieee-754]: https://en.wikipedia.org/wiki/IEEE_754
+
+[postgres-char]: https://www.postgresql.org/docs/current/datatype-character.html
+[postgres-binary]: https://www.postgresql.org/docs/9.0/datatype-binary.html
+[postgres-tsvector]: https://www.postgresql.org/docs/10/datatype-textsearch.html
+[postgres-numeric]: https://www.postgresql.org/docs/current/datatype-numeric.html
+[postgres-temporal]: https://www.postgresql.org/docs/current/datatype-datetime.html
+
+[mariadb-varchar]: https://mariadb.com/kb/en/varchar/
+[mariadb-char]: https://mariadb.com/kb/en/char/
+[mariadb-text]: https://mariadb.com/kb/en/text/
+[mariadb-tinytext]: https://mariadb.com/kb/en/tinytext/
+[mariadb-mediumtext]: https://mariadb.com/kb/en/mediumtext/
+[mariadb-longtext]: https://mariadb.com/kb/en/longtext/
+[mariadb-numeric]: https://mariadb.com/kb/en/data-types-numeric-data-types/
+[mariadb-tinyint]: https://mariadb.com/kb/en/tinyint/
+[mariadb-temporal]: https://mariadb.com/kb/en/date-and-time-data-types/
+
+[mysql-char]: https://dev.mysql.com/doc/refman/8.0/en/char.html
+[mysql-text]: https://dev.mysql.com/doc/refman/8.0/en/blob.html
+[mysql-numeric]: https://dev.mysql.com/doc/refman/8.0/en/numeric-type-syntax.html
+[mysql-temporal]: https://dev.mysql.com/doc/refman/8.0/en/date-and-time-types.html
+
+[mssql-char]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/char-and-varchar-transact-sql?view=sql-server-ver15
+[mssql-nchar]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql?view=sql-server-ver15
+[mssql-text]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/ntext-text-and-image-transact-sql?view=sql-server-ver15
+[mssql-binary]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/binary-and-varbinary-transact-sql?view=sql-server-ver15
+[mssql-ints]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql?view=sql-server-ver15
+[mssql-exact-decimals]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/decimal-and-numeric-transact-sql?view=sql-server-ver15
+[mssql-inexact-decimals]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/float-and-real-transact-sql?view=sql-server-ver15
+
+[sqlite-datatypes]: https://www.sqlite.org/datatype3.html
+
+[snowflake-numeric]: https://docs.snowflake.com/en/sql-reference/data-types-numeric.html
+[snowflake-temporal]: https://docs.snowflake.com/en/sql-reference/data-types-datetime.html
