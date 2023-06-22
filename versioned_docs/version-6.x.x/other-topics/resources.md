@@ -12,7 +12,7 @@ title: Resources
 
 ### Auto Code Generation & Scaffolding
 
-* [meteor modeler](https://www.datensen.com/) - Desktop tool for visual definition of Sequelize models and asssociations.
+* [meteor modeler](https://www.datensen.com/) - Desktop tool for visual definition of Sequelize models and associations.
 * [sequelize-ui](https://github.com/tomjschuster/sequelize-ui) - Online tool for building models, relations and more.
 * [sequelizer](https://github.com/andyforever/sequelizer) - A GUI Desktop App for generating Sequelize models. Support for Mysql, Mariadb, Postgres, Sqlite, Mssql.
 * [sequelize-auto](https://github.com/sequelize/sequelize-auto) Generating models for SequelizeJS via the command line is another choice.
@@ -56,6 +56,7 @@ title: Resources
 ### Migrations
 
 * [umzug](https://github.com/sequelize/umzug)
+* [sequelizemm](https://github.com/hasinoorit/sequelizemm) - CLI tool to generate a migration script from models
 
 ### Slugification
 
@@ -72,3 +73,5 @@ title: Resources
 * [sqlcommenter-sequelize](https://github.com/google/sqlcommenter/tree/master/nodejs/sqlcommenter-nodejs/packages/sqlcommenter-sequelize) A [sqlcommenter](https://google.github.io/sqlcommenter/) plugin with [support for Sequelize](https://google.github.io/sqlcommenter/node/sequelize/) to augment SQL statements with comments that can be used later to correlate application code with SQL statements.
 * [automated-express-backend](https://github.com/ruyd/automated-express-backend) - Sample Sequelize Backend with runtime generation of API
 * [@rematter/paranoid-sql](https://www.npmjs.com/package/@rematter/paranoid-sql) - Add conditions to verify rows are not soft deleted.
+* [@rematter/sequelize-paranoid-delete](https://www.npmjs.com/package/@rematter/sequelize-paranoid-delete) - Enables onDelete when using paranoid mode.
+* [@hatchifyjs/sequelize-create-with-associations](https://github.com/bitovi/sequelize-create-with-associations) - Automatically creates, bulkCreates and updates records that have relationships to each other without extra code.

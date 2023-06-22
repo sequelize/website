@@ -12,7 +12,7 @@ This page regroups information related to which engines versions are supported b
 
 | Sequelize                       |  [Node.js][node-releases]  | [Typescript][ts-releases] | Release Date | EOL        |
 |---------------------------------|----------------------------|---------------------------|--------------|------------|
-| [7 (alpha)][sequelize-core]     | ^14.17.0 \|\| >= 16.0.0    | >= 4.6                    | ❓           | ❓         |
+| [7 (alpha)][sequelize-core]     | >= 16.0.0                  | >= 4.8                    | ❓           | ❓         |
 | [6 (current)][sequelize-legacy] | >= 10                      | >= 4.1                    | 2020-06-24   | ❓         |
 | 5 (eol)                         | >=6                        | >= 3.1                    | 2019-03-13   | 2022-01-01 |
 
@@ -25,13 +25,13 @@ This page regroups information related to which engines versions are supported b
 
 ## PostgreSQL Support Table
 
-PostgreSQL requires the use of the [pg][pg] (or [pg-native]) npm package.  
+PostgreSQL requires the use of the [pg][pg] (or [pg-native]) npm package.
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#postgresql).
 
 :::note
 
 According to [pg's documentation](https://node-postgres.com/#version-compatibility),
-only pg >= 8.2 is compatible with Node 14.  
+only pg >= 8.2 is compatible with Node 14.
 If you're trying to use Sequelize 6 in Node 14 or newer, use that version of pg.
 
 :::
@@ -47,12 +47,12 @@ If you're trying to use Sequelize 6 in Node 14 or newer, use that version of pg.
 
 ## MariaDB Support Table
 
-MariaDB requires the use of the [mariadb][mariadb-npm] npm package.  
+MariaDB requires the use of the [mariadb][mariadb-npm] npm package.
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#mariadb).
 
 | Sequelize   | [MariaDB][mariadb] | [mariadb (npm)][mariadb-npm] |
 |-------------|--------------------|------------------------------|
-| 7 (alpha)   | >=10.3             | >= 3.0.0 [^⚠️2]              |
+| 7 (alpha)   | >=10.4.30          | >= 3.0.0 [^⚠️2]              |
 | 6 (current) | >=10.3             | ^2.3.3                       |
 
 [mariadb]: https://mariadb.org/about/#maintenance-policy
@@ -60,7 +60,7 @@ MariaDB requires the use of the [mariadb][mariadb-npm] npm package.
 
 ## MySQL Support Table
 
-MySQL requires the use of the [mysql2] npm package.  
+MySQL requires the use of the [mysql2] npm package.
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#mysql).
 
 | Sequelize   | [MySQL][mysql] | [mysql2] |
@@ -73,7 +73,7 @@ MySQL requires the use of the [mysql2] npm package.
 
 ## Microsoft SQL Server (mssql) Support Table
 
-MSSQL requires the use of the [tedious] npm package.  
+MSSQL requires the use of the [tedious] npm package.
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#microsoft-sql-server-mssql).
 
 | Sequelize   | [SQL Server][mssql] | [tedious] |
@@ -86,7 +86,7 @@ MSSQL requires the use of the [tedious] npm package.
 
 ## SQLite Support Table
 
-Sequelize uses the `sqlite3` npm library.  
+Sequelize uses the `sqlite3` npm library.
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#sqlite).
 
 :::note
@@ -104,7 +104,7 @@ sqlite3@^4 has security vulnerabilities which are fixed by the [@vscode/sqlite3]
 
 ## Snowflake Support Table
 
-Snowflake requires the use of the [snowflake-sdk] npm package.  
+Snowflake requires the use of the [snowflake-sdk] npm package.
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#snowflake).
 
 :::note
@@ -123,7 +123,7 @@ support for Snowflake is limited as it is not handled by the core team.
 
 ## Db2 Support Table
 
-Db2 requires the use of the [ibm_db] npm package.  
+Db2 requires the use of the [ibm_db] npm package.
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#db2).
 
 :::note
@@ -143,7 +143,7 @@ support for Db2 is limited as it is not handled by the core team.
 
 ## Db2 for IBM i Support Table
 
-Db2 for IBM i requires the use of the [odbc] npm package.  
+Db2 for IBM i requires the use of the [odbc] npm package.
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#db2-for-ibm-i).
 
 :::note
@@ -163,7 +163,7 @@ support for Db2 for IBM i is limited as it is not handled by the core team.
 
 ## Oracle Database Support Table
 
-Oracle Database requires the use of the [node-oracledb] npm package.  
+Oracle Database requires the use of the [node-oracledb] npm package.
 [Read more about this here](/docs/v7/other-topics/dialect-specific-things/#oracle).
 
 | Sequelize   | [Oracle Database]   | [node-oracledb] |
