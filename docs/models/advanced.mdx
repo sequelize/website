@@ -1,0 +1,50 @@
+---
+sidebar_position: 9
+---
+
+# Advanced model definitions
+
+## Prevent creating a default PK attribute
+
+:::caution
+
+Many models instance methods, such as `update`, `save`, `destroy`, `reload`, `increment` and `decrement` will not work if your Model does not have a primary key.
+
+:::
+
+By default, Sequelize automatically adds the primary key attribute `id` to every model when no primary key has been defined manually.
+To prevent this you can set the [`noPrimaryKey`](pathname:///api/v7/interfaces/_sequelize_core.index.ModelOptions.html#noPrimaryKey) option to true when defining the model.
+
+```typescript
+@Table({ noPrimaryKey: true })
+export class User extends Model {}
+```
+
+If you want to prevent the addition of the default primary key for every model, you can also configure this option globally:
+
+```js
+class User extends Model {}
+
+const sequelize = new Sequelize({
+  define: {
+    noPrimaryKey: true,
+  },
+  models: [User],
+});
+```
+
+## Caveat with minification
+
+When defining a model, the name of the model will, by default, be the name of your class.
+
+If you minify your code, the class name — and therefore its model name — may be changed by your minifier.
+This can be an issue, as many systems use your modelName, from [sequelize.models](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#models)
+to [the name of the table associated to the model](./naming-strategies.mdx).
+
+The solution to prevent this issue is to explicitly set the `modelName` option:
+
+```typescript
+// by specifying 'modelName' explicitely, the name of this model can be safely minified.
+@Table({ modelName: 'User' })
+export class User extends Model {}
+```
