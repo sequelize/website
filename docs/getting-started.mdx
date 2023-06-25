@@ -1,10 +1,11 @@
 ---
 sidebar_position: 2
-title: Getting Started
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+
+# Getting Started
 
 In this tutorial you will learn to make a simple setup of Sequelize.
 
@@ -12,43 +13,23 @@ In this tutorial you will learn to make a simple setup of Sequelize.
 
 Sequelize is available via [npm](https://www.npmjs.com/package/@sequelize/core) (or [yarn](https://yarnpkg.com/package/@sequelize/core)).
 
+:::info
+
 The following commands will install Sequelize v7.
 If you're looking for Sequelize v6 (published as `sequelize` instead of `@sequelize/core`),
 [visit the v6 documentation](pathname:///docs/v6/getting-started/)
 
-<Tabs>
+:::
+
+<Tabs groupId="npm-yarn">
 <TabItem value="npm" label="npm">
 
 ```bash
-# This will install v6, the latest stable release of Sequelize
-npm i sequelize
+# This will install Sequelize 7, the latest alpha release of Sequelize
+npm i @sequelize/core@alpha
 
-# This will install v7, the latest alpha release of Sequelize
-npm i @sequelize/core
-```
-
-</TabItem>
-<TabItem value="yarn" label="yarn">
-
-```bash
-# This will install v6, the latest stable release of Sequelize
-yarn add sequelize
-
-# This will install v7, the latest alpha release of Sequelize
-yarn add @sequelize/core
-```
-
-</TabItem>
-</Tabs>
-
-Next you'll need to manually install the driver for your database of choice:
-
-<Tabs>
-<TabItem value="npm" label="npm">
-
-```bash
-# using npm
-npm i pg pg-hstore # PostgreSQL
+# You also need to install the driver for your database
+npm i pg # PostgreSQL
 npm i mysql2 # MySQL
 npm i mariadb # MariaDB
 npm i sqlite3 # SQLite
@@ -61,7 +42,11 @@ npm i odbc # IBM i
 <TabItem value="yarn" label="yarn">
 
 ```bash
-yarn add pg pg-hstore # PostgreSQL
+# This will install Sequelize 7, the latest alpha release of Sequelize
+yarn add @sequelize/core@alpha
+
+# You also need to install the driver for your database
+yarn add pg # PostgreSQL
 yarn add mysql2 # MySQL
 yarn add mariadb # MariaDB
 yarn add sqlite3 # SQLite
@@ -79,7 +64,7 @@ To connect to the database, you must create a Sequelize instance.
 This can be done by either passing the connection parameters separately to the Sequelize constructor or by passing a single connection URI:
 
 ```javascript
-const { Sequelize } = require('@sequelize/core');
+import { Sequelize } from '@sequelize/core';
 
 // Option 1: Passing a connection URI
 const sequelize = new Sequelize('sqlite::memory:') // Example for sqlite
@@ -101,11 +86,13 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 ```
 
 The Sequelize constructor accepts a lot of options.
-They are documented in the [API Reference](pathname:///api/v7/classes/Sequelize.html#constructor).
+They are documented in the [API Reference](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#constructor).
 
 ### Testing the connection
 
-You can use the `.authenticate()` function to test if the connection is OK:
+You can use the `.authenticate()` function to test if the connection is OK.
+Note that this is completely optional, but recommended as Sequelize fetches your Database version on the first connection.
+That version is then used to determine which SQL features are available.
 
 ```js
 try {
@@ -118,10 +105,10 @@ try {
 
 ### Closing the connection
 
-Sequelize will keep the connection open by default, and use the same connection for all queries.
-If you need to close the connection, call `sequelize.close()` (which is asynchronous and returns a Promise).
+Sequelize uses a connection pool to manage connections to the database. This means some connection can remain open even after you're done with them.
+If you wish to gracefully shut down your application, you can use [`sequelize.close()`](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#close) to close all active connections.
 
-:::note
+:::caution
 
 Once `sequelize.close()` has been called, it's impossible to open a new connection. You will need to create a new Sequelize instance to access your database again.
 
@@ -129,30 +116,33 @@ Once `sequelize.close()` has been called, it's impossible to open a new connecti
 
 ## Terminology convention
 
-Observe that, in the examples above, `Sequelize` refers to the library itself while `sequelize` refers to an instance of Sequelize,
-which represents a connection to one database. This is the recommended convention and it will be followed throughout the documentation.
+Observe that, in the examples above, `Sequelize` refers to the library itself while the lowercase `sequelize` refers to an instance of Sequelize.
+This is the recommended convention, and it will be followed throughout the documentation.
 
-## Tip for reading the docs
+## TypeScript
 
-You are encouraged to run code examples locally while reading the Sequelize docs. This will help you learn faster.
-The easiest way to do this is using the SQLite dialect:
+Sequelize provides built-in TypeScript support.
+
+Head to the [Version Policy page](/releases) to know which versions of TypeScript are supported,
+and make sure that the [`@types/node`](https://www.npmjs.com/package/@types/node) package corresponding to your Node.js version is installed
+in your project.
+
+## CommonJS or ESM?
+
+Our documentation makes heavy use of ECMAScript Modules (ESM), but CommonJS is fully supported by Sequelize.
+To use Sequelize in a CommonJS project, simply use `require` instead of `import`:
 
 ```js
-const { Sequelize, Op, Model, DataTypes } = require('@sequelize/core');
-const sequelize = new Sequelize("sqlite::memory:");
+// how you would import Sequelize in ESM
+import { Sequelize, Op, Model, DataTypes } from '@sequelize/core';
 
-// Code here! It works!
+// how you would import Sequelize in CommonJS
+const { Sequelize, Op, Model, DataTypes } = require('@sequelize/core');
 ```
 
-To experiment with the other dialects, which are harder to setup locally,
-you can use the [Sequelize SSCCE](https://github.com/sequelize/sequelize-sscce) GitHub repository,
-which allows you to run code on all supported dialects!
-
-## New databases versus existing databases
-
-If you are starting a project from scratch, and your database is still empty, Sequelize can be used since the beginning in order to automate the creation of every table in your database.
-
-Also, if you want to use Sequelize to connect to a database that is already filled with tables and data, that works as well! Sequelize has got you covered in both cases.
+Most of the methods provided by Sequelize are asynchronous and therefore return [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+we highly recommend using **ECMAScript Modules**, as they give you access to [Top-Level Await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await), which we use extensively in our examples.
+Head to [Node.js' documentation](https://nodejs.org/api/esm.html) to learn how to use them in Node.js.
 
 ## Logging
 
@@ -171,8 +161,6 @@ const sequelize = new Sequelize('sqlite::memory:', {
 });
 ```
 
-## Promises and async/await
+## Next Step
 
-Most of the methods provided by Sequelize are asynchronous and therefore return Promises. They are all [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) , so you can use the Promise API (for example, using `then`, `catch`, `finally`) out of the box.
-
-Of course, using `async` and `await` works normally as well.
+Now that you have a Sequelize instance, the next step to get started is to [define your first models](./models/defining-models.mdx).

@@ -441,7 +441,7 @@ Given the fact that AWS Lambda containers process one request at a time, one wou
 configure `sequelize` as follows:
 
 ```js
-const { Sequelize } = require('@sequelize/core');
+import { Sequelize } from '@sequelize/core';
 
 const sequelize = new Sequelize(/* (...) */, {
   // (...)
@@ -457,20 +457,20 @@ presents a set of issues:
 
 1. Lambdas that wait for the event loop to be empty will always time out. `sequelize` connection
    pools schedule a `setTimeout` every
-   [`options.pool.evict`](pathname:///api/v7/interfaces/PoolOptions.html#evict)
+   [`options.pool.evict`](pathname:///api/v7/interfaces/_sequelize_core.index.PoolOptions.html#evict)
    ms until **all idle connections have been closed**. However, since `min` is set to `1`, there
    will always be at least one idle connection in the pool, resulting in an infinite event loop.
 1. Some operations like
-   [`Model.findAndCountAll()`](pathname:///api/v7/classes/Model.html#findAndCountAll)
+   [`Model.findAndCountAll()`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAndCountAll)
    execute multiple queries asynchronously (e.g.
-   [`Model.count()`](pathname:///api/v7/classes/Model.html#count) and
-   [`Model.findAll()`](pathname:///api/v7/classes/Model.html#findAll)). Using a maximum of
+   [`Model.count()`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#count) and
+   [`Model.findAll()`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAll)). Using a maximum of
    one connection forces the queries to be executed serially (rather than in parallel using two
    connections). While this may be an acceptable performance compromise in order to
    maintain a manageable number of database connections, long running queries may result in
-   [`ConnectionAcquireTimeoutError`](pathname:///api/v7/classes/ConnectionAcquireTimeoutError.html)
+   [`ConnectionAcquireTimeoutError`](pathname:///api/v7/classes/_sequelize_core.index.ConnectionAcquireTimeoutError.html)
    if a query takes more than the default or configured
-   [`options.pool.acquire`](pathname:///api/v7/interfaces/PoolOptions.html#acquire)
+   [`options.pool.acquire`](pathname:///api/v7/interfaces/_sequelize_core.index.PoolOptions.html#acquire)
    timeout to complete. This is because the serialized query will be stuck waiting on the pool until
    the connection used by the other query is released.
 1. If the AWS Lambda function times out (i.e. the configured AWS Lambda timeout is exceeded), the
@@ -568,7 +568,7 @@ new Runtime(client, handler, errorCallbacks).scheduleIteration();
 ```
 
 All SQL queries invoked by a Lambda handler using `sequelize` are ultimately executed using
-[Sequelize.prototype.query()](pathname:///api/v7/classes/Sequelize.html#query).
+[Sequelize#query()](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#query).
 This method is responsible for obtaining a connection from the pool, executing the query, and
 releasing the connection back to the pool when the query completes. The following snippet shows
 a simplification of the method's logic for queries without transactions:
@@ -630,7 +630,7 @@ class ConnectionManager {
 }
 ```
 
-The field `this.lib` refers to [`mysql2`](https://www.npmjs.com/package/mysql2) and the function
+The property `this.lib` refers to [`mysql2`](https://www.npmjs.com/package/mysql2) and the function
 `createConnection()` creates a connection by creating an instance of a `Connection` class. The
 relevant subset of this class is as follows:
 
