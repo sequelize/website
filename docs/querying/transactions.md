@@ -55,27 +55,28 @@ This concept is exclusive to managed transactions.
 Sequelize supports 3 behaviors for nested transactions:
 
 - `TransactionMode.reuse` (default): The child block will not do anything, and the transaction created by the parent block will be used inside the child block.
-- `TransactionMode.savepoint`: A save point will be created inside the parent transaction, and the child block will use this save point.  
-  If the child block throws an error, the save point will be rolled back, but the parent transaction will continue.  
-  If the child block finishes successfully, the save point will be released.
-- `TransactionMode.separate`: A new transaction will be created inside the child block, completely independent from the parent transaction.  
-  Be very careful when using this mode, as improper usage can lead to deadlocks.
+- [`TransactionMode.savepoint`](#savepoints): A save point will be created inside the parent transaction, and the child block will use this save point.
+- [`TransactionMode.separate`](#concurrent-transactions): A new transaction will be created inside the child block, completely independent of the parent transaction.
 
-Here is an example of nested transactions:
+This option can be set by passing the `nestMode` option to [`sequelize.transaction`].
 
 ```ts
 await sequelize.transaction(async () => {
-  // a transaction has been created here
-
   await sequelize.transaction({ nestMode: TransactionNestMode.savepoint }, async () => {
-    // a save point has been created here
   });
-
-  // the save point has been released (or rolled back if the above block threw an error)
 });
-
-// the transaction has been committed (or rolled back if the above block threw an error)
 ```
+
+You can also configure the default behavior globally
+by setting the [`defaultTransactionNestMode`](pathname:///api/v7/interfaces/_sequelize_core.index.options#defaultTransactionNestMode) that the Sequelize constructor accepts.
+
+```ts
+new Sequelize({
+  defaultTransactionNestMode: TransactionNestMode.savepoint,
+});
+```
+
+---
 
 If you [disabled CLS](#disabling-cls), you must pass the parent transaction object to the child block yourself.
 If you don't, the child block will not be aware of the parent transaction, and will always create a new transaction instead.
@@ -101,17 +102,74 @@ await sequelize.transaction(async (parentTransaction) => {
 // the transaction has been committed (or rolled back if the above block threw an error)
 ```
 
-:::info
+### Savepoints
 
-You can configure the default behavior globally by setting the [`defaultTransactionNestMode`](pathname:///api/v7/interfaces/_sequelize_core.index.options#defaultTransactionNestMode) that the Sequelize constructor accepts.
+If `nestMode` is set to `TransactionNestMode.savepoint`, a save point will be created inside the parent transaction, 
+and the child block will use this save point.
+
+If the child block throws an error, the save point will be rolled back, but the parent transaction will continue.  
+If the child block finishes successfully, the save point will be released:
 
 ```ts
-new Sequelize({
-  defaultTransactionNestMode: TransactionNestMode.savepoint,
+await sequelize.transaction(async () => {
+  // a transaction has been created here
+
+  await sequelize.transaction({ nestMode: TransactionNestMode.savepoint }, async () => {
+    // a save point has been created here
+  });
+
+  // the save point has been released (or rolled back if the above block threw an error)
+});
+
+// the transaction has been committed (or rolled back if the above block threw an error)
+```
+
+### Concurrent Transactions
+
+:::warning
+
+Be very careful when using Concurrent Transactions, as improper usage can lead to deadlocks.
+
+:::
+
+Concurrent transactions are transactions that run concurrently with each other.
+This can be done by starting multiple transactions at the same time, then specifying which transaction each query must use.
+
+```ts
+sequelize.transaction((t1) => {
+  return sequelize.transaction({ nestMode: TransactionNestMode.separate }, (t2) => {
+    // Queries in this block will use the transaction t2 by default,
+    // but you can specify which transaction must be used
+    // by using the `transaction` option.
+    return Promise.all([
+      // runs query in transaction t1
+      User.create({ name: 'Mallory' }, { transaction: t1 }),
+      // runs query in transaction t2 (the default)
+      User.create({ name: 'Mallory' }, { transaction: t2 }),
+    ]);
+  });
 });
 ```
 
+### Escaping the transaction
+
+:::warning
+
+Be very careful when doing the following, as it can easily lead to deadlocks.
+
 :::
+
+If you need to run a query outside the transaction, you can set the `transaction` option to `null`.
+
+```ts
+await sequelize.transaction(async () => {
+  // this query will run inside the transaction
+  await User.create({ name: 'Mallory' });
+
+  // this query will run outside the transaction
+  await User.create({ name: 'Mallory' }, { transaction: null });
+});
+```
 
 ### Getting the current transaction
 
@@ -126,30 +184,6 @@ const result = await sequelize.transaction(async (transaction) => {
 ```
 
 This can be helpful if you need to [use two different transactions in the same block](#concurrent--partial-transactions), or if you [disable CLS](#disabling-cls)
-
-### Concurrent & Partial transactions
-
-It's possible to use multiple transactions concurrently by using the `transaction` option of the various querying methods.
-
-```ts
-sequelize.transaction((t1) => {
-  return sequelize.transaction((t2) => {
-    // Pass in the `transaction` option to define/alter the transaction they belong to.
-    return Promise.all([
-      // runs the query outside of either transaction
-      User.create({ name: 'Bob' }, { transaction: null }),
-      // runs query in transaction t1
-      User.create({ name: 'Mallory' }, { transaction: t1 }),
-      // runs query in transaction t3
-      User.create({ name: 'Mallory' }, { transaction: t2 }),
-        
-      // if CLS is enabled, this method uses t2 automatically
-      // otherwise, it uses neither transactions (like if transaction were set to null).
-      User.create({ name: 'John' }),
-    ]);
-  });
-});
-```
 
 ### Disabling CLS
 
@@ -239,41 +273,86 @@ and [`sequelize.startUnmanagedTransaction`] accept options:
 
 ### Isolation levels
 
-The possible isolations levels to use when starting a transaction:
+The possible isolation levels to use when starting a transaction:
 
 ```js
-import { ISOLATION_LEVELS } from '@sequelize/core';
+import { IsolationLevel } from '@sequelize/core';
 
 // The following are valid isolation levels:
-ISOLATION_LEVELS.READ_UNCOMMITTED // "READ UNCOMMITTED"
-ISOLATION_LEVELS.READ_COMMITTED // "READ COMMITTED"
-ISOLATION_LEVELS.REPEATABLE_READ  // "REPEATABLE READ"
-ISOLATION_LEVELS.SERIALIZABLE // "SERIALIZABLE"
+IsolationLevel.READ_UNCOMMITTED
+IsolationLevel.READ_COMMITTED
+IsolationLevel.REPEATABLE_READ
+IsolationLevel.SERIALIZABLE
 ```
 
-By default, sequelize uses the isolation level of the database. If you want to use a different isolation level, pass in the desired level as the first argument:
+By default, sequelize uses the isolation level of the database. 
+If you want to use a different isolation level, pass in the desired level as the first argument:
 
 ```ts
-import { ISOLATION_LEVELS } from '@sequelize/core';
+import { IsolationLevel } from '@sequelize/core';
 
 await sequelize.transaction({
-  isolationLevel: ISOLATION_LEVELS.SERIALIZABLE
+  isolationLevel: IsolationLevel.SERIALIZABLE
 }, async (t) => {
   // Your code
 });
 ```
 
-You can also change the default `isolationLevel` setting by setting the option in the Sequelize constructor:
+You can also change the default `isolationLevel` globally by setting the option in the Sequelize constructor:
 
 ```ts
-import { Sequelize, ISOLATION_LEVELS } from '@sequelize/core';
+import { Sequelize, IsolationLevel } from '@sequelize/core';
 
 const sequelize = new Sequelize('sqlite::memory:', {
-   isolationLevel: ISOLATION_LEVELS.SERIALIZABLE
+  isolationLevel: IsolationLevel.SERIALIZABLE
 });
 ```
 
 **Note for MSSQL:** _The `SET ISOLATION LEVEL` queries are not logged since the specified `isolationLevel` is passed directly to `tedious`._
+
+### Constraint Checks
+
+PostgreSQL supports deferring [constraint checking](https://www.postgresql.org/docs/current/sql-set-constraints.html) to the end of a transaction.
+This allows you to insert or update rows that violate constraints,as long as you fix the violations before committing the transaction.
+
+In Sequelize, you can enable this behavior by setting the `constraintChecking` option to `DEFERRED`:
+
+```ts
+import { ConstraintChecking } from '@sequelize/core';
+
+await sequelize.transaction({
+  constraintChecking: ConstraintChecking.DEFERRED
+}, async (t) => {
+  // Your code
+});
+```
+
+You can also specify which constraints to defer by passing an array of constraint names:
+
+```ts
+import { ConstraintChecking } from '@sequelize/core';
+
+await sequelize.transaction({
+  constraintChecking: ConstraintChecking.DEFERRED(['project_owner_fk'])
+}, async (t) => {
+  // Your code
+});
+```
+
+### Read replication
+
+If you use [read replication](../other-topics/read-replication.md),
+you can let Sequelize know whether the transaction is _only_ going to be used for read queries by setting the `readOnly` option to `true`:
+
+This will cause Sequelize to open the transaction against a read replica instead of the primary server.
+
+```ts
+await sequelize.transaction({
+  readOnly: true
+}, async (t) => {
+  // Your code
+});
+```
 
 ## Transaction Hooks
 
@@ -286,15 +365,15 @@ This hook is supported by both managed and unmanaged transaction objects:
 ```js
 // Managed transaction:
 await sequelize.transaction(async (t) => {
-   t.afterCommit(() => {
-      // Your logic
-   });
+  t.afterCommit(() => {
+    // Your logic
+  });
 });
 
 // Unmanaged transaction:
 const t = await sequelize.startUnmanagedTransaction();
 t.afterCommit(() => {
-   // Your logic
+  // Your logic
 });
 await t.commit();
 ```
@@ -313,14 +392,14 @@ You can use the `afterCommit` hook in conjunction with model hooks to know when 
 
 ```js
 User.hooks.addListener('afterSave', (instance, options) => {
-   if (options.transaction) {
-      // Save done within a transaction, wait until transaction is committed to
-      // notify listeners the instance has been saved
-      options.transaction.afterCommit(() => { /* Your Logic */ })
-      return;
-   }
-   // Save done outside a transaction, safe for callers to fetch the updated model
-   // Your Logic Here
+  if (options.transaction) {
+    // Save done within a transaction, wait until transaction is committed to
+    // notify listeners the instance has been saved
+    options.transaction.afterCommit(() => { /* Your Logic */ })
+    return;
+  }
+  // Save done outside a transaction, safe for callers to fetch the updated model
+  // Your Logic Here
 });
 ```
 
@@ -346,9 +425,9 @@ Queries within a `transaction` can be performed with locks:
 
 ```js
 return User.findAll({
-   limit: 1,
-   lock: true,
-   transaction: t1
+  limit: 1,
+  lock: true,
+  transaction: t1
 });
 ```
 
@@ -356,10 +435,10 @@ Queries within a transaction can skip locked rows:
 
 ```js
 return User.findAll({
-   limit: 1,
-   lock: true,
-   skipLocked: true,
-   transaction: t2
+  limit: 1,
+  lock: true,
+  skipLocked: true,
+  transaction: t2
 });
 ```
 
