@@ -68,7 +68,7 @@ If you do that, we recommend pinning the Sequelize version your project uses as 
 
 :::info
 
-[CLS Transactions](../querying/transactions.md#automatically-pass-transactions-to-all-queries) are now enabled by default.
+[CLS Transactions](../querying/transactions.md#disabling-cls) are now enabled by default.
 You can use the [`disableClsTransactions`](pathname:///api/v7/interfaces/_sequelize_core.index.Options.html#disableClsTransactions) global option to disable them.
 
 :::
@@ -80,9 +80,9 @@ and that the `Sequelize.useCLS` method has been removed.
 
 *Pull Request [#15292](https://github.com/sequelize/sequelize/pull/15292)*
 
-In order to discourage [unmanaged transactions](./transactions.md#unmanaged-transactions), which we consider to be error-prone, `sequelize.transaction()` cannot be used to create unmanaged transactions anymore.
+In order to discourage [unmanaged transactions](../querying/transactions.md#unmanaged-transactions), which we consider to be error-prone, `sequelize.transaction()` cannot be used to create unmanaged transactions anymore.
 You must use `sequelize.startUnmanagedTransaction()` for that.
-[Managed transactions](./transactions.md#managed-transactions-recommended) continue to use `sequelize.transaction()`.
+[Managed transactions](../querying/transactions.md#managed-transactions-recommended) continue to use `sequelize.transaction()`.
 
 ### `$bind` parameters in strings must not be escaped anymore
 
