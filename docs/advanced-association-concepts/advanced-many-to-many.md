@@ -368,6 +368,43 @@ Person.belongsToMany(Person, { as: 'Children', through: 'PersonChildren' })
 // This will create the table PersonChildren which stores the ids of the objects.
 ```
 
+## Associations with extra attributes on through table
+
+When creating an N:M association, for example, with User and Project through UserProjects you might want extra attributes in the join table like the "role" attribute . This relationship can be setup like this:
+
+```js
+const User = sequelize.define('User', {
+  username: DataTypes.STRING,
+}, { timestamps: false });
+
+const Project = sequelize.define('Project', {
+  name: DataTypes.STRING
+}, { timestamps: false });
+
+const UserProjects = sequelize.define('UserProjects', {
+  role: DataTypes.STRING
+}, { timestamps: false });
+
+User.belongsToMany(Project, { through: UserProjects})
+Project.belongsToMany(User, { through: UserProjects})
+```
+
+Creating multiple associations with the same extra attributes is possible by passing a single object on the through attribute:
+```js
+user1.setProjects([project1, project2, project3], { through: { role: 'admin' }})
+```
+
+Setting different extra attributes per association can be done by passing an array of objects of the same length as the ammount of associations:
+```js
+user1.setProjects([project1, project2, project3], {
+  through: [
+    { role: 'admin' },
+    { role: 'manager' },
+    { role: 'designer' },
+  ]
+})
+```
+
 ## Specifying attributes from the through table
 
 By default, when eager loading a many-to-many relationship, Sequelize will return data in the following structure (based on the first example in this guide):
