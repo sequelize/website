@@ -579,7 +579,7 @@ a simplification of the method's logic for queries without transactions:
 class Sequelize {
   // (...)
 
-  query(sql, options) {
+  async query(sql, options) {
     // (...)
 
     const connection = await this.connectionManager.getConnection(options);

@@ -68,13 +68,21 @@ If you do that, we recommend pinning the Sequelize version your project uses as 
 
 :::info
 
-[CLS Transactions](../querying/transactions.md#automatically-pass-transactions-to-all-queries) are now enabled by default.
+[CLS Transactions](../querying/transactions.md#disabling-cls) are now enabled by default.
 You can use the [`disableClsTransactions`](pathname:///api/v7/interfaces/_sequelize_core.index.Options.html#disableClsTransactions) global option to disable them.
 
 :::
 
 Sequelize's CLS implementation has been migrated to use Node's built-in AsyncLocalStorage. This means you do not need to install the `continuation-local-storage` or `cls-hooked` packages anymore,
 and that the `Sequelize.useCLS` method has been removed.
+
+### Unmanaged transactions
+
+*Pull Request [#15292](https://github.com/sequelize/sequelize/pull/15292)*
+
+In order to discourage [unmanaged transactions](../querying/transactions.md#unmanaged-transactions), which we consider to be error-prone, `sequelize.transaction()` cannot be used to create unmanaged transactions anymore.
+You must use `sequelize.startUnmanagedTransaction()` for that.
+[Managed transactions](../querying/transactions.md#managed-transactions-recommended) continue to use `sequelize.transaction()`.
 
 ### `$bind` parameters in strings must not be escaped anymore
 

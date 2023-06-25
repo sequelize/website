@@ -158,29 +158,30 @@ module.exports = {
 };
 ```
 
-The following is an example of a migration that performs two changes in the database, using an automatically-managed transaction to ensure that all instructions are successfully executed or rolled back in case of failure:
+The following is an example of a migration that performs two changes in the database, 
+using an automatically-managed transaction to ensure that all instructions are successfully executed or rolled back in case of failure:
 
 ```js
 const { DataTypes } = require('@sequelize/core');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.sequelize.transaction(t => {
+    return queryInterface.sequelize.transaction(transaction => {
       return Promise.all([
         queryInterface.addColumn('Person', 'petName', {
           type: DataTypes.STRING
-        }, { transaction: t }),
+        }, { transaction }),
         queryInterface.addColumn('Person', 'favoriteColor', {
           type: DataTypes.STRING,
-        }, { transaction: t })
+        }, { transaction })
       ]);
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.sequelize.transaction(t => {
+    return queryInterface.sequelize.transaction(transaction => {
       return Promise.all([
-        queryInterface.removeColumn('Person', 'petName', { transaction: t }),
-        queryInterface.removeColumn('Person', 'favoriteColor', { transaction: t })
+        queryInterface.removeColumn('Person', 'petName', { transaction }),
+        queryInterface.removeColumn('Person', 'favoriteColor', { transaction })
       ]);
     });
   }
@@ -227,7 +228,7 @@ const { DataTypes } = require('@sequelize/core');
 
 module.exports = {
   async up(queryInterface) {
-    const transaction = await queryInterface.sequelize.transaction();
+    const transaction = await queryInterface.sequelize.startUnmanagedTransaction();
     try {
       await queryInterface.addColumn(
         'Person',
@@ -253,7 +254,7 @@ module.exports = {
     }
   },
   async down(queryInterface) {
-    const transaction = await queryInterface.sequelize.transaction();
+    const transaction = await queryInterface.sequelize.startUnmanagedTransaction();
     try {
       await queryInterface.removeColumn('Person', 'petName', { transaction });
       await transaction.commit();
