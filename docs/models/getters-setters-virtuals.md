@@ -14,7 +14,7 @@ They are very useful to create custom attributes which also could simplify your 
 Attribute Getters & Setters are like any other JavaScript getter and setters, but cause the creation of an attribute in the model definition.
 The main advantage is that Sequelize will call these getters and setters automatically when the attribute is read or set.
 
-You must decorate your getter or setter with [attribute decorators](../models/defining-models.mdx), just like you would with any other attribute.
+You must decorate your getter or setter with [attribute decorators](defining-models.mdx), just like you would with any other attribute.
 
 Unlike the standard JavaScript getters & setters, __you do not need to define both a getter and a setter for the same attribute__.
 Sequelize will automatically create a setter for you if you only define a getter, and vice versa. You can of course define

@@ -22,7 +22,7 @@ Sequelize offers three ways of implementing polymorphic associations, in order o
 
 The way this polymorphic association works is by creating a base model, such as `AbstractComment`,
 which defines the common fields between all comments.
-Then, we create models that inherit from it
+Then, we create models that [inherit](../models/inheritance.md) from it
 for each model that can have comments, such as `ArticleComment` and `VideoComment`.
 
 ```ts

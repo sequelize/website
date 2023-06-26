@@ -6,12 +6,6 @@ sidebar_position: 9
 
 ## Prevent creating a default PK attribute
 
-:::caution
-
-Many models instance methods, such as `update`, `save`, `destroy`, `reload`, `increment` and `decrement` will not work if your Model does not have a primary key.
-
-:::
-
 By default, Sequelize automatically adds the primary key attribute `id` to every model when no primary key has been defined manually.
 To prevent this you can set the [`noPrimaryKey`](pathname:///api/v7/interfaces/_sequelize_core.index.ModelOptions.html#noPrimaryKey) option to true when defining the model.
 
@@ -32,6 +26,24 @@ const sequelize = new Sequelize({
   models: [User],
 });
 ```
+
+Instances without primary keys can still be retrieved using `Model.findOne` and `Model.findAll`.
+While it's currently possible to use their instance methods (`instance.save`, `instance.update`, etc…), doing this will lead to subtle bugs,
+and is planned for removal in a future update.
+
+:::caution
+
+If your model has no primary keys, you need to use the static equivalent of the following instance methods, and provide your own `where` parameter:
+
+- `instance.save`: `Model.update`
+- `instance.update`: `Model.update`
+- `instance.reload`: `Model.findOne`
+- `instance.destroy`: `Model.destroy`
+- `instance.restore`: `Model.restore`
+- `instance.decrement`: `Model.decrement`
+- `instance.increment`: `Model.increment`
+
+:::
 
 ## Caveat with minification
 

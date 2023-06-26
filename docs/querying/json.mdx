@@ -7,10 +7,18 @@ sidebar_position: 9
 import { SupportTable } from '@site/src/components/support-table';
 
 <SupportTable
-  dialectLinks={{
-    PostgreSQL: 'https://www.postgresql.org/docs/current/functions-json.html',
-    MySQL: 'https://dev.mysql.com/doc/refman/8.0/en/json-search-functions.html',
-    MariaDB: 'https://mariadb.com/kb/en/json-functions/',
+  features={{
+    'Regular Queries': {
+      PostgreSQL: 'https://www.postgresql.org/docs/current/functions-json.html',
+      MySQL: 'https://dev.mysql.com/doc/refman/8.0/en/json-search-functions.html',
+      MariaDB: 'https://mariadb.com/kb/en/json-functions/',
+    },
+    'Unquoted Queries': {
+      PostgreSQL: true,
+      MySQL: true,
+      MariaDB: true,
+      MSSQL: 'https://learn.microsoft.com/en-us/sql/relational-databases/json/json-data-sql-server',
+    },
   }}
 />
 

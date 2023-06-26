@@ -1,0 +1,16 @@
+.entry,
+.supported,
+.unsupported {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.supported {
+  color: var(--ifm-color-success-light);
+}
+
+.docs {
+  font-size: 12px;
+}
