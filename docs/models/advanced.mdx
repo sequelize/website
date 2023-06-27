@@ -28,10 +28,10 @@ const sequelize = new Sequelize({
 ```
 
 Instances without primary keys can still be retrieved using `Model.findOne` and `Model.findAll`.
-While it's currently possible to use their instance methods (`instance.save`, `instance.update`, etc…), doing this will lead to subtle bugs,
-and is planned for removal in a future update.
 
 :::caution
+
+Some model methods require a primary key to be defined. For instance, `Model.findByPk` will throw an error if no primary key is defined.
 
 If your model has no primary keys, you need to use the static equivalent of the following instance methods, and provide your own `where` parameter:
 
