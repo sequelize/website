@@ -1,5 +1,7 @@
 import React from 'react';
+import { Check, X } from 'react-feather';
 import { SUPPORTED_DIALECTS } from '../utils/dialects';
+import css from './support-table.module.scss';
 
 type Props = {
   dialectLinks?: Record<string, string>,
@@ -63,14 +65,18 @@ export function SupportTable(props: Props) {
 
 function SupportCell(props: { link: string | true | undefined }) {
   if (props.link) {
-    const supportedIcon = <span title="Feature is supported" aria-label="Feature is supported" role="img">✔️</span>;
+    const supportedIcon = <span title="Feature is supported" aria-label="Feature is supported" role="img" className={css.supported}><Check /></span>;
 
     return (
       <td>
         {props.link === true ? supportedIcon : (
-          <a href={props.link} target="_blank" rel="noreferrer">
-            {supportedIcon} (docs)
-          </a>
+          <span className={css.entry}>
+            {supportedIcon}
+            <a href={props.link} target="_blank" rel="noreferrer" className={css.docs}>
+              [docs]
+            </a>
+          </span>
+
         )}
       </td>
     );
@@ -78,7 +84,7 @@ function SupportCell(props: { link: string | true | undefined }) {
 
   return (
     <td>
-      <span title="Feature is not supported" aria-label="Feature is not supported" role="img">❌</span>
+      <span title="Feature is not supported" aria-label="Feature is not supported" role="img" className={css.unsupported}><X /></span>
     </td>
   );
 }
