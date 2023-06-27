@@ -38,7 +38,7 @@ class Footballer extends Player<Footballer> {
 class Cricketer<M extends Cricketer = Cricketer> extends Player<M> {
   @Attribute(DataTypes.INTEGER)
   @NotNull
-  declare battlingAverage: number;
+  declare battingAverage: number;
 }
 
 class Bowler extends Cricketer<Bowler> {

@@ -179,8 +179,8 @@
     <g stroke-miterlimit="1.45" font-family="sans-serif" transform="matrix(1,0,0,1,-185,-209)" stroke-linecap="butt">
       <text x="662.8154" xml:space="preserve" y="501.0645" clip-path="url(#clipPath2)" stroke="none">«table»</text>
       <text x="661.1602" xml:space="preserve" y="515.7656" clip-path="url(#clipPath2)" stroke="none">bowlers</text>
-      <text x="629" xml:space="preserve" y="542.4668" clip-path="url(#clipPath2)" stroke="none">Name</text>
-      <text x="629" xml:space="preserve" y="557.168" clip-path="url(#clipPath2)" stroke="none">battling_average</text>
+      <text x="629" xml:space="preserve" y="542.4668" clip-path="url(#clipPath2)" stroke="none">name</text>
+      <text x="629" xml:space="preserve" y="557.168" clip-path="url(#clipPath2)" stroke="none">batting_average</text>
       <text x="629" xml:space="preserve" y="571.8691" clip-path="url(#clipPath2)" stroke="none">bowling_average</text>
     </g>
     <g stroke-linecap="butt" transform="matrix(1,0,0,1,-185,-209)" stroke-miterlimit="1.45">
