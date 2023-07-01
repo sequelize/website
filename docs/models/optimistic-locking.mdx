@@ -1,0 +1,50 @@
+---
+title: Optimistic Locking
+sidebar_position: 10
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Sequelize has built-in support for [optimistic locking](https://en.wikipedia.org/wiki/Optimistic_concurrency_control) through a model instance version count.
+
+Whenever Sequelize needs to modify the model,
+it will make sure that the version count on the model instance is equal to the version count in the database.
+If the counts are different, an `OptimisticLockError` will be thrown.
+
+## Enabling optimistic locking
+
+Optimistic locking is disabled by default and can be enabled by using the `@Version` decorator on the attribute of your model
+that should be used as the version count.
+
+
+<Tabs groupId="ts-js">
+<TabItem value="ts" label="TypeScript">
+
+```typescript
+import { InferCreationAttributes, InferAttributes, Model, CreationOptional } from '@sequelize/core';
+import { Version } from '@sequelize/core/decorators-legacy';
+
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  // highlight-next-line
+  @Version
+  declare version: CreationOptional<number>;
+}
+```
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
+
+```javascript
+import { Model } from '@sequelize/core';
+import { Version } from '@sequelize/core/decorators-legacy';
+
+class User extends Model {
+  // highlight-next-line
+  @Version
+  version;
+}
+```
+
+</TabItem>
+</Tabs>

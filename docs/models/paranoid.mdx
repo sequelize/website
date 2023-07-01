@@ -2,28 +2,53 @@
 sidebar_position: 10
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Paranoid Models
 
-Sequelize supports the concept of *paranoid* tables. A *paranoid* table is one that, when told to delete a record, it will not truly delete it. Instead, a special column called `deletedAt` will have its value set to the timestamp of that deletion request.
+Sequelize supports the concept of *paranoid* tables.
+A *paranoid* table is one that, when told to delete a record,
+will not truly delete it.
+Instead, it will record that the model is deleted by setting its "deleted at" column to the current timestamp.
 
 This means that paranoid tables perform a *soft-deletion* of records, instead of a *hard-deletion*.
 
 ## Defining a model as paranoid
 
-To make a model paranoid, you must pass the `paranoid: true` option to the model definition. Paranoid requires timestamps to work (i.e. it won't work if you also pass `timestamps: false`).
+To make a model paranoid, you must use the `@DeletedAt` decorator on an attribute.
+That attribute will then be used by Sequelize to record the deletion timestamp.
 
-You can also change the default column name (which is `deletedAt`) to something else.
+<Tabs groupId="ts-js">
+<TabItem value="ts" label="TypeScript">
 
-```js
-class Post extends Model {}
-Post.init({ /* attributes here */ }, {
-  sequelize,
-  paranoid: true,
+```typescript
+import { InferCreationAttributes, InferAttributes, Model } from '@sequelize/core';
+import { DeletedAt } from '@sequelize/core/decorators-legacy';
 
-  // If you want to give a custom name to the deletedAt column
-  deletedAt: 'destroyTime'
-});
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  // highlight-next-line
+  @DeletedAt
+  declare deletedAt: Date | null;
+}
 ```
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
+
+```javascript
+import { Model } from '@sequelize/core';
+import { DeletedAt } from '@sequelize/core/decorators-legacy';
+
+class User extends Model {
+  // highlight-next-line
+  @DeletedAt
+  deletedAt;
+}
+```
+
+</TabItem>
+</Tabs>
 
 ## Deleting
 
