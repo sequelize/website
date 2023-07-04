@@ -17,7 +17,7 @@ This means that direct SQL queries (for example queries performed without Sequel
 
 :::info
 
-A third Auto-generated Timestamp called `deletedAt` exists. It is used by [Paranoid Models](./paranoid.md) to mark a row as deleted.
+A third Auto-generated Timestamp called `deletedAt` exists. It is used by [Paranoid Models](./paranoid.mdx) to mark a row as deleted.
 
 :::
 
@@ -84,28 +84,28 @@ You may also be interested in renaming the attributes. There are two parts to th
 
 ### Changing the Attribute Name
 
-Changing the *attribute name* is done by setting the `createdAt`, `updatedAt`, or [`deletedAt`](./paranoid.md) Model option to a String.
+Changing the [*attribute name*](../terminology.md#attributes--columns)
+is done by using the `@CreatedAt`, `@UpdatedAt`, or [`@DeletedAt`](./paranoid.mdx) decorators on the attribute of your choice.
 
 <Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
 ```typescript
 import { InferCreationAttributes, InferAttributes, Model, CreationOptional } from '@sequelize/core';
-import { Table } from '@sequelize/core/decorators-legacy';
+import { CreatedAt, UpdatedAt, DeletedAt } from '@sequelize/core/decorators-legacy';
 
-@Table({
-  // set these options to change the attribute name (the JS name).
-  // highlight-next-line
-  createdAt: 'creationDate',
-  // highlight-next-line
-  updatedAt: 'lastUpdateDate',
-  // This one can only be set on Paranoid Models
-  // highlight-next-line
-  deletedAt: 'deletionDate',
-})
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  // highlight-next-line
+  @CreatedAt
   declare creationDate: CreationOptional<Date>;
+
+  // highlight-next-line
+  @UpdatedAt
   declare lastUpdateDate: CreationOptional<Date>;
+
+  // highlight-next-line
+  @DeletedAt
+  declare deletionDate: Date | null;
 }
 ```
 
@@ -114,23 +114,31 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
 ```javascript
 import { Model } from '@sequelize/core';
-import { Table } from '@sequelize/core/decorators-legacy';
+import { CreatedAt, UpdatedAt, DeletedAt } from '@sequelize/core/decorators-legacy';
 
-@Table({
-  // set these options to change the attribute name (the JS name).
+class User extends Model {
   // highlight-next-line
-  createdAt: 'creationDate',
+  @CreatedAt
+  creationDate;
+
   // highlight-next-line
-  updatedAt: 'lastUpdateDate',
-  // This one can only be set on Paranoid Models
+  @UpdatedAt
+  lastUpdateDate;
+
   // highlight-next-line
-  deletedAt: 'deletionDate',
-})
-class User extends Model {}
+  @DeletedAt
+  deletionDate;
+}
 ```
 
 </TabItem>
 </Tabs>
+
+:::info Paranoid Mode
+
+Using `@DeletedAt` on your model will automatically enable [Paranoid Mode](./paranoid.mdx) for that model.
+
+:::
 
 ### Changing the Column Name
 
