@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           netlify deploy --dir build --message '${{ github.event.commits[0].message }}' > log.tmp.txt 2>&1
-          cat log.tmp.txt | grep -E 'Logs|Website Draft URL' > log.txt
+          cat log.tmp.txt | grep -E 'Website draft URL:' > log.txt
       - name: Read deployment log
         if: '! github.event.pull_request.head.repo.fork'
         id: logs
