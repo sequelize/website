@@ -21,6 +21,7 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile
       - run: yarn lint-no-fix
+      - run: yarn lint-scss-no-fix
       - run: yarn typecheck
       - run: yarn sync
       - run: yarn build
