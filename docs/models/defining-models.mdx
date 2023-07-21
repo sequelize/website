@@ -47,7 +47,7 @@ import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/d
 const sequelize = new Sequelize('sqlite::memory:');
 
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  @Attibute(DataTypes.INTEGER)
+  @Attribute(DataTypes.INTEGER)
   @PrimaryKey
   @AutoIncrement
   declare id: CreationOptional<number>;
@@ -71,7 +71,7 @@ import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/d
 const sequelize = new Sequelize('sqlite::memory:');
 
 export class User extends Model {
-  @Attibute(DataTypes.INTEGER)
+  @Attribute(DataTypes.INTEGER)
   @PrimaryKey
   @AutoIncrement
   id;
