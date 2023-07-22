@@ -98,6 +98,59 @@ class Toot extends Model<InferAttributes<Toot>, InferCreationAttributes<Toot>> {
 In TypeScript, you need to declare the typing of your foreign keys, but they will still be configured by Sequelize automatically.  
 You can still, of course, use any [attribute decorator](../models/defining-models.mdx) to customize them.
 
+### Associations with extra attributes on through table
+
+When creating an N:M association, for example, with User and Project through UserProjects you might want extra attributes on the junction table like the "role" attribute.
+This relationship can be setup like this:
+
+```ts
+class UserProject extends Model<InferAttributes<UserProject>, InferCreationAttributes<UserProject>> {
+  @Attribute(DataTypes.STRING)
+  declare role: string;
+
+  declare projectId: number;
+  declare userId: number;
+}
+
+class Project extends Model<InferAttributes<Project>, InferCreationAttributes<Project>> {
+  @Attribute(DataTypes.STRING)
+  declare name: string;
+
+  declare UserProject?: NonAttribute<UserProject>;
+}
+
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attribute(DataTypes.STRING)
+  declare username: string;
+
+  @BelongsToMany(() => Project, {
+    through: UserProject,
+  })
+  declare projects?: NonAttribute<Project[]>;
+
+  declare getProjects: BelongsToManyGetAssociationsMixin<Project>;
+  declare setProjects: BelongsToManySetAssociationsMixin<Project, number>;
+  declare addProjects: BelongsToManyAddAssociationsMixin<Project, number>;
+}
+```
+
+Creating multiple associations with the same extra attributes is possible by passing a single object on the through attribute:
+```ts
+user1.setProjects([project1, project2, project3], { through: { role: 'admin' }})
+```
+
+With the [set](#association-setter-setx) and [add](#association-adder-addx) mixins different extra attributes per association can be set by passing an array of objects of the same length as the ammount of associations:
+```ts
+user1.setProjects([project1, project2, project3], {
+  through: [
+    { role: 'admin' },
+    { role: 'manager' },
+    { role: 'designer' },
+  ]
+})
+(await user1.getProducts()).map(x => x.UserProduct?.role) // [ 'admin', 'manager', 'designer' ]
+```
+
 ## Inverse Association
 
 The `BelongsToMany` association automatically creates the inverse association on the target model, which is also a `BelongsToMany` association.
@@ -475,43 +528,6 @@ const post = await Post.findByPk(1);
 // Returns the number of associated books
 const count = await post.countBooks();
 // highlight-end
-```
-
-## Associations with extra attributes on through table
-
-When creating an N:M association, for example, with User and Project through UserProjects you might want extra attributes in the join table like the "role" attribute . This relationship can be setup like this:
-
-```js
-const User = sequelize.define('User', {
-  username: DataTypes.STRING,
-}, { timestamps: false });
-
-const Project = sequelize.define('Project', {
-  name: DataTypes.STRING
-}, { timestamps: false });
-
-const UserProjects = sequelize.define('UserProjects', {
-  role: DataTypes.STRING
-}, { timestamps: false });
-
-User.belongsToMany(Project, { through: UserProjects})
-Project.belongsToMany(User, { through: UserProjects})
-```
-
-Creating multiple associations with the same extra attributes is possible by passing a single object on the through attribute:
-```js
-user1.setProjects([project1, project2, project3], { through: { role: 'admin' }})
-```
-
-Setting (or adding) different extra attributes per association can be done by passing an array of objects of the same length as the ammount of associations:
-```js
-user1.setProjects([project1, project2, project3], {
-  through: [
-    { role: 'admin' },
-    { role: 'manager' },
-    { role: 'designer' },
-  ]
-})
 ```
 
 [^1]: The source model is the model that defines the association.
