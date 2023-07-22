@@ -27,6 +27,10 @@ title: Resources
 
 * [sequelize-bcrypt](https://github.com/mattiamalonni/sequelize-bcrypt) - Utility to integrate bcrypt into sequelize models
 
+### Browser
+
+* [sequelize-browser](https://npmjs.com/package/sequelize-browser) - A web-browser-compatible build of Sequelize
+
 ### Caching
 
 * [sequelize-transparent-cache](https://github.com/DanielHreben/sequelize-transparent-cache)

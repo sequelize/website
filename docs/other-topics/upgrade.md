@@ -932,7 +932,7 @@ The `sql` tag automatically escapes values, so you don't need to worry about SQL
 ### Removal of previously deprecated APIs
 
 - `WhereValue`, `AnyOperator`, `AllOperator`, `AndOperator` and `OrOperator` types: They did not reflect the reality of how the `where` option is typed (see [this PR](https://github.com/sequelize/sequelize/pull/14022))
-- `setterMethods` and `getterMethods` model options: They were deprecated in v6 and are now removed. Use [VIRTUAL](../other-topics/getters-setters-virtuals.md#virtual-attributes) attributes, or class getter & setters instead.
+- `setterMethods` and `getterMethods` model options: They were deprecated in v6 and are now removed. Use [VIRTUAL](../models/getters-setters-virtuals.md#virtual-attributes) attributes, or class getter & setters instead.
 - Models had an instance property called `validators`. This property has been removed because almost all attributes have at least one validator (based on their nullability and data type). 
   The information you need to replace this property is available in the [`modelDefinition`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#modelDefinition) static property.
 - The `Utils` export has been removed. It exposed internal utilities that were not meant to be used by end users. If you used any of these utilities, please open an issue to discuss how to expose them in a future-proof way.  

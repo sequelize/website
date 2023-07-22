@@ -47,7 +47,7 @@ import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/d
 const sequelize = new Sequelize('sqlite::memory:');
 
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  @Attibute(DataTypes.INTEGER)
+  @Attribute(DataTypes.INTEGER)
   @PrimaryKey
   @AutoIncrement
   declare id: CreationOptional<number>;
@@ -71,7 +71,7 @@ import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/d
 const sequelize = new Sequelize('sqlite::memory:');
 
 export class User extends Model {
-  @Attibute(DataTypes.INTEGER)
+  @Attribute(DataTypes.INTEGER)
   @PrimaryKey
   @AutoIncrement
   id;
@@ -346,7 +346,19 @@ class User extends Model {
 
 Sequelize automatically adds an auto-incremented integer attribute called `id` as primary key if none is specified.
 
-If you want to use a different attribute, type, or want to use a composite primary key, you can use the [`@PrimaryKey`] decorator:
+If you use TypeScript, you can declare the typing of this attribute like this:
+
+```ts
+import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  // highlight-next-line
+  declare id: CreationOptional<number>;
+}
+```
+
+If you want to use a different attribute, type, or want to use a composite primary key, you can use the [`@PrimaryKey`] decorator.
+This will stop Sequelize from adding the `id` attribute automatically:
 
 <Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
