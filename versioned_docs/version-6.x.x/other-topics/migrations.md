@@ -306,9 +306,8 @@ module.exports = {
       );
       await queryInterface.addIndex(
         'Person',
-        'petName',
+        ['petName'],
         {
-          fields: 'petName',
           unique: true,
           transaction,
         }
