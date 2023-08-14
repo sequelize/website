@@ -57,7 +57,7 @@ You can use the `.authenticate()` function to test if the connection is OK:
 
 ```js
 try {
-  await sequelize.authenticate();
+  sequelize.authenticate();
   console.log('Connection has been established successfully.');
 } catch (error) {
   console.error('Unable to connect to the database:', error);
