@@ -295,14 +295,14 @@ This lead to subtle bugs, so starting with v7, associations options must perfect
 For instance, the following declaration is no longer valid:
 
 ```typescript
-User.belongsToMany(Countries, { foreignKey: 'user_id' });
-Countries.belongsToMany(User);
+User.belongsToMany(Country, { foreignKey: 'user_id' });
+Country.belongsToMany(User);
 ```
 
 But this is:
 
 ```typescript
-User.belongsToMany(User, { foreignKey: 'user_id' });
+User.belongsToMany(Country, { foreignKey: 'user_id' });
 Country.belongsToMany(User, { otherKey: 'user_id' });
 ```
 
@@ -315,7 +315,7 @@ Instead of writing this:
 
 ```typescript
 User.belongsToMany(Country, { as: 'countries' });
-User.belongsToMany(User, { as: 'citizen' });
+Country.belongsToMany(User, { as: 'citizens' });
 ```
 
 You can now write this:
@@ -323,7 +323,7 @@ You can now write this:
 ```typescript
 User.belongsToMany(Country, { 
   as: 'countries',
-  inverse: { as: 'citizen' },
+  inverse: { as: 'citizens' },
 });
 ```
 
