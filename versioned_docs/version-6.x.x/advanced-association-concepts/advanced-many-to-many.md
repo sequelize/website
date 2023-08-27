@@ -240,7 +240,7 @@ User.findAll({
 }); // This emulates the `User.findAll({ include: Profile })`, however
     // the resulting object structure is a bit different. The original
     // structure has the form `user.profiles[].grant`, while the emulated
-    // structure has the form `user.grants[].profiles[]`.
+    // structure has the form `user.grants[].profile`.
 ```
 
 ### The best of both worlds: the Super Many-to-Many relationship
