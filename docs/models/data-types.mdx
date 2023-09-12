@@ -289,6 +289,15 @@ Sequelize provides a special syntax to query the contents of a JSON object. [Rea
 
 :::
 
+:::warning SQL `NULL` vs JSON `'null'`
+
+If your column is nullable, be aware that inserting `null` will insert the JSON `'null'` value by default instead of the
+SQL `NULL` value.
+
+[Read more about how `null` is handled in JSON columns](../querying/json.mdx#json-null-vs-sql-null)
+
+:::
+
 ## Miscellaneous DataTypes
 
 <DialectTableFilter>
