@@ -128,8 +128,7 @@ The above would result in the following model configuration:
 
 ```mermaid
 erDiagram
-  Person }o--|| Toot : likedToots
-  Toot }o--|| Person : likers
+  Person }o--o{ Toot : "⬇️ likedToots / ⬆️ likers"
 ```
 
 ## Intermediary associations
