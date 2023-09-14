@@ -88,7 +88,7 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
 }
 
 class LikedToot extends Model<InferAttributes<LikedToot>, InferCreationAttributes<LikedToot>> {
-  declare likedById: number;
+  declare likerId: number;
   declare likedTootId: number;
 }
 
@@ -112,7 +112,7 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
   @BelongsToMany(() => Toot, {
     through: 'LikedToot',
     inverse: {
-      as: 'likedBy',
+      as: 'likers',
     },
   })
   declare likedToots?: NonAttribute<Toot[]>;
@@ -120,7 +120,70 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
 
 class Toot extends Model<InferAttributes<Toot>, InferCreationAttributes<Toot>> {
   /** Declared by {@link Person.likedToots} */
-  declare likedBy?: NonAttribute<Person[]>;
+  declare likers?: NonAttribute<Person[]>;
+}
+```
+
+The above would result in the following model configuration:
+
+```mermaid
+erDiagram
+  Person }o--|| Toot : likedToots
+  Toot }o--|| Person : likers
+```
+
+## Intermediary associations
+
+As explained in previous sections, Many-To-Many relationships are implemented as multiple One-To-Many relationships
+and a junction table.
+
+In Sequelize, the BelongsToMany association creates four associations:
+
+- 1️⃣ One [HasMany](./has-many.md) association going from the Source Model to the Through Model.
+- 2️⃣ One [BelongsTo](./belongs-to.md) association going from the Through Model to the Source Model.
+- 3️⃣ One [HasMany](./has-many.md) association going from the Target Model to the Through Model.
+- 4️⃣ One [BelongsTo](./belongs-to.md) association going from the Through Model to the Target Model.
+
+```mermaid
+erDiagram
+  Person }o--|| LikedToot : "⬇️ 1️⃣ likedTootsLikers / ⬆️ 2️⃣ liker"
+  LikedToot ||--o{ Toot : " ⬇️ 3️⃣ likedToot / ⬆️ 4️⃣ likersLikedToots"
+  Person }o--o{ Toot : "⬇️ likedToots / ⬆️ likers"
+```
+
+Their names are automatically generated based on the name of the BelongsToMany association, 
+and the name of its inverse association.
+
+You can customize the names of these associations by using the `throughAssociations` options:
+
+```ts
+class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Person>> {
+  @BelongsToMany(() => Toot, {
+    through: 'LikedToot',
+    inverse: {
+      as: 'likers',
+    },
+    // highlight-start
+    throughAssociations: {
+      // 1️⃣ The name of the association going from the source modal (Person)
+      // to the through model (LikedToot)
+      fromSource: 'likedTootsLikers',
+      
+      // 2️⃣ The name of the association going from the through model (LikedToot) 
+      // to the source model (Person)
+      toSource: 'liker',
+      
+      // 3️⃣ The name of the association going from the target model (Toot)
+      // to the through model (LikedToot)
+      fromTarget: 'likersLikedToots',
+
+      // 4️⃣ The name of the association going from the through model (LikedToot)
+      // to the target model (Toot)
+      toTarget: 'likedToot',
+    },
+    // highlight-end
+  })
+  declare likedToots?: NonAttribute<Toot[]>;
 }
 ```
 
@@ -129,7 +192,7 @@ class Toot extends Model<InferAttributes<Toot>, InferCreationAttributes<Toot>> {
 Sequelize will generate foreign keys automatically based on the names of your associations. 
 It is the name of your association + the name of the attribute the association is pointing to (which defaults to the primary key).  
 
-In the example above, the foreign keys would be `likedById` and `likedTootId`, because the associations are called `likedToots` and `likedBy`,
+In the example above, the foreign keys would be `likerId` and `likedTootId`, because the associations are called `likedToots` and `likers`,
 and the primary keys referenced by the foreign keys are both called `id`.
 
 You can customize the foreign keys by using the `foreignKey` and `otherKey` options. The `foreignKey` option is the foreign key that
@@ -140,7 +203,7 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
   @BelongsToMany(() => Toot, {
     through: 'LikedToot',
     inverse: {
-      as: 'likedBy',
+      as: 'likers',
     },
     // highlight-start
     // This foreign key points to the Person model
@@ -166,7 +229,7 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
   @BelongsToMany(() => Toot, {
     through: 'LikedToot',
     inverse: {
-      as: 'likedBy',
+      as: 'likers',
     },
     // highlight-start
     // The foreignKey will reference the 'id' attribute of the Person model
