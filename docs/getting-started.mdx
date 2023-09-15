@@ -127,6 +127,18 @@ Head to the [Version Policy page](/releases) to know which versions of TypeScrip
 and make sure that the [`@types/node`](https://www.npmjs.com/package/@types/node) package corresponding to your Node.js version is installed
 in your project.
 
+:::info
+
+Sequelize makes use of the the [`exports`](https://nodejs.org/api/packages.html#exports) `package.json` field.
+You may need to update your `tsconfig.json` configuration to make sure TypeScript's module resolution supports it.
+
+At time of writing (TS 5.2), this can be done in two ways:
+
+- Set [`moduleResolution`](https://www.typescriptlang.org/tsconfig#moduleResolution) to `node16`, `nodenext`, or `bundler`,
+- or set [`resolvePackageJsonExports`](https://www.typescriptlang.org/tsconfig#resolvePackageJsonExports) to `true`.
+
+:::
+
 ## CommonJS or ESM?
 
 Our documentation makes heavy use of ECMAScript Modules (ESM), but CommonJS is fully supported by Sequelize.
