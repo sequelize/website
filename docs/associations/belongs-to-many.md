@@ -164,7 +164,7 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
     },
     // highlight-start
     throughAssociations: {
-      // 1️⃣ The name of the association going from the source modal (Person)
+      // 1️⃣ The name of the association going from the source model (Person)
       // to the through model (LikedToot)
       fromSource: 'likedTootsLikers',
       
