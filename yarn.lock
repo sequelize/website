@@ -1396,6 +1396,20 @@
     react-helmet-async "*"
     react-loadable "npm:@docusaurus/react-loadable@5.5.2"
 
+"@docusaurus/module-type-aliases@2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@docusaurus/module-type-aliases/-/module-type-aliases-2.4.2.tgz#aaa299ad32ff7d5b392614768131492517683ad8"
+  integrity sha512-jM0Oh3MMjjMkjE68KZggls7Px1nIyRSq6B6ax43Oeatn6rIAloJ02SEIsUy9LqxOpnQhmo9YXEB192Q6YPHYgQ==
+  dependencies:
+    "@docusaurus/react-loadable" "5.5.2"
+    "@docusaurus/types" "2.4.2"
+    "@types/history" "^4.7.11"
+    "@types/react" "*"
+    "@types/react-router-config" "*"
+    "@types/react-router-dom" "*"
+    react-helmet-async "*"
+    react-loadable "npm:@docusaurus/react-loadable@5.5.2"
+
 "@docusaurus/plugin-content-blog@2.4.1":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/plugin-content-blog/-/plugin-content-blog-2.4.1.tgz#c705a8b1a36a34f181dcf43b7770532e4dcdc4a3"
@@ -1639,6 +1653,20 @@
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/types/-/types-2.4.1.tgz#d8e82f9e0f704984f98df1f93d6b4554d5458705"
   integrity sha512-0R+cbhpMkhbRXX138UOc/2XZFF8hiZa6ooZAEEJFp5scytzCw4tC1gChMFXrpa3d2tYE6AX8IrOEpSonLmfQuQ==
+  dependencies:
+    "@types/history" "^4.7.11"
+    "@types/react" "*"
+    commander "^5.1.0"
+    joi "^17.6.0"
+    react-helmet-async "^1.3.0"
+    utility-types "^3.10.0"
+    webpack "^5.73.0"
+    webpack-merge "^5.8.0"
+
+"@docusaurus/types@2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@docusaurus/types/-/types-2.4.2.tgz#dab6707cf88f434f73d796c3c9c2c8cf3657efc8"
+  integrity sha512-vwfLTB9HXg7eujW/kdY2OpzoMHNa6yIzDtlrWW0WL4a+yhxBYIT6MojPRRYBIlhtq0QTfXx95lP4UnBp7k1ANQ==
   dependencies:
     "@types/history" "^4.7.11"
     "@types/react" "*"
