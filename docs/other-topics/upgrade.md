@@ -939,7 +939,7 @@ sql.where(sql.attribute('firstName'), Op.like, 'foo');
 
 *Pull Request [#15598]*
 
-Both `Op.or` and `Op.not` used to produce `'0=1'` if their object or array was empty. Both of them are not completely ignored instead:
+Both `Op.or` and `Op.not` used to produce `'0=1'` if their object or array was empty. Both of them are now completely ignored instead:
 
 ```ts
 User.findAll({
