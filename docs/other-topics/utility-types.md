@@ -2,7 +2,7 @@
 
 ## Typing a Model Class
 
-[`ModelStatic`](pathname:///api/v7/index.html#ModelStatic) is designed to be used to type a Model *class*.
+[`ModelStatic`](pathname:///api/v7/types/_sequelize_core.index.modelstatic) is designed to be used to type a Model *class*.
 
 Here is an example of a utility method that requests a Model Class, and returns the list of primary keys defined in that class:
 
@@ -41,17 +41,17 @@ const primaryAttributes = getPrimaryKeyAttributes(User);
 ## Getting a Model's attributes
 
 If you need to access the list of attributes of a given model,
-[`Attributes<Model>`](pathname:///api/v7/index.html#Attributes) and [`CreationAttributes<Model>`](pathname:///api/v7/index.html#CreationAttributes)
+[`Attributes<Model>`](pathname:///api/v7/types/_sequelize_core.index.attributes) and [`CreationAttributes<Model>`](pathname:///api/v7/types/_sequelize_core.index.creationattributes)
 are what you need to use.
 
 They will return the Attributes (and Creation Attributes) of the Model passed as a parameter.
 
-Don't confuse them with [`InferAttributes`](pathname:///api/v7/index.html#InferAttributes)
-and [`InferCreationAttributes`](pathname:///api/v7/index.html#InferCreationAttributes). These two utility types should only ever be used
+Don't confuse them with [`InferAttributes`](pathname:///api/v7/types/_sequelize_core.index.inferattributes)
+and [`InferCreationAttributes`](pathname:///api/v7/types/_sequelize_core.index.infercreationattributes). These two utility types should only ever be used
 in the definition of a Model to automatically create the list of attributes from the model's public class fields. They only work
 with class-based model definitions (when using [`Model.init`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#init)).
 
-[`Attributes<Model>`](pathname:///api/v7/index.html#Attributes) and [`CreationAttributes<Model>`](pathname:///api/v7/index.html#CreationAttributes)
+[`Attributes<Model>`](pathname:///api/v7/types/_sequelize_core.index.attributes) and [`CreationAttributes<Model>`](pathname:///api/v7/types/_sequelize_core.index.creationattributes)
 will return the list of attributes of any model, no matter how they were created (be it [`Model.init`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#init)
 or [`Sequelize#define`](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#define)).
 

@@ -276,6 +276,32 @@ distinct values.
 - You can view the JSON `null` value as a string that contains the word `null`.
 - While the SQL `NULL` value is a special value that represents the absence of a value.
 
+When inserting `null` into a JSON column, Sequelize will stringify it as JSON:
+
+```ts
+User.create({
+  jsonAttribute: null,
+});
+```
+
+```sql
+INSERT INTO "Users" ("jsonAttribute") VALUES ('null');
+```
+
+If you wish to also use the SQL `NULL` value, you can use [raw SQL](./raw-queries.md) to insert it:
+
+```ts
+import { sql } from '@sequelize/core';
+
+User.create({
+  jsonAttribute: sql`NULL`,
+});
+```
+
+```sql
+INSERT INTO "Users" ("jsonAttribute") VALUES (NULL);
+```
+
 When extracting a JSON value, if the value exists and is the JSON `null`, the JSON `null` will be returned.
 If the value does not exist, the SQL `NULL` will be returned.
 
