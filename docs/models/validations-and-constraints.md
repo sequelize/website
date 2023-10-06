@@ -160,7 +160,7 @@ class Place extends Model {
   
   // highlight-start
   @ModelValidator
-  static validateCoords() {
+  validateCoords() {
     if ((this.latitude === null) !== (this.longitude === null)) {
       throw new Error('Either both latitude and longitude, or neither!');
     }
@@ -171,6 +171,27 @@ class Place extends Model {
 
 If you need to validate an attribute based on the value of another attribute, we highly recommend using Model Validators instead of Attribute Validators,
 because Model Validators are always run, while Attribute Validators are only run if the attribute's value has changed.
+
+Model validator functions can also be static, in which case they will receive the instance to validate as the first argument:
+
+```ts
+class Place extends Model {
+  @Attribute(DataTypes.INTEGER)
+  declare latitude: number | null;
+
+  @Attribute(DataTypes.INTEGER)
+  declare longitude: number | null;
+  
+  // highlight-start
+  @ModelValidator
+  static validateCoords(place: Place) {
+    if ((place.latitude === null) !== (place.longitude === null)) {
+      throw new Error('Either both latitude and longitude, or neither!');
+    }
+  }
+  // highlight-end
+}
+```
 
 :::caution
 
@@ -209,7 +230,7 @@ class User extends Model {
 
   // highlight-start
   @ModelValidator
-  static onValidate() {
+  onValidate() {
     if (this.name === null && this.age !== 10) {
       throw new Error("name can't be null unless age is 10");
     }

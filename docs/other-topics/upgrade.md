@@ -32,7 +32,7 @@ await sequelize.authenticate();
 Sequelize v7 only supports the versions of Node.js, and databases that were not EOL at the time of release.[^issue-1]  
 Sequelize v7 also supports versions of TypeScript that were released in the past year prior to the time of release.
 
-This means Sequelize v7 supports **>=16.0.0**, and **TypeScript >= 4.7**.
+This means Sequelize v7 supports **>=18.0.0**, and **TypeScript >= 4.7**.
 
 Head to our [Versioning Policy page](/releases) to see exactly which databases are supported by Sequelize v7.
 
@@ -335,6 +335,22 @@ User.belongsToMany(Country, {
 - When using DB2, we do not force columns that are part of an index to be non-null.
   The database still requires this to be the case, but we don't do it silently for you anymore.
 - A few bugs in how indexes were named have been fixed. This means your index names could change.
+``
+### Proper schema support for MySQL
+
+In Sequelize 6, MySQL schemas (also named "databases" in MySQL) were not properly supported.
+Sequelize would instead concatenate the schema name to the table name.
+
+Starting with Sequelize 7, MySQL schemas are properly supported. This means that the following:
+
+```typescript
+sequelize.define('User', {
+}, {
+  schema: 'my_schema',
+});
+```
+
+Now creates the table `` `my_schema`.`users` `` instead of `` `my_schema.users` ``.
 
 ### Attributes are always escaped
 
@@ -432,6 +448,30 @@ User.findAll({
   where: myCustomLikeOperator(sql.attribute('firstName'), '%zoe%'),
 });
 ```
+
+### Changed behavior of the JSON `null`
+
+*Pull Request [#15598]*
+
+In Sequelize 6, inserting `null` in a JSON or JSONB column would insert the SQL `NULL` value.
+It now inserts the JSON `'null'` value instead.
+
+This change was made as part of a redesign of how JSON & JSONB attributes, to make how the top level value behaves
+be consistent with nested JSON values.
+
+You can still insert the SQL `null` value by using [raw SQL](../querying/raw-queries.md), like this:
+
+```ts
+import { sql } from '@sequelize/core';
+
+await User.create({
+  jsonAttribute: sql`NULL`,
+});
+```
+
+Similarly, comparing a column against `null` should now be done in two different ways 
+depending on whether you want to compare against the SQL `NULL` value or the JSON `'null'` value. 
+See the [JSON querying](../querying/json.mdx#json-null-vs-sql-null) documentation.
 
 ### JSON extraction does not unquote by default
 
@@ -874,7 +914,7 @@ sql.where(sql.attribute('firstName'), Op.like, 'foo');
 
 *Pull Request [#15598]*
 
-Both `Op.or` and `Op.not` used to produce `'0=1'` if their object or array was empty. Both of them are not completely ignored instead:
+Both `Op.or` and `Op.not` used to produce `'0=1'` if their object or array was empty. Both of them are now completely ignored instead:
 
 ```ts
 User.findAll({
