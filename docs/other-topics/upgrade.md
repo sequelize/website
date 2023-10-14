@@ -327,31 +327,6 @@ User.belongsToMany(Country, {
 });
 ```
 
-### Through association casing change
-
-In BelongsToMany associations,
-Sequelize used to name the association to the through model using the singular name of the target model.
-
-This caused the association to typically be written in pascal case, as that is our recommended naming convention for models.
-
-Starting with Sequelize 7, the association is now named in camel case by default instead. This means the following:
-
-```typescript
-const user = await User.findOne({
-  // assume "countries" is a BelongsToMany association to the Country model, via the UserCountry model.
-  include: ['countries'],
-});
-
-// highlight-next-line
-console.log(user.countries[0].UserCountry);
-```
-
-should now be written as:
-
-```typescript
-console.log(user.countries[0].userCountry);
-```
-
 ### Changes to `sequelize.sync`
 
 *Pull Request [#14619]*
