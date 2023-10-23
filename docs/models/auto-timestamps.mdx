@@ -92,7 +92,7 @@ is done by using the `@CreatedAt`, `@UpdatedAt`, or [`@DeletedAt`](./paranoid.md
 
 ```typescript
 import { InferCreationAttributes, InferAttributes, Model, CreationOptional } from '@sequelize/core';
-import { CreatedAt, UpdatedAt, DeletedAt } from '@sequelize/core/decorators-legacy';
+import { CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   // highlight-next-line
@@ -159,7 +159,7 @@ be configured automatically by Sequelize.
 
 ```typescript
 import { Model, InferCreationAttributes, InferAttributes, CreationOptional } from '@sequelize/core';
-import { ColumnName } from '@sequelize/core/decorators-legacy';
+import { ColumnName } from 'sequelize-typescript';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   // sets the Database name to 'created_at'
