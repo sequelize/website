@@ -44,6 +44,9 @@ git clone -b v6 --single-branch "$MAIN_REPO_URL" --depth 1 .sequelize/v6
 pushd "$DOCS_DIR/v6"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
 source ~/.bashrc
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 nvm install 16
 yarn # Install branch deps & build
 yarn docs # Generate v6 typedocs
