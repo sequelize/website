@@ -67,7 +67,7 @@ Note that the Sequelize CLI assumes mysql by default. If you're using another di
 
 Now edit this file and set correct database credentials and dialect. The keys of the objects (e.g. "development") are used on `model/index.js` for matching `process.env.NODE_ENV` (When undefined, "development" is a default value).
 
-Sequelize will use the default connection port for each dialect (for example, for postgres, it is port 5432). If you need to specify a different port, use the `"port"` field (it is not present by default in `config/config.js` but you can simply add it).
+Sequelize will use the default connection port for each dialect (for example, for postgres, it is port 5432). If you need to specify a different port, use the `"port"` field (it is not present by default in `config/config.json` but you can simply add it).
 
 **Note:** _If your database doesn't exist yet, you can just call `db:create` command. With proper access it will create that database for you._
 
