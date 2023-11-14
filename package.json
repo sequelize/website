@@ -32,7 +32,7 @@
     "react-dom": "18.2.0",
     "react-feather": "2.0.10",
     "react-responsive-carousel": "3.2.23",
-    "sass": "1.69.4"
+    "sass": "1.69.5"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.4.3",
