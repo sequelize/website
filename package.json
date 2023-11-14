@@ -39,7 +39,7 @@
     "@ephys/eslint-config-typescript": "19.0.2",
     "@rushstack/eslint-patch": "1.5.1",
     "@tsconfig/docusaurus": "2.0.2",
-    "eslint": "8.52.0",
+    "eslint": "8.53.0",
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-mdx": "1.17.1",
     "eslint-plugin-react": "7.33.2",
