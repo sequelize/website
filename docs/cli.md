@@ -479,6 +479,7 @@ An example of `config/config.js` file:
 
 ```js
 const fs = require('fs');
+require('dotenv').config();  // needed to load env variables
 
 module.exports = {
   development: {
