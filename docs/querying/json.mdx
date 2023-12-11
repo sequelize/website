@@ -486,7 +486,11 @@ User.findAll({
 ```
 
 ```sql
+-- postgres
 SELECT * FROM "Users" WHERE "jsonAttribute"->'name' IS NULL OR "jsonAttribute"->'name' = 'null';
+
+-- mysql & friends
+SELECT * FROM "Users" WHERE JSON_EXTRACT(`jsonAttribute`, '$.name') IS NULL OR JSON_EXTRACT(`jsonAttribute`, '$.name') = '"null"';
 ```
 
 #### When to compare against either JSON `null` or SQL `NULL`
