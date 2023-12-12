@@ -36,9 +36,9 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.0.1",
+    "@docusaurus/tsconfig": "3.0.1",
     "@ephys/eslint-config-typescript": "19.0.2",
     "@rushstack/eslint-patch": "1.6.0",
-    "@tsconfig/docusaurus": "2.0.2",
     "eslint": "8.55.0",
     "eslint-plugin-jsx-a11y": "6.8.0",
     "eslint-plugin-mdx": "1.17.1",
