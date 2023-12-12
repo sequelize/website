@@ -235,13 +235,9 @@ class User extends Model {
 
 ### Dynamic JS default values
 
-Instead of a static value, you can also use a JavaScript function that sequelize will call every time a new instance is created. Sequelize provides 3 built-in functions that you can use, but a custom function can be used as well:
-
-- [`DataTypes.NOW`](./data-types.mdx#built-in-default-values-for-dates) for the current timestamp
-- [`DataTypes.UUIDV4`](./data-types.mdx#built-in-default-values-for-uuid) for a UUIDv4
-- [`DataTypes.UUIDV1`](./data-types.mdx#built-in-default-values-for-uuid) for a UUIDv1
-
-<JsDefaultCaution />
+Instead of a static value, you can also use a JavaScript function that sequelize will call every time a new instance is created.
+Sequelize provides the built-in [`DataTypes.NOW`](./data-types.mdx#built-in-default-values-for-dates) for the current timestamp,
+but a custom function can be used as well:
 
 <Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
@@ -296,28 +292,27 @@ class User extends Model {
 </TabItem>
 </Tabs>
 
+<JsDefaultCaution />
+
 ### Dynamic SQL default values
 
-You can also use a SQL function as a default value using either [`fn`] or [`literal`].
-This has the advantage over [dynamic JS default values](#dynamic-js-default-values) that the function will always be called, since it is handled by the database, not by Sequelize.
+You can also use a SQL function as a default value using [raw SQL](../querying/raw-queries.mdx).
+This has the advantage over [dynamic JS default values](#dynamic-js-default-values) that the function will always be called,
+since it is handled by the database, not by Sequelize.
 
-For instance, if your dialect provides a built-in SQL function to generate UUIDs, you can use [`fn`] to set a default value on the SQL layer:
+For instance, you could use the [`sql.fn`](../querying/raw-queries.mdx#sqlfn) function to make the database generate a random number for you:
 
 <Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
 ```ts
 import { DataTypes, Model, sql, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
-import { Attribute, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
+import { Attribute, Default } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  @PrimaryKey
-  @Attribute(DataTypes.UUID)
-  // 'uuid_generate_v4' is only available in postgres + uuid-ossp
-  // other dialects may support this function under different names.
-  // highlight-next-line
-  @Default(sql.fn('uuid_generate_v4'))
-  declare id: CreationOptional<string>;
+  @Attribute(DataTypes.FLOAT)
+  @Default(sql.fn('random'))
+  declare randomNumber: CreationOptional<number>;
 }
 ```
 
@@ -326,21 +321,20 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
 ```js
 import { DataTypes, Model, sql } from '@sequelize/core';
-import { Attribute, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
+import { Attribute, Default } from '@sequelize/core/decorators-legacy';
 
 class User extends Model {
-  @PrimaryKey
-  @Attribute(DataTypes.UUID)
-  // 'uuid_generate_v4' is only available in postgres + uuid-ossp
-  // other dialects may support this function under different names.
-  // highlight-next-line
-  @Default(sql.fn('uuid_generate_v4'))
-  id;
+  @Attribute(DataTypes.FLOAT)
+  @Default(sql.fn('random'))
+  randomNumber;
 }
 ```
 
 </TabItem>
 </Tabs>
+
+Sequelize also provides 2 built-in functions, [`sql.uuidV1` and `sql.uuidV4`](./data-types.mdx#built-in-default-values-for-uuid), that will
+generate a UUID in SQL if possible, and fallback to a JavaScript implementation otherwise.
 
 ## Primary Keys
 

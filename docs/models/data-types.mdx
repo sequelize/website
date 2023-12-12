@@ -6,6 +6,7 @@ title: Data Types
 import { DialectTableFilter } from '@site/src/components/dialect-table-filter.tsx';
 import { Deprecated } from '@site/src/components/deprecated.tsx';
 import JsDefaultCaution from '../_fragments/_js-default-caution.mdx';
+import UuidSupportTable from '../_fragments/_uuid-support-table.mdx';
 
 Sequelize provides [a lot of built-in data types](pathname:///api/v7/modules/_sequelize_core.index.DataTypes.html). To access a built-in data type, you must import `DataTypes`:
 
@@ -222,18 +223,24 @@ For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL 
 
 ### Built-in Default Values for UUID
 
-Sequelize can generate UUIDs automatically for these attributes, simply use `DataTypes.UUIDV1` or `DataTypes.UUIDV4` as the default value:
+Sequelize can generate UUIDs automatically for these attributes, simply use [`sql.uuidV1` or `sql.uuidV4`](../querying/raw-queries.mdx#sqluuidv4--sqluuidv1) as the default value:
 
 ```javascript
 MyModel.init({
   myUuid: {
     type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
+    defaultValue: sql.uuidV4, // Or sql.uuidV1
   },
 });
 ```
 
-<JsDefaultCaution />
+In supported dialects, Sequelize will set the default value to the appropriate function, as shown in the table below.
+These dialects can also use these two functions in migrations.
+
+In all other dialects, Sequelize will generate the UUID value itself, in JavaScript.
+This means that they cannot use these two functions in migrations.
+
+<UuidSupportTable />
 
 ## BLOBs
 

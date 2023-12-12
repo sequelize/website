@@ -64,9 +64,9 @@ Instance Sequelize hooks can be registered in two ways:
 1. Using the `hooks` property of the `Sequelize` instance:
    ```typescript
    import { Sequelize } from '@sequelize/core';
-  
+
    const sequelize = new Sequelize(/* options */);
-  
+
    // highlight-next-line
    sequelize.hooks.addListener('beforeDefine', () => {
      console.log('A new Model is being initialized');
@@ -75,7 +75,7 @@ Instance Sequelize hooks can be registered in two ways:
 2. Through the `Sequelize` options:
    ```typescript
    import { Sequelize } from '@sequelize/core';
-  
+
    const sequelize = new Sequelize({
      // highlight-next-line
      hooks: {
@@ -115,13 +115,13 @@ Instance Sequelize hooks can be registered in three ways:
 1. Using the `hooks` property of the `Sequelize` instance:
    ```typescript
    import { Sequelize, DataTypes } from '@sequelize/core';
-    
+
    const sequelize = new Sequelize(/* options */);
-    
+
    const MyModel = sequelize.define('MyModel', {
      name: DataTypes.STRING,
    });
-   
+
    // highlight-next-line
    MyModel.hooks.addListener('beforeFind', () => {
      console.log('findAll has been called on MyModel');
@@ -150,7 +150,7 @@ Instance Sequelize hooks can be registered in three ways:
    ```typescript
    import { Sequelize, Model, Hook } from '@sequelize/core';
    import { BeforeFind } from '@sequelize/core/decorators-legacy';
-   
+
    export class MyModel extends Model {
      // highlight-next-line
      @BeforeFind
@@ -262,7 +262,7 @@ These include but are not limited to:
 
 - Instances being deleted by the database because of an `ON DELETE CASCADE` constraint, [except if the `hooks` option is true](#hooks-for-cascade-deletes).
 - Instances being updated by the database because of a `SET NULL` or `SET DEFAULT` constraint.
-- [Raw queries](../querying/raw-queries.md).
+- [Raw queries](../querying/raw-queries.mdx).
 - All QueryInterface methods.
 
 If you need to react to these events, consider using your database's native and notification system instead.
@@ -310,7 +310,7 @@ class Post extends Model {
 
 const sequelize = new Sequelize({
   /* options */
-  models: [User, Post], 
+  models: [User, Post],
 });
 
 await sequelize.sync({ force: true });
@@ -351,8 +351,8 @@ await sequelize.transaction(async transaction => {
 });
 ```
 
-If we had not included the transaction option in our call to `User.update` in the preceding code, 
-no change would have occurred, since our newly created user does not exist in the database until the pending transaction 
+If we had not included the transaction option in our call to `User.update` in the preceding code,
+no change would have occurred, since our newly created user does not exist in the database until the pending transaction
 has been committed.
 
 [^find-all]: **findAll**: Note that some methods, such as `Model.findOne`, `Model.findAndCountAll` and association getters will also call `Model.findAll` internally. This will cause the `beforeFind` hook to be called for these methods too.

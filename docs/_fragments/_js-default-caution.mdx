@@ -1,7 +1,7 @@
 :::caution
 
-The generation of values for `DataTypes.UUIDV1` and `DataTypes.UUIDV4`, `DataTypes.NOW` and other JavaScript functions are not handled by the Database,
-but by Sequelize itself. This means that they will only be used when using Model methods. They will not be used in [raw queries](../querying/raw-queries.md), 
+The generation of values for `DataTypes.NOW` and other JavaScript functions are not handled by the Database,
+but by Sequelize itself. This means that they will only be used when using Model methods. They will not be used in [raw queries](../querying/raw-queries.mdx),
 in [migrations](../models/migrations.md), and all other places where Sequelize does not have access to the Model.
 
 Read about SQL based alternatives in [Dynamic SQL default values](../models/defining-models.mdx#dynamic-sql-default-values).
