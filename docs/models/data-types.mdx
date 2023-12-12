@@ -242,6 +242,18 @@ This means that they cannot use these two functions in migrations.
 
 <UuidSupportTable />
 
+The postgres dialect requires the `uuid-ossp` extension to be enabled to be able to generate v1 UUIDs.
+If this extension is not available, you can force Sequelize to generate the UUIDs itself by using `sql.uuidV1.asJavaScript` instead.
+
+```javascript
+MyModel.init({
+  myUuid: {
+    type: DataTypes.UUID,
+    defaultValue: sql.uuidV1.asJavaScript,
+  },
+});
+```
+
 ## BLOBs
 
 The blob datatype allows you to insert data both as strings and buffers. However, when a blob is retrieved from database with Sequelize, it will always be retrieved as a [Node Buffer](https://nodejs.org/api/buffer.html).
