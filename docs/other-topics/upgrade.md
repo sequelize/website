@@ -456,16 +456,25 @@ User.findAll({
 In Sequelize 6, inserting `null` in a JSON or JSONB column would insert the SQL `NULL` value.
 It now inserts the JSON `'null'` value instead.
 
+You can revert the behavior to the one used in Sequelize 6
+by setting the `nullJsonStringification` global option to `'sql'`:
+
+```ts
+new Sequelize({
+  nullJsonStringification: 'sql',
+});
+```
+
 This change was made as part of a redesign of how JSON & JSONB attributes, to make how the top level value behaves
 be consistent with nested JSON values.
 
-You can still insert the SQL `null` value by using [raw SQL](../querying/raw-queries.md), like this:
+You can still insert the SQL `null` value by using `SQL_NULL`, like this:
 
 ```ts
-import { sql } from '@sequelize/core';
+import { SQL_NULL } from '@sequelize/core';
 
 await User.create({
-  jsonAttribute: sql`NULL`,
+  jsonAttribute: SQL_NULL,
 });
 ```
 
