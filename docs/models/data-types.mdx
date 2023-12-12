@@ -213,6 +213,9 @@ MyModel.init({
 
 For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL and SQLite, and `CHAR(36)` for MySQL.
 
+You can also use `DataTypes.UUID.V4` and `DataTypes.UUID.V1`
+to limit which version of UUID is accepted by the attribute to v4 or v1 respectively.
+
 <DialectTableFilter>
 
 | Sequelize DataType | PostgreSQL                                                           | MariaDB           | MySQL             | MSSQL                                                                                                                            | SQLite | Snowflake     | db2                     | ibmi                    |
@@ -228,7 +231,7 @@ Sequelize can generate UUIDs automatically for these attributes, simply use [`sq
 ```javascript
 MyModel.init({
   myUuid: {
-    type: DataTypes.UUID,
+    type: DataTypes.UUID.V4,
     defaultValue: sql.uuidV4, // Or sql.uuidV1
   },
 });
@@ -248,7 +251,7 @@ If this extension is not available, you can force Sequelize to generate the UUID
 ```javascript
 MyModel.init({
   myUuid: {
-    type: DataTypes.UUID,
+    type: DataTypes.UUID.V1,
     defaultValue: sql.uuidV1.asJavaScript,
   },
 });
