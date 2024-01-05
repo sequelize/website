@@ -19,9 +19,9 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@docusaurus/core": "3.0.1",
-    "@docusaurus/preset-classic": "3.0.1",
-    "@docusaurus/theme-mermaid": "3.0.1",
+    "@docusaurus/core": "3.1.0",
+    "@docusaurus/preset-classic": "3.1.0",
+    "@docusaurus/theme-mermaid": "3.1.0",
     "@mdx-js/react": "3.0.0",
     "@react-hookz/web": "24.0.2",
     "clsx": "2.1.0",
@@ -35,7 +35,7 @@
     "sass": "1.69.7"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.0.1",
+    "@docusaurus/module-type-aliases": "3.1.0",
     "@docusaurus/tsconfig": "3.1.0",
     "@ephys/eslint-config-typescript": "19.0.2",
     "@rushstack/eslint-patch": "1.6.1",
