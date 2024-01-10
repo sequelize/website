@@ -613,6 +613,18 @@ GameTeam.hasMany(PlayerGameTeam);
     { GameId: 3, TeamId: 3 }    // this GameTeam will get id 6
   ]);
 
+//if you have a array of player id , lets say selectedTeam , then you can use also use this approach to add GameTeam records
+
+const selectedTeam = [1,2,3,4] // array of teams
+       const teams = await Team.findAll({where :{
+        id : selectedTeam
+       }})
+const game = await Game.findByPk(gameId)
+       await game.addTeams(selectedTeam)
+
+  await game.addTeams(teams) // to make sure the ids exist in teams table
+
+
   // Now let's specify players.
   // For brevity, let's do it only for the second game (Winter Showdown).
   // Let's say that that s0me0ne and greenhead played for The Martians, while
@@ -624,6 +636,8 @@ GameTeam.hasMany(PlayerGameTeam);
     { PlayerId: 4, GameTeamId: 4 },   // not_spock played for The Plutonians
     { PlayerId: 5, GameTeamId: 4 }    // bowl_of_petunias played for The Plutonians
   ]);
+
+
 
   // Now we can make queries!
   const game = await Game.findOne({
