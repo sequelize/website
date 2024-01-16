@@ -38,7 +38,7 @@
     "@docusaurus/module-type-aliases": "3.1.0",
     "@docusaurus/tsconfig": "3.1.0",
     "@ephys/eslint-config-typescript": "19.0.2",
-    "@rushstack/eslint-patch": "1.6.1",
+    "@rushstack/eslint-patch": "1.7.0",
     "eslint": "8.56.0",
     "eslint-plugin-jsx-a11y": "6.8.0",
     "eslint-plugin-mdx": "1.17.1",
