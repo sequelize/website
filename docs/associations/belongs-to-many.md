@@ -284,10 +284,10 @@ class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Auth
 
 // ...
 
-const post = await Post.findByPk(1);
+const author = await Author.findByPk(1);
 
 // highlight-start
-const books: Book[] = await post.getBooks();
+const books: Book[] = await author.getBooks();
 // highlight-end
 ```
 
@@ -315,16 +315,16 @@ class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Auth
 
 // ...
 
-const post = await Post.findByPk(1);
+const author = await Author.findByPk(1);
 const [book1, book2, book3] = await Book.findAll({ limit: 3 });
 
 // highlight-start
 // Remove all previous associations and set the new ones
-await post.setBooks([book1, book2, book3]);
+await author.setBooks([book1, book2, book3]);
 
 // You can also use the primary key of the newly associated model as a way to identify it
 // without having to fetch it first.
-await post.setBooks([1, 2, 3]);
+await author.setBooks([1, 2, 3]);
 // highlight-end
 ```
 
@@ -360,20 +360,20 @@ class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Auth
 
 // ...
 
-const post = await Post.findByPk(1);
+const author = await Author.findByPk(1);
 const [book1, book2, book3] = await Book.findAll({ limit: 3 });
 
 // highlight-start
 // Add a single book, without removing existing ones
-await post.addBook(book1);
+await author.addBook(book1);
 
 // Add multiple books, without removing existing ones
-await post.addBooks([book1, book2]);
+await author.addBooks([book1, book2]);
 
 // You can also use the primary key of the newly associated model as a way to identify it
 // without having to fetch it first.
-await post.addBook(1);
-await post.addBooks([1, 2, 3]);
+await author.addBook(1);
+await author.addBooks([1, 2, 3]);
 // highlight-end
 ```
 
@@ -411,20 +411,20 @@ class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Auth
 
 // ...
 
-const post = await Post.findByPk(1);
+const author = await Author.findByPk(1);
 const [book1, book2, book3] = await Book.findAll({ limit: 3 });
 
 // highlight-start
 // Remove a single book, without removing existing ones
-await post.removeBook(book1);
+await author.removeBook(book1);
 
 // Remove multiple books, without removing existing ones
-await post.removeBooks([book1, book2]);
+await author.removeBooks([book1, book2]);
 
 // You can also use the primary key of the newly associated model as a way to identify it
 // without having to fetch it first.
-await post.removeBook(1);
-await post.removeBooks([1, 2, 3]);
+await author.removeBook(1);
+await author.removeBooks([1, 2, 3]);
 // highlight-end
 ```
 
@@ -446,10 +446,10 @@ class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Auth
 
 // ...
 
-const post = await Post.findByPk(1);
+const author = await Author.findByPk(1);
 
 // highlight-start
-const book = await post.createBook({
+const book = await author.createBook({
   content: 'This is a book',
 });
 // highlight-end
@@ -499,17 +499,17 @@ class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Auth
 
 // ...
 
-const post = await Post.findByPk(1);
+const author = await Author.findByPk(1);
 
 // highlight-start
 // Returns true if the post has a book with id 1
-const isAssociated = await post.hasBook(book1);
+const isAssociated = await author.hasBook(book1);
 
 // Returns true if the post is associated to all specified books
-const isAssociated = await post.hasBooks([book1, book2, book3]);
+const isAssociated = await author.hasBooks([book1, book2, book3]);
 
 // Like other association methods, you can also use the primary key of the associated model as a way to identify it
-const isAssociated = await post.hasBooks([1, 2, 3]);
+const isAssociated = await author.hasBooks([1, 2, 3]);
 // highlight-end
 ```
 
@@ -531,11 +531,11 @@ class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Auth
 
 // ...
 
-const post = await Post.findByPk(1);
+const author = await Author.findByPk(1);
 
 // highlight-start
 // Returns the number of associated books
-const count = await post.countBooks();
+const count = await author.countBooks();
 // highlight-end
 ```
 
