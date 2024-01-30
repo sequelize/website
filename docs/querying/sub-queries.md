@@ -5,7 +5,7 @@ sidebar_position: 10
 
 Subqueries are queries that are nested inside another query. They are a powerful tool that can be used to achieve complex queries that would otherwise be impossible to write.
 
-In Sequelize, subqueries currently require writing raw SQL. However, Sequelize can help you with the main query, and you can use [the `sql` tag](./raw-queries.md) to insert the sub-query into the main query.
+In Sequelize, subqueries currently require writing raw SQL. However, Sequelize can help you with the main query, and you can use [the `sql` tag](./raw-queries.mdx) to insert the sub-query into the main query.
 
 __Example__:
 
