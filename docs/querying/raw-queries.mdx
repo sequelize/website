@@ -494,15 +494,12 @@ In unsupported dialects, using these functions, except as [the default value of 
 sequelize.query(sql`INSERT INTO users (id) VALUES (${sql.uuidV4()})`);
 ```
 
-These functions are supported by the following dialects:
-
 ```sql
--- postgres
+-- postgres example
 INSERT INTO users (id) VALUES (gen_random_uuid())
-
--- mssql
-INSERT INTO users (id) VALUES (NEWID())
 ```
+
+These functions are supported by the following dialects:
 
 <UuidSupportTable />
 

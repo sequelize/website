@@ -336,6 +336,12 @@ class User extends Model {
 Sequelize also provides 2 built-in functions, [`sql.uuidV1` and `sql.uuidV4`](./data-types.mdx#built-in-default-values-for-uuid), that will
 generate a UUID in SQL if possible, and fallback to a JavaScript implementation otherwise.
 
+:::info
+
+In MySQL, it is only possible to use dynamic SQL default values starting with version [8.0.13](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-13.html).
+
+:::
+
 ## Primary Keys
 
 Sequelize automatically adds an auto-incremented integer attribute called `id` as primary key if none is specified.
