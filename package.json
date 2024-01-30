@@ -16,7 +16,7 @@
     "lint-scss-no-fix": "prettier --check */**/*.scss",
     "typecheck": "tsc",
     "sync": "bash ./sync-repositories.sh",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "@docusaurus/core": "3.1.1",
