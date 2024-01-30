@@ -119,7 +119,7 @@ class User extends Model {
   
   @Attribute(DataTypes.STRING)
   @NotNull
-  set password(value): string {
+  set password(value: string) {
     // Accessing the value of another attribute inside the setter can lead to unexpected results
     // error-next-line
     this.setDataValue('password', hash(this.username + value));
