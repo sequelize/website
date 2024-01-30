@@ -204,11 +204,18 @@ const MyModel = sequelize.define('MyModel', {
 await MyModel.findOne({ where: { date: '2022-11-06T00:00:00Z' } });
 ```
 
-In Sequelize 6, an input such as `2022-11-06` was parsed as local time. If your server's timezone were GMT+1, that input would have resulted in `2022-11-05T23:00:00.000Z`.
+In Sequelize 6, date inputs with no time part such as `2022-11-06` were parsed as local time.
+If your server's timezone were GMT+1, that input would have resulted in `2022-11-05T23:00:00.000Z`.
 
-Starting with Sequelize 7, that input is parsed as UTC and results in `2022-11-06T00:00:00.000Z` no matter the timezone of your server.
+Starting with Sequelize 7, string values are parsed using the rules that the `Date` object follows.
+This means that date-only inputs are parsed as UTC,
+and the above example now results in `2022-11-06T00:00:00.000Z` no matter the timezone of your server.
 
-### Associations names are now unique
+Note that dates with a time part, but no time zone offset, are still parsed as local time, as we follow
+the `Date` object's behavior. 
+Read the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format) for more information.
+
+### Association names are now unique
 
 *Pull Request [#14280]*
 
