@@ -280,7 +280,7 @@ Project.findAll({
 
 The `indexHints` option can be used to define index hints. The hint type must be a value from `IndexHints` and the values should reference existing indexes.
 
-Index hints [override the default behavior of the MySQL query optimizer](https://dev.mysql.com/doc/refman/5.7/en/index-hints.html).
+Index hints [override the default behavior of the MySQL query optimizer](https://dev.mysql.com/doc/refman/8.0/en/index-hints.html).
 
 ```js
 import { IndexHints } from '@sequelize/core';
