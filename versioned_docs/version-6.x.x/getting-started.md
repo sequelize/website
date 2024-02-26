@@ -3,7 +3,7 @@ sidebar_position: 2
 title: Getting Started
 ---
 
-In this tutorial you will learn to make a simple setup of Sequelize.
+In this tutorial, you will learn to make a simple setup of Sequelize.
 
 ## Installing
 
@@ -89,7 +89,7 @@ const sequelize = new Sequelize("sqlite::memory:");
 // Code here! It works!
 ```
 
-To experiment with the other dialects, which are harder to setup locally, you can use the [Sequelize SSCCE](https://github.com/papb/sequelize-sscce) GitHub repository, which allows you to run code on all supported dialects directly from GitHub, for free, without any setup!
+To experiment with the other dialects, which are harder to set up locally, you can use the [Sequelize SSCCE](https://github.com/papb/sequelize-sscce) GitHub repository, which allows you to run code on all supported dialects directly from GitHub, for free, without any setup!
 
 ## New databases versus existing databases
 
@@ -99,7 +99,7 @@ Also, if you want to use Sequelize to connect to a database that is already fill
 
 ## Logging
 
-By default, Sequelize will log to console every SQL query it performs. The `options.logging` option can be used to customize this behavior, by defining the function that gets executed every time Sequelize would log something. The default value is `console.log` and when using that only the first log parameter of log function call is displayed. For example, for query logging the first parameter is the raw query and the second (hidden by default) is the Sequelize object.
+By default, Sequelize will log into the console for every SQL query it performs. The `options.logging` option can be used to customize this behavior, by defining the function that gets executed every time Sequelize logs something. The default value is `console.log` and when using that only the first log parameter of a log function call is displayed. For example, for query logging the first parameter is the raw query and the second (hidden by default) is the Sequelize object.
 
 Common useful values for `options.logging`:
 
@@ -116,6 +116,6 @@ const sequelize = new Sequelize('sqlite::memory:', {
 
 ## Promises and async/await
 
-Most of the methods provided by Sequelize are asynchronous and therefore return Promises. They are all [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) , so you can use the Promise API (for example, using `then`, `catch`, `finally`) out of the box.
+Most of the methods provided by Sequelize are asynchronous and therefore return Promises. They are all [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), so you can use the Promise API (for example, using `then`, `catch`, `finally`) out of the box.
 
 Of course, using `async` and `await` works normally as well.
