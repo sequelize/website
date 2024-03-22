@@ -136,7 +136,7 @@ console.log(jane.name); // "Jane"
 jane.name = "Ada";
 // the name is still "Jane" in the database
 await jane.reload();
-console.log(jane.name); // "Jane"
+console.log(jane.name); // "Ada"
 ```
 
 The reload call generates a `SELECT` query to get the up-to-date data from the database.
