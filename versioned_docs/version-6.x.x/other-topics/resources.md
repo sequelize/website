@@ -28,6 +28,10 @@ title: Resources
 
 * [sequelize-bcrypt](https://github.com/mattiamalonni/sequelize-bcrypt) - Utility to integrate bcrypt into sequelize models
 
+### Browser
+
+* [sequelize-browser](https://npmjs.com/package/sequelize-browser) - A web-browser-compatible build of Sequelize
+
 ### Caching
 
 * [sequelize-transparent-cache](https://github.com/DanielHreben/sequelize-transparent-cache)
@@ -49,6 +53,10 @@ title: Resources
 ### Historical records / Time travel
 
 * [sequelize-temporal](https://github.com/bonaval/sequelize-temporal) - Temporal tables (aka historical records)
+
+### Integrations
+
+* [kysely-sequelize](https://www.npmjs.com/pacakge/kysely-sequelize) - A toolkit (dialect, type translators, etc.) that allows using your existing Sequelize instance with [Kysely](https://www.kysely.dev).
 
 ### Joi
 
