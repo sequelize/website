@@ -18,6 +18,7 @@ title: Resources
 * [sequelize-auto](https://github.com/sequelize/sequelize-auto) Generating models for SequelizeJS via the command line is another choice.
 * [pg-generator](https://www.pg-generator.com/builtin-templates/sequelize/) - Auto generate/scaffold Sequelize models for PostgreSQL database.
 * [sequelizejs-decorators](https://www.npmjs.com/package/sequelizejs-decorators) decorators for composing sequelize models
+* [hatchify](https://github.com/bitovi/hatchify) - Schema driven Node CRUD API and React Web UI including Sequelize based ORM.
 
 ### Autoloader
 
@@ -26,10 +27,6 @@ title: Resources
 ### Bcrypt
 
 * [sequelize-bcrypt](https://github.com/mattiamalonni/sequelize-bcrypt) - Utility to integrate bcrypt into sequelize models
-
-### Browser
-
-* [sequelize-browser](https://npmjs.com/package/sequelize-browser) - A web-browser-compatible build of Sequelize
 
 ### Caching
 
@@ -52,10 +49,6 @@ title: Resources
 ### Historical records / Time travel
 
 * [sequelize-temporal](https://github.com/bonaval/sequelize-temporal) - Temporal tables (aka historical records)
-
-### Integrations
-
-* [kysely-sequelize](https://www.npmjs.com/pacakge/kysely-sequelize) - A toolkit (dialect, type translators, etc.) that allows using your existing Sequelize instance with [Kysely](https://www.kysely.dev).
 
 ### Joi
 
