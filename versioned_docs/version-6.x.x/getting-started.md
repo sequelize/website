@@ -118,4 +118,4 @@ const sequelize = new Sequelize('sqlite::memory:', {
 
 Most of the methods provided by Sequelize are asynchronous and therefore return Promises. They are all [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) , so you can use the Promise API (for example, using `then`, `catch`, `finally`) out of the box.
 
-Of course, using `async` and `await` works normally as well.
+Of course, using `async` and `await` works fine as well.
