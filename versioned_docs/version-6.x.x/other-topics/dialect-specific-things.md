@@ -98,7 +98,7 @@ To connect over a unix domain socket, specify the path to the socket directory i
 ```js
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'postgres',
-  host: '/path/to/socket_directory'
+  socketPath: '/path/to/socket_directory'
 });
 ```
 
