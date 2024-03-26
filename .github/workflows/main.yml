@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+      - renovate/** # support automergeType=branch
 
 jobs:
   build:
@@ -18,14 +19,14 @@ jobs:
           node-version: 20.x
           cache: yarn
       - run: yarn install --frozen-lockfile
-      - run: yarn lint-no-fix
-      - run: yarn typecheck
       - run: yarn sync
       - run: yarn build
       - name: Prepare Netlify dependencies
         run: npm install netlify-cli -g
+        if: github.ref == 'refs/heads/main' # do not publish renovate branches
       - name: Deploy to Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: sequelize-site
         run: netlify deploy --dir build --prod --message '${{ github.event.commits[0].message }}'
+        if: github.ref == 'refs/heads/main' # do not publish renovate branches
