@@ -98,7 +98,7 @@ Image.hasMany(Comment, {
     commentableType: 'image'
   }
 });
-Comment.belongsTo(Image, { foreignKey: 'commentableId', constraints: false });
+Comment.belongsTo(Image, { foreignKey: 'commentableId', constraints: false, scope: { '$comment.commentableType$': 'image' } });
 
 Video.hasMany(Comment, {
   foreignKey: 'commentableId',
@@ -107,7 +107,7 @@ Video.hasMany(Comment, {
     commentableType: 'video'
   }
 });
-Comment.belongsTo(Video, { foreignKey: 'commentableId', constraints: false });
+Comment.belongsTo(Video, { foreignKey: 'commentableId', constraints: false, scope: { '$comment.commentableType$': 'video' } });
 
 Comment.addHook("afterFind", findResult => {
   if (!Array.isArray(findResult)) findResult = [findResult];
