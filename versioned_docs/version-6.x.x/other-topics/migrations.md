@@ -4,94 +4,35 @@ title: Migrations
 
 Just like you use [version control](https://en.wikipedia.org/wiki/Version_control) systems such as [Git](https://en.wikipedia.org/wiki/Git) to manage changes in your source code, you can use **migrations** to keep track of changes to the database. With migrations you can transfer your existing database into another state and vice versa: Those state transitions are saved in migration files, which describe how to get to the new state and how to revert the changes in order to get back to the old state.
 
-You will need the [Sequelize Command-Line Interface (CLI)](https://github.com/sequelize/cli). The CLI ships support for migrations and project bootstrapping.
-
-A Migration in Sequelize is a javascript file which exports two functions, `up` and `down`, that dictates how to perform the migration and undo it. You define those functions manually, but you don't call them manually; they will be called automatically by the CLI. In these functions, you should simply perform whatever queries you need, with the help of `sequelize.query` and whichever other methods Sequelize provides to you. There is no extra magic beyond that.
-
-## Installing the CLI
-
-To install the Sequelize CLI:
+You will need the [Sequelize Command-Line Interface (CLI)](https://github.com/sequelize/cli). The CLI ships support for migrations and project bootstrapping. To install the Sequelize CLI:
 
 ```text
 npm install --save-dev sequelize-cli
 ```
 
-For details see the [CLI GitHub repository](https://github.com/sequelize/cli).
 
-## Project bootstrapping
+A Migration in Sequelize is a javascript file which exports two functions, `up` and `down`, that dictates how to perform the migration and undo it. You define those functions manually, but you don't call them manually; they will be called automatically by the CLI. In these functions, you should simply perform whatever queries you need, with the help of `sequelize.query` and whichever other methods Sequelize provides to you. There is no extra magic beyond that.
 
-To create an empty project you will need to execute `init` command
+## Creating the migration 
+
+We can generate this file using `migration:generate`. This will create `xxx-migration-skeleton.js` in your migration folder.
 
 ```text
-npx sequelize-cli init
+npx sequelize-cli migration:generate --name migration-skeleton
 ```
 
-This will create following folders
+The following skeleton shows a typical migration file.
 
-- `config`, contains config file, which tells CLI how to connect with database
-- `models`, contains all models for your project
-- `migrations`, contains all migration files
-- `seeders`, contains all seed files
-
-### Configuration
-
-Before continuing further we will need to tell the CLI how to connect to the database. To do that let's open default config file `config/config.json`. It looks something like this:
-
-```json
-{
-  "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+```js
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    // logic for transforming into the new state
   },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+  down: (queryInterface, Sequelize) => {
+    // logic for reverting the changes
   }
 }
 ```
-
-Note that the Sequelize CLI assumes mysql by default. If you're using another dialect, you need to change the content of the `"dialect"` option.
-
-Now edit this file and set correct database credentials and dialect. The keys of the objects (e.g. "development") are used on `model/index.js` for matching `process.env.NODE_ENV` (When undefined, "development" is a default value).
-
-Sequelize will use the default connection port for each dialect (for example, for postgres, it is port 5432). If you need to specify a different port, use the `"port"` field (it is not present by default in `config/config.js` but you can simply add it).
-
-**Note:** _If your database doesn't exist yet, you can just call `db:create` command. With proper access it will create that database for you._
-
-## Creating the first Model (and Migration)
-
-Once you have properly configured CLI config file you are ready to create your first migration. It's as simple as executing a simple command.
-
-We will use `model:generate` command. This command requires two options:
-
-- `name`: the name of the model;
-- `attributes`: the list of model attributes.
-
-Let's create a model named `User`.
-
-```text
-npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
-```
-
-This will:
-
-- Create a model file `user` in `models` folder;
-- Create a migration file with name like `XXXXXXXXXXXXXX-create-user.js` in `migrations` folder.
-
-**Note:** _Sequelize will only use Model files, it's the table representation. On the other hand, the migration file is a change in that model or more specifically that table, used by CLI. Treat migrations like a commit or a log for some change in database._
 
 ## Running Migrations
 
@@ -123,7 +64,31 @@ You can revert back to the initial state by undoing all migrations with the `db:
 npx sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
 ```
 
-## Creating the first Seed
+## Creating the Model (and Migration)
+
+Once you have properly configured CLI config file you are ready to create your first migration. It's as simple as executing a simple command.
+
+We will use `model:generate` command. This command requires two options:
+
+- `name`: the name of the model;
+- `attributes`: the list of model attributes.
+
+Let's create a model named `User`.
+
+```text
+npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+```
+
+This will:
+
+- Create a model file `user` in `models` folder;
+- Create a migration file with name like `XXXXXXXXXXXXXX-create-user.js` in `migrations` folder.
+
+**Note:** _Sequelize will only use Model files, it's the table representation. On the other hand, the migration file is a change in that model or more specifically that table, used by CLI. Treat migrations like a commit or a log for some change in database._
+
+
+
+## Creating the Seed
 
 Suppose we want to insert some data into a few tables by default. If we follow up on the previous example we can consider creating a demo user for the `User` table.
 
@@ -191,25 +156,6 @@ npx sequelize-cli db:seed:undo:all
 ```
 
 ## Migration Skeleton
-
-The following skeleton shows a typical migration file.
-
-```js
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-    // logic for transforming into the new state
-  },
-  down: (queryInterface, Sequelize) => {
-    // logic for reverting the changes
-  }
-}
-```
-
-We can generate this file using `migration:generate`. This will create `xxx-migration-skeleton.js` in your migration folder.
-
-```text
-npx sequelize-cli migration:generate --name migration-skeleton
-```
 
 The passed `queryInterface` object can be used to modify the database. The `Sequelize` object stores the available data types such as `STRING` or `INTEGER`. Function `up` or `down` should return a `Promise`. Let's look at an example:
 
@@ -359,6 +305,61 @@ module.exports = {
   }
 }
 ```
+
+## Project bootstrapping
+
+To create an empty project you will need to execute `init` command
+
+```text
+npx sequelize-cli init
+```
+
+This will create following folders
+
+- `config`, contains config file, which tells CLI how to connect with database
+- `models`, contains all models for your project
+- `migrations`, contains all migration files
+- `seeders`, contains all seed files
+
+### Configuration
+
+Before continuing further we will need to tell the CLI how to connect to the database. To do that let's open default config file `config/config.json`. It looks something like this:
+
+```json
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+```
+
+Note that the Sequelize CLI assumes mysql by default. If you're using another dialect, you need to change the content of the `"dialect"` option.
+
+Now edit this file and set correct database credentials and dialect. The keys of the objects (e.g. "development") are used on `model/index.js` for matching `process.env.NODE_ENV` (When undefined, "development" is a default value).
+
+Sequelize will use the default connection port for each dialect (for example, for postgres, it is port 5432). If you need to specify a different port, use the `"port"` field (it is not present by default in `config/config.js` but you can simply add it).
+
+**Note:** _If your database doesn't exist yet, you can just call `db:create` command. With proper access it will create that database for you._
+
+
 
 ### The `.sequelizerc` file
 
