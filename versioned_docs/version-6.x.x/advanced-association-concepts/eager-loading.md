@@ -115,7 +115,7 @@ User.findAll({ include: { association: 'Instruments' } }); // Also works
 
 ### Required eager loading
 
-When eager loading, we can force the query to return only records which have an associated model, effectively converting the query from the default `OUTER JOIN` to an `INNER JOIN`. This is done with the `required: true` option, as follows:
+When eager loading, we can force the query to return only records which have an associated model, effectively converting the query from the default `LEFT OUTER JOIN` to an `INNER JOIN`. This is done with the `required: true` option, as follows:
 
 ```js
 User.findAll({
