@@ -1546,13 +1546,24 @@
     "@docusaurus/theme-search-algolia" "3.2.1"
     "@docusaurus/types" "3.2.1"
 
-"@docusaurus/react-loadable@5.5.2":
+"@docusaurus/react-loadable@5.5.2", "react-loadable@npm:@docusaurus/react-loadable@5.5.2":
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/@docusaurus/react-loadable/-/react-loadable-5.5.2.tgz#81aae0db81ecafbdaee3651f12804580868fa6ce"
   integrity sha512-A3dYjdBGuy0IGT+wyLIGIKLRE+sAk1iNk0f1HjNDysO7u8lhL4N3VEm+FAubmJbAztn94F7MxBTPmnixbiyFdQ==
   dependencies:
     "@types/react" "*"
     prop-types "^15.6.2"
+
+"@docusaurus/remark-plugin-npm2yarn@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@docusaurus/remark-plugin-npm2yarn/-/remark-plugin-npm2yarn-3.2.1.tgz#c218056d91e7e84fc41cef8cd19fa5c40ec09861"
+  integrity sha512-10sLhtIp2O0T7uEqVz82T4luXjnKiishwRbCAO+HgdFTsoVWs3RmrZHdk4Y5/s4Kgl2ptUPZIec3RdPoTY9vcA==
+  dependencies:
+    mdast-util-mdx "^3.0.0"
+    npm-to-yarn "^2.2.1"
+    tslib "^2.6.0"
+    unified "^11.0.3"
+    unist-util-visit "^5.0.0"
 
 "@docusaurus/theme-classic@3.2.1":
   version "3.2.1"
@@ -8617,6 +8628,11 @@ npm-run-path@^5.1.0:
   dependencies:
     path-key "^4.0.0"
 
+npm-to-yarn@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/npm-to-yarn/-/npm-to-yarn-2.2.1.tgz#048843a6630621daffc6a239dfc89698b8abf7e8"
+  integrity sha512-O/j/ROyX0KGLG7O6Ieut/seQ0oiTpHF2tXAcFbpdTLQFiaNtkyTXXocM1fwpaa60dg1qpWj0nHlbNhx6qwuENQ==
+
 nprogress@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
@@ -9624,14 +9640,6 @@ react-loadable-ssr-addon-v5-slorber@^1.0.1:
   integrity sha512-lq3Lyw1lGku8zUEJPDxsNm1AfYHBrO9Y1+olAYwpUJ2IGFBskM0DMKok97A6LWUpHm+o7IvQBOWu9MLenp9Z+A==
   dependencies:
     "@babel/runtime" "^7.10.3"
-
-"react-loadable@npm:@docusaurus/react-loadable@5.5.2":
-  version "5.5.2"
-  resolved "https://registry.yarnpkg.com/@docusaurus/react-loadable/-/react-loadable-5.5.2.tgz#81aae0db81ecafbdaee3651f12804580868fa6ce"
-  integrity sha512-A3dYjdBGuy0IGT+wyLIGIKLRE+sAk1iNk0f1HjNDysO7u8lhL4N3VEm+FAubmJbAztn94F7MxBTPmnixbiyFdQ==
-  dependencies:
-    "@types/react" "*"
-    prop-types "^15.6.2"
 
 react-responsive-carousel@3.2.23:
   version "3.2.23"

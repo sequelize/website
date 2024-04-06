@@ -22,7 +22,9 @@ As a result, you now use Sequelize as follows:
 
 ```javascript
 import { Sequelize } from '@sequelize/core';
-const sequelize = new Sequelize({ dialect: 'sqlite' });
+import { SqliteDialect } from '@sequelize/sqlite';
+
+const sequelize = new Sequelize({ dialect: SqliteDialect });
 
 await sequelize.authenticate();
 ```
@@ -469,6 +471,7 @@ by setting the `nullJsonStringification` global option to `'sql'`:
 
 ```ts
 new Sequelize({
+  /* options */
   nullJsonStringification: 'sql',
 });
 ```

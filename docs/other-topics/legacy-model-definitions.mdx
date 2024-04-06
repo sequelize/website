@@ -27,8 +27,9 @@ There are two legacy ways of defining models:
 
 ```typescript
 import { Sequelize, DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize({ dialect: SqliteDialect });
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
@@ -65,7 +66,9 @@ console.log(User === sequelize.models.User); // true
 
 ```javascript
 import { Sequelize, DataTypes, Model } from '@sequelize/core';
-const sequelize = new Sequelize('sqlite::memory:');
+import { SqliteDialect } from '@sequelize/sqlite';
+
+const sequelize = new Sequelize({ dialect: SqliteDialect });
 
 class User extends Model {}
 
@@ -97,7 +100,8 @@ Internally, `sequelize.define` calls `Model.init`, so both approaches are equiva
 
 ```js
 import { Sequelize, DataTypes } from '@sequelize/core';
-const sequelize = new Sequelize('sqlite::memory:');
+
+const sequelize = new Sequelize({ dialect: SqliteDialect });
 
 const User = sequelize.define('User', {
   // Model attributes are defined here

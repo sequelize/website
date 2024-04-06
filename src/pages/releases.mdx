@@ -38,7 +38,7 @@ If you're trying to use Sequelize 6 in Node 14 or newer, use that version of pg.
 
 | Sequelize   | [PostgreSQL][postgres] | [pg]                                         | [pg-native]    |
 |-------------|------------------------|----------------------------------------------|----------------|
-| 7 (alpha)   | >= 11                  | >= 8.2                                       | >=3.0.0 [^⚠️1] |
+| 7 (alpha)   | >= 11                  | N/A[^1]                                          | >=3.0.0        |
 | 6 (current) | >= 9.5                 | >= 7.8 (node < 14) <br/> >= 8.2 (node >= 14) | >=3.0.0        |
 
 [postgres]: https://www.postgresql.org/support/versioning/
@@ -52,7 +52,7 @@ MariaDB requires the use of the [mariadb][mariadb-npm] npm package.
 
 | Sequelize   | [MariaDB][mariadb] | [mariadb (npm)][mariadb-npm] |
 |-------------|--------------------|------------------------------|
-| 7 (alpha)   | >=10.4.30          | >= 3.0.0 [^⚠️2]              |
+| 7 (alpha)   | >=10.4.30          | N/A[^1]                      |
 | 6 (current) | >=10.3             | ^2.3.3                       |
 
 [mariadb]: https://mariadb.org/about/#maintenance-policy
@@ -65,7 +65,7 @@ MySQL requires the use of the [mysql2] npm package.
 
 | Sequelize   | [MySQL][mysql] | [mysql2] |
 |-------------|----------------|----------|
-| 7 (alpha)   | >=8.0.19       | >= 3.8.0 |
+| 7 (alpha)   | >=8.0.19       | N/A[^1]  |
 | 6 (current) | ^5.7, ^8.0     | >= 2.3.3 |
 
 [mysql]: https://endoflife.date/mysql
@@ -78,7 +78,7 @@ MSSQL requires the use of the [tedious] npm package.
 
 | Sequelize   | [SQL Server][mssql] | [tedious] |
 |-------------|---------------------|-----------|
-| 7 (alpha)   | 2017-2022           | ^14.4.0   |
+| 7 (alpha)   | 2017-2022           | N/A[^1]   |
 | 6 (current) | 2014-2019           | ^8.3.0    |
 
 [mssql]: https://endoflife.date/mssqlserver
@@ -116,7 +116,7 @@ support for Snowflake is limited as it is not handled by the core team.
 
 | Sequelize   | [Snowflake](https://www.snowflake.com/pricing/) | [snowflake-sdk] |
 |-------------|-------------------------------------------------|-----------------|
-| 7 (alpha)   | all                                             | ^1.6.0          |
+| 7 (alpha)   | all                                             | N/A[^1]          |
 | 6 (current) | all                                             | ^1.6.0          |
 
 [snowflake-sdk]: https://www.npmjs.com/package/snowflake-sdk
@@ -135,7 +135,7 @@ support for Db2 is limited as it is not handled by the core team.
 
 | Sequelize   | [Db2][db2] | [ibm_db] |
 |-------------|------------|----------|
-| 7 (alpha)   | >= 11.5    | ^2.8.0   |
+| 7 (alpha)   | >= 11.5    | N/A[^1]   |
 | 6 (current) | >= 11.5    | ^2.8.0   |
 
 [db2]: https://www.ibm.com/support/pages/db2-distributed-end-support-eos-dates
@@ -153,10 +153,10 @@ support for Db2 for IBM i is limited as it is not handled by the core team.
 
 :::
 
-| Sequelize   | [Db2 for IBM i][ibmi] | [odbc]        |
-|-------------|-----------------------|---------------|
-| 7 (alpha)   | unknown               | ^2.4.0        |
-| 6 (current) | not available         | not available |
+| Sequelize   | [Db2 for IBM i][ibmi] |
+|-------------|-----------------------|
+| 7 (alpha)   | unknown               |
+| 6 (current) | not available         |
 
 [ibmi]: https://www.ibm.com/support/pages/db2-ibm-i
 [odbc]: https://www.npmjs.com/package/odbc
@@ -168,12 +168,11 @@ Oracle Database requires the use of the [node-oracledb] npm package.
 
 | Sequelize   | [Oracle Database]   | [node-oracledb] |
 |-------------|---------------------|-----------------|
-| 7 (alpha)   |      upcoming       |    upcoming     |
+| 7 (alpha)   |      upcoming       |    N/A[^1]     |
 | 6 (current) |      >= 18.4        |    ^5.4.0       |
 
 [Oracle Database]: https://www.oracle.com/database/technologies/oracle-database-software-downloads.html
 [node-oracledb]: https://www.npmjs.com/package/oracledb
 
-[^⚠️1]: `pg-native` [hasn't had a release since 2018](https://www.npmjs.com/package/pg-native).
-Sequelize will still test against it, but its reliability is degraded in Node >=17.
+[^1]: Connector libraries do not need to be installed manually anymore.
 [^⚠️2]: Support for mariadb 3 has not been completed yet https://github.com/sequelize/sequelize/pull/14187

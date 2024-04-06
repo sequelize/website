@@ -72,6 +72,7 @@ by setting the [`defaultTransactionNestMode`](pathname:///api/v7/interfaces/_seq
 
 ```ts
 new Sequelize({
+  /* options */
   defaultTransactionNestMode: TransactionNestMode.savepoint,
 });
 ```
@@ -303,8 +304,9 @@ You can also change the default `isolationLevel` globally by setting the option 
 ```ts
 import { Sequelize, IsolationLevel } from '@sequelize/core';
 
-const sequelize = new Sequelize('sqlite::memory:', {
-  isolationLevel: IsolationLevel.SERIALIZABLE
+const sequelize = new Sequelize({
+  /* options */
+  isolationLevel: IsolationLevel.SERIALIZABLE,
 });
 ```
 

@@ -6,6 +6,7 @@ sidebar_label: Introduction
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import DecoratorInfo from './_fragments/_decorator-info.mdx';
 
 [![npm version](https://badgen.net/npm/v/@sequelize/core)](https://www.npmjs.com/package/@sequelize/core)
 [![npm downloads](https://badgen.net/npm/dm/@sequelize/core)](https://www.npmjs.com/package/@sequelize/core)
@@ -30,6 +31,7 @@ You are currently looking at the **Tutorials and Guides** for Sequelize. You mig
 ```typescript
 import { Sequelize, Model, DataTypes, InferAttributes, InferCreationAttributes } from '@sequelize/core';
 import { Attribute } from '@sequelize/core/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   @Attribute(DataTypes.STRING)
@@ -39,7 +41,8 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare birthday: Date | null;
 }
 
-const sequelize = new Sequelize('sqlite::memory:', {
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   models: [User],
 });
 
@@ -59,6 +62,7 @@ console.log(jane.toJSON());
 ```typescript
 import { Sequelize, Model, DataTypes } from '@sequelize/core';
 import { Attribute } from '@sequelize/core/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite';
 
 class User extends Model {
   @Attribute(DataTypes.STRING)
@@ -68,7 +72,8 @@ class User extends Model {
   birthday;
 }
 
-const sequelize = new Sequelize('sqlite::memory:', {
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   models: [User],
 });
 
@@ -84,6 +89,8 @@ console.log(jane.toJSON());
 
 </TabItem>
 </Tabs>
+
+<DecoratorInfo />
 
 To learn more about how to use Sequelize, read the tutorials available in the left menu. Begin with [Getting Started](./getting-started.mdx).
 

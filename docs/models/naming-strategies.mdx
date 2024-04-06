@@ -33,11 +33,12 @@ which means irregular plurals (such as `person -> people`) are computed correctl
 
 ```javascript
 import { Model, Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite';
 
 class User extends Model {}
 
 const sequelize = new Sequelize({
-  // ...
+  dialect: SqliteDialect,
   models: [User],
 });
 
@@ -61,6 +62,7 @@ The `underscored` option also impacts Column Names. [See *Snake-case column name
 ```javascript
 import { Model, Sequelize } from '@sequelize/core';
 import { Table } from '@sequelize/core/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite';
 
 @Table({
   // highlight-next-line
@@ -68,7 +70,8 @@ import { Table } from '@sequelize/core/decorators-legacy';
 })
 class User extends Model {}
 
-const sequelize = new Sequelize('sqlite::memory:', {
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   models: [User],
 });
 
@@ -80,10 +83,12 @@ This behavior can also be defined globally by setting the option in the Sequeliz
 
 ```js
 import { Model, Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite';
 
 class User extends Model {}
 
-const sequelize = new Sequelize('sqlite::memory:', {
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   define: {
     // highlight-next-line
     underscored: true,
@@ -103,6 +108,7 @@ Sequelize will use the model name as the table name, without any modifications.
 Note that setting `freezeTableName` also causes Sequelize to ignore the `underscored` option for table names.
 
 ```javascript
+import { SqliteDialect } from '@sequelize/sqlite';
 import { Model, Sequelize } from '@sequelize/core';
 import { Table } from '@sequelize/core/decorators-legacy';
 
@@ -112,7 +118,8 @@ import { Table } from '@sequelize/core/decorators-legacy';
 })
 class User extends Model {}
 
-const sequelize = new Sequelize('sqlite::memory:', {
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   models: [User],
 });
 
@@ -124,10 +131,12 @@ This behavior can also be defined globally by setting the option in the Sequeliz
 
 ```js
 import { Model, Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite';
 
 class User extends Model {}
 
-const sequelize = new Sequelize('sqlite::memory:', {
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   define: {
     // highlight-next-line
     freezeTableName: true,

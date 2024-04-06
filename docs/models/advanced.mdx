@@ -20,6 +20,7 @@ If you want to prevent the addition of the default primary key for every model, 
 class User extends Model {}
 
 const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   define: {
     noPrimaryKey: true,
   },
