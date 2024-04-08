@@ -25,7 +25,7 @@ This page regroups information related to which engines versions are supported b
 
 ## PostgreSQL Support Table
 
-In Sequelize 6, PostgreSQL requires the use of the [pg][pg] (or [pg-native]) npm package.
+In Sequelize 6, PostgreSQL requires the installation of the [pg][pg] (or [pg-native]) npm package.
 [Read more about this here](/docs/v6/other-topics/dialect-specific-things/#postgresql).
 
 :::note
@@ -47,7 +47,7 @@ If you're trying to use Sequelize 6 in Node 14 or newer, use that version of pg.
 
 ## MariaDB Support Table
 
-In Sequelize 6, MariaDB requires the use of the [mariadb][mariadb-npm] npm package.
+In Sequelize 6, MariaDB requires the installation of the [mariadb][mariadb-npm] npm package.
 [Read more about this here](/docs/v6/other-topics/dialect-specific-things/#mariadb).
 
 | Sequelize   | [MariaDB][mariadb] | [mariadb (npm)][mariadb-npm] |
@@ -60,7 +60,7 @@ In Sequelize 6, MariaDB requires the use of the [mariadb][mariadb-npm] npm packa
 
 ## MySQL Support Table
 
-In Sequelize 6, MySQL requires the use of the [mysql2] npm package.
+In Sequelize 6, MySQL requires the installation of the [mysql2] npm package.
 [Read more about this here](/docs/v6/other-topics/dialect-specific-things/#mysql).
 
 | Sequelize   | [MySQL][mysql] | [mysql2] |
@@ -73,7 +73,7 @@ In Sequelize 6, MySQL requires the use of the [mysql2] npm package.
 
 ## Microsoft SQL Server (mssql) Support Table
 
-In Sequelize 6, MSSQL requires the use of the [tedious] npm package.
+In Sequelize 6, MSSQL requires the installation of the [tedious] npm package.
 [Read more about this here](/docs/v6/other-topics/dialect-specific-things/#microsoft-sql-server-mssql).
 
 | Sequelize   | [SQL Server][mssql] | [tedious] |
@@ -86,8 +86,10 @@ In Sequelize 6, MSSQL requires the use of the [tedious] npm package.
 
 ## SQLite Support Table
 
-In Sequelize 6, Sequelize uses the `sqlite3` npm library.
+In Sequelize 6, Sequelize requires the installation of the `sqlite3` npm library.
 [Read more about this here](/docs/v6/other-topics/dialect-specific-things/#sqlite).
+
+Sequelize 7 still uses `sqlite3` as the driver for SQLite, but does not require it to be installed manually.
 
 :::note
 
@@ -95,16 +97,15 @@ sqlite3@^4 has security vulnerabilities which are fixed by the [@vscode/sqlite3]
 
 :::
 
-| Sequelize   | [sqlite3]                                                      |
-|-------------|----------------------------------------------------------------|
-| 7 (alpha)   | `sqlite3@^5.0.3`                                   |
+| Sequelize   | [sqlite3]                                      |
+|-------------|------------------------------------------------|
 | 6 (current) | `@vscode/sqlite3@^4.0.12`, or `sqlite3@^5.0.3` |
 
 [sqlite3]: https://www.npmjs.com/package/sqlite3
 
 ## Snowflake Support Table
 
-In Sequelize 6, Snowflake requires the use of the [snowflake-sdk] npm package.
+In Sequelize 6, Snowflake requires the installation of the [snowflake-sdk] npm package.
 [Read more about this here](/docs/v6/other-topics/dialect-specific-things/#snowflake-experimental).
 
 :::note
@@ -121,16 +122,9 @@ support for Snowflake is limited as it is not handled by the core team.
 
 [snowflake-sdk]: https://www.npmjs.com/package/snowflake-sdk
 
-## Db2 Support Table
+## DB2 for LUW Support Table
 
-In Sequelize 6, Db2 requires the use of the [ibm_db] npm package.
-
-:::note
-
-While this dialect is included in Sequelize,
-support for Db2 is limited as it is not handled by the core team.
-
-:::
+In Sequelize 6, DB2 for Linux, Unix & Windows requires the installation of the [ibm_db] npm package.
 
 | Sequelize   | [Db2][db2] | [ibm_db] |
 |-------------|------------|----------|
@@ -140,12 +134,12 @@ support for Db2 is limited as it is not handled by the core team.
 [db2]: https://www.ibm.com/support/pages/db2-distributed-end-support-eos-dates
 [ibm_db]: https://www.npmjs.com/package/ibm_db
 
-## Db2 for IBM i Support Table
+## DB2 for IBM i Support Table
 
 :::note
 
 While this dialect is included in Sequelize,
-support for Db2 for IBM i is limited as it is not handled by the core team.
+support for DB2 for IBM i is limited as it is not handled by the core team.
 
 :::
 
@@ -159,7 +153,7 @@ support for Db2 for IBM i is limited as it is not handled by the core team.
 
 ## Oracle Database Support Table
 
-In Sequelize 6, Oracle Database requires the use of the [node-oracledb] npm package.
+In Sequelize 6, Oracle Database requires the installation of the [node-oracledb] npm package.
 [Read more about this here](/docs/v6/other-topics/dialect-specific-things/#oracle-database).
 
 | Sequelize   | [Oracle Database]   | [node-oracledb] |

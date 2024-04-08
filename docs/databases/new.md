@@ -44,7 +44,7 @@ If you wish to open a pull request to add a new dialect, please follow the steps
 
 :::important
 
-While we are slowly working towards a public API to create third-party dialects, many necessary APIs are
+While we are slowly working towards providing a stable public API to create third-party dialects, many necessary APIs are
 still internal and subject to change.
 
 If you do implement a third-party dialect, please be aware that it may break in future non-major versions of Sequelize.

@@ -47,11 +47,6 @@ The following fields may be passed to SQLite `dialectOptions`:
   and can include `SQLite.OPEN_READONLY`, `SQLite.OPEN_READWRITE`, or `SQLite.OPEN_CREATE`.  
   See [sqlite3's API reference](https://github.com/TryGhost/node-sqlite3/wiki/API) and the [SQLite C interface documentation](https://www.sqlite.org/c3ref/open.html) for more details.
 
-### Db2
-
-The underlying connector library used by Sequelize for Db2 is the [ibm_db](https://www.npmjs.com/package/ibm_db) npm package.  
-See [Releases](/releases#db2-support-table) to see which versions of DB2 and ibm_db are supported.
-
 ### Snowflake
 
 :::caution
