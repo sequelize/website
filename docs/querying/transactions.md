@@ -184,7 +184,7 @@ const result = await sequelize.transaction(async (transaction) => {
 });
 ```
 
-This can be helpful if you need to [use two different transactions in the same block](#concurrent--partial-transactions), or if you [disable CLS](#disabling-cls)
+This can be helpful if you need to [use two different transactions in the same block](#concurrent-transactions), or if you [disable CLS](#disabling-cls)
 
 ### Disabling CLS
 
