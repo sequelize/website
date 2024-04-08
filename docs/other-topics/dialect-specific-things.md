@@ -1,103 +1,26 @@
-### MySQL
+---
+title: Dialect-Specific Features
+---
 
-The underlying connector library used by Sequelize for MySQL is the [mysql2](https://www.npmjs.com/package/mysql2) package.  
-See [Releases](/releases#mysql-support-table) to see which versions of MySQL & mysql2 are supported.
+## Arrays of ENUMS
 
-You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
+:::info
 
-```js
-const sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'mysql',
-  dialectOptions: {
-    // Your mysql2 options here
-  },
-});
-```
-
-`dialectOptions` are passed directly to the MySQL connection constructor. 
-A full list of options can be found in the [MySQL docs](https://www.npmjs.com/package/mysql#connection-options).
-
-### SQLite
-
-The underlying connector library used by Sequelize for SQLite is the [sqlite3](https://www.npmjs.com/package/sqlite3) npm package.  
-See [Releases](/releases#sqlite-support-table) to see which versions of sqlite3 are supported.
-
-You specify the storage file in the Sequelize constructor with the `storage` option (use `:memory:` for an in-memory SQLite instance).
-
-You can provide custom options to it using the `dialectOptions` in the Sequelize constructor:
-
-```js
-import { Sequelize } from '@sequelize/core';
-import SQLite from 'sqlite3';
-
-const sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'sqlite',
-  storage: 'path/to/database.sqlite', // or ':memory:'
-  dialectOptions: {
-    // Your sqlite3 options here
-    // for instance, this is how you can configure the database opening mode:
-    mode: SQLite.OPEN_READWRITE | SQLite.OPEN_CREATE | SQLite.OPEN_FULLMUTEX,
-  },
-});
-```
-
-The following fields may be passed to SQLite `dialectOptions`:
-
-- `mode`: Set the opening mode for the SQLite connection. Potential values are provided by the `sqlite3` package, 
-  and can include `SQLite.OPEN_READONLY`, `SQLite.OPEN_READWRITE`, or `SQLite.OPEN_CREATE`.  
-  See [sqlite3's API reference](https://github.com/TryGhost/node-sqlite3/wiki/API) and the [SQLite C interface documentation](https://www.sqlite.org/c3ref/open.html) for more details.
-
-### Snowflake
-
-:::caution
-
-While this dialect is included in Sequelize,
-the implementation is not tested, and is not guaranteed to work.
+This feature is only available in PostgreSQL
 
 :::
-
-The underlying connector library used by Sequelize for Snowflake is the [snowflake-sdk](https://www.npmjs.com/package/snowflake-sdk) package.  
-See [Releases](/releases#snowflake-support-table) to see which versions of Snowflake and snowflake-sdk are supported.
-
-In order to connect with an account, use the following format:
-
-```js
-const sequelize = new Sequelize('database', null, null, {
-  dialect: 'snowflake',
-  dialectOptions: {
-    // put your snowflake account here,
-    account: 'myAccount',  // my-app.us-east-1
-
-    // below option should be optional
-    role: 'myRole',
-    warehouse: 'myWarehouse',
-    schema: 'mySchema',
-  },
-  // same as other dialect
-  username: 'myUserName',
-  password: 'myPassword',
-  database: 'myDatabaseName',
-});
-```
-
-**NOTE** There is no test sandbox provided so the snowflake integration test is not part of the pipeline. Also it is difficult for core team to triage and debug. This dialect needs to be maintained by the snowflake user/community for now.
-
-For running integration test:
-
-```bash
-# using npm
-SEQ_ACCOUNT=myAccount SEQ_USER=myUser SEQ_PW=myPassword SEQ_ROLE=myRole SEQ_DB=myDatabaseName SEQ_SCHEMA=mySchema SEQ_WH=myWareHouse npm run test-integration-snowflake
-# using yarn
-SEQ_ACCOUNT=myAccount SEQ_USER=myUser SEQ_PW=myPassword SEQ_ROLE=myRole SEQ_DB=myDatabaseName SEQ_SCHEMA=mySchema SEQ_WH=myWareHouse yarn test-integration-snowflake
-```
-
-## Data type: ARRAY(ENUM) - PostgreSQL only
 
 Array(Enum) type requires special treatment. Whenever Sequelize will talk to the database, it has to typecast array values with ENUM name.
 
 So this enum name must follow this pattern `enum_<table_name>_<col_name>`. If you are using `sync` then correct name will automatically be generated.
 
-## Table Hints - MSSQL only
+## Table Hints
+
+:::info
+
+This feature is only available in MS SQL Server
+
+:::
 
 The `tableHint` option can be used to define a table hint. The hint must be a value from `TableHints` and should only be used when absolutely necessary. Only a single table hint is currently supported per query.
 
@@ -113,7 +36,13 @@ Project.findAll({
 });
 ```
 
-## Index Hints - MySQL/MariaDB only
+## Index Hints
+
+:::info
+
+This feature is only available in MySQL & MariaDB
+
+:::
 
 The `indexHints` option can be used to define index hints. The hint type must be a value from `IndexHints` and the values should reference existing indexes.
 
@@ -145,37 +74,3 @@ SELECT * FROM Project USE INDEX (index_project_on_name) WHERE name LIKE 'FOO %' 
 `IndexHints` includes `USE`, `FORCE`, and `IGNORE`.
 
 See [Issue #9421](https://github.com/sequelize/sequelize/issues/9421) for the original API proposal.
-
-## Engines - MySQL/MariaDB only
-
-The default engine for a model is InnoDB.
-
-You can change the engine for a model with the `engine` option (e.g., to MyISAM):
-
-```js
-const Person = sequelize.define('person', { /* attributes */ }, {
-  engine: 'MYISAM',
-});
-```
-
-Like every option for the definition of a model, this setting can also be changed globally with the `define` option of the Sequelize constructor:
-
-```js
-const sequelize = new Sequelize(db, user, pw, {
-  define: { engine: 'MYISAM' },
-});
-```
-
-## Table comments - MySQL/MariaDB/PostgreSQL only
-
-You can specify a comment for a table when defining the model:
-
-```js
-class Person extends Model {}
-Person.init({ /* attributes */ }, {
-  comment: "I'm a table comment!",
-  sequelize,
-});
-```
-
-The comment will be set when calling `sync()`.

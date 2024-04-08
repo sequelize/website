@@ -61,3 +61,51 @@ The solution to prevent this issue is to explicitly set the `modelName` option:
 @Table({ modelName: 'User' })
 export class User extends Model {}
 ```
+
+## Engines
+
+:::info
+
+This feature is only available in MySQL & MariaDB
+
+:::
+
+The default engine for a model is InnoDB.
+
+You can change the engine for a model with the `engine` option (e.g., to MyISAM):
+
+```js
+const Person = sequelize.define('person', { /* attributes */ }, {
+  engine: 'MYISAM',
+});
+```
+
+Like every option for the definition of a model, this setting can also be changed globally with the `define` option of the Sequelize constructor:
+
+```js
+const sequelize = new Sequelize(db, user, pw, {
+  define: { engine: 'MYISAM' },
+});
+```
+
+## Table comments
+
+:::info
+
+This feature is only available in MySQL, MariaDB and PostgreSQL
+
+:::
+
+
+You can use the `comment` model option to set a comment on the table, which will be added to the table definition in SQL.
+
+```js
+import { Model } from '@sequelize/core';
+import { Table } from '@sequelize/core/decorators-legacy';
+
+@Table({
+  // highlight-next-line
+  comment: 'This is the User model'
+})
+export class User extends Model {}
+```
