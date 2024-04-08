@@ -21,10 +21,10 @@ Then use the `Db2Dialect` class as the dialect option in the Sequelize construct
 
 ```ts
 import { Sequelize } from '@sequelize/core';
-import { PostgresDialect } from '@sequelize/postgres';
+import { Db2Dialect } from '@sequelize/db2';
 
 const sequelize = new Sequelize({
-  dialect: PostgresDialect,
+  dialect: Db2Dialect,
   database: 'mydb',
   user: 'myuser',
   password: 'mypass',
