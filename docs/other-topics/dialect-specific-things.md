@@ -17,52 +17,6 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 `dialectOptions` are passed directly to the MySQL connection constructor. 
 A full list of options can be found in the [MySQL docs](https://www.npmjs.com/package/mysql#connection-options).
 
-### Microsoft SQL Server (mssql)
-
-The underlying connector library used by Sequelize for MSSQL is the [tedious](https://www.npmjs.com/package/tedious) package.  
-See [Releases](/releases#microsoft-sql-server-mssql-support-table) to see which versions of SQL Server & tedious are supported.
-
-You can provide custom options to it using `dialectOptions.options` in the Sequelize constructor:
-
-```js
-const sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'mssql',
-  dialectOptions: {
-    // Observe the need for this nested `options` property for MSSQL
-    options: {
-      // Your tedious options here
-      useUTC: false,
-      dateFirst: 1,
-    },
-  },
-});
-```
-
-A full list of options can be found in the [tedious docs](https://tediousjs.github.io/tedious/api-connection.html#function_newConnection).
-
-#### MSSQL Domain Account
-
-In order to connect with a domain account, use the following format.
-
-```js
-const sequelize = new Sequelize('database', null, null, {
-  dialect: 'mssql',
-  dialectOptions: {
-    authentication: {
-      type: 'ntlm',
-      options: {
-        domain: 'yourDomain',
-        userName: 'username',
-        password: 'password',
-      },
-    },
-    options: {
-      instanceName: 'SQLEXPRESS',
-    },
-  },
-});
-```
-
 ### SQLite
 
 The underlying connector library used by Sequelize for SQLite is the [sqlite3](https://www.npmjs.com/package/sqlite3) npm package.  

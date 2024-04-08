@@ -1,5 +1,6 @@
 ---
 title: MS SQL Server
+sidebar_position: 1
 ---
 
 # Sequelize for Microsoft SQL Server
@@ -87,3 +88,22 @@ For convenience, here is an edited copy of the documentation that only includes 
 | `trustServerCertificate`      | If "true", the SQL Server SSL certificate is automatically trusted when the communication layer is encrypted using SSL. If "false", the SQL Server validates the server SSL certificate. If the server certificate validation fails, the driver raises an error and terminates the connection. Make sure the value passed to serverName exactly matches the Common Name (CN) or DNS name in the Subject Alternate Name in the server certificate for an SSL connection to succeed. (default: true). |
 
 [the Tedious documentation]: https://tediousjs.github.io/tedious/api-connection.html#function_newConnection
+
+### Domain Account
+
+In order to connect with a domain account, use the following format.
+
+```ts
+const sequelize = new Sequelize({
+  dialect: MsSqlDialect,
+  instanceName: 'SQLEXPRESS',
+  authentication: {
+    type: 'ntlm',
+    options: {
+      domain: 'yourDomain',
+      userName: 'username',
+      password: 'password',
+    },
+  },
+});
+```
