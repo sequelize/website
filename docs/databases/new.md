@@ -19,12 +19,15 @@ We have conditions for accepting new dialects:
 
 - The database must support SQL queries.
 - The database must have an existing Node.js library we can use to connect to it.
-- The database must have a large enough user base to justify the maintenance cost.
 - We must be able to run a database instance in GitHub codespaces for testing purposes.
 - Our integration tests must be able to run against the database in 15 minutes or less.
 
 It is also possible to sponsor the development of a new dialect. If you are interested in this option, [please contact us via email](https://github.com/sequelize/sequelize/blob/main/CONTACT.md).
 Please keep in mind that the above conditions still apply to sponsored dialects, and that implementing a new dialect can be a significant investment.
+
+If the dialect matches the requirements, we will consider implementing a new dialect once it is requested by enough users,
+or if it is sponsored.
+Individual contributors may also [contribute a new dialect](#contributing-a-new-dialect) if they wish.
 
 ## Contributing a new dialect
 
@@ -36,6 +39,7 @@ We do not accept new dialects for Sequelize 6.
 
 If you wish to open a pull request to add a new dialect, please follow the steps below:
 
+- Make sure the dialect would match [the requirements for inclusion](#requesting-support-for-a-new-dialect) in Sequelize.
 - [Open a feature request](#requesting-support-for-a-new-dialect) for the new dialect, if one does not already exist.
 - Indicate that you are working on implementing the dialect in the feature request (even if it's not your own request).
 - Explore the source code of an existing dialect package to understand how it works. We unfortunately do not have a guide for creating a new dialect at this time.
