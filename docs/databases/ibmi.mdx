@@ -20,17 +20,17 @@ See [Releases](/releases#db2-for-ibm-i-support-table) to see which versions of D
 
 :::
 
-To use Sequelize with DB2 for IBM i, you need to install the `@sequelize/ibmi` dialect package:
+To use Sequelize with DB2 for IBM i, you need to install the `@sequelize/db2-ibmi` dialect package:
 
 ```bash npm2yarn
-npm i @sequelize/ibmi
+npm i @sequelize/db2-ibmi
 ```
 
 Then use the `IbmiDialect` class as the dialect option in the Sequelize constructor:
 
 ```ts
 import { Sequelize } from '@sequelize/core';
-import { IbmiDialect } from '@sequelize/ibmi';
+import { IbmiDialect } from '@sequelize/db2-ibmi';
 
 const sequelize = new Sequelize({
   dialect: IbmiDialect,

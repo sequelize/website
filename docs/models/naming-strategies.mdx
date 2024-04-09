@@ -33,7 +33,7 @@ which means irregular plurals (such as `person -> people`) are computed correctl
 
 ```javascript
 import { Model, Sequelize } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class User extends Model {}
 
@@ -62,7 +62,7 @@ The `underscored` option also impacts Column Names. [See *Snake-case column name
 ```javascript
 import { Model, Sequelize } from '@sequelize/core';
 import { Table } from '@sequelize/core/decorators-legacy';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 @Table({
   // highlight-next-line
@@ -83,7 +83,7 @@ This behavior can also be defined globally by setting the option in the Sequeliz
 
 ```js
 import { Model, Sequelize } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class User extends Model {}
 
@@ -108,7 +108,7 @@ Sequelize will use the model name as the table name, without any modifications.
 Note that setting `freezeTableName` also causes Sequelize to ignore the `underscored` option for table names.
 
 ```javascript
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { Model, Sequelize } from '@sequelize/core';
 import { Table } from '@sequelize/core/decorators-legacy';
 
@@ -131,7 +131,7 @@ This behavior can also be defined globally by setting the option in the Sequeliz
 
 ```js
 import { Model, Sequelize } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class User extends Model {}
 

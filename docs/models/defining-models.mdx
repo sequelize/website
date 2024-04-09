@@ -43,7 +43,7 @@ Defining a model is simple: Create a class that extends the [`Model`] class and 
 ```ts
 import { Sequelize, DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
 import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/decorators-legacy';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 const sequelize = new Sequelize({ dialect: SqliteDialect });
 
@@ -68,7 +68,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
 ```js
 import { Sequelize, DataTypes, Model } from '@sequelize/core';
 import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/decorators-legacy';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 const sequelize = new Sequelize({ dialect: SqliteDialect });
 
@@ -99,7 +99,7 @@ After defining the model, you need to initialize it. This is done by passing it 
 
 ```ts
 import { Sequelize } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { User } from './models/user.model.js';
 
 export const sequelize = new Sequelize({
@@ -114,7 +114,7 @@ and uses [`import`] (esm), not [`require`] (commonjs):
 
 ```ts
 import { Sequelize, importModels } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 
@@ -477,7 +477,7 @@ You can also change the default schema for all models by setting the `schema` op
 
 ```js
 import { Model, Sequelize } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class User extends Model {}
 
@@ -508,7 +508,7 @@ Take a look at the API Reference for [`Model`] for more information
 
 ```typescript
 import { Model, InferCreationAttributes, InferAttributes } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { Attribute, NotNull } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
@@ -549,7 +549,7 @@ console.log(user.getFullname()); // 'Jane Doe'
 
 ```javascript
 import { Model } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { Attribute, NotNull } from '@sequelize/core/decorators-legacy';
 
 class User extends Model {

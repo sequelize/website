@@ -8,7 +8,7 @@ Here is an example of a utility method that requests a Model Class, and returns 
 
 ```typescript
 import { ModelStatic, ModelAttributeColumnOptions, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 /**
  * Returns the list of attributes that are part of the model's primary key.

@@ -21,7 +21,7 @@ Here is how you would implement this in Sequelize:
 ```ts
 import { Model, InferAttributes, InferCreationAttributes } from '@sequelize/core';
 import { Attribute, Default, PrimaryKey, NotNull } from '@sequelize/core/decorators-legacy';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 @Table.Abstract
 class Player<M extends Player = Player> extends Model<InferAttributes<M>, InferCreationAttributes<M>> {

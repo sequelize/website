@@ -17,7 +17,7 @@ Consider you have two models, `Post` and `Reaction`, with a One-to-Many relation
 ```ts
 import { Sequelize, Model, DataTypes, InferCreationAttributes, InferAttributes } from '@sequelize/core';
 import { Attribute, AutoIncrement, PrimaryKey, NotNull, HasMany } from '@sequelize/decorators-legacy';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
   @PrimaryKey

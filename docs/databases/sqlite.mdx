@@ -8,14 +8,14 @@ sidebar_position: 1
 To use Sequelize with SQLite, you need to install the `@sequelize/sqlite` dialect package:
 
 ```bash npm2yarn
-npm i @sequelize/sqlite
+npm i @sequelize/sqlite3
 ```
 
 Then use the `SqliteDialect` class as the dialect option in the Sequelize constructor:
 
 ```ts
 import { Sequelize } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 const sequelize = new Sequelize({
   dialect: SqliteDialect,

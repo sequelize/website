@@ -27,7 +27,7 @@ There are two legacy ways of defining models:
 
 ```typescript
 import { Sequelize, DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 const sequelize = new Sequelize({ dialect: SqliteDialect });
 
@@ -66,7 +66,7 @@ console.log(User === sequelize.models.User); // true
 
 ```javascript
 import { Sequelize, DataTypes, Model } from '@sequelize/core';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 const sequelize = new Sequelize({ dialect: SqliteDialect });
 

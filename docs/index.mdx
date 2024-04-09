@@ -31,7 +31,7 @@ You are currently looking at the **Tutorials and Guides** for Sequelize. You mig
 ```typescript
 import { Sequelize, Model, DataTypes, InferAttributes, InferCreationAttributes } from '@sequelize/core';
 import { Attribute } from '@sequelize/core/decorators-legacy';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   @Attribute(DataTypes.STRING)
@@ -62,7 +62,7 @@ console.log(jane.toJSON());
 ```typescript
 import { Sequelize, Model, DataTypes } from '@sequelize/core';
 import { Attribute } from '@sequelize/core/decorators-legacy';
-import { SqliteDialect } from '@sequelize/sqlite';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class User extends Model {
   @Attribute(DataTypes.STRING)
