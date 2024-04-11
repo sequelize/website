@@ -1,13 +1,12 @@
 import type { ReactNode } from 'react';
 import React, { useCallback, useEffect, useRef } from 'react';
+import { SUPPORTED_DIALECTS } from '../utils/dialects';
 import { useLocalStorage } from '../utils/use-storage';
 import css from './dialect-table-filter.module.css';
 
 type Props = {
   children: ReactNode,
 };
-
-const existingDialects = new Set(['PostgreSQL', 'MariaDB', 'MySQL', 'MSSQL', 'SQLite', 'Snowflake', 'db2', 'ibmi']);
 
 export function DialectTableFilter(props: Props) {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -39,7 +38,7 @@ export function DialectTableFilter(props: Props) {
     for (const columnHead of tableHeadRow.children) {
       const columnTitle = columnHead.textContent;
 
-      if (!existingDialects.has(columnTitle)) {
+      if (!SUPPORTED_DIALECTS.has(columnTitle)) {
         continue;
       }
 
@@ -58,7 +57,7 @@ export function DialectTableFilter(props: Props) {
 
         const columnName = columnTitles[i];
 
-        if (!existingDialects.has(columnName)) {
+        if (!SUPPORTED_DIALECTS.has(columnName)) {
           continue;
         }
 
@@ -75,7 +74,7 @@ export function DialectTableFilter(props: Props) {
     <div className={css.dialectTableWrapper}>
       <select onChange={onDialectSelection} value={preferredDialect} className={css.dialectSelector}>
         <option value="all">All</option>
-        {Array.from(existingDialects).map(dialect => {
+        {Array.from(SUPPORTED_DIALECTS).map(dialect => {
           return <option key={dialect} value={dialect}>{dialect}</option>;
         })}
       </select>

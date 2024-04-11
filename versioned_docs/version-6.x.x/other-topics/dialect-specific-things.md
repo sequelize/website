@@ -121,7 +121,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 });
 ```
 
-### MSSQL
+### Microsoft SQL Server (MSSQL)
 
 The underlying connector library used by Sequelize for MSSQL is the [tedious](https://www.npmjs.com/package/tedious) npm package (version 6.0.0 or above).
 
@@ -166,7 +166,7 @@ const sequelize = new Sequelize('database', null, null, {
 })
 ```
 
-### Snowflake (Experiment)
+### Snowflake (Experimental)
 
 The underlying connector library used by Sequelize for Snowflake is the [snowflake-sdk](https://www.npmjs.com/package/snowflake-sdk) npm package.
 
@@ -202,7 +202,7 @@ SEQ_ACCOUNT=myAccount SEQ_USER=myUser SEQ_PW=myPassword SEQ_ROLE=myRole SEQ_DB=m
 ### Oracle Database
 
 The underlying connector library used by Sequelize for Oracle is the [node-oracledb](https://www.npmjs.com/package/oracledb) package.  
-See [Releases](/releases#oracle-support-table) to see which versions of Oracle Database & node-oracledb are supported.
+See [Releases](/releases#oracle-database-support-table) to see which versions of Oracle Database & node-oracledb are supported.
 
 node-oracledb needs [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html) to work. You can use the node-oracledb [quick start](https://oracle.github.io/node-oracledb/INSTALL.html#quickstart) link for installations.
 

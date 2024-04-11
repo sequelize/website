@@ -1,8 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-const lightCodeTheme = require('prism-react-renderer/themes/github');
+const darkCodeTheme = require('prism-react-renderer').themes.dracula;
+const lightCodeTheme = require('prism-react-renderer').themes.github;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -17,12 +17,19 @@ const config = {
   trailingSlash: true,
   projectName: 'sequelize',
   plugins: ['docusaurus-plugin-sass'],
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
   presets: [
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
+          remarkPlugins: [
+            [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+          ],
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/sequelize/website/tree/main/',
           showLastUpdateAuthor: true,
@@ -165,6 +172,10 @@ const config = {
                 label: 'Changelog',
                 href: 'https://github.com/sequelize/sequelize/releases',
               },
+              {
+                label: 'Legal',
+                href: '/legal',
+              },
             ],
           },
           {
@@ -209,6 +220,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ['bash'],
         magicComments: [
           {
             className: 'theme-code-block-highlighted-line',

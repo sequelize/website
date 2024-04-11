@@ -6,80 +6,91 @@ sidebar_label: Introduction
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import DecoratorInfo from './_fragments/_decorator-info.mdx';
 
-[![npm version](https://badgen.net/npm/v/sequelize/alpha)](https://www.npmjs.com/package/sequelize)
-[![Build Status](https://github.com/sequelize/sequelize/workflows/CI/badge.svg)](https://github.com/sequelize/sequelize/actions?query=workflow%3ACI)
-[![npm downloads](https://badgen.net/npm/dm/sequelize)](https://www.npmjs.com/package/sequelize)
+[![npm version](https://badgen.net/npm/v/@sequelize/core)](https://www.npmjs.com/package/@sequelize/core)
+[![npm downloads](https://badgen.net/npm/dm/@sequelize/core)](https://www.npmjs.com/package/@sequelize/core)
 [![sponsor](https://img.shields.io/opencollective/all/sequelize?label=sponsors)](https://opencollective.com/sequelize)
 [![Last commit](https://badgen.net/github/last-commit/sequelize/sequelize/main)](https://github.com/sequelize/sequelize)
 [![Merged PRs](https://badgen.net/github/merged-prs/sequelize/sequelize)](https://github.com/sequelize/sequelize)
 [![GitHub stars](https://badgen.net/github/stars/sequelize/sequelize)](https://github.com/sequelize/sequelize)
-[![Slack Status](https://img.shields.io/badge/Slack-4A154B?logo=slack&logoColor=white)](https://sequelize.org/slack)
-[![node](https://badgen.net/npm/node/sequelize/alpha)](https://www.npmjs.com/package/sequelize)
+[![node](https://badgen.net/npm/node/@sequelize/core)](https://www.npmjs.com/package/@sequelize/core)
 [![License](https://badgen.net/github/license/sequelize/sequelize)](https://github.com/sequelize/sequelize/blob/main/LICENSE)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Sequelize is a promise-based [Node.js](https://nodejs.org/en/about/) [ORM tool](https://en.wikipedia.org/wiki/Object-relational_mapping) for [Postgres](https://en.wikipedia.org/wiki/PostgreSQL), [MySQL](https://en.wikipedia.org/wiki/MySQL), [MariaDB](https://en.wikipedia.org/wiki/MariaDB), [SQLite](https://en.wikipedia.org/wiki/SQLite), [Microsoft SQL Server](https://en.wikipedia.org/wiki/Microsoft_SQL_Server), [Amazon Redshift](https://docs.aws.amazon.com/redshift/index.html) and [Snowflake’s Data Cloud](https://docs.snowflake.com/en/user-guide/intro-key-concepts.html). It features solid transaction support, relations, eager and lazy loading, read replication and more.
 
-Sequelize follows [Semantic Versioning](https://semver.org) and the [official Node.js LTS schedule](https://nodejs.org/en/about/releases/). Version 7 of Sequelize officially supports the Node.js versions `^14.17,0`, `^16.0.0`. Other version might be working as well.
+Sequelize follows [Semantic Versioning](https://semver.org) and the [official Node.js LTS schedule](https://nodejs.org/en/about/releases/). Version 7 of Sequelize officially supports the Node.js versions `>=18.0.0`.
 
 You are currently looking at the **Tutorials and Guides** for Sequelize. You might also be interested in the [API Reference](pathname:///api/v7).
 
 ## Quick example
 
-<Tabs>
+<Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
-```javascript
-import { Sequelize, Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
-
-const sequelize = new Sequelize('sqlite::memory:');
+```typescript
+import { Sequelize, Model, DataTypes, InferAttributes, InferCreationAttributes } from '@sequelize/core';
+import { Attribute } from '@sequelize/core/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attribute(DataTypes.STRING)
   declare username: string | null;
+
+  @Attribute(DataTypes.DATE)
   declare birthday: Date | null;
 }
 
-User.init({
-  username: DataTypes.STRING,
-  birthday: DataTypes.DATE
-}, { sequelize, modelName: 'user' });
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+  models: [User],
+});
 
-(async () => {
-  await sequelize.sync();
-  const jane = await User.create({
-    username: 'janedoe',
-    birthday: new Date(1980, 6, 20),
-  });
-  console.log(jane.toJSON());
-})();
+await sequelize.sync();
+
+const jane = await User.create({
+  username: 'janedoe',
+  birthday: new Date(1980, 6, 20),
+});
+
+console.log(jane.toJSON());
 ```
 
 </TabItem>
-<TabItem value="js" label="JavaScript (CJS)">
+<TabItem value="js" label="JavaScript">
 
-```javascript
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+```typescript
+import { Sequelize, Model, DataTypes } from '@sequelize/core';
+import { Attribute } from '@sequelize/core/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
-class User extends Model {}
-User.init({
-  username: DataTypes.STRING,
-  birthday: DataTypes.DATE
-}, { sequelize, modelName: 'user' });
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  username;
 
-(async () => {
-  await sequelize.sync();
-  const jane = await User.create({
-    username: 'janedoe',
-    birthday: new Date(1980, 6, 20),
-  });
-  console.log(jane.toJSON());
-})();
+  @Attribute(DataTypes.DATE)
+  birthday;
+}
+
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+  models: [User],
+});
+
+await sequelize.sync();
+
+const jane = await User.create({
+  username: 'janedoe',
+  birthday: new Date(1980, 6, 20),
+});
+
+console.log(jane.toJSON());
 ```
 
 </TabItem>
 </Tabs>
+
+<DecoratorInfo />
 
 To learn more about how to use Sequelize, read the tutorials available in the left menu. Begin with [Getting Started](./getting-started.mdx).
 
