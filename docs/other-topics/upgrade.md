@@ -22,9 +22,98 @@ As a result, you now use Sequelize as follows:
 
 ```javascript
 import { Sequelize } from '@sequelize/core';
-const sequelize = new Sequelize({ dialect: 'sqlite' });
+import { SqliteDialect } from '@sequelize/sqlite3';
+
+const sequelize = new Sequelize({ dialect: SqliteDialect });
 
 await sequelize.authenticate();
+```
+
+### Database Dialects are now separate packages
+
+In Sequelize 6, all dialects were included in the main package.
+Starting with Sequelize 7, dialects are now separate packages.
+
+This change was made with a few goals in mind:
+
+- Make it easier for the community to create new dialects.
+- Reduce the size of the main package.
+- Remove the need to install the database driver, which was a common source of issues.
+
+As a result of this change, the options that you pass to the Sequelize constructor 
+to connect to a database have changed, and are now dialect-specific. 
+Another notable change is that `dialectOptions` has been removed, 
+and the options it contained are now part of the main options object.
+
+As an example, here is how you connect to PostgreSQL in Sequelize 7:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { PostgresDialect } from '@sequelize/postgres';
+
+const sequelize = new Sequelize({
+  dialect: PostgresDialect,
+  database: 'database',
+  user: 'user',
+  password: 'password',
+  host: 'localhost',
+  port: 5432,
+  ssl: true,
+});
+```
+
+Compared to Sequelize 6:
+
+```ts
+import { Sequelize } from 'sequelize';
+
+const sequelize = new Sequelize({
+  dialect: 'postgres',
+  database: 'database',
+  username: 'root',
+  password: 'root',
+  host: 'localhost',
+  port: 5432,
+  dialectOptions: {
+    ssl: true,
+  },
+});
+```
+
+:::info
+
+Head to our [Getting Started guide](../getting-started.mdx#connecting-to-a-database) to see the list of supported databases and how to use them.
+
+:::
+
+### Simplified the Sequelize constructor
+
+The Sequelize constructor has been simplified to only accept a single object as an argument.
+
+The other signatures have all been removed, including the one that accepted a URL string, which
+has been replaced by the `url` option in the main object.
+
+The URL parsing is handled by the dialect, so the exact format of the URL now depends on the dialect you are using.
+
+__Before__:
+
+```ts
+import { Sequelize } from 'sequelize';
+
+const sequelize = new Sequelize('postgres://user:password@localhost:5432/database');
+```
+
+__After__:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { PostgresDialect } from '@sequelize/postgres';
+
+const sequelize = new Sequelize({
+  // note: the dialect class must always be provided, even if you use a URL
+  dialect: PostgresDialect,
+  url: 'postgres://user:password@localhost:5432/database',
+});
 ```
 
 ### Minimum supported engine versions
@@ -32,7 +121,7 @@ await sequelize.authenticate();
 Sequelize v7 only supports the versions of Node.js, and databases that were not EOL at the time of release.[^issue-1]  
 Sequelize v7 also supports versions of TypeScript that were released in the past year prior to the time of release.
 
-This means Sequelize v7 supports **Node >= 18.0.0**, and **TypeScript >= 4.9**.
+This means Sequelize v7 supports **Node >= 18.0.0**, and **TypeScript >= 5.0**.
 
 Head to our [Versioning Policy page](/releases) to see exactly which databases are supported by Sequelize v7.
 
@@ -166,7 +255,8 @@ Other changes:
 - `DataTypes.BIGINT` and `DataTypes.DECIMAL` values are always returned as strings instead of JS numbers.
 - `DataTypes.CHAR.BINARY` and `DataTypes.STRING.BINARY` now mean "chars with a binary collation" and throw in dialects that do not support collations.
 - **SQLite**: All Data Types are now named after one of the [6 strict data types](https://www.sqlite.org/stricttables.html).
-- **SQLite**: `DataTypes.CHAR` has been removed, as SQLite doesn't provide a fixed-length `CHAR` type. 
+- **SQLite**: `DataTypes.CHAR` has been removed, as SQLite doesn't provide a fixed-length `CHAR` type.
+- **SQLite**: `DataTypes.BIGINT` has been removed as the `sqlite3` package loses precision for bigints because it parses them as JS numbers.
 - **SQL Server**: `DataTypes.UUID` now maps to `UNIQUEIDENTIFIER` instead of `CHAR(36)`.
 
 ### Cannot define values of `DataTypes.ENUM` separately
@@ -204,11 +294,18 @@ const MyModel = sequelize.define('MyModel', {
 await MyModel.findOne({ where: { date: '2022-11-06T00:00:00Z' } });
 ```
 
-In Sequelize 6, an input such as `2022-11-06` was parsed as local time. If your server's timezone were GMT+1, that input would have resulted in `2022-11-05T23:00:00.000Z`.
+In Sequelize 6, date inputs with no time part such as `2022-11-06` were parsed as local time.
+If your server's timezone were GMT+1, that input would have resulted in `2022-11-05T23:00:00.000Z`.
 
-Starting with Sequelize 7, that input is parsed as UTC and results in `2022-11-06T00:00:00.000Z` no matter the timezone of your server.
+Starting with Sequelize 7, string values are parsed using the rules that the `Date` object follows.
+This means that date-only inputs are parsed as UTC,
+and the above example now results in `2022-11-06T00:00:00.000Z` no matter the timezone of your server.
 
-### Associations names are now unique
+Note that dates with a time part, but no time zone offset, are still parsed as local time, as we follow
+the `Date` object's behavior. 
+Read the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format) for more information.
+
+### Association names are now unique
 
 *Pull Request [#14280]*
 
@@ -456,16 +553,26 @@ User.findAll({
 In Sequelize 6, inserting `null` in a JSON or JSONB column would insert the SQL `NULL` value.
 It now inserts the JSON `'null'` value instead.
 
+You can revert the behavior to the one used in Sequelize 6
+by setting the `nullJsonStringification` global option to `'sql'`:
+
+```ts
+new Sequelize({
+  /* options */
+  nullJsonStringification: 'sql',
+});
+```
+
 This change was made as part of a redesign of how JSON & JSONB attributes, to make how the top level value behaves
 be consistent with nested JSON values.
 
-You can still insert the SQL `null` value by using [raw SQL](../querying/raw-queries.md), like this:
+You can still insert the SQL `null` value by using `SQL_NULL`, like this:
 
 ```ts
-import { sql } from '@sequelize/core';
+import { SQL_NULL } from '@sequelize/core';
 
 await User.create({
-  jsonAttribute: sql`NULL`,
+  jsonAttribute: SQL_NULL,
 });
 ```
 
@@ -621,6 +728,28 @@ User.findAll({
 
 User.findByPk(1);
 ```
+
+### Generated associations and foreign keys are camelCase by default
+
+*Pull Request [#16514]*
+
+When creating an association without specifying the `as` option 
+using the association declaration methods (as opposed to using the decorator approach),
+Sequelize generates the association name for you.
+
+In Sequelize 6, this name was generated by concatenating the target model name and the capitalized target attribute name.
+Because model names are PascalCase, this meant that the generated association name was PascalCase too.
+
+For instance, the association `Project.belongsTo(User)` would have the name `User`, 
+and the generated foreign key would be `UserId`.
+
+In our current design, associations are treated as class fields, and in JavaScript, class fields are typically camelCase. 
+To align with community standards, starting with Sequelize 7, 
+the default association name is generated as camelCase instead.
+
+Because generated foreign key names are inferred from the association name,
+this means that foreign keys are now in camelCase by default too.  
+For instance, the association `Project.belongsTo(User)` now has the name `user` and the generated foreign key is `userId`.
 
 ## Minor Breaking changes
 
@@ -967,6 +1096,21 @@ The `sql` tag automatically escapes values, so you don't need to worry about SQL
 
 :::
 
+### Renamed `dialectModule` and removed `dialectModulePath`
+
+`dialectModulePath` was fully removed with no intention of bringing it back to remove a dynamic import that cannot be bundled.
+
+`dialectModule` was renamed to be more explicit about which module it is referring to:
+
+- For DB2 for LUW, it is now called `ibmDbModule` and expects a module compatible with the `ibm_db` package.
+- For DB2 for IBM i, it is now called `odbcModule` and expects a module compatible with the `odbc` package.
+- For MariaDB, it is now called `mariaDbModule` and expects a module compatible with the `mariadb` package.
+- For MySQL, it is now called `mysql2Module` and expects a module compatible with the `mysql2` package.
+- For MS SQL Server, it is now called `tediousModule` and expects a module compatible with the `tedious` package.
+- For PostgreSQL, it is now called `pgModule` and expects a module compatible with the `pg` package.
+- For Snowflake, it is now called `snowflakeSdkModule` and expects a module compatible with the `snowflake-sdk` package.
+- For SQLite, it is now called `sqlite3Module` and expects a module compatible with the `sqlite3` package.
+
 ## Deprecations & Removals
 
 ### Removal of previously deprecated APIs
@@ -1030,3 +1174,4 @@ stop working in a future major release.
 [#15108]: https://github.com/sequelize/sequelize/pull/15108
 [#15292]: https://github.com/sequelize/sequelize/pull/15292
 [#15598]: https://github.com/sequelize/sequelize/pull/15598
+[#16514]: https://github.com/sequelize/sequelize/pull/16514
