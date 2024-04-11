@@ -6,9 +6,9 @@ import { trim } from '../models/string';
 import styles from './homepage-features.module.scss';
 
 type FeatureItem = {
-  title: string;
-  description: JSX.Element;
   code: string;
+  description: JSX.Element;
+  title: string;
 };
 
 const FeatureList: FeatureItem[] = [
@@ -82,7 +82,7 @@ function Feature({ title, description, code }: FeatureItem) {
   );
 }
 
-export default function HomepageFeatures(): JSX.Element {
+export function HomepageFeatures(): JSX.Element {
   return (
     <section className={styles.features}>
       <div className="container">

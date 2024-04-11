@@ -3,6 +3,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { isFunction } from '@sequelize/utils';
 
 const eventTargets = new WeakMap();
 
@@ -25,30 +26,30 @@ function getEventTarget(storage: Storage) {
   return eventTarget;
 }
 
-export type TStorageSetValue<T> = (newValue: T | undefined | ((oldValue: T) => T)) => void;
+export type StorageSetValue<T> = (newValue: T | undefined | ((oldValue: T) => T)) => void;
 
-export type TJsonSerializable =
+export type JsonSerializable =
   | number
   | boolean
   | string
   | null
-  | TJsonSerializable[]
-  | { [key: string]: TJsonSerializable };
+  | JsonSerializable[]
+  | { [key: string]: JsonSerializable };
 
-type TStorageHook = <T extends TJsonSerializable>(
+type StorageHook = <T extends JsonSerializable>(
   key: string,
   defaultValue: T,
-) => [T, TStorageSetValue<T>];
+) => [T, StorageSetValue<T>];
 
 let lastHookId = 0;
 
-export function createStorageHook(storage: Storage = new Storage()): TStorageHook {
+export function createStorageHook(storage: Storage = new Storage()): StorageHook {
   // window.onstorage only triggers cross-realm. This is used to notify other useLocalStorage on the same page that it changed
 
-  return function useStorage<T extends TJsonSerializable>(
+  return function useStorage<T extends JsonSerializable>(
     key: string,
     defaultValue: T,
-  ): [/* get */ T, /* set */ TStorageSetValue<T>] {
+  ): [/* get */ T, /* set */ StorageSetValue<T>] {
     const hookIdRef = useRef<number | null>(null);
     if (hookIdRef.current === null) {
       hookIdRef.current = lastHookId++;
@@ -77,9 +78,9 @@ export function createStorageHook(storage: Storage = new Storage()): TStorageHoo
     const currentValue = useRef(internalValue);
     currentValue.current = internalValue;
 
-    const setValue: TStorageSetValue<T> = useCallback(
+    const setValue: StorageSetValue<T> = useCallback(
       (val: T | undefined | ((oldVal: T) => T)) => {
-        if (typeof val === 'function') {
+        if (isFunction(val)) {
           val = val(currentValue.current);
         }
 
@@ -159,10 +160,10 @@ export function createStorageHook(storage: Storage = new Storage()): TStorageHoo
   };
 }
 
-function ssrHook<T extends TJsonSerializable>(
+function ssrHook<T extends JsonSerializable>(
   key: string,
   defaultValue: T,
-): [T, TStorageSetValue<T>] {
+): [T, StorageSetValue<T>] {
   return [
     defaultValue,
     () => {
@@ -171,12 +172,14 @@ function ssrHook<T extends TJsonSerializable>(
   ];
 }
 
-export const useLocalStorage: TStorageHook =
+export const useLocalStorage: StorageHook =
+  // eslint-disable-next-line no-restricted-syntax -- checking that the variable exists is an acceptable exception
   typeof window !== 'undefined' && typeof localStorage !== 'undefined'
     ? createStorageHook(localStorage)
     : ssrHook;
 
-export const useSessionStorage: TStorageHook =
+export const useSessionStorage: StorageHook =
+  // eslint-disable-next-line no-restricted-syntax -- checking that the variable exists is an acceptable exception
   typeof window !== 'undefined' && typeof localStorage !== 'undefined'
     ? createStorageHook(sessionStorage)
     : ssrHook;

@@ -34,7 +34,7 @@ export function SupportTable(props: Props) {
               <tr key={featureName}>
                 <td>{featureName}</td>
                 {[...SUPPORTED_DIALECTS].map(dialect => {
-                  const link = featureValue === true ? true : featureValue?.[dialect];
+                  const link = featureValue === true ? true : featureValue[dialect];
 
                   return <SupportCell link={link} key={dialect} />;
                 })}

@@ -5,9 +5,9 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import clsx from 'clsx';
 import React from 'react';
-import HomepageFeatures from '../components/homepage-features';
-import HomepageUsage from '../components/homepage-usage';
-import HomepageUsers from '../components/homepage-users';
+import { HomepageFeatures } from '../components/homepage-features';
+import { HomepageUsage } from '../components/homepage-usage';
+import { HomepageUsers } from '../components/homepage-users';
 import { useAds } from '../hooks/use-ads';
 import css from './index.module.scss';
 

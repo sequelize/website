@@ -1,11 +1,11 @@
-function getPadding(lines: String[]) {
+function getPadding(lines: string[]) {
   const line = lines[0] === '' ? lines[1] : lines[0];
 
   return line.match(/^\s*/)![0].length;
 }
 
-export function trim(_strings: TemplateStringsArray | String) {
-  const strings: String[] = (Array.isArray(_strings) ? _strings : [_strings]) as String[];
+export function trim(_strings: TemplateStringsArray | string) {
+  const strings: string[] = (Array.isArray(_strings) ? _strings : [_strings]) as string[];
   const lines = strings.flatMap(s => s.split('\n'));
   const padding = getPadding(lines);
 

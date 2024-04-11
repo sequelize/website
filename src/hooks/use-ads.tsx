@@ -7,9 +7,9 @@ const SCRIPT_URL = '//cdn.carbonads.com/carbon.js?serve=CEAI627Y&placement=seque
 type OnEnvironment = 'mobile' | 'desktop' | 'all';
 
 type InitProps = {
+  on?: OnEnvironment;
   ref?: MutableRefObject<HTMLInputElement | undefined>;
   selector?: string;
-  on?: OnEnvironment;
 };
 
 function shouldRender(isMobile: boolean, on: OnEnvironment) {

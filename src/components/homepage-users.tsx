@@ -5,11 +5,11 @@ import styles from './homepage-users.module.scss';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 type User = {
+  author?: string;
   image: string;
   name: string;
-  testimonial: string;
   style?: any;
-  author?: string;
+  testimonial: string;
 };
 const users: User[] = [
   {
@@ -59,7 +59,7 @@ const users: User[] = [
   },
 ];
 
-export default function HomepageUsers(): JSX.Element {
+export function HomepageUsers(): JSX.Element {
   const [activeUser, setActiveUser] = useState<User>(users[0]);
   const [width, setWidth] = useState<number>(window.innerWidth);
 

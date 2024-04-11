@@ -39,6 +39,14 @@ module.exports = {
         '@typescript-eslint/prefer-return-this-type': 'off',
       },
     },
+    {
+      files: ['*.d.ts', 'src/pages/*', 'src/theme/**/*'],
+      rules: {
+        // in .d.ts files, we don't really have a choice as it's dictated by the file that's being typed.
+        // For pages and theme files, docusaurus imposes the default export
+        'import/no-default-export': 'off',
+      },
+    },
   ],
   ignorePatterns: [
     // archives
