@@ -27,7 +27,7 @@ You can then use your new data type in your models:
 ```typescript
 import { MyDateType } from './custom-types.js';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize(/* options */);
 
 const User = sequelize.define('User', {
   birthday: {
@@ -150,7 +150,7 @@ Just like with custom data types, use your Data Type class instead of the type y
 ```typescript
 import { MyStringType } from './custom-types.js';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize(/* options */);
 
 const User = sequelize.define('User', {
   firstName: {

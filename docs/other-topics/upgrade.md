@@ -22,9 +22,98 @@ As a result, you now use Sequelize as follows:
 
 ```javascript
 import { Sequelize } from '@sequelize/core';
-const sequelize = new Sequelize({ dialect: 'sqlite' });
+import { SqliteDialect } from '@sequelize/sqlite3';
+
+const sequelize = new Sequelize({ dialect: SqliteDialect });
 
 await sequelize.authenticate();
+```
+
+### Database Dialects are now separate packages
+
+In Sequelize 6, all dialects were included in the main package.
+Starting with Sequelize 7, dialects are now separate packages.
+
+This change was made with a few goals in mind:
+
+- Make it easier for the community to create new dialects.
+- Reduce the size of the main package.
+- Remove the need to install the database driver, which was a common source of issues.
+
+As a result of this change, the options that you pass to the Sequelize constructor 
+to connect to a database have changed, and are now dialect-specific. 
+Another notable change is that `dialectOptions` has been removed, 
+and the options it contained are now part of the main options object.
+
+As an example, here is how you connect to PostgreSQL in Sequelize 7:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { PostgresDialect } from '@sequelize/postgres';
+
+const sequelize = new Sequelize({
+  dialect: PostgresDialect,
+  database: 'database',
+  user: 'user',
+  password: 'password',
+  host: 'localhost',
+  port: 5432,
+  ssl: true,
+});
+```
+
+Compared to Sequelize 6:
+
+```ts
+import { Sequelize } from 'sequelize';
+
+const sequelize = new Sequelize({
+  dialect: 'postgres',
+  database: 'database',
+  username: 'root',
+  password: 'root',
+  host: 'localhost',
+  port: 5432,
+  dialectOptions: {
+    ssl: true,
+  },
+});
+```
+
+:::info
+
+Head to our [Getting Started guide](../getting-started.mdx#connecting-to-a-database) to see the list of supported databases and how to use them.
+
+:::
+
+### Simplified the Sequelize constructor
+
+The Sequelize constructor has been simplified to only accept a single object as an argument.
+
+The other signatures have all been removed, including the one that accepted a URL string, which
+has been replaced by the `url` option in the main object.
+
+The URL parsing is handled by the dialect, so the exact format of the URL now depends on the dialect you are using.
+
+__Before__:
+
+```ts
+import { Sequelize } from 'sequelize';
+
+const sequelize = new Sequelize('postgres://user:password@localhost:5432/database');
+```
+
+__After__:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { PostgresDialect } from '@sequelize/postgres';
+
+const sequelize = new Sequelize({
+  // note: the dialect class must always be provided, even if you use a URL
+  dialect: PostgresDialect,
+  url: 'postgres://user:password@localhost:5432/database',
+});
 ```
 
 ### Minimum supported engine versions
@@ -166,7 +255,8 @@ Other changes:
 - `DataTypes.BIGINT` and `DataTypes.DECIMAL` values are always returned as strings instead of JS numbers.
 - `DataTypes.CHAR.BINARY` and `DataTypes.STRING.BINARY` now mean "chars with a binary collation" and throw in dialects that do not support collations.
 - **SQLite**: All Data Types are now named after one of the [6 strict data types](https://www.sqlite.org/stricttables.html).
-- **SQLite**: `DataTypes.CHAR` has been removed, as SQLite doesn't provide a fixed-length `CHAR` type. 
+- **SQLite**: `DataTypes.CHAR` has been removed, as SQLite doesn't provide a fixed-length `CHAR` type.
+- **SQLite**: `DataTypes.BIGINT` has been removed as the `sqlite3` package loses precision for bigints because it parses them as JS numbers.
 - **SQL Server**: `DataTypes.UUID` now maps to `UNIQUEIDENTIFIER` instead of `CHAR(36)`.
 
 ### Cannot define values of `DataTypes.ENUM` separately
@@ -468,6 +558,7 @@ by setting the `nullJsonStringification` global option to `'sql'`:
 
 ```ts
 new Sequelize({
+  /* options */
   nullJsonStringification: 'sql',
 });
 ```
@@ -1004,6 +1095,21 @@ User.findAll({
 The `sql` tag automatically escapes values, so you don't need to worry about SQL injection.
 
 :::
+
+### Renamed `dialectModule` and removed `dialectModulePath`
+
+`dialectModulePath` was fully removed with no intention of bringing it back to remove a dynamic import that cannot be bundled.
+
+`dialectModule` was renamed to be more explicit about which module it is referring to:
+
+- For DB2 for LUW, it is now called `ibmDbModule` and expects a module compatible with the `ibm_db` package.
+- For DB2 for IBM i, it is now called `odbcModule` and expects a module compatible with the `odbc` package.
+- For MariaDB, it is now called `mariaDbModule` and expects a module compatible with the `mariadb` package.
+- For MySQL, it is now called `mysql2Module` and expects a module compatible with the `mysql2` package.
+- For MS SQL Server, it is now called `tediousModule` and expects a module compatible with the `tedious` package.
+- For PostgreSQL, it is now called `pgModule` and expects a module compatible with the `pg` package.
+- For Snowflake, it is now called `snowflakeSdkModule` and expects a module compatible with the `snowflake-sdk` package.
+- For SQLite, it is now called `sqlite3Module` and expects a module compatible with the `sqlite3` package.
 
 ## Deprecations & Removals
 

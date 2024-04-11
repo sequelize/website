@@ -47,6 +47,7 @@ This example showcases how to add a check constraint after a table has been crea
 ```ts
 import { Sequelize, Model, InferAttributes, InferCreationAttributes } from '@sequelize/core';
 import { NotNull, Attribute, AfterSync } from '@sequelize/core/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   @Attribute(DataTypes.STRING)
@@ -68,7 +69,8 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   }
 }
 
-const sequelize = new Sequelize('sqlite::memory:', { 
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   models: [User],
 });
 
