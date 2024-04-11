@@ -13,9 +13,6 @@ module.exports = {
     '@ephys/eslint-config-typescript/commonjs',
     'plugin:mdx/recommended',
   ],
-  rules: {
-    'unicorn/no-useless-undefined': 'off',
-  },
   overrides: [
     {
       files: ['*.mdx/**', '*.md/**'],
