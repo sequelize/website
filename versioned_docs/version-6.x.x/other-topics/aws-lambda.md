@@ -256,7 +256,7 @@ AWS Lambda handlers come in two flavors in Node.js:
 module.exports.handler = function (event, context, callback) {
   try {
     doSomething();
-    callback(null, "Hello World!"); // Lambda returns "Hello World!"
+    callback(null, 'Hello World!'); // Lambda returns "Hello World!"
   } catch (err) {
     // try/catch is not required, uncaught exceptions invoke `callback(err)` implicitly
     callback(err); // Lambda fails with `err`
@@ -272,7 +272,7 @@ module.exports.handler = function (event, context, callback) {
 module.exports.handler = async function (event, context) {
   try {
     await doSomethingAsync();
-    return "Hello World!"; // equivalent of: callback(null, "Hello World!");
+    return 'Hello World!'; // equivalent of: callback(null, "Hello World!");
   } catch (err) {
     // try/cath is not required, async functions always return a Promise
     throw err; // equivalent of: callback(err);
@@ -289,7 +289,7 @@ module.exports.handler = function (event, context) {
    */
   return Promise.resolve()
     .then(() => doSomethingAsync())
-    .then(() => "Hello World!");
+    .then(() => 'Hello World!');
 };
 ```
 
@@ -321,7 +321,7 @@ module.exports.handler = function () {
 module.exports.handler = function (event, context, callback) {
   // Lambda finishes AFTER `doSomething()` is invoked
   setTimeout(() => doSomething(), 1000);
-  callback(null, "Hello World!");
+  callback(null, 'Hello World!');
 };
 
 // callback invoked, context.callbackWaitsForEmptyEventLoop = false
@@ -329,21 +329,21 @@ module.exports.handler = function (event, context, callback) {
   // Lambda finishes BEFORE `doSomething()` is invoked
   context.callbackWaitsForEmptyEventLoop = false;
   setTimeout(() => doSomething(), 2000);
-  setTimeout(() => callback(null, "Hello World!"), 1000);
+  setTimeout(() => callback(null, 'Hello World!'), 1000);
 };
 
 // async/await
 module.exports.handler = async function () {
   // Lambda finishes BEFORE `doSomething()` is invoked
   setTimeout(() => doSomething(), 1000);
-  return "Hello World!";
+  return 'Hello World!';
 };
 
 // Promise
 module.exports.handler = function () {
   // Lambda finishes BEFORE `doSomething()` is invoked
   setTimeout(() => doSomething(), 1000);
-  return Promise.resolve("Hello World!");
+  return Promise.resolve('Hello World!');
 };
 ```
 
@@ -410,20 +410,20 @@ module.exports.handler = function (event, context, callback) {
 
   setTimeout(() => {
     console.log(
-      "Slow timeout invoked. Request id:",
+      'Slow timeout invoked. Request id:',
       context.awsRequestId,
-      "| Elapsed ms:",
-      Date.now() - now
+      '| Elapsed ms:',
+      Date.now() - now,
     );
     counter++;
   }, 1000);
 
   setTimeout(() => {
     console.log(
-      "Fast timeout invoked. Request id:",
+      'Fast timeout invoked. Request id:',
       context.awsRequestId,
-      "| Elapsed ms:",
-      Date.now() - now
+      '| Elapsed ms:',
+      Date.now() - now,
     );
     counter++;
     callback(null, counter);
@@ -528,7 +528,7 @@ class Runtime {
     let [callback, callbackContext] = CallbackContext.build(
       this.client,
       invokeContext.invokeId,
-      this.scheduleIteration.bind(this)
+      this.scheduleIteration.bind(this),
     );
 
     try {
@@ -541,14 +541,12 @@ class Runtime {
       const result = this.handler(
         JSON.parse(bodyJson),
         invokeContext.attachEnvironmentData(callbackContext),
-        callback
+        callback,
       );
 
       // finish the execution if the handler is async
       if (_isPromise(result)) {
-        result
-          .then(callbackContext.succeed, callbackContext.fail)
-          .catch(callbackContext.fail);
+        result.then(callbackContext.succeed, callbackContext.fail).catch(callbackContext.fail);
       }
     } catch (err) {
       callback(err);
@@ -612,19 +610,19 @@ class ConnectionManager {
       // uses mysql2's `new Connection()`
       const connection = this.lib.createConnection(connectionConfig);
 
-      const errorHandler = (e) => {
-        connection.removeListener("connect", connectHandler);
-        connection.removeListener("error", connectHandler);
+      const errorHandler = e => {
+        connection.removeListener('connect', connectHandler);
+        connection.removeListener('error', connectHandler);
         reject(e);
       };
 
       const connectHandler = () => {
-        connection.removeListener("error", errorHandler);
+        connection.removeListener('error', errorHandler);
         resolve(connection);
       };
 
-      connection.on("error", errorHandler);
-      connection.once("connect", connectHandler);
+      connection.on('error', errorHandler);
+      connection.once('connect', connectHandler);
     });
   }
 }
