@@ -43,11 +43,12 @@ Defining a model is simple: Create a class that extends the [`Model`] class and 
 ```ts
 import { Sequelize, DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
 import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize({ dialect: SqliteDialect });
 
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  @Attibute(DataTypes.INTEGER)
+  @Attribute(DataTypes.INTEGER)
   @PrimaryKey
   @AutoIncrement
   declare id: CreationOptional<number>;
@@ -67,11 +68,12 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
 ```js
 import { Sequelize, DataTypes, Model } from '@sequelize/core';
 import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize({ dialect: SqliteDialect });
 
 export class User extends Model {
-  @Attibute(DataTypes.INTEGER)
+  @Attribute(DataTypes.INTEGER)
   @PrimaryKey
   @AutoIncrement
   id;
@@ -97,9 +99,11 @@ After defining the model, you need to initialize it. This is done by passing it 
 
 ```ts
 import { Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { User } from './models/user.model.js';
 
-export const sequelize = new Sequelize('sqlite::memory:', {
+export const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   // add all your models here
   models: [User],
 });
@@ -110,12 +114,14 @@ and uses [`import`] (esm), not [`require`] (commonjs):
 
 ```ts
 import { Sequelize, importModels } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export const sequelize = new Sequelize('sqlite::memory:', {
+export const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   // this will load all model classes found in files matching this glob pattern.
   models: await importModels(__dirname + '/**/*.model.{ts,js}'),
 });
@@ -126,7 +132,7 @@ export const sequelize = new Sequelize('sqlite::memory:', {
 ### Without Decorators
 
 If you're working on a project that was created before Sequelize 7, you're likely using the old way of defining models.
-This is still supported, but we recommend to use the [new way of defining models](#defining-a-model).
+This is still supported, but we recommend to use the [new way of defining models](#defining-a-model-1).
 
 If you do not want to use decorators, you can continue to use the old way of defining models.
 Head to [our page about Legacy Model Definitions](../other-topics/legacy-model-definitions.mdx) to learn more about the old API.
@@ -235,13 +241,9 @@ class User extends Model {
 
 ### Dynamic JS default values
 
-Instead of a static value, you can also use a JavaScript function that sequelize will call every time a new instance is created. Sequelize provides 3 built-in functions that you can use, but a custom function can be used as well:
-
-- [`DataTypes.NOW`](./data-types.mdx#built-in-default-values-for-dates) for the current timestamp
-- [`DataTypes.UUIDV4`](./data-types.mdx#built-in-default-values-for-uuid) for a UUIDv4
-- [`DataTypes.UUIDV1`](./data-types.mdx#built-in-default-values-for-uuid) for a UUIDv1
-
-<JsDefaultCaution />
+Instead of a static value, you can also use a JavaScript function that sequelize will call every time a new instance is created.
+Sequelize provides the built-in [`DataTypes.NOW`](./data-types.mdx#built-in-default-values-for-dates) for the current timestamp,
+but a custom function can be used as well:
 
 <Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
@@ -296,28 +298,27 @@ class User extends Model {
 </TabItem>
 </Tabs>
 
+<JsDefaultCaution />
+
 ### Dynamic SQL default values
 
-You can also use a SQL function as a default value using either [`fn`] or [`literal`].
-This has the advantage over [dynamic JS default values](#dynamic-js-default-values) that the function will always be called, since it is handled by the database, not by Sequelize.
+You can also use a SQL function as a default value using [raw SQL](../querying/raw-queries.mdx).
+This has the advantage over [dynamic JS default values](#dynamic-js-default-values) that the function will always be called,
+since it is handled by the database, not by Sequelize.
 
-For instance, if your dialect provides a built-in SQL function to generate UUIDs, you can use [`fn`] to set a default value on the SQL layer:
+For instance, you could use the [`sql.fn`](../querying/raw-queries.mdx#sqlfn) function to make the database generate a random number for you:
 
 <Tabs groupId="ts-js">
 <TabItem value="ts" label="TypeScript">
 
 ```ts
 import { DataTypes, Model, sql, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
-import { Attribute, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
+import { Attribute, Default } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  @PrimaryKey
-  @Attribute(DataTypes.UUID)
-  // 'uuid_generate_v4' is only available in postgres + uuid-ossp
-  // other dialects may support this function under different names.
-  // highlight-next-line
-  @Default(sql.fn('uuid_generate_v4'))
-  declare id: CreationOptional<string>;
+  @Attribute(DataTypes.FLOAT)
+  @Default(sql.fn('random'))
+  declare randomNumber: CreationOptional<number>;
 }
 ```
 
@@ -326,21 +327,20 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
 ```js
 import { DataTypes, Model, sql } from '@sequelize/core';
-import { Attribute, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
+import { Attribute, Default } from '@sequelize/core/decorators-legacy';
 
 class User extends Model {
-  @PrimaryKey
-  @Attribute(DataTypes.UUID)
-  // 'uuid_generate_v4' is only available in postgres + uuid-ossp
-  // other dialects may support this function under different names.
-  // highlight-next-line
-  @Default(sql.fn('uuid_generate_v4'))
-  id;
+  @Attribute(DataTypes.FLOAT)
+  @Default(sql.fn('random'))
+  randomNumber;
 }
 ```
 
 </TabItem>
 </Tabs>
+
+Sequelize also provides 2 built-in functions, [`sql.uuidV1` and `sql.uuidV4`](./data-types.mdx#built-in-default-values-for-uuid), that will
+generate a UUID in SQL if possible, and fallback to a JavaScript implementation otherwise.
 
 ## Primary Keys
 
@@ -477,10 +477,12 @@ You can also change the default schema for all models by setting the `schema` op
 
 ```js
 import { Model, Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class User extends Model {}
 
 const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   // All models that don't specify a schema will be created in the "public" schema by default
   // highlight-next-line
   schema: 'public',
@@ -506,6 +508,7 @@ Take a look at the API Reference for [`Model`] for more information
 
 ```typescript
 import { Model, InferCreationAttributes, InferAttributes } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { Attribute, NotNull } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
@@ -530,7 +533,8 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   }
 }
 
-const sequelize = new Sequelize('sqlite::memory:', {
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   models: [User],
 });
 
@@ -545,6 +549,7 @@ console.log(user.getFullname()); // 'Jane Doe'
 
 ```javascript
 import { Model } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { Attribute, NotNull } from '@sequelize/core/decorators-legacy';
 
 class User extends Model {
@@ -569,7 +574,8 @@ class User extends Model {
   }
 }
 
-const sequelize = new Sequelize('sqlite::memory:', {
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   models: [User],
 });
 

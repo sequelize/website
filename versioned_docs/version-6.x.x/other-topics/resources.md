@@ -53,6 +53,10 @@ title: Resources
 
 * [sequelize-temporal](https://github.com/bonaval/sequelize-temporal) - Temporal tables (aka historical records)
 
+### Integrations
+
+* [kysely-sequelize](https://www.npmjs.com/pacakge/kysely-sequelize) - A toolkit (dialect, type translators, etc.) that allows using your existing Sequelize instance with [Kysely](https://www.kysely.dev).
+
 ### Joi
 
 * [sequelize-joi](https://github.com/mattiamalonni/sequelize-joi) - Allows specifying [Joi](https://github.com/sideway/joi) validation schema for model attributes in Sequelize.

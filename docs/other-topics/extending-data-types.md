@@ -27,7 +27,7 @@ You can then use your new data type in your models:
 ```typescript
 import { MyDateType } from './custom-types.js';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize(/* options */);
 
 const User = sequelize.define('User', {
   birthday: {
@@ -102,8 +102,8 @@ export class MyDateType extends DataTypes.ABSTRACT<Date> {
 We also have 4 methods that can be implemented to define how the Data Type serializes & deserializes values when interacting with the database:
 
 - `parseDatabaseValue(value): unknown`: Transforms values retrieved from the database[^caveat-1].
-- `toBindableValue(value): unknown`: Transforms a value into a value accepted by the connector library when using [bind parameters](../querying/raw-queries.md#bind-parameters).
-- `escape(value): string`: Escapes a value for inlining inside of raw SQL, such as when using [replacements](../querying/raw-queries.md#replacements).  
+- `toBindableValue(value): unknown`: Transforms a value into a value accepted by the connector library when using [bind parameters](../querying/raw-queries.mdx#bind-parameters).
+- `escape(value): string`: Escapes a value for inlining inside of raw SQL, such as when using [replacements](../querying/raw-queries.mdx#replacements).  
   By default, if `toBindableValue` returns a string, this method will escape that string as a SQL string.
 
 ```typescript
@@ -150,7 +150,7 @@ Just like with custom data types, use your Data Type class instead of the type y
 ```typescript
 import { MyStringType } from './custom-types.js';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize(/* options */);
 
 const User = sequelize.define('User', {
   firstName: {
@@ -171,4 +171,4 @@ When using `DataTypes.ENUM`, Sequelize will automatically create the enum type i
 If you need to create a custom type, you will need to create it manually in the database before you can use it in one of your models.
 
 [^caveat-1]: `parseDatabaseValue` is only called if a Sequelize Data Type is specified in the query. 
-This is the case when using model methods, but not when using [raw queries](../querying/raw-queries.md) or when not specifying the model in [`QueryInterface`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html) methods
+This is the case when using model methods, but not when using [raw queries](../querying/raw-queries.mdx) or when not specifying the model in [`QueryInterface`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html) methods
