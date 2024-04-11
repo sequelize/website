@@ -12,7 +12,7 @@ Those attributes are automatically managed as well - whenever you use Sequelize 
 
 The `createdAt` attribute will contain the timestamp representing the moment of creation, and the `updatedAt` will contain the timestamp of the latest update.
 
-**Note:** The value of these attributes are updated by Sequelize in JavaScript (i.e. not done with *SQL triggers*).
+**Note:** The value of these attributes are updated by Sequelize in JavaScript (i.e. not done with _SQL triggers_).
 This means that direct SQL queries (for example queries performed without Sequelize by any other means) will not cause these attributes to be updated automatically.
 
 :::info
@@ -80,12 +80,12 @@ class User extends Model {}
 
 You may also be interested in renaming the attributes. There are two parts to this:
 
-- Renaming the JavaScript name (the *attribute name*)
-- Renaming the Database name (the *column name*)
+- Renaming the JavaScript name (the _attribute name_)
+- Renaming the Database name (the _column name_)
 
 ### Changing the Attribute Name
 
-Changing the [*attribute name*](../terminology.md#attributes--columns)
+Changing the [_attribute name_](../terminology.md#attributes--columns)
 is done by using the `@CreatedAt`, `@UpdatedAt`, or [`@DeletedAt`](./paranoid.mdx) decorators on the attribute of your choice.
 
 <Tabs groupId="ts-js">

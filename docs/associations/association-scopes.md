@@ -52,7 +52,7 @@ SELECT * FROM `restaurants` WHERE `restaurants`.`status` = 'open' AND `restauran
 
 ## BelongsToMany scope
 
-All associations support specifying a scope to filter the target model, but the `BelongsToMany` association 
+All associations support specifying a scope to filter the target model, but the `BelongsToMany` association
 also supports specifying a scope to filter the join table. This is useful when you want to filter based on extra information
 stored in the join table.
 
@@ -71,7 +71,7 @@ class Person extends Model {}
 class Game extends Model {
   /** This association will list everyone that worked on the game */
   @BelongsToMany(() => Person, {
-    through: GameAuthor
+    through: GameAuthor,
   })
   allAuthors;
 }
@@ -89,10 +89,10 @@ class Game extends Model {
     otherKey: 'personId',
   })
   allAuthors;
-  
+
   /** This association will list everyone that worked on the game as a programmer */
   @BelongsToMany(() => Person, {
-    through: { 
+    through: {
       model: GameAuthor,
       foreignKey: 'gameId',
       otherKey: 'personId',
@@ -101,7 +101,7 @@ class Game extends Model {
     },
   })
   programmers;
-  
+
   /** This association will list everyone that worked on the game as a designer */
   @BelongsToMany(() => Person, {
     through: {
