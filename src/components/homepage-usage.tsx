@@ -31,7 +31,7 @@ export default function HomepageUsage(): JSX.Element {
             <h2>Define models</h2>
             <CodeBlock language="js">
               {trim`
-                import { Sequelize, Model, DataTypes } from 'sequelize';
+                import { Sequelize, DataTypes } from 'sequelize';
 
                 const sequelize = new Sequelize('sqlite::memory:');
                 const User = sequelize.define('User', {
