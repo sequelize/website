@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { SUPPORTED_DIALECTS } from '../utils/dialects';
 import { useLocalStorage } from '../utils/use-storage';
@@ -17,7 +17,7 @@ export function DialectTableFilter(props: Props) {
   );
 
   const onDialectSelection = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
+    (e: ChangeEvent<HTMLSelectElement>) => {
       const newDialect = e.currentTarget.value;
       setPreferredDialect(newDialect);
     },
@@ -40,9 +40,11 @@ export function DialectTableFilter(props: Props) {
     const tableHeadRow = table.children[0].children[0];
     const columnTitles: string[] = [...tableHeadRow.children].map(child => child.textContent ?? '');
 
-    // @ts-expect-error -- html collection is iterable
     for (const columnHead of tableHeadRow.children) {
       const columnTitle = columnHead.textContent;
+      if (!columnTitle) {
+        continue;
+      }
 
       if (!SUPPORTED_DIALECTS.has(columnTitle)) {
         continue;
@@ -56,7 +58,6 @@ export function DialectTableFilter(props: Props) {
     }
 
     const tableBody = table.children[1];
-    // @ts-expect-error -- html collection is iterable
     for (const row of tableBody.children) {
       for (let i = 0; i < row.children.length; i++) {
         const child = row.children[i];
