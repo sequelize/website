@@ -1,0 +1,101 @@
+---
+title: MariaDB
+sidebar_position: 1
+---
+
+# Sequelize for MariaDB
+
+:::info Version Compatibility
+
+See [Releases](/releases#mariadb-support-table) to see which versions of MariaDB are supported.
+
+:::
+
+To use Sequelize with MariaDB, you need to install the `@sequelize/mariadb` dialect package:
+
+```bash npm2yarn
+npm i @sequelize/mariadb
+```
+
+Then use the `MariaDBDialect` class as the dialect option in the Sequelize constructor:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { MariaDBDialect } from '@sequelize/mariadb';
+
+const sequelize = new Sequelize({
+  dialect: MariaDBDialect,
+  database: 'mydb',
+  user: 'myuser',
+  password: 'mypass',
+  host: 'localhost',
+  port: 3306,
+  showWarnings: true,
+  connectTimeout: 1000,
+});
+```
+
+## Connection Options
+
+import ConnectionOptions from './_connection-options.md';
+
+<ConnectionOptions />
+
+The following options are passed as-is to the `mariadb` package that Sequelize uses to connect to MariaDB.
+Please refer to the [MariaDB documentation](https://github.com/mariadb-corporation/mariadb-connector-nodejs/blob/b65aca10b77f5ede83f16a8edd0537b2ef12a16f/documentation/connection-options.md) for more information about what each of these options do.
+
+For convenience, here is an edited copy of the documentation that only includes the options that are accepted by Sequelize:
+
+| Option                    | Description                                                                                                                                                                                                                                                                                                                                                  |       Type        |      Default       |
+|:--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------:|:------------------:|
+| `user`                    | User to access database                                                                                                                                                                                                                                                                                                                                      |      string       |                    |
+| `password`                | User password                                                                                                                                                                                                                                                                                                                                                |      string       |                    |
+| `host`                    | IP address or DNS of database server. *Not used when using the `socketPath` option*                                                                                                                                                                                                                                                                          |      string       |    "localhost"     |
+| `port`                    | Database server port number                                                                                                                                                                                                                                                                                                                                  |      integer      |        3306        |
+| `database`                | Default database to use when establishing the connection                                                                                                                                                                                                                                                                                                     |      string       |                    |
+| `socketPath`              | Permit connecting to the database via Unix domain socket or named pipe, if the server allows it                                                                                                                                                                                                                                                              |      string       |                    |
+| `compress`                | Compress exchanges with database using gzip.  This can give you better performance when accessing a database in a different location.                                                                                                                                                                                                                        |      boolean      |       false        |
+| `connectTimeout`          | Connection timeout in milliseconds                                                                                                                                                                                                                                                                                                                           |      integer      |        1000        |
+| `socketTimeout`           | Socket timeout in milliseconds after the connection is established                                                                                                                                                                                                                                                                                           |      integer      |         0          |
+| `maxAllowedPacket`        | permit to indicate server global variable [max_allowed_packet](https://mariadb.com/kb/en/library/server-system-variables/#max_allowed_packet) value to ensure efficient batching. default is 4Mb. see [batch documentation]                                                                                                                                  |      integer      |      4196304       |
+| `prepareCacheLength`      | Define prepare LRU cache length. 0 means no cache                                                                                                                                                                                                                                                                                                            |        int        |        256         |
+| `ssl`                     | SSL options. See [SSL options in the MariaDB documentation]                                                                                                                                                                                                                                                                                                  | boolean \| object |       false        |
+| `charset`                 | Protocol character set used with the server. Connection collation will be the [default collation] associated with charset. It's mainly used for micro-optimizations.  The default is often sufficient.                                                                                                                                                       |      string       |      UTF8MB4       |
+| `collation`               | (used in replacement of charset) Permit to defined collation used for connection. This will defined the charset encoding used for exchanges with database and defines the order used when comparing strings. It's mainly used for micro-optimizations                                                                                                        |      string       | UTF8MB4_UNICODE_CI |
+| `debug`                   | Logs all exchanges with the server.  Displays in hexa.                                                                                                                                                                                                                                                                                                       |      boolean      |       false        |
+| `debugLen`                | String length of logged message / error or trace                                                                                                                                                                                                                                                                                                             |      integer      |        256         |
+| `logParam`                | indicate if parameters must be logged by query logger.                                                                                                                                                                                                                                                                                                       |      boolean      |       false        |
+| `foundRows`               | When enabled, the update number corresponds to update rows.  When disabled, it indicates the real rows changed.                                                                                                                                                                                                                                              |      boolean      |        true        |
+| `multipleStatements`      | Allows you to issue several SQL statements in a single `query()` call. (That is, `INSERT INTO a VALUES('b'); INSERT INTO c VALUES('d');`).  <br/><br/>This may be a **security risk** as it allows for SQL Injection attacks.                                                                                                                                |      boolean      |       false        |
+| `permitLocalInfile`       | Allows the use of `LOAD DATA INFILE` statements.<br/><br/>Loading data from a file from the client may be a security issue, as a man-in-the-middle proxy server can change the actual file the server loads.  Being able to execute a query on the client gives you access to files on the client.                                                           |      boolean      |       false        |
+| `pipelining`              | Sends queries one by one without waiting on the results of the previous entry.  For more information, see [Pipelining](                                                                                                                                                                                                                                      |      boolean      |        true        |
+| `trace`                   | Adds the stack trace at the time of query creation to the error stack trace, making it easier to identify the  part of the code that issued the query.  Note: This feature is disabled by default due to the performance cost of stack creation.  Only turn it on when you need to debug issues.                                                             |      boolean      |       false        |
+| `connectAttributes`       | Sends information, (client name, version, operating system, Node.js version, and so on) to the [Performance Schema](https://mariadb.com/kb/en/library/performance-schema-session_connect_attrs-table/). When enabled, the Connector sends JSON attributes in addition to the defaults.                                                                       | boolean \| object |       false        |
+| `sessionVariables`        | Permit to set session variables when connecting. Example: `sessionVariables: { idle_transaction_timeout: 10000 }`                                                                                                                                                                                                                                            |      object       |
+| `initSql`                 | When a connection is established, permit to execute commands before using connection                                                                                                                                                                                                                                                                         |      string       |       array        |
+| `bulk`                    | disabled bulk command in batch                                                                                                                                                                                                                                                                                                                               |      boolean      |
+| `forceVersionCheck`       | Force server version check by explicitly using SELECT VERSION(), not relying on server initial packet.                                                                                                                                                                                                                                                       |      boolean      |       false        |
+| `checkDuplicate`          | Indicate to throw an exception if result-set will not contain some data due to having duplicate identifier. <br/>JSON cannot have multiple identical key, so query like `SELECT 1 as i, 2 as i` cannot result in `{ i:1, i:2 }`, 'i:1' would be skipped. <br/>When `checkDuplicate` is enable (default) driver will throw an error if some data are skipped. |      boolean      |        true        |
+| `keepAliveDelay`          | permit to enable socket keep alive, setting delay. 0 means not enabled. Keep in mind that this don't reset server [`@@wait_timeout`](https://mariadb.com/kb/en/library/server-system-variables/#wait_timeout) (use pool option idleTimeout for that). in ms                                                                                                  |      integer      |                    |
+| `rsaPublicKey`            | Indicate path/content to MySQL server RSA public key.                                                                                                                                                                                                                                                                                                        |      string       |                    |
+| `cachingRsaPublicKey`     | Indicate path/content to MySQL server caching RSA public key.                                                                                                                                                                                                                                                                                                |      string       |                    |
+| `allowPublicKeyRetrieval` | Indicate that if `rsaPublicKey` or `cachingRsaPublicKey` public key are not provided, if client can ask server to send public key.                                                                                                                                                                                                                           |      boolean      |       false        |
+| `stream`                  | permits to set a function with parameter to set stream                                                                                                                                                                                                                                                                                                       |     function      |                    |
+| `metaEnumerable`          | make resultset meta property enumerable                                                                                                                                                                                                                                                                                                                      |      boolean      |       false        |
+| `infileStreamFactory`     | When LOAD LOCAL command executed, permit to set a callback function of type `(filepath?: string) => stream.Readable`. Connector will then not send file from LOAD LOCAL, but Readable content. This can permit to set extra validation of file path for example.                                                                                             |     function      |                    |
+| `logPackets`              | Debug option : permit to save last exchanged packet. Error messages will display those last exchanged packet.                                                                                                                                                                                                                                                |      boolean      |       false        |
+| `debugCompress`           | This will print all incoming and outgoing compressed packets on stdout.                                                                                                                                                                                                                                                                                      |      boolean      |       false        |
+| `timeout`                 | Command execution timeout                                                                                                                                                                                                                                                                                                                                    |      number       |                    |
+
+## Other MariaDB Options
+
+The following options are also available for MariaDB:
+
+| Option         | Description                                                                                                              |
+|----------------|--------------------------------------------------------------------------------------------------------------------------|
+| `showWarnings` | If `true`, warnings produced during the execution of a query will be sent to the `logging` callback. Default is `false`. |
+
+[batch documentation]: https://github.com/mariadb-corporation/mariadb-connector-nodejs/blob/b65aca10b77f5ede83f16a8edd0537b2ef12a16f/documentation/batch.md
+[SSL options in the MariaDB documentation]: https://github.com/mariadb-corporation/mariadb-connector-nodejs/blob/b65aca10b77f5ede83f16a8edd0537b2ef12a16f/documentation/connection-options.md#configuration
+[default collation]: https://github.com/mariadb-corporation/mariadb-connector-nodejs/blob/master/lib/const/collations.js#L372
+[Pipelining]: https://github.com/mariadb-corporation/mariadb-connector-nodejs/blob/b65aca10b77f5ede83f16a8edd0537b2ef12a16f/documentation/pipelining.md

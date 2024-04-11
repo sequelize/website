@@ -73,7 +73,7 @@ User.findAll({
 });
 ```
 
-You can use [SQL Literals](./raw-queries.md) to select any SQL expression instead of a column.
+You can use [SQL Literals](./raw-queries.mdx) to select any SQL expression instead of a column.
 When using SQL expressions like in the above example, you must give it an alias to be able to access it from the model.
 In the above example, the alias is `age`.
 
@@ -192,7 +192,7 @@ User.findAll({
 SELECT * FROM "users" AS "user" WHERE CAST("user"."createdAt" AS TEXT) LIKE '2012-%';
 ```
 
-This syntax is only available on attributes, but you can also use [`sql.cast`](./raw-queries.md#sqlcast) to cast a value:
+This syntax is only available on attributes, but you can also use [`sql.cast`](./raw-queries.mdx#sqlcast) to cast a value:
 
 ```ts
 User.findAll({
@@ -210,7 +210,7 @@ SELECT * FROM "users" AS "user" WHERE "user"."createdAt" > CAST('2012-01-01' AS 
 
 ### Referring to other attributes
 
-If you want to use the value of another attribute, you can use the [`sql.attribue`](./raw-queries.md#sqlattribute) function:
+If you want to use the value of another attribute, you can use the [`sql.attribue`](./raw-queries.mdx#sqlattribute) function:
 
 ```js
 Article.findAll({
@@ -242,7 +242,7 @@ SELECT * FROM "users" AS "user" WHERE char_length("user"."content") <= 7;
 
 :::info More information
 
-Head to our [Raw SQL guide](./raw-queries.md) for more information on how to use the `sql` tag.
+Head to our [Raw SQL guide](./raw-queries.mdx) for more information on how to use the `sql` tag.
 
 :::
 
@@ -733,7 +733,7 @@ There are 2 valid directions: `ASC` (default) and `DESC`. You can also specify `
 - `ASC NULLS LAST`
 - `DESC NULLS LAST`
 
-You can also use [raw SQL](./raw-queries.md) to order by an expression:
+You can also use [raw SQL](./raw-queries.mdx) to order by an expression:
 
 ```ts
 Subtask.findAll({
@@ -747,7 +747,7 @@ Subtask.findAll({
 SELECT * FROM subtasks ORDER BY UPPERCASE("title") DESC;
 ```
 
-You can use [raw SQL](./raw-queries.md) inside the `order` array, or as the entire `order` option:
+You can use [raw SQL](./raw-queries.mdx) inside the `order` array, or as the entire `order` option:
 
 ```ts
 Subtask.findAll({
@@ -830,7 +830,7 @@ See [#15260](https://github.com/sequelize/sequelize/issues/15260) to follow the 
 
 The `group` options controls the `GROUP BY` clause of the SQL query. It can be used to group the results of a query.
 
-This option takes an array of attributes or [raw SQL](./raw-queries.md) to group by. Its most basic form is just an attribute name:
+This option takes an array of attributes or [raw SQL](./raw-queries.mdx) to group by. Its most basic form is just an attribute name:
 
 ```ts
 Project.findAll({ group: ['name'] });
@@ -842,7 +842,7 @@ SELECT * FROM "projects" GROUP BY "name";
 
 :::warning
 
-It's possible to set the `group` option to a string, which will be treated as raw SQL, but this is not recommended. [Use the `sql` tag instead](./raw-queries.md).
+It's possible to set the `group` option to a string, which will be treated as raw SQL, but this is not recommended. [Use the `sql` tag instead](./raw-queries.mdx).
 
 The ability to treat a non-`sql` tagged string as raw SQL will be removed in a future version of Sequelize.
 

@@ -1,0 +1,64 @@
+---
+title: SQLite
+sidebar_position: 1
+---
+
+# Sequelize for SQLite
+
+To use Sequelize with SQLite, you need to install the `@sequelize/sqlite` dialect package:
+
+```bash npm2yarn
+npm i @sequelize/sqlite3
+```
+
+Then use the `SqliteDialect` class as the dialect option in the Sequelize constructor:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
+
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+  storage: 'sequelize.sqlite',
+});
+```
+
+## Connection Options
+
+import ConnectionOptions from './_connection-options.md';
+
+<ConnectionOptions />
+
+The following options are accepted by the SQLite dialect:
+
+| Option     | Description                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `storage`  | Path to the SQLite database file.                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `mode`     | An integer bit flag that represents the mode to open the database connection with.<br /><br />The mode can be a union (using `\|`) of `OPEN_READONLY`, `OPEN_READWRITE`, `OPEN_CREATE`, `OPEN_FULLMUTEX`, `OPEN_URI`, `OPEN_SHAREDCACHE`, `OPEN_PRIVATECACHE`, each of which are exposed by `@sequelize/sqlite`.<br/><br />Refer to the [SQLite documentation](https://www.sqlite.org/c3ref/open.html) to learn what each of these flags do. |
+| `password` | The "PRAGMA KEY" password to use for the connection, if using plugins like `sqlcipher`.                                                                                                                                                                                                                                                                                                                                                  |
+
+### Temporary Storages
+
+SQLite supports two types of temporary storages:
+
+- Set `storage` to an empty string to use a disk-based temporary storage.
+- Set `storage` to `':memory:'` to use a memory-based temporary storage.
+
+In both cases, the database will be destroyed when the connection is closed. As such, using temporary storage
+requires configuring [the Connection Pool](../other-topics/connection-pool.md) to keep a single connection open, using the following configuration:
+
+```ts
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+  storage: ':memory:', // or ''
+  pool: { max: 1, idle: Infinity, maxUses: Infinity },
+});
+```
+
+## Other SQLite Options
+
+The following options are also available for SQLite:
+
+| Option        | Description                                            |
+|---------------|--------------------------------------------------------|
+| `foreignKeys` | If set to false, SQLite will not enforce foreign keys. |

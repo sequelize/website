@@ -1,0 +1,58 @@
+---
+title: DB2 for IBM i
+sidebar_position: 1
+---
+
+# Sequelize for DB2 for IBM i
+
+:::danger
+
+Our implementation of DB2 for IBM i is not integration tested against an actual database.
+As such, we cannot guarantee that it will work as expected, nor its stability.
+
+We rely on the community to help us improve this dialect.
+
+:::
+
+:::info Version Compatibility
+
+See [Releases](/releases#db2-for-ibm-i-support-table) to see which versions of DB2 for IBM i are supported.
+
+:::
+
+To use Sequelize with DB2 for IBM i, you need to install the `@sequelize/db2-ibmi` dialect package:
+
+```bash npm2yarn
+npm i @sequelize/db2-ibmi
+```
+
+Then use the `IbmiDialect` class as the dialect option in the Sequelize constructor:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { IbmiDialect } from '@sequelize/db2-ibmi';
+
+const sequelize = new Sequelize({
+  dialect: IbmiDialect,
+  odbcConnectionString: 'DSN=MYDSN;UID=myuser;PWD=mypassword',
+  connectionTimeout: 60,
+});
+```
+
+## Connection Options
+
+import ConnectionOptions from './_connection-options.md';
+
+<ConnectionOptions />
+
+The following options are accepted by the DB2 for IBM i dialect:
+
+| Option                 | Description                                                                                                   |
+|------------------------|---------------------------------------------------------------------------------------------------------------|
+| `connectionTimeout`    | The number of seconds to wait for a request on the connection to complete before returning to the application |
+| `loginTimeout`         | The number of seconds to wait for a login request to complete before returning to the application             |
+| `odbcConnectionString` | The connection string to connect to the database. If provided, the options below are not necessary.           |
+| `dataSourceName`       | The ODBC "DSN" part of the connection string.                                                                 |
+| `username`             | The ODBC "UID" part of the connection string.                                                                 |
+| `system`               | The ODBC "SYSTEM" part of the connection string.                                                              |
+| `password`             | The ODBC "PWD" part of the connection string.                                                                 |

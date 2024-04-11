@@ -239,7 +239,7 @@ are what you need to use.
 
 They will return the Attributes (and Creation Attributes) of the Model passed as a parameter.
 
-Don't confuse them with `InferAttributes` and `InferCreationAttributes`. These two utility types should only every be used
+Don't confuse them with `InferAttributes` and `InferCreationAttributes`. These two utility types should only ever be used
 in the definition of a Model to automatically create the list of attributes from the model's public class fields. They only work
 with class-based model definitions (When using `Model.init`).
 

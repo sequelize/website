@@ -6,6 +6,7 @@ title: Data Types
 import { DialectTableFilter } from '@site/src/components/dialect-table-filter.tsx';
 import { Deprecated } from '@site/src/components/deprecated.tsx';
 import JsDefaultCaution from '../_fragments/_js-default-caution.mdx';
+import UuidSupportTable from '../_fragments/_uuid-support-table.mdx';
 
 Sequelize provides [a lot of built-in data types](pathname:///api/v7/modules/_sequelize_core.index.DataTypes.html). To access a built-in data type, you must import `DataTypes`:
 
@@ -79,9 +80,9 @@ A ❌ means the dialect does not support that DataType.
 | `INTEGER(1)`                                                                                 | ❌                              | `INTEGER(1)`                                        | `INTEGER(1)`           | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
 | `INTEGER.UNSIGNED`                                                                           | `BIGINT`                       | `INTEGER UNSIGNED`                                  | `INTEGER UNSIGNED`     | `BIGINT`             | `INTEGER`                  | `INTEGER`                      | `BIGINT`            | `BIGINT`            |
 | `INTEGER.ZEROFILL`                                                                           | ❌                              | `INTEGER ZEROFILL`                                  | `INTEGER ZEROFILL`     | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
-| [`BIGINT`](pathname:///api/v7/classes/_sequelize_core.index.unknown.BIGINT.html)           | `BIGINT`                       | [`BIGINT`](https://mariadb.com/kb/en/bigint/)       | `BIGINT`               | `BIGINT`             | `INTEGER`                  | `INTEGER`                      | `BIGINT`            | `BIGINT`            |
+| [`BIGINT`](pathname:///api/v7/classes/_sequelize_core.index.unknown.BIGINT.html)           | `BIGINT`                       | [`BIGINT`](https://mariadb.com/kb/en/bigint/)       | `BIGINT`               | `BIGINT`             | ❌                  | `INTEGER`                      | `BIGINT`            | `BIGINT`            |
 | `BIGINT(1)`                                                                                  | ❌                              | `BIGINT(1)`                                         | `BIGINT(1)`            | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
-| `BIGINT.UNSIGNED`                                                                            | ❌                              | `BIGINT UNSIGNED`                                   | `BIGINT UNSIGNED`      | ❌                    | `INTEGER`                  | `INTEGER`                      | ❌                   | ❌                   |
+| `BIGINT.UNSIGNED`                                                                            | ❌                              | `BIGINT UNSIGNED`                                   | `BIGINT UNSIGNED`      | ❌                    | ❌                  | `INTEGER`                      | ❌                   | ❌                   |
 | `BIGINT.ZEROFILL`                                                                            | ❌                              | `BIGINT ZEROFILL`                                   | `BIGINT ZEROFILL`      | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
 
 </DialectTableFilter>
@@ -212,6 +213,9 @@ MyModel.init({
 
 For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL and SQLite, and `CHAR(36)` for MySQL.
 
+You can also use `DataTypes.UUID.V4` and `DataTypes.UUID.V1`
+to limit which version of UUID is accepted by the attribute to v4 or v1 respectively.
+
 <DialectTableFilter>
 
 | Sequelize DataType | PostgreSQL                                                           | MariaDB           | MySQL             | MSSQL                                                                                                                            | SQLite | Snowflake     | db2                     | ibmi                    |
@@ -222,18 +226,36 @@ For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL 
 
 ### Built-in Default Values for UUID
 
-Sequelize can generate UUIDs automatically for these attributes, simply use `DataTypes.UUIDV1` or `DataTypes.UUIDV4` as the default value:
+Sequelize can generate UUIDs automatically for these attributes, simply use [`sql.uuidV1` or `sql.uuidV4`](../querying/raw-queries.mdx#sqluuidv4--sqluuidv1) as the default value:
 
 ```javascript
 MyModel.init({
   myUuid: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
+    type: DataTypes.UUID.V4,
+    defaultValue: sql.uuidV4, // Or sql.uuidV1
   },
 });
 ```
 
-<JsDefaultCaution />
+In supported dialects, Sequelize will set the default value to the appropriate function, as shown in the table below.
+These dialects can also use these two functions in migrations.
+
+In all other dialects, Sequelize will generate the UUID value itself, in JavaScript.
+This means that they cannot use these two functions in migrations.
+
+<UuidSupportTable />
+
+The postgres dialect requires the `uuid-ossp` extension to be enabled to be able to generate v1 UUIDs.
+If this extension is not available, you can force Sequelize to generate the UUIDs itself by using `sql.uuidV1.asJavaScript` instead.
+
+```javascript
+MyModel.init({
+  myUuid: {
+    type: DataTypes.UUID.V1,
+    defaultValue: sql.uuidV1.asJavaScript,
+  },
+});
+```
 
 ## BLOBs
 
@@ -286,6 +308,15 @@ If you simply want to store and retrieve a JSON representation, using JSON will 
 :::info Querying JSON
 
 Sequelize provides a special syntax to query the contents of a JSON object. [Read more about querying JSON](../querying/json.mdx).
+
+:::
+
+:::warning SQL `NULL` vs JSON `'null'`
+
+If your column is nullable, be aware that inserting `null` will insert the JSON `'null'` value by default instead of the
+SQL `NULL` value.
+
+[Read more about how `null` is handled in JSON columns](../querying/json.mdx#json-null-vs-sql-null)
 
 :::
 
@@ -433,9 +464,10 @@ User.init({
 
 | Sequelize DataType | PostgreSQL                                                               | MariaDB | MySQL | MSSQL | SQLite | Snowflake | db2 | ibmi |
 |--------------------|--------------------------------------------------------------------------|---------|-------|-------|--------|-----------|-----|------|
-| `CIDR`             | [`CIDR`](https://www.postgresql.org/docs/9.1/datatype-net-types.html)    | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `INET`             | [`INET`](https://www.postgresql.org/docs/9.1/datatype-net-types.html)    | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `MACADDR`          | [`MACADDR`](https://www.postgresql.org/docs/9.1/datatype-net-types.html) | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `CIDR`             | [`CIDR`](https://www.postgresql.org/docs/11/datatype-net-types.html)    | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `INET`             | [`INET`](https://www.postgresql.org/docs/11/datatype-net-types.html)    | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `MACADDR`          | [`MACADDR`](https://www.postgresql.org/docs/11/datatype-net-types.html) | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
+| `MACADDR8`         | [`MACADDR8`](https://www.postgresql.org/docs/11/datatype-net-types.html) | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
 
 </DialectTableFilter>
 
