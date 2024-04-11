@@ -9,6 +9,7 @@ A curated list of awesome projects surrounding Sequelize.
 * [sequelize-typescript](https://www.npmjs.com/package/sequelize-typescript) - Decorators and some other features for sequelize (built-in as of Sequelize 7).
 * [Sequelize-Nest](https://docs.nestjs.com/recipes/sql-sequelize) - Sequelize integration in [nest](https://github.com/nestjs/nest).
 * [sequelizejs-decorators](https://www.npmjs.com/package/sequelizejs-decorators) decorators for composing sequelize models.
+* [kysely-sequelize](https://www.npmjs.com/pacakge/kysely-sequelize) - A toolkit (dialect, type translators, etc.) that allows using your existing Sequelize instance with [Kysely](https://www.kysely.dev).
 
 ## Code generation & visualisers
 
