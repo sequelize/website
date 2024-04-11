@@ -1,6 +1,6 @@
 ---
 title: Sequelize CLI
-sidebar_position: 8
+sidebar_position: 9
 ---
 
 :::warning

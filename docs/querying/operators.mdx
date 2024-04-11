@@ -589,7 +589,7 @@ SELECT * FROM "posts" WHERE "tags" <@ ARRAY['popular', 'trending'];
 
 Both operands of the `Op.contains` and `Op.contained` operators must be arrays.
 - If you need to check whether an array contains a single value, you need to wrap the value in an array.
-- If you want to check if a single value is contained in an array, you can use the [`Op.any`](#list--array-comparison-all-any-values) or [`Op.in`](#in-operator) operators instead.
+- If you want to check if a single value is contained in an array, you can use the [`Op.any`](#all-any--values) or [`Op.in`](#in-operator) operators instead.
 
 :::
 
