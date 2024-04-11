@@ -5,11 +5,11 @@ import styles from './homepage-users.module.scss';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 type User = {
-  image: string,
-  name: string,
-  testimonial: string,
-  style?: any,
-  author?: string,
+  image: string;
+  name: string;
+  testimonial: string;
+  style?: any;
+  author?: string;
 };
 const users: User[] = [
   {
@@ -42,7 +42,7 @@ const users: User[] = [
     image: '/img/logo-snaplytics-green.png',
     name: 'Snaplytics',
     testimonial:
-      'We\'ve been using sequelize since we started in the beginning of 2015. We use it for our graphql servers (in connection with graphql-sequelize), and for all our background workers.',
+      "We've been using sequelize since we started in the beginning of 2015. We use it for our graphql servers (in connection with graphql-sequelize), and for all our background workers.",
     style: { paddingTop: '10px' },
   },
   // {
@@ -100,8 +100,7 @@ export default function HomepageUsers(): JSX.Element {
             centerSlidePercentage={isMobile ? 75 : 25}
             centerMode
             onChange={onChange}
-            transitionTime={1000}
-          >
+            transitionTime={1000}>
             {users.map(user => (
               <div key={user.name} className={styles.slide}>
                 <img src={user.image} style={user.style} alt={user.name} />
@@ -111,13 +110,9 @@ export default function HomepageUsers(): JSX.Element {
 
           <div className={styles.testimonialWrapper}>
             <div className={styles.testimonial}>
-              <span className={styles.testimonialText}>
-                {activeUser.testimonial}
-              </span>
+              <span className={styles.testimonialText}>{activeUser.testimonial}</span>
               <span className={styles.userName}>
-                {activeUser.author
-                  ? `${activeUser.author} (${activeUser.name})`
-                  : activeUser.name}
+                {activeUser.author ? `${activeUser.author} (${activeUser.name})` : activeUser.name}
               </span>
             </div>
           </div>

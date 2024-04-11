@@ -5,9 +5,7 @@ function getPadding(lines: String[]) {
 }
 
 export function trim(_strings: TemplateStringsArray | String) {
-  const strings: String[] = (
-    Array.isArray(_strings) ? _strings : [_strings]
-  ) as String[];
+  const strings: String[] = (Array.isArray(_strings) ? _strings : [_strings]) as String[];
   const lines = strings.flatMap(s => s.split('\n'));
   const padding = getPadding(lines);
 
