@@ -83,7 +83,8 @@ const Person = sequelize.define('person', { /* attributes */ }, {
 Like every option for the definition of a model, this setting can also be changed globally with the `define` option of the Sequelize constructor:
 
 ```js
-const sequelize = new Sequelize(db, user, pw, {
+const sequelize = new Sequelize({
+  /* options */
   define: { engine: 'MYISAM' },
 });
 ```

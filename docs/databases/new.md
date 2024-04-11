@@ -19,7 +19,8 @@ We have conditions for accepting new dialects:
 
 - The database must support SQL queries.
 - The database must have an existing Node.js library we can use to connect to it.
-- We must be able to run a database instance in GitHub codespaces for testing purposes.
+- We must be able to run a database instance in GitHub Codespaces, as a way to ensure we can run a database for local development.
+- We must be able to run a database instance in GitHub Actions, to integrate it in our integration tests.
 - Our integration tests must be able to run against the database in 15 minutes or less.
 
 It is also possible to sponsor the development of a new dialect. If you are interested in this option, [please contact us via email](https://github.com/sequelize/sequelize/blob/main/CONTACT.md).

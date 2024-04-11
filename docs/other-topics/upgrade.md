@@ -100,7 +100,7 @@ __Before__:
 ```ts
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('postgre://user:password@localhost:5432/database');
+const sequelize = new Sequelize('postgres://user:password@localhost:5432/database');
 ```
 
 __After__:
@@ -112,7 +112,7 @@ import { PostgresDialect } from '@sequelize/postgres';
 const sequelize = new Sequelize({
   // note: the dialect class must always be provided, even if you use a URL
   dialect: PostgresDialect,
-  url: 'postgre://user:password@localhost:5432/database',
+  url: 'postgres://user:password@localhost:5432/database',
 });
 ```
 
