@@ -589,7 +589,7 @@ SELECT * FROM "posts" WHERE "tags" <@ ARRAY['popular', 'trending'];
 
 Both operands of the `Op.contains` and `Op.contained` operators must be arrays.
 - If you need to check whether an array contains a single value, you need to wrap the value in an array.
-- If you want to check if a single value is contained in an array, you can use the [`Op.any`](#list--array-comparison-all-any-values) or [`Op.in`](#in-operator) operators instead.
+- If you want to check if a single value is contained in an array, you can use the [`Op.any`](#all-any--values) or [`Op.in`](#in-operator) operators instead.
 
 :::
 
@@ -1187,8 +1187,8 @@ Post.findAll({
 
 ## Custom Operators
 
-Thanks to the [`sql`](./raw-queries.md) tag, it is very easy to create custom operators. We recommend reading
-the chapter on [raw queries](./raw-queries.md) to learn more.
+Thanks to the [`sql`](./raw-queries.mdx) tag, it is very easy to create custom operators. We recommend reading
+the chapter on [raw queries](./raw-queries.mdx) to learn more.
 
 Here is an example of a `LIKE` that supports escaping special LIKE characters:
 

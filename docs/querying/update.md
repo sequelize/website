@@ -117,7 +117,7 @@ console.log(jane.favoriteColor); // "green"
 Models have an **instance method** called [`update`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#update-1) that can be used as 
 an alternative way to update a single record in the database.
 
-Unlike [`save`](#using-modelsave), `update` only updates the fields that you specify.
+Unlike [`save`](#updating-a-row-using-modelsave), `update` only updates the fields that you specify.
 It does not save any other changes that have been made on this instance since it was retrieved, or last saved:
 
 ```ts

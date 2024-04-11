@@ -4,6 +4,8 @@
 /en/latest/*            /v3/:splat 301
 /en/v3/*                /v3/:splat 301
 
+/docs/v5/other-topics/upgrade /v5/manual/upgrade-to-v5.html 301
+
 /v6/identifiers.html    /api/v6/identifiers.html 301
 /v6/class/*             /api/v6/class/:splat 301
 /v6/variable/*          /api/v6/variable/:splat 301
