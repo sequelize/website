@@ -1,0 +1,54 @@
+---
+title: DB2 for LUW
+sidebar_position: 1
+---
+
+# Sequelize for DB2 for Linux, Unix, and Windows
+
+:::info Version Compatibility
+
+See [Releases](/releases#db2-for-luw-support-table) to see which versions of DB2 for LUW are supported.
+
+:::
+
+To use Sequelize with DB2 for LUW, you need to install the `@sequelize/db2` dialect package:
+
+```bash npm2yarn
+npm i @sequelize/db2
+```
+
+Then use the `Db2Dialect` class as the dialect option in the Sequelize constructor:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { Db2Dialect } from '@sequelize/db2';
+
+const sequelize = new Sequelize({
+  dialect: Db2Dialect,
+  database: 'mydb',
+  user: 'myuser',
+  password: 'mypass',
+  hostname: 'localhost',
+  port: 50000,
+  ssl: true,
+});
+```
+
+## Connection Options
+
+import ConnectionOptions from './_connection-options.md';
+
+<ConnectionOptions />
+
+The following options are accepted by the DB2 for LUW dialect:
+
+| Option                 | Description                                     |
+|------------------------|-------------------------------------------------|
+| `database`             | ODBC "DATABASE" parameter                       |
+| `username`             | ODBC "UID" parameter                            |
+| `password`             | ODBC "PWD" parameter                            |
+| `hostname`             | ODBC "HOSTNAME" parameter                       |
+| `port`                 | ODBC "PORT" parameter                           |
+| `ssl`                  | Sets ODBC "Security" parameter to SSL when true |
+| `sslServerCertificate` | ODBC "SSLServerCertificate" parameter           |
+| `odbcOptions`          | Additional ODBC parameters.                     |
