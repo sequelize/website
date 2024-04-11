@@ -43,7 +43,6 @@ const sequelize = new Sequelize({
 });
 ```
 
-
 ## Connection Options
 
 import ConnectionOptions from './_connection-options.md';
@@ -56,8 +55,8 @@ Please refer to the [Snowflake documentation](https://docs.snowflake.com/en/deve
 For convenience, here is an edited copy of the documentation that only includes the options that are accepted by Sequelize:
 
 | Option                                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                           |
-|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `accessUrl`                                | Specifies a fully-qualified endpoint for connecting to Snowflake.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessUrl`                                | Specifies a fully-qualified endpoint for connecting to Snowflake.                                                                                                                                                                                                                                                                                                                                                                     |
 | `account`                                  | Snowflake Account Identifier                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `application`                              | Specifies the name of the client application connecting to Snowflake.                                                                                                                                                                                                                                                                                                                                                                 |
 | `authenticator`                            | Specifies the authenticator to use for verifying user login credentials. See the [Snowflake documentation](https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-options#authentication-options) for details                                                                                                                                                                                                            |
@@ -79,5 +78,5 @@ For convenience, here is an edited copy of the documentation that only includes 
 The following options are also available for Snowflake:
 
 | Option         | Description                                                                                                              |
-|----------------|--------------------------------------------------------------------------------------------------------------------------|
+| -------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `showWarnings` | If `true`, warnings produced during the execution of a query will be sent to the `logging` callback. Default is `false`. |
