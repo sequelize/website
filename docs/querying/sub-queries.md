@@ -5,7 +5,7 @@ sidebar_position: 10
 
 Subqueries are queries that are nested inside another query. They are a powerful tool that can be used to achieve complex queries that would otherwise be impossible to write.
 
-In Sequelize, subqueries currently require writing raw SQL. However, Sequelize can help you with the main query, and you can use [the `sql` tag](./raw-queries.md) to insert the sub-query into the main query.
+In Sequelize, subqueries currently require writing raw SQL. However, Sequelize can help you with the main query, and you can use [the `sql` tag](./raw-queries.mdx) to insert the sub-query into the main query.
 
 __Example__:
 
@@ -17,6 +17,7 @@ Consider you have two models, `Post` and `Reaction`, with a One-to-Many relation
 ```ts
 import { Sequelize, Model, DataTypes, InferCreationAttributes, InferAttributes } from '@sequelize/core';
 import { Attribute, AutoIncrement, PrimaryKey, NotNull, HasMany } from '@sequelize/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
   @PrimaryKey
@@ -55,7 +56,7 @@ class Reaction extends Model {
 }
 
 const sequelize = new Sequelize({
-  dialect: 'sqlite',
+  dialect: SqliteDialect,
   storage: ':memory:',
   models: [Post, Reaction],
 });

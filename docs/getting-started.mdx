@@ -21,71 +21,43 @@ If you're looking for Sequelize v6 (published as `sequelize` instead of `@sequel
 
 :::
 
-<Tabs groupId="npm-yarn">
-<TabItem value="npm" label="npm">
-
-```bash
+```bash npm2yarn
 # This will install Sequelize 7, the latest alpha release of Sequelize
 npm i @sequelize/core@alpha
-
-# You also need to install the driver for your database
-npm i pg # PostgreSQL
-npm i mysql2 # MySQL
-npm i mariadb # MariaDB
-npm i sqlite3 # SQLite
-npm i tedious # Microsoft SQL Server
-npm i ibm_db # DB2
-npm i odbc # IBM i
 ```
-
-</TabItem>
-<TabItem value="yarn" label="yarn">
-
-```bash
-# This will install Sequelize 7, the latest alpha release of Sequelize
-yarn add @sequelize/core@alpha
-
-# You also need to install the driver for your database
-yarn add pg # PostgreSQL
-yarn add mysql2 # MySQL
-yarn add mariadb # MariaDB
-yarn add sqlite3 # SQLite
-yarn add tedious # Microsoft SQL Server
-yarn add ibm_db # DB2
-yarn add odbc # IBM i
-```
-
-</TabItem>
-</Tabs>
 
 ## Connecting to a database
 
-To connect to the database, you must create a Sequelize instance.
-This can be done by either passing the connection parameters separately to the Sequelize constructor or by passing a single connection URI:
+To connect to the database, you must create a Sequelize instance, and pass it the database configuration
+information, such as the dialect, the host, and the username and password.
+
+Each dialect supports a different set of options. Follow the links below to see how to connect to your database:
+
+- [PostgreSQL](./databases/postgres.mdx)
+- [MySQL](./databases/mysql.mdx)
+- [MariaDB](./databases/mariadb.mdx)
+- [SQLite](./databases/sqlite.mdx)
+- [Microsoft SQL Server](./databases/mssql.mdx)
+- [DB2 for LUW](./databases/db2.mdx)
+- [DB2 for IBM i](./databases/ibmi.mdx)
+- [Snowflake](./databases/snowflake.mdx)
+
+If your database is not listed above, Sequelize does not support it out of the box.
+However, Sequelize is extensible, and you can create your own dialect, or find a community-maintained one.
+For more information, see our documentation about [supporting other databases](./databases/new.md).
+
+Here is a short example of how to connect to a SQLite database:
 
 ```javascript
 import { Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
-// Option 1: Passing a connection URI
-const sequelize = new Sequelize('sqlite::memory:') // Example for sqlite
-const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname') // Example for postgres
-
-// Option 2: Passing parameters separately (sqlite)
 const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'path/to/database.sqlite'
-});
-
-// Option 3: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('database', 'username', 'password', {
-  host: 'localhost',
-  // one of our supported dialects:
-  // 'mysql', 'mariadb', 'postgres', 'mssql', 'sqlite', 'snowflake', 'db2' or 'ibmi'
-  dialect: 'postgres'
+  dialect: SqliteDialect,
 });
 ```
 
-The Sequelize constructor accepts a lot of options.
+The Sequelize constructor accepts many options.
 They are documented in the [API Reference](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#constructor).
 
 ### Testing the connection
@@ -146,20 +118,31 @@ Head to [Node.js' documentation](https://nodejs.org/api/esm.html) to learn how t
 
 ## Logging
 
-By default, Sequelize will log to console every SQL query it performs. The `options.logging` option can be used to customize this behavior, by defining the function that gets executed every time Sequelize would log something. The default value is `console.log` and when using that only the first log parameter of log function call is displayed. For example, for query logging the first parameter is the raw query and the second (hidden by default) is the Sequelize object.
+To ease debugging, you can enable logging in Sequelize. This is done by setting the `logging` option to a function that gets executed every time Sequelize needs to log something.
 
-Common useful values for `options.logging`:
+Examples:
 
 ```js
-const sequelize = new Sequelize('sqlite::memory:', {
-  // Choose one of the logging options
-  logging: console.log,                  // Default, displays the first parameter of the log function call
-  logging: (...msg) => console.log(msg), // Displays all log function call parameters
-  logging: false,                        // Disables logging
-  logging: msg => logger.debug(msg),     // Use custom logger (e.g. Winston or Bunyan), displays the first parameter
-  logging: logger.debug.bind(logger)     // Alternative way to use custom logger, displays all messages
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+
+  // Disables logging (default)
+  logging: false,
+
+  // Sends the logging output to the console
+  logging: console.log,
+
+  // You can also use an arbitrary function, which can be used to send logs to a logging tool
+  logging: (...msg) => console.log(msg),
 });
 ```
+
+:::tip
+
+If you need to log only specific queries, you can use the `logging` option in all model methods that execute queries,
+as well as all `queryInterface` methods.
+
+:::
 
 ## Next Step
 

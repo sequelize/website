@@ -27,6 +27,9 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
+          remarkPlugins: [
+            [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+          ],
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/sequelize/website/tree/main/',
           showLastUpdateAuthor: true,
@@ -217,6 +220,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ['bash'],
         magicComments: [
           {
             className: 'theme-code-block-highlighted-line',
