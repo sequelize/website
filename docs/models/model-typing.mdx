@@ -1,0 +1,106 @@
+---
+title: Typing your Model (TypeScript)
+sidebar_position: 8
+---
+
+# Typing your Model with TypeScript
+
+## Automated Attribute Typing
+
+Model methods are strictly typed based on your attributes, but require you to define you to write a bit of configuration first.
+`Model` accept two generic types that you can use to let it know what its Attributes & Creation Attributes are like:
+
+You can use [`InferAttributes`](pathname:///api/v7/types/_sequelize_core.index.inferattributes),
+and [`InferCreationAttributes`](pathname:///api/v7/types/_sequelize_core.index.infercreationattributes) to define them. They will extract Attribute typings
+directly from the Model:
+
+```typescript
+import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/decorators-legacy';
+import { Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+
+// order of InferAttributes & InferCreationAttributes is important.
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attribute(DataTypes.INTEGER)
+  @PrimaryKey
+  @AutoIncrement
+  // 'CreationOptional' is a special type that marks the attribute as optional
+  // when creating an instance of the model (such as using Model.create()).
+  declare id: CreationOptional<number>;
+
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare name: string;
+}
+
+// TypeScript will now be able to catch errors such as this typo:
+// error-next-line
+await User.create({ nAme: 'john' });
+```
+
+Important things to know about how [`InferAttributes`](pathname:///api/v7/types/_sequelize_core.index.inferattributes) & [`InferCreationAttributes`](pathname:///api/v7/types/_sequelize_core.index.infercreationattributes) work,
+they will select all declared properties of the class, except for:
+
+- Static fields and methods.
+- Methods (anything whose type is a function).
+- Those whose type uses the branded type [`NonAttribute`](pathname:///api/v7/types/_sequelize_core.index.nonattribute).
+- Those excluded by using InferAttributes like this: `InferAttributes<User, { omit: 'properties' | 'to' | 'omit' }>`.
+- Those declared by the Model superclass (but not intermediary classes!).
+  If one of your attributes shares the same name as one of the properties of [`Model`](pathname:///api/v7/classes/_sequelize_core.index.Model.html), change its name.
+  Doing this is likely to cause issues anyway.
+- Getter & setters are not automatically excluded. Set their return / parameter type to [`NonAttribute`](pathname:///api/v7/types/_sequelize_core.index.nonattribute),
+  or add them to `omit` to exclude them.
+
+[`InferCreationAttributes`](pathname:///api/v7/types/_sequelize_core.index.infercreationattributes) works the same way as [`InferAttributes`](pathname:///api/v7/types/_sequelize_core.index.inferattributes)
+with one exception; properties typed using the [`CreationOptional`](pathname:///api/v7/types/_sequelize_core.index.creationoptional) type will be marked as optional.
+Note that attributes that accept `null`, or `undefined` do not need to use [`CreationOptional`](pathname:///api/v7/types/_sequelize_core.index.creationoptional):
+
+```typescript
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare firstName: string;
+
+  // there is no need to use CreationOptional on firstName because nullable attributes
+  // are always optional when creating an instance of the model.
+  @Attribute(DataTypes.STRING)
+  declare lastName: string | null;
+}
+
+// last name omitted, but this is still valid!
+// success-next-line
+await User.create({ firstName: 'Zoé' });
+```
+
+You only need to use `CreationOptional` & `NonAttribute` on class instance fields or getters.
+
+Example of a minimal TypeScript project with strict type-checking for attributes:
+
+## Manual Attribute Typing
+
+`InferAttributes` & `InferCreationAttributes` don't cover all use cases yet. If these type don't work for you, you can also define your attributes manually,
+although it is much more verbose:
+
+```typescript
+import { Model } from '@sequelize/core';
+import type { PartialBy } from '@sequelize/utils';
+
+type UserAttributes = {
+  id: number,
+  name: string,
+};
+
+// we're telling the Model that 'id' is optional
+// when creating an instance of the model (such as using Model.create()).
+type UserCreationAttributes = PartialBy<UserAttributes, 'id'>;
+
+class User extends Model<UserAttributes, UserCreationAttributes> {
+  @Attribute(DataTypes.INTEGER)
+  @PrimaryKey
+  @AutoIncrement
+  declare id: number;
+
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare string: number;
+}
+```

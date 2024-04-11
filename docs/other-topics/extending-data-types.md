@@ -1,115 +1,174 @@
 ---
-title: Extending Data Types
+sidebar_position: 3
+title: Custom Data Types
 ---
 
-Most likely the type you are trying to implement is already included in our built-in [DataTypes](./other-data-types.mdx). If a new datatype is not included, this manual will show how to write it yourself.
+Most likely the type you are trying to implement is already included in our built-in [DataTypes](../models/data-types.mdx).
+If the data type you need is not included, this manual will show how to write it yourself, or extend an existing one.
 
-Sequelize doesn't create new DataTypes in the database. This tutorial explains how to make Sequelize recognize new DataTypes and assumes that those new DataTypes are already created in the database.
+## Creating a new Data Type
 
-To extend Sequelize DataTypes, do it before any Sequelize instance is created.
+A DataType is little more than a class that extends `DataTypes.ABSTRACT`, and implements its `toSql` method:
 
-## Example
+```typescript
+import { Sequelize, DataTypes } from '@sequelize/core';
 
-In this example, we will create a type called `SOMETYPE` that replicates the built-in datatype `DataTypes.INTEGER(11).ZEROFILL.UNSIGNED`.
+// All DataTypes must inherit from DataTypes.ABSTRACT.
+export class MyDateType extends DataTypes.ABSTRACT {
+  // toSql must return the SQL that will be used in a CREATE TABLE statement.
+  toSql() {
+    return 'TIMESTAMP';
+  }
+}
+```
 
-```js
-const { Sequelize, DataTypes, Utils } = require('@sequelize/core');
-createTheNewDataType();
-const sequelize = new Sequelize('sqlite::memory:');
+You can then use your new data type in your models:
 
-function createTheNewDataType() {
+```typescript
+import { MyDateType } from './custom-types.js';
 
-  class SOMETYPE extends DataTypes.ABSTRACT {
-    // Mandatory: complete definition of the new type in the database
-    toSql() {
-      return 'INTEGER(11) UNSIGNED ZEROFILL'
+const sequelize = new Sequelize(/* options */);
+
+const User = sequelize.define('User', {
+  birthday: {
+    // highlight-next-line
+    type: MyDateType,
+  },
+}, { timestamps: false, noPrimaryKey: true, underscored: true });
+
+await User.sync();
+```
+
+The above will produce the following SQL:
+
+```sql
+CREATE TABLE IF NOT EXISTS "users" (
+  "birthday" TIMESTAMP
+);
+```
+
+### Validating user inputs
+
+Right now, our Data Type is very simple. It doesn't do any normalization, and passes values as-is to the database.
+It has the same base behavior as if we set our [attribute's type to a string](../models/data-types.mdx#custom-data-types).
+
+You can implement a series of methods to change the behavior of your data type:
+
+- `validate(value): void` - This method is called when setting a value on an instance of your model. If it returns `false`, the value will be rejected.
+- `sanitize(value): unknown` - This method is called when setting a value on an instance of your model. It is called before validation. You can use it to normalize a value, such as converting a string to a Date object.
+- `areValuesEqual(a, b): boolean` - This method is called when comparing two values of your data type, when determining which attributes of your model need to be saved. 
+  If it returns `false`, the new value will be saved. By default, it uses lodash's `isEqual` method.
+
+```typescript
+import { Sequelize, DataTypes, ValidationErrorItem } from '@sequelize/core';
+
+export class MyDateType extends DataTypes.ABSTRACT<Date> {
+  toSql() {
+    return 'TIMESTAMP';
+  }
+  
+  sanitize(value: unknown): unknown {
+    if (value instanceof Date) {
+      return value;
     }
-
-    // Optional: validator function
-    validate(value, options) {
-      return (typeof value === 'number') && (!Number.isNaN(value));
+    
+    if (typeof value === 'string') {
+      return new Date(value);
     }
-
-    // Optional: sanitizer
-    _sanitize(value) {
-      // Force all numbers to be positive
-      return value < 0 ? 0 : Math.round(value);
+    
+    throw new ValidationErrorItem('Invalid date');
+  }
+  
+  validate(value: unknown): void {
+    if (!(value instanceof Date)) {
+      ValidationErrorItem.throwDataTypeValidationError('Value must be a Date object');
     }
-
-    // Optional: value stringifier before sending to database
-    _stringify(value) {
-      return value.toString();
-    }
-
-    // Optional: parser for values received from the database
-    static parse(value) {
-      return Number.parseInt(value);
+    
+    if (Number.isNaN(value.getTime())) {
+      ValidationErrorItem.throwDataTypeValidationError('Value is an Invalid Date');
     }
   }
-
-  // Mandatory: set the type key
-  SOMETYPE.prototype.key = SOMETYPE.key = 'SOMETYPE';
-
-  // Mandatory: add the new type to DataTypes. Optionally wrap it on `Utils.classToInvokable` to
-  // be able to use this datatype directly without having to call `new` on it.
-  DataTypes.SOMETYPE = Utils.classToInvokable(SOMETYPE);
-
-  // Optional: disable escaping after stringifier. Do this at your own risk, since this opens opportunity for SQL injections.
-  // DataTypes.SOMETYPE.escape = false;
-
-}
-```
-
-After creating this new datatype, you need to map this datatype in each database dialect and make some adjustments.
-
-## PostgreSQL
-
-Let's say the name of the new datatype is `pg_new_type` in the postgres database. That name has to be mapped to `DataTypes.SOMETYPE`. Additionally, it is required to create a child postgres-specific datatype.
-
-```js
-function createTheNewDataType() {
-  // [...]
-
-  const PgTypes = DataTypes.postgres;
-
-  // Mandatory: map postgres datatype name
-  DataTypes.SOMETYPE.types.postgres = ['pg_new_type'];
-
-  // Mandatory: create a postgres-specific child datatype with its own parse
-  // method. The parser will be dynamically mapped to the OID of pg_new_type.
-  PgTypes.SOMETYPE = function SOMETYPE() {
-    if (!(this instanceof PgTypes.SOMETYPE)) {
-      return new PgTypes.SOMETYPE();
+  
+  sanitize(value: unknown): unknown {
+    if (typeof value === 'string') {
+      return new Date(value);
     }
-    DataTypes.SOMETYPE.apply(this, arguments);
   }
-  const util = require('util'); // Built-in Node package
-  util.inherits(PgTypes.SOMETYPE, DataTypes.SOMETYPE);
-
-  // Mandatory: create, override or reassign a postgres-specific parser
-  // PgTypes.SOMETYPE.parse = value => value;
-  PgTypes.SOMETYPE.parse = DataTypes.SOMETYPE.parse || x => x;
-
-  // Optional: add or override methods of the postgres-specific datatype
-  // like toSql, escape, validate, _stringify, _sanitize...
-
 }
 ```
 
-### Ranges
+### Serializing & Deserializing
 
-After a new range type has been [defined in postgres](https://www.postgresql.org/docs/current/static/rangetypes.html#RANGETYPES-DEFINING), it is trivial to add it to Sequelize.
+We also have 4 methods that can be implemented to define how the Data Type serializes & deserializes values when interacting with the database:
 
-In this example the name of the postgres range type is `SOMETYPE_range` and the name of the underlying postgres datatype is `pg_new_type`. The key of `subtypes` and `castTypes` is the key of the Sequelize datatype `DataTypes.SOMETYPE.key`, in lower case.
+- `parseDatabaseValue(value): unknown`: Transforms values retrieved from the database[^caveat-1].
+- `toBindableValue(value): unknown`: Transforms a value into a value accepted by the connector library when using [bind parameters](../querying/raw-queries.mdx#bind-parameters).
+- `escape(value): string`: Escapes a value for inlining inside of raw SQL, such as when using [replacements](../querying/raw-queries.mdx#replacements).  
+  By default, if `toBindableValue` returns a string, this method will escape that string as a SQL string.
 
-```js
-function createTheNewDataType() {
-  // [...]
+```typescript
+import { DataTypes, StringifyOptions } from '@sequelize/core';
 
-  // Add postgresql range, SOMETYPE comes from DataType.SOMETYPE.key in lower case
-  DataTypes.RANGE.types.postgres.subtypes.SOMETYPE = 'SOMETYPE_range';
-  DataTypes.RANGE.types.postgres.castTypes.SOMETYPE = 'pg_new_type';
+export class MyDateType extends DataTypes.ABSTRACT<Date> {
+  // [...] truncated example
+  
+  parseDatabaseValue(value: unknown): Date {
+    assert(typeof value === 'string', 'Expected to receive a string from the database');
+    
+    return new Date(value);
+  }
+
+  toBindableValue(value: Date): unknown {
+    return value.toISOString();
+  }
+  
+  escape(value: Date, options: StringifyOptions): string {
+    return options.dialect.escapeString(value.toISOString());
+  }
 }
 ```
 
-The new range can be used in model definitions as `DataTypes.RANGE(DataTypes.SOMETYPE)` or `DataTypes.RANGE(DataTypes.SOMETYPE)`.
+## Modifying an existing Data Type
+
+You can inherit the implementation of an existing Data Type to customize its behavior.  
+To do so, make your class extend the Data Type you wish to modify instead of `DataTypes.ABSTRACT`.
+
+Note how the following example inherits from `DataTypes.STRING` instead of `DataTypes.ABSTRACT`:
+
+```typescript
+import { Sequelize, DataTypes } from '@sequelize/core';
+
+export class MyStringType extends DataTypes.STRING {
+  toSql() {
+    return 'TEXT';
+  }
+}
+```
+
+Just like with custom data types, use your Data Type class instead of the type you are extending:
+
+```typescript
+import { MyStringType } from './custom-types.js';
+
+const sequelize = new Sequelize(/* options */);
+
+const User = sequelize.define('User', {
+  firstName: {
+    // highlight-next-line
+    type: MyStringType,
+  },
+}, { timestamps: false, noPrimaryKey: true, underscored: true });
+
+await User.sync();
+```
+
+## Limitations
+
+Some dialects support the creation of custom SQL Data Types through the use of the [`CREATE TYPE`](https://www.postgresql.org/docs/current/sql-createtype.html) statement.
+This is the case of enums in postgres.
+
+When using `DataTypes.ENUM`, Sequelize will automatically create the enum type in the database. This is not possible for custom types.
+If you need to create a custom type, you will need to create it manually in the database before you can use it in one of your models.
+
+[^caveat-1]: `parseDatabaseValue` is only called if a Sequelize Data Type is specified in the query. 
+This is the case when using model methods, but not when using [raw queries](../querying/raw-queries.mdx) or when not specifying the model in [`QueryInterface`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html) methods

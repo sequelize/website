@@ -121,7 +121,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 });
 ```
 
-### MSSQL
+### Microsoft SQL Server (MSSQL)
 
 The underlying connector library used by Sequelize for MSSQL is the [tedious](https://www.npmjs.com/package/tedious) npm package (version 6.0.0 or above).
 
@@ -166,7 +166,7 @@ const sequelize = new Sequelize('database', null, null, {
 })
 ```
 
-### Snowflake (Experiment)
+### Snowflake (Experimental)
 
 The underlying connector library used by Sequelize for Snowflake is the [snowflake-sdk](https://www.npmjs.com/package/snowflake-sdk) npm package.
 
@@ -202,7 +202,7 @@ SEQ_ACCOUNT=myAccount SEQ_USER=myUser SEQ_PW=myPassword SEQ_ROLE=myRole SEQ_DB=m
 ### Oracle Database
 
 The underlying connector library used by Sequelize for Oracle is the [node-oracledb](https://www.npmjs.com/package/oracledb) package.  
-See [Releases](/releases#oracle-support-table) to see which versions of Oracle Database & node-oracledb are supported.
+See [Releases](/releases#oracle-database-support-table) to see which versions of Oracle Database & node-oracledb are supported.
 
 node-oracledb needs [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html) to work. You can use the node-oracledb [quick start](https://oracle.github.io/node-oracledb/INSTALL.html#quickstart) link for installations.
 
@@ -227,11 +227,18 @@ const sequelize = new Sequelize('oracle://user:pass@hostname:port/servicename');
 You can pass an Easy Connect String, a Net Service Name, or a Connect Descriptor to the Sequelize constructor using `dialectOptions.connectString`:
 
 ```js
-const sequelize = new Sequelize({dialect: 'oracle', username: 'user', password: 'password', dialectOptions: {connectString: 'inst1'}});
+const sequelize = new Sequelize({
+  dialect: 'oracle',
+  username: 'user',
+  password: 'password',
+  dialectOptions: {
+    connectString: 'inst1'
+  }
+});
 ```
 Note that the `database`, `host` and `port` will be overriden and the values in connectString will be used for authentication.
 
-Please refer to [Connect String](https://oracle.github.io/node-oracledb/doc/api.html#connectionstrings) for more about connect strings.
+Please refer to [Connect String](https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html#connectionstrings) for more about connect strings.
 
 ## Data type: TIMESTAMP WITHOUT TIME ZONE - PostgreSQL only
 
