@@ -1,0 +1,322 @@
+---
+sidebar_position: 4
+sidebar_label: Table & Column Naming Strategies
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Configuring Table & Column names
+
+:::info
+
+We are working on a new Naming Strategy API and seeking feedback. Don't hesitate to take a look at [issue #15312](https://github.com/sequelize/sequelize/issues/15312).
+
+:::
+
+This chapter is about customizing the name of Database Columns & Tables, not to be confused with JavaScript [Attributes & Models](../terminology.md).
+
+## Table Names
+
+Sequelize will automatically infer table names from your model names, unless a table name is provided manually.
+
+:::info
+
+We recommend naming your Models using the singular form of a word, in [UpperCamelCase](https://en.wikipedia.org/wiki/Pascal_case).
+*e.g. __User__ instead of __users__*
+
+:::
+
+By default, Sequelize uses a pluralized version of the model name as the table name.
+This pluralization is done under the hood by a library called [inflection](https://www.npmjs.com/package/inflection),
+which means irregular plurals (such as `person -> people`) are computed correctly:
+
+```javascript
+import { Model, Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
+
+class User extends Model {}
+
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+  models: [User],
+});
+
+console.log(User.table.tableName);
+// → Users
+```
+
+### Snake-case table names
+
+By default, Sequelize does not change the casing of your model name when inferring the table name.
+
+In some databases, it is conventional to have table names in [snake_case](https://en.wikipedia.org/wiki/Snake_case).
+You can make Sequelize generate a snake_cased table name by setting the [`underscored`](pathname:///api/v7/interfaces/_sequelize_core.index.ModelOptions.html#underscored) option.
+
+:::info
+
+The `underscored` option also impacts Column Names. [See *Snake-case column names*](#snake-case-column-names).
+
+:::
+
+```javascript
+import { Model, Sequelize } from '@sequelize/core';
+import { Table } from '@sequelize/core/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite3';
+
+@Table({
+  // highlight-next-line
+  underscored: true,
+})
+class User extends Model {}
+
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+  models: [User],
+});
+
+console.log(User.table.tableName);
+// → users (notice the lowercase u)
+```
+
+This behavior can also be defined globally by setting the option in the Sequelize constructor:
+
+```js
+import { Model, Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
+
+class User extends Model {}
+
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+  define: {
+    // highlight-next-line
+    underscored: true,
+  },
+  models: [User],
+});
+
+console.log(User.table.tableName);
+// → users
+```
+
+### Enforcing the table name to be equal to the model name
+
+You can stop the auto-pluralization performed by Sequelize using the [`freezeTableName: true`](pathname:///api/v7/interfaces/_sequelize_core.index.ModelOptions.html#freezeTableName) option.
+Sequelize will use the model name as the table name, without any modifications.
+
+Note that setting `freezeTableName` also causes Sequelize to ignore the `underscored` option for table names.
+
+```javascript
+import { SqliteDialect } from '@sequelize/sqlite3';
+import { Model, Sequelize } from '@sequelize/core';
+import { Table } from '@sequelize/core/decorators-legacy';
+
+@Table({
+  // highlight-next-line
+  freezeTableName: true,
+})
+class User extends Model {}
+
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+  models: [User],
+});
+
+console.log(User.table.tableName);
+// → User
+```
+
+This behavior can also be defined globally by setting the option in the Sequelize constructor:
+
+```js
+import { Model, Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
+
+class User extends Model {}
+
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+  define: {
+    // highlight-next-line
+    freezeTableName: true,
+  },
+  models: [User],
+});
+
+console.log(User.table.tableName);
+// → User
+```
+
+### Manually setting the table name
+
+You can also tell Sequelize the name of the table directly. This will skip any automatic table name generation options and bypass snake_casing and pluralization.
+
+```ts
+import { Model } from '@sequelize/core';
+import { Table } from '@sequelize/core/decorators-legacy';
+
+// highlight-next-line
+@Table({ tableName: 'users' })
+class User extends Model {}
+```
+
+## Column Names
+
+:::info
+
+We recommend naming your attributes in [lowerCamelCase](https://en.wikipedia.org/wiki/Pascal_case).
+*e.g. __createdAt__ instead of __created_at__*.
+
+:::
+
+By default, Sequelize will use the name of your attributes as-is as the name of your columns.
+
+### Snake-case column names
+
+Just like for [table names](#snake-case-table-names), the `underscored` option can be used
+to make Sequelize infer [snake_cased](https://en.wikipedia.org/wiki/Snake_case) column names from the attribute names.
+
+This option applies to any attribute that does not [explicitly set the `columnName` option](#manually-setting-the-column-name),
+including attributes automatically generated by Sequelize such as [association](../associations/basics.md) foreign-keys and [auto-generated timestamps](./auto-timestamps.mdx).
+
+---
+
+In the following example, we have the models User and Task, both using the `underscored` option.
+We also have a [One-to-Many relationship](../associations/basics.md#one-to-many-relationships) between them.
+
+<Tabs groupId="ts-js">
+<TabItem value="ts" label="TypeScript">
+
+```typescript
+import { Model, NonAttribute, InferAttributes, InferCreationAttributes } from '@sequelize/core';
+import { Table, Attribute, BelongsTo } from '@sequelize/core/decorators-legacy';
+
+@Table({ underscored: true })
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attribute(DataTypes.STRING)
+  declare username: string | null;
+}
+
+@Table({ underscored: true })
+class Task extends Model {
+  @Attribute(DataTypes.STRING)
+  declare title: string | null;
+
+  @BelongsTo(() => User)
+  declare user: NonAttribute<User>;
+
+  // added by @BelongsTo
+  declare UserId: number;
+}
+```
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
+
+```js
+import { Model } from '@sequelize/core';
+import { Table, Attribute, BelongsTo } from '@sequelize/core/decorators-legacy';
+
+@Table({ underscored: true })
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  username;
+}
+
+@Table({ underscored: true })
+class Task extends Model {
+  @Attribute(DataTypes.STRING)
+  title;
+
+  @BelongsTo(() => User)
+  user;
+}
+```
+
+</TabItem>
+</Tabs>
+
+:::info About Foreign Key Attributes
+
+[Associations](../associations/basics.md) automatically add the necessary Foreign Key attributes to your models.
+
+By default, the name of this attribute is equal to the name of the target model + the name of its primary key. In this example,
+an attribute called `UserId` is added on the `Task` model.
+
+:::
+
+Without the `underscored` option, Sequelize would automatically define:
+
+* A [`createdAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `createdAt` in each table.
+* An [`updatedAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `updatedAt` in each table.
+* A `UserId` attribute in the `Task` model, pointing to a column named `UserId` in the task table.
+
+With the `underscored` option enabled, Sequelize will instead define:
+
+* A [`createdAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `created_at` in each table.
+* An [`updatedAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `updated_at` in each table.
+* A `UserId` attribute in the `Task` model, pointing to a column named `user_id` in the task table.
+
+Note that in both cases the fields are still [camelCase](https://en.wikipedia.org/wiki/Camel_case) in the JavaScript side; this option only changes how these fields are mapped to the database itself. The `field` option of every attribute is set to their snake_case version, but the attribute itself remains camelCase.
+
+With `underscored: true`, calling `sequelize.sync()` after the above code will execute the following:
+
+```sql
+CREATE TABLE IF NOT EXISTS "users" (
+  "id" SERIAL,
+  "username" VARCHAR(255),
+  "created_at" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL,
+  PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "tasks" (
+  "id" SERIAL,
+  "title" VARCHAR(255),
+  "created_at" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "user_id" INTEGER REFERENCES "users" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
+  PRIMARY KEY ("id")
+);
+```
+
+### Manually setting the column name
+
+It is also possible to manually set the name of a column by using the `@ColumnName` decorator.
+This name takes precedences and will be used as-is. The `underscored` option is ignored for this column.
+
+<Tabs groupId="ts-js">
+<TabItem value="ts" label="TypeScript">
+
+```ts
+import { DataTypes, Model, InferAttributes, InferCreationAttributes } from '@sequelize/core';
+import { Attribute, ColumnName } from '@sequelize/core/decorators-legacy';
+
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attribute(DataTypes.STRING)
+  // This attribute will be named "first_name" in SQL, and "firstName" in JavaScript.
+  // highlight-next-line
+  @ColumnName('first_name')
+  declare firstName: number;
+}
+```
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
+
+```ts
+import { DataTypes, Model } from '@sequelize/core';
+import { Attribute, ColumnName } from '@sequelize/core/decorators-legacy';
+
+class User extends Model {
+  @Attribute(DataTypes.STRING)
+  // This attribute will be named "first_name" in SQL, and "firstName" in JavaScript.
+  // highlight-next-line
+  @ColumnName('first_name')
+  firstName;
+}
+```
+
+</TabItem>
+</Tabs>

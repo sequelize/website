@@ -3,7 +3,7 @@ sidebar_position: 3
 title: Custom Data Types
 ---
 
-Most likely the type you are trying to implement is already included in our built-in [DataTypes](./other-data-types.mdx).
+Most likely the type you are trying to implement is already included in our built-in [DataTypes](../models/data-types.mdx).
 If the data type you need is not included, this manual will show how to write it yourself, or extend an existing one.
 
 ## Creating a new Data Type
@@ -27,7 +27,7 @@ You can then use your new data type in your models:
 ```typescript
 import { MyDateType } from './custom-types.js';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize(/* options */);
 
 const User = sequelize.define('User', {
   birthday: {
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 ### Validating user inputs
 
 Right now, our Data Type is very simple. It doesn't do any normalization, and passes values as-is to the database.
-It has the same base behavior as if we set our [attribute's type to a string](./other-data-types.mdx#custom-data-types).
+It has the same base behavior as if we set our [attribute's type to a string](../models/data-types.mdx#custom-data-types).
 
 You can implement a series of methods to change the behavior of your data type:
 
@@ -102,8 +102,8 @@ export class MyDateType extends DataTypes.ABSTRACT<Date> {
 We also have 4 methods that can be implemented to define how the Data Type serializes & deserializes values when interacting with the database:
 
 - `parseDatabaseValue(value): unknown`: Transforms values retrieved from the database[^caveat-1].
-- `toBindableValue(value): unknown`: Transforms a value into a value accepted by the connector library when using [bind parameters](../core-concepts/raw-queries.md#bind-parameters).
-- `escape(value): string`: Escapes a value for inlining inside of raw SQL, such as when using [replacements](../core-concepts/raw-queries.md#replacements).  
+- `toBindableValue(value): unknown`: Transforms a value into a value accepted by the connector library when using [bind parameters](../querying/raw-queries.mdx#bind-parameters).
+- `escape(value): string`: Escapes a value for inlining inside of raw SQL, such as when using [replacements](../querying/raw-queries.mdx#replacements).  
   By default, if `toBindableValue` returns a string, this method will escape that string as a SQL string.
 
 ```typescript
@@ -150,7 +150,7 @@ Just like with custom data types, use your Data Type class instead of the type y
 ```typescript
 import { MyStringType } from './custom-types.js';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize(/* options */);
 
 const User = sequelize.define('User', {
   firstName: {
@@ -171,4 +171,4 @@ When using `DataTypes.ENUM`, Sequelize will automatically create the enum type i
 If you need to create a custom type, you will need to create it manually in the database before you can use it in one of your models.
 
 [^caveat-1]: `parseDatabaseValue` is only called if a Sequelize Data Type is specified in the query. 
-This is the case when using model methods, but not when using [raw queries](../core-concepts/raw-queries.md) or when not specifying the model in [`QueryInterface`](pathname:///api/v7/classes/QueryInterface.html) methods
+This is the case when using model methods, but not when using [raw queries](../querying/raw-queries.mdx) or when not specifying the model in [`QueryInterface`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html) methods

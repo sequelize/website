@@ -2,9 +2,19 @@
 title: Scopes
 ---
 
-Scopes are used to help you reuse code. You can define commonly used queries, specifying options such as `where`, `include`, `limit`, etc.
+:::warning
 
-This guide concerns model scopes. You might also be interested in the [guide for association scopes](../advanced-association-concepts/association-scopes.md), which are similar but not the same thing.
+Scopes are a fragile feature that we do not recommend using beyond very simple scopes. Proceed with caution.
+
+:::
+
+:::info
+
+This section concerns model scopes, not to be confused with [association scopes](../associations/association-scopes.md).
+
+:::
+
+Scopes are used to help you reuse code. You can define commonly used queries, specifying options such as `where`, `include`, `limit`, etc.
 
 ## Definition
 
@@ -53,7 +63,7 @@ Project.init({
 });
 ```
 
-You can also add scopes after a model has been defined by calling [`YourModel.addScope`](pathname:///api/v7/classes/Model.html#addScope). This is especially useful for scopes with includes, where the model in the include might not be defined at the time the other model is being defined.
+You can also add scopes after a model has been defined by calling [`YourModel.addScope`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#addScope). This is especially useful for scopes with includes, where the model in the include might not be defined at the time the other model is being defined.
 
 The default scope is always applied. This means, that with the model definition above, `Project.findAll()` will create the following query:
 
@@ -172,9 +182,9 @@ Using `.scope('scope1', 'scope2')` will yield the following WHERE clause:
 WHERE firstName = 'bob' AND age > 20 AND age < 30 LIMIT 10
 ```
 
-Note how `limit` is overwritten by `scope2`, while `firstName` and both conditions on `age` are preserved. The `limit`, `offset`, `order`, `paranoid`, `lock` and `raw` fields are overwritten, while `where` fields are merged using the `AND` operator. The merge strategy for `include` will be discussed later on.
+Note how `limit` is overwritten by `scope2`, while `firstName` and both conditions on `age` are preserved. The `limit`, `offset`, `order`, `paranoid`, `lock` and `raw` options are overwritten, while `where` options are merged using the `AND` operator. The merge strategy for `include` will be discussed later on.
 
-Note that `attributes` keys of multiple applied scopes are merged in such a way that `attributes.exclude` are always preserved. This allows merging several scopes and never leaking sensitive fields in final scope.
+Note that `attributes` keys of multiple applied scopes are merged in such a way that `attributes.exclude` are always preserved. This allows merging several scopes and never leaking sensitive attributes in final scope.
 
 The same merge logic applies when passing a find object directly to `findAll` (and similar finders) on a scoped model:
 

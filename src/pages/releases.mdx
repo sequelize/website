@@ -12,7 +12,7 @@ This page regroups information related to which engines versions are supported b
 
 | Sequelize                       |  [Node.js][node-releases]  | [Typescript][ts-releases] | Release Date | EOL        |
 |---------------------------------|----------------------------|---------------------------|--------------|------------|
-| [7 (alpha)][sequelize-core]     | ^14.17.0 \|\| >= 16.0.0    | >= 4.7                    | ❓           | ❓         |
+| [7 (alpha)][sequelize-core]     | >= 18.0.0                  | >= 5.0                    | ❓           | ❓         |
 | [6 (current)][sequelize-legacy] | >= 10                      | >= 4.1                    | 2020-06-24   | ❓         |
 | 5 (eol)                         | >=6                        | >= 3.1                    | 2019-03-13   | 2022-01-01 |
 
@@ -25,20 +25,20 @@ This page regroups information related to which engines versions are supported b
 
 ## PostgreSQL Support Table
 
-PostgreSQL requires the use of the [pg][pg] (or [pg-native]) npm package.  
-[Read more about this here](/docs/v7/other-topics/dialect-specific-things/#postgresql).
+In Sequelize 6, PostgreSQL requires the installation of the [pg][pg] (or [pg-native]) npm package.
+[Read more about this here](/docs/v6/other-topics/dialect-specific-things/#postgresql).
 
 :::note
 
 According to [pg's documentation](https://node-postgres.com/#version-compatibility),
-only pg >= 8.2 is compatible with Node 14.  
+only pg >= 8.2 is compatible with Node 14.
 If you're trying to use Sequelize 6 in Node 14 or newer, use that version of pg.
 
 :::
 
 | Sequelize   | [PostgreSQL][postgres] | [pg]                                         | [pg-native]    |
 |-------------|------------------------|----------------------------------------------|----------------|
-| 7 (alpha)   | >= 11                  | >= 8.2                                       | >=3.0.0 [^⚠️1] |
+| 7 (alpha)   | >= 11                  | N/A[^1]                                          | >=3.0.0        |
 | 6 (current) | >= 9.5                 | >= 7.8 (node < 14) <br/> >= 8.2 (node >= 14) | >=3.0.0        |
 
 [postgres]: https://www.postgresql.org/support/versioning/
@@ -47,12 +47,12 @@ If you're trying to use Sequelize 6 in Node 14 or newer, use that version of pg.
 
 ## MariaDB Support Table
 
-MariaDB requires the use of the [mariadb][mariadb-npm] npm package.  
-[Read more about this here](/docs/v7/other-topics/dialect-specific-things/#mariadb).
+In Sequelize 6, MariaDB requires the installation of the [mariadb][mariadb-npm] npm package.
+[Read more about this here](/docs/v6/other-topics/dialect-specific-things/#mariadb).
 
 | Sequelize   | [MariaDB][mariadb] | [mariadb (npm)][mariadb-npm] |
 |-------------|--------------------|------------------------------|
-| 7 (alpha)   | >=10.3             | >= 3.0.0 [^⚠️2]              |
+| 7 (alpha)   | >=10.4.30          | N/A[^1]                      |
 | 6 (current) | >=10.3             | ^2.3.3                       |
 
 [mariadb]: https://mariadb.org/about/#maintenance-policy
@@ -60,12 +60,12 @@ MariaDB requires the use of the [mariadb][mariadb-npm] npm package.
 
 ## MySQL Support Table
 
-MySQL requires the use of the [mysql2] npm package.  
-[Read more about this here](/docs/v7/other-topics/dialect-specific-things/#mysql).
+In Sequelize 6, MySQL requires the installation of the [mysql2] npm package.
+[Read more about this here](/docs/v6/other-topics/dialect-specific-things/#mysql).
 
 | Sequelize   | [MySQL][mysql] | [mysql2] |
 |-------------|----------------|----------|
-| 7 (alpha)   | ^5.7, ^8.0     | >= 2.3.3 |
+| 7 (alpha)   | >=8.0.19       | N/A[^1]  |
 | 6 (current) | ^5.7, ^8.0     | >= 2.3.3 |
 
 [mysql]: https://endoflife.date/mysql
@@ -73,12 +73,12 @@ MySQL requires the use of the [mysql2] npm package.
 
 ## Microsoft SQL Server (mssql) Support Table
 
-MSSQL requires the use of the [tedious] npm package.  
-[Read more about this here](/docs/v7/other-topics/dialect-specific-things/#microsoft-sql-server-mssql).
+In Sequelize 6, MSSQL requires the installation of the [tedious] npm package.
+[Read more about this here](/docs/v6/other-topics/dialect-specific-things/#microsoft-sql-server-mssql).
 
 | Sequelize   | [SQL Server][mssql] | [tedious] |
 |-------------|---------------------|-----------|
-| 7 (alpha)   | 2017-2022           | ^14.4.0   |
+| 7 (alpha)   | 2017-2022           | N/A[^1]   |
 | 6 (current) | 2014-2019           | ^8.3.0    |
 
 [mssql]: https://endoflife.date/mssqlserver
@@ -86,8 +86,10 @@ MSSQL requires the use of the [tedious] npm package.
 
 ## SQLite Support Table
 
-Sequelize uses the `sqlite3` npm library.  
-[Read more about this here](/docs/v7/other-topics/dialect-specific-things/#sqlite).
+In Sequelize 6, Sequelize requires the installation of the `sqlite3` npm library.
+[Read more about this here](/docs/v6/other-topics/dialect-specific-things/#sqlite).
+
+Sequelize 7 still uses `sqlite3` as the driver for SQLite, but does not require it to be installed manually.
 
 :::note
 
@@ -95,17 +97,16 @@ sqlite3@^4 has security vulnerabilities which are fixed by the [@vscode/sqlite3]
 
 :::
 
-| Sequelize   | [sqlite3]                                                      |
-|-------------|----------------------------------------------------------------|
-| 7 (alpha)   | `sqlite3@^5.0.3`                                   |
+| Sequelize   | [sqlite3]                                      |
+|-------------|------------------------------------------------|
 | 6 (current) | `@vscode/sqlite3@^4.0.12`, or `sqlite3@^5.0.3` |
 
 [sqlite3]: https://www.npmjs.com/package/sqlite3
 
 ## Snowflake Support Table
 
-Snowflake requires the use of the [snowflake-sdk] npm package.  
-[Read more about this here](/docs/v7/other-topics/dialect-specific-things/#snowflake).
+In Sequelize 6, Snowflake requires the installation of the [snowflake-sdk] npm package.
+[Read more about this here](/docs/v6/other-topics/dialect-specific-things/#snowflake-experimental).
 
 :::note
 
@@ -116,64 +117,52 @@ support for Snowflake is limited as it is not handled by the core team.
 
 | Sequelize   | [Snowflake](https://www.snowflake.com/pricing/) | [snowflake-sdk] |
 |-------------|-------------------------------------------------|-----------------|
-| 7 (alpha)   | all                                             | ^1.6.0          |
+| 7 (alpha)   | all                                             | N/A[^1]          |
 | 6 (current) | all                                             | ^1.6.0          |
 
 [snowflake-sdk]: https://www.npmjs.com/package/snowflake-sdk
 
-## Db2 Support Table
+## DB2 for LUW Support Table
 
-Db2 requires the use of the [ibm_db] npm package.  
-[Read more about this here](/docs/v7/other-topics/dialect-specific-things/#db2).
-
-:::note
-
-While this dialect is included in Sequelize,
-support for Db2 is limited as it is not handled by the core team.
-
-:::
+In Sequelize 6, DB2 for Linux, Unix & Windows requires the installation of the [ibm_db] npm package.
 
 | Sequelize   | [Db2][db2] | [ibm_db] |
 |-------------|------------|----------|
-| 7 (alpha)   | >= 11.5    | ^2.8.0   |
+| 7 (alpha)   | >= 11.5    | N/A[^1]   |
 | 6 (current) | >= 11.5    | ^2.8.0   |
 
 [db2]: https://www.ibm.com/support/pages/db2-distributed-end-support-eos-dates
 [ibm_db]: https://www.npmjs.com/package/ibm_db
 
-## Db2 for IBM i Support Table
-
-Db2 for IBM i requires the use of the [odbc] npm package.  
-[Read more about this here](/docs/v7/other-topics/dialect-specific-things/#db2-for-ibm-i).
+## DB2 for IBM i Support Table
 
 :::note
 
 While this dialect is included in Sequelize,
-support for Db2 for IBM i is limited as it is not handled by the core team.
+support for DB2 for IBM i is limited as it is not handled by the core team.
 
 :::
 
-| Sequelize   | [Db2 for IBM i][ibmi] | [odbc]        |
-|-------------|-----------------------|---------------|
-| 7 (alpha)   | unknown               | ^2.4.0        |
-| 6 (current) | not available         | not available |
+| Sequelize   | [Db2 for IBM i][ibmi] |
+|-------------|-----------------------|
+| 7 (alpha)   | unknown               |
+| 6 (current) | not available         |
 
 [ibmi]: https://www.ibm.com/support/pages/db2-ibm-i
 [odbc]: https://www.npmjs.com/package/odbc
 
 ## Oracle Database Support Table
 
-Oracle Database requires the use of the [node-oracledb] npm package.  
-[Read more about this here](/docs/v7/other-topics/dialect-specific-things/#oracle).
+In Sequelize 6, Oracle Database requires the installation of the [node-oracledb] npm package.
+[Read more about this here](/docs/v6/other-topics/dialect-specific-things/#oracle-database).
 
 | Sequelize   | [Oracle Database]   | [node-oracledb] |
 |-------------|---------------------|-----------------|
-| 7 (alpha)   |      upcoming       |    upcoming     |
+| 7 (alpha)   |      upcoming       |    N/A[^1]     |
 | 6 (current) |      >= 18.4        |    ^5.4.0       |
 
 [Oracle Database]: https://www.oracle.com/database/technologies/oracle-database-software-downloads.html
 [node-oracledb]: https://www.npmjs.com/package/oracledb
 
-[^⚠️1]: `pg-native` [hasn't had a release since 2018](https://www.npmjs.com/package/pg-native).
-Sequelize will still test against it, but its reliability is degraded in Node >=17.
+[^1]: Connector libraries do not need to be installed manually anymore.
 [^⚠️2]: Support for mariadb 3 has not been completed yet https://github.com/sequelize/sequelize/pull/14187

@@ -120,7 +120,7 @@ export default function HomepageFeatures(): JSX.Element {
           </Link>,{' '}
           <Link
             className="topics"
-            to="/docs/v6/other-topics/other-data-types/#json-sqlite-mysql-mariadb-and-postgresql-only"
+            to="/docs/v6/other-topics/other-data-types/#json-sqlite-mysql-mariadb-oracle-and-postgresql-only"
           >JSON querying
           </Link>,{' '}
           <Link

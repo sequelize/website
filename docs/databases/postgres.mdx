@@ -1,0 +1,113 @@
+---
+title: PostgreSQL
+sidebar_position: 1
+---
+
+# Sequelize for PostgreSQL
+
+:::info Version Compatibility
+
+See [Releases](/releases#postgresql-support-table) to see which versions of PostgreSQL are supported.
+
+:::
+
+To use Sequelize with PostgreSQL, you need to install the `@sequelize/postgres` dialect package:
+
+```bash npm2yarn
+npm i @sequelize/postgres
+```
+
+Then use the `PostgresDialect` class as the dialect option in the Sequelize constructor:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { PostgresDialect } from '@sequelize/postgres';
+
+const sequelize = new Sequelize({
+  dialect: PostgresDialect,
+  database: 'mydb',
+  user: 'myuser',
+  password: 'mypass',
+  host: 'localhost',
+  port: 5432,
+  ssl: true,
+  clientMinMessages: 'notice',
+});
+```
+
+## Connection Options
+
+import ConnectionOptions from './_connection-options.md';
+
+<ConnectionOptions />
+
+The following options are accepted by the PostgreSQL dialect:
+
+| Option                                | Description                                                                                                                                                                                                                                                                |
+|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `database`                            | The name of the database to connect to.                                                                                                                                                                                                                                    |
+| `user`                                | The user to authenticate as.                                                                                                                                                                                                                                               |
+| `password`                            | The user's password.                                                                                                                                                                                                                                                       |
+| `host`                                | The host to connect to (either an IP, a domain name, or a path to a Unix socket).                                                                                                                                                                                          |
+| `port`                                | The port to connect to. Default is `5432`.                                                                                                                                                                                                                                 |
+| `ssl`                                 | The SSL configuration to use when connecting to the server. Passed directly to [`TLSSocket`](https://nodejs.org/docs/latest/api/tls.html#class-tlstlssocket), supports all [`tls.connect`](https://nodejs.org/docs/latest/api/tls.html#tlsconnectoptions-callback) options |
+| `query_timeout`                       | The number of milliseconds before a query call will timeout, default is no timeout.                                                                                                                                                                                        |
+| `connectionTimeoutMillis`             | The number of milliseconds to wait for a connection, default is no timeout.                                                                                                                                                                                                |
+| `application_name`                    | Configures [the `application_name` PostgreSQL option](https://www.postgresql.org/docs/current/runtime-config-logging.html#GUC-APPLICATION-NAME) for the connection.                                                                                                        |
+| `statement_timeout`                   | Configures [the `statement_timeout` PostgreSQL option](https://www.postgresql.org/docs/current/runtime-config-client.html#GUC-STATEMENT-TIMEOUT) for the connection.                                                                                                       |
+| `idle_in_transaction_session_timeout` | Configures [the `idle_in_transaction_session_timeout` PostgreSQL option](https://www.postgresql.org/docs/current/runtime-config-client.html#GUC-IDLE-IN-TRANSACTION-SESSION-TIMEOUT) for the connection.                                                                   |
+| `client_encoding`                     | Configures [the `client_encoding` PostgreSQL option](https://www.postgresql.org/docs/current/runtime-config-client.html#GUC-CLIENT-ENCODING) for the connection. Default is `utf8`.                                                                                        |
+| `lock_timeout`                        | Configures [the `lock_timeout` PostgreSQL option](https://www.postgresql.org/docs/current/runtime-config-client.html#GUC-LOCK-TIMEOUT) for the connection.                                                                                                                 |
+| `options`                             | Configures [the `options` libpq option](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNECT-OPTIONS) for the connection.                                                                                                                              |
+| `keepAlive`                           | Configures [the libpq `keepalives` option](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-KEEPALIVES). Must be a boolean.                                                                                                                                |
+| `keepAliveInitialDelayMillis`         | Configures [the libpq `keepalives_idle` option](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-KEEPALIVES-IDLE), but in milliseconds (will be rounded down to the nearest second).                                                                       |
+
+:::info
+
+Sequelize uses the `pg` package to connect to PostgreSQL. 
+Most of the above options are provided as-is to the `pg` package,
+and you can find more information about them in the [pg documentation](https://node-postgres.com/apis/client#new-client).
+
+:::
+
+### Connection via Unix Socket
+
+To connect to PostgreSQL using a Unix socket, you can use the `host` option with the absolute path to the socket file:
+
+```ts
+const sequelize = new Sequelize({
+  dialect: PostgresDialect,
+  host: '/var/run/postgresql',
+});
+```
+
+## Other PostgreSQL Options
+
+The following options are also available for PostgreSQL:
+
+| Option                      | Description                                                                                                                                                                                                                                                                                                                                                                     |
+|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `clientMinMessages`         | Configures [the `client_min_messages` PostgreSQL option](https://www.postgresql.org/docs/current/runtime-config-client.html#GUC-CLIENT-MIN-MESSAGES) for all connections. Defaults to "warning".                                                                                                                                                                                |
+| `standardConformingStrings` | Configures [the `standard_conforming_strings` PostgreSQL option](https://www.postgresql.org/docs/current/runtime-config-compatible.html#GUC-STANDARD-CONFORMING-STRINGS) for all connections. If your PostgreSQL server is configured with `standard_conforming_strings = off`, it is extremely important to set this option to `false` to avoid SQL injection vulnerabilities. |
+| `native`                    | If true, Sequelize will use the `pg-native` package instead of the `pg` package. `pg-native` must be installed separately.                                                                                                                                                                                                                                                      |
+
+## Amazon Redshift
+
+:::caution
+
+While Redshift is based on PostgreSQL, it does not support the same set of features as PostgreSQL.
+
+As we do not have access to a Redshift instance, we cannot guarantee that Sequelize will work correctly with Redshift,
+and we rely on the help of the community to keep this documentation up to date.
+
+:::
+
+Redshift doesn't support `client_min_messages`, you must set it to `'ignore'`:
+
+```ts
+new Sequelize({
+  dialect: PostgresDialect,
+  // Your pg options here
+  clientMinMessages: 'ignore',
+});
+```
