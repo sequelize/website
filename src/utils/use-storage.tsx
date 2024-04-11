@@ -27,23 +27,28 @@ function getEventTarget(storage: Storage) {
 
 export type TStorageSetValue<T> = (newValue: T | undefined | ((oldValue: T) => T)) => void;
 
-export type TJsonSerializable = number | boolean | string | null
+export type TJsonSerializable =
+  | number
+  | boolean
+  | string
+  | null
   | TJsonSerializable[]
   | { [key: string]: TJsonSerializable };
 
-type TStorageHook = <T extends TJsonSerializable>(key: string, defaultValue: T) => [T, TStorageSetValue<T>];
+type TStorageHook = <T extends TJsonSerializable>(
+  key: string,
+  defaultValue: T,
+) => [T, TStorageSetValue<T>];
 
 let lastHookId = 0;
 
 export function createStorageHook(storage: Storage = new Storage()): TStorageHook {
-
   // window.onstorage only triggers cross-realm. This is used to notify other useLocalStorage on the same page that it changed
 
-  return function useStorage<T extends TJsonSerializable>(key: string, defaultValue: T): [
-    /* get */ T,
-    /* set */ TStorageSetValue<T>,
-  ] {
-
+  return function useStorage<T extends TJsonSerializable>(
+    key: string,
+    defaultValue: T,
+  ): [/* get */ T, /* set */ TStorageSetValue<T>] {
     const hookIdRef = useRef<number | null>(null);
     if (hookIdRef.current === null) {
       hookIdRef.current = lastHookId++;
@@ -72,39 +77,46 @@ export function createStorageHook(storage: Storage = new Storage()): TStorageHoo
     const currentValue = useRef(internalValue);
     currentValue.current = internalValue;
 
-    const setValue: TStorageSetValue<T> = useCallback((val: T | undefined | ((oldVal: T) => T)) => {
-      if (typeof val === 'function') {
-        val = val(currentValue.current);
-      }
+    const setValue: TStorageSetValue<T> = useCallback(
+      (val: T | undefined | ((oldVal: T) => T)) => {
+        if (typeof val === 'function') {
+          val = val(currentValue.current);
+        }
 
-      if (currentValue.current === val) {
-        return;
-      }
-
-      // removeItem
-      if (val === undefined) {
-        currentValue.current = defaultValueRef.current;
-        setInternalValue(defaultValueRef.current);
-
-        if (storage.getItem(key) == null) {
+        if (currentValue.current === val) {
           return;
         }
 
-        storage.removeItem(key);
-      } else {
-        const stringified = JSON.stringify(val);
-        currentValue.current = val;
-        setInternalValue(val);
+        // removeItem
+        if (val === undefined) {
+          currentValue.current = defaultValueRef.current;
+          setInternalValue(defaultValueRef.current);
 
-        if (stringified === storage.getItem(key)) {
-          return;
+          if (storage.getItem(key) == null) {
+            return;
+          }
+
+          storage.removeItem(key);
+        } else {
+          const stringified = JSON.stringify(val);
+          currentValue.current = val;
+          setInternalValue(val);
+
+          if (stringified === storage.getItem(key)) {
+            return;
+          }
+
+          storage.setItem(key, stringified);
         }
 
-        storage.setItem(key, stringified);
-      }
-
-      eventTarget.dispatchEvent(new CustomEvent(`uls:storage:${key}`, { detail: { val, sourceHook: hookIdRef.current } }));
-    }, [eventTarget, key]);
+        eventTarget.dispatchEvent(
+          new CustomEvent(`uls:storage:${key}`, {
+            detail: { val, sourceHook: hookIdRef.current },
+          }),
+        );
+      },
+      [eventTarget, key],
+    );
 
     useEffect(() => {
       function crossRealmOnChange(e: StorageEvent) {
@@ -147,16 +159,24 @@ export function createStorageHook(storage: Storage = new Storage()): TStorageHoo
   };
 }
 
-function ssrHook<T extends TJsonSerializable>(key: string, defaultValue: T): [T, TStorageSetValue<T>] {
-  return [defaultValue, () => {
-    throw new Error('setState is not supposed to be called server-side.');
-  }];
+function ssrHook<T extends TJsonSerializable>(
+  key: string,
+  defaultValue: T,
+): [T, TStorageSetValue<T>] {
+  return [
+    defaultValue,
+    () => {
+      throw new Error('setState is not supposed to be called server-side.');
+    },
+  ];
 }
 
-export const useLocalStorage: TStorageHook = typeof window !== 'undefined' && typeof localStorage !== 'undefined'
-  ? createStorageHook(localStorage)
-  : ssrHook;
+export const useLocalStorage: TStorageHook =
+  typeof window !== 'undefined' && typeof localStorage !== 'undefined'
+    ? createStorageHook(localStorage)
+    : ssrHook;
 
-export const useSessionStorage: TStorageHook = typeof window !== 'undefined' && typeof localStorage !== 'undefined'
-? createStorageHook(sessionStorage)
-: ssrHook;
+export const useSessionStorage: TStorageHook =
+  typeof window !== 'undefined' && typeof localStorage !== 'undefined'
+    ? createStorageHook(sessionStorage)
+    : ssrHook;

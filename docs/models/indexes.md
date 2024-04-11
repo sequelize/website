@@ -10,7 +10,7 @@ You have multiple ways of defining indexes on a model.
 
 ## Single-column index
 
-The `@Index` decorator is the simplest solution to define an index. It is ideal for single-column indexes. 
+The `@Index` decorator is the simplest solution to define an index. It is ideal for single-column indexes.
 To define an index, you use the `@Index` decorator on the attribute you want to index:
 
 ```ts
@@ -26,7 +26,7 @@ class User extends Model {
 }
 ```
 
-The `@Index` decorator accepts an optional options bag as a parameter. 
+The `@Index` decorator accepts an optional options bag as a parameter.
 The list of available options is available in the [API documentation](pathname:///api/v7/interfaces/_sequelize_core.index.AttributeIndexOptions.html#attribute).
 
 Here is an example of a single-column _gin_ index:
@@ -61,7 +61,7 @@ class User extends Model {
 
 ## Simple Multi-column indexes
 
-In the above example, we gave our index a custom name using the `name` option. This can also be exploited to create multi-column indexes: 
+In the above example, we gave our index a custom name using the `name` option. This can also be exploited to create multi-column indexes:
 You can use the same index name for multiple columns and Sequelize will create a single multi-column index for you:
 
 ```ts
@@ -99,7 +99,7 @@ class User extends Model {
   @Attribute(DataTypes.STRING)
   @NotNull
   // highlight-start
-  @Index({ 
+  @Index({
     name: 'firstName-lastName',
     // note: collations vary greatly between databases, this is just an example.
     // You should check your database's documentation on collations for more information.
@@ -112,7 +112,7 @@ class User extends Model {
 
 :::caution
 
-While it's possible to use options other than `name` and `attribute` in multi-column indexes that use the `@Index` decorator, the practice is discouraged as 
+While it's possible to use options other than `name` and `attribute` in multi-column indexes that use the `@Index` decorator, the practice is discouraged as
 you would have to repeat the same options on each attribute. Use [`createIndexDecorator`](#complex-multi-column-indexes) for that use case instead.
 
 :::
@@ -132,7 +132,7 @@ class User extends Model {
   @NotNull
   @Index({
     // error-start
-    name: 'firstName-lastName', 
+    name: 'firstName-lastName',
     type: 'fulltext',
     concurrently: true,
     // error-end
@@ -153,7 +153,7 @@ class User extends Model {
 }
 ```
 
-Notice how we had to repeat the same options on each attribute. This can become verbose very quickly. 
+Notice how we had to repeat the same options on each attribute. This can become verbose very quickly.
 With `createIndexDecorator`, you only have to specify the options once:
 
 ```ts
@@ -198,10 +198,7 @@ import { Table, Attribute, NotNull } from '@sequelize/core/decorators-legacy';
       type: 'fulltext',
       concurrently: true,
       // The "fields" option defines the list of attributes that make up the index, and their options:
-      fields: [
-        'firstName', 
-        { name: 'lastName', collate: 'case_insensitive' },
-      ],
+      fields: ['firstName', { name: 'lastName', collate: 'case_insensitive' }],
     },
   ],
   // highlight-end
@@ -323,14 +320,14 @@ class Book extends Model {
   // highlight-next-line
   @MyIndex
   declare title: string;
-  
+
   @Attribute(DataTypes.STRING)
   @NotNull
   // highlight-start
-  @MyIndex({ 
+  @MyIndex({
     collate: 'en_US',
     order: 'DESC',
-    length: 5
+    length: 5,
   })
   // highlight-end
   declare title: string;

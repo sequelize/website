@@ -14,36 +14,32 @@ module.exports = {
     'plugin:mdx/recommended',
   ],
   rules: {
-    // there are not supported enough in recent browsers to justify enforcing their usage
-    'prefer-object-has-own': 'off',
-    'unicorn/prefer-at': 'off',
-    'unicorn/prefer-string-replace-all': 'off',
-
-    'unicorn/prefer-spread': 'off',
     'unicorn/no-useless-undefined': 'off',
   },
-  overrides: [{
-    files: ['*.mdx/**', '*.md/**'],
-    rules: {
-      // these rules require proper type-checking and cannot be enabled on code snippets inside markdown files
-      '@typescript-eslint/dot-notation': 'off',
-      '@typescript-eslint/return-await': 'off',
-      '@typescript-eslint/no-throw-literal': 'off',
-      '@typescript-eslint/no-implied-eval': 'off',
-      '@typescript-eslint/no-floating-promises': 'off',
-      '@typescript-eslint/no-misused-promises': 'off',
-      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
-      '@typescript-eslint/non-nullable-type-assertion-style': 'off',
-      '@typescript-eslint/prefer-includes': 'off',
-      '@typescript-eslint/prefer-readonly': 'off',
-      '@typescript-eslint/prefer-string-starts-ends-with': 'off',
-      '@typescript-eslint/restrict-plus-operands': 'off',
-      '@typescript-eslint/require-array-sort-compare': 'off',
-      '@typescript-eslint/promise-function-async': 'off',
-      '@typescript-eslint/consistent-type-exports': 'off',
-      '@typescript-eslint/prefer-return-this-type': 'off',
+  overrides: [
+    {
+      files: ['*.mdx/**', '*.md/**'],
+      rules: {
+        // these rules require proper type-checking and cannot be enabled on code snippets inside markdown files
+        '@typescript-eslint/dot-notation': 'off',
+        '@typescript-eslint/return-await': 'off',
+        '@typescript-eslint/no-throw-literal': 'off',
+        '@typescript-eslint/no-implied-eval': 'off',
+        '@typescript-eslint/no-floating-promises': 'off',
+        '@typescript-eslint/no-misused-promises': 'off',
+        '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+        '@typescript-eslint/non-nullable-type-assertion-style': 'off',
+        '@typescript-eslint/prefer-includes': 'off',
+        '@typescript-eslint/prefer-readonly': 'off',
+        '@typescript-eslint/prefer-string-starts-ends-with': 'off',
+        '@typescript-eslint/restrict-plus-operands': 'off',
+        '@typescript-eslint/require-array-sort-compare': 'off',
+        '@typescript-eslint/promise-function-async': 'off',
+        '@typescript-eslint/consistent-type-exports': 'off',
+        '@typescript-eslint/prefer-return-this-type': 'off',
+      },
     },
-  }],
+  ],
   ignorePatterns: [
     // archives
     'static/v1',

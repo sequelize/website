@@ -154,7 +154,7 @@ SELECT * FROM "posts" WHERE "tags" IN ('cooking', 'food') AND "jsonMetadata"->'k
   features={{
     'IS NULL': true,
     'IS true, IS false': {
-      PostgreSQL: 'https://www.postgresql.org/docs/current/functions-comparison.html'
+      PostgreSQL: 'https://www.postgresql.org/docs/current/functions-comparison.html',
     },
   }}
 />
@@ -588,6 +588,7 @@ SELECT * FROM "posts" WHERE "tags" <@ ARRAY['popular', 'trending'];
 :::info
 
 Both operands of the `Op.contains` and `Op.contained` operators must be arrays.
+
 - If you need to check whether an array contains a single value, you need to wrap the value in an array.
 - If you want to check if a single value is contained in an array, you can use the [`Op.any`](#all-any--values) or [`Op.in`](#in-operator) operators instead.
 
@@ -648,7 +649,9 @@ Post.findAll({
   where: {
     // publishedDuring is a range of dates
     // This checks if a date range is fully contained within the publishedDuring range
-    publishedDuring: { [Op.contains]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+    publishedDuring: {
+      [Op.contains]: [new Date('2019-01-01'), new Date('2023-01-01')],
+    },
   },
 });
 ```
@@ -664,7 +667,9 @@ SELECT * FROM "posts" WHERE "publishedDuring" @> '[2019-01-01, 2023-01-01)';
 Post.findAll({
   where: {
     // The left-hand value can be a range or a single value
-    publishedAt: { [Op.contained]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+    publishedAt: {
+      [Op.contained]: [new Date('2019-01-01'), new Date('2023-01-01')],
+    },
   },
 });
 ```
@@ -683,7 +688,9 @@ The `Op.overlap` operator determines whether two [ranges] have at least one valu
 ```ts
 Post.findAll({
   where: {
-    publishedDuring: { [Op.overlap]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+    publishedDuring: {
+      [Op.overlap]: [new Date('2019-01-01'), new Date('2023-01-01')],
+    },
   },
 });
 ```
@@ -699,7 +706,9 @@ The `Op.adjacent` operator checks whether two ranges are consecutive without gap
 ```ts
 Event.findAll({
   where: {
-    occursDuring: { [Op.adjacent]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+    occursDuring: {
+      [Op.adjacent]: [new Date('2019-01-01'), new Date('2023-01-01')],
+    },
   },
 });
 ```
@@ -715,13 +724,15 @@ These operators can be used to check where the values of a [range] are located r
 <Tabs>
 <TabItem value="Op.strictLeft">
 
-The `Op.strictLeft` operator check whether all values of the left range are __less than__
+The `Op.strictLeft` operator check whether all values of the left range are **less than**
 any value of the other range.
 
 ```ts
 Event.findAll({
   where: {
-    occursDuring: { [Op.strictLeft]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+    occursDuring: {
+      [Op.strictLeft]: [new Date('2019-01-01'), new Date('2023-01-01')],
+    },
   },
 });
 ```
@@ -733,13 +744,15 @@ SELECT * FROM "events" WHERE "occursDuring" << '[2019-01-01, 2023-01-01)';
 </TabItem>
 <TabItem value="Op.strictRight">
 
-The `Op.strictRight` operator check whether all values of the left range are __greather than__
+The `Op.strictRight` operator check whether all values of the left range are **greather than**
 any value of the other range.
 
 ```ts
 Event.findAll({
   where: {
-    occursDuring: { [Op.strictRight]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+    occursDuring: {
+      [Op.strictRight]: [new Date('2019-01-01'), new Date('2023-01-01')],
+    },
   },
 });
 ```
@@ -751,13 +764,15 @@ SELECT * FROM "events" WHERE "occursDuring" >> '[2019-01-01, 2023-01-01)';
 </TabItem>
 <TabItem value="Op.noExtendRight">
 
-The `Op.noExtendRight` operator check whether all values of the left range are __less than or equal to__
+The `Op.noExtendRight` operator check whether all values of the left range are **less than or equal to**
 any value of the other range.
 
 ```ts
 Event.findAll({
   where: {
-    occursDuring: { [Op.noExtendRight]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+    occursDuring: {
+      [Op.noExtendRight]: [new Date('2019-01-01'), new Date('2023-01-01')],
+    },
   },
 });
 ```
@@ -769,13 +784,15 @@ SELECT * FROM "events" WHERE "occursDuring" &< '[2019-01-01, 2023-01-01)';
 </TabItem>
 <TabItem value="Op.noExtendLeft">
 
-The `Op.noExtendLeft` operator check whether all values of the left range are __greater than or equal to__
+The `Op.noExtendLeft` operator check whether all values of the left range are **greater than or equal to**
 any value of the other range.
 
 ```ts
 Event.findAll({
   where: {
-    occursDuring: { [Op.noExtendLeft]: [new Date('2019-01-01'), new Date('2023-01-01')] },
+    occursDuring: {
+      [Op.noExtendLeft]: [new Date('2019-01-01'), new Date('2023-01-01')],
+    },
   },
 });
 ```
@@ -987,10 +1004,7 @@ Post.findAll({
       [Op.any]: {
         // Op.values can be used to specify a list of values that include computed values,
         // like a column name.
-        [Op.values]: [
-          12,
-          sql`12 + 45`
-        ],
+        [Op.values]: [12, sql`12 + 45`],
       },
       // highlight-end
     },
@@ -1028,10 +1042,7 @@ The same is true for arrays of objects:
 
 ```ts
 Post.findAll({
-  where: [
-    { authorId: 12 },
-    { status: 'active' },
-  ],
+  where: [{ authorId: 12 }, { status: 'active' }],
 });
 ```
 
@@ -1067,10 +1078,7 @@ import { Op } from '@sequelize/core';
 
 Post.findAll({
   where: {
-    [Op.or]: [
-      { authorId: 12 },
-      { status: 'active' },
-    ],
+    [Op.or]: [{ authorId: 12 }, { status: 'active' }],
   },
 });
 ```
@@ -1097,7 +1105,7 @@ Post.findAll({
       },
       // highlight-end
       {
-        commentCount: 12
+        commentCount: 12,
       },
     ],
   },
@@ -1142,10 +1150,7 @@ import { Op } from '@sequelize/core';
 Post.findAll({
   where: {
     // highlight-start
-    [Op.or]: [
-      { authorId: 12 },
-      { authorId: 24 },
-    ],
+    [Op.or]: [{ authorId: 12 }, { authorId: 24 }],
     // highlight-end
   },
 });
@@ -1200,10 +1205,7 @@ function like(value: Expression, pattern: string, escape: string): Literal {
 }
 
 Post.findAll({
-  where: [
-    { authorId: 12 },
-    like(sql.attribute('title'), 'Inflation is above 10\\%', '\\'),
-  ],
+  where: [{ authorId: 12 }, like(sql.attribute('title'), 'Inflation is above 10\\%', '\\')],
 });
 ```
 

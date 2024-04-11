@@ -8,7 +8,7 @@ import UuidSupportTable from '../_fragments/_uuid-support-table.mdx';
 We believe that ORMs are inherently leaky abstractions. They are a compromise between the flexibility of SQL and the convenience of an object-oriented programming language.
 As such, it does not make sense to try to provide a 100% complete abstraction over SQL (which could easily be more difficult to read than the SQL itself).
 
-For this reason, Sequelize treats raw SQL as a first-class citizen. __You can use raw SQL almost anywhere in Sequelize__[^1], and thanks to the `sql` tag, it's
+For this reason, Sequelize treats raw SQL as a first-class citizen. **You can use raw SQL almost anywhere in Sequelize**[^1], and thanks to the `sql` tag, it's
 easy to write SQL that is both safe, readable and reusable.
 
 ## Writing raw SQL
@@ -37,7 +37,7 @@ const users = await User.findAll({
 
 In the above example, we used a variable in our raw SQL. Thanks to the `sql` tag, Sequelize will automatically escape that variable to remove any risk of SQL injection.
 
-Sequelize supports two different ways to pass variables in raw SQL: __Replacements__ and __Bind Parameters__.  
+Sequelize supports two different ways to pass variables in raw SQL: **Replacements** and **Bind Parameters**.  
 Replacements and bind parameters are available in all querying methods, and can be used together in the same query.
 
 ### Replacements
@@ -61,30 +61,22 @@ The `replacements` option must contain all bound values, or Sequelize will throw
 import { QueryTypes } from '@sequelize/core';
 
 // This query use positional replacements
-await sequelize.query(
-  'SELECT * FROM projects WHERE status = ?',
-  {
-    replacements: ['active'],
-  },
-);
+await sequelize.query('SELECT * FROM projects WHERE status = ?', {
+  replacements: ['active'],
+});
 
 // This query uses named replacements
-await sequelize.query(
-  'SELECT * FROM projects WHERE status = :status',
-  {
-    replacements: { status: 'active' },
-  },
-);
+await sequelize.query('SELECT * FROM projects WHERE status = :status', {
+  replacements: { status: 'active' },
+});
 
 // This query use replacements added by the sql tag
-await sequelize.query(
-  sql`SELECT * FROM projects WHERE status = ${'active'}`,
-);
+await sequelize.query(sql`SELECT * FROM projects WHERE status = ${'active'}`);
 
 // Replacements are also available in other querying methods
 await Project.findAll({
   where: {
-    status: sql`:status`
+    status: sql`:status`,
   },
   replacements: { status: 'active' },
 });
@@ -124,27 +116,21 @@ Your database may have further restrictions with bind parameters.
 import { QueryTypes } from '@sequelize/core';
 
 // This query use positional bind parameters
-await sequelize.query(
-  'SELECT * FROM projects WHERE status = $1',
-  {
-    bind: ['active'],
-    type: QueryTypes.SELECT,
-  },
-);
+await sequelize.query('SELECT * FROM projects WHERE status = $1', {
+  bind: ['active'],
+  type: QueryTypes.SELECT,
+});
 
 // This query uses named bind parameters
-await sequelize.query(
-  'SELECT * FROM projects WHERE status = $status',
-  {
-    bind: { status: 'active' },
-    type: QueryTypes.SELECT,
-  },
-);
+await sequelize.query('SELECT * FROM projects WHERE status = $status', {
+  bind: { status: 'active' },
+  type: QueryTypes.SELECT,
+});
 
 // Bind parameters are also available in other querying methods
 await Project.findAll({
   where: {
-    status: sql`$status`
+    status: sql`$status`,
   },
   bind: { status: 'active' },
 });
@@ -156,13 +142,10 @@ Until such a feature is implemented, you can cast your bind parameters if you ne
 ```js
 import { QueryTypes } from '@sequelize/core';
 
-await sequelize.query(
-  'SELECT * FROM projects WHERE id = CAST($1 AS int)',
-  {
-    bind: [5],
-    type: QueryTypes.SELECT,
-  },
-);
+await sequelize.query('SELECT * FROM projects WHERE id = CAST($1 AS int)', {
+  bind: [5],
+  type: QueryTypes.SELECT,
+});
 ```
 
 :::note Did you know?
@@ -177,7 +160,7 @@ await sequelize.query('SELECT * FROM projects WHERE id = $1::int');
 
 ### ⚠️ Don't put parameters in strings
 
-Never put parameters in strings, __including postgres dollar-quoted strings__, as this can very easily lead to SQL injection attacks.
+Never put parameters in strings, **including postgres dollar-quoted strings**, as this can very easily lead to SQL injection attacks.
 
 You may be tempted to use parameters inside something like `DO` blocks,
 and it is a common misconception that you can safely use replacements or bind parameters inside dollar-quoted strings, but that is not the case.
@@ -199,7 +182,7 @@ BEGIN
   SELECT * FROM users WHERE id = ${id};
 END
 $$;
-  `
+  `,
 );
 ```
 
@@ -222,7 +205,7 @@ $$;
 ### Query Variable Mode
 
 While bind parameters written using the `$` syntax, and replacements written using the `:` and `?` syntaxes, will always be interpreted as
-bind parameters and replacements respectively, variables inserted in an `sql`-tagged template literal can be interpreted as bind parameters or replacements depending on the __Query Variable Mode__.
+bind parameters and replacements respectively, variables inserted in an `sql`-tagged template literal can be interpreted as bind parameters or replacements depending on the **Query Variable Mode**.
 
 It is not currently possible to configure that mode per query (this feature is planned for a future release). Instead, the mode
 is pre-determined by the method used to execute the query:
@@ -236,10 +219,7 @@ This means that, for instance, variables used in `findAll` will be added to the 
 const fundingStatus = 'funded';
 
 await Project.findAll({
-  where: and(
-    { status: 'active' },
-    sql`funding = ${fundingStatus}`,
-  ),
+  where: and({ status: 'active' }, sql`funding = ${fundingStatus}`),
 });
 ```
 
@@ -255,10 +235,7 @@ const fundingStatus = 'funded';
 await Project.update(
   { funding: 'pending' },
   {
-    where: and(
-      { status: 'active' },
-      sql`funding = ${fundingStatus}`,
-    ),
+    where: and({ status: 'active' }, sql`funding = ${fundingStatus}`),
   },
 );
 ```
@@ -274,9 +251,7 @@ The `sql.identifier` function can be used to escape the name of an identifier (s
 ```js
 import { sql } from '@sequelize/core';
 
-await sequelize.query(
-  sql`SELECT * FROM ${sql.identifier('projects')}`,
-);
+await sequelize.query(sql`SELECT * FROM ${sql.identifier('projects')}`);
 ```
 
 ```sql
@@ -291,9 +266,7 @@ When using an array as a variable in a query, Sequelize will by default treat it
 ```ts
 const statuses = ['active', 'pending'];
 
-await sequelize.query(
-  sql`SELECT * FROM projects WHERE status = ANY(${statuses})`,
-);
+await sequelize.query(sql`SELECT * FROM projects WHERE status = ANY(${statuses})`);
 ```
 
 ```sql
@@ -305,9 +278,7 @@ The `sql.list` function can be used to tell Sequelize to treat the value as an S
 ```ts
 const statuses = ['active', 'pending'];
 
-await sequelize.query(
-  sql`SELECT * FROM projects WHERE status IN ${sql.list(statuses)}`,
-);
+await sequelize.query(sql`SELECT * FROM projects WHERE status IN ${sql.list(statuses)}`);
 ```
 
 ```sql
@@ -332,9 +303,7 @@ const where = {
   funding: 'funded',
 };
 
-await sequelize.query(
-  sql`SELECT * FROM projects WHERE ${sql.where(where)}`,
-);
+await sequelize.query(sql`SELECT * FROM projects WHERE ${sql.where(where)}`);
 ```
 
 ```sql
@@ -345,11 +314,10 @@ It can also be used to generate an SQL condition where the left operand is somet
 
 ```ts
 Post.findAll({
-  where: sql.where(
-    new Date('2012-01-01'),
-    Op.between,
-    [sql.attribute('createdAt'), sql.attribute('publishedAt')]
-  ),
+  where: sql.where(new Date('2012-01-01'), Op.between, [
+    sql.attribute('createdAt'),
+    sql.attribute('publishedAt'),
+  ]),
 });
 ```
 
@@ -404,15 +372,17 @@ The name of the association must start & end with a `$` character, and the name 
 
 ```ts
 User.findAll({
-  include: [{
-    association: User.associations.posts,
-    where: sql.where(
-      // highlight-next-line
-      sql.attribute('$user$.name'),
-      Op.eq,
-      'Zoe',
-    ),
-  }],
+  include: [
+    {
+      association: User.associations.posts,
+      where: sql.where(
+        // highlight-next-line
+        sql.attribute('$user$.name'),
+        Op.eq,
+        'Zoe',
+      ),
+    },
+  ],
 });
 ```
 
@@ -518,7 +488,7 @@ This function is a third way to reference a column name. It's similar to [`sql.i
 Here are a few examples:
 
 | Input     | `sql.col`   | `sql.identifier` |
-|-----------|-------------|------------------|
+| --------- | ----------- | ---------------- |
 | `*`       | `*`         | `"*"`            |
 | `users.*` | `"users".*` | `"users.*"`      |
 
@@ -607,7 +577,7 @@ As there are often use cases in which it is just easier to execute raw / already
 By default the function will return two arguments - a results array, and an object containing metadata (such as amount of affected rows, etc). Note that since this is a raw query, the metadata are dialect specific. Some dialects return the metadata "within" the results object (as properties on an array). However, two arguments will always be returned, but for MSSQL and MySQL it will be two references to the same object.
 
 ```js
-const [results, metadata] = await sequelize.query("UPDATE users SET y = 42 WHERE x = 12");
+const [results, metadata] = await sequelize.query('UPDATE users SET y = 42 WHERE x = 12');
 // Results will be an empty array and metadata will contain the number of affected rows.
 ```
 
@@ -634,7 +604,9 @@ In cases where you don't need to access the metadata you can pass in a query typ
 
 ```js
 import { QueryTypes } from '@sequelize/core';
-const users = await sequelize.query("SELECT * FROM `users`", { type: QueryTypes.SELECT });
+const users = await sequelize.query('SELECT * FROM `users`', {
+  type: QueryTypes.SELECT,
+});
 // We didn't need to destructure the result here - the results were returned directly
 ```
 
@@ -646,7 +618,7 @@ A second option is the model. If you pass a model the returned data will be inst
 // Callee is the model definition. This allows you to easily map a query to a predefined model
 const projects = await sequelize.query('SELECT * FROM projects', {
   model: Projects,
-  mapToModel: true // pass true here if you have any mapped fields
+  mapToModel: true, // pass true here if you have any mapped fields
 });
 // Each element of `projects` is now an instance of Project
 ```
@@ -669,7 +641,7 @@ await sequelize.query('SELECT 1', {
   raw: false,
 
   // The type of query you are executing. The query type affects how results are formatted before they are passed back.
-  type: QueryTypes.SELECT
+  type: QueryTypes.SELECT,
 });
 
 // Note the second argument being null!
@@ -682,12 +654,12 @@ console.log(await sequelize.query('SELECT * FROM projects', { raw: true }));
 
 If an attribute name of the table contains dots, the resulting objects can become nested objects by setting the `nest: true` option. This is achieved with [dottie.js](https://github.com/mickhansen/dottie.js/) under the hood. See below:
 
-* Without `nest: true`:
+- Without `nest: true`:
 
   ```js
   import { QueryTypes } from '@sequelize/core';
   const records = await sequelize.query('select 1 as `foo.bar.baz`', {
-    type: QueryTypes.SELECT
+    type: QueryTypes.SELECT,
   });
   console.log(JSON.stringify(records[0], null, 2));
   ```
@@ -698,13 +670,13 @@ If an attribute name of the table contains dots, the resulting objects can becom
   }
   ```
 
-* With `nest: true`:
+- With `nest: true`:
 
   ```js
   import { QueryTypes } from '@sequelize/core';
   const records = await sequelize.query('select 1 as `foo.bar.baz`', {
     nest: true,
-    type: QueryTypes.SELECT
+    type: QueryTypes.SELECT,
   });
   console.log(JSON.stringify(records[0], null, 2));
   ```
