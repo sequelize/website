@@ -3,12 +3,12 @@ sidebar_position: 6
 title: Validations & Constraints
 ---
 
-[__Validations__](#validators) are checks performed by Sequelize, **in pure JavaScript**.  
-They can be arbitrarily complex if you provide a custom validator function, 
+[**Validations**](#validators) are checks performed by Sequelize, **in pure JavaScript**.  
+They can be arbitrarily complex if you provide a custom validator function,
 or can be one of the [built-in validators](#attribute-validators) offered by Sequelize.  
 If validation fails, no SQL query will be sent to the database at all.
 
-__Constraints__ are rules defined **at the SQL level** and are enforced by the Database.  
+**Constraints** are rules defined **at the SQL level** and are enforced by the Database.  
 Common examples are `UNIQUE`. `NOT NULL` and foreign key constraints.
 
 ## Not Null Constraints
@@ -19,7 +19,7 @@ Using the [`@NotNull`] decorator, you can define a Not Null Constraint on a colu
 Sequelize also automatically adds a Not Null Validator to the attribute, meaning the Sequelize will also validate that the attribute is not null
 before sending the query to the database.
 
-If an attempt is made to set `null` to an attribute that does not allow null, a [`ValidationError`] will be thrown *without any SQL query being performed*.
+If an attempt is made to set `null` to an attribute that does not allow null, a [`ValidationError`] will be thrown _without any SQL query being performed_.
 
 ## Unique Constraints
 
@@ -85,7 +85,7 @@ We do not recommend using `sync` in production, as it can lead to data loss. See
 
 ## Validators
 
-Validators are JavaScript functions that are run before an instance is persisted or updated in the database. 
+Validators are JavaScript functions that are run before an instance is persisted or updated in the database.
 You can also run validators manually using [`Model#validate`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#validate).
 
 ### Attribute validators
@@ -116,10 +116,10 @@ class User extends Model {
 
 ### `@sequelize/validator.js`
 
-The [`@sequelize/validator.js`](https://www.npmjs.com/package/@sequelize/validator.js) package provides a number validators 
+The [`@sequelize/validator.js`](https://www.npmjs.com/package/@sequelize/validator.js) package provides a number validators
 based on the [`validator.js`](https://www.npmjs.com/package/validator) package, such as email validation and regex matching.
 
-__⚠️ As indicated in the validator.js documentation, the library validates and sanitizes strings only.__
+**⚠️ As indicated in the validator.js documentation, the library validates and sanitizes strings only.**
 
 ```ts
 import { Model, DataTypes } from '@sequelize/core';
@@ -147,7 +147,7 @@ We're working on adding support for more validation libraries, see [issue #15497
 
 You can also define validators that run on the whole model, rather than on a single attribute.
 
-Model validator methods are called with the model object's context and are deemed to fail if they throw an error, otherwise pass. 
+Model validator methods are called with the model object's context and are deemed to fail if they throw an error, otherwise pass.
 This is just the same as with custom attribute-specific validators.
 
 For example, you could ensure that either `latitude` and `longitude` are both set, or neither are.
@@ -159,7 +159,7 @@ class Place extends Model {
 
   @Attribute(DataTypes.INTEGER)
   declare longitude: number | null;
-  
+
   // highlight-start
   @ModelValidator
   validateCoords() {
@@ -183,7 +183,7 @@ class Place extends Model {
 
   @Attribute(DataTypes.INTEGER)
   declare longitude: number | null;
-  
+
   // highlight-start
   @ModelValidator
   static validateCoords(place: Place) {
@@ -212,10 +212,10 @@ This makes it possible to, for instance, load data from the database to validate
 
 ### Validation of nullable attributes
 
-The nullability validation takes precedence over the attribute validation. If the value of an attribute is null, its [__attribute validators__](#attribute-validators) are not executed. 
+The nullability validation takes precedence over the attribute validation. If the value of an attribute is null, its [**attribute validators**](#attribute-validators) are not executed.
 Only its nullability validation is run.
 
-On the other hand, [__model validators__](#model-validators) are always executed, even if the value of an attribute is null.
+On the other hand, [**model validators**](#model-validators) are always executed, even if the value of an attribute is null.
 This means that you can use model validators to implement custom nullability validation:
 
 ```ts

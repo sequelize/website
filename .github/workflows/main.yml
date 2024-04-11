@@ -19,6 +19,8 @@ jobs:
           node-version: 20.x
           cache: yarn
       - run: yarn install --frozen-lockfile
+      - run: yarn test:format
+      - run: yarn test:typings
       - run: yarn sync
       - run: yarn build
       - name: Prepare Netlify dependencies

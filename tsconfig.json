@@ -4,6 +4,8 @@
   "compilerOptions": {
     "strict": true,
     "jsx": "react",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "target": "es2022",
+    "lib": ["ES2023", "DOM.Iterable", "DOM"]
   }
 }

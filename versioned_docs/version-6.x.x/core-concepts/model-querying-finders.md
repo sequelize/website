@@ -51,8 +51,8 @@ Let's assume we have an empty database with a `User` model which has a `username
 const [user, created] = await User.findOrCreate({
   where: { username: 'sdepold' },
   defaults: {
-    job: 'Technical Lead JavaScript'
-  }
+    job: 'Technical Lead JavaScript',
+  },
 });
 console.log(user.username); // 'sdepold'
 console.log(user.job); // This may or may not be 'Technical Lead JavaScript'
@@ -68,23 +68,23 @@ The `findAndCountAll` method is a convenience method that combines `findAll` and
 
 When `group` is not provided, the `findAndCountAll` method returns an object with two properties:
 
-* `count` - an integer - the total number records matching the query
-* `rows` - an array of objects - the obtained records
+- `count` - an integer - the total number records matching the query
+- `rows` - an array of objects - the obtained records
 
 When `group` is provided, the `findAndCountAll` method returns an object with two properties:
 
-* `count` - an array of objects - contains the count in each group and the projected attributes
-* `rows` - an array of objects - the obtained records
+- `count` - an array of objects - contains the count in each group and the projected attributes
+- `rows` - an array of objects - the obtained records
 
 ```js
 const { count, rows } = await Project.findAndCountAll({
   where: {
     title: {
-      [Op.like]: 'foo%'
-    }
+      [Op.like]: 'foo%',
+    },
   },
   offset: 10,
-  limit: 2
+  limit: 2,
 });
 console.log(count);
 console.log(rows);

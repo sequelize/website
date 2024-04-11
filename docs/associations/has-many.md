@@ -21,8 +21,22 @@ erDiagram
 Here is how you would define the `Post` and `Comment` models in Sequelize:
 
 ```ts
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute } from '@sequelize/core';
-import { PrimaryKey, Attribute, AutoIncrement, NotNull, HasMany, BelongsTo } from '@sequelize/core/decorators-legacy';
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+  NonAttribute,
+} from '@sequelize/core';
+import {
+  PrimaryKey,
+  Attribute,
+  AutoIncrement,
+  NotNull,
+  HasMany,
+  BelongsTo,
+} from '@sequelize/core/decorators-legacy';
 
 class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
   @Attribute(DataTypes.INTEGER)
@@ -51,8 +65,8 @@ class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Co
 }
 ```
 
-Note that in the example above, the `Comment` model has a foreign key to the `Post` model. __`HasMany` adds the foreign key
-on the model the association targets.__
+Note that in the example above, the `Comment` model has a foreign key to the `Post` model. **`HasMany` adds the foreign key
+on the model the association targets.**
 
 ## Inverse association
 
@@ -62,15 +76,29 @@ The inverse association is a [`BelongsTo`](./belongs-to.md) association.
 You can configure that inverse association by using the `inverse` option:
 
 ```ts
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute } from '@sequelize/core';
-import { PrimaryKey, Attribute, AutoIncrement, NotNull, HasMany, BelongsTo } from '@sequelize/core/decorators-legacy';
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+  NonAttribute,
+} from '@sequelize/core';
+import {
+  PrimaryKey,
+  Attribute,
+  AutoIncrement,
+  NotNull,
+  HasMany,
+  BelongsTo,
+} from '@sequelize/core/decorators-legacy';
 
 class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
   @Attribute(DataTypes.INTEGER)
   @AutoIncrement
   @PrimaryKey
   declare id: CreationOptional<number>;
-  
+
   @HasMany(() => Comment, {
     foreignKey: 'postId',
     // highlight-start
@@ -92,7 +120,7 @@ class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Co
   /** Defined by {@link Post.comments} */
   declare post?: NonAttribute<Post>;
   // highlight-end
-  
+
   // This is the foreign key
   @Attribute(DataTypes.INTEGER)
   @NotNull
@@ -173,7 +201,7 @@ await post.setComments([1, 2, 3]);
 If the foreign key is not nullable, calling this method will delete the previously associated models (if any),
 as setting their foreign key to `null` would result in a validation error.
 
-If the foreign key is nullable, it will by default set it to null on all previously associated models. 
+If the foreign key is nullable, it will by default set it to null on all previously associated models.
 You can use the `destroyPrevious` option to delete the previously associated models instead:
 
 ```ts
@@ -185,7 +213,7 @@ await post.setComments([], { destroyPrevious: true });
 
 ### Association Adder (`addX`)
 
-The association adder is used to add one or more new associated models without removing existing ones. 
+The association adder is used to add one or more new associated models without removing existing ones.
 There are two versions of this method:
 
 - `add<SingularAssociationName>`: Associates a single new model.
@@ -240,7 +268,6 @@ There are two versions of this method:
 
 - `remove<SingularAssociationName>`: Removes a single associated model.
 - `remove<PluralAssociationName>`: Removes multiple associated models.
-
 
 ```ts
 import { HasManyRemoveAssociationMixin, HasManyRemoveAssociationsMixin } from '@sequelize/core';
@@ -332,8 +359,7 @@ In the example above, we did not need to specify the `postId` attribute. This is
 If you use TypeScript, you need to let TypeScript know that the foreign key is not required. You can do so using the second generic argument of the `HasManyCreateAssociationMixin` type.
 
 ```ts
-HasManyCreateAssociationMixin<Comment, 'postId'>
-                                        ^ Here
+HasManyCreateAssociationMixin<Comment, 'postId'> ^ Here;
 ```
 
 :::
@@ -417,7 +443,7 @@ You can customize this by using the `sourceKey` option.
 ```ts
 class Post extends Model {
   declare id: CreationOptional<number>;
-  
+
   @HasMany(() => Comment, {
     foreignKey: 'postId',
     // highlight-next-line
