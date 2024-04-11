@@ -81,7 +81,8 @@ Example of a minimal TypeScript project with strict type-checking for attributes
 although it is much more verbose:
 
 ```typescript
-import { Model, Optional } from '@sequelize/core';
+import { Model } from '@sequelize/core';
+import type { PartialBy } from '@sequelize/utils';
 
 type UserAttributes = {
   id: number,
@@ -90,7 +91,7 @@ type UserAttributes = {
 
 // we're telling the Model that 'id' is optional
 // when creating an instance of the model (such as using Model.create()).
-type UserCreationAttributes = Optional<UserAttributes, 'id'>;
+type UserCreationAttributes = PartialBy<UserAttributes, 'id'>;
 
 class User extends Model<UserAttributes, UserCreationAttributes> {
   @Attribute(DataTypes.INTEGER)

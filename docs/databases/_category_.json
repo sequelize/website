@@ -1,8 +1,8 @@
 {
-  "position": 4,
-  "label": "Models & Tables",
+  "position": 3,
+  "label": "Databases",
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "link": {
     "type": "generated-index"
   }

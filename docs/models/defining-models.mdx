@@ -43,8 +43,9 @@ Defining a model is simple: Create a class that extends the [`Model`] class and 
 ```ts
 import { Sequelize, DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
 import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize({ dialect: SqliteDialect });
 
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   @Attribute(DataTypes.INTEGER)
@@ -67,8 +68,9 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
 ```js
 import { Sequelize, DataTypes, Model } from '@sequelize/core';
 import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/decorators-legacy';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
-const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize({ dialect: SqliteDialect });
 
 export class User extends Model {
   @Attribute(DataTypes.INTEGER)
@@ -97,9 +99,11 @@ After defining the model, you need to initialize it. This is done by passing it 
 
 ```ts
 import { Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { User } from './models/user.model.js';
 
-export const sequelize = new Sequelize('sqlite::memory:', {
+export const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   // add all your models here
   models: [User],
 });
@@ -110,12 +114,14 @@ and uses [`import`] (esm), not [`require`] (commonjs):
 
 ```ts
 import { Sequelize, importModels } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export const sequelize = new Sequelize('sqlite::memory:', {
+export const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   // this will load all model classes found in files matching this glob pattern.
   models: await importModels(__dirname + '/**/*.model.{ts,js}'),
 });
@@ -126,7 +132,7 @@ export const sequelize = new Sequelize('sqlite::memory:', {
 ### Without Decorators
 
 If you're working on a project that was created before Sequelize 7, you're likely using the old way of defining models.
-This is still supported, but we recommend to use the [new way of defining models](#defining-a-model).
+This is still supported, but we recommend to use the [new way of defining models](#defining-a-model-1).
 
 If you do not want to use decorators, you can continue to use the old way of defining models.
 Head to [our page about Legacy Model Definitions](../other-topics/legacy-model-definitions.mdx) to learn more about the old API.
@@ -471,10 +477,12 @@ You can also change the default schema for all models by setting the `schema` op
 
 ```js
 import { Model, Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 class User extends Model {}
 
 const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   // All models that don't specify a schema will be created in the "public" schema by default
   // highlight-next-line
   schema: 'public',
@@ -500,6 +508,7 @@ Take a look at the API Reference for [`Model`] for more information
 
 ```typescript
 import { Model, InferCreationAttributes, InferAttributes } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { Attribute, NotNull } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
@@ -524,7 +533,8 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   }
 }
 
-const sequelize = new Sequelize('sqlite::memory:', {
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   models: [User],
 });
 
@@ -539,6 +549,7 @@ console.log(user.getFullname()); // 'Jane Doe'
 
 ```javascript
 import { Model } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 import { Attribute, NotNull } from '@sequelize/core/decorators-legacy';
 
 class User extends Model {
@@ -563,7 +574,8 @@ class User extends Model {
   }
 }
 
-const sequelize = new Sequelize('sqlite::memory:', {
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   models: [User],
 });
 
