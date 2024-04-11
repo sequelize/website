@@ -23,7 +23,7 @@
     <ul class="search-result"></ul>
   </div>
 <a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
-      <a href="http://sequelize-slack.herokuapp.com/">
+      <a href="https://sequelize.org/slack">
         <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
       </a>
     </header>
@@ -1011,7 +1011,7 @@ Company.findAll({
 <p>Include all also supports nested loading:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">User.findAll({ include: [{ all: true, nested: true }]});</code>
 </code></pre>
-<h3 id="use-right-join-for-association">Use right join for association</h3><p>By default, associations are loaded using a left join, that is to say it only includes records from the parent table. You can change this behavior to a right join by passing the <code>right</code> property, if the dialect you are using supports it. Currenly, <code>sqlite</code> <em>does not</em> support <a href="https://www.sqlite.org/omitted.html">right joins</a>.</p>
+<h3 id="use-right-join-for-association">Use right join for association</h3><p>By default, associations are loaded using a left join, that is to say it only includes records from the parent table. You can change this behavior to a right join by passing the <code>right</code> property, if the dialect you are using supports it. Currently, <code>sqlite</code> <em>does not</em> support <a href="https://www.sqlite.org/omitted.html">right joins</a>.</p>
 <p><em>Note:</em> <code>right</code> is only respected if <code>required</code> is false.</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">User.findAll({
     include: [{

@@ -23,7 +23,7 @@
     <ul class="search-result"></ul>
   </div>
 <a style="" href="https://github.com/sequelize/sequelize"><img width="30px" src="/v5/./image/github.png" style="width: 30px;"></a>
-      <a href="http://sequelize-slack.herokuapp.com/">
+      <a href="https://sequelize.org/slack">
         <img src="/v5/manual/asset/slack.svg" style="width: 60px; margin-left: -15px;">
       </a>
     </header>
@@ -411,7 +411,7 @@
 <a href="https://github.com/sequelize/sequelize"><img src="https://badgen.net/github/last-commit/sequelize/sequelize" alt="Last commit"></a>
 <a href="https://github.com/sequelize/sequelize"><img src="https://badgen.net/github/merged-prs/sequelize/sequelize" alt="Merged PRs"></a>
 <a href="https://github.com/sequelize/sequelize"><img src="https://badgen.net/github/stars/sequelize/sequelize" alt="GitHub stars"></a>
-<a href="https://sequelize-slack.herokuapp.com/"><img src="https://sequelize-slack.herokuapp.com/badge.svg" alt="Slack Status"></a>
+<a href="https://sequelize.org/slack"><img src="https://img.shields.io/badge/Slack-4A154B?logo=slack&logoColor=white" alt="Slack Status"></a>
 <a href="https://www.npmjs.com/package/sequelize"><img src="https://badgen.net/npm/node/sequelize" alt="node"></a>
 <a href="https://github.com/sequelize/sequelize/blob/master/LICENSE"><img src="https://badgen.net/github/license/sequelize/sequelize" alt="License"></a>
 <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a></p>
@@ -1898,7 +1898,7 @@ Company.findAll({
   /* ... */
 })</code>
 </code></pre><p>The query above will return all users, and all their instruments, but only those teachers associated with <code>Woodstock Music School</code>.</p><p>Include all also supports nested loading:</p><pre><code class="lang-js"><code class="source-code prettyprint">User.findAll({ include: [{ all: true, nested: true }]});</code>
-</code></pre><h3>Use right join for association</h3><p>By default, associations are loaded using a left join, that is to say it only includes records from the parent table. You can change this behavior to a right join by passing the <code>right</code> property, if the dialect you are using supports it. Currenly, <code>sqlite</code> <em>does not</em> support <a href="https://www.sqlite.org/omitted.html">right joins</a>.</p><p><em>Note:</em> <code>right</code> is only respected if <code>required</code> is false.</p><pre><code class="lang-js"><code class="source-code prettyprint">User.findAll({
+</code></pre><h3>Use right join for association</h3><p>By default, associations are loaded using a left join, that is to say it only includes records from the parent table. You can change this behavior to a right join by passing the <code>right</code> property, if the dialect you are using supports it. Currently, <code>sqlite</code> <em>does not</em> support <a href="https://www.sqlite.org/omitted.html">right joins</a>.</p><p><em>Note:</em> <code>right</code> is only respected if <code>required</code> is false.</p><pre><code class="lang-js"><code class="source-code prettyprint">User.findAll({
     include: [{
         model: Tool // will create a left join
     }]
@@ -2418,7 +2418,7 @@ const operatorsAliases = {
 };
 
 const connection = new Sequelize(db, user, pass, { operatorsAliases });</code>
-</code></pre><h3>JSON</h3><p>The JSON data type is supported by the PostgreSQL, SQLite, MySQL and MariaDB dialects only.</p><h4>PostgreSQL</h4><p>The JSON data type in PostgreSQL stores the value as plain text, as opposed to binary representation. If you simply want to store and retrieve a JSON representation, using JSON will take less disk space and less time to build from its input representation. However, if you want to do any operations on the JSON value, you should prefer the JSONB data type described below.</p><h4>MSSQL</h4><p>MSSQL does not have a JSON data type, however it does provide support for JSON stored as strings through certain functions since SQL Server 2016. Using these functions, you will be able to query the JSON stored in the string, but any returned values will need to be parsed seperately.</p><pre><code class="lang-js"><code class="source-code prettyprint">// ISJSON - to test if a string contains valid JSON
+</code></pre><h3>JSON</h3><p>The JSON data type is supported by the PostgreSQL, SQLite, MySQL and MariaDB dialects only.</p><h4>PostgreSQL</h4><p>The JSON data type in PostgreSQL stores the value as plain text, as opposed to binary representation. If you simply want to store and retrieve a JSON representation, using JSON will take less disk space and less time to build from its input representation. However, if you want to do any operations on the JSON value, you should prefer the JSONB data type described below.</p><h4>MSSQL</h4><p>MSSQL does not have a JSON data type, however it does provide support for JSON stored as strings through certain functions since SQL Server 2016. Using these functions, you will be able to query the JSON stored in the string, but any returned values will need to be parsed separately.</p><pre><code class="lang-js"><code class="source-code prettyprint">// ISJSON - to test if a string contains valid JSON
 User.findAll({
   where: sequelize.where(sequelize.fn('ISJSON', sequelize.col('userDetails')), 1)
 })
@@ -2526,7 +2526,7 @@ Project.findAll({ offset: 5, limit: 5 })</code>
   // Will order randomly based on the dialect (instead of fn('RAND') or fn('RANDOM'))
   order: sequelize.random()
 })</code>
-</code></pre><h2>Table Hint</h2><p><code>tableHint</code> can be used to optionally pass a table hint when using mssql. The hint must be a value from <code>Sequelize.TableHints</code> and should only be used when absolutely necessary. Only a single table hint is currently supported per query.</p><p>Table hints override the default behavior of mssql query optimizer by specifing certain options. They only affect the table or view referenced in that clause.</p><pre><code class="lang-js"><code class="source-code prettyprint">const TableHints = Sequelize.TableHints;
+</code></pre><h2>Table Hint</h2><p><code>tableHint</code> can be used to optionally pass a table hint when using mssql. The hint must be a value from <code>Sequelize.TableHints</code> and should only be used when absolutely necessary. Only a single table hint is currently supported per query.</p><p>Table hints override the default behavior of mssql query optimizer by specifying certain options. They only affect the table or view referenced in that clause.</p><pre><code class="lang-js"><code class="source-code prettyprint">const TableHints = Sequelize.TableHints;
 
 Project.findAll({
   // adding the table hint NOLOCK

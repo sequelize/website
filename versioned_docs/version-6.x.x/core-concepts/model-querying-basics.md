@@ -427,7 +427,7 @@ WHERE (
 
 Range types can be queried with all supported operators.
 
-Keep in mind, the provided range value can [define the bound inclusion/exclusion](../other-topics/other-data-types.md#ranges-postgresql-only) as well.
+Keep in mind, the provided range value can [define the bound inclusion/exclusion](../other-topics/other-data-types.mdx#ranges-postgresql-only) as well.
 
 ```js
 [Op.contains]: 2,            // @> '2'::integer  (PG range contains element operator)
@@ -519,7 +519,7 @@ However, by default, `bulkCreate` does not run validations on each object that i
 
 ```js
 const Foo = sequelize.define('foo', {
-  bar: {
+  name: {
     type: DataTypes.TEXT,
     validate: {
       len: [4, 6]
@@ -637,7 +637,7 @@ To recap, the elements of the order array can be the following:
   * The content of `raw` will be added verbatim without quoting
   * Everything else is ignored, and if raw is not set, the query will fail
 * A call to `Sequelize.fn` (which will generate a function call in SQL)
-* A call to `Sequelize.col` (which will quoute the column name)
+* A call to `Sequelize.col` (which will quote the column name)
 
 ### Grouping
 

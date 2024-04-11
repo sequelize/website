@@ -9,6 +9,6 @@ If you're here, you might be looking for these topics:
 * **Core Concepts**
   * [Model Basics: Data Types](../core-concepts/model-basics.md#data-types)
 * **Other Topics**
-  * [Other Data Types](../other-topics/other-data-types.md)
+  * [Other Data Types](../other-topics/other-data-types.mdx)
   * [Extending Data Types](../other-topics/extending-data-types.md)
   * [Dialect-Specific Things](../other-topics/dialect-specific-things.md)

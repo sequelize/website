@@ -136,7 +136,7 @@ When eager loading, we can also filter the associated model using the `where` op
 User.findAll({
   include: {
     model: Tool,
-    as: 'Instruments'
+    as: 'Instruments',
     where: {
       size: {
         [Op.ne]: 'small'
@@ -300,7 +300,7 @@ WHERE `Instruments`.`size` != 'small';
 
 By default, associations are loaded using a `LEFT OUTER JOIN` - that is to say it only includes records from the parent table. You can change this behavior to a `RIGHT OUTER JOIN` by passing the `right` option, if the dialect you are using supports it.
 
-Currenly, SQLite does not support [right joins](https://www.sqlite.org/omitted.html).
+Currently, SQLite does not support [right joins](https://www.sqlite.org/omitted.html).
 
 *Note:* `right` is only respected if `required` is false.
 

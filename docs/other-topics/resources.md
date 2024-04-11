@@ -6,9 +6,10 @@ A curated list of awesome projects surrounding Sequelize.
 
 ## Integrations
 
-* [sequelize-typescript](https://www.npmjs.com/package/sequelize-typescript) - Decorators and some other features for sequelize.
+* [sequelize-typescript](https://www.npmjs.com/package/sequelize-typescript) - Decorators and some other features for sequelize (built-in as of Sequelize 7).
 * [Sequelize-Nest](https://docs.nestjs.com/recipes/sql-sequelize) - Sequelize integration in [nest](https://github.com/nestjs/nest).
 * [sequelizejs-decorators](https://www.npmjs.com/package/sequelizejs-decorators) decorators for composing sequelize models.
+* [kysely-sequelize](https://www.npmjs.com/pacakge/kysely-sequelize) - A toolkit (dialect, type translators, etc.) that allows using your existing Sequelize instance with [Kysely](https://www.kysely.dev).
 
 ## Code generation & visualisers
 
@@ -16,7 +17,7 @@ A curated list of awesome projects surrounding Sequelize.
 * [sequelizer](https://github.com/andyforever/sequelizer) - A GUI Desktop App for generating Sequelize models. Support for Mysql, Mariadb, Postgres, Sqlite, Mssql.
 * [sequelize-auto](https://github.com/sequelize/sequelize-auto) Generating models for SequelizeJS via the command line is another choice.
 * [pg-generator](https://pg-generator.com/v4/builtin-templates--nc,d1/sequelize.html) - Auto generate/scaffold Sequelize models for PostgreSQL database.
-* [meteor modeler](https://www.datensen.com/) - Desktop tool for visual definition of Sequelize models and asssociations.
+* [meteor modeler](https://www.datensen.com/) - Desktop tool for visual definition of Sequelize models and associations.
 * [sequel-ace-typescript-bundles](https://github.com/binlabs/sequel-ace-typescript-bundles) - A plugin for Sequel Ace that allows generation of Sequelize models from selected database tables.
 
 ## Performance
@@ -29,9 +30,10 @@ A curated list of awesome projects surrounding Sequelize.
 * [umzug](https://github.com/sequelize/umzug) - framework-agnostic migration tool for Node.
 * [sequelize-cli](https://github.com/sequelize/cli) - The Sequelize Command Line Interface. Includes umzug-based migrations.
 * [sequelize-mig](https://github.com/MRVMV/sequelize-mig) - Sequelize migration generator
+* [sequelizemm](https://github.com/hasinoorit/sequelizemm) - CLI tool to generate a migration script from models
 
 ## Miscellaneous
- 
+
 * [sequelize-pg-utilities](https://github.com/davesag/sequelize-pg-utilities) - Opinionated set of database utilities.
 * [sequelize-test-helpers](https://github.com/davesag/sequelize-test-helpers) - A collection of utilities to help with unit-testing Sequelize models and code that needs those models.
 * [Sequelize-fixtures](https://github.com/domasx2/sequelize-fixtures) - Simple lib to load data to database using sequelize.
@@ -42,6 +44,8 @@ A curated list of awesome projects surrounding Sequelize.
 * [sequelize-slugify](https://www.npmjs.com/package/sequelize-slugify) - Add slugs to sequelize models
 * [sequelize-tokenify](https://github.com/pipll/sequelize-tokenify) - Add unique tokens to sequelize models
 * [sqlcommenter-sequelize](https://github.com/google/sqlcommenter/tree/master/nodejs/sqlcommenter-nodejs/packages/sqlcommenter-sequelize) A [sqlcommenter](https://google.github.io/sqlcommenter/) plugin with [support for Sequelize](https://google.github.io/sqlcommenter/node/sequelize/) to augment SQL statements with comments that can be used later to correlate application code with SQL statements.
+* [@rematter/sequelize-paranoid-delete](https://www.npmjs.com/package/@rematter/sequelize-paranoid-delete) - Enables onDelete when using paranoid mode.
+* [@hatchifyjs/sequelize-create-with-associations](https://github.com/bitovi/sequelize-create-with-associations) - Automatically creates, bulkCreates and updates records that have relationships to each other without extra code.
 
 ## Outdated
 

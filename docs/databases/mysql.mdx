@@ -1,0 +1,91 @@
+---
+title: MySQL
+sidebar_position: 1
+---
+
+# Sequelize for MySQL
+
+:::info Version Compatibility
+
+See [Releases](/releases#mysql-support-table) to see which versions of MySQL are supported.
+
+:::
+
+To use Sequelize with MySQL, you need to install the `@sequelize/mysql` dialect package:
+
+```bash npm2yarn
+npm i @sequelize/mysql
+```
+
+Then use the `MySqlDialect` class as the dialect option in the Sequelize constructor:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { MySqlDialect } from '@sequelize/mysql';
+
+const sequelize = new Sequelize({
+  dialect: MySqlDialect,
+  database: 'mydb',
+  user: 'myuser',
+  password: 'mypass',
+  host: 'localhost',
+  port: 3306,
+});
+```
+
+## Connection Options
+
+import ConnectionOptions from './_connection-options.md';
+
+<ConnectionOptions />
+
+The following options are passed as-is to the `mysql2` package that Sequelize uses to connect to MySQL.
+Please refer to the [mysql2 documentation](https://sidorares.github.io/node-mysql2/docs) for more information about what each of these options do.
+
+For convenience, here is an edited copy of the documentation that only includes the options that are accepted by Sequelize:
+
+| Option                  | Description                                                                                                                                                                                                                                                       |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `database`              | Name of the database to use for this connection                                                                                                                                                                                                                   |
+| `user`                  | The MySQL user to authenticate as                                                                                                                                                                                                                                 |
+| `port`                  | The port number to connect to. (Default: 3306)                                                                                                                                                                                                                    |
+| `host`                  | The hostname of the database you are connecting to. (Default: localhost)                                                                                                                                                                                          |
+| `localAddress`          | The source IP address to use for TCP connection                                                                                                                                                                                                                   |
+| `password`              | The password of that MySQL user                                                                                                                                                                                                                                   |
+| `password1`             | Alias for the MySQL user password. Makes a bit more sense in a multifactor authentication setup (see "password2" and "password3")                                                                                                                                 |
+| `password2`             | 2nd factor authentication password. Mandatory when the authentication policy for the MySQL user account requires an additional authentication method that needs a password. https://dev.mysql.com/doc/refman/8.0/en/multifactor-authentication.html               |
+| `password3`             | 3rd factor authentication password. Mandatory when the authentication policy for the MySQL user account requires two additional authentication methods and the last one needs a password. https://dev.mysql.com/doc/refman/8.0/en/multifactor-authentication.html |
+| `passwordSha1`          | _no documentation available_                                                                                                                                                                                                                                      |
+| `socketPath`            | The path to a unix domain socket to connect to. When used host and port are ignored.                                                                                                                                                                              |
+| `ssl`                   | object with ssl parameters or a string containing name of ssl profile                                                                                                                                                                                             |
+| `charset`               | The charset for the connection. This is called 'collation' in the SQL-level of MySQL (like utf8_general_ci). If a SQL-level charset is specified (like utf8mb4) then the default collation for that charset is used. (Default: 'UTF8_GENERAL_CI')                 |
+| `compress`              | _no documentation available_                                                                                                                                                                                                                                      |
+| `trace`                 | Generates stack traces on Error to include call site of library entrance ('long stack traces'). Slight performance penalty for most calls. (Default: true)                                                                                                        |
+| `enableKeepAlive`       | Enable keep-alive on the socket. (Default: true)                                                                                                                                                                                                                  |
+| `isServer`              | _no documentation available_                                                                                                                                                                                                                                      |
+| `insecureAuth`          | Allow connecting to MySQL instances that ask for the old (insecure) authentication method. (Default: false)                                                                                                                                                       |
+| `multipleStatements`    | Allow multiple mysql statements per query. Be careful with this, it exposes you to SQL injection attacks. (Default: false)                                                                                                                                        |
+| `waitForConnections`    | _no documentation available_                                                                                                                                                                                                                                      |
+| `connectionLimit`       | _no documentation available_                                                                                                                                                                                                                                      |
+| `connectTimeout`        | The milliseconds before a timeout occurs during the initial connection to the MySQL server. (Default: 10 seconds)                                                                                                                                                 |
+| `charsetNumber`         | _no documentation available_                                                                                                                                                                                                                                      |
+| `maxIdle`               | _no documentation available_                                                                                                                                                                                                                                      |
+| `queueLimit`            | _no documentation available_                                                                                                                                                                                                                                      |
+| `idleTimeout`           | _no documentation available_                                                                                                                                                                                                                                      |
+| `maxPreparedStatements` | _no documentation available_                                                                                                                                                                                                                                      |
+| `keepAliveInitialDelay` | If keep-alive is enabled users can supply an initial delay. (Default: 0)                                                                                                                                                                                          |
+| `infileStreamFactory`   | By specifying a function that returns a readable stream, an arbitrary stream can be sent when sending a local fs file.                                                                                                                                            |
+| `flags`                 | List of connection flags to use other than the default ones. It is also possible to denylist default ones                                                                                                                                                         |
+| `authSwitchHandler`     | _no documentation available_                                                                                                                                                                                                                                      |
+| `connectAttributes`     | _no documentation available_                                                                                                                                                                                                                                      |
+| `authPlugins`           | _no documentation available_                                                                                                                                                                                                                                      |
+| `debug`                 | This will print all incoming and outgoing packets on stdout. You can also restrict debugging to packet types by passing an array of types (strings) to debug;                                                                                                     |
+| `stream`                | _no documentation available_                                                                                                                                                                                                                                      |
+
+## Other MySQL Options
+
+The following options are also available for MySQL:
+
+| Option         | Description                                                                                                              |
+|----------------|--------------------------------------------------------------------------------------------------------------------------|
+| `showWarnings` | If `true`, warnings produced during the execution of a query will be sent to the `logging` callback. Default is `false`. |

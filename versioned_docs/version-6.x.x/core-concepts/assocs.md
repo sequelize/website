@@ -403,7 +403,7 @@ The above showed the basics on queries for fetching data involving associations.
   // a regular column, after all). Nothing very clever going on here.
   ```
 
-* Or use the *[special methods/mixins](#special-methods-mixins-added-to-instances)* available for associated models, which are explained later on this page.
+* Or use the *[special methods/mixins](#special-methodsmixins-added-to-instances)* available for associated models, which are explained later on this page.
 
 **Note:** The [`save()` instance method](pathname:///api/v6/class/src/model.js~Model.html#instance-method-save) is not aware of associations. In other words, if you change a value from a *child* object that was eager loaded along a *parent* object, calling `save()` on the parent will completely ignore the change that happened on the child.
 
@@ -454,7 +454,7 @@ console.log((await Ship.findAll({ include: Captain })).toJSON());
 console.log((await Ship.findAll({ include: 'Captain' })).toJSON());
 
 // Also, instances obtain a `getCaptain()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getCaptain()).toJSON());
 ```
 
@@ -480,7 +480,7 @@ console.log((await Ship.findAll({
 })).toJSON());
 
 // Also, instances obtain a `getLeader()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getLeader()).toJSON());
 ```
 
@@ -508,7 +508,7 @@ console.log((await Ship.findAll({
 })).toJSON());
 
 // Also, instances obtain a `getLeader()` method for Lazy Loading:
-const ship = Ship.findOne();
+const ship = await Ship.findOne();
 console.log((await ship.getLeader()).toJSON());
 ```
 

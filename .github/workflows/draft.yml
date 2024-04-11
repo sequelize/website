@@ -14,17 +14,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20.x
           cache: yarn
       - run: yarn install --frozen-lockfile
       - run: yarn lint-no-fix
+      - run: yarn lint-scss-no-fix
       - run: yarn typecheck
       - run: yarn sync
       - run: yarn build
       - name: Deploy to Draft to Netlify
+        if: '! github.event.pull_request.head.repo.fork'
         id: deployment
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -32,23 +34,22 @@ jobs:
         shell: bash
         run: |
           netlify deploy --dir build --message '${{ github.event.commits[0].message }}' > log.tmp.txt 2>&1
-          cat log.tmp.txt | grep -E 'Logs|Website Draft URL' > log.txt
+          cat log.tmp.txt | grep -E 'Website draft URL:' > log.txt
       - name: Read deployment log
+        if: '! github.event.pull_request.head.repo.fork'
         id: logs
         uses: juliangruber/read-file-action@v1
         with:
           path: log.txt
       - name: Comment PR with draft publish logs
+        if: '! github.event.pull_request.head.repo.fork'
         id: create-comment
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ${{ steps.logs.outputs.content }}
       - name: Comment debug
+        if: '! github.event.pull_request.head.repo.fork'
         run: |
           echo "Comment ID - ${{ steps.create-comment.outputs.comment-id }}"
-
-
-
-      

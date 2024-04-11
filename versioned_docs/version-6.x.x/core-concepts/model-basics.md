@@ -321,7 +321,7 @@ sequelize.define('Foo', {
 
 ## Data Types
 
-Every column you define in your model must have a data type. Sequelize provides [a lot of built-in data types](https://github.com/sequelize/sequelize/blob/main/src/data-types.js). To access a built-in data type, you must import `DataTypes`:
+Every column you define in your model must have a data type. Sequelize provides [a lot of built-in data types](https://github.com/sequelize/sequelize/blob/v6/src/data-types.js). To access a built-in data type, you must import `DataTypes`:
 
 ```js
 const { DataTypes } = require("sequelize"); // Import the built-in data types
@@ -401,7 +401,7 @@ For UUIDs, use `DataTypes.UUID`. It becomes the `UUID` data type for PostgreSQL 
 
 ### Others
 
-There are other data types, covered in a [separate guide](../other-topics/other-data-types.md).
+There are other data types, covered in a [separate guide](../other-topics/other-data-types.mdx).
 
 ## Column Options
 

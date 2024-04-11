@@ -1,0 +1,112 @@
+---
+sidebar_position: 9
+---
+
+# Advanced model definitions
+
+## Prevent creating a default PK attribute
+
+By default, Sequelize automatically adds the primary key attribute `id` to every model when no primary key has been defined manually.
+To prevent this you can set the [`noPrimaryKey`](pathname:///api/v7/interfaces/_sequelize_core.index.ModelOptions.html#noPrimaryKey) option to true when defining the model.
+
+```typescript
+@Table({ noPrimaryKey: true })
+export class User extends Model {}
+```
+
+If you want to prevent the addition of the default primary key for every model, you can also configure this option globally:
+
+```js
+class User extends Model {}
+
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+  define: {
+    noPrimaryKey: true,
+  },
+  models: [User],
+});
+```
+
+Instances without primary keys can still be retrieved using `Model.findOne` and `Model.findAll`.
+
+:::caution
+
+Some model methods require a primary key to be defined. For instance, `Model.findByPk` will throw an error if no primary key is defined.
+
+If your model has no primary keys, you need to use the static equivalent of the following instance methods, and provide your own `where` parameter:
+
+- `instance.save`: `Model.update`
+- `instance.update`: `Model.update`
+- `instance.reload`: `Model.findOne`
+- `instance.destroy`: `Model.destroy`
+- `instance.restore`: `Model.restore`
+- `instance.decrement`: `Model.decrement`
+- `instance.increment`: `Model.increment`
+
+:::
+
+## Caveat with minification
+
+When defining a model, the name of the model will, by default, be the name of your class.
+
+If you minify your code, the class name — and therefore its model name — may be changed by your minifier.
+This can be an issue, as many systems use your modelName, from [sequelize.models](pathname:///api/v7/classes/_sequelize_core.index.Sequelize.html#models)
+to [the name of the table associated to the model](./naming-strategies.mdx).
+
+The solution to prevent this issue is to explicitly set the `modelName` option:
+
+```typescript
+// by specifying 'modelName' explicitely, the name of this model can be safely minified.
+@Table({ modelName: 'User' })
+export class User extends Model {}
+```
+
+## Engines
+
+:::info
+
+This feature is only available in MySQL & MariaDB
+
+:::
+
+The default engine for a model is InnoDB.
+
+You can change the engine for a model with the `engine` option (e.g., to MyISAM):
+
+```js
+const Person = sequelize.define('person', { /* attributes */ }, {
+  engine: 'MYISAM',
+});
+```
+
+Like every option for the definition of a model, this setting can also be changed globally with the `define` option of the Sequelize constructor:
+
+```js
+const sequelize = new Sequelize({
+  /* options */
+  define: { engine: 'MYISAM' },
+});
+```
+
+## Table comments
+
+:::info
+
+This feature is only available in MySQL, MariaDB and PostgreSQL
+
+:::
+
+
+You can use the `comment` model option to set a comment on the table, which will be added to the table definition in SQL.
+
+```js
+import { Model } from '@sequelize/core';
+import { Table } from '@sequelize/core/decorators-legacy';
+
+@Table({
+  // highlight-next-line
+  comment: 'This is the User model'
+})
+export class User extends Model {}
+```

@@ -121,7 +121,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 });
 ```
 
-### MSSQL
+### Microsoft SQL Server (MSSQL)
 
 The underlying connector library used by Sequelize for MSSQL is the [tedious](https://www.npmjs.com/package/tedious) npm package (version 6.0.0 or above).
 
@@ -166,7 +166,7 @@ const sequelize = new Sequelize('database', null, null, {
 })
 ```
 
-### Snowflake (Experiment)
+### Snowflake (Experimental)
 
 The underlying connector library used by Sequelize for Snowflake is the [snowflake-sdk](https://www.npmjs.com/package/snowflake-sdk) npm package.
 
@@ -202,7 +202,7 @@ SEQ_ACCOUNT=myAccount SEQ_USER=myUser SEQ_PW=myPassword SEQ_ROLE=myRole SEQ_DB=m
 ### Oracle Database
 
 The underlying connector library used by Sequelize for Oracle is the [node-oracledb](https://www.npmjs.com/package/oracledb) package.  
-See [Releases](/releases#oracle-support-table) to see which versions of Oracle Database & node-oracledb are supported.
+See [Releases](/releases#oracle-database-support-table) to see which versions of Oracle Database & node-oracledb are supported.
 
 node-oracledb needs [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html) to work. You can use the node-oracledb [quick start](https://oracle.github.io/node-oracledb/INSTALL.html#quickstart) link for installations.
 
@@ -223,6 +223,22 @@ Sequelize also lets you pass credentials in URL format:
 ```js
 const sequelize = new Sequelize('oracle://user:pass@hostname:port/servicename');
 ```
+
+You can pass an Easy Connect String, a Net Service Name, or a Connect Descriptor to the Sequelize constructor using `dialectOptions.connectString`:
+
+```js
+const sequelize = new Sequelize({
+  dialect: 'oracle',
+  username: 'user',
+  password: 'password',
+  dialectOptions: {
+    connectString: 'inst1'
+  }
+});
+```
+Note that the `database`, `host` and `port` will be overriden and the values in connectString will be used for authentication.
+
+Please refer to [Connect String](https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html#connectionstrings) for more about connect strings.
 
 ## Data type: TIMESTAMP WITHOUT TIME ZONE - PostgreSQL only
 
@@ -245,7 +261,7 @@ So this enum name must follow this pattern `enum_<table_name>_<col_name>`. If yo
 
 The `tableHint` option can be used to define a table hint. The hint must be a value from `TableHints` and should only be used when absolutely necessary. Only a single table hint is currently supported per query.
 
-Table hints override the default behavior of MSSQL query optimizer by specifing certain options. They only affect the table or view referenced in that clause.
+Table hints override the default behavior of MSSQL query optimizer by specifying certain options. They only affect the table or view referenced in that clause.
 
 ```js
 const { TableHints } = require('sequelize');
