@@ -52,6 +52,7 @@ The `timestamps` option can also be disabled globally, on the `Sequelize` instan
 class User extends Model {}
 
 const sequelize = new Sequelize({
+  dialect: SqliteDialect,
   define: {
     // highlight-next-line
     timestamps: false,

@@ -3,6 +3,8 @@ sidebar_position: 8
 title: Raw SQL (literals)
 ---
 
+import UuidSupportTable from '../_fragments/_uuid-support-table.mdx';
+
 We believe that ORMs are inherently leaky abstractions. They are a compromise between the flexibility of SQL and the convenience of an object-oriented programming language.
 As such, it does not make sense to try to provide a 100% complete abstraction over SQL (which could easily be more difficult to read than the SQL itself).
 
@@ -97,7 +99,7 @@ whereas bind parameters are sent to the database separately from the SQL query t
 
 A query can have both bind parameters and replacements.
 
-Each database uses a different syntax for bind parameters, but Sequelize provides its own unification layer.  
+Each database uses a different syntax for bind parameters, but Sequelize provides its own unification layer.
 
 Inconsequentially to which database you use, in Sequelize bind parameters are written following a postgres-like syntax. You can either:
 
@@ -201,7 +203,7 @@ $$;
 );
 ```
 
-The above query looks like code, has syntax coloring that makes it look like code, but is really a regular dollar-quoted string 
+The above query looks like code, has syntax coloring that makes it look like code, but is really a regular dollar-quoted string
 that will be interpreted as SQL by the `DO` clause (similarly to `eval` in JavaScript).
 
 Dollar-quoted strings end as soon as `$$` is encountered. If the user passes `$$` as the `id` parameter, the query will end early and will
@@ -359,7 +361,7 @@ SELECT * FROM "projects" WHERE '2012-01-01' BETWEEN "createdAt" AND "publishedAt
 
 ### `sql.attribute`
 
-The `sql.attribute` function can be used to reference the name of a Model attribute. It is similar to the [`sql.identifier`](#sqlidentifier) function, 
+The `sql.attribute` function can be used to reference the name of a Model attribute. It is similar to the [`sql.identifier`](#sqlidentifier) function,
 but the name of the attribute will be mapped to the name of the column, whereas `sql.identifier` escapes its value as-is:
 
 ```ts
@@ -483,11 +485,29 @@ Attributes support a shorthand syntax for casting. See [Casting syntax in `sql.a
 
 :::
 
+### `sql.uuidV4` & `sql.uuidV1`
+
+In supported dialects, using `sql.uuidV4` and `sql.uuidV1` will generate the dialect-specific function to generate a UUID.
+In unsupported dialects, using these functions, except as [the default value of an attribute](../models/data-types.mdx#built-in-default-values-for-uuid), will throw an error.
+
+```ts
+sequelize.query(sql`INSERT INTO users (id) VALUES (${sql.uuidV4()})`);
+```
+
+```sql
+-- postgres example
+INSERT INTO users (id) VALUES (gen_random_uuid())
+```
+
+These functions are supported by the following dialects:
+
+<UuidSupportTable />
+
 ### `sql.col`
 
 :::caution
 
-This function is available for backwards compatibility, and there are currently no plans to deprecate it, 
+This function is available for backwards compatibility, and there are currently no plans to deprecate it,
 but it is not recommended to use in new code. Prefer instead to use [`sql.attribute`](#sqlattribute), [`sql.identifier`](#sqlidentifier),
 and the `sql` template tag.
 

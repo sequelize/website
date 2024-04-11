@@ -23,7 +23,7 @@ const { Sequelize } = require('@sequelize/core');
 let sequelize = null;
 
 async function loadSequelize() {
-  const sequelize = new Sequelize(/* (...) */, {
+  const sequelize = new Sequelize({
     // (...)
     pool: {
       /*
@@ -443,7 +443,7 @@ configure `sequelize` as follows:
 ```js
 import { Sequelize } from '@sequelize/core';
 
-const sequelize = new Sequelize(/* (...) */, {
+const sequelize = new Sequelize({
   // (...)
   pool: { min: 1, max: 1 }
 });
