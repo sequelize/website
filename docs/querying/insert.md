@@ -18,7 +18,7 @@ The simplest way to create a new record is to use the [`create`](pathname:///api
 
 ```ts
 // Create a new user
-const jane = await User.create({ firstName: "Jane", lastName: "Doe" });
+const jane = await User.create({ firstName: 'Jane', lastName: 'Doe' });
 // by this point, the user has been saved to the database!
 console.log("Jane's auto-generated ID:", jane.id);
 ```
@@ -28,7 +28,7 @@ for building an unsaved instance with [`Model.build()`](pathname:///api/v7/class
 saving the instance with [`instance.save()`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#save). You can do the individual steps yourself if you need more control:
 
 ```ts
-const jane = User.build({ firstName: "Jane", lastName: "Doe" });
+const jane = User.build({ firstName: 'Jane', lastName: 'Doe' });
 
 // "jane" has not been saved to the database yet!
 // You can change any of its properties here, and call `save()` later to persist them all at once.
@@ -52,8 +52,8 @@ Let's assume we have an empty database with a `User` model which has a `username
 const [user, created] = await User.findOrCreate({
   where: { username: 'sdepold' },
   defaults: {
-    job: 'Technical Lead JavaScript'
-  }
+    job: 'Technical Lead JavaScript',
+  },
 });
 
 console.log(user.username); // 'sdepold'
@@ -67,7 +67,7 @@ if (created) {
 :::caution
 
 [`findOrCreate`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findOrCreate) wraps its operations in a transaction (or a savepoint if a transaction is already in progress).  
-You may want to use [`findCreateFind`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findCreateFind) instead if you want to avoid this. 
+You may want to use [`findCreateFind`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findCreateFind) instead if you want to avoid this.
 
 [`findOrBuild`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findOrBuild) is also available if you want to avoid saving the new instance.
 
@@ -80,10 +80,7 @@ Sequelize provides the `Model.bulkCreate` method to allow creating multiple reco
 The usage of `Model.bulkCreate` is very similar to `Model.create`, by receiving an array of objects instead of a single object.
 
 ```ts
-const captains = await Captain.bulkCreate([
-  { name: 'Jack Sparrow' },
-  { name: 'Davy Jones' }
-]);
+const captains = await Captain.bulkCreate([{ name: 'Jack Sparrow' }, { name: 'Davy Jones' }]);
 
 console.log(captains.length); // 2
 console.log(captains[0] instanceof Captain); // true
@@ -91,20 +88,23 @@ console.log(captains[0].name); // 'Jack Sparrow'
 console.log(captains[0].id); // 1 (or another auto-generated value)
 ```
 
-If you are accepting values directly from the user, it might be beneficial to limit the columns that you want to actually insert. 
+If you are accepting values directly from the user, it might be beneficial to limit the columns that you want to actually insert.
 To support this, `bulkCreate()` accepts a `fields` option, an array defining which fields must be considered (the rest will be ignored).
 
 ```ts
-await User.bulkCreate([
-  { username: 'foo' },
-  { 
-    username: 'bar', 
-    // highlight-start
-    // This property will be ignored, because it is not listed in the "fields" option
-    admin: true 
-    // highlight-end
-  },
-], { fields: ['username'] });
+await User.bulkCreate(
+  [
+    { username: 'foo' },
+    {
+      username: 'bar',
+      // highlight-start
+      // This property will be ignored, because it is not listed in the "fields" option
+      admin: true,
+      // highlight-end
+    },
+  ],
+  { fields: ['username'] },
+);
 ```
 
 ## Inserting Associated Records
@@ -121,21 +121,24 @@ which is available on the `create` method.
 In the following example, we want to immediately assign an `Address` to a `User`, as soon as a `User` is created.
 
 ```ts
-await User.create({
-  name: 'Mary Read',
-  // highlight-start
-  address: {
-    // you can specify the attributes of the associated model you want to create
-    city: 'Nassau',
-    country: 'Bahamas'
+await User.create(
+  {
+    name: 'Mary Read',
+    // highlight-start
+    address: {
+      // you can specify the attributes of the associated model you want to create
+      city: 'Nassau',
+      country: 'Bahamas',
+    },
+    // highlight-end
   },
-  // highlight-end
-}, {
-  // highlight-start
-  // you must specify which associated models must be created here
-  include: ['address'],
-  // highlight-end
-})
+  {
+    // highlight-start
+    // you must specify which associated models must be created here
+    include: ['address'],
+    // highlight-end
+  },
+);
 ```
 
 :::tip
@@ -144,25 +147,28 @@ If your association's type is [`HasMany`](../associations/has-many.md) or [`Belo
 you can create multiple associated models at once:
 
 ```ts
-await User.create({
-  name: 'Mary Read',
-  // highlight-start
-  addresses: [
-    {
-      city: 'Nassau',
-      country: 'Bahamas',
-    },
-    {
-      city: 'London',
-      country: 'England',
-    }
-  ],
-  // highlight-end
-}, {
-  // highlight-start
-  include: ['addresses'],
-  // highlight-end
-})
+await User.create(
+  {
+    name: 'Mary Read',
+    // highlight-start
+    addresses: [
+      {
+        city: 'Nassau',
+        country: 'Bahamas',
+      },
+      {
+        city: 'London',
+        country: 'England',
+      },
+    ],
+    // highlight-end
+  },
+  {
+    // highlight-start
+    include: ['addresses'],
+    // highlight-end
+  },
+);
 ```
 
 :::
@@ -194,13 +200,13 @@ await User.create({
 // This also works (no matter where the foreign key is)
 await User.create({
   name: 'Mary Read',
-})
+});
 
 // success-next-line
 await user.setAddress(address);
 ```
 
-We intend on improving this feature in a future version of Sequelize. 
+We intend on improving this feature in a future version of Sequelize.
 Read more on this on [issue #15233](https://github.com/sequelize/sequelize/issues/15233)
 
 :::
