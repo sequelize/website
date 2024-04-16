@@ -85,6 +85,18 @@ When `group` is not provided, the `findAndCountAll` method returns an object wit
 - `rows` - an array of objects - the obtained records
 
 When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
+When `group` is provided, the `findAndCountAll` method returns an object with two properties:
 
 - `count` - an array of objects - contains the count in each group and the projected attributes
 - `rows` - an array of objects - the obtained records
