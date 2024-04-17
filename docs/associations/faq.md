@@ -43,7 +43,7 @@ Composite foreign keys are not currently supported by Sequelize's associations. 
 
 ## Customizing Foreign Keys
 
-Sequelize will generate foreign keys automatically, but you can customize how. The `foreignKey` option (as well as `otherKey` in [`BelongsToMany`](./belongs-to-many.md)) 
+Sequelize will generate foreign keys automatically, but you can customize how. The `foreignKey` option (as well as `otherKey` in [`BelongsToMany`](./belongs-to-many.md))
 can be set to a string to specify the name of the foreign key, or to an object to specify the name of the foreign key and other options.
 
 When set to an object, the `foreignKey` option accepts all options that regular attributes accept, including `allowNull` and `defaultValue`.  
@@ -70,7 +70,7 @@ class Person extends Model {
 }
 
 class DrivingLicense extends Model {
-  @Attribute({ 
+  @Attribute({
     columnName: 'owner_id',
   })
   declare ownerId: number;

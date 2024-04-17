@@ -5,7 +5,7 @@ title: Getters, Setters & Virtuals
 
 Sequelize allows you to define custom getters and setters for the attributes of your models.
 
-Sequelize also allows you to specify the so-called *virtual attributes*, which are attributes on the Sequelize Model that doesn't really exist in the underlying SQL table, but instead are populated automatically by Sequelize. They are very useful to create custom attributes which also could simplify your code, for example.
+Sequelize also allows you to specify the so-called _virtual attributes_, which are attributes on the Sequelize Model that doesn't really exist in the underlying SQL table, but instead are populated automatically by Sequelize. They are very useful to create custom attributes which also could simplify your code, for example.
 
 ## Getters
 
@@ -20,8 +20,8 @@ const User = sequelize.define('user', {
     get() {
       const rawValue = this.getDataValue('username');
       return rawValue ? rawValue.toUpperCase() : null;
-    }
-  }
+    },
+  },
 });
 ```
 
@@ -50,13 +50,16 @@ const User = sequelize.define('user', {
       // Storing passwords in plaintext in the database is terrible.
       // Hashing the value with an appropriate cryptographic hash function is better.
       this.setDataValue('password', hash(value));
-    }
-  }
+    },
+  },
 });
 ```
 
 ```js
-const user = User.build({ username: 'someone', password: 'NotSo§tr0ngP4$SW0RD!' });
+const user = User.build({
+  username: 'someone',
+  password: 'NotSo§tr0ngP4$SW0RD!',
+});
 console.log(user.password); // '7cfc84b8ea898bb72462e78b4643cfccd77e9f05678ec2ce78754147ba947acc'
 console.log(user.getDataValue('password')); // '7cfc84b8ea898bb72462e78b4643cfccd77e9f05678ec2ce78754147ba947acc'
 ```
@@ -75,8 +78,8 @@ const User = sequelize.define('user', {
       // Hashing the value with an appropriate cryptographic hash function is better.
       // Using the username as a salt is better.
       this.setDataValue('password', hash(this.username + value));
-    }
-  }
+    },
+  },
 });
 ```
 
@@ -88,7 +91,7 @@ Getters and setters can be both defined in the same field.
 
 For the sake of an example, let's say we are modeling a `Post`, whose `content` is a text of unlimited length. To improve memory usage, let's say we want to store a gzipped version of the content.
 
-*Note: modern databases should do some compression automatically in these cases. Please note that this is just for the sake of an example.*
+_Note: modern databases should do some compression automatically in these cases. Please note that this is just for the sake of an example._
 
 ```js
 const { gzipSync, gunzipSync } = require('zlib');
@@ -105,8 +108,8 @@ const Post = sequelize.define('post', {
     set(value) {
       const gzippedBuffer = gzipSync(value);
       this.setDataValue('content', gzippedBuffer.toString('base64'));
-    }
-  }
+    },
+  },
 });
 ```
 
@@ -130,12 +133,12 @@ Virtual fields are fields that Sequelize populates under the hood, but in realit
 
 For example, let's say we have the `firstName` and `lastName` attributes for a User.
 
-*Again, this is [only for the sake of an example](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/).*
+_Again, this is [only for the sake of an example](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/)._
 
-It would be nice to have a simple way to obtain the *full name* directly! We can combine the idea of `getters` with the special data type Sequelize provides for this kind of situation: `DataTypes.VIRTUAL`:
+It would be nice to have a simple way to obtain the _full name_ directly! We can combine the idea of `getters` with the special data type Sequelize provides for this kind of situation: `DataTypes.VIRTUAL`:
 
 ```js
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 
 const User = sequelize.define('user', {
   firstName: DataTypes.TEXT,
@@ -147,8 +150,8 @@ const User = sequelize.define('user', {
     },
     set(value) {
       throw new Error('Do not try to set the `fullName` value!');
-    }
-  }
+    },
+  },
 });
 ```
 
@@ -167,7 +170,7 @@ This feature has been removed in Sequelize 7. You should consider using either V
 
 :::
 
-Sequelize also provides the `getterMethods` and `setterMethods` options in the model definition to specify things that look like, but aren't exactly the same as, virtual attributes. 
+Sequelize also provides the `getterMethods` and `setterMethods` options in the model definition to specify things that look like, but aren't exactly the same as, virtual attributes.
 
 Example:
 
@@ -175,31 +178,35 @@ Example:
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
-const User = sequelize.define('user', {
-  firstName: DataTypes.STRING,
-  lastName: DataTypes.STRING
-}, {
-  getterMethods: {
-    fullName() {
-      return this.firstName + ' ' + this.lastName;
-    }
+const User = sequelize.define(
+  'user',
+  {
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
   },
-  setterMethods: {
-    fullName(value) {
-      // Note: this is just for demonstration.
-      // See: https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/
-      const names = value.split(' ');
-      const firstName = names[0];
-      const lastName = names.slice(1).join(' ');
-      this.setDataValue('firstName', firstName);
-      this.setDataValue('lastName', lastName);
-    }
-  }
-});
+  {
+    getterMethods: {
+      fullName() {
+        return this.firstName + ' ' + this.lastName;
+      },
+    },
+    setterMethods: {
+      fullName(value) {
+        // Note: this is just for demonstration.
+        // See: https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/
+        const names = value.split(' ');
+        const firstName = names[0];
+        const lastName = names.slice(1).join(' ');
+        this.setDataValue('firstName', firstName);
+        this.setDataValue('lastName', lastName);
+      },
+    },
+  },
+);
 
 (async () => {
   await sequelize.sync();
-  let user = await User.create({ firstName: 'John',  lastName: 'Doe' });
+  let user = await User.create({ firstName: 'John', lastName: 'Doe' });
   console.log(user.fullName); // 'John Doe'
   user.fullName = 'Someone Else';
   await user.save();

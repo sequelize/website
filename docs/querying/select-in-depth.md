@@ -57,7 +57,7 @@ This will load all attributes that have been defined in the model, except for th
 
 ### Extra attributes
 
-You also have the option to load custom attributes that are not part of the model definition. 
+You also have the option to load custom attributes that are not part of the model definition.
 This is useful if you need to compute the value of one of your attributes, or if you need to load attributes that are not part of your model definition.
 
 You can do this by using the `attributes.include` option, which will load all attributes that have been defined in the model, plus the extra attributes that you have specified:
@@ -79,13 +79,13 @@ In the above example, the alias is `age`.
 
 :::caution TypeScript
 
-Be aware that these attributes will not be typed, as methods such as `findAll` and `findOne` return 
+Be aware that these attributes will not be typed, as methods such as `findAll` and `findOne` return
 instances of the model class.
 
 If these attributes are part of your model, you could declare them as optional attributes on your model.
 
 If they are not part of your model;
-one way to type these attributes is to use the `raw` option, 
+one way to type these attributes is to use the `raw` option,
 which will return a plain object instead of an instance of the model class:
 
 ```ts
@@ -98,9 +98,7 @@ interface Data {
 
 // this will return an array of plain objects with the shape of the "Data" interface
 const data: Data[] = await Post.findAll<Data>({
-  attributes: [
-    [sql`COUNT(${sql.attribute('id')})`, 'postCount'],
-  ],
+  attributes: [[sql`COUNT(${sql.attribute('id')})`, 'postCount']],
   group: ['authorId'],
   raw: true,
 });
@@ -110,14 +108,14 @@ const data: Data[] = await Post.findAll<Data>({
 
 ## Applying WHERE clauses
 
-The `where` option is used to filter the query. Its most basic form is an object of attribute-value pairs, 
+The `where` option is used to filter the query. Its most basic form is an object of attribute-value pairs,
 which is a simple equality check:
 
 ```js
 Post.findAll({
   where: {
     authorId: 2,
-  }
+  },
 });
 ```
 
@@ -149,7 +147,6 @@ SELECT * FROM posts WHERE "views" > 100 AND "views" <= 500;
 ```
 
 You can find the complete list of operators, and more, in the [Operators guide](./operators.mdx).
-
 
 ### Logical Combinations
 
@@ -223,7 +220,7 @@ Article.findAll({
 
 ### Using functions & other SQL expressions
 
-Operators are great, but barely scratch the surface of what you can do with SQL. 
+Operators are great, but barely scratch the surface of what you can do with SQL.
 If you need to use a function or another SQL feature, you can use the `sql` tag to write raw SQL:
 
 ```ts
@@ -254,10 +251,10 @@ This section assumes you understand [how to associate models](../associations/ba
 
 :::
 
-__Eager Loading__ is the act of querying data of several models in the same query (one 'main' model and one or more associated models).
-At the SQL level, this is a query with one or more [joins](https://en.wikipedia.org/wiki/Join_\(SQL\)).
+**Eager Loading** is the act of querying data of several models in the same query (one 'main' model and one or more associated models).
+At the SQL level, this is a query with one or more [joins](<https://en.wikipedia.org/wiki/Join_(SQL)>).
 
-On the other hand, __Lazy Loading__ is the act of querying data of several models in separate queries (one query per model).
+On the other hand, **Lazy Loading** is the act of querying data of several models in separate queries (one query per model).
 This can be achieved easily by using the association getters of your association (see [`HasOne`](../associations/has-one.md#association-getter-getx),
 [`HasMany`](../associations/has-many.md#association-getter-getx), [`BelongsTo`](../associations/belongs-to.md#association-getter-getx),
 [`BelongsToMany`](../associations/belongs-to-many.md#association-getter-getx))
@@ -323,11 +320,13 @@ This example will load all posts, along with all of their associated comments, a
 
 ```ts
 const posts = await Post.findAll({
-  include: [{
-    association: 'comments',
-    // highlight-next-line
-    include: ['author'],
-  }],
+  include: [
+    {
+      association: 'comments',
+      // highlight-next-line
+      include: ['author'],
+    },
+  ],
 });
 ```
 
@@ -356,16 +355,18 @@ This will cause the "author" property of each comment to be populated with the a
 Eager-loading produces a single query with multiple joins. This works great for `HasOne` and `BelongsTo` associations,
 but for `HasMany` and `BelongsToMany` associations, it can cause a lot of duplicate data to be returned.
 
-Sequelize will de-duplicate the data, but this can be inefficient. To avoid this, you can use the `separate` option. 
+Sequelize will de-duplicate the data, but this can be inefficient. To avoid this, you can use the `separate` option.
 This option will cause the finder to run two consecutive queries: one to fetch the main model, and another to fetch the associated models.
 
 ```ts
 const posts = await Post.findAll({
-  include: [{
-    association: 'comments',
-    // highlight-next-line
-    separate: true,
-  }],
+  include: [
+    {
+      association: 'comments',
+      // highlight-next-line
+      separate: true,
+    },
+  ],
 });
 ```
 
@@ -377,12 +378,14 @@ When using `separate`, you can order the associated models by using the `order` 
 
 ```ts
 const posts = await Post.findAll({
-  include: [{
-    association: 'comments',
-    separate: true,
-    // highlight-next-line
-    order: [['createdAt', 'DESC']],
-  }],
+  include: [
+    {
+      association: 'comments',
+      separate: true,
+      // highlight-next-line
+      order: [['createdAt', 'DESC']],
+    },
+  ],
 });
 ```
 
@@ -399,11 +402,13 @@ meaning that only parent models with at least one associated model will be retur
 
 ```ts
 const posts = await Post.findAll({
-  include: [{
-    association: 'comments',
-    // highlight-next-line
-    required: true,
-  }],
+  include: [
+    {
+      association: 'comments',
+      // highlight-next-line
+      required: true,
+    },
+  ],
 });
 ```
 
@@ -441,11 +446,13 @@ This option is incompatible with the [`required` option](#required-eager-loading
 
 ```ts
 const posts = await Post.findAll({
-  include: [{
-    association: 'comments',
-    // highlight-next-line
-    right: true,
-  }],
+  include: [
+    {
+      association: 'comments',
+      // highlight-next-line
+      right: true,
+    },
+  ],
 });
 ```
 
@@ -469,15 +476,17 @@ will be loaded.
 
 ```ts
 const posts = await Post.findAll({
-  include: [{
-    association: 'comments',
-    required: false,
-    // highlight-start
-    where: {
-      approved: true,
+  include: [
+    {
+      association: 'comments',
+      required: false,
+      // highlight-start
+      where: {
+        approved: true,
+      },
+      // highlight-end
     },
-    // highlight-end
-  }],
+  ],
 });
 ```
 
@@ -510,7 +519,7 @@ Article.findAll({
   include: ['comments'],
   where: {
     // highlight-start
-    '$comments.id$': { [Op.eq]: null }
+    '$comments.id$': { [Op.eq]: null },
     // highlight-end
   },
 });
@@ -540,7 +549,7 @@ Therefore, you can use this to make complex filters on deeply nested columns.
 
 :::caution Interaction with `separate`
 
-This syntax is not able to reference associations loaded using the [`separate`](#separate-eager-loading-queries) option. 
+This syntax is not able to reference associations loaded using the [`separate`](#separate-eager-loading-queries) option.
 Because those associations are loaded in subsequent queries, the data is simply not present and impossible to reference.
 
 If you want to reference those associations, you must use [subqueries](./sub-queries.md) instead.
@@ -598,16 +607,18 @@ Another solution is to use a [subquery](./sub-queries.md) to filter your model:
 
 ```ts
 User.findAll({
-  include: [{
-    association: User.associations.projects,
-  }],
+  include: [
+    {
+      association: User.associations.projects,
+    },
+  ],
   // highlight-start
   where: {
     id: {
       [Op.in]: sql`
         SELECT DISTINCT "projects"."authorId" WHERE "projects"."name" = 'Project 1'
       `,
-    }
+    },
   },
   // highlight-end
   limit: 2,
@@ -620,7 +631,7 @@ We are redesigning this to make this more flexible. See [#15260](https://github.
 
 ### Eager-loading the `BelongsToMany` through model
 
-When you perform eager loading on a model with a Belongs-to-Many relationship, 
+When you perform eager loading on a model with a Belongs-to-Many relationship,
 Sequelize will fetch the junction model and make it available as a property on the target model.
 
 This is useful when you want to add [additional attributes to the through model](../associations/belongs-to-many.md#customizing-the-junction-table).
@@ -666,17 +677,19 @@ same options as the `include` option, such as [`where`](#filtering-associated-mo
 
 ```ts
 const author = await Author.findOne({
-  include: [{
-    association: 'books',
-    // highlight-start
-    through: {
-      attributes: [],
-      where: {
-        role: 'reviewer',
+  include: [
+    {
+      association: 'books',
+      // highlight-start
+      through: {
+        attributes: [],
+        where: {
+          role: 'reviewer',
+        },
       },
+      // highlight-end
     },
-    // highlight-end
-  }],
+  ],
 });
 ```
 
@@ -714,9 +727,7 @@ By default, the direction is `ASC`, but you can specify it explicitly. To do so,
 
 ```ts
 Subtask.findAll({
-  order: [
-    ['title', 'DESC'],
-  ],
+  order: [['title', 'DESC']],
 });
 ```
 
@@ -737,9 +748,7 @@ You can also use [raw SQL](./raw-queries.mdx) to order by an expression:
 
 ```ts
 Subtask.findAll({
-  order: [
-    [sql`UPPERCASE(${sql.attribute('title')})`, 'DESC'],
-  ],
+  order: [[sql`UPPERCASE(${sql.attribute('title')})`, 'DESC']],
 });
 ```
 
@@ -768,10 +777,10 @@ Task.findAll({
   include: [Task.associations.subtasks],
   order: [
     // The following examples are equivalent.
-      
+
     // Will order by an associated model's title using the name of the association.
     ['subtasks', 'title', 'DESC'],
-    
+
     // Will order by an associated model's title using an association object.
     [Task.associations.subtasks, 'title', 'DESC'],
   ],
@@ -782,13 +791,15 @@ And of course, you can also order by a nested associated model's attribute:
 
 ```ts
 Task.findAll({
-  include: [{
-    association: Task.associations.subtasks,
-    include: [Subtask.associations.author],
-  }],
+  include: [
+    {
+      association: Task.associations.subtasks,
+      include: [Subtask.associations.author],
+    },
+  ],
   order: [
     // The following examples are equivalent.
-    
+
     // Will order by a nested associated model's title using the names of the associations.
     ['subtasks', 'author', 'firstName', 'DESC'],
 
@@ -800,17 +811,15 @@ Task.findAll({
 
 ### Ordering based on `BelongsToMany` through models
 
-In the case of many-to-many relationships, 
-you are also able to sort by attributes in the through table. 
+In the case of many-to-many relationships,
+you are also able to sort by attributes in the through table.
 
 For example, assuming we have a Many-to-Many relationship between `Division` and `Department` whose junction model is `DepartmentDivision`, you can do:
 
 ```js
 Company.findAll({
   include: ['divisions'],
-  order: [
-    ['divisions', DepartmentDivision, 'name', 'ASC']
-  ]
+  order: [['divisions', DepartmentDivision, 'name', 'ASC']],
 });
 ```
 
@@ -820,10 +829,10 @@ Company.findAll({
 
 Finder methods such as `findAll`, `findOne`, `findAndCountAll` are designed to return instances of a model.
 
-Grouping produces a result that will typically not be mapped to the model properly. 
+Grouping produces a result that will typically not be mapped to the model properly.
 Be aware that using this feature may result in unexpected behavior.
 
-While this feature will not be removed, we are researching this subject and will introduce a better way to use it in the future. 
+While this feature will not be removed, we are researching this subject and will introduce a better way to use it in the future.
 See [#15260](https://github.com/sequelize/sequelize/issues/15260) to follow the discussion.
 
 :::

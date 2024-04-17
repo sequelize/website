@@ -8,7 +8,7 @@ Finder methods are the ones that generate `SELECT` queries. All of the following
 
 ## `findAll`
 
-The [`findAll`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAll) method is the most basic finder method. 
+The [`findAll`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAll) method is the most basic finder method.
 It returns all the records in the database that match the query.
 
 It generates a standard `SELECT` query which will retrieve all entries from the table (unless restricted by something like a `where` clause, for example).
@@ -46,13 +46,13 @@ if (project === null) {
 
 :::info `rejectOnEmpty`
 
-`findOne` supports a useful option called `rejectOnEmpty`. If set to `true`, it will throw a `SequelizeEmptyResultError` if no entry is found. 
+`findOne` supports a useful option called `rejectOnEmpty`. If set to `true`, it will throw a `SequelizeEmptyResultError` if no entry is found.
 This is useful in TypeScript if you're certain that the entry exists, and want to avoid having to use a redundant `null` check.
 
 ```ts
 // project will be of type Project, not Project | null
-const project = await Project.findOne({ 
-  where: { title: 'My Title' }, 
+const project = await Project.findOne({
+  where: { title: 'My Title' },
   rejectOnEmpty: true,
 });
 ```
@@ -75,19 +75,19 @@ if (project === null) {
 
 ## `findAndCountAll`
 
-The [`findAndCountAll`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAndCountAll)  method is a convenience method that combines `findAll` and `count`. This is useful when dealing with queries related to pagination where you want to retrieve data with a `limit` and `offset` but also need to know the total number of records that match the query.
+The [`findAndCountAll`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findAndCountAll) method is a convenience method that combines `findAll` and `count`. This is useful when dealing with queries related to pagination where you want to retrieve data with a `limit` and `offset` but also need to know the total number of records that match the query.
 
 ### Interactions with the `group` option
 
 When `group` is not provided, the `findAndCountAll` method returns an object with two properties:
 
-* `count` - an integer - the total number records matching the query
-* `rows` - an array of objects - the obtained records
+- `count` - an integer - the total number records matching the query
+- `rows` - an array of objects - the obtained records
 
 When `group` is provided, the `findAndCountAll` method returns an object with two properties:
 
-* `count` - an array of objects - contains the count in each group and the projected attributes
-* `rows` - an array of objects - the obtained records
+- `count` - an array of objects - contains the count in each group and the projected attributes
+- `rows` - an array of objects - the obtained records
 
 ```js
 const { count, rows } = await Project.findAndCountAll({
@@ -113,9 +113,7 @@ For example, if you want to find and count all users who have a profile, you cou
 
 ```js
 User.findAndCountAll({
-  include: [
-    { model: Profile, required: true },
-  ],
+  include: [{ model: Profile, required: true }],
   limit: 3,
 });
 ```
@@ -134,9 +132,9 @@ console.log(`There are ${await Project.count()} projects`);
 const amount = await Project.count({
   where: {
     id: {
-      [Op.gt]: 25
-    }
-  }
+      [Op.gt]: 25,
+    },
+  },
 });
 console.log(`There are ${amount} projects with an id greater than 25`);
 ```
@@ -161,9 +159,9 @@ await User.sum('age', { where: { age: { [Op.gt]: 5 } } }); // 50
 You can reload an instance from the database by calling the [`reload`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#reload) **instance** method:
 
 ```js
-const jane = await User.create({ name: "Jane" });
+const jane = await User.create({ name: 'Jane' });
 console.log(jane.name); // "Jane"
-jane.name = "Ada";
+jane.name = 'Ada';
 // the name is still "Jane" in the database
 await jane.reload();
 console.log(jane.name); // "Jane"

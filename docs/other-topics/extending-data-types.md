@@ -29,12 +29,16 @@ import { MyDateType } from './custom-types.js';
 
 const sequelize = new Sequelize(/* options */);
 
-const User = sequelize.define('User', {
-  birthday: {
-    // highlight-next-line
-    type: MyDateType,
+const User = sequelize.define(
+  'User',
+  {
+    birthday: {
+      // highlight-next-line
+      type: MyDateType,
+    },
   },
-}, { timestamps: false, noPrimaryKey: true, underscored: true });
+  { timestamps: false, noPrimaryKey: true, underscored: true },
+);
 
 await User.sync();
 ```
@@ -56,7 +60,7 @@ You can implement a series of methods to change the behavior of your data type:
 
 - `validate(value): void` - This method is called when setting a value on an instance of your model. If it returns `false`, the value will be rejected.
 - `sanitize(value): unknown` - This method is called when setting a value on an instance of your model. It is called before validation. You can use it to normalize a value, such as converting a string to a Date object.
-- `areValuesEqual(a, b): boolean` - This method is called when comparing two values of your data type, when determining which attributes of your model need to be saved. 
+- `areValuesEqual(a, b): boolean` - This method is called when comparing two values of your data type, when determining which attributes of your model need to be saved.
   If it returns `false`, the new value will be saved. By default, it uses lodash's `isEqual` method.
 
 ```typescript
@@ -66,29 +70,29 @@ export class MyDateType extends DataTypes.ABSTRACT<Date> {
   toSql() {
     return 'TIMESTAMP';
   }
-  
+
   sanitize(value: unknown): unknown {
     if (value instanceof Date) {
       return value;
     }
-    
+
     if (typeof value === 'string') {
       return new Date(value);
     }
-    
+
     throw new ValidationErrorItem('Invalid date');
   }
-  
+
   validate(value: unknown): void {
     if (!(value instanceof Date)) {
       ValidationErrorItem.throwDataTypeValidationError('Value must be a Date object');
     }
-    
+
     if (Number.isNaN(value.getTime())) {
       ValidationErrorItem.throwDataTypeValidationError('Value is an Invalid Date');
     }
   }
-  
+
   sanitize(value: unknown): unknown {
     if (typeof value === 'string') {
       return new Date(value);
@@ -111,17 +115,17 @@ import { DataTypes, StringifyOptions } from '@sequelize/core';
 
 export class MyDateType extends DataTypes.ABSTRACT<Date> {
   // [...] truncated example
-  
+
   parseDatabaseValue(value: unknown): Date {
     assert(typeof value === 'string', 'Expected to receive a string from the database');
-    
+
     return new Date(value);
   }
 
   toBindableValue(value: Date): unknown {
     return value.toISOString();
   }
-  
+
   escape(value: Date, options: StringifyOptions): string {
     return options.dialect.escapeString(value.toISOString());
   }
@@ -152,12 +156,16 @@ import { MyStringType } from './custom-types.js';
 
 const sequelize = new Sequelize(/* options */);
 
-const User = sequelize.define('User', {
-  firstName: {
-    // highlight-next-line
-    type: MyStringType,
+const User = sequelize.define(
+  'User',
+  {
+    firstName: {
+      // highlight-next-line
+      type: MyStringType,
+    },
   },
-}, { timestamps: false, noPrimaryKey: true, underscored: true });
+  { timestamps: false, noPrimaryKey: true, underscored: true },
+);
 
 await User.sync();
 ```
@@ -170,5 +178,6 @@ This is the case of enums in postgres.
 When using `DataTypes.ENUM`, Sequelize will automatically create the enum type in the database. This is not possible for custom types.
 If you need to create a custom type, you will need to create it manually in the database before you can use it in one of your models.
 
-[^caveat-1]: `parseDatabaseValue` is only called if a Sequelize Data Type is specified in the query. 
-This is the case when using model methods, but not when using [raw queries](../querying/raw-queries.mdx) or when not specifying the model in [`QueryInterface`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html) methods
+[^caveat-1]:
+    `parseDatabaseValue` is only called if a Sequelize Data Type is specified in the query.
+    This is the case when using model methods, but not when using [raw queries](../querying/raw-queries.mdx) or when not specifying the model in [`QueryInterface`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html) methods
