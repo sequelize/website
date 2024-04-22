@@ -1731,20 +1731,20 @@
     url-loader "^4.1.1"
     webpack "^5.88.1"
 
-"@ephys/eslint-config-typescript@20.1.3":
-  version "20.1.3"
-  resolved "https://registry.yarnpkg.com/@ephys/eslint-config-typescript/-/eslint-config-typescript-20.1.3.tgz#e3d16232a8c2799bfb8a1225fb944cef80fba29c"
-  integrity sha512-BDyOGe6XOowVJtIU1ouK41Lq30ROwuvi7cLnQhwuVu7v2SgrJ95JWDlrZ26OLd/KA/clb0Y5OcoY04d3a24oEA==
+"@ephys/eslint-config-typescript@20.1.4":
+  version "20.1.4"
+  resolved "https://registry.yarnpkg.com/@ephys/eslint-config-typescript/-/eslint-config-typescript-20.1.4.tgz#ebfa5ca9db5a90bc8008fa05bee3a70180f55fbe"
+  integrity sha512-d/0eHA3tKx9pQ0HXUn2mxk1/pIE2qqflE3inPMX66iVI8Nex+I0ujsURG5GeJHFXFZ7efciMZA0SpEoWOsk+Kg==
   dependencies:
-    "@ephys/eslint-config" "^20.1.3"
+    "@ephys/eslint-config" "^20.1.4"
     "@typescript-eslint/eslint-plugin" "^7.2.0"
     "@typescript-eslint/parser" "^7.2.0"
     eslint-import-resolver-typescript "^3.6.1"
 
-"@ephys/eslint-config@^20.1.3":
-  version "20.1.3"
-  resolved "https://registry.yarnpkg.com/@ephys/eslint-config/-/eslint-config-20.1.3.tgz#c19b489f7d6ccf8711c8764d07e3838761b7f535"
-  integrity sha512-rcWsUZjBMSYr9tEB2lnY1RlpPQ7FyzlStMBpJRU2VuniRv/Qabe+FAmkl8kLPymPDEcQTQL3yqGUHZeTMv8KZg==
+"@ephys/eslint-config@^20.1.4":
+  version "20.1.4"
+  resolved "https://registry.yarnpkg.com/@ephys/eslint-config/-/eslint-config-20.1.4.tgz#c63e2db963e945e83b0a43e419b660fcc1d85adf"
+  integrity sha512-VOi7a2FUq4R4yhRSX+coD5rhf1vgYYTQ5Ie1LUwTUXEjvMfTI5K3nqKu8lTuT/8JaJVV+g/81BNyuD21Sk0QGw==
   dependencies:
     "@babel/core" "^7.21.4"
     "@babel/eslint-parser" "^7.21.3"
