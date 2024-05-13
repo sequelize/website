@@ -78,11 +78,11 @@ Timeline.create({ range: [-Infinity, new Date(Date.UTC(2016, 0, 1))] });
 
 <DialectTableFilter>
 
-| Sequelize DataType | PostgreSQL                                                               | MariaDB | MySQL | MSSQL | SQLite | Snowflake | db2 | ibmi |
-| ------------------ | ------------------------------------------------------------------------ | ------- | ----- | ----- | ------ | --------- | --- | ---- |
-| `CIDR`             | [`CIDR`](https://www.postgresql.org/docs/9.1/datatype-net-types.html)    | ❌      | ❌    | ❌    | ❌     | ❌        | ❌  | ❌   |
-| `INET`             | [`INET`](https://www.postgresql.org/docs/9.1/datatype-net-types.html)    | ❌      | ❌    | ❌    | ❌     | ❌        | ❌  | ❌   |
-| `MACADDR`          | [`MACADDR`](https://www.postgresql.org/docs/9.1/datatype-net-types.html) | ❌      | ❌    | ❌    | ❌     | ❌        | ❌  | ❌   |
+| Sequelize DataType | PostgreSQL                                                               | MariaDB | MySQL | MSSQL | SQLite | Snowflake | db2 | ibmi | Oracle Database |
+| ------------------ | ------------------------------------------------------------------------ | ------- | ----- | ----- | ------ | --------- | --- | ---- | --------------- | 
+| `CIDR`             | [`CIDR`](https://www.postgresql.org/docs/9.1/datatype-net-types.html)    | ❌      | ❌    | ❌    | ❌     | ❌        | ❌  | ❌   | ❌              |
+| `INET`             | [`INET`](https://www.postgresql.org/docs/9.1/datatype-net-types.html)    | ❌      | ❌    | ❌    | ❌     | ❌        | ❌  | ❌   | ❌              |
+| `MACADDR`          | [`MACADDR`](https://www.postgresql.org/docs/9.1/datatype-net-types.html) | ❌      | ❌    | ❌    | ❌     | ❌        | ❌  | ❌   | ❌              |
 
 </DialectTableFilter>
 
@@ -215,15 +215,15 @@ await User.findAll({
 
 <DialectTableFilter>
 
-| Sequelize DataType                                                            | PostgreSQL                                                                | [MariaDB](https://mariadb.com/kb/en/geometry-types/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) | MSSQL | SQLite | Snowflake | db2 | ibmi |
-| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------- | ----- | ------ | --------- | --- | ---- |
-| [`GEOMETRY`](https://sequelize.org/api/v6/class/src/data-types.js~geometry)   | [`GEOMETRY`](https://postgis.net/workshops/postgis-intro/geometries.html) | `GEOMETRY`                                           | `GEOMETRY`                                                                  | ❌    | ❌     | ❌        | ❌  | ❌   |
-| `GEOMETRY('POINT')`                                                           | `GEOMETRY(POINT)`                                                         | `POINT`                                              | `POINT`                                                                     | ❌    | ❌     | ❌        | ❌  | ❌   |
-| `GEOMETRY('POINT', 4326)`                                                     | `GEOMETRY(POINT,4326)`                                                    | ❌                                                   | ❌                                                                          | ❌    | ❌     | ❌        | ❌  | ❌   |
-| `GEOMETRY('POLYGON')`                                                         | `GEOMETRY(POLYGON)`                                                       | `POLYGON`                                            | `POLYGON`                                                                   | ❌    | ❌     | ❌        | ❌  | ❌   |
-| `GEOMETRY('LINESTRING')`                                                      | `GEOMETRY(LINESTRING)`                                                    | `LINESTRING`                                         | `LINESTRING`                                                                | ❌    | ❌     | ❌        | ❌  | ❌   |
-| [`GEOGRAPHY`](https://sequelize.org/api/v6/class/src/data-types.js~geography) | [`GEOGRAPHY`](https://postgis.net/workshops/postgis-intro/geography.html) | ❌                                                   | ❌                                                                          | ❌    | ❌     | ❌        | ❌  | ❌   |
-| `HSTORE`                                                                      | [`HSTORE`](https://www.postgresql.org/docs/9.1/hstore.html)               | ❌                                                   | ❌                                                                          | ❌    | ❌     | ❌        | ❌  | ❌   |
+| Sequelize DataType                                                            | PostgreSQL                                                                | [MariaDB](https://mariadb.com/kb/en/geometry-types/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) | MSSQL | SQLite | Snowflake | db2 | ibmi | Oracle Database |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------- | ----- | ------ | --------- | --- | ---- | --------------- |
+| [`GEOMETRY`](https://sequelize.org/api/v6/class/src/data-types.js~geometry)   | [`GEOMETRY`](https://postgis.net/workshops/postgis-intro/geometries.html) | `GEOMETRY`                                           | `GEOMETRY`                                                                  | ❌    | ❌     | ❌        | ❌  | ❌   | ❌              |
+| `GEOMETRY('POINT')`                                                           | `GEOMETRY(POINT)`                                                         | `POINT`                                              | `POINT`                                                                     | ❌    | ❌     | ❌        | ❌  | ❌   | ❌              |
+| `GEOMETRY('POINT', 4326)`                                                     | `GEOMETRY(POINT,4326)`                                                    | ❌                                                   | ❌                                                                          | ❌    | ❌     | ❌        | ❌  | ❌   | ❌              |
+| `GEOMETRY('POLYGON')`                                                         | `GEOMETRY(POLYGON)`                                                       | `POLYGON`                                            | `POLYGON`                                                                   | ❌    | ❌     | ❌        | ❌  | ❌   | ❌              |
+| `GEOMETRY('LINESTRING')`                                                      | `GEOMETRY(LINESTRING)`                                                    | `LINESTRING`                                         | `LINESTRING`                                                                | ❌    | ❌     | ❌        | ❌  | ❌   | ❌              |
+| [`GEOGRAPHY`](https://sequelize.org/api/v6/class/src/data-types.js~geography) | [`GEOGRAPHY`](https://postgis.net/workshops/postgis-intro/geography.html) | ❌                                                   | ❌                                                                          | ❌    | ❌     | ❌        | ❌  | ❌   | ❌              |
+| `HSTORE`                                                                      | [`HSTORE`](https://www.postgresql.org/docs/9.1/hstore.html)               | ❌                                                   | ❌                                                                          | ❌    | ❌     | ❌        | ❌  | ❌   | ❌              |
 
 </DialectTableFilter>
 
