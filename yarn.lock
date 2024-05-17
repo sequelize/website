@@ -2005,10 +2005,10 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.3.tgz#391d528054f758f81e53210f1a1eebcf1a8b1d20"
   integrity sha512-qC/xYId4NMebE6w/V33Fh9gWxLgURiNYgVNObbJl2LZv0GUUItCcCqC5axQSwRaAgaxl2mELq1rMzlswaQ0Zxg==
 
-"@sequelize/utils@7.0.0-alpha.40":
-  version "7.0.0-alpha.40"
-  resolved "https://registry.yarnpkg.com/@sequelize/utils/-/utils-7.0.0-alpha.40.tgz#86a8a4a9f0120c221fc088af13ab12493582cea1"
-  integrity sha512-npN1C6m3QPvrDlZSveB9DHSyx2I4EGEshIv7R7jCXt7iKFVG2o/LLYlFK4rwzND5YtNRI6ES69UxLg/65KSa5g==
+"@sequelize/utils@7.0.0-alpha.41":
+  version "7.0.0-alpha.41"
+  resolved "https://registry.yarnpkg.com/@sequelize/utils/-/utils-7.0.0-alpha.41.tgz#dd0a9bc380454be70f6ba694a139080e2d61f0ca"
+  integrity sha512-5D2TaI9zPVPS2FmsvElQ8PbXptoCEcS1vBBvbH8yUb7Mn5h+C7vRVEOJPj9cKNWkjj9FXczxTQMLxEy09bjZLw==
   dependencies:
     "@types/lodash" "^4.17.0"
     lodash "^4.17.21"
