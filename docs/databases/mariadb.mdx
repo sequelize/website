@@ -17,14 +17,14 @@ To use Sequelize with MariaDB, you need to install the `@sequelize/mariadb` dial
 npm i @sequelize/mariadb
 ```
 
-Then use the `MariaDBDialect` class as the dialect option in the Sequelize constructor:
+Then use the `MariaDbDialect` class as the dialect option in the Sequelize constructor:
 
 ```ts
 import { Sequelize } from '@sequelize/core';
-import { MariaDBDialect } from '@sequelize/mariadb';
+import { MariaDbDialect } from '@sequelize/mariadb';
 
 const sequelize = new Sequelize({
-  dialect: MariaDBDialect,
+  dialect: MariaDbDialect,
   database: 'mydb',
   user: 'myuser',
   password: 'mypass',
