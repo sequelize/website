@@ -43,7 +43,7 @@
     "@docusaurus/module-type-aliases": "3.2.1",
     "@docusaurus/tsconfig": "3.2.1",
     "@ephys/eslint-config-typescript": "20.1.4",
-    "@rushstack/eslint-patch": "1.10.3",
+    "@rushstack/eslint-patch": "1.10.4",
     "concurrently": "8.2.2",
     "eslint": "8.57.0",
     "eslint-plugin-jsx-a11y": "6.8.0",
