@@ -18,6 +18,7 @@ title: Resources
 - [sequelize-auto](https://github.com/sequelize/sequelize-auto) Generating models for SequelizeJS via the command line is another choice.
 - [pg-generator](https://www.pg-generator.com/builtin-templates/sequelize/) - Auto generate/scaffold Sequelize models for PostgreSQL database.
 - [sequelizejs-decorators](https://www.npmjs.com/package/sequelizejs-decorators) decorators for composing sequelize models
+- [hatchify](https://github.com/bitovi/hatchify) - Schema driven Node CRUD API and React Web UI including Sequelize based ORM.
 
 ### Autoloader
 
