@@ -45,7 +45,7 @@
     "@ephys/eslint-config-typescript": "20.1.4",
     "@rushstack/eslint-patch": "1.10.4",
     "concurrently": "9.0.1",
-    "eslint": "8.57.1",
+    "eslint": "9.13.0",
     "eslint-plugin-jsx-a11y": "6.10.1",
     "eslint-plugin-mdx": "1.17.1",
     "eslint-plugin-react": "7.37.1",
