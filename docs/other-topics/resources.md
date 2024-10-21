@@ -19,6 +19,7 @@ A curated list of awesome projects surrounding Sequelize.
 - [pg-generator](https://pg-generator.com/v4/builtin-templates--nc,d1/sequelize.html) - Auto generate/scaffold Sequelize models for PostgreSQL database.
 - [meteor modeler](https://www.datensen.com/) - Desktop tool for visual definition of Sequelize models and associations.
 - [sequel-ace-typescript-bundles](https://github.com/binlabs/sequel-ace-typescript-bundles) - A plugin for Sequel Ace that allows generation of Sequelize models from selected database tables.
+- [hatchify](https://github.com/bitovi/hatchify) - Schema driven Node CRUD API and React Web UI including Sequelize based ORM.
 
 ## Performance
 
