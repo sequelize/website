@@ -49,4 +49,4 @@ Sequelize uses a pool to manage connections to your replicas. Internally Sequeli
 
 If you want to modify these, you can pass pool as an options when instantiating Sequelize, as shown above.
 
-Each `write` or `useMaster: true` query will use write pool. For `SELECT` read pool will be used. Read replica are switched using a basic round robin scheduling.
+Each `write` or `useMaster: true` query will use write pool. For `SELECT` read pool will be used. When all reads and writes when using transactions will be sent to the write pool by default. Read replica are switched using a basic round robin scheduling.
