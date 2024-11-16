@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
+import Link from '@docusaurus/Link';
 import { Carousel } from 'react-responsive-carousel';
 import styles from './homepage-users.module.scss';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -84,7 +85,35 @@ export function HomepageUsers(): JSX.Element {
   return (
     <section className={styles.users}>
       <div className="container">
-        <h2>Trusted and used by</h2>
+        <h2>Trusted and used by thousands</h2>
+        <div className={styles.usageGraphs}>
+          <figure>
+            <a href="https://npm-compare.com/sequelize#timeRange=THREE_YEARS" target="_blank">
+              <img
+                src="https://npm-compare.com/img/npm-trend/THREE_YEARS/sequelize.png"
+                alt="NPM Usage Trend of sequelize"
+                loading="lazy"
+              />
+            </a>
+            <figcaption>
+              NPM Usage Trend of <Link to="/docs/v6/">Sequelize 6</Link>
+            </figcaption>
+          </figure>
+
+          <figure>
+            <a href="https://npm-compare.com/@sequelize/core#timeRange=THREE_YEARS" target="_blank">
+              <img
+                src="https://npm-compare.com/img/npm-trend/THREE_YEARS/@sequelize/core.png"
+                alt="NPM Usage Trend of @sequelize/core"
+                loading="lazy"
+              />
+            </a>
+            <figcaption>
+              NPM Usage Trend of <Link to="/docs/v7/">Sequelize 7</Link>
+            </figcaption>
+          </figure>
+        </div>
+
         <div className={clsx(styles.userRow)}>
           <Carousel
             showArrows={false}
