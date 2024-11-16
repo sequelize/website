@@ -17,14 +17,14 @@ To use Sequelize with MariaDB, you need to install the `@sequelize/mariadb` dial
 npm i @sequelize/mariadb
 ```
 
-Then use the `MariaDBDialect` class as the dialect option in the Sequelize constructor:
+Then use the `MariaDbDialect` class as the dialect option in the Sequelize constructor:
 
 ```ts
 import { Sequelize } from '@sequelize/core';
-import { MariaDBDialect } from '@sequelize/mariadb';
+import { MariaDbDialect } from '@sequelize/mariadb';
 
 const sequelize = new Sequelize({
-  dialect: MariaDBDialect,
+  dialect: MariaDbDialect,
   database: 'mydb',
   user: 'myuser',
   password: 'mypass',
@@ -85,7 +85,7 @@ For convenience, here is an edited copy of the documentation that only includes 
 | `infileStreamFactory`     | When LOAD LOCAL command executed, permit to set a callback function of type `(filepath?: string) => stream.Readable`. Connector will then not send file from LOAD LOCAL, but Readable content. This can permit to set extra validation of file path for example.                                                                                             |     function      |                    |
 | `logPackets`              | Debug option : permit to save last exchanged packet. Error messages will display those last exchanged packet.                                                                                                                                                                                                                                                |      boolean      |       false        |
 | `debugCompress`           | This will print all incoming and outgoing compressed packets on stdout.                                                                                                                                                                                                                                                                                      |      boolean      |       false        |
-| `timeout`                 | Command execution timeout                                                                                                                                                                                                                                                                                                                                    |      number       |                    |
+| `queryTimeout`            | Command execution timeout                                                                                                                                                                                                                                                                                                                                    |      number       |                    |
 
 ## Other MariaDB Options
 
