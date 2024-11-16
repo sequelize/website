@@ -254,7 +254,7 @@ SELECT * FROM "posts" WHERE "commentCount" < 10;
 ```ts
 Post.findAll({
   where: {
-    commentCount: { [Op.gte]: 10 },
+    commentCount: { [Op.lte]: 10 },
   },
 });
 ```

@@ -56,7 +56,7 @@ title: Resources
 
 ### Integrations
 
-- [kysely-sequelize](https://www.npmjs.com/pacakge/kysely-sequelize) - A toolkit (dialect, type translators, etc.) that allows using your existing Sequelize instance with [Kysely](https://www.kysely.dev).
+- [kysely-sequelize](https://www.npmjs.com/package/kysely-sequelize) - A toolkit (dialect, type translators, etc.) that allows using your existing Sequelize instance with [Kysely](https://www.kysely.dev).
 
 ### Joi
 

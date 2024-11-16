@@ -88,7 +88,9 @@ A ❌ means the dialect does not support that DataType.
 </DialectTableFilter>
 
 [^ints-1]: When an int type is not available, Sequelize uses a bigger int type.
+
 [^ints-2]: When an unsigned int type is not available, Sequelize uses a bigger int type to ensure the type covers all possible unsigned integer values of the smaller int type.
+
 [^mssql-1]: `TINYINT` in SQL Server is unsigned. `DataTypes.TINYINT.UNSIGNED` therefore maps to `TINYINT`, and `DataTypes.TINYINT` maps to `SMALLINT`.
 
 :::caution
@@ -130,6 +132,7 @@ The types in the following table are typically represented as an [IEEE 754 float
 </DialectTableFilter>
 
 [^sqlite-3]: Unlike other dialects, in SQLite, `REAL` is a double-precision floating point number type.
+
 [^snowflake-1]: Unlike other dialects, in Snowflake, `FLOAT` is a double-precision floating point number type.
 
 :::info
