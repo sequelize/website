@@ -17,7 +17,7 @@ Which one works best for you will depend on your specific requirements.
 Migrations are a way to version control your database schema,
 allowing you to easily upgrade and downgrade your database as your application evolves.
 
-Sequelize provides [`@sequelize/cli`](../cli.md), a Command Line Interface that can be used to create and run migrations.
+Sequelize provides [`@sequelize/cli`](../cli), a Command Line Interface that can be used to create and run migrations.
 Head to [the `@sequelize/cli` page](../cli.md) for more information on how to write migrations.
 
 Of course, you are free to use any other migration tool:

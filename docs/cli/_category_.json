@@ -1,0 +1,9 @@
+{
+  "position": 9,
+  "label": "Sequelize CLI",
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index"
+  }
+}
