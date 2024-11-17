@@ -1,0 +1,204 @@
+---
+title: Migrations
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::info
+
+This guide is about using the Sequelize CLI to manage migrations.
+If you are not using the CLI, you can still manage migrations in [other ways](../models/migrations.md).
+
+:::
+
+## Writing migrations
+
+Sequelize Migrations are a series of files written in JavaScript or SQL that describe the changes you want to make to your database schema.
+They are used to create, modify, or delete tables and columns.
+
+By default, migrations are stored in the `migrations` folder relative to the location of the configuration file.
+This location can be changed by setting the `migrationFolder` property in the configuration file.
+
+```ts
+// .sequelizerc.ts
+
+import type { Config } from '@sequelize/cli';
+import { PostgresDialect } from '@sequelize/postgres';
+
+const config: Config<PostgresDialect> = {
+  // highlight-next-line
+  migrationFolder: 'src/migrations',
+};
+```
+
+Migrations can be written in [JavaScript](#javascript--typescript-migrations), [TypeScript](#javascript--typescript-migrations), or [SQL](#sql-migrations).
+
+### JavaScript & TypeScript Migrations
+
+An empty JavaScript migration can be generated using the following command:
+
+```bash npm2yarn
+# Generates an empty JavaScript migration file using ECMAScript Modules
+npx sequelize migration:generate --format=esm
+
+# Generates an empty JavaScript migration file using CommonJS
+npx sequelize migration:generate --format=cjs
+
+# Generates an empty TypeScript migration file using ECMAScript Modules
+npx sequelize migration:generate --format=typescript
+```
+
+The empty migration file looks like this:
+
+<Tabs groupId="ts-js">
+<TabItem value="ts" label="TypeScript">
+
+```ts
+export async function up(
+  queryInterface: AbstractQueryInterface,
+  sequelize: Sequelize,
+): Promise<void> {
+  // logic for transforming into the new state
+}
+
+export async function down(
+  queryInterface: AbstractQueryInterface,
+  sequelize: Sequelize,
+): Promise<void> {
+  // logic for reverting the changes (optional)
+}
+```
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
+
+```js
+export async function up(queryInterface, sequelize) {
+  // logic for transforming into the new state
+}
+
+export async function down(queryInterface, sequelize) {
+  // logic for reverting the changes (optional)
+}
+```
+
+</TabItem>
+</Tabs>
+
+The `up` function is used to [apply the changes](#running-migrations) to the database. This function is mandatory.
+The `down` function is used to [revert the changes](#undoing-migrations). This function is optional.
+
+Both functions have access to a `QueryInterface` instance, and the `Sequelize` instance.
+Both instances can be used to interact with the database. The [`queryInterface`](pathname:///api/v7/classes/_sequelize_core.index.abstractqueryinterface) object proposes
+predefined methods to interact with the database in a database-agnostic way, while the `sequelize` object
+lets you [run arbitrary SQL queries](../querying/raw-queries.mdx) thanks to `sequelize.query`.
+
+The following example shows a migration file that creates a table called `people` with two columns: `name` and `isBetaMember`.
+
+<Tabs groupId="ts-js">
+<TabItem value="ts" label="TypeScript">
+
+```ts
+export async function up(
+  queryInterface: AbstractQueryInterface,
+  sequelize: Sequelize,
+): Promise<void> {
+  await queryInterface.createTable('people', {
+    name: DataTypes.STRING,
+    isBetaMember: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
+  });
+}
+
+export async function down(
+  queryInterface: AbstractQueryInterface,
+  sequelize: Sequelize,
+): Promise<void> {
+  await queryInterface.dropTable('people');
+}
+```
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
+
+```js
+export async function up(queryInterface, sequelize) {
+  await queryInterface.createTable('people', {
+    name: DataTypes.STRING,
+    isBetaMember: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
+  });
+}
+
+export async function down(queryInterface, sequelize) {
+  await queryInterface.dropTable('people');
+}
+```
+
+</TabItem>
+</Tabs>
+
+:::warning
+
+When writing migrations in JavaScript or TypeScript, you should avoid importing [Models](../models/defining-models.mdx) from your application code as
+models typically represent the current state of the database, which may not match the state that the migration is running against.
+
+**Using Models in migrations can lead to unexpected behavior.**
+Instead, you should use the `queryInterface` object and [`sequelize.query`](../querying/raw-queries.mdx) method to interact with the database.
+
+:::
+
+### SQL Migrations
+
+```bash npm2yarn
+npx sequelize migration:generate --format=sql
+```
+
+TODO
+
+## Running Migrations
+
+Until this step, we haven't inserted anything into the database. We have just created the required model and migration files for our first model, `User`. Now to actually create that table in the database you need to run `db:migrate` command.
+
+```bash
+# using npm
+npx sequelize-cli db:migrate
+# using yarn
+yarn sequelize-cli db:migrate
+```
+
+This command will execute these steps:
+
+- Will ensure a table called `SequelizeMeta` in the database. This table is used to record which migrations have run on the current database
+- Start looking for any migration files that haven't run yet. This is possible by checking `SequelizeMeta` table. In this case, it will run `XXXXXXXXXXXXXX-create-user.js` migration, which we created in the last step.
+- Creates a table called `Users` with all columns as specified in its migration file.
+
+## Undoing Migrations
+
+Now our table has been created and saved in the database. With migration, you can revert to the old state by just running a command.
+
+You can use `db:migrate:undo`, this command will revert the most recent migration.
+
+```bash
+# using npm
+npx sequelize-cli db:migrate:undo
+# using yarn
+yarn sequelize-cli db:migrate:undo
+```
+
+You can revert to the initial state by undoing all migrations with the `db:migrate:undo:all` command. You can also revert to a specific migration by passing its name with the `--to` option.
+
+```bash
+# using npm
+npx sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
+# using yarn
+yarn sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
+```
