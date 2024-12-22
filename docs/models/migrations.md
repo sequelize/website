@@ -22,6 +22,8 @@ Head to [the `@sequelize/cli` page](../cli.md) for more information on how to wr
 
 Of course, you are free to use any other migration tool:
 
+- [Atlas](https://github.com/ariga/atlas) provides built-in integration for Sequelize, including automatic migration planning, migration linting, schema diffing, and more.
+  Read more in [Atlas/Sequelize portal](https://atlasgo.io/guides/orms/sequelize).
 - [Umzug](https://github.com/sequelize/umzug) is a great alternative that the Sequelize CLI uses under the hood.
 - Third-party tools that can be used to help with migrations are also listed on the [Third-Party Resources](../other-topics/resources.md#migrations) page.
 
