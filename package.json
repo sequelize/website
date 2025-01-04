@@ -27,7 +27,7 @@
     "@docusaurus/remark-plugin-npm2yarn": "^3.2.1",
     "@docusaurus/theme-mermaid": "3.6.1",
     "@mdx-js/react": "3.0.0",
-    "@react-hookz/web": "24.0.4",
+    "@react-hookz/web": "25.0.1",
     "@sequelize/utils": "7.0.0-alpha.43",
     "clsx": "2.1.1",
     "docusaurus-plugin-sass": "0.2.6",
