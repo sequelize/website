@@ -72,7 +72,10 @@ function HomepageNewMaintainers() {
       </h2>
       <p>
         Want to help finish the next major release of Sequelize? We're looking for new contributors
-        and maintainers! 💡
+        and maintainers!{' '}
+        <span role="img" aria-label="Lamp">
+          💡
+        </span>
       </p>
       <p>
         <strong>
