@@ -58,6 +58,42 @@ function HomepageHeader() {
   );
 }
 
+function HomepageNewMaintainers() {
+  return (
+    <div className={css.banner}>
+      <h2>
+        <span role="img" aria-label="Rocket">
+          🚀
+        </span>{' '}
+        Sequelize Needs Maintainers!{' '}
+        <span role="img" aria-label="Rocket">
+          🚀
+        </span>
+      </h2>
+      <p>
+        Want to help finish the next major release of Sequelize? We're looking for new contributors
+        and maintainers! 💡
+      </p>
+      <p>
+        <strong>
+          <span role="img" aria-label="Money">
+            💰
+          </span>{' '}
+          Funding available:
+        </strong>{' '}
+        $2,500 per quarter distributed among maintainers.
+      </p>
+      <p>
+        <span role="img" aria-label="Message">
+          📩
+        </span>{' '}
+        <Link to="https://sequelize.org/slack">Join our Slack</Link> and reach out to{' '}
+        <strong>@WikiRik</strong> or <strong>@sdepold</strong>.
+      </p>
+    </div>
+  );
+}
+
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
 
@@ -69,6 +105,7 @@ export default function Home(): JSX.Element {
       </Head>
       <HomepageHeader />
       <main>
+        <HomepageNewMaintainers />
         <HomepageUsage />
         <HomepageFeatures />
         <BrowserOnly>{() => <HomepageUsers />}</BrowserOnly>
