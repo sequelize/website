@@ -26,4 +26,6 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: sequelize-site
-        run: yarn netlify deploy --dir build --prod --message '${{ github.event.commits[0].message }}'
+          MESSAGE: ${{ github.event.commits[0].message }}
+        shell: bash
+        run: yarn netlify deploy --dir build --prod --message '$MESSAGE'
