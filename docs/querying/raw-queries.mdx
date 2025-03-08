@@ -37,7 +37,7 @@ const users = await User.findAll({
 
 In the above example, we used a variable in our raw SQL. Thanks to the `sql` tag, Sequelize will automatically escape that variable to remove any risk of SQL injection.
 
-Sequelize supports two different ways to pass variables in raw SQL: **Replacements** and **Bind Parameters**.
+Sequelize supports two different ways to pass variables in raw SQL: **Replacements** and **Bind Parameters**.  
 Replacements and bind parameters are available in all querying methods, and can be used together in the same query.
 
 ### Replacements
@@ -136,7 +136,7 @@ await Project.findAll({
 });
 ```
 
-Sequelize does not currently support a way to [specify the DataType of a bind parameter](https://github.com/sequelize/sequelize/issues/14410).
+Sequelize does not currently support a way to [specify the DataType of a bind parameter](https://github.com/sequelize/sequelize/issues/14410).  
 Until such a feature is implemented, you can cast your bind parameters if you need to change their DataType:
 
 ```js
