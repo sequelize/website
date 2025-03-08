@@ -28,32 +28,33 @@
     "@docusaurus/theme-mermaid": "3.6.1",
     "@mdx-js/react": "3.0.0",
     "@react-hookz/web": "24.0.4",
-    "@sequelize/utils": "7.0.0-alpha.43",
+    "@sequelize/utils": "7.0.0-alpha.44",
     "clsx": "2.1.1",
-    "docusaurus-plugin-sass": "0.2.5",
-    "prism-react-renderer": "2.4.0",
+    "docusaurus-plugin-sass": "0.2.6",
+    "prism-react-renderer": "2.4.1",
     "raw-loader": "4.0.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-feather": "2.0.10",
     "react-responsive-carousel": "3.2.23",
-    "sass": "1.81.0"
+    "sass": "1.85.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.6.1",
     "@docusaurus/tsconfig": "3.6.1",
     "@ephys/eslint-config-typescript": "20.1.4",
-    "@rushstack/eslint-patch": "1.10.4",
-    "concurrently": "9.1.0",
+    "@rushstack/eslint-patch": "1.10.5",
+    "concurrently": "9.1.2",
     "eslint": "8.57.1",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-mdx": "1.17.1",
-    "eslint-plugin-react": "7.37.2",
-    "eslint-plugin-react-hooks": "5.0.0",
-    "husky": "9.1.6",
-    "lint-staged": "15.2.10",
+    "eslint-plugin-react": "7.37.4",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "husky": "9.1.7",
+    "lint-staged": "15.4.3",
+    "netlify-cli": "19.0.2",
     "prettier": "3.3.3",
-    "typescript": "5.6.3"
+    "typescript": "5.8.2"
   },
   "browserslist": {
     "production": [
@@ -70,5 +71,6 @@
   "lint-staged": {
     "*.{js,mjs,cjs,ts,mts,cts}": "eslint --fix --report-unused-disable-directives",
     "*": "prettier --write --ignore-unknown"
-  }
+  },
+  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }
