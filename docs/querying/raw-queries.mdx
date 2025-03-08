@@ -37,7 +37,7 @@ const users = await User.findAll({
 
 In the above example, we used a variable in our raw SQL. Thanks to the `sql` tag, Sequelize will automatically escape that variable to remove any risk of SQL injection.
 
-Sequelize supports two different ways to pass variables in raw SQL: **Replacements** and **Bind Parameters**.  
+Sequelize supports two different ways to pass variables in raw SQL: **Replacements** and **Bind Parameters**.
 Replacements and bind parameters are available in all querying methods, and can be used together in the same query.
 
 ### Replacements
@@ -60,7 +60,7 @@ The `replacements` option must contain all bound values, or Sequelize will throw
 ```js
 import { QueryTypes } from '@sequelize/core';
 
-// This query use positional replacements
+// This query uses positional replacements
 await sequelize.query('SELECT * FROM projects WHERE status = ?', {
   replacements: ['active'],
 });
@@ -136,7 +136,7 @@ await Project.findAll({
 });
 ```
 
-Sequelize does not currently support a way to [specify the DataType of a bind parameter](https://github.com/sequelize/sequelize/issues/14410).  
+Sequelize does not currently support a way to [specify the DataType of a bind parameter](https://github.com/sequelize/sequelize/issues/14410).
 Until such a feature is implemented, you can cast your bind parameters if you need to change their DataType:
 
 ```js
@@ -259,6 +259,34 @@ await sequelize.query(sql`SELECT * FROM ${sql.identifier('projects')}`);
 SELECT * FROM "projects"
 ```
 
+You can specify more than one identifier:
+
+```js
+import { sql } from '@sequelize/core';
+
+await sequelize.query(sql`SELECT * FROM ${sql.identifier('public', 'users')}`);
+```
+
+```sql
+-- The identifier quotes are dialect-specific, this is an example for PostgreSQL
+SELECT * FROM "public"."users"
+```
+
+Using a Model class as an identifier will automatically use the table name of the Model:
+
+```js
+import { User, sql } from '@sequelize/core';
+
+class User extends Model {}
+
+await sequelize.query(sql`SELECT * FROM ${sql.identifier(User)}`);
+```
+
+```sql
+-- The identifier quotes are dialect-specific, this is an example for PostgreSQL
+SELECT * FROM "users"
+```
+
 ### `sql.list`
 
 When using an array as a variable in a query, Sequelize will by default treat it as an SQL array:
@@ -292,6 +320,41 @@ When using `sql.list` make sure that the array contains at least one value, othe
 Read more about this in [#15142](https://github.com/sequelize/sequelize/issues/15142)
 
 :::
+
+### `sql.join`
+
+The `sql.join` function can be used to join multiple SQL fragments together.
+It is designed to be the equivalent of [`Array.prototype.join`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join) for SQL fragments.
+
+```ts
+const columns = [sql.identifier('name'), sql.identifier('funding')];
+
+await sequelize.query(sql`SELECT ${sql.join(columns, ', ')} FROM projects`);
+```
+
+```sql
+SELECT "name", "funding" FROM projects
+```
+
+Like with the `sql` tag, all non-sql values in the array passed to `sql.join` will be escaped:
+
+```ts
+const values = ['active', 'pending'];
+
+await sequelize.query(sql`SELECT * FROM projects WHERE status IN (${sql.join(values, ', ')})`);
+```
+
+```sql
+SELECT * FROM projects WHERE status IN ('active', 'pending')
+```
+
+The separator can also be any SQL fragment:
+
+```ts
+const values = ['active', 'pending'];
+
+await sequelize.query(sql`SELECT * FROM projects WHERE status IN ${sql.join(values, sql`, `)}`);
+```
 
 ### `sql.where`
 
