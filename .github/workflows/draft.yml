@@ -35,7 +35,8 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         shell: bash
         run: |
-          yarn netlify deploy --dir build --message '${{ github.event.commits[0].message }}'
+          yarn netlify deploy --dir build --message '${{ github.event.commits[0].message }}' > log.tmp.txt 2>&1
+          cat log.tmp.txt | grep -E 'Website draft URL:' > log.txt
       - name: Read deployment log
         if: ${{ !github.event.pull_request.head.repo.fork && !startsWith(github.ref, 'refs/heads/renovate') }}
         id: logs
