@@ -194,11 +194,12 @@ You also can conditionally allow `null` values, with a custom validator, since i
 class User extends Model {}
 User.init(
   {
-    age: Sequelize.INTEGER,
+    age: DataTypes.INTEGER,
     name: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
+        /** @this {User} */
         customValidator(value) {
           if (value === null && this.age !== 10) {
             throw new Error("name can't be null unless age is 10");
@@ -245,8 +246,8 @@ An example:
 class Place extends Model {}
 Place.init(
   {
-    name: Sequelize.STRING,
-    address: Sequelize.STRING,
+    name: DataTypes.STRING,
+    address: DataTypes.STRING,
     latitude: {
       type: DataTypes.INTEGER,
       validate: {
@@ -265,6 +266,7 @@ Place.init(
   {
     sequelize,
     validate: {
+      /** @this {Place} */
       bothCoordsOrNone() {
         if ((this.latitude === null) !== (this.longitude === null)) {
           throw new Error('Either both latitude and longitude, or neither!');
