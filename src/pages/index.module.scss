@@ -84,3 +84,22 @@
     margin-left: 0;
   }
 }
+
+.banner {
+  background-color: #f8f9fa;
+  padding: 16px;
+  text-align: center;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.banner h2 {
+  margin: 0 0 8px;
+  color: #0366d6;
+}
+
+.banner p {
+  margin: 4px 0;
+  font-size: 16px;
+}
