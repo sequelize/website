@@ -9569,10 +9569,10 @@ get-port-please@^3.1.2:
   resolved "https://registry.yarnpkg.com/get-port-please/-/get-port-please-3.1.2.tgz#502795e56217128e4183025c89a48c71652f4e49"
   integrity sha512-Gxc29eLs1fbn6LQ4jSU4vXjlwyZhF5HsGuMAa7gqBP4Rw4yxxltyDUuF5MBclFzDTXO+ACchGQoeela4DSfzdQ==
 
-get-port@7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/get-port/-/get-port-7.1.0.tgz#d5a500ebfc7aa705294ec2b83cc38c5d0e364fec"
-  integrity sha512-QB9NKEeDg3xxVwCCwJQ9+xycaz6pBB6iQ76wiWMl1927n0Kir6alPiP+yuiICLLU4jpMe08dXfpebuQppFA2zw==
+get-port@5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/get-port/-/get-port-5.1.1.tgz#0469ed07563479de6efb986baf053dcd7d4e3193"
+  integrity sha512-g/Q1aTSDOxFpchXC4i8ZWvxA1lnPqx/JHqcpIw0/LX9T8x/GBbi6YnlN5nhaKIFkT8oFsscUKgDJYxfwfS6QsQ==
 
 get-port@^6.1.2:
   version "6.1.2"
@@ -13126,10 +13126,10 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-netlify-cli@19.1.3:
-  version "19.1.3"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-19.1.3.tgz#bc6bcef4edef3760c31660d1398bc0bedb0eb2cd"
-  integrity sha512-zAIypaX5AqLslIIkAYFlJAc1CqrUwhL6Vh/d0M+CagezIlhLvru6MTEfyxCaDIH1BBmOfH0cWViLa+M+LsyETg==
+netlify-cli@19.1.4:
+  version "19.1.4"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-19.1.4.tgz#a6f3e5f2d637abbfa7346ed28bf0ed14d608e702"
+  integrity sha512-/X5gn8jO/GY4cZnEFajaUnO/4LiCLgnbumoSNvbNnY8EADqdfPiOnjz1u6gAiMlSt2DKASy7Bs6HbNM1XcXGsA==
   dependencies:
     "@fastify/static" "7.0.4"
     "@netlify/blobs" "8.1.2"
@@ -13178,7 +13178,7 @@ netlify-cli@19.1.3:
     folder-walker "3.2.0"
     from2-array "0.0.4"
     fuzzy "0.1.3"
-    get-port "7.1.0"
+    get-port "5.1.1"
     gh-release-fetch "4.0.3"
     git-repo-info "2.1.1"
     gitconfiglocal "2.1.0"
