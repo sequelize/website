@@ -2759,7 +2759,37 @@
     path-exists "^5.0.0"
     readdirp "^3.4.0"
 
-"@netlify/config@21.0.6", "@netlify/config@^21.0.6":
+"@netlify/config@21.0.7":
+  version "21.0.7"
+  resolved "https://registry.yarnpkg.com/@netlify/config/-/config-21.0.7.tgz#838e9615d37544c5f02aa6ce843396dec729302f"
+  integrity sha512-B4SBC1a6TB2bIafJvUnF9RViVYn2QDSW96majr7XkG8kgdd5DbOjKyERHaQ8F2912lpg0pp3izlofERuGkDx9A==
+  dependencies:
+    "@iarna/toml" "^2.2.5"
+    "@netlify/headers-parser" "^8.0.0"
+    "@netlify/redirect-parser" "^14.5.1"
+    chalk "^5.0.0"
+    cron-parser "^4.1.0"
+    deepmerge "^4.2.2"
+    dot-prop "^7.0.0"
+    execa "^7.0.0"
+    fast-safe-stringify "^2.0.7"
+    figures "^5.0.0"
+    filter-obj "^5.0.0"
+    find-up "^6.0.0"
+    indent-string "^5.0.0"
+    is-plain-obj "^4.0.0"
+    js-yaml "^4.0.0"
+    map-obj "^5.0.0"
+    netlify "^13.3.4"
+    node-fetch "^3.3.1"
+    omit.js "^2.0.2"
+    p-locate "^6.0.0"
+    path-type "^5.0.0"
+    tomlify-j0.4 "^3.0.0"
+    validate-npm-package-name "^4.0.0"
+    yargs "^17.6.0"
+
+"@netlify/config@^21.0.6":
   version "21.0.6"
   resolved "https://registry.yarnpkg.com/@netlify/config/-/config-21.0.6.tgz#198ea4725c6d74814572f2e36e24b61b49afd7a5"
   integrity sha512-zie9e/lKvdZ88Heduu5X6v+CvhcU1e9notQtugc3Hg60NWfXgRr1Z11opOeD/hh2GmoLkr6f1HBjndyKEFSZJA==
@@ -13173,16 +13203,16 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-netlify-cli@19.1.7:
-  version "19.1.7"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-19.1.7.tgz#2bdd5681aa44260d9f154a09d26d0554e8a67d1d"
-  integrity sha512-1L5DVUDnJgCz445p4C+syYEZ15RrsJ9QAEoonZaPWk5ZVuG/ueDn6C8rYXCjogJL2W6vtrZy2CnKijI8Z6e0kg==
+netlify-cli@20.0.0:
+  version "20.0.0"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-20.0.0.tgz#cc82c3abaacbdfed613056dbdcb155b83b50b310"
+  integrity sha512-A7A4C9cVtolZzSx8X7LChDQzcCIqHvK4kqmuOYu5zmCKwpJJaASXagMW1pUTpvZvrJlBAIycv17rAEOtPdHUJQ==
   dependencies:
     "@fastify/static" "7.0.4"
     "@netlify/blobs" "8.1.2"
     "@netlify/build" "30.1.1"
     "@netlify/build-info" "9.0.2"
-    "@netlify/config" "21.0.6"
+    "@netlify/config" "21.0.7"
     "@netlify/edge-bundler" "12.4.0"
     "@netlify/edge-functions" "2.11.1"
     "@netlify/headers-parser" "8.0.0"
