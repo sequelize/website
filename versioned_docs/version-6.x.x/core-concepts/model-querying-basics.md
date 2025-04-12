@@ -69,7 +69,7 @@ Attributes can be renamed using a nested array:
 
 ```js
 Model.findAll({
-  attributes: ['foo', ['bar', 'baz'], 'qux'],
+  attributes: [['foo', 'baz'], ['baz', 'qux']],
 });
 ```
 
@@ -81,7 +81,7 @@ You can use [`sequelize.fn`](pathname:///api/v6/class/src/sequelize.js~Sequelize
 
 ```js
 Model.findAll({
-  attributes: ['foo', [sequelize.fn('COUNT', sequelize.col('hats')), 'n_hats'], 'bar'],
+  attributes: [['foo', 'bar'], [sequelize.fn('COUNT', sequelize.col('hats')), 'n_hats']],
 });
 ```
 
