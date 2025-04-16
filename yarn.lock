@@ -9348,14 +9348,6 @@ flatted@^3.2.9:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.9.tgz#7eb4c67ca1ba34232ca9d2d93e9886e611ad7daf"
   integrity sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==
 
-flush-write-stream@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/flush-write-stream/-/flush-write-stream-2.0.0.tgz#6f58e776154f5eefacff92a6e5a681c88ac50f7c"
-  integrity sha512-uXClqPxT4xW0lcdSBheb2ObVU+kuqUk3Jk64EwieirEXZx9XUrVwp/JuBfKAWaM4T5Td/VL7QLDWPXp/MvGm/g==
-  dependencies:
-    inherits "^2.0.3"
-    readable-stream "^3.1.1"
-
 fn.name@1.x.x:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/fn.name/-/fn.name-1.1.0.tgz#26cad8017967aea8731bc42961d04a3d5988accc"
@@ -9439,14 +9431,7 @@ fresh@0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==
 
-from2-array@0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/from2-array/-/from2-array-0.0.4.tgz#eafc16b65f6e2719bcd57fdc1869005ac1332cd6"
-  integrity sha512-0G0cAp7sYLobH7ALsr835x98PU/YeVF7wlwxdWbCUaea7wsa7lJfKZUAo6p2YZGZ8F94luCuqHZS3JtFER6uPg==
-  dependencies:
-    from2 "^2.0.3"
-
-from2@^2.0.3, from2@^2.1.0:
+from2@^2.1.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/from2/-/from2-2.3.0.tgz#8bfb5502bde4a4d36cfdeea007fcca21d7e382af"
   integrity sha512-OMcX/4IC/uqEPVgGeyfN22LJk6AZrMkRZHxcHBMBvHScDGgwTm2GT2Wkgtocyd3JfZffjj2kYUDXXII0Fk9W0g==
@@ -13223,10 +13208,10 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-netlify-cli@20.0.1:
-  version "20.0.1"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-20.0.1.tgz#f8f4cdeb386bedfbd0180ce078e8913fc94b2140"
-  integrity sha512-MEGq/86msjpdUKW5LtvUAXyNk5jMOjLjP0PonbPa3vkGvR7CY0RaZCusypyjQTZCKtbPqcG2/dinP9QQrmcCbA==
+netlify-cli@20.0.2:
+  version "20.0.2"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-20.0.2.tgz#c021f1021b266fd846bd4cbfe9748ea1bd0c2958"
+  integrity sha512-f3skyVgoOp1JOzA/UKS7PNzq57UWkS2gS2xqBgetmyq7+z3pf2mzVE5jFW5juAqiymeb7bARtmuS1XLOMajHjw==
   dependencies:
     "@fastify/static" "7.0.4"
     "@netlify/blobs" "8.1.2"
@@ -13270,9 +13255,7 @@ netlify-cli@20.0.1:
     fastest-levenshtein "1.0.16"
     fastify "4.29.0"
     find-up "7.0.0"
-    flush-write-stream "2.0.0"
     folder-walker "3.2.0"
-    from2-array "0.0.4"
     fuzzy "0.1.3"
     get-port "5.1.1"
     gh-release-fetch "4.0.3"
@@ -13315,11 +13298,8 @@ netlify-cli@20.0.1:
     readdirp "4.1.2"
     semver "7.7.1"
     source-map-support "0.5.21"
-    strip-ansi-control-characters "2.0.0"
     tempy "3.1.0"
     terminal-link "4.0.0"
-    through2-filter "4.0.0"
-    through2-map "4.0.0"
     toml "3.0.0"
     tomlify-j0.4 "3.0.0"
     ulid "2.3.0"
@@ -15239,15 +15219,6 @@ read-pkg@^9.0.0:
     type-fest "^4.6.0"
     unicorn-magic "^0.1.0"
 
-readable-stream@3, readable-stream@^3.0.6, readable-stream@^3.1.1, readable-stream@^3.4.0, readable-stream@^3.6.0, readable-stream@^3.6.2:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.2.tgz#56a9b36ea965c00c5a93ef31eb111a0f11056967"
-  integrity sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==
-  dependencies:
-    inherits "^2.0.3"
-    string_decoder "^1.1.1"
-    util-deprecate "^1.0.1"
-
 readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.5, readable-stream@^2.1.5, readable-stream@~2.3.6:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.8.tgz#91125e8042bba1b9887f49345f6277027ce8be9b"
@@ -15260,6 +15231,15 @@ readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.5, readable
     safe-buffer "~5.1.1"
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
+
+readable-stream@^3.0.6, readable-stream@^3.1.1, readable-stream@^3.4.0, readable-stream@^3.6.0, readable-stream@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.2.tgz#56a9b36ea965c00c5a93ef31eb111a0f11056967"
+  integrity sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==
+  dependencies:
+    inherits "^2.0.3"
+    string_decoder "^1.1.1"
+    util-deprecate "^1.0.1"
 
 readable-stream@^4.7.0:
   version "4.7.0"
@@ -16861,11 +16841,6 @@ stringify-object@^3.3.0:
   dependencies:
     ansi-regex "^5.0.1"
 
-strip-ansi-control-characters@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/strip-ansi-control-characters/-/strip-ansi-control-characters-2.0.0.tgz#8875b5ba3a859a0a44f94e1cf7d3eda8980997b9"
-  integrity sha512-Q0/k5orrVGeaOlIOUn1gybGU0IcAbgHQT1faLo5hik4DqClKVSaka5xOhNNoRgtfztHVxCYxi7j71mrWom0bIw==
-
 strip-ansi@^5.1.0, strip-ansi@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-5.2.0.tgz#8c9a536feb6afc962bdfa5b104a5091c1ad9c0ae"
@@ -17204,20 +17179,6 @@ thread-stream@^3.0.0:
   dependencies:
     real-require "^0.2.0"
 
-through2-filter@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/through2-filter/-/through2-filter-4.0.0.tgz#1cdaa1276d4ee87f926e83f565a4332d6a2adfd7"
-  integrity sha512-P8IpQL19bSdXqGLvLdbidYRxERXgHEXGcQofPxbLpPkqS1ieOrUrocdYRTNv8YwSukaDJWr71s6F2kZ3bvgEhA==
-  dependencies:
-    through2 "^4.0.2"
-
-through2-map@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/through2-map/-/through2-map-4.0.0.tgz#4ff70fe60c555e230472868b837a96a24645b160"
-  integrity sha512-+rpmDB5yckiBGEuqJSsWYWMs9e1zdksypDKvByysEyN+knhsPXV9Z6O2mA9meczIa6AON7bi2G3xWk5T8UG4zQ==
-  dependencies:
-    through2 "^4.0.2"
-
 through2@^2.0.0, through2@~2.0.0:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.5.tgz#01c1e39eb31d07cb7d03a96a70823260b23132cd"
@@ -17225,13 +17186,6 @@ through2@^2.0.0, through2@~2.0.0:
   dependencies:
     readable-stream "~2.3.6"
     xtend "~4.0.1"
-
-through2@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/through2/-/through2-4.0.2.tgz#a7ce3ac2a7a8b0b966c80e7c49f0484c3b239764"
-  integrity sha512-iOqSav00cVxEEICeD7TjLB1sueEL+81Wpzp2bY17uZjZN0pWZPuo4suZ/61VujxmqSGFfgOcNuTZ85QJwNZQpw==
-  dependencies:
-    readable-stream "3"
 
 through@^2.3.6, through@^2.3.8:
   version "2.3.8"
