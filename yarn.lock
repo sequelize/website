@@ -13208,10 +13208,10 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-netlify-cli@20.0.3:
-  version "20.0.3"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-20.0.3.tgz#fee6adec275fbf83d214e4f5c6ecbb0470556bf7"
-  integrity sha512-bgLULtVo33NhsM1vkp90YJr1FubLOQzzlDSRJ+lbuQFCLyVPA1O2+GRzIpfyfO+MoLxlhIED6Pm67wnMuGHQbw==
+netlify-cli@20.0.4:
+  version "20.0.4"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-20.0.4.tgz#e183ce8433ee02d8e7548a74ecd5746b249e20d6"
+  integrity sha512-OptWtRfj+0EgwWG7jRMcsdsaZij0JkiN1/eU+45cCjLhYryUHxZdao0TvYjYA5z9z6fcWuKx3sQ2o8IFXNAPxQ==
   dependencies:
     "@fastify/static" "7.0.4"
     "@netlify/blobs" "8.1.2"
@@ -13298,7 +13298,6 @@ netlify-cli@20.0.3:
     readdirp "4.1.2"
     semver "7.7.1"
     source-map-support "0.5.21"
-    tempy "3.1.0"
     terminal-link "4.0.0"
     toml "3.0.0"
     tomlify-j0.4 "3.0.0"
@@ -17103,21 +17102,6 @@ tar@^6.1.11:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
-temp-dir@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/temp-dir/-/temp-dir-3.0.0.tgz#7f147b42ee41234cc6ba3138cd8e8aa2302acffa"
-  integrity sha512-nHc6S/bwIilKHNRgK/3jlhDoIHcp45YgyiwcAk46Tr0LfEqGBVpmiAyuiuxeVE44m3mXnEeVhaipLOEWmH+Njw==
-
-tempy@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/tempy/-/tempy-3.1.0.tgz#00958b6df85db8589cb595465e691852aac038e9"
-  integrity sha512-7jDLIdD2Zp0bDe5r3D2qtkd1QOCacylBuL7oa4udvN6v2pqr4+LcCr67C8DR1zkpaZ8XosF5m1yQSabKAW6f2g==
-  dependencies:
-    is-stream "^3.0.0"
-    temp-dir "^3.0.0"
-    type-fest "^2.12.2"
-    unique-string "^3.0.0"
-
 terminal-link@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/terminal-link/-/terminal-link-4.0.0.tgz#5f3e50329420fad97d07d624f7df1851d82963f1"
@@ -17430,7 +17414,7 @@ type-fest@^1.0.1, type-fest@^1.0.2:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-1.4.0.tgz#e9fb813fe3bf1744ec359d55d1affefa76f14be1"
   integrity sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==
 
-type-fest@^2.0.0, type-fest@^2.11.2, type-fest@^2.12.2, type-fest@^2.13.0, type-fest@^2.5.0:
+type-fest@^2.0.0, type-fest@^2.11.2, type-fest@^2.13.0, type-fest@^2.5.0:
   version "2.19.0"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-2.19.0.tgz#88068015bb33036a598b952e55e9311a60fd3a9b"
   integrity sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==
