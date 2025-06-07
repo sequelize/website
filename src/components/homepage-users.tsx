@@ -92,10 +92,10 @@ export function HomepageUsers(): JSX.Element {
             showIndicators={false}
             infiniteLoop
             showThumbs={false}
-            useKeyboardArrows
+            useKeyboardArrows={false}
             autoPlay
-            stopOnHover
-            swipeable
+            stopOnHover={false}
+            swipeable={false}
             emulateTouch
             centerSlidePercentage={isMobile ? 75 : 25}
             centerMode
