@@ -28,7 +28,7 @@
     "@docusaurus/theme-mermaid": "3.6.1",
     "@mdx-js/react": "3.0.0",
     "@react-hookz/web": "24.0.4",
-    "@sequelize/utils": "7.0.0-alpha.46",
+    "@sequelize/utils": "7.0.0-alpha.47",
     "clsx": "2.1.1",
     "docusaurus-plugin-sass": "0.2.6",
     "prism-react-renderer": "2.4.1",
