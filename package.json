@@ -54,7 +54,7 @@
     "lint-staged": "15.5.2",
     "netlify-cli": "20.1.1",
     "prettier": "3.3.3",
-    "typescript": "5.8.3"
+    "typescript": "5.9.3"
   },
   "browserslist": {
     "production": [
