@@ -7,4 +7,5 @@ export const SUPPORTED_DIALECTS = new Set([
   'Snowflake',
   'db2',
   'ibmi',
+  'hana',
 ]);
