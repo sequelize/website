@@ -1,0 +1,36 @@
+---
+title: DuckDB
+sidebar_position: 1
+---
+
+# Sequelize for DuckDB
+
+To use Sequelize with [DuckDB](https://duckdb.org/docs/), you need to install the `@sequelize/duckdb` dialect package:
+
+```bash npm2yarn
+npm i @sequelize/duckdb
+```
+
+Then use the `DuckDbDialect` class as the dialect option in the Sequelize constructor:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { DuckDbDialect } from '@sequelize/duckdb';
+
+const sequelize = new Sequelize({
+  dialect: DuckDbDialect,
+  database: '/path/to/local/file',
+});
+```
+
+To connect to [MotherDuck](https://motherduck.com/docs/getting-started/), provide your database path in the `database` field:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { DuckDbDialect } from '@sequelize/duckdb';
+
+const sequelize = new Sequelize({
+  dialect: DuckDbDialect,
+  database: 'md:my_db',
+});
+```
