@@ -63,15 +63,25 @@ const project = await Project.findOne({
 
 The [`findByPk`](pathname:///api/v7/classes/_sequelize_core.index.Model.html#findByPk) method obtains only a single entry from the table, using the provided primary key.
 
-```js
-const project = await Project.findByPk(123);
-if (project === null) {
-  console.log('Not found!');
-} else {
-  console.log(project instanceof Project); // true
-  // Its primary key is 123
-}
+```ts
+const project: Project | null = await Project.findByPk(123);
 ```
+
+If your model has a [composite primary key](../models/defining-models.mdx#composite-primary-keys), you can pass an object with the primary key values:
+
+```ts
+const projectMember: ProjectMember | null = await ProjectMember.findByPk({
+  projectId: 123,
+  userId: 456,
+});
+```
+
+:::warning TypeScript
+
+We do not currently have a way to determine which columns are primary keys in TypeScript.
+This means that only runtime checks will ensure that the primary key is passed correctly.
+
+:::
 
 ## `findAndCountAll`
 

@@ -22,38 +22,39 @@
     "write-translations": "docusaurus write-translations"
   },
   "dependencies": {
-    "@docusaurus/core": "3.2.1",
-    "@docusaurus/preset-classic": "3.2.1",
+    "@docusaurus/core": "3.6.1",
+    "@docusaurus/preset-classic": "3.6.1",
     "@docusaurus/remark-plugin-npm2yarn": "^3.2.1",
-    "@docusaurus/theme-mermaid": "3.2.1",
-    "@mdx-js/react": "3.0.0",
+    "@docusaurus/theme-mermaid": "3.6.1",
+    "@mdx-js/react": "3.1.1",
     "@react-hookz/web": "24.0.4",
-    "@sequelize/utils": "7.0.0-alpha.41",
+    "@sequelize/utils": "7.0.0-alpha.47",
     "clsx": "2.1.1",
-    "docusaurus-plugin-sass": "0.2.5",
-    "prism-react-renderer": "2.3.1",
+    "docusaurus-plugin-sass": "0.2.6",
+    "prism-react-renderer": "2.4.1",
     "raw-loader": "4.0.2",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-feather": "2.0.10",
     "react-responsive-carousel": "3.2.23",
-    "sass": "1.77.6"
+    "sass": "1.97.2"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.2.1",
-    "@docusaurus/tsconfig": "3.2.1",
+    "@docusaurus/module-type-aliases": "3.6.1",
+    "@docusaurus/tsconfig": "3.6.1",
     "@ephys/eslint-config-typescript": "20.1.4",
-    "@rushstack/eslint-patch": "1.10.3",
-    "concurrently": "8.2.2",
-    "eslint": "8.57.0",
-    "eslint-plugin-jsx-a11y": "6.8.0",
+    "@rushstack/eslint-patch": "1.15.0",
+    "concurrently": "9.2.1",
+    "eslint": "8.57.1",
+    "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-mdx": "1.17.1",
-    "eslint-plugin-react": "7.34.3",
-    "eslint-plugin-react-hooks": "4.6.2",
-    "husky": "9.0.11",
-    "lint-staged": "15.2.7",
-    "prettier": "3.2.5",
-    "typescript": "5.5.2"
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.0.1",
+    "husky": "9.1.7",
+    "lint-staged": "16.2.7",
+    "netlify-cli": "20.1.1",
+    "prettier": "3.3.3",
+    "typescript": "5.8.3"
   },
   "browserslist": {
     "production": [
@@ -70,5 +71,6 @@
   "lint-staged": {
     "*.{js,mjs,cjs,ts,mts,cts}": "eslint --fix --report-unused-disable-directives",
     "*": "prettier --write --ignore-unknown"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
