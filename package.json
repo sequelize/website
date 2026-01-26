@@ -53,7 +53,7 @@
     "husky": "9.1.7",
     "lint-staged": "16.2.7",
     "netlify-cli": "20.1.1",
-    "prettier": "3.3.3",
+    "prettier": "3.8.1",
     "typescript": "5.8.3"
   },
   "browserslist": {
