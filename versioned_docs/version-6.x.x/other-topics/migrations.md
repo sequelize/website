@@ -109,11 +109,7 @@ This command will execute these steps:
 
 ## Skipping Migration Execution
 
-In some cases you may want to mark migrations as completed without actually executing their SQL. This can be useful when:
-	- The database schema was applied manually
-	- You are syncing migration history between environments
-	- You are adopting Sequelize CLI for an existing database
-	- You want to avoid re-running destructive or already-applied changes
+In some cases you may want to mark migrations as completed without actually executing their SQL. This can be useful when: - The database schema was applied manually - You are syncing migration history between environments - You are adopting Sequelize CLI for an existing database - You want to avoid re-running destructive or already-applied changes
 
 For this purpose, a custom `--skip-execution` flag is available.
 
@@ -121,12 +117,7 @@ For this purpose, a custom `--skip-execution` flag is available.
 npx sequelize-cli db:migrate --skip-execution
 ```
 
-When this flag is provided, the migration process changes as follows:
-	- The CLI will still ensure that the SequelizeMeta table exists
-	- It will detect all pending migration files as usual
-	- Instead of running the migration up methods, it will:
-	  - Record each pending migration as executed in the SequelizeMeta table
-	  - Skip all database-altering SQL
+When this flag is provided, the migration process changes as follows: - The CLI will still ensure that the SequelizeMeta table exists - It will detect all pending migration files as usual - Instead of running the migration up methods, it will: - Record each pending migration as executed in the SequelizeMeta table - Skip all database-altering SQL
 
 As a result, Sequelize considers these migrations as successfully applied, even though no schema changes were executed.
 
