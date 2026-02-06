@@ -33,6 +33,13 @@ const sequelize = new Sequelize({
 });
 ```
 
+:::info
+
+The underlying connector library used by Sequelize for Oracle is the [node-oracledb](https://www.npmjs.com/package/oracledb) package.  
+In Sequelize v7, node-oracledb uses thin mode by default which **doesn't require** to install [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html) libraries.
+
+:::
+
 ## Connection Options
 
 import ConnectionOptions from './_connection-options.md';
@@ -40,7 +47,6 @@ import ConnectionOptions from './_connection-options.md';
 <ConnectionOptions />
 
 The following options are accepted by the Oracle Database for LUW dialect:
-Please refer to the [node-oracledb documentation](https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#id31) for more information about what each of these options do.
 
 | Option                    | Description                                                                                                                           |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -83,3 +89,7 @@ Please refer to the [node-oracledb documentation](https://node-oracledb.readthed
 | `superShardingKey`        | Allows a connection to be established directly to a database shard.                                                                   |
 | `tag`                     | Used when getting a connection from a connection pool.                                                                                |
 | `oracleOptions`           | Additional Oracle database parameters.                                                                                                |
+
+:::info
+
+Please refer to the [node-oracledb documentation](https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#id31) for more information about what each of these options do.
