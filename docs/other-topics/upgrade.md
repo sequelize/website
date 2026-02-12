@@ -1117,7 +1117,6 @@ The `sql` tag automatically escapes values, so you don't need to worry about SQL
 - For PostgreSQL, it is now called `pgModule` and expects a module compatible with the `pg` package.
 - For Snowflake, it is now called `snowflakeSdkModule` and expects a module compatible with the `snowflake-sdk` package.
 - For SQLite, it is now called `sqlite3Module` and expects a module compatible with the `sqlite3` package.
-- For Oracle, it is now called `oracledbModule` and expects a module compatible with the `oracledb` package.
 
 ## Deprecations & Removals
 

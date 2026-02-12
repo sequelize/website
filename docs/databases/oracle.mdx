@@ -1,17 +1,17 @@
 ---
-title: Oracle for LUW
+title: Oracle Database
 sidebar_position: 1
 ---
 
-# Sequelize for Oracle Database for Linux, Unix, and Windows
+# Sequelize for Oracle Database
 
 :::info Version Compatibility
 
-See [Releases](/releases#oracle-for-luw-support-table) to see which versions of Oracle Database for LUW are supported.
+See [Releases](/releases#oracle-support-table) to see which versions of Oracle Database are supported.
 
 :::
 
-To use Sequelize with Oracle Database for LUW, you need to install the `@sequelize/oracle` dialect package:
+To use Sequelize with Oracle Database, you need to install the `@sequelize/oracle` dialect package:
 
 ```bash npm2yarn
 npm i @sequelize/oracle
@@ -46,7 +46,7 @@ import ConnectionOptions from './_connection-options.md';
 
 <ConnectionOptions />
 
-The following options are accepted by the Oracle Database for LUW dialect:
+The following options are accepted by the OracleDialect:
 
 | Option                    | Description                                                                                                                           |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -74,7 +74,7 @@ The following options are accepted by the Oracle Database for LUW dialect:
 | `retryCount`              | The number of times that a connection attempt should be retried before the attempt is terminated.                                     |
 | `retryDelay`              | The number of seconds to wait before making a new connection attempt.                                                                 |
 | `connectTimeout`          | The timeout duration in seconds for an application to establish an Oracle Net connection.                                             |
-| `TransportConnectTimeout` | The maximum number of seconds to wait to establish a connection to the database host.                                                 |
+| `transportConnectTimeout` | The maximum number of seconds to wait to establish a connection to the database host.                                                 |
 | `expireTime`              | The number of minutes between the sending of keepalive probes.                                                                        |
 | `sdu`                     | The Oracle Net Session Data Unit (SDU) packet size in bytes.                                                                          |
 | `connectionIdPrefix`      | The application specific prefix parameter that is added to the connection identifier.                                                 |
