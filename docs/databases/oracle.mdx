@@ -51,13 +51,11 @@ The following options are accepted by the OracleDialect:
 | Option                    | Description                                                                                                                           |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | `database`                | Oracle "serviceName" to use for this connection                                                                                       |
-| `user`                    | Oracle database user to authenticate as                                                                                               |
 | `username`                | Oracle database user to authenticate as                                                                                               |
 | `password`                | The password of that Oracle database user                                                                                             |
 | `port`                    | The port number to connect to. (Default: 1521)                                                                                        |
 | `host`                    | The hostname of the database to connect to. (Default: localhost)                                                                      |
 | `connectString`           | The connectString of the database instance to connect to.                                                                             |
-| `connectionString`        | The connectString of the database instance to connect to.                                                                             |
 | `accessToken`             | The access token to connect to OCI IAM or Microsoft Azure token based authentication.                                                 |
 | `accessTokenConfig`       | The access token config object for OCI or Microsoft Azure token based authentication.                                                 |
 | `walletPassword`          | The password to decrypt the PEM-encoded private certificate, if it is encrypted.                                                      |
@@ -88,7 +86,6 @@ The following options are accepted by the OracleDialect:
 | `stmtCacheSize`           | The number of statements to be cached in the statement cache of each connection.                                                      |
 | `superShardingKey`        | Allows a connection to be established directly to a database shard.                                                                   |
 | `tag`                     | Used when getting a connection from a connection pool.                                                                                |
-| `oracleOptions`           | Additional Oracle database parameters.                                                                                                |
 
 :::info
 
