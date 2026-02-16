@@ -7,7 +7,7 @@ sidebar_position: 1
 
 :::info Version Compatibility
 
-See [Releases](/releases#oracle-support-table) to see which versions of Oracle Database are supported.
+See [Releases](/releases#oracle-database-support-table) to see which versions of Oracle Database are supported.
 
 :::
 
@@ -26,9 +26,9 @@ import { OracleDialect } from '@sequelize/oracle';
 const sequelize = new Sequelize({
   dialect: OracleDialect,
   database: 'mydb',
-  user: 'myuser',
+  username: 'myuser',
   password: 'mypass',
-  hostname: 'localhost',
+  host: 'localhost',
   port: 1521,
 });
 ```
@@ -36,7 +36,7 @@ const sequelize = new Sequelize({
 :::info
 
 The underlying connector library used by Sequelize for Oracle is the [node-oracledb](https://www.npmjs.com/package/oracledb) package.  
-In Sequelize v7, node-oracledb uses thin mode by default which **doesn't require** to install [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html) libraries.
+In Sequelize v7, node-oracledb uses thin mode by default which **doesn't require** to install [Oracle Client](https://www.oracle.com/database/technologies/instant-client/downloads.html) libraries.
 
 :::
 
@@ -48,44 +48,53 @@ import ConnectionOptions from './_connection-options.md';
 
 The following options are accepted by the OracleDialect:
 
-| Option                    | Description                                                                                                                           |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `database`                | Oracle "serviceName" to use for this connection                                                                                       |
-| `username`                | Oracle database user to authenticate as                                                                                               |
-| `password`                | The password of that Oracle database user                                                                                             |
-| `port`                    | The port number to connect to. (Default: 1521)                                                                                        |
-| `host`                    | The hostname of the database to connect to. (Default: localhost)                                                                      |
-| `connectString`           | The connectString of the database instance to connect to.                                                                             |
-| `accessToken`             | The access token to connect to OCI IAM or Microsoft Azure token based authentication.                                                 |
-| `accessTokenConfig`       | The access token config object for OCI or Microsoft Azure token based authentication.                                                 |
-| `walletPassword`          | The password to decrypt the PEM-encoded private certificate, if it is encrypted.                                                      |
-| `walletLocation`          | The directory where the wallet can be found.                                                                                          |
-| `edition`                 | Sets the name used for Edition-Based Redefinition by this connection.                                                                 |
-| `events`                  | Determines if the standalone connection is created using Oracle Call Interface events mode.                                           |
-| `externalAuth`            | boolean property to allow external authentication.                                                                                    |
-| `matchAny`                | Used in conjunction with tag when getting a connection from a driver connection pool.                                                 |
-| `newPassword`             | The new password to use for the database user.                                                                                        |
-| `sslAllowWeakDNMatch`     | boolean property to use either a weaker or more secure DN matching behavior when the sslServerDNMatch property is set.                |
-| `httpsProxy`              | The name or IP address of a proxy host to use for tunneling secure connections.                                                       |
-| `httpsProxyPort`          | The port to be used to communicate with the proxy host.                                                                               |
-| `debugJdwp`               | This property allows using the Java Debug Wire Protocol (JDWP) to debug PL/SQL code called by node-oracledb.                          |
-| `retryCount`              | The number of times that a connection attempt should be retried before the attempt is terminated.                                     |
-| `retryDelay`              | The number of seconds to wait before making a new connection attempt.                                                                 |
-| `connectTimeout`          | The timeout duration in seconds for an application to establish an Oracle Net connection.                                             |
-| `transportConnectTimeout` | The maximum number of seconds to wait to establish a connection to the database host.                                                 |
-| `expireTime`              | The number of minutes between the sending of keepalive probes.                                                                        |
-| `sdu`                     | The Oracle Net Session Data Unit (SDU) packet size in bytes.                                                                          |
-| `connectionIdPrefix`      | The application specific prefix parameter that is added to the connection identifier.                                                 |
-| `configDir`               | The directory in which the Optional Oracle Net Configuration Files are found.                                                         |
-| `sourceRoute`             | Enables network routing through multiple protocol addresses. The value of this property can be ON or OFF.                             |
-| `sslServerCertDN`         | The distinguished name (DN) that should be matched with the certificate DN.                                                           |
-| `sslServerCertDNMatch`    | Determines whether the server certificate DN should be matched in addition to the regular certificate verification that is performed. |
-| `poolAlias`               | Specifies which previously created pool in the driver connection pool cache to use to obtain the connection.                          |
-| `privilege`               | The privilege to use when establishing connection to the database.                                                                    |
-| `shardingKey`             | Allows a connection to be established directly to a database shard.                                                                   |
-| `stmtCacheSize`           | The number of statements to be cached in the statement cache of each connection.                                                      |
-| `superShardingKey`        | Allows a connection to be established directly to a database shard.                                                                   |
-| `tag`                     | Used when getting a connection from a connection pool.                                                                                |
+| Option                        | Description                                                                                                                                                                                  |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `database`                    | Oracle "serviceName" to use for this connection                                                                                                                                              |
+| `username`                    | Oracle database user to authenticate as                                                                                                                                                      |
+| `password`                    | The password of that Oracle database user                                                                                                                                                    |
+| `port`                        | The port number to connect to. (Default: 1521)                                                                                                                                               |
+| `host`                        | The hostname of the database to connect to. (Default: localhost)                                                                                                                             |
+| `connectString`               | The connectString of the database instance to connect to.                                                                                                                                    |
+| `accessToken`                 | The access token to connect to OCI IAM or Microsoft Azure token based authentication.                                                                                                        |
+| `accessTokenConfig`           | The access token config object for OCI or Microsoft Azure token based authentication.                                                                                                        |
+| `walletPassword`              | The password to decrypt the PEM-encoded private certificate, if it is encrypted.                                                                                                             |
+| `walletLocation`              | The directory where the wallet can be found.                                                                                                                                                 |
+| `edition`                     | Sets the name used for Edition-Based Redefinition by this connection.                                                                                                                        |
+| `events`                      | Determines if the standalone connection is created using Oracle Call Interface events mode.                                                                                                  |
+| `externalAuth`                | boolean property to allow external authentication.                                                                                                                                           |
+| `matchAny`                    | Used in conjunction with tag when getting a connection from a driver connection pool to indicate if the tag in a connection returned from a connection pool does not match the requested tag |
+| `newPassword`                 | The new password to use for the database user.                                                                                                                                               |
+| `sslAllowWeakDNMatch`         | boolean property to use either a weaker or more secure DN matching behavior when the sslServerDNMatch property is set.                                                                       |
+| `httpsProxy`                  | The name or IP address of a proxy host to use for tunneling secure connections.                                                                                                              |
+| `httpsProxyPort`              | The port to be used to communicate with the proxy host. (Default: 0).                                                                                                                        |
+| `debugJdwp`                   | This property allows using the Java Debug Wire Protocol (JDWP) to debug PL/SQL code called by node-oracledb.                                                                                 |
+| `retryCount`                  | The number of times that a connection attempt should be retried before the attempt is terminated.                                                                                            |
+| `retryDelay`                  | The number of seconds to wait before making a new connection attempt.                                                                                                                        |
+| `connectTimeout`              | The timeout duration in seconds for an application to establish an Oracle Net connection.                                                                                                    |
+| `transportConnectTimeout`     | The maximum number of seconds to wait to establish a connection to the database host. (Default: 20.0)                                                                                        |
+| `expireTime`                  | The number of minutes between the sending of keepalive probes.                                                                                                                               |
+| `sdu`                         | The Oracle Net Session Data Unit (SDU) packet size in bytes.                                                                                                                                 |
+| `connectionIdPrefix`          | The application specific prefix parameter that is added to the connection identifier.                                                                                                        |
+| `configDir`                   | The directory in which the Optional Oracle Net Configuration Files are found.                                                                                                                |
+| `sourceRoute`                 | Enables network routing through multiple protocol addresses. The value of this property can be ON or OFF.                                                                                    |
+| `sslServerCertDN`             | The distinguished name (DN) that should be matched with the certificate DN.                                                                                                                  |
+| `sslServerDNMatch`            | Determines whether the server certificate DN should be matched in addition to the regular certificate verification that is performed.                                                        |
+| `poolAlias`                   | Specifies which previously created pool in the driver connection pool cache to use to obtain the connection from.                                                                            |
+| `privilege`                   | The privilege to use when establishing connection to the database.                                                                                                                           |
+| `shardingKey`                 | Allows a connection to be established directly to a database shard.                                                                                                                          |
+| `stmtCacheSize`               | The number of statements to be cached in the statement cache of each connection.                                                                                                             |
+| `superShardingKey`            | Allows a connection to be established directly to a database shard.                                                                                                                          |
+| `tag`                         | Used when getting a connection from a connection pool.                                                                                                                                       |
+| `useSNI`                      | To enable a connection optimization feature which uses Server Name Indication (SNI) extension of the TLS protocol.                                                                           |
+| `networkCompression`          | boolean to indicate if network data compression needs to be enabled or disabled for a database connection.                                                                                   |
+| `networkCompressionThreshold` | The minimum data size, in bytes, for which compression should be performed on the Oracle Net Session Data Unit (SDU).                                                                        |
+| `driverName`                  | The name of the driver that is used by the client to connect to Oracle Database.                                                                                                             |
+| `machine`                     | The name of the host machine from where the connection originates.                                                                                                                           |
+| `osUser`                      | The name of the operating system user that initiates the database connection.                                                                                                                |
+| `program`                     | The name of the program connecting to the database.                                                                                                                                          |
+| `terminal`                    | The name of the terminal from where the connection originates.                                                                                                                               |
+| `walletContent`               | The security credentials required to establish a mutual TLS (mTLS) connection to Oracle Database.                                                                                            |
 
 :::info
 
