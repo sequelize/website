@@ -99,3 +99,47 @@ The following options are accepted by the OracleDialect:
 :::info
 
 Please refer to the [node-oracledb documentation](https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#id31) for more information about what each of these options do.
+
+:::
+
+## Using Thick mode
+
+To use Thick mode in a Sequelize v7 application, you must manually initialize the Oracle Client libraries in your application code before instantiating Sequelize:
+
+1. Install the [Oracle Instant Client binaries](https://www.oracle.com/database/technologies/instant-client/downloads.html) on your operating system.
+   Details to enable thick mode can be found [here](https://node-oracledb.readthedocs.io/en/latest/user_guide/appendix_a.html#oracle-client-library-loading).
+
+2. Call `initOracleClient()` at the very beginning of your application entry point as shown below:
+
+```ts
+const oracledb = require('oracledb');
+const { Sequelize } = require('@sequelize/core');
+const { OracleDialect } = require('@sequelize/oracle');
+
+// 1. Manually initialize the Oracle Client (Required for Thick Mode)
+try {
+  // Thick mode requires Oracle Client or Oracle Instant Client libraries.
+  // On Windows and macOS you can specify the directory containing the
+  // libraries at runtime or before Node.js starts.  On other platforms (where
+  // Oracle libraries are available) the system library search path must always
+  // include the Oracle library path before Node.js starts.  If the search path
+  // is not correct, you will get a DPI-1047 error.  See the node-oracledb
+  // installation documentation.
+  let clientOpts = {};
+  // On Windows and macOS platforms, set the environment variable
+  // NODE_ORACLEDB_CLIENT_LIB_DIR to the Oracle Client library path
+  if (process.platform === 'win32' || process.platform === 'darwin') {
+    clientOpts = { libDir: process.env.NODE_ORACLEDB_CLIENT_LIB_DIR };
+  }
+  oracledb.initOracleClient(clientOpts);
+} catch (err) {
+  // Handle initialization errors (e.g., binaries not found)
+  console.error(err);
+}
+
+// 2. Initialize Sequelize
+const sequelize = new Sequelize({
+  dialect: OracleDialect,
+  // ... connection options
+});
+```
