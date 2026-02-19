@@ -3491,10 +3491,10 @@
     estree-walker "^2.0.2"
     picomatch "^4.0.2"
 
-"@rushstack/eslint-patch@1.15.0":
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.15.0.tgz#8184bcb37791e6d3c3c13a9bfbe4af263f66665f"
-  integrity sha512-ojSshQPKwVvSMR8yT2L/QtUkV5SXi/IfDiJ4/8d6UbTPjiHVmxZzUAzGD8Tzks1b9+qQkZa0isUOvYObedITaw==
+"@rushstack/eslint-patch@1.16.0":
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.16.0.tgz#d40bb0c401861298c9ac68448166636484655ef5"
+  integrity sha512-TMAArRcXZE6ckNI98mXuWv24yXs3bxXT0yGnySY9fpN7y+VkNcyZPiXeV7Dyr3cNdes9JxjM6KzbsZ+JMpVNNA==
 
 "@sequelize/utils@7.0.0-alpha.48":
   version "7.0.0-alpha.48"
