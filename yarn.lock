@@ -3470,17 +3470,12 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.24.tgz#58601079e11784d20f82d0585865bb42305c4df3"
   integrity sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==
 
-"@react-hookz/deep-equal@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@react-hookz/deep-equal/-/deep-equal-1.0.4.tgz#68a71f36cbc88724b3ce6f4036183778b6e7f282"
-  integrity sha512-N56fTrAPUDz/R423pag+n6TXWbvlBZDtTehaGFjK0InmN+V2OFWLE/WmORhmn6Ce7dlwH5+tQN1LJFw3ngTJVg==
-
-"@react-hookz/web@24.0.4":
-  version "24.0.4"
-  resolved "https://registry.yarnpkg.com/@react-hookz/web/-/web-24.0.4.tgz#7a13d4c2cc65861b926ef6c4452fba00408c8778"
-  integrity sha512-DcIM6JiZklDyHF6CRD1FTXzuggAkQ+3Ncq2Wln7Kdih8GV6ZIeN9JfS6ZaQxpQUxan8/4n0J2V/R7nMeiSrb2Q==
+"@react-hookz/web@25.2.0":
+  version "25.2.0"
+  resolved "https://registry.yarnpkg.com/@react-hookz/web/-/web-25.2.0.tgz#53cab8807c0e8880f5e9660101e17254988c9b37"
+  integrity sha512-60iU7lGnZOjdkNVpu/8xNEnTPVQQ5ckauIEvsh9S+58v2j/mY1lhgNas+w+9UF8VoUhWC4/cpaxT64EUC6DgsQ==
   dependencies:
-    "@react-hookz/deep-equal" "^1.0.4"
+    "@ver0/deep-equal" "^1.0.0"
 
 "@rollup/pluginutils@^5.1.3":
   version "5.1.4"
@@ -4479,6 +4474,11 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
+
+"@ver0/deep-equal@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@ver0/deep-equal/-/deep-equal-1.0.1.tgz#e88aa12e935127b6b4653831f2d128e87bedca2d"
+  integrity sha512-XSvL5wKXBZIv7fflMqhQx936sRpEtzxeV25xAEt0rLLXzbF6RCQaRA1jrVIn8JCubMyn/y0TaidphUtilLzl1A==
 
 "@vercel/nft@0.27.7":
   version "0.27.7"
