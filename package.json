@@ -42,7 +42,7 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.6.1",
     "@docusaurus/tsconfig": "3.6.1",
-    "@ephys/eslint-config-typescript": "20.1.4",
+    "@ephys/eslint-config-typescript": "21.0.1",
     "@rushstack/eslint-patch": "1.16.1",
     "concurrently": "9.2.1",
     "eslint": "8.57.1",
