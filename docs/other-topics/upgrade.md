@@ -1173,6 +1173,7 @@ stop working in a future major release.
   - `literal`
   - `where`
 - The `quoteIdentifiers` option in the sequelize constructor could be set to false to skip quoting of table names and attributes in postgres. This is potentially unsafe and therefore deprecated.
+- The `useMaster` query option has been renamed to `usePrimary` ([#18127]). `useMaster` still works but emits a deprecation warning and will be removed in a future major release.
 
 [#14352]: https://github.com/sequelize/sequelize/pull/14352
 [#14447]: https://github.com/sequelize/sequelize/pull/14447
@@ -1186,3 +1187,4 @@ stop working in a future major release.
 [#15292]: https://github.com/sequelize/sequelize/pull/15292
 [#15598]: https://github.com/sequelize/sequelize/pull/15598
 [#16514]: https://github.com/sequelize/sequelize/pull/16514
+[#18127]: https://github.com/sequelize/sequelize/pull/18127
