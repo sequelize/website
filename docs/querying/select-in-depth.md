@@ -436,7 +436,7 @@ MSSQL: 'https://learn.microsoft.com/en-us/sql/relational-databases/performance/j
 Snowflake: 'https://docs.snowflake.com/en/sql-reference/constructs/join',
 db2: 'https://www.ibm.com/docs/sr/db2-for-zos/11?topic=table-right-outer-join',
 ibmi: 'https://www.ibm.com/docs/en/i/7.4?topic=table-right-outer-join',
-oracle: 'https://docs.oracle.com/javadb/10.8.3.0/ref/rrefsqlj57522.html',
+'Oracle Database': 'https://www.oracle.com/pls/topic/lookup?ctx=dblatest&id=GUID-70DD48FA-BF46-4479-9C3F-146C5616E440',
 }}
 />
 
