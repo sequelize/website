@@ -34,11 +34,11 @@ abstract class AbstractComment<Attributes, CreationAttributes> extends Model<
 > {
   declare id: number;
 
-  @Attributes(DataTypes.STRING)
+  @Attribute(DataTypes.STRING)
   @NotNull
   declare content: string;
 
-  @Attributes(DataTypes.INTEGER)
+  @Attribute(DataTypes.INTEGER)
   @NotNull
   declare targetId: number;
 }
@@ -72,17 +72,17 @@ This solution only requires a single table, to which we add multiple, mutually-e
 class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>> {
   declare id: number;
 
-  @Attributes(DataTypes.STRING)
+  @Attribute(DataTypes.STRING)
   @NotNull
   declare content: string;
 
-  @Attributes(DataTypes.INTEGER)
+  @Attribute(DataTypes.INTEGER)
   declare articleId: number | null;
 
   @BelongsTo(() => Article, 'articleId')
   declare article?: Article;
 
-  @Attributes(DataTypes.INTEGER)
+  @Attribute(DataTypes.INTEGER)
   declare videoId: number | null;
 
   @BelongsTo(() => Video, 'videoId')
@@ -111,7 +111,7 @@ In this type of polymorphic association, we don't use foreign keys at all.
 Instead, we use two columns: one to store the type of the associated model, and one to store the ID of the associated model.
 
 As stated above, we must disable the foreign key constraints on the association, as the same column is referencing multiple tables.
-This can be done by using the `constraints: false`.
+This can be done by using the `foreignKeyConstraints: false`.
 
 We then use [association scopes](./association-scopes.md) to filter which comments belong to which models.
 
@@ -119,15 +119,15 @@ We then use [association scopes](./association-scopes.md) to filter which commen
 class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>> {
   declare id: number;
 
-  @Attributes(DataTypes.STRING)
+  @Attribute(DataTypes.STRING)
   @NotNull
   declare content: string;
 
-  @Attributes(DataTypes.STRING)
+  @Attribute(DataTypes.STRING)
   @NotNull
   declare targetModel: 'article' | 'video';
 
-  @Attributes(DataTypes.INTEGER)
+  @Attribute(DataTypes.INTEGER)
   @NotNull
   declare targetId: number;
 
@@ -156,7 +156,7 @@ class Video extends Model<InferAttributes<Video>, InferCreationAttributes<Video>
     foreignKey: 'targetId',
     // highlight-start
     // Foreign Keys must be disabled.
-    constraints: false,
+    foreignKeyConstraints: false,
     // This scope ensures that loading the "comments" association only loads comments that belong to videos.
     scope: {
       targetModel: 'video',
@@ -174,7 +174,7 @@ class Article extends Model<InferAttributes<Article>, InferCreationAttributes<Ar
       as: 'articles',
     },
     foreignKey: 'targetId',
-    constraints: false,
+    foreignKeyConstraints: false,
     scope: {
       targetModel: 'article',
     },
