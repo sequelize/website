@@ -107,6 +107,23 @@ This command will execute these steps:
 - Start looking for any migration files which haven't run yet. This is possible by checking `SequelizeMeta` table. In this case it will run `XXXXXXXXXXXXXX-create-user.js` migration, which we created in last step.
 - Creates a table called `Users` with all columns as specified in its migration file.
 
+## Skipping Migration Execution
+
+In some cases you may want to mark migrations as completed without actually executing their SQL. This can be useful when: - The database schema was applied manually - You are syncing migration history between environments - You are adopting Sequelize CLI for an existing database - You want to avoid re-running destructive or already-applied changes
+
+For this purpose, a custom `--skip-execution` flag is available.
+
+```text
+npx sequelize-cli db:migrate --skip-execution
+```
+
+When this flag is provided, the migration process changes as follows: - The CLI will still ensure that the SequelizeMeta table exists - It will detect all pending migration files as usual - Instead of running the migration up methods, it will: - Record each pending migration as executed in the SequelizeMeta table - Skip all database-altering SQL
+
+As a result, Sequelize considers these migrations as successfully applied, even though no schema changes were executed.
+
+**Important**:
+Use `--skip-execution` with care. Since the actual migration logic is not run, the database schema must already match what the migrations expect. Otherwise, future migrations or application code may fail due to schema mismatches.
+
 ## Undoing Migrations
 
 Now our table has been created and saved in the database. With migration you can revert to old state by just running a command.
