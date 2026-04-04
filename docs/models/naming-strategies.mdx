@@ -23,7 +23,7 @@ Sequelize will automatically infer table names from your model names, unless a t
 :::info
 
 We recommend naming your Models using the singular form of a word, in [UpperCamelCase](https://en.wikipedia.org/wiki/Pascal_case).
-*e.g. __User__ instead of __users__*
+_e.g. **User** instead of **users**_
 
 :::
 
@@ -55,7 +55,7 @@ You can make Sequelize generate a snake_cased table name by setting the [`unders
 
 :::info
 
-The `underscored` option also impacts Column Names. [See *Snake-case column names*](#snake-case-column-names).
+The `underscored` option also impacts Column Names. [See _Snake-case column names_](#snake-case-column-names).
 
 :::
 
@@ -166,7 +166,7 @@ class User extends Model {}
 :::info
 
 We recommend naming your attributes in [lowerCamelCase](https://en.wikipedia.org/wiki/Pascal_case).
-*e.g. __createdAt__ instead of __created_at__*.
+_e.g. **createdAt** instead of **created_at**_.
 
 :::
 
@@ -248,15 +248,15 @@ an attribute called `UserId` is added on the `Task` model.
 
 Without the `underscored` option, Sequelize would automatically define:
 
-* A [`createdAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `createdAt` in each table.
-* An [`updatedAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `updatedAt` in each table.
-* A `UserId` attribute in the `Task` model, pointing to a column named `UserId` in the task table.
+- A [`createdAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `createdAt` in each table.
+- An [`updatedAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `updatedAt` in each table.
+- A `UserId` attribute in the `Task` model, pointing to a column named `UserId` in the task table.
 
 With the `underscored` option enabled, Sequelize will instead define:
 
-* A [`createdAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `created_at` in each table.
-* An [`updatedAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `updated_at` in each table.
-* A `UserId` attribute in the `Task` model, pointing to a column named `user_id` in the task table.
+- A [`createdAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `created_at` in each table.
+- An [`updatedAt`](./auto-timestamps.mdx) attribute for each model, pointing to a column named `updated_at` in each table.
+- A `UserId` attribute in the `Task` model, pointing to a column named `user_id` in the task table.
 
 Note that in both cases the fields are still [camelCase](https://en.wikipedia.org/wiki/Camel_case) in the JavaScript side; this option only changes how these fields are mapped to the database itself. The `field` option of every attribute is set to their snake_case version, but the attribute itself remains camelCase.
 

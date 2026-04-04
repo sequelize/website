@@ -41,7 +41,14 @@ Defining a model is simple: Create a class that extends the [`Model`] class and 
 <TabItem value="ts" label="TypeScript">
 
 ```ts
-import { Sequelize, DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import {
+  Sequelize,
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from '@sequelize/core';
 import { Attribute, PrimaryKey, AutoIncrement, NotNull } from '@sequelize/core/decorators-legacy';
 import { SqliteDialect } from '@sequelize/sqlite3';
 
@@ -201,7 +208,13 @@ This behavior can be changed by using the [`@Default`] decorator:
 <TabItem value="ts" label="TypeScript">
 
 ```ts
-import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import {
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from '@sequelize/core';
 import { Attribute, NotNull, Default } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
@@ -250,7 +263,13 @@ but a custom function can be used as well:
 
 ```ts
 import uniqid from 'uniqid';
-import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import {
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from '@sequelize/core';
 import { Attribute, NotNull, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
@@ -312,7 +331,14 @@ For instance, you could use the [`sql.fn`](../querying/raw-queries.mdx#sqlfn) fu
 <TabItem value="ts" label="TypeScript">
 
 ```ts
-import { DataTypes, Model, sql, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import {
+  DataTypes,
+  Model,
+  sql,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from '@sequelize/core';
 import { Attribute, Default } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
@@ -349,7 +375,13 @@ Sequelize automatically adds an auto-incremented integer attribute called `id` a
 If you use TypeScript, you can declare the typing of this attribute like this:
 
 ```ts
-import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import {
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from '@sequelize/core';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   // highlight-next-line
@@ -364,7 +396,13 @@ This will stop Sequelize from adding the `id` attribute automatically:
 <TabItem value="ts" label="TypeScript">
 
 ```ts
-import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import {
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from '@sequelize/core';
 import { Attribute, PrimaryKey, AutoIncrement } from '@sequelize/core/decorators-legacy';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {

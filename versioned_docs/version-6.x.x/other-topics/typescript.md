@@ -35,8 +35,8 @@ import { Model, Optional } from 'sequelize';
 // We don't recommend doing this. Read on for the new way of declaring Model typings.
 
 type UserAttributes = {
-  id: number,
-  name: string,
+  id: number;
+  name: string;
   // other attributes...
 };
 
@@ -80,7 +80,7 @@ Important things to know about `InferAttributes` & `InferCreationAttributes` wor
 - Getter & setters are not automatically excluded. Set their return / parameter type to `NonAttribute`,
   or add them to `omit` to exclude them.
 
-`InferCreationAttributes` works the same way as `InferAttributes` with one exception:Properties typed using the `CreationOptional` type 
+`InferCreationAttributes` works the same way as `InferAttributes` with one exception:Properties typed using the `CreationOptional` type
 will be marked as optional.
 Note that attributes that accept `null`, or `undefined` do not need to use `CreationOptional`:
 
@@ -124,7 +124,13 @@ Some attributes don't actually need to be passed to `Model.init`, this is how yo
   Use the `ForeignKey<>` branded type to make `Model.init` aware of the fact that it isn't necessary to configure the foreign key:
 
   ```typescript
-  import { Model, InferAttributes, InferCreationAttributes, DataTypes, ForeignKey } from 'sequelize';
+  import {
+    Model,
+    InferAttributes,
+    InferCreationAttributes,
+    DataTypes,
+    ForeignKey,
+  } from 'sequelize';
 
   class Project extends Model<InferAttributes<Project>, InferCreationAttributes<Project>> {
     id: number;
@@ -135,13 +141,16 @@ Some attributes don't actually need to be passed to `Model.init`, this is how yo
   Project.belongsTo(User);
 
   // therefore, `userId` doesn't need to be specified here.
-  Project.init({
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
+  Project.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
     },
-  }, { sequelize });
+    { sequelize },
+  );
   ```
 
 - Timestamp attributes managed by Sequelize (by default, `createdAt`, `updatedAt`, and `deletedAt`) don't need to be configured using `Model.init`,
@@ -156,17 +165,20 @@ Some attributes don't actually need to be passed to `Model.init`, this is how yo
     updatedAt: Date;
   }
 
-  User.init({
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
+  User.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      // technically, `createdAt` & `updatedAt` are added by Sequelize and don't need to be configured in Model.init
+      // but the typings of Model.init do not know this. Add the following to mute the typing error:
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
-    // technically, `createdAt` & `updatedAt` are added by Sequelize and don't need to be configured in Model.init
-    // but the typings of Model.init do not know this. Add the following to mute the typing error:
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE,
-  }, { sequelize });
+    { sequelize },
+  );
   ```
 
 ### Usage without strict types for attributes
@@ -195,12 +207,19 @@ import defineExample from '!!raw-loader!@site/.sequelize/v6/test/types/typescrip
 
 ### Requesting a Model Class
 
-`ModelStatic` is designed to be used to type a Model *class*.
+`ModelStatic` is designed to be used to type a Model _class_.
 
 Here is an example of a utility method that requests a Model Class, and returns the list of primary keys defined in that class:
 
 ```typescript
-import { ModelStatic, ModelAttributeColumnOptions, Model, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import {
+  ModelStatic,
+  ModelAttributeColumnOptions,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from 'sequelize';
 
 /**
  * Returns the list of attributes that are part of the model's primary key.
@@ -221,13 +240,16 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   id: CreationOptional<number>;
 }
 
-User.init({
-  id: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
-    primaryKey: true
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true,
+    },
   },
-}, { sequelize });
+  { sequelize },
+);
 
 const primaryAttributes = getPrimaryKeyAttributes(User);
 ```
@@ -255,10 +277,13 @@ import {
   InferAttributes,
   InferCreationAttributes,
   CreationOptional,
-  Attributes
+  Attributes,
 } from 'sequelize';
 
-export function getAttributeMetadata<M extends Model>(model: ModelStatic<M>, attributeName: keyof Attributes<M>): ModelAttributeColumnOptions {
+export function getAttributeMetadata<M extends Model>(
+  model: ModelStatic<M>,
+  attributeName: keyof Attributes<M>,
+): ModelAttributeColumnOptions {
   const attribute = model.rawAttributes[attributeName];
   if (attribute == null) {
     throw new Error(`Attribute ${attributeName} does not exist on model ${model.name}`);
@@ -271,13 +296,16 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   id: CreationOptional<number>;
 }
 
-User.init({
-  id: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
-    primaryKey: true
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true,
+    },
   },
-}, { sequelize });
+  { sequelize },
+);
 
 const idAttributeMeta = getAttributeMetadata(User, 'id'); // works!
 

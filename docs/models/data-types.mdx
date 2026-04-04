@@ -29,22 +29,22 @@ A ❌ means the dialect does not support that DataType.
 
 <DialectTableFilter>
 
-| Sequelize DataType                                                                 | PostgreSQL                                                      | MariaDB                            | MySQL                        | MSSQL                          | [SQLite][sqlite-datatypes] | [Snowflake](https://docs.snowflake.com/en/sql-reference/data-types-text.html) | db2                         | ibmi                        |
-|------------------------------------------------------------------------------------|-----------------------------------------------------------------|------------------------------------|------------------------------|--------------------------------|----------------------------|-------------------------------------------------------------------------------|-----------------------------|-----------------------------|
+| Sequelize DataType                                                               | PostgreSQL                                                      | MariaDB                            | MySQL                        | MSSQL                          | [SQLite][sqlite-datatypes] | [Snowflake](https://docs.snowflake.com/en/sql-reference/data-types-text.html) | db2                         | ibmi                        |
+| -------------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------------------------- | ---------------------------- | ------------------------------ | -------------------------- | ----------------------------------------------------------------------------- | --------------------------- | --------------------------- |
 | [`STRING`](pathname:///api/v7/classes/_sequelize_core.index.unknown.STRING.html) | [`VARCHAR(255)`][postgres-char]                                 | [`VARCHAR(255)`][mariadb-varchar]  | [`VARCHAR(255)`][mysql-char] | [`NVARCHAR(255)`][mssql-nchar] | `TEXT`                     | `VARCHAR(255)`                                                                | `VARCHAR(255)`              | `VARCHAR(255)`              |
-| `STRING(100)`                                                                      | `VARCHAR(100)`                                                  | `VARCHAR(100)`                     | `VARCHAR(100)`               | `NVARCHAR(100)`                | `TEXT`                     | `VARCHAR(100)`                                                                | `VARCHAR(100)`              | `VARCHAR(100)`              |
-| `STRING.BINARY`                                                                    | ❌                                                               | `VARCHAR(255) BINARY`              | `VARCHAR(255) BINARY`        | ❌                              | `TEXT COLLATE BINARY`      | `VARCHAR(255) BINARY`                                                         | `VARCHAR(255) FOR BIT DATA` | `VARCHAR(255) FOR BIT DATA` |
-| `STRING(100).BINARY`                                                               | ❌                                                               | `VARCHAR(100) BINARY`              | `VARCHAR(100) BINARY`        | ❌                              | `TEXT COLLATE BINARY`      | `VARCHAR(100) BINARY`                                                         | `VARCHAR(100) FOR BIT DATA` | `VARCHAR(100) FOR BIT DATA` |
+| `STRING(100)`                                                                    | `VARCHAR(100)`                                                  | `VARCHAR(100)`                     | `VARCHAR(100)`               | `NVARCHAR(100)`                | `TEXT`                     | `VARCHAR(100)`                                                                | `VARCHAR(100)`              | `VARCHAR(100)`              |
+| `STRING.BINARY`                                                                  | ❌                                                              | `VARCHAR(255) BINARY`              | `VARCHAR(255) BINARY`        | ❌                             | `TEXT COLLATE BINARY`      | `VARCHAR(255) BINARY`                                                         | `VARCHAR(255) FOR BIT DATA` | `VARCHAR(255) FOR BIT DATA` |
+| `STRING(100).BINARY`                                                             | ❌                                                              | `VARCHAR(100) BINARY`              | `VARCHAR(100) BINARY`        | ❌                             | `TEXT COLLATE BINARY`      | `VARCHAR(100) BINARY`                                                         | `VARCHAR(100) FOR BIT DATA` | `VARCHAR(100) FOR BIT DATA` |
 | [`TEXT`](pathname:///api/v7/classes/_sequelize_core.index.unknown.TEXT.html)     | [`TEXT`][postgres-char]                                         | [`TEXT`][mariadb-text]             | [`TEXT`][mysql-text]         | `NVARCHAR(MAX)`                | `TEXT`                     | `TEXT`                                                                        | `CLOB(2147483647)`          | `CLOB(2147483647)`          |
-| `TEXT('tiny')`                                                                     | `TEXT`                                                          | [`TINYTEXT`][mariadb-tinytext]     | [`TINYTEXT`][mysql-text]     | `NVARCHAR(256)`                | `TEXT`                     | `TEXT`                                                                        | `VARCHAR(256)`              | `VARCHAR(256)`              |
-| `TEXT('medium')`                                                                   | `TEXT`                                                          | [`MEDIUMTEXT`][mariadb-mediumtext] | [`MEDIUMTEXT`][mysql-text]   | `NVARCHAR(MAX)`                | `TEXT`                     | `TEXT`                                                                        | `VARCHAR(16777216)`         | `VARCHAR(16777216)`         |
-| `TEXT('long')`                                                                     | `TEXT`                                                          | [`LONGTEXT`][mariadb-longtext]     | [`LONGTEXT`][mysql-text]     | `NVARCHAR(MAX)`                | `TEXT`                     | `TEXT`                                                                        | `CLOB(2147483647)`          | `CLOB(2147483647)`          |
-| [`CHAR`](pathname:///api/v7/classes/_sequelize_core.index.unknown.CHAR.html)     | [`CHAR(255)`][postgres-char]                                    | [`CHAR(255)`][mariadb-char]        | [`CHAR(255)`][mysql-char]    | [`CHAR(255)`][mssql-char]      | ❌                          | `CHAR(255)`                                                                   | `CHAR(255)`                 | `CHAR(255)`                 |
-| `CHAR(100)`                                                                        | `CHAR(100)`                                                     | `CHAR(100)`                        | `CHAR(100)`                  | `CHAR(100)`                    | ❌                          | `CHAR(100)`                                                                   | `CHAR(100)`                 | `CHAR(100)`                 |
-| `CHAR.BINARY`                                                                      | ❌                                                               | `CHAR(255) BINARY`                 | `CHAR(255) BINARY`           | ❌                              | ❌                          | `CHAR(255) BINARY`                                                            | `CHAR(255) FOR BIT DATA`    | `CHAR(255) FOR BIT DATA`    |
-| `CHAR(100).BINARY`                                                                 | ❌                                                               | `CHAR(100) BINARY`                 | `CHAR(100) BINARY`           | ❌                              | ❌                          | `CHAR(100) BINARY`                                                            | `CHAR(255) FOR BIT DATA`    | `CHAR(255) FOR BIT DATA`    |
-| `CITEXT`                                                                           | [`CITEXT`](https://www.postgresql.org/docs/current/citext.html) | ❌                                  | ❌                            | ❌                              | `TEXT COLLATE NOCASE`      | ❌                                                                             | ❌                           | ❌                           |
-| `TSVECTOR`                                                                         | [`TSVECTOR`][postgres-tsvector]                                 | ❌                                  | ❌                            | ❌                              | ❌                          | ❌                                                                             | ❌                           | ❌                           |
+| `TEXT('tiny')`                                                                   | `TEXT`                                                          | [`TINYTEXT`][mariadb-tinytext]     | [`TINYTEXT`][mysql-text]     | `NVARCHAR(256)`                | `TEXT`                     | `TEXT`                                                                        | `VARCHAR(256)`              | `VARCHAR(256)`              |
+| `TEXT('medium')`                                                                 | `TEXT`                                                          | [`MEDIUMTEXT`][mariadb-mediumtext] | [`MEDIUMTEXT`][mysql-text]   | `NVARCHAR(MAX)`                | `TEXT`                     | `TEXT`                                                                        | `VARCHAR(16777216)`         | `VARCHAR(16777216)`         |
+| `TEXT('long')`                                                                   | `TEXT`                                                          | [`LONGTEXT`][mariadb-longtext]     | [`LONGTEXT`][mysql-text]     | `NVARCHAR(MAX)`                | `TEXT`                     | `TEXT`                                                                        | `CLOB(2147483647)`          | `CLOB(2147483647)`          |
+| [`CHAR`](pathname:///api/v7/classes/_sequelize_core.index.unknown.CHAR.html)     | [`CHAR(255)`][postgres-char]                                    | [`CHAR(255)`][mariadb-char]        | [`CHAR(255)`][mysql-char]    | [`CHAR(255)`][mssql-char]      | ❌                         | `CHAR(255)`                                                                   | `CHAR(255)`                 | `CHAR(255)`                 |
+| `CHAR(100)`                                                                      | `CHAR(100)`                                                     | `CHAR(100)`                        | `CHAR(100)`                  | `CHAR(100)`                    | ❌                         | `CHAR(100)`                                                                   | `CHAR(100)`                 | `CHAR(100)`                 |
+| `CHAR.BINARY`                                                                    | ❌                                                              | `CHAR(255) BINARY`                 | `CHAR(255) BINARY`           | ❌                             | ❌                         | `CHAR(255) BINARY`                                                            | `CHAR(255) FOR BIT DATA`    | `CHAR(255) FOR BIT DATA`    |
+| `CHAR(100).BINARY`                                                               | ❌                                                              | `CHAR(100) BINARY`                 | `CHAR(100) BINARY`           | ❌                             | ❌                         | `CHAR(100) BINARY`                                                            | `CHAR(255) FOR BIT DATA`    | `CHAR(255) FOR BIT DATA`    |
+| `CITEXT`                                                                         | [`CITEXT`](https://www.postgresql.org/docs/current/citext.html) | ❌                                 | ❌                           | ❌                             | `TEXT COLLATE NOCASE`      | ❌                                                                            | ❌                          | ❌                          |
+| `TSVECTOR`                                                                       | [`TSVECTOR`][postgres-tsvector]                                 | ❌                                 | ❌                           | ❌                             | ❌                         | ❌                                                                            | ❌                          | ❌                          |
 
 </DialectTableFilter>
 
@@ -53,7 +53,7 @@ A ❌ means the dialect does not support that DataType.
 <DialectTableFilter>
 
 | Sequelize DataType | PostgreSQL                                                                 | MariaDB                         | MySQL                         | MSSQL                                                                                                 | SQLite                           | Snowflake                                                                        | db2       | ibmi       |
-|--------------------|----------------------------------------------------------------------------|---------------------------------|-------------------------------|-------------------------------------------------------------------------------------------------------|----------------------------------|----------------------------------------------------------------------------------|-----------|------------|
+| ------------------ | -------------------------------------------------------------------------- | ------------------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------- | -------------------------------------------------------------------------------- | --------- | ---------- |
 | `BOOLEAN`          | [`BOOLEAN`](https://www.postgresql.org/docs/current/datatype-boolean.html) | [`TINYINT(1)`][mariadb-tinyint] | [`TINYINT(1)`][mysql-numeric] | [`BIT`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/bit-transact-sql?view=sql-server-ver15) | [`TINYINT(1)`][sqlite-datatypes] | [`BOOLEAN`](https://docs.snowflake.com/en/sql-reference/data-types-logical.html) | `BOOLEAN` | `SMALLINT` |
 
 </DialectTableFilter>
@@ -62,33 +62,35 @@ A ❌ means the dialect does not support that DataType.
 
 <DialectTableFilter>
 
-| Sequelize DataType                                                                           | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                          | [MySQL][mysql-numeric] | [MSSQL][mssql-ints]  | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2                 | ibmi                |
-|----------------------------------------------------------------------------------------------|--------------------------------|-----------------------------------------------------|------------------------|----------------------|----------------------------|--------------------------------|---------------------|---------------------|
+| Sequelize DataType                                                                     | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                          | [MySQL][mysql-numeric] | [MSSQL][mssql-ints]  | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2                 | ibmi                |
+| -------------------------------------------------------------------------------------- | ------------------------------ | --------------------------------------------------- | ---------------------- | -------------------- | -------------------------- | ------------------------------ | ------------------- | ------------------- |
 | [`TINYINT`](pathname:///api/v7/classes/_sequelize_core.index.unknown.TINYINT.html)     | `SMALLINT`[^ints-1]            | [`TINYINT`][mariadb-tinyint]                        | `TINYINT`              | `SMALLINT`[^mssql-1] | `INTEGER`                  | `INTEGER`                      | `SMALLINT`[^ints-1] | `SMALLINT`[^ints-1] |
-| `TINYINT(1)`                                                                                 | ❌                              | `TINYINT(1)`                                        | `TINYINT(1)`           | ❌                    | ❌                          | `❌                             | ❌                   | ❌                   |
-| `TINYINT.UNSIGNED`                                                                           | `SMALLINT`                     | `TINYINT UNSIGNED`                                  | `TINYINT UNSIGNED`     | `TINYINT`[^mssql-1]  | `INTEGER`                  | `INTEGER`                      | `SMALLINT`          | `SMALLINT`          |
-| `TINYINT.ZEROFILL`                                                                           | ❌                              | `TINYINT ZEROFILL`                                  | `TINYINT ZEROFILL`     | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
+| `TINYINT(1)`                                                                           | ❌                             | `TINYINT(1)`                                        | `TINYINT(1)`           | ❌                   | ❌                         | `❌                            | ❌                  | ❌                  |
+| `TINYINT.UNSIGNED`                                                                     | `SMALLINT`                     | `TINYINT UNSIGNED`                                  | `TINYINT UNSIGNED`     | `TINYINT`[^mssql-1]  | `INTEGER`                  | `INTEGER`                      | `SMALLINT`          | `SMALLINT`          |
+| `TINYINT.ZEROFILL`                                                                     | ❌                             | `TINYINT ZEROFILL`                                  | `TINYINT ZEROFILL`     | ❌                   | ❌                         | ❌                             | ❌                  | ❌                  |
 | [`SMALLINT`](pathname:///api/v7/classes/_sequelize_core.index.unknown.SMALLINT.html)   | `SMALLINT`                     | [`SMALLINT`](https://mariadb.com/kb/en/smallint/)   | `SMALLINT`             | `SMALLINT`           | `INTEGER`                  | `INTEGER`                      | `SMALLINT`          | `SMALLINT`          |
-| `SMALLINT(1)`                                                                                | ❌                              | `SMALLINT(1)`                                       | `SMALLINT(1)`          | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
-| `SMALLINT.UNSIGNED`                                                                          | `INTEGER`[^ints-2]             | `SMALLINT UNSIGNED`                                 | `SMALLINT UNSIGNED`    | `INTEGER`[^ints-2]   | `INTEGER`                  | `INTEGER`                      | `INTEGER`[^ints-2]  | `INTEGER`[^ints-2]  |
-| `SMALLINT.ZEROFILL`                                                                          | ❌                              | `SMALLINT ZEROFILL`                                 | `SMALLINT ZEROFILL`    | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
+| `SMALLINT(1)`                                                                          | ❌                             | `SMALLINT(1)`                                       | `SMALLINT(1)`          | ❌                   | ❌                         | ❌                             | ❌                  | ❌                  |
+| `SMALLINT.UNSIGNED`                                                                    | `INTEGER`[^ints-2]             | `SMALLINT UNSIGNED`                                 | `SMALLINT UNSIGNED`    | `INTEGER`[^ints-2]   | `INTEGER`                  | `INTEGER`                      | `INTEGER`[^ints-2]  | `INTEGER`[^ints-2]  |
+| `SMALLINT.ZEROFILL`                                                                    | ❌                             | `SMALLINT ZEROFILL`                                 | `SMALLINT ZEROFILL`    | ❌                   | ❌                         | ❌                             | ❌                  | ❌                  |
 | [`MEDIUMINT`](pathname:///api/v7/classes/_sequelize_core.index.unknown.MEDIUMINT.html) | `INTEGER`                      | [`MEDIUMINT`](https://mariadb.com/kb/en/mediumint/) | `MEDIUMINT`            | `INTEGER`[^ints-1]   | `INTEGER`                  | `INTEGER`                      | `INTEGER`           | `INTEGER`           |
-| `MEDIUMINT(1)`                                                                               | ❌                              | `MEDIUMINT(1)`                                      | `MEDIUMINT(1)`         | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
-| `MEDIUMINT.UNSIGNED`                                                                         | `INTEGER`                      | `MEDIUMINT UNSIGNED`                                | `MEDIUMINT UNSIGNED`   | `INTEGER`            | `INTEGER`                  | `INTEGER`                      | `INTEGER`           | `INTEGER`           |
-| `MEDIUMINT.ZEROFILL`                                                                         | ❌                              | `MEDIUMINT ZEROFILL`                                | `MEDIUMINT ZEROFILL`   | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
-| [`INTEGER`](pathname:///api/v7/classes/_sequelize_core.index.unknown.INTEGER.html)                   | `INTEGER`                      | [`INTEGER`](https://mariadb.com/kb/en/integer/)     | `INTEGER`              | `INTEGER`            | `INTEGER`                  | `INTEGER`                      | `INTEGER`           | `INTEGER`           |
-| `INTEGER(1)`                                                                                 | ❌                              | `INTEGER(1)`                                        | `INTEGER(1)`           | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
-| `INTEGER.UNSIGNED`                                                                           | `BIGINT`                       | `INTEGER UNSIGNED`                                  | `INTEGER UNSIGNED`     | `BIGINT`             | `INTEGER`                  | `INTEGER`                      | `BIGINT`            | `BIGINT`            |
-| `INTEGER.ZEROFILL`                                                                           | ❌                              | `INTEGER ZEROFILL`                                  | `INTEGER ZEROFILL`     | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
-| [`BIGINT`](pathname:///api/v7/classes/_sequelize_core.index.unknown.BIGINT.html)           | `BIGINT`                       | [`BIGINT`](https://mariadb.com/kb/en/bigint/)       | `BIGINT`               | `BIGINT`             | ❌                  | `INTEGER`                      | `BIGINT`            | `BIGINT`            |
-| `BIGINT(1)`                                                                                  | ❌                              | `BIGINT(1)`                                         | `BIGINT(1)`            | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
-| `BIGINT.UNSIGNED`                                                                            | ❌                              | `BIGINT UNSIGNED`                                   | `BIGINT UNSIGNED`      | ❌                    | ❌                  | `INTEGER`                      | ❌                   | ❌                   |
-| `BIGINT.ZEROFILL`                                                                            | ❌                              | `BIGINT ZEROFILL`                                   | `BIGINT ZEROFILL`      | ❌                    | ❌                          | ❌                              | ❌                   | ❌                   |
+| `MEDIUMINT(1)`                                                                         | ❌                             | `MEDIUMINT(1)`                                      | `MEDIUMINT(1)`         | ❌                   | ❌                         | ❌                             | ❌                  | ❌                  |
+| `MEDIUMINT.UNSIGNED`                                                                   | `INTEGER`                      | `MEDIUMINT UNSIGNED`                                | `MEDIUMINT UNSIGNED`   | `INTEGER`            | `INTEGER`                  | `INTEGER`                      | `INTEGER`           | `INTEGER`           |
+| `MEDIUMINT.ZEROFILL`                                                                   | ❌                             | `MEDIUMINT ZEROFILL`                                | `MEDIUMINT ZEROFILL`   | ❌                   | ❌                         | ❌                             | ❌                  | ❌                  |
+| [`INTEGER`](pathname:///api/v7/classes/_sequelize_core.index.unknown.INTEGER.html)     | `INTEGER`                      | [`INTEGER`](https://mariadb.com/kb/en/integer/)     | `INTEGER`              | `INTEGER`            | `INTEGER`                  | `INTEGER`                      | `INTEGER`           | `INTEGER`           |
+| `INTEGER(1)`                                                                           | ❌                             | `INTEGER(1)`                                        | `INTEGER(1)`           | ❌                   | ❌                         | ❌                             | ❌                  | ❌                  |
+| `INTEGER.UNSIGNED`                                                                     | `BIGINT`                       | `INTEGER UNSIGNED`                                  | `INTEGER UNSIGNED`     | `BIGINT`             | `INTEGER`                  | `INTEGER`                      | `BIGINT`            | `BIGINT`            |
+| `INTEGER.ZEROFILL`                                                                     | ❌                             | `INTEGER ZEROFILL`                                  | `INTEGER ZEROFILL`     | ❌                   | ❌                         | ❌                             | ❌                  | ❌                  |
+| [`BIGINT`](pathname:///api/v7/classes/_sequelize_core.index.unknown.BIGINT.html)       | `BIGINT`                       | [`BIGINT`](https://mariadb.com/kb/en/bigint/)       | `BIGINT`               | `BIGINT`             | ❌                         | `INTEGER`                      | `BIGINT`            | `BIGINT`            |
+| `BIGINT(1)`                                                                            | ❌                             | `BIGINT(1)`                                         | `BIGINT(1)`            | ❌                   | ❌                         | ❌                             | ❌                  | ❌                  |
+| `BIGINT.UNSIGNED`                                                                      | ❌                             | `BIGINT UNSIGNED`                                   | `BIGINT UNSIGNED`      | ❌                   | ❌                         | `INTEGER`                      | ❌                  | ❌                  |
+| `BIGINT.ZEROFILL`                                                                      | ❌                             | `BIGINT ZEROFILL`                                   | `BIGINT ZEROFILL`      | ❌                   | ❌                         | ❌                             | ❌                  | ❌                  |
 
 </DialectTableFilter>
 
 [^ints-1]: When an int type is not available, Sequelize uses a bigger int type.
+
 [^ints-2]: When an unsigned int type is not available, Sequelize uses a bigger int type to ensure the type covers all possible unsigned integer values of the smaller int type.
+
 [^mssql-1]: `TINYINT` in SQL Server is unsigned. `DataTypes.TINYINT.UNSIGNED` therefore maps to `TINYINT`, and `DataTypes.TINYINT` maps to `SMALLINT`.
 
 :::caution
@@ -116,20 +118,21 @@ The types in the following table are typically represented as an [IEEE 754 float
 
 <DialectTableFilter>
 
-| Sequelize DataType                                                                 | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                              | [MySQL][mysql-numeric]      | [MSSQL][mssql-inexact-decimals] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2      | ibmi     |
-|------------------------------------------------------------------------------------|--------------------------------|---------------------------------------------------------|-----------------------------|---------------------------------|----------------------------|--------------------------------|----------|----------|
+| Sequelize DataType                                                               | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                              | [MySQL][mysql-numeric]      | [MSSQL][mssql-inexact-decimals] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2      | ibmi     |
+| -------------------------------------------------------------------------------- | ------------------------------ | ------------------------------------------------------- | --------------------------- | ------------------------------- | -------------------------- | ------------------------------ | -------- | -------- |
 | [`FLOAT`](pathname:///api/v7/classes/_sequelize_core.index.unknown.FLOAT.html)   | `REAL`                         | [`FLOAT`](https://mariadb.com/kb/en/float/)             | `FLOAT`                     | `REAL`                          | `REAL`[^sqlite-3]          | `FLOAT`[^snowflake-1]          | `REAL`   | `REAL`   |
-| `FLOAT(11, 10)`                                                                    | ❌                              | `FLOAT(11,10)`                                          | `FLOAT(11,10)`              | ❌                               | ❌                          | ❌                              | ❌        | ❌        |
-| `FLOAT.UNSIGNED`                                                                   | `REAL`                         | `FLOAT UNSIGNED`                                        | `FLOAT UNSIGNED`            | `REAL`                          | `REAL`                     | `FLOAT`                        | `REAL`   | `REAL`   |
-| `FLOAT.ZEROFILL`                                                                   | ❌                              | `FLOAT ZEROFILL`                                        | `FLOAT ZEROFILL`            | ❌                               | ❌                          | ❌                              | ❌        | ❌        |
+| `FLOAT(11, 10)`                                                                  | ❌                             | `FLOAT(11,10)`                                          | `FLOAT(11,10)`              | ❌                              | ❌                         | ❌                             | ❌       | ❌       |
+| `FLOAT.UNSIGNED`                                                                 | `REAL`                         | `FLOAT UNSIGNED`                                        | `FLOAT UNSIGNED`            | `REAL`                          | `REAL`                     | `FLOAT`                        | `REAL`   | `REAL`   |
+| `FLOAT.ZEROFILL`                                                                 | ❌                             | `FLOAT ZEROFILL`                                        | `FLOAT ZEROFILL`            | ❌                              | ❌                         | ❌                             | ❌       | ❌       |
 | [`DOUBLE`](pathname:///api/v7/classes/_sequelize_core.index.unknown.DOUBLE.html) | `DOUBLE PRECISION`             | [`DOUBLE PRECISION`](https://mariadb.com/kb/en/double/) | `DOUBLE PRECISION`          | `DOUBLE PRECISION`              | `REAL`                     | `FLOAT`                        | `DOUBLE` | `DOUBLE` |
-| `DOUBLE(11, 10)`                                                                   | ❌                              | `DOUBLE PRECISION(11, 10)`                              | `DOUBLE PRECISION(11, 10)`  | ❌                               | ❌                          | ❌                              | ❌        | ❌        |
-| `DOUBLE.UNSIGNED`                                                                  | `DOUBLE PRECISION`             | `DOUBLE PRECISION UNSIGNED`                             | `DOUBLE PRECISION UNSIGNED` | `DOUBLE PRECISION`              | `REAL`                     | `FLOAT`                        | `DOUBLE` | `DOUBLE` |
-| `DOUBLE.ZEROFILL`                                                                  | ❌                              | `DOUBLE PRECISION ZEROFILL`                             | `DOUBLE PRECISION ZEROFILL` | ❌                               | ❌                          | ❌                              | ❌        | ❌        |
+| `DOUBLE(11, 10)`                                                                 | ❌                             | `DOUBLE PRECISION(11, 10)`                              | `DOUBLE PRECISION(11, 10)`  | ❌                              | ❌                         | ❌                             | ❌       | ❌       |
+| `DOUBLE.UNSIGNED`                                                                | `DOUBLE PRECISION`             | `DOUBLE PRECISION UNSIGNED`                             | `DOUBLE PRECISION UNSIGNED` | `DOUBLE PRECISION`              | `REAL`                     | `FLOAT`                        | `DOUBLE` | `DOUBLE` |
+| `DOUBLE.ZEROFILL`                                                                | ❌                             | `DOUBLE PRECISION ZEROFILL`                             | `DOUBLE PRECISION ZEROFILL` | ❌                              | ❌                         | ❌                             | ❌       | ❌       |
 
 </DialectTableFilter>
 
 [^sqlite-3]: Unlike other dialects, in SQLite, `REAL` is a double-precision floating point number type.
+
 [^snowflake-1]: Unlike other dialects, in Snowflake, `FLOAT` is a double-precision floating point number type.
 
 :::info
@@ -146,12 +149,12 @@ Numeric options can be combined:<br/>
 
 <DialectTableFilter>
 
-| Sequelize DataType                                                                   | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                             | [MySQL][mysql-numeric]   | [MSSQL][mssql-exact-decimals] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2              | ibmi             |
-|--------------------------------------------------------------------------------------|--------------------------------|--------------------------------------------------------|--------------------------|-------------------------------|----------------------------|--------------------------------|------------------|------------------|
-| [`DECIMAL`](pathname:///api/v7/classes/_sequelize_core.index.unknown.DECIMAL.html) | `DECIMAL`                      | ❌                                                      | ❌                        | ❌                             | ❌                          | ❌                              | ❌                | ❌                |
-| `DECIMAL(11, 10)`                                                                    | `DECIMAL(11, 10)`              | [`DECIMAL(11,10)`](https://mariadb.com/kb/en/decimal/) | `DECIMAL(11,10)`         | `DECIMAL(11,10)`              | ❌                          | `DECIMAL(11,10)`               | `DECIMAL(11,10)` | `DECIMAL(11,10)` |
-| `DECIMAL(p, s).UNSIGNED`                                                             | `DECIMAL(p, s)`                | `DECIMAL(p, s) UNSIGNED`                               | `DECIMAL(p, s) UNSIGNED` | `DECIMAL(p, s)`               | ❌                          | `DECIMAL(p, s)`                | `DECIMAL(p, s)`  | `DECIMAL(p, s)`  |
-| `DECIMAL(p, s).ZEROFILL`                                                             | ❌                              | `DECIMAL(p, s) ZEROFILL`                               | `DECIMAL(p, s) ZEROFILL` | ❌                             | ❌                          | ❌                              | ❌                | ❌                |
+| Sequelize DataType                                                                 | [PostgreSQL][postgres-numeric] | [MariaDB][mariadb-numeric]                             | [MySQL][mysql-numeric]   | [MSSQL][mssql-exact-decimals] | [SQLite][sqlite-datatypes] | [Snowflake][snowflake-numeric] | db2              | ibmi             |
+| ---------------------------------------------------------------------------------- | ------------------------------ | ------------------------------------------------------ | ------------------------ | ----------------------------- | -------------------------- | ------------------------------ | ---------------- | ---------------- |
+| [`DECIMAL`](pathname:///api/v7/classes/_sequelize_core.index.unknown.DECIMAL.html) | `DECIMAL`                      | ❌                                                     | ❌                       | ❌                            | ❌                         | ❌                             | ❌               | ❌               |
+| `DECIMAL(11, 10)`                                                                  | `DECIMAL(11, 10)`              | [`DECIMAL(11,10)`](https://mariadb.com/kb/en/decimal/) | `DECIMAL(11,10)`         | `DECIMAL(11,10)`              | ❌                         | `DECIMAL(11,10)`               | `DECIMAL(11,10)` | `DECIMAL(11,10)` |
+| `DECIMAL(p, s).UNSIGNED`                                                           | `DECIMAL(p, s)`                | `DECIMAL(p, s) UNSIGNED`                               | `DECIMAL(p, s) UNSIGNED` | `DECIMAL(p, s)`               | ❌                         | `DECIMAL(p, s)`                | `DECIMAL(p, s)`  | `DECIMAL(p, s)`  |
+| `DECIMAL(p, s).ZEROFILL`                                                           | ❌                             | `DECIMAL(p, s) ZEROFILL`                               | `DECIMAL(p, s) ZEROFILL` | ❌                            | ❌                         | ❌                             | ❌               | ❌               |
 
 </DialectTableFilter>
 
@@ -175,13 +178,13 @@ Numeric options can be combined:<br/>
 
 <DialectTableFilter>
 
-| Sequelize DataType                                                             | [PostgreSQL][postgres-temporal] | [MariaDB][mariadb-temporal]                       | [MySQL][mysql-temporal]                                             | MSSQL                                                                                                 | SQLite | [Snowflake][snowflake-temporal] | db2            | ibmi           |
-|--------------------------------------------------------------------------------|---------------------------------|---------------------------------------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|--------|---------------------------------|----------------|----------------|
+| Sequelize DataType                                                           | [PostgreSQL][postgres-temporal] | [MariaDB][mariadb-temporal]                       | [MySQL][mysql-temporal]                                             | MSSQL                                                                                                 | SQLite | [Snowflake][snowflake-temporal] | db2            | ibmi           |
+| ---------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------ | ------------------------------- | -------------- | -------------- |
 | [`DATE`](pathname:///api/v7/classes/_sequelize_core.index.unknown.DATE.html) | `TIMESTAMP WITH TIME ZONE`      | [`DATETIME`](https://mariadb.com/kb/en/datetime/) | [`DATETIME`](https://dev.mysql.com/doc/refman/8.0/en/datetime.html) | [`DATETIMEOFFSET`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/datetimeoffset-transact-sql) | `TEXT` | `TIMESTAMP`                     | `TIMESTAMP`    | `TIMESTAMP`    |
-| `DATE(6)`                                                                      | `TIMESTAMP(6) WITH TIME ZONE`   | `DATETIME(6)`                                     | `DATETIME(6)`                                                       | `DATETIMEOFFSET(6)`                                                                                   | `TEXT` | `TIMESTAMP(6)`                  | `TIMESTAMP(6)` | `TIMESTAMP(6)` |
-| `DATEONLY`                                                                     | `DATE`                          | [`DATE`](https://mariadb.com/kb/en/date/)         | [`DATE`](https://dev.mysql.com/doc/refman/8.0/en/datetime.html)     | [`DATE`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/date-transact-sql)                     | `TEXT` | `DATE`                          | `DATE`         | `DATE`         |
-| `TIME`                                                                         | `TIME`                          | [`TIME`](https://mariadb.com/kb/en/time/)         | [`TIME`](https://dev.mysql.com/doc/refman/8.0/en/time.html)         | [`TIME`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/time-transact-sql)                     | `TEXT` | `TIME`                          | `TIME`         | `TIME`         |
-| `TIME(6)`                                                                      | `TIME(6)`                       | `TIME(6)`                                         | `TIME(6)`                                                           | `TIME(6)`                                                                                             | `TEXT` | `TIME(6)`                       | `TIME(6)`      | `TIME(6)`      |
+| `DATE(6)`                                                                    | `TIMESTAMP(6) WITH TIME ZONE`   | `DATETIME(6)`                                     | `DATETIME(6)`                                                       | `DATETIMEOFFSET(6)`                                                                                   | `TEXT` | `TIMESTAMP(6)`                  | `TIMESTAMP(6)` | `TIMESTAMP(6)` |
+| `DATEONLY`                                                                   | `DATE`                          | [`DATE`](https://mariadb.com/kb/en/date/)         | [`DATE`](https://dev.mysql.com/doc/refman/8.0/en/datetime.html)     | [`DATE`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/date-transact-sql)                     | `TEXT` | `DATE`                          | `DATE`         | `DATE`         |
+| `TIME`                                                                       | `TIME`                          | [`TIME`](https://mariadb.com/kb/en/time/)         | [`TIME`](https://dev.mysql.com/doc/refman/8.0/en/time.html)         | [`TIME`](https://docs.microsoft.com/en-us/sql/t-sql/data-types/time-transact-sql)                     | `TEXT` | `TIME`                          | `TIME`         | `TIME`         |
+| `TIME(6)`                                                                    | `TIME(6)`                       | `TIME(6)`                                         | `TIME(6)`                                                           | `TIME(6)`                                                                                             | `TEXT` | `TIME(6)`                       | `TIME(6)`      | `TIME(6)`      |
 
 </DialectTableFilter>
 
@@ -193,8 +196,8 @@ which will use the appropriate native SQL function based on your dialect.
 <DialectTableFilter>
 
 | Sequelize DataType | PostgreSQL                                                           | MariaDB                                 | MySQL                                                                         | MSSQL                                                                                                          | SQLite | Snowflake | db2            | ibmi  |
-|--------------------|----------------------------------------------------------------------|-----------------------------------------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|--------|-----------|----------------|-------|
-| `NOW`              | [`NOW`](https://www.postgresql.org/docs/8.2/functions-datetime.html) | [`NOW`](https://mariadb.com/kb/en/now/) | [`NOW`](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html) | [`GETDATE()`](https://docs.microsoft.com/en-us/sql/t-sql/functions/getdate-transact-sql?view=sql-server-ver15) | ❌      | `NOW`     | `CURRENT TIME` | `NOW` |
+| ------------------ | -------------------------------------------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------ | --------- | -------------- | ----- |
+| `NOW`              | [`NOW`](https://www.postgresql.org/docs/8.2/functions-datetime.html) | [`NOW`](https://mariadb.com/kb/en/now/) | [`NOW`](https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html) | [`GETDATE()`](https://docs.microsoft.com/en-us/sql/t-sql/functions/getdate-transact-sql?view=sql-server-ver15) | ❌     | `NOW`     | `CURRENT TIME` | `NOW` |
 
 </DialectTableFilter>
 
@@ -219,7 +222,7 @@ to limit which version of UUID is accepted by the attribute to v4 or v1 respecti
 <DialectTableFilter>
 
 | Sequelize DataType | PostgreSQL                                                           | MariaDB           | MySQL             | MSSQL                                                                                                                            | SQLite | Snowflake     | db2                     | ibmi                    |
-|--------------------|----------------------------------------------------------------------|-------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------|--------|---------------|-------------------------|-------------------------|
+| ------------------ | -------------------------------------------------------------------- | ----------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------ | ------------- | ----------------------- | ----------------------- |
 | `UUID`             | [`UUID`](https://www.postgresql.org/docs/current/datatype-uuid.html) | `CHAR(36) BINARY` | `CHAR(36) BINARY` | [`UNIQUEIDENTIFIER`](https://learn.microsoft.com/en-us/sql/t-sql/data-types/uniqueidentifier-transact-sql?view=sql-server-ver16) | `TEXT` | `VARCHAR(36)` | `CHAR(36) FOR BIT DATA` | `CHAR(36) FOR BIT DATA` |
 
 </DialectTableFilter>
@@ -263,12 +266,12 @@ The blob datatype allows you to insert data both as strings and buffers. However
 
 <DialectTableFilter>
 
-| Sequelize DataType                                                             | PostgreSQL | MariaDB      | MySQL        | MSSQL            | [SQLite][sqlite-datatypes] | Snowflake    | db2         | ibmi        |
-|--------------------------------------------------------------------------------|------------|--------------|--------------|------------------|----------------------------|--------------|-------------|-------------|
+| Sequelize DataType                                                           | PostgreSQL | MariaDB      | MySQL        | MSSQL            | [SQLite][sqlite-datatypes] | Snowflake    | db2         | ibmi        |
+| ---------------------------------------------------------------------------- | ---------- | ------------ | ------------ | ---------------- | -------------------------- | ------------ | ----------- | ----------- |
 | [`BLOB`](pathname:///api/v7/classes/_sequelize_core.index.unknown.BLOB.html) | `BYTEA`    | `BLOB`       | `BLOB`       | `VARBINARY(MAX)` | `BLOB`                     | `BLOB`       | `BLOB(1M)`  | `BLOB(1M)`  |
-| `BLOB('tiny')`                                                                 | `BYTEA`    | `TINYBLOB`   | `TINYBLOB`   | `VARBINARY(256)` | `BLOB`                     | `TINYBLOB`   | `BLOB(255)` | `BLOB(255)` |
-| `BLOB('medium')`                                                               | `BYTEA`    | `MEDIUMBLOB` | `MEDIUMBLOB` | `VARBINARY(MAX)` | `BLOB`                     | `MEDIUMBLOB` | `BLOB(16M)` | `BLOB(16M)` |
-| `BLOB('long')`                                                                 | `BYTEA`    | `LONGBLOB`   | `LONGBLOB`   | `VARBINARY(MAX)` | `BLOB`                     | `LONGBLOB`   | `BLOB(2G)`  | `BLOB(2G)`  |
+| `BLOB('tiny')`                                                               | `BYTEA`    | `TINYBLOB`   | `TINYBLOB`   | `VARBINARY(256)` | `BLOB`                     | `TINYBLOB`   | `BLOB(255)` | `BLOB(255)` |
+| `BLOB('medium')`                                                             | `BYTEA`    | `MEDIUMBLOB` | `MEDIUMBLOB` | `VARBINARY(MAX)` | `BLOB`                     | `MEDIUMBLOB` | `BLOB(16M)` | `BLOB(16M)` |
+| `BLOB('long')`                                                               | `BYTEA`    | `LONGBLOB`   | `LONGBLOB`   | `VARBINARY(MAX)` | `BLOB`                     | `LONGBLOB`   | `BLOB(2G)`  | `BLOB(2G)`  |
 
 </DialectTableFilter>
 
@@ -283,7 +286,7 @@ Enums are only available in [PostgreSQL](https://www.postgresql.org/docs/current
 The ENUM is a data type that accepts only a few values, specified as a list.
 
 ```js
-DataTypes.ENUM('foo', 'bar') // An ENUM with allowed values 'foo' and 'bar'
+DataTypes.ENUM('foo', 'bar'); // An ENUM with allowed values 'foo' and 'bar'
 ```
 
 See [the API Reference for DataTypes.ENUM](pathname:///api/v7/classes/_sequelize_core.index.unknown.ENUM.html) for more information about the options this DataType accepts.
@@ -295,9 +298,9 @@ The `DataTypes.JSON` data type is only supported for SQLite, MySQL, MariaDB and 
 <DialectTableFilter>
 
 | Sequelize DataType | PostgreSQL                                                        | MariaDB                                             | MySQL                                                       | MSSQL           | [SQLite][sqlite-datatypes] | Snowflake | db2 | ibmi |
-|--------------------|-------------------------------------------------------------------|-----------------------------------------------------|-------------------------------------------------------------|-----------------|----------------------------|-----------|-----|------|
-| `JSON`             | [`JSON`](https://www.postgresql.org/docs/9.4/datatype-json.html)  | [`JSON`](https://mariadb.com/kb/en/json-data-type/) | [`JSON`](https://dev.mysql.com/doc/refman/8.0/en/json.html) | `NVARCHAR(MAX)` | `TEXT`                     | ❌         | ❌   | ❌    |
-| `JSONB`            | [`JSONB`](https://www.postgresql.org/docs/9.4/datatype-json.html) | ❌                                                   | ❌                                                           | ❌               | ❌                          | ❌         | ❌   | ❌    |
+| ------------------ | ----------------------------------------------------------------- | --------------------------------------------------- | ----------------------------------------------------------- | --------------- | -------------------------- | --------- | --- | ---- |
+| `JSON`             | [`JSON`](https://www.postgresql.org/docs/9.4/datatype-json.html)  | [`JSON`](https://mariadb.com/kb/en/json-data-type/) | [`JSON`](https://dev.mysql.com/doc/refman/8.0/en/json.html) | `NVARCHAR(MAX)` | `TEXT`                     | ❌        | ❌  | ❌   |
+| `JSONB`            | [`JSONB`](https://www.postgresql.org/docs/9.4/datatype-json.html) | ❌                                                  | ❌                                                          | ❌              | ❌                         | ❌        | ❌  | ❌   |
 
 </DialectTableFilter>
 
@@ -324,15 +327,15 @@ SQL `NULL` value.
 
 <DialectTableFilter>
 
-| Sequelize DataType                                                                       | PostgreSQL                                                                | [MariaDB](https://mariadb.com/kb/en/geometry-types/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) | MSSQL | SQLite | Snowflake | db2 | ibmi |
-|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|------------------------------------------------------|-----------------------------------------------------------------------------|-------|--------|-----------|-----|------|
-| [`GEOMETRY`](pathname:///api/v7/classes/_sequelize_core.index.unknown.GEOMETRY.html)   | [`GEOMETRY`](https://postgis.net/workshops/postgis-intro/geometries.html) | `GEOMETRY`                                           | `GEOMETRY`                                                                  | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `GEOMETRY('POINT')`                                                                      | `GEOMETRY(POINT)`                                                         | `POINT`                                              | `POINT`                                                                     | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `GEOMETRY('POINT', 4326)`                                                                | `GEOMETRY(POINT,4326)`                                                    | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `GEOMETRY('POLYGON')`                                                                    | `GEOMETRY(POLYGON)`                                                       | `POLYGON`                                            | `POLYGON`                                                                   | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `GEOMETRY('LINESTRING')`                                                                 | `GEOMETRY(LINESTRING)`                                                    | `LINESTRING`                                         | `LINESTRING`                                                                | ❌     | ❌      | ❌         | ❌   | ❌    |
-| [`GEOGRAPHY`](pathname:///api/v7/classes/_sequelize_core.index.unknown.GEOGRAPHY.html) | [`GEOGRAPHY`](https://postgis.net/workshops/postgis-intro/geography.html) | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `HSTORE`                                                                                 | [`HSTORE`](https://www.postgresql.org/docs/9.1/hstore.html)               | ❌                                                    | ❌                                                                           | ❌     | ❌      | ❌         | ❌   | ❌    |
+| Sequelize DataType                                                                     | PostgreSQL                                                                | [MariaDB](https://mariadb.com/kb/en/geometry-types/) | [MySQL](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) | MSSQL | SQLite | Snowflake | db2 | ibmi |
+| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------- | ----- | ------ | --------- | --- | ---- |
+| [`GEOMETRY`](pathname:///api/v7/classes/_sequelize_core.index.unknown.GEOMETRY.html)   | [`GEOMETRY`](https://postgis.net/workshops/postgis-intro/geometries.html) | `GEOMETRY`                                           | `GEOMETRY`                                                                  | ❌    | ❌     | ❌        | ❌  | ❌   |
+| `GEOMETRY('POINT')`                                                                    | `GEOMETRY(POINT)`                                                         | `POINT`                                              | `POINT`                                                                     | ❌    | ❌     | ❌        | ❌  | ❌   |
+| `GEOMETRY('POINT', 4326)`                                                              | `GEOMETRY(POINT,4326)`                                                    | ❌                                                   | ❌                                                                          | ❌    | ❌     | ❌        | ❌  | ❌   |
+| `GEOMETRY('POLYGON')`                                                                  | `GEOMETRY(POLYGON)`                                                       | `POLYGON`                                            | `POLYGON`                                                                   | ❌    | ❌     | ❌        | ❌  | ❌   |
+| `GEOMETRY('LINESTRING')`                                                               | `GEOMETRY(LINESTRING)`                                                    | `LINESTRING`                                         | `LINESTRING`                                                                | ❌    | ❌     | ❌        | ❌  | ❌   |
+| [`GEOGRAPHY`](pathname:///api/v7/classes/_sequelize_core.index.unknown.GEOGRAPHY.html) | [`GEOGRAPHY`](https://postgis.net/workshops/postgis-intro/geography.html) | ❌                                                   | ❌                                                                          | ❌    | ❌     | ❌        | ❌  | ❌   |
+| `HSTORE`                                                                               | [`HSTORE`](https://www.postgresql.org/docs/9.1/hstore.html)               | ❌                                                   | ❌                                                                          | ❌    | ❌     | ❌        | ❌  | ❌   |
 
 </DialectTableFilter>
 
@@ -354,13 +357,13 @@ In Postgres, the GEOMETRY and GEOGRAPHY types are implemented by [the PostGIS ex
 
 ```typescript
 // Defines an array of DataTypes.SOMETHING.
-DataTypes.ARRAY(/* DataTypes.SOMETHING */)
+DataTypes.ARRAY(/* DataTypes.SOMETHING */);
 
 // VARCHAR(255)[]
-DataTypes.ARRAY(DataTypes.STRING)
+DataTypes.ARRAY(DataTypes.STRING);
 
 // VARCHAR(255)[][]
-DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
+DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING));
 ```
 
 ### Ranges
@@ -372,11 +375,11 @@ DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING))
 :::
 
 ```js
-DataTypes.RANGE(DataTypes.INTEGER)    // int4range
-DataTypes.RANGE(DataTypes.BIGINT)     // int8range
-DataTypes.RANGE(DataTypes.DATE)       // tstzrange
-DataTypes.RANGE(DataTypes.DATEONLY)   // daterange
-DataTypes.RANGE(DataTypes.DECIMAL)    // numrange
+DataTypes.RANGE(DataTypes.INTEGER); // int4range
+DataTypes.RANGE(DataTypes.BIGINT); // int8range
+DataTypes.RANGE(DataTypes.DATE); // tstzrange
+DataTypes.RANGE(DataTypes.DATEONLY); // daterange
+DataTypes.RANGE(DataTypes.DECIMAL); // numrange
 ```
 
 Since range types have extra information for their bound inclusion/exclusion it's not very straightforward to just use a tuple to represent them in JavaScript.
@@ -385,10 +388,7 @@ When supplying ranges as values you can choose from the following APIs:
 
 ```js
 // defaults to inclusive lower bound, exclusive upper bound
-const range = [
-  new Date(Date.UTC(2016, 0, 1)),
-  new Date(Date.UTC(2016, 1, 1))
-];
+const range = [new Date(Date.UTC(2016, 0, 1)), new Date(Date.UTC(2016, 1, 1))];
 // '["2016-01-01 00:00:00+00:00", "2016-02-01 00:00:00+00:00")'
 
 // control inclusion
@@ -406,7 +406,7 @@ const range = [
 // '("2016-01-01 00:00:00+00:00", "2016-02-01 00:00:00+00:00")'
 
 const Timeline = sequelize.define('Timeline', {
-  range: DataTypes.RANGE(DataTypes.DATE)
+  range: DataTypes.RANGE(DataTypes.DATE),
 });
 
 await Timeline.create({ range });
@@ -417,8 +417,8 @@ However, retrieved range values always come in the form of an array of objects. 
 ```js
 [
   { value: Date, inclusive: false },
-  { value: Date, inclusive: true }
-]
+  { value: Date, inclusive: true },
+];
 ```
 
 You will need to call `reload()` after updating an instance with a range type or use the `returning: true` option.
@@ -454,7 +454,7 @@ User.init({
   myDateRange: {
     type: DataTypes.RANGE(DataTypes.DATE),
     allowNull: false,
-  }
+  },
 });
 ```
 
@@ -463,11 +463,11 @@ User.init({
 <DialectTableFilter>
 
 | Sequelize DataType | PostgreSQL                                                               | MariaDB | MySQL | MSSQL | SQLite | Snowflake | db2 | ibmi |
-|--------------------|--------------------------------------------------------------------------|---------|-------|-------|--------|-----------|-----|------|
-| `CIDR`             | [`CIDR`](https://www.postgresql.org/docs/11/datatype-net-types.html)    | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `INET`             | [`INET`](https://www.postgresql.org/docs/11/datatype-net-types.html)    | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `MACADDR`          | [`MACADDR`](https://www.postgresql.org/docs/11/datatype-net-types.html) | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
-| `MACADDR8`         | [`MACADDR8`](https://www.postgresql.org/docs/11/datatype-net-types.html) | ❌       | ❌     | ❌     | ❌      | ❌         | ❌   | ❌    |
+| ------------------ | ------------------------------------------------------------------------ | ------- | ----- | ----- | ------ | --------- | --- | ---- |
+| `CIDR`             | [`CIDR`](https://www.postgresql.org/docs/11/datatype-net-types.html)     | ❌      | ❌    | ❌    | ❌     | ❌        | ❌  | ❌   |
+| `INET`             | [`INET`](https://www.postgresql.org/docs/11/datatype-net-types.html)     | ❌      | ❌    | ❌    | ❌     | ❌        | ❌  | ❌   |
+| `MACADDR`          | [`MACADDR`](https://www.postgresql.org/docs/11/datatype-net-types.html)  | ❌      | ❌    | ❌    | ❌     | ❌        | ❌  | ❌   |
+| `MACADDR8`         | [`MACADDR8`](https://www.postgresql.org/docs/11/datatype-net-types.html) | ❌      | ❌    | ❌    | ❌     | ❌        | ❌  | ❌   |
 
 </DialectTableFilter>
 
@@ -507,15 +507,12 @@ to request the addition of a new built-in DataType.
 [mdn-number]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
 [mdn-bigint]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
 [mdn-string]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
-
 [ieee-754]: https://en.wikipedia.org/wiki/IEEE_754
-
 [postgres-char]: https://www.postgresql.org/docs/current/datatype-character.html
 [postgres-binary]: https://www.postgresql.org/docs/9.0/datatype-binary.html
 [postgres-tsvector]: https://www.postgresql.org/docs/10/datatype-textsearch.html
 [postgres-numeric]: https://www.postgresql.org/docs/current/datatype-numeric.html
 [postgres-temporal]: https://www.postgresql.org/docs/current/datatype-datetime.html
-
 [mariadb-varchar]: https://mariadb.com/kb/en/varchar/
 [mariadb-char]: https://mariadb.com/kb/en/char/
 [mariadb-text]: https://mariadb.com/kb/en/text/
@@ -525,12 +522,10 @@ to request the addition of a new built-in DataType.
 [mariadb-numeric]: https://mariadb.com/kb/en/data-types-numeric-data-types/
 [mariadb-tinyint]: https://mariadb.com/kb/en/tinyint/
 [mariadb-temporal]: https://mariadb.com/kb/en/date-and-time-data-types/
-
 [mysql-char]: https://dev.mysql.com/doc/refman/8.0/en/char.html
 [mysql-text]: https://dev.mysql.com/doc/refman/8.0/en/blob.html
 [mysql-numeric]: https://dev.mysql.com/doc/refman/8.0/en/numeric-type-syntax.html
 [mysql-temporal]: https://dev.mysql.com/doc/refman/8.0/en/date-and-time-types.html
-
 [mssql-char]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/char-and-varchar-transact-sql?view=sql-server-ver15
 [mssql-nchar]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql?view=sql-server-ver15
 [mssql-text]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/ntext-text-and-image-transact-sql?view=sql-server-ver15
@@ -538,8 +533,6 @@ to request the addition of a new built-in DataType.
 [mssql-ints]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql?view=sql-server-ver15
 [mssql-exact-decimals]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/decimal-and-numeric-transact-sql?view=sql-server-ver15
 [mssql-inexact-decimals]: https://docs.microsoft.com/en-us/sql/t-sql/data-types/float-and-real-transact-sql?view=sql-server-ver15
-
 [sqlite-datatypes]: https://www.sqlite.org/stricttables.html
-
 [snowflake-numeric]: https://docs.snowflake.com/en/sql-reference/data-types-numeric.html
 [snowflake-temporal]: https://docs.snowflake.com/en/sql-reference/data-types-datetime.html

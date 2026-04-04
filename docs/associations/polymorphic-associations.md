@@ -28,7 +28,10 @@ for each model that can have comments, such as `ArticleComment` and `VideoCommen
 ```ts
 // This is the base model, which defines the common fields between all comments.
 @AbstractModel
-abstract class AbstractComment<Attributes, CreationAttributes> extends Model<Attributes, CreationAttributes> {
+abstract class AbstractComment<Attributes, CreationAttributes> extends Model<
+  Attributes,
+  CreationAttributes
+> {
   declare id: number;
 
   @Attributes(DataTypes.STRING)
@@ -41,13 +44,19 @@ abstract class AbstractComment<Attributes, CreationAttributes> extends Model<Att
 }
 
 // This is the model for comments on articles.
-class ArticleComment extends AbstractComment<InferAttributes<ArticleComment>, InferCreationAttributes<ArticleComment>> {
+class ArticleComment extends AbstractComment<
+  InferAttributes<ArticleComment>,
+  InferCreationAttributes<ArticleComment>
+> {
   @BelongsTo(() => Article, 'targetId')
   declare target?: Article;
 }
 
 // This is the model for comments on videos.
-class VideoComment extends AbstractComment<InferAttributes<VideoComment>, InferCreationAttributes<VideoComment>> {
+class VideoComment extends AbstractComment<
+  InferAttributes<VideoComment>,
+  InferCreationAttributes<VideoComment>
+> {
   @BelongsTo(() => Video, 'targetId')
   declare target?: Video;
 }
@@ -98,7 +107,7 @@ For these reasons, we highly recommend using one of the other two solutions inst
 
 :::
 
-In this type of polymorphic association, we don't use foreign keys at all. 
+In this type of polymorphic association, we don't use foreign keys at all.
 Instead, we use two columns: one to store the type of the associated model, and one to store the ID of the associated model.
 
 As stated above, we must disable the foreign key constraints on the association, as the same column is referencing multiple tables.
@@ -121,13 +130,13 @@ class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Co
   @Attributes(DataTypes.INTEGER)
   @NotNull
   declare targetId: number;
- 
+
   /** Defined by {@link Article#comments} */
   declare article?: NonAttribute<Article>;
-  
+
   /** Defined by {@link Video#comments} */
   declare video?: NonAttribute<Video>;
-  
+
   get target(): NonAttribute<Article | Video | undefined> {
     if (this.targetModel === 'article') {
       return this.article;
@@ -194,7 +203,7 @@ const comments = await article.getComments();
 
 :::warning
 
-Do not use the inverse association without extra filtering! 
+Do not use the inverse association without extra filtering!
 
 While using the association from Article or Video to Comment is safe,
 using the inverse association from Comment to Article or Video is not safe.

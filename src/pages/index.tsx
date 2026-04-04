@@ -5,9 +5,9 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import clsx from 'clsx';
 import React from 'react';
-import HomepageFeatures from '../components/homepage-features';
-import HomepageUsage from '../components/homepage-usage';
-import HomepageUsers from '../components/homepage-users';
+import { HomepageFeatures } from '../components/homepage-features';
+import { HomepageUsage } from '../components/homepage-usage';
+import { HomepageUsers } from '../components/homepage-users';
 import { useAds } from '../hooks/use-ads';
 import css from './index.module.scss';
 
@@ -27,17 +27,13 @@ function HomepageHeader() {
           <p className={css.heroSubtitle}>{siteConfig.tagline}</p>
           <div className={css.buttons}>
             <div className={css.buttonGroup}>
-              <Link
-                className="button button--primary button--lg"
-                to="/docs/v6/getting-started"
-              >
+              <Link className="button button--primary button--lg" to="/docs/v6/getting-started">
                 Getting Started
               </Link>
 
               <Link
                 className="button button--secondary button--lg"
-                to="pathname:///api/v6/identifiers"
-              >
+                to="pathname:///api/v6/identifiers">
                 API Reference
               </Link>
             </div>
@@ -45,18 +41,13 @@ function HomepageHeader() {
             <div className={css.buttonGroup}>
               <Link
                 className="button button--secondary button--lg"
-                to="/docs/v6/other-topics/upgrade"
-              >
+                to="/docs/v6/other-topics/upgrade">
                 Upgrade to v6
               </Link>
 
               <Link
-                className={clsx(
-                  'button button--secondary button--lg',
-                  css.supportButton,
-                )}
-                to="https://opencollective.com/sequelize"
-              >
+                className={clsx('button button--secondary button--lg', css.supportButton)}
+                to="https://opencollective.com/sequelize">
                 Support us
               </Link>
             </div>
@@ -74,9 +65,7 @@ export default function Home(): JSX.Element {
     <Layout description={siteConfig.tagline}>
       {/* we don't add '| Sequelize' on the homepage title because it already starts with 'Sequelize -' for better search results display */}
       <Head titleTemplate="%s">
-        <title>
-          Sequelize | Feature-rich ORM for modern TypeScript & JavaScript
-        </title>
+        <title>Sequelize | Feature-rich ORM for modern TypeScript & JavaScript</title>
       </Head>
       <HomepageHeader />
       <main>

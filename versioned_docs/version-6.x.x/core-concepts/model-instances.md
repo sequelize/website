@@ -8,17 +8,17 @@ As you already know, a model is an [ES6 class](https://developer.mozilla.org/en-
 For this guide, the following setup will be assumed:
 
 ```js
-const { Sequelize, Model, DataTypes } = require("sequelize");
-const sequelize = new Sequelize("sqlite::memory:");
+const { Sequelize, Model, DataTypes } = require('sequelize');
+const sequelize = new Sequelize('sqlite::memory:');
 
-const User = sequelize.define("user", {
+const User = sequelize.define('user', {
   name: DataTypes.TEXT,
   favoriteColor: {
     type: DataTypes.TEXT,
-    defaultValue: 'green'
+    defaultValue: 'green',
   },
   age: DataTypes.INTEGER,
-  cash: DataTypes.INTEGER
+  cash: DataTypes.INTEGER,
 });
 
 (async () => {
@@ -32,12 +32,12 @@ const User = sequelize.define("user", {
 Although a model is a class, you should not create instances by using the `new` operator directly. Instead, the [`build`](pathname:///api/v6/class/src/model.js~Model.html#static-method-build) method should be used:
 
 ```js
-const jane = User.build({ name: "Jane" });
+const jane = User.build({ name: 'Jane' });
 console.log(jane instanceof User); // true
 console.log(jane.name); // "Jane"
 ```
 
-However, the code above does not communicate with the database at all (note that it is not even asynchronous)! This is because the [`build`](pathname:///api/v6/class/src/model.js~Model.html#static-method-build) method only creates an object that *represents* data that *can* be mapped to a database. In order to really save (i.e. persist) this instance in the database, the [`save`](pathname:///api/v6/class/src/model.js~Model.html#instance-method-save) method should be used:
+However, the code above does not communicate with the database at all (note that it is not even asynchronous)! This is because the [`build`](pathname:///api/v6/class/src/model.js~Model.html#static-method-build) method only creates an object that _represents_ data that _can_ be mapped to a database. In order to really save (i.e. persist) this instance in the database, the [`save`](pathname:///api/v6/class/src/model.js~Model.html#instance-method-save) method should be used:
 
 ```js
 await jane.save();
@@ -51,7 +51,7 @@ Note, from the usage of `await` in the snippet above, that `save` is an asynchro
 Sequelize provides the [`create`](pathname:///api/v6/class/src/model.js~Model.html#static-method-create) method, which combines the `build` and `save` methods shown above into a single method:
 
 ```js
-const jane = await User.create({ name: "Jane" });
+const jane = await User.create({ name: 'Jane' });
 // Jane exists in the database now!
 console.log(jane instanceof User); // true
 console.log(jane.name); // "Jane"
@@ -62,7 +62,7 @@ console.log(jane.name); // "Jane"
 Trying to log a model instance directly to `console.log` will produce a lot of clutter, since Sequelize instances have a lot of things attached to them. Instead, you can use the `.toJSON()` method (which, by the way, automatically guarantees the instances to be `JSON.stringify`-ed well).
 
 ```js
-const jane = await User.create({ name: "Jane" });
+const jane = await User.create({ name: 'Jane' });
 // console.log(jane); // Don't do this
 console.log(jane.toJSON()); // This is good!
 console.log(JSON.stringify(jane, null, 4)); // This is also good!
@@ -73,7 +73,7 @@ console.log(JSON.stringify(jane, null, 4)); // This is also good!
 Built instances will automatically get default values:
 
 ```js
-const jane = User.build({ name: "Jane" });
+const jane = User.build({ name: 'Jane' });
 console.log(jane.favoriteColor); // "green"
 ```
 
@@ -82,9 +82,9 @@ console.log(jane.favoriteColor); // "green"
 If you change the value of some field of an instance, calling `save` again will update it accordingly:
 
 ```js
-const jane = await User.create({ name: "Jane" });
+const jane = await User.create({ name: 'Jane' });
 console.log(jane.name); // "Jane"
-jane.name = "Ada";
+jane.name = 'Ada';
 // the name is still "Jane" in the database
 await jane.save();
 // Now the name was updated to "Ada" in the database!
@@ -93,11 +93,11 @@ await jane.save();
 You can update several fields at once with the [`set`](pathname:///api/v6/class/src/model.js~Model.html#instance-method-set) method:
 
 ```js
-const jane = await User.create({ name: "Jane" });
+const jane = await User.create({ name: 'Jane' });
 
 jane.set({
-  name: "Ada",
-  favoriteColor: "blue"
+  name: 'Ada',
+  favoriteColor: 'blue',
 });
 // As above, the database still has "Jane" and "green"
 await jane.save();
@@ -107,11 +107,11 @@ await jane.save();
 Note that the `save()` here will also persist any other changes that have been made on this instance, not just those in the previous `set` call. If you want to update a specific set of fields, you can use [`update`](pathname:///api/v6/class/src/model.js~Model.html#instance-method-update):
 
 ```js
-const jane = await User.create({ name: "Jane" });
-jane.favoriteColor = "blue"
-await jane.update({ name: "Ada" })
+const jane = await User.create({ name: 'Jane' });
+jane.favoriteColor = 'blue';
+await jane.update({ name: 'Ada' });
 // The database now has "Ada" for name, but still has the default "green" for favorite color
-await jane.save()
+await jane.save();
 // Now the database has "Ada" for name and "blue" for favorite color
 ```
 
@@ -120,7 +120,7 @@ await jane.save()
 You can delete an instance by calling [`destroy`](pathname:///api/v6/class/src/model.js~Model.html#instance-method-destroy):
 
 ```js
-const jane = await User.create({ name: "Jane" });
+const jane = await User.create({ name: 'Jane' });
 console.log(jane.name); // "Jane"
 await jane.destroy();
 // Now this entry was removed from the database
@@ -131,9 +131,9 @@ await jane.destroy();
 You can reload an instance from the database by calling [`reload`](pathname:///api/v6/class/src/model.js~Model.html#instance-method-reload):
 
 ```js
-const jane = await User.create({ name: "Jane" });
+const jane = await User.create({ name: 'Jane' });
 console.log(jane.name); // "Jane"
-jane.name = "Ada";
+jane.name = 'Ada';
 // the name is still "Jane" in the database
 await jane.reload();
 console.log(jane.name); // "Jane"
@@ -148,11 +148,11 @@ It is possible to define which attributes should be saved when calling `save`, b
 This is useful when you set attributes based on a previously defined object, for example, when you get the values of an object via a form of a web app. Furthermore, this is used internally in the `update` implementation. This is how it looks like:
 
 ```js
-const jane = await User.create({ name: "Jane" });
+const jane = await User.create({ name: 'Jane' });
 console.log(jane.name); // "Jane"
 console.log(jane.favoriteColor); // "green"
-jane.name = "Jane II";
-jane.favoriteColor = "blue";
+jane.name = 'Jane II';
+jane.favoriteColor = 'blue';
 await jane.save({ fields: ['name'] });
 console.log(jane.name); // "Jane II"
 console.log(jane.favoriteColor); // "blue"
@@ -174,7 +174,7 @@ Also, if only a few attributes have changed when you call `save`, only those fie
 In order to increment/decrement values of an instance without running into concurrency issues, Sequelize provides the [`increment`](pathname:///api/v6/class/src/model.js~Model.html#instance-method-increment) and [`decrement`](pathname:///api/v6/class/src/model.js~Model.html#instance-method-decrement) instance methods.
 
 ```js
-const jane = await User.create({ name: "Jane", age: 100 });
+const jane = await User.create({ name: 'Jane', age: 100 });
 const incrementResult = await jane.increment('age', { by: 2 });
 // Note: to increment by 1 you can omit the `by` option and just do `user.increment('age')`
 
@@ -187,10 +187,10 @@ const incrementResult = await jane.increment('age', { by: 2 });
 You can also increment multiple fields at once:
 
 ```js
-const jane = await User.create({ name: "Jane", age: 100, cash: 5000 });
+const jane = await User.create({ name: 'Jane', age: 100, cash: 5000 });
 await jane.increment({
-  'age': 2,
-  'cash': 100
+  age: 2,
+  cash: 100,
 });
 
 // If the values are incremented by the same amount, you can use this other syntax as well:

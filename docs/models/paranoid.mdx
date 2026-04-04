@@ -7,12 +7,12 @@ import TabItem from '@theme/TabItem';
 
 # Paranoid Models
 
-Sequelize supports the concept of *paranoid* tables.
-A *paranoid* table is one that, when told to delete a record,
+Sequelize supports the concept of _paranoid_ tables.
+A _paranoid_ table is one that, when told to delete a record,
 will not truly delete it.
 Instead, it will record that the model is deleted by setting its "deleted at" column to the current timestamp.
 
-This means that paranoid tables perform a *soft-deletion* of records, instead of a *hard-deletion*.
+This means that paranoid tables perform a _soft-deletion_ of records, instead of a _hard-deletion_.
 
 ## Defining a model as paranoid
 
@@ -57,8 +57,8 @@ When you call the `destroy` method, a soft-deletion will happen:
 ```js
 await Post.destroy({
   where: {
-    id: 1
-  }
+    id: 1,
+  },
 });
 // UPDATE "posts" SET "deletedAt"=[timestamp] WHERE "deletedAt" IS NULL AND "id" = 1
 ```
@@ -68,9 +68,9 @@ If you really want a hard-deletion and your model is paranoid, you can force it 
 ```js
 await Post.destroy({
   where: {
-    id: 1
+    id: 1,
   },
-  force: true
+  force: true,
 });
 // DELETE FROM "posts" WHERE "id" = 1
 ```
@@ -103,9 +103,9 @@ console.log('restored!');
 await Post.restore({
   where: {
     likes: {
-      [Op.gt]: 100
-    }
-  }
+      [Op.gt]: 100,
+    },
+  },
 });
 ```
 
@@ -124,12 +124,12 @@ await Post.findByPk(123); // This will return `null` if the record of id 123 is 
 await Post.findByPk(123, { paranoid: false }); // This will retrieve the record
 
 await Post.findAll({
-  where: { foo: 'bar' }
+  where: { foo: 'bar' },
 }); // This will not retrieve soft-deleted records
 
 await Post.findAll({
   where: { foo: 'bar' },
-  paranoid: false
+  paranoid: false,
 }); // This will also retrieve soft-deleted records
 ```
 
@@ -145,9 +145,11 @@ If you want to eager load soft deleted records, you can do that by setting `incl
 
 ```js
 User.findAll({
-  include: [{
-    association: 'projects',
-    paranoid: false,
-  }],
+  include: [
+    {
+      association: 'projects',
+      paranoid: false,
+    },
+  ],
 });
 ```

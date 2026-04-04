@@ -7,7 +7,7 @@ sidebar_position: 9
 
 Neither the Sequelize CLI nor its documentation is ready for use in Sequelize 7. If you rely on the CLI, please stay on Sequelize 6 for now.
 
-Considering the main purpose of the CLI is to run migrations, you can also try using [umzug](https://github.com/sequelize/umzug), or any 
+Considering the main purpose of the CLI is to run migrations, you can also try using [umzug](https://github.com/sequelize/umzug), or any
 other database migration tool instead.
 
 :::
@@ -123,8 +123,8 @@ module.exports = {
   },
   down: (queryInterface, Sequelize) => {
     // logic for reverting the changes
-  }
-}
+  },
+};
 ```
 
 We can generate this file using `migration:generate`. This will create `xxx-migration-example.js` in your migration folder.
@@ -148,17 +148,17 @@ module.exports = {
       isBetaMember: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Person');
-  }
+  },
 };
 ```
 
-The following is an example of a migration that performs two changes in the database, 
+The following is an example of a migration that performs two changes in the database,
 using an automatically managed transaction to ensure that all instructions are successfully executed or rolled back in case of failure:
 
 ```js
@@ -168,12 +168,22 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.sequelize.transaction(transaction => {
       return Promise.all([
-        queryInterface.addColumn('Person', 'petName', {
-          type: DataTypes.STRING
-        }, { transaction }),
-        queryInterface.addColumn('Person', 'favoriteColor', {
-          type: DataTypes.STRING,
-        }, { transaction })
+        queryInterface.addColumn(
+          'Person',
+          'petName',
+          {
+            type: DataTypes.STRING,
+          },
+          { transaction },
+        ),
+        queryInterface.addColumn(
+          'Person',
+          'favoriteColor',
+          {
+            type: DataTypes.STRING,
+          },
+          { transaction },
+        ),
       ]);
     });
   },
@@ -181,10 +191,10 @@ module.exports = {
     return queryInterface.sequelize.transaction(transaction => {
       return Promise.all([
         queryInterface.removeColumn('Person', 'petName', { transaction }),
-        queryInterface.removeColumn('Person', 'favoriteColor', { transaction })
+        queryInterface.removeColumn('Person', 'favoriteColor', { transaction }),
       ]);
     });
-  }
+  },
 };
 ```
 
@@ -194,31 +204,31 @@ The next example is of a migration that has a foreign key. You can use reference
 const { DataTypes } = require('@sequelize/core');
 
 module.exports = {
-  up: (queryInterface) => {
+  up: queryInterface => {
     return queryInterface.createTable('Person', {
       name: DataTypes.STRING,
       isBetaMember: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
-        allowNull: false
+        allowNull: false,
       },
       userId: {
         type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: 'users',
-            schema: 'schema'
+            schema: 'schema',
           },
-          key: 'id'
+          key: 'id',
         },
-        allowNull: false
+        allowNull: false,
       },
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Person');
-  }
-}
+  },
+};
 ```
 
 The next example is of a migration that uses async/await where you create a unique index on a new column, with a manually-managed transaction:
@@ -236,17 +246,13 @@ module.exports = {
         {
           type: DataTypes.STRING,
         },
-        { transaction }
+        { transaction },
       );
-      await queryInterface.addIndex(
-        'Person',
-        'petName',
-        {
-          fields: 'petName',
-          unique: true,
-          transaction,
-        }
-      );
+      await queryInterface.addIndex('Person', 'petName', {
+        fields: 'petName',
+        unique: true,
+        transaction,
+      });
       await transaction.commit();
     } catch (err) {
       await transaction.rollback();
@@ -262,7 +268,7 @@ module.exports = {
       await transaction.rollback();
       throw err;
     }
-  }
+  },
 };
 ```
 
@@ -272,28 +278,26 @@ The next example is of a migration that creates a unique index composed of multi
 const { DataTypes } = require('@sequelize/core');
 
 module.exports = {
-  up: (queryInterface) => {
-    queryInterface.createTable('Person', {
-      name: DataTypes.STRING,
-      bool: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-      }
-    }).then((queryInterface, Sequelize) => {
-      queryInterface.addIndex(
-        'Person',
-        ['name', 'bool'],
-        {
+  up: queryInterface => {
+    queryInterface
+      .createTable('Person', {
+        name: DataTypes.STRING,
+        bool: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false,
+        },
+      })
+      .then((queryInterface, Sequelize) => {
+        queryInterface.addIndex('Person', ['name', 'bool'], {
           type: 'UNIQUE',
-          where: { bool : 'true' },
-        }
-      );
-    });
+          where: { bool: 'true' },
+        });
+      });
   },
-  down: (queryInterface) => {
+  down: queryInterface => {
     return queryInterface.dropTable('Person');
-  }
-}
+  },
+};
 ```
 
 ## Running Migrations
@@ -357,17 +361,19 @@ Now we should edit this file to insert the demo user to `User` table.
 ```js
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users', [{
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'example@example.com',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
+    return queryInterface.bulkInsert('Users', [
+      {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'example@example.com',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]);
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Users', null, {});
-  }
+  },
 };
 ```
 
@@ -445,10 +451,10 @@ To begin, let's create the `.sequelizerc` file in the root directory of your pro
 const path = require('path');
 
 module.exports = {
-  'config': path.resolve('config', 'database.json'),
+  config: path.resolve('config', 'database.json'),
   'models-path': path.resolve('db', 'models'),
   'seeders-path': path.resolve('db', 'seeders'),
-  'migrations-path': path.resolve('db', 'migrations')
+  'migrations-path': path.resolve('db', 'migrations'),
 };
 ```
 
@@ -469,8 +475,8 @@ Thankfully, the Sequelize CLI can read from both `.json` and `.js` files. This c
 const path = require('path');
 
 module.exports = {
-  'config': path.resolve('config', 'config.js')
-}
+  config: path.resolve('config', 'config.js'),
+};
 ```
 
 Now the Sequelize CLI will load `config/config.js` for getting configuration options.
@@ -489,8 +495,8 @@ module.exports = {
     port: 3306,
     dialect: 'mysql',
     dialectOptions: {
-      bigNumberStrings: true
-    }
+      bigNumberStrings: true,
+    },
   },
   test: {
     username: process.env.CI_DB_USERNAME,
@@ -500,8 +506,8 @@ module.exports = {
     port: 3306,
     dialect: 'mysql',
     dialectOptions: {
-      bigNumberStrings: true
-    }
+      bigNumberStrings: true,
+    },
   },
   production: {
     username: process.env.PROD_DB_USERNAME,
@@ -513,10 +519,10 @@ module.exports = {
     dialectOptions: {
       bigNumberStrings: true,
       ssl: {
-        ca: fs.readFileSync(__dirname + '/mysql-ca-main.crt')
-      }
-    }
-  }
+        ca: fs.readFileSync(__dirname + '/mysql-ca-main.crt'),
+      },
+    },
+  },
 };
 ```
 
@@ -536,16 +542,16 @@ yarn add babel-register --dev
 ```js
 // .sequelizerc
 
-require("babel-register");
+require('babel-register');
 
 const path = require('path');
 
 module.exports = {
-  'config': path.resolve('config', 'config.json'),
+  config: path.resolve('config', 'config.json'),
   'models-path': path.resolve('models'),
   'seeders-path': path.resolve('seeders'),
-  'migrations-path': path.resolve('migrations')
-}
+  'migrations-path': path.resolve('migrations'),
+};
 ```
 
 Of course, the outcome will depend upon your babel configuration (such as in a `.babelrc` file). Learn more at [babeljs.io](https://babeljs.io).

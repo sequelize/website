@@ -13,9 +13,9 @@ For example, if you want to always set a value on a model before saving it, you 
 
 The `Sequelize` class supports the following hooks:
 
-| Hook name                  | Async | Run when                        |
-|----------------------------|-------|---------------------------------|
-|  `beforeInit`, `afterInit` | ❌     | A sequelize instance is created |
+| Hook name                 | Async | Run when                        |
+| ------------------------- | ----- | ------------------------------- |
+| `beforeInit`, `afterInit` | ❌    | A sequelize instance is created |
 
 Example:
 
@@ -31,14 +31,14 @@ Sequelize.hooks.addListener('beforeInit', () => {
 
 `Sequelize` instances support the following hooks:
 
-| Hook name                             | Async | Run when                                                   |
-|---------------------------------------|-------|------------------------------------------------------------|
-| `beforeDefine`, `afterDefine`         | ❌     | A new `Model` class is being registered                    |
-| `beforeQuery`, `afterQuery`           | ✅     | A SQL query is being run                                   |
-| `beforeBulkSync`, `afterBulkSync`     | ✅     | `sequelize.sync` is called                                 |
-| `beforeConnect`, `afterConnect`       | ✅     | Whenever a new connection to the database is being created |
-| `beforeDisconnect`, `afterDisconnect` | ✅     | Whenever a connection to the database is being closed      |
-| `beforePoolAcquire`, `afterPoolAcquire` | ✅     | Whenever a new connection from pool is being acquired |
+| Hook name                               | Async | Run when                                                   |
+| --------------------------------------- | ----- | ---------------------------------------------------------- |
+| `beforeDefine`, `afterDefine`           | ❌    | A new `Model` class is being registered                    |
+| `beforeQuery`, `afterQuery`             | ✅    | A SQL query is being run                                   |
+| `beforeBulkSync`, `afterBulkSync`       | ✅    | `sequelize.sync` is called                                 |
+| `beforeConnect`, `afterConnect`         | ✅    | Whenever a new connection to the database is being created |
+| `beforeDisconnect`, `afterDisconnect`   | ✅    | Whenever a connection to the database is being closed      |
+| `beforePoolAcquire`, `afterPoolAcquire` | ✅    | Whenever a new connection from pool is being acquired      |
 
 :::info
 
@@ -62,6 +62,7 @@ sequelize.hooks.addListener('beforeFind', () => {
 Instance Sequelize hooks can be registered in two ways:
 
 1. Using the `hooks` property of the `Sequelize` instance:
+
    ```typescript
    import { Sequelize } from '@sequelize/core';
 
@@ -72,7 +73,9 @@ Instance Sequelize hooks can be registered in two ways:
      console.log('A new Model is being initialized');
    });
    ```
+
 2. Through the `Sequelize` options:
+
    ```typescript
    import { Sequelize } from '@sequelize/core';
 
@@ -92,28 +95,29 @@ Instance Sequelize hooks can be registered in two ways:
 `Model` classes support the following hooks:
 
 | Hook name                                                                              | Async | Run when                                                                        |
-|----------------------------------------------------------------------------------------|-------|---------------------------------------------------------------------------------|
-| `beforeAssociate`, `afterAssociate`                                                    | ❌     | Whenever an association is declared on the model                                |
-| `beforeSync`, `afterSync`                                                              | ✅     | When `sequelize.sync` or `Model.sync` are called                                |
-| `beforeValidate`, `afterValidate`, `validationFailed`                                  | ✅     | When the model's attributes are being validated (happens in most model methods) |
-| `beforeFind`, `beforeFindAfterExpandIncludeAll`, `beforeFindAfterOptions`, `afterFind` | ✅     | When `Model.findAll` is called[^find-all]                                       |
-| `beforeCount`                                                                          | ✅     | When `Model.count` is called                                                    |
-| `beforeUpsert`, `afterUpsert`                                                          | ✅     | When `Model.upsert` is called                                                   |
-| `beforeBulkCreate`, `afterBulkCreate`                                                  | ✅     | When `Model.bulkCreate` is called                                               |
-| `beforeBulkDestroy`, `afterBulkDestroy`                                                | ✅     | When `Model.destroy` is called                                                  |
-| `beforeDestroy`, `afterDestroy`                                                        | ✅     | When `Model#destroy` is called                                                  |
-| `beforeBulkRestore`, `afterBulkRestore`                                                | ✅     | When `Model.restore` is called                                                  |
-| `beforeRestore`, `afterRestore`                                                        | ✅     | When `Model#restore` is called                                                  |
-| `beforeBulkUpdate`, `afterBulkUpdate`                                                  | ✅     | When `Model.update` is called                                                   |
-| `beforeUpdate`, `afterUpdate`                                                          | ✅     | When `Model#update` or `Model#save` is called (and the model isn't new)         |
-| `beforeCreate`, `afterCreate`                                                          | ✅     | When `Model#save` is called (and the model is new)                              |
-| `beforeSave`, `afterSave`                                                              | ✅     | When `Model#update` or `Model#save` is called                                   |
+| -------------------------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------- |
+| `beforeAssociate`, `afterAssociate`                                                    | ❌    | Whenever an association is declared on the model                                |
+| `beforeSync`, `afterSync`                                                              | ✅    | When `sequelize.sync` or `Model.sync` are called                                |
+| `beforeValidate`, `afterValidate`, `validationFailed`                                  | ✅    | When the model's attributes are being validated (happens in most model methods) |
+| `beforeFind`, `beforeFindAfterExpandIncludeAll`, `beforeFindAfterOptions`, `afterFind` | ✅    | When `Model.findAll` is called[^find-all]                                       |
+| `beforeCount`                                                                          | ✅    | When `Model.count` is called                                                    |
+| `beforeUpsert`, `afterUpsert`                                                          | ✅    | When `Model.upsert` is called                                                   |
+| `beforeBulkCreate`, `afterBulkCreate`                                                  | ✅    | When `Model.bulkCreate` is called                                               |
+| `beforeBulkDestroy`, `afterBulkDestroy`                                                | ✅    | When `Model.destroy` is called                                                  |
+| `beforeDestroy`, `afterDestroy`                                                        | ✅    | When `Model#destroy` is called                                                  |
+| `beforeBulkRestore`, `afterBulkRestore`                                                | ✅    | When `Model.restore` is called                                                  |
+| `beforeRestore`, `afterRestore`                                                        | ✅    | When `Model#restore` is called                                                  |
+| `beforeBulkUpdate`, `afterBulkUpdate`                                                  | ✅    | When `Model.update` is called                                                   |
+| `beforeUpdate`, `afterUpdate`                                                          | ✅    | When `Model#update` or `Model#save` is called (and the model isn't new)         |
+| `beforeCreate`, `afterCreate`                                                          | ✅    | When `Model#save` is called (and the model is new)                              |
+| `beforeSave`, `afterSave`                                                              | ✅    | When `Model#update` or `Model#save` is called                                   |
 
 ### Registering Model hooks
 
 Instance Sequelize hooks can be registered in three ways:
 
 1. Using the `hooks` property of the `Sequelize` instance:
+
    ```typescript
    import { Sequelize, DataTypes } from '@sequelize/core';
 
@@ -128,21 +132,28 @@ Instance Sequelize hooks can be registered in three ways:
      console.log('findAll has been called on MyModel');
    });
    ```
+
 2. Through the options of `Model.init`, or `sequelize.define`:
+
    ```typescript
    import { DataTypes } from '@sequelize/core';
 
-   const MyModel = sequelize.define('MyModel', {
-     name: DataTypes.STRING,
-   }, {
-     // highlight-next-line
-     hooks: {
-       beforeFind: () => {
-         console.log('findAll has been called on MyModel');
+   const MyModel = sequelize.define(
+     'MyModel',
+     {
+       name: DataTypes.STRING,
+     },
+     {
+       // highlight-next-line
+       hooks: {
+         beforeFind: () => {
+           console.log('findAll has been called on MyModel');
+         },
        },
      },
-   });
+   );
    ```
+
 3. Using decorators.  
    There is a decorator for every model hook, their names are the same as the hook names, but in `PascalCase`.
 
@@ -163,10 +174,10 @@ Instance Sequelize hooks can be registered in three ways:
 
 ## Sync vs Async Hooks
 
-In the tables above, you can see that some hooks are marked as `Async`. 
+In the tables above, you can see that some hooks are marked as `Async`.
 This means that your listener can return a `Promise` that will be awaited before continuing with the execution of the hook.
 
-Be careful about doing async operations in hooks. Hooks are run in series and will not run the next hook until your hook has resolved. 
+Be careful about doing async operations in hooks. Hooks are run in series and will not run the next hook until your hook has resolved.
 This can cause performance issues if you have a lot of hooks.
 
 Trying to return a `Promise` from a synchronous hook will raise an error.
@@ -177,9 +188,12 @@ You can remove hooks using `hooks.removeListener` and providing either the same 
 
 ```js
 class Book extends Model {}
-Book.init({
-  title: DataTypes.STRING
-}, { sequelize });
+Book.init(
+  {
+    title: DataTypes.STRING,
+  },
+  { sequelize },
+);
 
 const myListener = (book, options) => {
   // ...
@@ -258,7 +272,7 @@ User.destroy({
 
 ## Exceptions
 
-Only __Model methods__ trigger hooks. This means there are a number of cases where Sequelize will interact with the database without triggering hooks.
+Only **Model methods** trigger hooks. This means there are a number of cases where Sequelize will interact with the database without triggering hooks.
 These include but are not limited to:
 
 - Instances being deleted by the database because of an `ON DELETE CASCADE` constraint, [except if the `hooks` option is true](#hooks-for-cascade-deletes).
@@ -281,7 +295,7 @@ Using this option is discouraged for the following reasons:
 - This option requires many extra queries. The `destroy` method normally executes a single query.
   If this option is enabled, an extra `SELECT` query, as well as an extra `DELETE` query for each row returned by the select will be executed.
 - If you do not run this query in a transaction, and an error occurs, you may end up with some rows deleted and some not deleted.
-- This option only works when the *instance* version of `destroy` is used. The static version will not trigger the hooks, even with `individualHooks`.
+- This option only works when the _instance_ version of `destroy` is used. The static version will not trigger the hooks, even with `individualHooks`.
 - This option will not work in `paranoid` mode.
 - This option will not work if you only define the association on the model that owns the foreign key. You need to define the reverse association as well.
 
@@ -325,30 +339,36 @@ await user.destroy();
 
 ## Hooks and Transactions
 
-Many model operations in Sequelize support specifying a transaction in the options parameter of the method. 
-If a transaction *is* specified in the original call, it will be present in the options parameter passed to the hook function.  
+Many model operations in Sequelize support specifying a transaction in the options parameter of the method.
+If a transaction _is_ specified in the original call, it will be present in the options parameter passed to the hook function.  
 For example, consider the following snippet:
 
 ```js
 User.hooks.addListener('afterCreate', async (user, options) => {
   // We can use `options.transaction` to perform some other call
   // using the same transaction of the call that triggered this hook
-  await User.update({ mood: 'sad' }, {
-    where: {
-      id: user.id
+  await User.update(
+    { mood: 'sad' },
+    {
+      where: {
+        id: user.id,
+      },
+      // highlight-next-line
+      transaction: options.transaction,
     },
-    // highlight-next-line
-    transaction: options.transaction
-  });
+  );
 });
 
 await sequelize.transaction(async transaction => {
-  await User.create({
-    username: 'someguy',
-    mood: 'happy'
-  }, {
-    transaction,
-  });
+  await User.create(
+    {
+      username: 'someguy',
+      mood: 'happy',
+    },
+    {
+      transaction,
+    },
+  );
 });
 ```
 

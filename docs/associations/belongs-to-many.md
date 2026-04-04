@@ -5,7 +5,7 @@ title: BelongsToMany
 
 # The BelongsToMany Association
 
-The BelongsToMany association is used to create a [Many-To-Many relationship](https://en.wikipedia.org/wiki/Many-to-many_(data_model)) between two models.
+The BelongsToMany association is used to create a [Many-To-Many relationship](<https://en.wikipedia.org/wiki/Many-to-many_(data_model)>) between two models.
 
 In a Many-To-Many relationship, a row of one table is associated with _zero, one or more_ rows of another table, and vice versa.
 
@@ -16,7 +16,7 @@ erDiagram
   people }o--o{ toots : likedToots
 ```
 
-Because foreign keys can only point to a single row, Many-To-Many relationships are implemented using a junction table (called __through table__ in Sequelize), and are 
+Because foreign keys can only point to a single row, Many-To-Many relationships are implemented using a junction table (called **through table** in Sequelize), and are
 really just two One-To-Many relationships.
 
 ```mermaid
@@ -54,7 +54,7 @@ and will receive the two foreign keys: `userId` and `tootId`.
 
 :::caution String `through` option
 
-The `through` option is used to specify the through __model__, not the through __table__.  
+The `through` option is used to specify the through **model**, not the through **table**.  
 We recommend that you follow the same naming conventions as other models (i.e. PascalCase & singular):
 
 ```ts
@@ -72,11 +72,17 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
 
 ## Customizing the Junction Table
 
-The junction table can be customized by creating the model yourself, and passing it to the `through` option. 
+The junction table can be customized by creating the model yourself, and passing it to the `through` option.
 This is useful if you want to add additional attributes to the junction table.
 
 ```ts
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, NonAttribute } from '@sequelize/core';
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  NonAttribute,
+} from '@sequelize/core';
 import { BelongsToMany, Attribute, NotNull } from '@sequelize/core/decorators-legacy';
 import { PrimaryKey } from './attribute.js';
 
@@ -150,7 +156,7 @@ erDiagram
   Person }o--o{ Toot : "⬇️ likedToots / ⬆️ likers"
 ```
 
-Their names are automatically generated based on the name of the BelongsToMany association, 
+Their names are automatically generated based on the name of the BelongsToMany association,
 and the name of its inverse association.
 
 You can customize the names of these associations by using the `throughAssociations` options:
@@ -167,11 +173,11 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
       // 1️⃣ The name of the association going from the source model (Person)
       // to the through model (LikedToot)
       fromSource: 'likedTootsLikers',
-      
-      // 2️⃣ The name of the association going from the through model (LikedToot) 
+
+      // 2️⃣ The name of the association going from the through model (LikedToot)
       // to the source model (Person)
       toSource: 'liker',
-      
+
       // 3️⃣ The name of the association going from the target model (Toot)
       // to the through model (LikedToot)
       fromTarget: 'likersLikedToots',
@@ -188,8 +194,8 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
 
 ## Foreign Keys Names
 
-Sequelize will generate foreign keys automatically based on the names of your associations. 
-It is the name of your association + the name of the attribute the association is pointing to (which defaults to the primary key).  
+Sequelize will generate foreign keys automatically based on the names of your associations.
+It is the name of your association + the name of the attribute the association is pointing to (which defaults to the primary key).
 
 In the example above, the foreign keys would be `likerId` and `likedTootId`, because the associations are called `likedToots` and `likers`,
 and the primary keys referenced by the foreign keys are both called `id`.
@@ -220,7 +226,7 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
 By default, Sequelize will use the primary key of the source & target models as the attribute the foreign key references.
 You can customize this by using the `sourceKey` & `targetKey` option.
 
-The `sourceKey` option is the attribute from the model on which the association is defined, 
+The `sourceKey` option is the attribute from the model on which the association is defined,
 and the `targetKey` is the attribute from the target model.
 
 ```ts
@@ -243,7 +249,7 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
 
 ## Through Pair Unique Constraint
 
-The BelongsToMany association creates a unique key on the foreign keys of the through model. 
+The BelongsToMany association creates a unique key on the foreign keys of the through model.
 
 This unique key name can be changed using the `through.unique` option. You can also set it to `false` to disable the unique constraint altogether.
 
@@ -337,7 +343,10 @@ There are two versions of this method:
 - `add<PluralAssociationName>`: Associates multiple new models.
 
 ```ts
-import { BelongsToManyAddAssociationMixin, BelongsToManyAddAssociationsMixin } from '@sequelize/core';
+import {
+  BelongsToManyAddAssociationMixin,
+  BelongsToManyAddAssociationsMixin,
+} from '@sequelize/core';
 
 class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Author>> {
   @BelongsToMany(() => Book, { through: 'BookAuthor' })
@@ -386,9 +395,11 @@ There are two versions of this method:
 - `remove<SingularAssociationName>`: Removes a single associated model.
 - `remove<PluralAssociationName>`: Removes multiple associated models.
 
-
 ```ts
-import { BelongsToManyRemoveAssociationMixin, BelongsToManyRemoveAssociationsMixin } from '@sequelize/core';
+import {
+  BelongsToManyRemoveAssociationMixin,
+  BelongsToManyRemoveAssociationsMixin,
+} from '@sequelize/core';
 
 class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Author>> {
   @BelongsToMany(() => Book, { through: 'BookAuthor' })
@@ -462,8 +473,7 @@ In the example above, we did not need to specify the `postId` attribute. This is
 If you use TypeScript, you need to let TypeScript know that the foreign key is not required. You can do so using the second generic argument of the `BelongsToManyCreateAssociationMixin` type.
 
 ```ts
-BelongsToManyCreateAssociationMixin<Book, 'postId'>
-                                        ^ Here
+BelongsToManyCreateAssociationMixin<Book, 'postId'> ^ Here;
 ```
 
 :::
@@ -476,7 +486,10 @@ The association checker is used to check if a model is associated with another m
 - `has<PluralAssociationName>`: Checks whether all the specified models are associated.
 
 ```ts
-import { BelongsToManyHasAssociationMixin, BelongsToManyHasAssociationsMixin } from '@sequelize/core';
+import {
+  BelongsToManyHasAssociationMixin,
+  BelongsToManyHasAssociationsMixin,
+} from '@sequelize/core';
 
 class Author extends Model<InferAttributes<Author>, InferCreationAttributes<Author>> {
   @BelongsToMany(() => Book, { through: 'BookAuthor' })

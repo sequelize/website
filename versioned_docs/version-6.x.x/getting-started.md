@@ -3,7 +3,7 @@ sidebar_position: 2
 title: Getting Started
 ---
 
-In this tutorial you will learn to make a simple setup of Sequelize.
+In this tutorial, you will learn to make a simple setup of Sequelize.
 
 ## Installing
 
@@ -83,13 +83,13 @@ Observe that, in the examples above, `Sequelize` refers to the library itself wh
 You are encouraged to run code examples locally while reading the Sequelize docs. This will help you learn faster. The easiest way to do this is using the SQLite dialect:
 
 ```js
-const { Sequelize, Op, Model, DataTypes } = require("sequelize");
-const sequelize = new Sequelize("sqlite::memory:");
+const { Sequelize, Op, Model, DataTypes } = require('sequelize');
+const sequelize = new Sequelize('sqlite::memory:');
 
 // Code here! It works!
 ```
 
-To experiment with the other dialects, which are harder to setup locally, you can use the [Sequelize SSCCE](https://github.com/papb/sequelize-sscce) GitHub repository, which allows you to run code on all supported dialects directly from GitHub, for free, without any setup!
+To experiment with the other dialects, which are harder to set up locally, you can use the [Sequelize SSCCE](https://github.com/papb/sequelize-sscce) GitHub repository, which allows you to run code on all supported dialects directly from GitHub, for free, without any setup!
 
 ## New databases versus existing databases
 
@@ -99,23 +99,23 @@ Also, if you want to use Sequelize to connect to a database that is already fill
 
 ## Logging
 
-By default, Sequelize will log to console every SQL query it performs. The `options.logging` option can be used to customize this behavior, by defining the function that gets executed every time Sequelize would log something. The default value is `console.log` and when using that only the first log parameter of log function call is displayed. For example, for query logging the first parameter is the raw query and the second (hidden by default) is the Sequelize object.
+By default, Sequelize will log into the console for every SQL query it performs. The `options.logging` option can be used to customize this behavior, by defining the function that gets executed every time Sequelize logs something. The default value is `console.log` and when using that only the first log parameter of a log function call is displayed. For example, for query logging the first parameter is the raw query and the second (hidden by default) is the Sequelize object.
 
 Common useful values for `options.logging`:
 
 ```js
 const sequelize = new Sequelize('sqlite::memory:', {
   // Choose one of the logging options
-  logging: console.log,                  // Default, displays the first parameter of the log function call
+  logging: console.log, // Default, displays the first parameter of the log function call
   logging: (...msg) => console.log(msg), // Displays all log function call parameters
-  logging: false,                        // Disables logging
-  logging: msg => logger.debug(msg),     // Use custom logger (e.g. Winston or Bunyan), displays the first parameter
-  logging: logger.debug.bind(logger)     // Alternative way to use custom logger, displays all messages
+  logging: false, // Disables logging
+  logging: msg => logger.debug(msg), // Use custom logger (e.g. Winston or Bunyan), displays the first parameter
+  logging: logger.debug.bind(logger), // Alternative way to use custom logger, displays all messages
 });
 ```
 
 ## Promises and async/await
 
-Most of the methods provided by Sequelize are asynchronous and therefore return Promises. They are all [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) , so you can use the Promise API (for example, using `then`, `catch`, `finally`) out of the box.
+Most of the methods provided by Sequelize are asynchronous and therefore return Promises. They are all [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), so you can use the Promise API (for example, using `then`, `catch`, `finally`) out of the box.
 
-Of course, using `async` and `await` works normally as well.
+Of course, using `async` and `await` works fine as well.

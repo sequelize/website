@@ -15,8 +15,8 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'mysql',
   dialectOptions: {
     // Your mysql2 options here
-  }
-})
+  },
+});
 ```
 
 `dialectOptions` are passed directly to the MySQL connection constructor. A full list of options can be found in the [MySQL docs](https://www.npmjs.com/package/mysql#connection-options).
@@ -33,7 +33,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   dialectOptions: {
     // Your mariadb options here
     // connectTimeout: 1000
-  }
+  },
 });
 ```
 
@@ -80,7 +80,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'postgres',
   dialectOptions: {
     // Your pg options here
-  }
+  },
 });
 ```
 
@@ -98,7 +98,7 @@ To connect over a unix domain socket, specify the path to the socket directory i
 ```js
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'postgres',
-  host: '/path/to/socket_directory'
+  host: '/path/to/socket_directory',
 });
 ```
 
@@ -116,8 +116,8 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   dialectOptions: {
     // Your pg options here
     // ...
-    clientMinMessages: 'ignore' // case insensitive
-  }
+    clientMinMessages: 'ignore', // case insensitive
+  },
 });
 ```
 
@@ -135,9 +135,9 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     options: {
       // Your tedious options here
       useUTC: false,
-      dateFirst: 1
-    }
-  }
+      dateFirst: 1,
+    },
+  },
 });
 ```
 
@@ -156,14 +156,14 @@ const sequelize = new Sequelize('database', null, null, {
       options: {
         domain: 'yourDomain',
         userName: 'username',
-        password: 'password'
-      }
+        password: 'password',
+      },
     },
     options: {
-      instanceName: 'SQLEXPRESS'
-    }
-  }
-})
+      instanceName: 'SQLEXPRESS',
+    },
+  },
+});
 ```
 
 ### Snowflake (Experimental)
@@ -177,18 +177,18 @@ const sequelize = new Sequelize('database', null, null, {
   dialect: 'snowflake',
   dialectOptions: {
     // put your snowflake account here,
-    account: 'myAccount',  // my-app.us-east-1
+    account: 'myAccount', // my-app.us-east-1
 
     // below option should be optional
     role: 'myRole',
     warehouse: 'myWarehouse',
-    schema: 'mySchema'
+    schema: 'mySchema',
   },
   // same as other dialect
   username: 'myUserName',
   password: 'myPassword',
-  database: 'myDatabaseName'
-})
+  database: 'myDatabaseName',
+});
 ```
 
 **NOTE** There is no test sandbox provided so the snowflake integration test is not part of the pipeline. Also it is difficult for core team to triage and debug. This dialect needs to be maintained by the snowflake user/community for now.
@@ -232,10 +232,11 @@ const sequelize = new Sequelize({
   username: 'user',
   password: 'password',
   dialectOptions: {
-    connectString: 'inst1'
-  }
+    connectString: 'inst1',
+  },
 });
 ```
+
 Note that the `database`, `host` and `port` will be overriden and the values in connectString will be used for authentication.
 
 Please refer to [Connect String](https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html#connectionstrings) for more about connect strings.
@@ -267,9 +268,9 @@ Table hints override the default behavior of MSSQL query optimizer by specifying
 const { TableHints } = require('sequelize');
 Project.findAll({
   // adding the table hint NOLOCK
-  tableHint: TableHints.NOLOCK
+  tableHint: TableHints.NOLOCK,
   // this will generate the SQL 'WITH (NOLOCK)'
-})
+});
 ```
 
 ## Index Hints - MySQL/MariaDB only
@@ -279,19 +280,17 @@ The `indexHints` option can be used to define index hints. The hint type must be
 Index hints [override the default behavior of the MySQL query optimizer](https://dev.mysql.com/doc/refman/5.7/en/index-hints.html).
 
 ```js
-const { IndexHints } = require("sequelize");
+const { IndexHints } = require('sequelize');
 Project.findAll({
-  indexHints: [
-    { type: IndexHints.USE, values: ['index_project_on_name'] }
-  ],
+  indexHints: [{ type: IndexHints.USE, values: ['index_project_on_name'] }],
   where: {
     id: {
-      [Op.gt]: 623
+      [Op.gt]: 623,
     },
     name: {
-      [Op.like]: 'Foo %'
-    }
-  }
+      [Op.like]: 'Foo %',
+    },
+  },
 });
 ```
 
@@ -312,17 +311,23 @@ The default engine for a model is InnoDB.
 You can change the engine for a model with the `engine` option (e.g., to MyISAM):
 
 ```js
-const Person = sequelize.define('person', { /* attributes */ }, {
-  engine: 'MYISAM'
-});
+const Person = sequelize.define(
+  'person',
+  {
+    /* attributes */
+  },
+  {
+    engine: 'MYISAM',
+  },
+);
 ```
 
 Like every option for the definition of a model, this setting can also be changed globally with the `define` option of the Sequelize constructor:
 
 ```js
 const sequelize = new Sequelize(db, user, pw, {
-  define: { engine: 'MYISAM' }
-})
+  define: { engine: 'MYISAM' },
+});
 ```
 
 ## Table comments - MySQL/MariaDB/PostgreSQL only
@@ -331,10 +336,15 @@ You can specify a comment for a table when defining the model:
 
 ```js
 class Person extends Model {}
-Person.init({ /* attributes */ }, {
-  comment: "I'm a table comment!",
-  sequelize
-})
+Person.init(
+  {
+    /* attributes */
+  },
+  {
+    comment: "I'm a table comment!",
+    sequelize,
+  },
+);
 ```
 
 The comment will be set when calling `sync()`.

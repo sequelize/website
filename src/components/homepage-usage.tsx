@@ -6,7 +6,7 @@ import { ArrowRight } from 'react-feather';
 import { trim } from '../models/string';
 import styles from './homepage-usage.module.scss';
 
-export default function HomepageUsage(): JSX.Element {
+export function HomepageUsage(): JSX.Element {
   return (
     <section className={styles.usage}>
       <div className="container--small">

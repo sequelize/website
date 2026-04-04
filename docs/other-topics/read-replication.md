@@ -14,16 +14,29 @@ const sequelize = new Sequelize({
   database: 'database',
   replication: {
     read: [
-      { host: '8.8.8.8', user: 'read-1-username', password: process.env.READ_DB_1_PW },
-      { host: '9.9.9.9', user: 'read-2-username', password: process.env.READ_DB_2_PW }
+      {
+        host: '8.8.8.8',
+        user: 'read-1-username',
+        password: process.env.READ_DB_1_PW,
+      },
+      {
+        host: '9.9.9.9',
+        user: 'read-2-username',
+        password: process.env.READ_DB_2_PW,
+      },
     ],
-    write: { host: '1.1.1.1', user: 'write-username', password: process.env.WRITE_DB_PW }
+    write: {
+      host: '1.1.1.1',
+      user: 'write-username',
+      password: process.env.WRITE_DB_PW,
+    },
   },
-  pool: { // If you want to override the options used for the read/write pool you can do so here
+  pool: {
+    // If you want to override the options used for the read/write pool you can do so here
     max: 20,
-    idle: 30000
+    idle: 30000,
   },
-})
+});
 ```
 
 If you have any general settings that apply to all replicas, you do not need to provide them for each instance.

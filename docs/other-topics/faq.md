@@ -4,10 +4,10 @@ title: FAQ & Troubleshooting
 
 ## Working with an existing database
 
-Sequelize works best when it handles the creation of your database tables for you. 
+Sequelize works best when it handles the creation of your database tables for you.
 Many options are automatically configured for you to ease the development process.
 
-Sometimes, however, you may need to work with an existing database, 
+Sometimes, however, you may need to work with an existing database,
 and Sequelize must adapt to you, not the other way around.
 To do this, you will need to let Sequelize know about your existing tables and how they are structured.
 
@@ -35,8 +35,8 @@ const sequelize = new Sequelize({
 ```
 
 The `max_prepared_stmt_count` limit is a database-wide limit,
-and prepared statements are created per-connection. 
-This means that the `maxPreparedStatements` option should be set to a value 
+and prepared statements are created per-connection.
+This means that the `maxPreparedStatements` option should be set to a value
 that is less than the `max_prepared_stmt_count` value divided by the number of concurrent connections to your database.
 
 To figure out a good value for this option, you can do the following:

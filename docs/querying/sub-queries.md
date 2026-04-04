@@ -7,7 +7,7 @@ Subqueries are queries that are nested inside another query. They are a powerful
 
 In Sequelize, subqueries currently require writing raw SQL. However, Sequelize can help you with the main query, and you can use [the `sql` tag](./raw-queries.mdx) to insert the sub-query into the main query.
 
-__Example__:
+**Example**:
 
 Consider you have two models, `Post` and `Reaction`, with a One-to-Many relationship set up, so that one post has many reactions:
 
@@ -15,8 +15,20 @@ Consider you have two models, `Post` and `Reaction`, with a One-to-Many relation
 <summary>Click to see the model definition of Post & Reaction</summary>
 
 ```ts
-import { Sequelize, Model, DataTypes, InferCreationAttributes, InferAttributes } from '@sequelize/core';
-import { Attribute, AutoIncrement, PrimaryKey, NotNull, HasMany } from '@sequelize/decorators-legacy';
+import {
+  Sequelize,
+  Model,
+  DataTypes,
+  InferCreationAttributes,
+  InferAttributes,
+} from '@sequelize/core';
+import {
+  Attribute,
+  AutoIncrement,
+  PrimaryKey,
+  NotNull,
+  HasMany,
+} from '@sequelize/decorators-legacy';
 import { SqliteDialect } from '@sequelize/sqlite3';
 
 class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
@@ -24,11 +36,11 @@ class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
   @Attribute(DataTypes.INTEGER)
   @AutoIncrement
   declare id: number;
-    
+
   @Attribute(DataTypes.STRING)
   @NotNull
   declare content: string;
-    
+
   @HasMany(() => Reaction, 'postId')
   declare reactions?: NonAttribute<Reaction[]>;
 }
@@ -45,11 +57,11 @@ class Reaction extends Model {
   @Attribute(DataTypes.INTEGER)
   @AutoIncrement
   declare id: number;
-    
+
   @Attribute(DataTypes.ENUM(Object.keys(ReactionType)))
   @NotNull
   declare type: ReactionType;
-    
+
   @Attribute(DataTypes.INTEGER)
   @NotNull
   declare postId: number;
@@ -89,13 +101,13 @@ import { sql, Op } from '@sequelize/core';
 
 function postHasReactionOfType(type: ReactionType) {
   return {
-    id: { 
+    id: {
       [Op.in]: sql`
         SELECT DISTINCT "postId"
         FROM "reactions" AS "reaction"
         WHERE "reaction"."type" = ${type}
-      `
-    }
+      `,
+    },
   };
 }
 

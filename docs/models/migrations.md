@@ -6,7 +6,7 @@ sidebar_position: 12
 # Database Schema Upgrades
 
 Once your database has production data that should not be lost,
-you cannot follow the `sequelize.sync` approach of dropping the databases 
+you cannot follow the `sequelize.sync` approach of dropping the databases
 and recreating them with a new schema when you need to make changes.
 
 There are multiple possible approaches to upgrading your database schema.
@@ -14,10 +14,10 @@ Which one works best for you will depend on your specific requirements.
 
 ## Using Migrations
 
-Migrations are a way to version control your database schema, 
+Migrations are a way to version control your database schema,
 allowing you to easily upgrade and downgrade your database as your application evolves.
 
-Sequelize provides [`@sequelize/cli`](../cli.md), a Command Line Interface that can be used to create and run migrations. 
+Sequelize provides [`@sequelize/cli`](../cli.md), a Command Line Interface that can be used to create and run migrations.
 Head to [the `@sequelize/cli` page](../cli.md) for more information on how to write migrations.
 
 Of course, you are free to use any other migration tool:
