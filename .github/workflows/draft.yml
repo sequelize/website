@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 24.x
           cache: yarn
-      - run: yarn install --immutable
+      - run: yarn install --frozen-lockfile
       - run: yarn test:format
       - run: yarn test:typings
       - run: yarn sync
