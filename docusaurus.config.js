@@ -12,12 +12,14 @@ const config = {
   url: 'https://sequelize.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   organizationName: 'sequelize',
   trailingSlash: true,
   projectName: 'sequelize',
   plugins: ['docusaurus-plugin-sass'],
   markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
     mermaid: true,
   },
   themes: ['@docusaurus/theme-mermaid'],

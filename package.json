@@ -22,12 +22,12 @@
     "write-translations": "docusaurus write-translations"
   },
   "dependencies": {
-    "@docusaurus/core": "3.6.1",
-    "@docusaurus/preset-classic": "3.6.1",
-    "@docusaurus/remark-plugin-npm2yarn": "^3.2.1",
-    "@docusaurus/theme-mermaid": "3.6.1",
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/preset-classic": "3.9.2",
+    "@docusaurus/remark-plugin-npm2yarn": "^3.9.2",
+    "@docusaurus/theme-mermaid": "3.9.2",
     "@mdx-js/react": "3.1.1",
-    "@react-hookz/web": "24.0.4",
+    "@react-hookz/web": "25.2.0",
     "@sequelize/utils": "7.0.0-alpha.48",
     "clsx": "2.1.1",
     "docusaurus-plugin-sass": "0.2.6",
@@ -37,24 +37,24 @@
     "react-dom": "19.2.4",
     "react-feather": "2.0.10",
     "react-responsive-carousel": "3.2.23",
-    "sass": "1.98.0"
+    "sass": "1.99.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.6.1",
-    "@docusaurus/tsconfig": "3.6.1",
-    "@ephys/eslint-config-typescript": "20.1.4",
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/tsconfig": "3.9.2",
+    "@ephys/eslint-config-typescript": "21.0.1",
     "@rushstack/eslint-patch": "1.16.1",
     "concurrently": "9.2.1",
-    "eslint": "8.57.1",
+    "eslint": "9.39.4",
     "eslint-plugin-jsx-a11y": "6.10.2",
-    "eslint-plugin-mdx": "1.17.1",
+    "eslint-plugin-mdx": "3.7.0",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
-    "netlify-cli": "20.1.1",
-    "prettier": "3.3.3",
-    "typescript": "5.8.3"
+    "netlify-cli": "24.9.0",
+    "prettier": "3.8.1",
+    "typescript": "6.0.2"
   },
   "browserslist": {
     "production": [
@@ -72,5 +72,5 @@
     "*.{js,mjs,cjs,ts,mts,cts}": "eslint --fix --report-unused-disable-directives",
     "*": "prettier --write --ignore-unknown"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@4.13.0"
 }
