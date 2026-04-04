@@ -7,8 +7,10 @@
   ],
   "automergeStrategy": "squash",
   "automergeType": "branch",
+  "branchConcurrentLimit": 2,
   "semanticCommitType": "meta",
   "ignorePaths": ["static/"],
+  "platformAutomerge": true,
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance"],
