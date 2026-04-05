@@ -30,25 +30,6 @@ mv .typedoc-build "$API_DIR/v7" # Move compiled api reference
 popd
 
 # ======================================
-#  Sequelize v6 (esdoc + docusaurus)
-#  Cloned to its own folder because the documentation can import some of its files at build time
-# ======================================
-
-# Clear generated directories
-rm -rf "$DOCS_DIR/v6"
-rm -rf "$API_DIR/v6"
-
-# Get sources
-git clone -b v6 --single-branch "$MAIN_REPO_URL" --depth 1 .sequelize/v6
-
-pushd "$DOCS_DIR/v6"
-yarn global add node-gyp --ignore-engines
-yarn --ignore-engines # Install branch deps & build
-yarn docs # Generate v6 typedocs
-mv esdoc "$API_DIR/v6" # Move compiled api reference
-popd
-
-# ======================================
-#  Sequelize v5 and lower
+#  Sequelize v6 and lower
 #  The files are living inside the static directory and will just be copied over to the build directory at build time
 # ======================================
