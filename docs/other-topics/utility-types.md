@@ -2,12 +2,20 @@
 
 ## Typing a Model Class
 
-[`ModelStatic`](pathname:///api/v7/types/_sequelize_core.index.modelstatic) is designed to be used to type a Model *class*.
+[`ModelStatic`](pathname:///api/v7/types/_sequelize_core.index.modelstatic) is designed to be used to type a Model _class_.
 
 Here is an example of a utility method that requests a Model Class, and returns the list of primary keys defined in that class:
 
 ```typescript
-import { ModelStatic, ModelAttributeColumnOptions, Model, InferAttributes, InferCreationAttributes, CreationOptional } from '@sequelize/core';
+import {
+  ModelStatic,
+  ModelAttributeColumnOptions,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
 
 /**
  * Returns the list of attributes that are part of the model's primary key.
@@ -32,7 +40,8 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 }
 
 const sequelize = new Sequelize({
-  models: [User],  
+  dialect: SqliteDialect,
+  models: [User],
 });
 
 const primaryAttributes = getPrimaryKeyAttributes(User);
@@ -65,10 +74,13 @@ import {
   InferAttributes,
   InferCreationAttributes,
   CreationOptional,
-  Attributes
+  Attributes,
 } from '@sequelize/core';
 
-export function getAttributeMetadata<M extends Model>(model: ModelStatic<M>, attributeName: keyof Attributes<M>): ModelAttributeColumnOptions {
+export function getAttributeMetadata<M extends Model>(
+  model: ModelStatic<M>,
+  attributeName: keyof Attributes<M>,
+): ModelAttributeColumnOptions {
   const attribute = model.modelDefinition.attributes.get(attributeName);
   if (attribute == null) {
     throw new Error(`Attribute ${attributeName} does not exist on model ${model.name}`);
@@ -85,7 +97,8 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 }
 
 const sequelize = new Sequelize({
-    models: [User],
+  /* options */
+  models: [User],
 });
 
 // works!

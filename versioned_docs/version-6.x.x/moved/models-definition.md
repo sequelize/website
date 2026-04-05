@@ -6,7 +6,7 @@ The contents of this page were moved to [Model Basics](../core-concepts/model-ba
 
 The only exception is the guide on `sequelize.import`, which is deprecated and was removed from the docs. However, if you really need it, it was kept here.
 
-----
+---
 
 ## Deprecated: `sequelize.import`
 
@@ -20,13 +20,13 @@ You can store your model definitions in a single file using the `sequelize.impor
 
 ```js
 // in your server file - e.g. app.js
-const Project = sequelize.import(__dirname + "/path/to/models/project");
+const Project = sequelize.import(__dirname + '/path/to/models/project');
 
 // The model definition is done in /path/to/models/project.js
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('project', {
     name: DataTypes.STRING,
-    description: DataTypes.TEXT
+    description: DataTypes.TEXT,
   });
 };
 ```
@@ -37,7 +37,7 @@ The `import` method can also accept a callback as an argument.
 sequelize.import('project', (sequelize, DataTypes) => {
   return sequelize.define('project', {
     name: DataTypes.STRING,
-    description: DataTypes.TEXT
+    description: DataTypes.TEXT,
   });
 });
 ```

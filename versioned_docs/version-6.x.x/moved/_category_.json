@@ -1,9 +1,9 @@
 {
-    "position": 5,
-    "label": "Moved",
-    "collapsible": true,
-    "collapsed": true,
-    "link": {
-      "type": "generated-index"
-    }
+  "position": 5,
+  "label": "Moved",
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index"
   }
+}

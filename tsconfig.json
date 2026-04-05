@@ -1,9 +1,12 @@
 {
   // This file is not used in compilation. It is here just for a nice editor experience.
-  "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "extends": "@docusaurus/tsconfig",
   "compilerOptions": {
     "strict": true,
     "jsx": "react",
-    "baseUrl": "."
+    "target": "es2022",
+    "lib": ["ES2023", "DOM.Iterable", "DOM"],
+    "ignoreDeprecations": "6.0",
+    "types": ["@docusaurus/theme-classic"]
   }
 }

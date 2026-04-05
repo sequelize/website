@@ -12,45 +12,46 @@ Scopes are defined in the model definition and can be finder objects, or functio
 
 ```js
 class Project extends Model {}
-Project.init({
-  // Attributes
-}, {
-  defaultScope: {
-    where: {
-      active: true
-    }
+Project.init(
+  {
+    // Attributes
   },
-  scopes: {
-    deleted: {
+  {
+    defaultScope: {
       where: {
-        deleted: true
-      }
+        active: true,
+      },
     },
-    activeUsers: {
-      include: [
-        { model: User, where: { active: true } }
-      ]
-    },
-    random() {
-      return {
+    scopes: {
+      deleted: {
         where: {
-          someNumber: Math.random()
-        }
-      }
+          deleted: true,
+        },
+      },
+      activeUsers: {
+        include: [{ model: User, where: { active: true } }],
+      },
+      random() {
+        return {
+          where: {
+            someNumber: Math.random(),
+          },
+        };
+      },
+      accessLevel(value) {
+        return {
+          where: {
+            accessLevel: {
+              [Op.gte]: value,
+            },
+          },
+        };
+      },
+      sequelize,
+      modelName: 'project',
     },
-    accessLevel(value) {
-      return {
-        where: {
-          accessLevel: {
-            [Op.gte]: value
-          }
-        }
-      }
-    },
-    sequelize,
-    modelName: 'project'
-  }
-});
+  },
+);
 ```
 
 You can also add scopes after a model has been defined by calling [`YourModel.addScope`](pathname:///api/v6/class/src/model.js~Model.html#static-method-addScope). This is especially useful for scopes with includes, where the model in the include might not be defined at the time the other model is being defined.
@@ -76,9 +77,7 @@ It is also possible to include scoped models in a scope definition. This allows 
 ```js
 // The `activeUsers` scope defined in the example above could also have been defined this way:
 Project.addScope('activeUsers', {
-  include: [
-    { model: User.scope('active') }
-  ]
+  include: [{ model: User.scope('active') }],
 });
 ```
 
@@ -93,8 +92,8 @@ await DeletedProjects.findAll();
 // The above is equivalent to:
 await Project.findAll({
   where: {
-    deleted: true
-  }
+    deleted: true,
+  },
 });
 ```
 
@@ -150,18 +149,18 @@ YourModel.addScope('scope1', {
   where: {
     firstName: 'bob',
     age: {
-      [Op.gt]: 20
-    }
+      [Op.gt]: 20,
+    },
   },
-  limit: 2
+  limit: 2,
 });
 YourModel.addScope('scope2', {
   where: {
     age: {
-      [Op.lt]: 30
-    }
+      [Op.lt]: 30,
+    },
   },
-  limit: 10
+  limit: 10,
 });
 ```
 
@@ -176,10 +175,15 @@ Note how `limit` and `age` are overwritten by `scope2`, while `firstName` is pre
 For instance, if `YourModel` was initialized as such:
 
 ```js
-YourModel.init({ /* attributes */ }, {
-  // ... other init options
-  whereMergeStrategy: 'and',
-});
+YourModel.init(
+  {
+    /* attributes */
+  },
+  {
+    // ... other init options
+    whereMergeStrategy: 'and',
+  },
+);
 ```
 
 Using `.scope('scope1', 'scope2')` will yield the following WHERE clause:
@@ -195,9 +199,9 @@ The same merge logic applies when passing a find object directly to `findAll` (a
 ```js
 Project.scope('deleted').findAll({
   where: {
-    firstName: 'john'
-  }
-})
+    firstName: 'john',
+  },
+});
 ```
 
 Generated where clause:
@@ -230,40 +234,52 @@ Now, consider the following four scopes defined on Foo:
 Foo.addScope('includeEverything', {
   include: {
     model: Bar,
-    include: [{
-      model: Baz,
-      include: Qux
-    }]
-  }
+    include: [
+      {
+        model: Baz,
+        include: Qux,
+      },
+    ],
+  },
 });
 
 Foo.addScope('limitedBars', {
-  include: [{
-    model: Bar,
-    limit: 2
-  }]
+  include: [
+    {
+      model: Bar,
+      limit: 2,
+    },
+  ],
 });
 
 Foo.addScope('limitedBazs', {
-  include: [{
-    model: Bar,
-    include: [{
-      model: Baz,
-      limit: 2
-    }]
-  }]
+  include: [
+    {
+      model: Bar,
+      include: [
+        {
+          model: Baz,
+          limit: 2,
+        },
+      ],
+    },
+  ],
 });
 
 Foo.addScope('excludeBazName', {
-  include: [{
-    model: Bar,
-    include: [{
-      model: Baz,
-      attributes: {
-        exclude: ['name']
-      }
-    }]
-  }]
+  include: [
+    {
+      model: Bar,
+      include: [
+        {
+          model: Baz,
+          attributes: {
+            exclude: ['name'],
+          },
+        },
+      ],
+    },
+  ],
 });
 ```
 
@@ -274,24 +290,21 @@ await Foo.findAll({
   include: {
     model: Bar,
     limit: 2,
-    include: [{
-      model: Baz,
-      limit: 2,
-      attributes: {
-        exclude: ['name']
+    include: [
+      {
+        model: Baz,
+        limit: 2,
+        attributes: {
+          exclude: ['name'],
+        },
+        include: Qux,
       },
-      include: Qux
-    }]
-  }
+    ],
+  },
 });
 
 // The above is equivalent to:
-await Foo.scope([
-  'includeEverything',
-  'limitedBars',
-  'limitedBazs',
-  'excludeBazName'
-]).findAll();
+await Foo.scope(['includeEverything', 'limitedBars', 'limitedBazs', 'excludeBazName']).findAll();
 ```
 
 Observe how the four scopes were merged into one. The includes of scopes are merged based on the model being included. If one scope includes model A and another includes model B, the merged result will include both models A and B. On the other hand, if both scopes include the same model A, but with different options (such as nested includes or other attributes), those will be merged recursively, as shown above.

@@ -15,12 +15,25 @@ We recommend reading the guides on [`HasOne`](./has-one.md) and [`HasMany`](./ha
 The `BelongsTo` association is used on the opposite side of where you would use a `HasOne` or `HasMany` association.
 It is capable of creating both One-To-One and One-To-Many relationships.
 
-For instance, here is how you would create the association we described in the [`HasMany`](./has-many.md) guide, 
+For instance, here is how you would create the association we described in the [`HasMany`](./has-many.md) guide,
 using a `BelongsTo` association:
 
 ```ts
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute } from '@sequelize/core';
-import { PrimaryKey, Attribute, AutoIncrement, NotNull, BelongsTo } from '@sequelize/core/decorators-legacy';
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+  NonAttribute,
+} from '@sequelize/core';
+import {
+  PrimaryKey,
+  Attribute,
+  AutoIncrement,
+  NotNull,
+  BelongsTo,
+} from '@sequelize/core/decorators-legacy';
 
 class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
   @Attribute(DataTypes.INTEGER)
@@ -50,8 +63,22 @@ class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Co
 And here is how you would create the association we described in the [`HasOne`](./has-one.md) guide:
 
 ```ts
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute } from '@sequelize/core';
-import { PrimaryKey, Attribute, AutoIncrement, NotNull, HasOne, BelongsTo } from '@sequelize/core/decorators-legacy';
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+  NonAttribute,
+} from '@sequelize/core';
+import {
+  PrimaryKey,
+  Attribute,
+  AutoIncrement,
+  NotNull,
+  HasOne,
+  BelongsTo,
+} from '@sequelize/core/decorators-legacy';
 
 class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Person>> {
   @Attribute(DataTypes.INTEGER)
@@ -60,12 +87,15 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
   declare id: CreationOptional<number>;
 }
 
-class DrivingLicense extends Model<InferAttributes<DrivingLicense>, InferCreationAttributes<DrivingLicense>> {
+class DrivingLicense extends Model<
+  InferAttributes<DrivingLicense>,
+  InferCreationAttributes<DrivingLicense>
+> {
   @Attribute(DataTypes.INTEGER)
   @AutoIncrement
   @PrimaryKey
   declare id: CreationOptional<number>;
-  
+
   // highlight-start
   @BelongsTo(() => Person, /* foreign key */ 'ownerId')
   declare owner?: NonAttribute<Person>;
@@ -91,7 +121,7 @@ class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
   @AutoIncrement
   @PrimaryKey
   declare id: CreationOptional<number>;
-  
+
   // highlight-start
   /** Declared by {@link Comment#post} */
   declare comments?: Comment[];
@@ -136,7 +166,7 @@ import { BelongsToGetAssociationMixin } from '@sequelize/core';
 class Comment extends Model {
   @BelongsTo(() => Post, 'postId')
   declare post?: NonAttribute<Post>;
-  
+
   // highlight-start
   declare getPost: BelongsToGetAssociationMixin<Post>;
   // highlight-end
@@ -158,7 +188,7 @@ import { BelongsToSetAssociationMixin } from '@sequelize/core';
 class Comment extends Model {
   @BelongsTo(() => Post, 'postId')
   declare post?: NonAttribute<Post>;
-  
+
   // highlight-start
   declare setPost: BelongsToSetAssociationMixin<Post, /* Foreign Key Type */ Comment['postId']>;
   // highlight-end
@@ -172,7 +202,7 @@ await comment.setPost(post);
 await comment.setPost(1);
 ```
 
-It is also possible to delay the call to `save` by setting the `save` option to `false`, however __this is not very useful__,
+It is also possible to delay the call to `save` by setting the `save` option to `false`, however **this is not very useful**,
 as it is equivalent to setting the foreign key directly, but using a (pointlessly) asynchronous method.
 
 ```ts
@@ -192,7 +222,7 @@ import { BelongsToCreateAssociationMixin } from '@sequelize/core';
 class Comment extends Model {
   @BelongsTo(() => Post, 'postId')
   declare post?: NonAttribute<Post>;
-  
+
   // highlight-start
   declare createPost: BelongsToCreateAssociationMixin<Post>;
   // highlight-end
@@ -250,7 +280,7 @@ You can customize this by using the `targetKey` option.
 ```ts
 class Comment extends Model {
   declare id: CreationOptional<number>;
-  
+
   @BelongsTo(() => Post, {
     foreignKey: 'postId',
     // highlight-next-line

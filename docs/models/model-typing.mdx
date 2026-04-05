@@ -7,7 +7,7 @@ sidebar_position: 8
 
 ## Automated Attribute Typing
 
-Model methods are strictly typed based on your attributes, but require you to define you to write a bit of configuration first.
+Model methods are strictly typed based on your attributes, but require you to write a bit of configuration first.
 `Model` accept two generic types that you can use to let it know what its Attributes & Creation Attributes are like:
 
 You can use [`InferAttributes`](pathname:///api/v7/types/_sequelize_core.index.inferattributes),
@@ -81,16 +81,17 @@ Example of a minimal TypeScript project with strict type-checking for attributes
 although it is much more verbose:
 
 ```typescript
-import { Model, Optional } from '@sequelize/core';
+import { Model } from '@sequelize/core';
+import type { PartialBy } from '@sequelize/utils';
 
 type UserAttributes = {
-  id: number,
-  name: string,
+  id: number;
+  name: string;
 };
 
 // we're telling the Model that 'id' is optional
 // when creating an instance of the model (such as using Model.create()).
-type UserCreationAttributes = Optional<UserAttributes, 'id'>;
+type UserCreationAttributes = PartialBy<UserAttributes, 'id'>;
 
 class User extends Model<UserAttributes, UserCreationAttributes> {
   @Attribute(DataTypes.INTEGER)

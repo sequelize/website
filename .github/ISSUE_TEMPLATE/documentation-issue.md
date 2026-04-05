@@ -1,9 +1,9 @@
 ---
 name: 📗 Documentation Issue
 about: Documentation is unclear, or otherwise insufficient/misleading, examples aren't working as expected
-title: ""
-labels: ""
-assignees: ""
+title: ''
+labels: ''
+assignees: ''
 ---
 
 ## Issue Description
@@ -14,11 +14,7 @@ Try to be as clear as possible. Don't assume that the maintainers will immediate
 
 ### What was unclear/insufficient/not covered in the documentation
 
-
-
 ### If possible: Provide some suggestion on how we can enhance the docs
-
-
 
 ### Additional context
 
