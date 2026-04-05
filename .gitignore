@@ -5,7 +5,9 @@
 /build
 
 # v6 & v7 esdoc/typedoc
-/static/api
+/static/api/*
+# The v6 API is now frozen
+!/static/api/v6
 
 # Generated files
 .docusaurus
