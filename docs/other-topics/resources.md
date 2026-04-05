@@ -9,7 +9,7 @@ A curated list of awesome projects surrounding Sequelize.
 - [sequelize-typescript](https://www.npmjs.com/package/sequelize-typescript) - Decorators and some other features for sequelize (built-in as of Sequelize 7).
 - [Sequelize-Nest](https://docs.nestjs.com/recipes/sql-sequelize) - Sequelize integration in [nest](https://github.com/nestjs/nest).
 - [sequelizejs-decorators](https://www.npmjs.com/package/sequelizejs-decorators) decorators for composing sequelize models.
-- [kysely-sequelize](https://www.npmjs.com/pacakge/kysely-sequelize) - A toolkit (dialect, type translators, etc.) that allows using your existing Sequelize instance with [Kysely](https://www.kysely.dev).
+- [kysely-sequelize](https://www.npmjs.com/package/kysely-sequelize) - A toolkit (dialect, type translators, etc.) that allows using your existing Sequelize instance with [Kysely](https://www.kysely.dev).
 
 ## Code generation & visualisers
 
@@ -19,6 +19,7 @@ A curated list of awesome projects surrounding Sequelize.
 - [pg-generator](https://pg-generator.com/v4/builtin-templates--nc,d1/sequelize.html) - Auto generate/scaffold Sequelize models for PostgreSQL database.
 - [meteor modeler](https://www.datensen.com/) - Desktop tool for visual definition of Sequelize models and associations.
 - [sequel-ace-typescript-bundles](https://github.com/binlabs/sequel-ace-typescript-bundles) - A plugin for Sequel Ace that allows generation of Sequelize models from selected database tables.
+- [hatchify](https://github.com/bitovi/hatchify) - Schema driven Node CRUD API and React Web UI including Sequelize based ORM.
 
 ## Performance
 

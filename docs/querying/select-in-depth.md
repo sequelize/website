@@ -207,7 +207,7 @@ SELECT * FROM "users" AS "user" WHERE "user"."createdAt" > CAST('2012-01-01' AS 
 
 ### Referring to other attributes
 
-If you want to use the value of another attribute, you can use the [`sql.attribue`](./raw-queries.mdx#sqlattribute) function:
+If you want to use the value of another attribute, you can use the [`sql.attribute`](./raw-queries.mdx#sqlattribute) function:
 
 ```js
 Article.findAll({

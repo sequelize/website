@@ -92,12 +92,6 @@ export class MyDateType extends DataTypes.ABSTRACT<Date> {
       ValidationErrorItem.throwDataTypeValidationError('Value is an Invalid Date');
     }
   }
-
-  sanitize(value: unknown): unknown {
-    if (typeof value === 'string') {
-      return new Date(value);
-    }
-  }
 }
 ```
 
