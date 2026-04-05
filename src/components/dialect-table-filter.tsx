@@ -38,7 +38,7 @@ export function DialectTableFilter(props: Props) {
     }
 
     const tableHeadRow = table.children[0].children[0];
-    const columnTitles: string[] = [...tableHeadRow.children].map(child => child.textContent ?? '');
+    const columnTitles: string[] = [...tableHeadRow.children].map(child => child.textContent);
 
     for (const columnHead of tableHeadRow.children) {
       const columnTitle = columnHead.textContent;
