@@ -106,8 +106,8 @@ You can still, of course, use any [attribute decorator](../models/defining-model
 
 ### Associations with extra attributes on through table
 
-When creating an N:M association, for example, with User and Project through UserProjects you might want extra attributes on the junction table like the "role" attribute.
-This relationship can be setup like this:
+When creating an N:M association, for example, with User and Project through UserProject you might want extra attributes on the junction table like the "role" attribute.
+This relationship can be set up like this:
 
 ```ts
 class UserProject extends Model<InferAttributes<UserProject>, InferCreationAttributes<UserProject>> {
@@ -130,7 +130,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare username: string;
 
   @BelongsToMany(() => Project, {
-    through: UserProject,
+    through: () => UserProject,
   })
   declare projects?: NonAttribute<Project[]>;
 
@@ -145,7 +145,7 @@ Creating multiple associations with the same extra attributes is possible by pas
 user1.setProjects([project1, project2, project3], { through: { role: 'admin' }})
 ```
 
-With the [set](#association-setter-setx) and [add](#association-adder-addx) mixins different extra attributes per association can be set by passing an array of objects of the same length as the ammount of associations:
+With the [set](#association-setter-setx) and [add](#association-adder-addx) mixins, different extra attributes per association can be set by passing an array of objects of the same length as the number of associations:
 ```ts
 user1.setProjects([project1, project2, project3], {
   through: [
@@ -154,7 +154,7 @@ user1.setProjects([project1, project2, project3], {
     { role: 'designer' },
   ]
 })
-(await user1.getProducts()).map(x => x.UserProduct?.role) // [ 'admin', 'manager', 'designer' ]
+(await user1.getProjects()).map(x => x.UserProject?.role) // [ 'admin', 'manager', 'designer' ]
 ```
 
 ## Inverse Association
