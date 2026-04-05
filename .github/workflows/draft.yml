@@ -17,12 +17,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20.x
+          node-version: 24.x
           cache: yarn
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --immutable
       - run: yarn test:format
       - run: yarn test:typings
       - run: yarn sync
@@ -35,8 +35,8 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         shell: bash
         run: |
-          netlify deploy --dir build --message '${{ github.event.commits[0].message }}' > log.tmp.txt 2>&1
-          cat log.tmp.txt | grep -E 'Website draft URL:' > log.txt
+          yarn netlify deploy --dir build --json --message '${{ github.event.commits[0].message }}' > log.tmp.txt 2>&1
+          cat log.tmp.txt | jq -r '"🚀 [Website draft URL](\(.deploy_url))\n📋 [Deployment logs](\(.logs))"' > log.txt
       - name: Read deployment log
         if: ${{ !github.event.pull_request.head.repo.fork && !startsWith(github.ref, 'refs/heads/renovate') }}
         id: logs
@@ -46,7 +46,7 @@ jobs:
       - name: Comment PR with draft publish logs
         if: ${{ !github.event.pull_request.head.repo.fork && !startsWith(github.ref, 'refs/heads/renovate') }}
         id: create-comment
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@v5
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
