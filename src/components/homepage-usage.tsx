@@ -1,12 +1,13 @@
 import Link from '@docusaurus/Link';
 import CodeBlock from '@theme/CodeBlock';
 import clsx from 'clsx';
+import type { ReactElement } from 'react';
 import React from 'react';
 import { ArrowRight } from 'react-feather';
 import { trim } from '../models/string';
 import styles from './homepage-usage.module.scss';
 
-export function HomepageUsage(): JSX.Element {
+export function HomepageUsage(): ReactElement {
   return (
     <section className={styles.usage}>
       <div className="container--small">

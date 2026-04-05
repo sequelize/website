@@ -439,7 +439,6 @@ For the most part hooks will work the same for instances when being associated.
 ### Many-to-Many associations
 
 - When using `add` mixin methods for `belongsToMany` relationships (that will add one or more records to the junction table) the `beforeBulkCreate` and `afterBulkCreate` hooks in the junction model will run.
-
   - If `{ individualHooks: true }` was passed to the call, then each individual hook will also run.
 
 - When using `remove` mixin methods for `belongsToMany` relationships (that will remove one or more records to the junction table) the `beforeBulkDestroy` and `afterBulkDestroy` hooks in the junction model will run.

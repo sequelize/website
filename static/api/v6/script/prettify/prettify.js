@@ -65,11 +65,11 @@
         b = [];
         g = [];
         for (a = 0; a < e.length; ++a)
-          (h = e[a]), h[0] <= g[1] + 1 ? (g[1] = Math.max(g[1], h[1])) : b.push((g = h));
+          ((h = e[a]), h[0] <= g[1] + 1 ? (g[1] = Math.max(g[1], h[1])) : b.push((g = h)));
         for (a = 0; a < b.length; ++a)
-          (h = b[a]),
+          ((h = b[a]),
             c.push(f(h[0])),
-            h[1] > h[0] && (h[1] + 1 > h[0] && c.push('-'), c.push(f(h[1])));
+            h[1] > h[0] && (h[1] + 1 > h[0] && c.push('-'), c.push(f(h[1]))));
         c.push(']');
         return c.join('');
       }
@@ -94,14 +94,14 @@
         }
         for (g = 1; g < d.length; ++g) -1 === d[g] && (d[g] = ++A);
         for (h = g = 0; g < c; ++g)
-          (k = a[g]),
+          ((k = a[g]),
             '(' === k
               ? (++h, d[h] || (a[g] = '(?:'))
-              : '\\' === k.charAt(0) && (k = +k.substring(1)) && k <= h && (a[g] = '\\' + d[k]);
+              : '\\' === k.charAt(0) && (k = +k.substring(1)) && k <= h && (a[g] = '\\' + d[k]));
         for (g = 0; g < c; ++g) '^' === a[g] && '^' !== a[g + 1] && (a[g] = '');
         if (e.ignoreCase && n)
           for (g = 0; g < c; ++g)
-            (k = a[g]),
+            ((k = a[g]),
               (e = k.charAt(0)),
               2 <= k.length && '[' === e
                 ? (a[g] = b(k))
@@ -109,7 +109,7 @@
                   (a[g] = k.replace(/[a-zA-Z]/g, function (a) {
                     a = a.charCodeAt(0);
                     return '[' + String.fromCharCode(a & -33, a | 32) + ']';
-                  }));
+                  })));
         return a.join('');
       }
       for (var A = 0, n = !1, l = !1, m = 0, c = a.length; m < c; ++m) {
@@ -139,16 +139,17 @@
           if (!b.test(a.className)) {
             for (c = a.firstChild; c; c = c.nextSibling) f(c);
             c = a.nodeName.toLowerCase();
-            if ('br' === c || 'li' === c) (v[l] = '\n'), (n[l << 1] = A++), (n[(l++ << 1) | 1] = a);
+            if ('br' === c || 'li' === c)
+              ((v[l] = '\n'), (n[l << 1] = A++), (n[(l++ << 1) | 1] = a));
           }
         } else if (3 == c || 4 == c)
-          (c = a.nodeValue),
+          ((c = a.nodeValue),
             c.length &&
               ((c = d ? c.replace(/\r\n?/g, '\n') : c.replace(/[ \t\r\n]+/g, ' ')),
               (v[l] = c),
               (n[l << 1] = A),
               (A += c.length),
-              (n[(l++ << 1) | 1] = a));
+              (n[(l++ << 1) | 1] = a)));
       }
       var b = /(?:^|\s)nocode(?:\s|$)/,
         v = [],
@@ -190,7 +191,7 @@
           if ('string' === typeof q) h = !1;
           else {
             var k = b[z.charAt(0)];
-            if (k) (g = z.match(k[1])), (q = k[0]);
+            if (k) ((g = z.match(k[1])), (q = k[0]));
             else {
               for (h = 0; h < A; ++h)
                 if (((k = d[h]), (g = z.match(k[1])))) {
@@ -325,7 +326,7 @@
       function b(a) {
         var c = a.nodeType;
         if (1 == c && !A.test(a.className))
-          if ('br' === a.nodeName) v(a), a.parentNode && a.parentNode.removeChild(a);
+          if ('br' === a.nodeName) (v(a), a.parentNode && a.parentNode.removeChild(a));
           else for (a = a.firstChild; a; a = a.nextSibling) b(a);
         else if ((3 == c || 4 == c) && f) {
           var d = a.nodeValue,
@@ -347,7 +348,7 @@
             var k = b(k, 1),
               e = a.nextSibling;
             k.appendChild(d);
-            for (var f = e; f; f = e) (e = f.nextSibling), k.appendChild(f);
+            for (var f = e; f; f = e) ((e = f.nextSibling), k.appendChild(f));
           }
           return d;
         }
@@ -362,7 +363,6 @@
           l = a.ownerDocument,
           m = l.createElement('li');
         a.firstChild;
-
       )
         m.appendChild(a.firstChild);
       for (var c = [m], p = 0; p < c.length; ++p) b(c[p]);
@@ -371,10 +371,10 @@
       w.className = 'linenums';
       d = Math.max(0, (d - 1) | 0) || 0;
       for (var p = 0, r = c.length; p < r; ++p)
-        (m = c[p]),
+        ((m = c[p]),
           (m.className = 'L' + ((p + d) % 10)),
           m.firstChild || m.appendChild(l.createTextNode('\u00a0')),
-          w.appendChild(m);
+          w.appendChild(m));
       a.appendChild(w);
     }
     function t(a, d) {
