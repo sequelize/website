@@ -17148,9 +17148,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"netlify-cli@npm:24.9.0":
-  version: 24.9.0
-  resolution: "netlify-cli@npm:24.9.0"
+"netlify-cli@npm:24.10.0":
+  version: 24.10.0
+  resolution: "netlify-cli@npm:24.10.0"
   dependencies:
     "@fastify/static": "npm:9.0.0"
     "@netlify/ai": "npm:0.4.1"
@@ -17252,7 +17252,7 @@ __metadata:
   bin:
     netlify: bin/run.js
     ntl: bin/run.js
-  checksum: 10c0/c36a328a71a9e8d3d509669fb0a5e5869e19b47a11afd4b3d48e67bbe59940d3d60f91850c7d21bea26aa505f032e377b4fa2a95d22e733d4106c704ecf506d7
+  checksum: 10c0/e900ece982a92b83cfe1297a82c0f71f1928db94c45298ee1beb651ce652558b7fd399a6f402f43c87255c923451fe3ebe164b8226e1e58dd75d3ac327f7f1d7
   languageName: node
   linkType: hard
 
@@ -20718,7 +20718,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:7.0.1"
     husky: "npm:9.1.7"
     lint-staged: "npm:16.4.0"
-    netlify-cli: "npm:24.9.0"
+    netlify-cli: "npm:24.10.0"
     prettier: "npm:3.8.1"
     prism-react-renderer: "npm:2.4.1"
     raw-loader: "npm:4.0.2"
