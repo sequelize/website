@@ -8281,11 +8281,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.10.12":
-  version: 2.10.14
-  resolution: "baseline-browser-mapping@npm:2.10.14"
+  version: 2.10.15
+  resolution: "baseline-browser-mapping@npm:2.10.15"
   bin:
     baseline-browser-mapping: dist/cli.cjs
-  checksum: 10c0/1e595ab3bfb7fa2b453abe93f430b0a3ecbcbdbb3f331689670b93670bf1e329028740a881a423f7c27f8296d506880b25aac60fee7a86c851bcc5eaf80aa0f8
+  checksum: 10c0/0bbcdefe842e79a1bcded41f7ffd6cca7a89edc035cfabae84ed80f19a0318de3f909ee64e184c39165cef12213eba89335745b101eeace2a4eaf290680d3af2
   languageName: node
   linkType: hard
 
@@ -15143,13 +15143,13 @@ __metadata:
   linkType: hard
 
 "katex@npm:^0.16.25":
-  version: 0.16.44
-  resolution: "katex@npm:0.16.44"
+  version: 0.16.45
+  resolution: "katex@npm:0.16.45"
   dependencies:
     commander: "npm:^8.3.0"
   bin:
     katex: cli.js
-  checksum: 10c0/f4466978dee30ba221457d864296225c9bec2efe0925a37b692e7736d67f05ebd99885bf0910f099cb34db9cce27df17910f89029bcfdcb78ea73524f9c33e11
+  checksum: 10c0/f715eb9a73daff68ac14dcc8c2f47f02f5fc756a74077d22479e64e06872b2b44f0d81f1c91a98a9873722a08841388a869a0b9ddb96b224362eb8054ddf533a
   languageName: node
   linkType: hard
 
@@ -15685,9 +15685,9 @@ __metadata:
   linkType: hard
 
 "lru-cache@npm:^11.0.0, lru-cache@npm:^11.1.0, lru-cache@npm:^11.2.1, lru-cache@npm:^11.2.7":
-  version: 11.2.7
-  resolution: "lru-cache@npm:11.2.7"
-  checksum: 10c0/549cdb59488baa617135fc12159cafb1a97f91079f35093bb3bcad72e849fc64ace636d244212c181dfdf1a99bbfa90757ff303f98561958ee4d0f885d9bd5f7
+  version: 11.3.0
+  resolution: "lru-cache@npm:11.3.0"
+  checksum: 10c0/f50d32064c07b17390e7bf89fa09fcf05c19018d8cb03359a04dad3e16e4213812958af32eb0e29a92239a1f13631b58c26c007367f99946defcf4e495c1c123
   languageName: node
   linkType: hard
 
