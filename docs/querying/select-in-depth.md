@@ -436,6 +436,7 @@ MSSQL: 'https://learn.microsoft.com/en-us/sql/relational-databases/performance/j
 Snowflake: 'https://docs.snowflake.com/en/sql-reference/constructs/join',
 db2: 'https://www.ibm.com/docs/sr/db2-for-zos/11?topic=table-right-outer-join',
 ibmi: 'https://www.ibm.com/docs/en/i/7.4?topic=table-right-outer-join',
+hana: 'https://help.sap.com/docs/hana-cloud-database/sap-hana-cloud-sap-hana-database-sql-reference-guide/select-statement-data-manipulation',
 }}
 />
 
