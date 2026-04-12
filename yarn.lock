@@ -4218,9 +4218,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@netlify/build-info@npm:10.4.0":
-  version: 10.4.0
-  resolution: "@netlify/build-info@npm:10.4.0"
+"@netlify/build-info@npm:10.5.0":
+  version: 10.5.0
+  resolution: "@netlify/build-info@npm:10.5.0"
   dependencies:
     "@bugsnag/js": "npm:^8.0.0"
     "@iarna/toml": "npm:^2.2.5"
@@ -4233,13 +4233,13 @@ __metadata:
     yargs: "npm:^17.6.0"
   bin:
     build-info: ./bin.js
-  checksum: 10c0/862bb1700d05b445c2515215f96e4ecea56a1e211785804b34694a66ef5314ce69e80d5134a00b037aa940a55c552e766e2e6aa34e6da7984a3595edddf5dcc5
+  checksum: 10c0/12119f8f52495b8797e78fdf1c5ec1b9b881e0962db1dae8b8cb08f2c18bac8d56cb82e4f53fe24847112a4ecd06af6735312381f18b35f5a7f138e6064443d8
   languageName: node
   linkType: hard
 
-"@netlify/build@npm:35.11.2":
-  version: 35.11.2
-  resolution: "@netlify/build@npm:35.11.2"
+"@netlify/build@npm:35.12.0":
+  version: 35.12.0
+  resolution: "@netlify/build@npm:35.12.0"
   dependencies:
     "@bugsnag/js": "npm:^8.0.0"
     "@netlify/blobs": "npm:^10.4.4"
@@ -4261,6 +4261,7 @@ __metadata:
     figures: "npm:^6.0.0"
     filter-obj: "npm:^6.0.0"
     hot-shots: "npm:11.4.0"
+    ignore: "npm:^7.0.0"
     indent-string: "npm:^5.0.0"
     is-plain-obj: "npm:^4.0.0"
     keep-func-props: "npm:^6.0.0"
@@ -4300,7 +4301,7 @@ __metadata:
       optional: true
   bin:
     netlify-build: ./bin.js
-  checksum: 10c0/abaee7a4dfb912583a59046e74fa00825028a2700d18c3458bbb1c2cce561dcc0ef420bfda73399da2c7802fd7d29ac1aaf8074d390c4c49d4a588835811341c
+  checksum: 10c0/92a81b7d8dfc37c1ee648d930f5eebbb5959d401fdf423f2d320c1b9480607b339314567b03426e345fd369058e9b0b6b706e23d63409c6263fcaa14b84794fa
   languageName: node
   linkType: hard
 
@@ -13908,7 +13909,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:^7.0.3, ignore@npm:^7.0.5":
+"ignore@npm:^7.0.0, ignore@npm:^7.0.3, ignore@npm:^7.0.5":
   version: 7.0.5
   resolution: "ignore@npm:7.0.5"
   checksum: 10c0/ae00db89fe873064a093b8999fe4cc284b13ef2a178636211842cceb650b9c3e390d3339191acb145d81ed5379d2074840cf0c33a20bdbd6f32821f79eb4ad5d
@@ -17176,16 +17177,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"netlify-cli@npm:24.10.0":
-  version: 24.10.0
-  resolution: "netlify-cli@npm:24.10.0"
+"netlify-cli@npm:24.11.1":
+  version: 24.11.1
+  resolution: "netlify-cli@npm:24.11.1"
   dependencies:
     "@fastify/static": "npm:9.0.0"
     "@netlify/ai": "npm:0.4.1"
     "@netlify/api": "npm:14.0.18"
     "@netlify/blobs": "npm:10.7.0"
-    "@netlify/build": "npm:35.11.2"
-    "@netlify/build-info": "npm:10.4.0"
+    "@netlify/build": "npm:35.12.0"
+    "@netlify/build-info": "npm:10.5.0"
     "@netlify/config": "npm:24.4.4"
     "@netlify/dev": "npm:4.16.4"
     "@netlify/dev-utils": "npm:4.4.3"
@@ -17280,7 +17281,7 @@ __metadata:
   bin:
     netlify: bin/run.js
     ntl: bin/run.js
-  checksum: 10c0/e900ece982a92b83cfe1297a82c0f71f1928db94c45298ee1beb651ce652558b7fd399a6f402f43c87255c923451fe3ebe164b8226e1e58dd75d3ac327f7f1d7
+  checksum: 10c0/99aae9b3b914a35c31663b000fb360ae9e15b881f397c3cb0980a34a5b811450b7c02d64cd47482d5b3b9be13b8cc2369d878941806dedce48a0a87ca26d59c5
   languageName: node
   linkType: hard
 
@@ -19527,12 +19528,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.8.1":
-  version: 3.8.1
-  resolution: "prettier@npm:3.8.1"
+"prettier@npm:3.8.2":
+  version: 3.8.2
+  resolution: "prettier@npm:3.8.2"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10c0/33169b594009e48f570471271be7eac7cdcf88a209eed39ac3b8d6d78984039bfa9132f82b7e6ba3b06711f3bfe0222a62a1bfb87c43f50c25a83df1b78a2c42
+  checksum: 10c0/2d64bd01d269c8dd6d8c423a2a2e1fb88230a53aac523204b327de40059ccf8bd8e6fe70b8ce6154b97ed4442e9fd878504ff8a5330f3a4f64bd13d1576f7652
   languageName: node
   linkType: hard
 
@@ -19901,14 +19902,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.2.4":
-  version: 19.2.4
-  resolution: "react-dom@npm:19.2.4"
+"react-dom@npm:19.2.5":
+  version: 19.2.5
+  resolution: "react-dom@npm:19.2.5"
   dependencies:
     scheduler: "npm:^0.27.0"
   peerDependencies:
-    react: ^19.2.4
-  checksum: 10c0/f0c63f1794dedb154136d4d0f59af00b41907f4859571c155940296808f4b94bf9c0c20633db75b5b2112ec13d8d7dd4f9bf57362ed48782f317b11d05a44f35
+    react: ^19.2.5
+  checksum: 10c0/8067606e9f58e4c2e8cb5f09570217dbc71c4843ebcaa20ae2085912d3e3a351f17d8f7c1713313cdda7f272840c8c34ff6c860fcb840862071bceea218e0c63
   languageName: node
   linkType: hard
 
@@ -20053,10 +20054,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.2.4":
-  version: 19.2.4
-  resolution: "react@npm:19.2.4"
-  checksum: 10c0/cd2c9ff67a720799cc3b38a516009986f7fc4cb8d3e15716c6211cf098d1357ee3e348ab05ad0600042bbb0fd888530ba92e329198c92eafa0994f5213396596
+"react@npm:19.2.5":
+  version: 19.2.5
+  resolution: "react@npm:19.2.5"
+  checksum: 10c0/4b5f231dbef92886f602533c9ce3bde04d99f0e71dfb5d794c43e02726efaad0421c08688f75fc98a6d6e1dc017372e1af7abbfecdc86a79968f461675931a7a
   languageName: node
   linkType: hard
 
@@ -20746,12 +20747,12 @@ __metadata:
     eslint-plugin-react-hooks: "npm:7.0.1"
     husky: "npm:9.1.7"
     lint-staged: "npm:16.4.0"
-    netlify-cli: "npm:24.10.0"
-    prettier: "npm:3.8.1"
+    netlify-cli: "npm:24.11.1"
+    prettier: "npm:3.8.2"
     prism-react-renderer: "npm:2.4.1"
     raw-loader: "npm:4.0.2"
-    react: "npm:19.2.4"
-    react-dom: "npm:19.2.4"
+    react: "npm:19.2.5"
+    react-dom: "npm:19.2.5"
     react-feather: "npm:2.0.10"
     react-responsive-carousel: "npm:3.2.23"
     sass: "npm:1.99.0"
