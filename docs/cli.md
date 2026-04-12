@@ -3,650 +3,529 @@ title: Sequelize CLI
 sidebar_position: 9
 ---
 
-:::warning
+Just like you use [version control](https://en.wikipedia.org/wiki/Version_control) systems such as [Git](https://en.wikipedia.org/wiki/Git) to manage changes in your source code, you can use **migrations** to keep track of changes to the database. With migrations you can transfer your existing database into another state and vice versa: those state transitions are saved in migration files, which describe how to get to the new state and how to revert the changes in order to get back to the old state.
 
-Neither the Sequelize CLI nor its documentation is ready for use in Sequelize 7. If you rely on the CLI, please stay on Sequelize 6 for now.
-
-Considering the main purpose of the CLI is to run migrations, you can also try using [umzug](https://github.com/sequelize/umzug), or any
-other database migration tool instead.
-
-:::
-
-Just like you use [version control](https://en.wikipedia.org/wiki/Version_control) systems such as [Git](https://en.wikipedia.org/wiki/Git) to manage changes in your source code, you can use **migrations** to keep track of changes to the database. With migrations, you can transfer your existing database into another state and vice versa: Those state transitions are saved in migration files, which describe how to get to the new state and how to revert the changes to get back to the old state.
-
-You will need the [Sequelize Command-Line Interface (CLI)](https://github.com/sequelize/cli). The CLI ships support for migrations and project bootstrapping.
-
-A Migration in Sequelize is a JavaScript file that exports two functions, `up` and `down`, that dictate how to perform the migration and undo it. You define those functions manually, but you don't call them manually; the CLI will call them automatically. In these functions, you should perform whatever queries you need, with the help of `sequelize.query` and whichever other methods Sequelize provides to you. There is no extra magic beyond that.
+The Sequelize CLI (`@sequelize/cli`) ships support for running and managing migrations. It is built on top of [umzug](https://github.com/sequelize/umzug) for migration execution and [oclif](https://oclif.io) for the command-line interface.
 
 ## Installing the CLI
 
-To install the Sequelize CLI:
-
-```bash
-# using npm
-npm install --save-dev sequelize-cli
-# using yarn
-yarn add sequelize-cli --dev
+```bash npm2yarn
+npm install --save-dev @sequelize/cli
 ```
 
-For details see the [CLI GitHub repository](https://github.com/sequelize/cli).
-
-## Project bootstrapping
-
-To create an empty project you will need to execute `init` command
+The CLI binary is named `sequelize`:
 
 ```bash
-# using npm
-npx sequelize-cli init
-# using yarn
-yarn sequelize-cli init
+# npm
+npx sequelize --help
+
+# yarn
+yarn sequelize --help
 ```
 
-This will create the following folders
+## Configuration
 
-- `config`, contains the config file, which tells CLI how to connect with the database
-- `models`, contains all models for your project
-- `migrations`, contains all migration files
-- `seeders`, contains all seed files
+The CLI is configured using [cosmiconfig](https://github.com/cosmiconfig/cosmiconfig).
+It searches for a `sequelize` configuration in the following places:
 
-### Configuration
+- A `sequelize` key in `package.json`.
+- A `.sequelizerc.json` or `.config/sequelizerc.json` file (can also be yml, js, mjs, cjs).
+- A `sequelize.config.js`, `sequelize.config.cjs`, or `sequelize.config.mjs` file (recommended).
 
-Before continuing further we will need to tell the CLI how to connect to the database. To do that let's open the default config file `config/config.json`. It looks something like this:
+The configuration file must export (or contain) an object with the following properties:
 
-```json
+| Option            | Type     | Default         | Description                                                                                                                                                 |
+| ----------------- | -------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `migrationFolder` | `string` | `"/migrations"` | Path to the migrations folder, relative to the config file's directory.                                                                                     |
+| `seedFolder`      | `string` | `"/seeds"`      | Path to the seeds folder, relative to the config file's directory.                                                                                          |
+| `database`        | `object` | —               | [Sequelize constructor options](./getting-started.mdx#connecting-to-a-database), including a `dialect`. Required for commands that connect to the database. |
+
+The `dialect` field inside `database` can be either a dialect class (e.g. `PostgresDialect`) or an import-path string (e.g. `"@sequelize/postgres#PostgresDialect"`).
+
+### Example configuration
+
+When using a JavaScript or TypeScript config file, you can pass the dialect class directly:
+
+```js title="sequelize.config.mjs"
+import { loadEnvFile } from 'node:process';
+import { PostgresDialect } from '@sequelize/postgres';
+
+// load the ".env" file (if it exists) so we can use environment variables in the config
+loadEnvFile();
+
+export default {
+  migrationFolder: '/db/migrations',
+  seedFolder: '/db/seeds',
+
+  // Commands that only generate files (e.g. `migration generate`, `seed generate`)
+  // do not require a `database` entry in the config.
+  database: {
+    dialect: PostgresDialect,
+
+    // These options depend on the dialect, see the "Getting started" docs for details
+    database: 'my_database',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: 'localhost',
+    port: 5432,
+  },
+};
+```
+
+:::tip
+
+Keep secrets (passwords, API keys) out of source code. Use environment variables as shown above.
+
+:::
+
+When using a JSON config file (e.g. `.sequelizerc` or a `sequelize` key in `package.json`),
+specify the dialect as an import-path string in the form `"<package>#<ExportName>"`.
+The CLI will import the package and resolve the named export at startup:
+
+```json title=".sequelizerc"
 {
-  "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+  "migrationFolder": "/db/migrations",
+  "seedFolder": "/db/seeds",
+  "database": {
+    "dialect": "@sequelize/postgres#PostgresDialect",
+    "database": "my_database",
+    "host": "localhost",
+    "port": 5432
   }
 }
 ```
 
-Note that the Sequelize CLI assumes MySQL by default. If you're using another dialect, you need to change the content of the `"dialect"` option.
+Examples of import-path strings (not exhaustive):
 
-Now edit this file and set correct database credentials and dialect. The keys of the objects (e.g. "development") are used on `model/index.js` for matching `process.env.NODE_ENV` (When undefined, "development" is a default value).
+| Dialect    | Import-path string                        |
+| ---------- | ----------------------------------------- |
+| PostgreSQL | `"@sequelize/postgres#PostgresDialect"`   |
+| MySQL      | `"@sequelize/mysql#MySqlDialect"`         |
+| MariaDB    | `"@sequelize/mariadb#MariaDbDialect"`     |
+| SQLite     | `"@sequelize/sqlite3#SqliteDialect"`      |
+| MSSQL      | `"@sequelize/mssql#MsSqlDialect"`         |
+| DB2        | `"@sequelize/db2#Db2Dialect"`             |
+| Snowflake  | `"@sequelize/snowflake#SnowflakeDialect"` |
 
-Sequelize will use the default connection port for each dialect (for example, for Postgres, it is port 5432). If you need to specify a different port, use the `"port"` field (it is not present by default in `config/config.js` but you can simply add it).
+:::warning
 
-**Note:** _If your database doesn't exist yet, you can just call `db:create` command. With proper access, it will create that database for you._
+Using JSON is discouraged, as it cannot access environment variables or other dynamic values.
+Make sure to keep secrets out of source code.
 
-## Creating the first Model (and Migration)
+:::
 
-Once you have properly configured the CLI config file you are ready to create your first migration. It's as simple as executing a simple command.
+## Migration commands
 
-We will use `model:generate` command. This command requires two options:
+### `migration generate`
 
-- `name`: the name of the model;
-- `attributes`: the list of model attributes.
-
-Let's create a model named `User`.
-
-```bash
-# using npm
-npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
-# using yarn
-yarn sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
-```
-
-This will:
-
-- Create a model file `user` in `models` folder;
-- Create a migration file with a name like `XXXXXXXXXXXXXX-create-user.js` in the `migrations` folder.
-
-**Note:** _Sequelize will only use Model files, it's the table representation. On the other hand, the migration file is a change in that model or more specifically that table, used by CLI. Treat migrations like a commit or a log for some change in the database._
-
-## Writing a migration
-
-The following skeleton shows a typical migration file.
-
-```js
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-    // logic for transforming into the new state
-  },
-  down: (queryInterface, Sequelize) => {
-    // logic for reverting the changes
-  },
-};
-```
-
-We can generate this file using `migration:generate`. This will create `xxx-migration-example.js` in your migration folder.
+Generates a new migration file in the configured `migrationFolder`.
 
 ```bash
-# using npm
-npx sequelize-cli migration:generate --name migration-example
-# using yarn
-yarn sequelize-cli migration:generate --name migration-example
+npx sequelize migration generate --format=<sql|typescript|cjs|esm> [--name=<name>]
 ```
 
-The passed `queryInterface` object can be used to modify the database. The `Sequelize` object stores the available data types such as `STRING` or `INTEGER`. The function `up` or `down` should return a `Promise`. Let's look at an example:
+**Flags:**
 
-```js
-const { DataTypes } = require('@sequelize/core');
+| Flag       | Required | Default     | Description                                             |
+| ---------- | -------- | ----------- | ------------------------------------------------------- |
+| `--format` | Yes      | —           | File format: `sql`, `typescript`, `cjs`, or `esm`.      |
+| `--name`   | No       | `"unnamed"` | A short descriptive name, used as part of the filename. |
 
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Person', {
-      name: DataTypes.STRING,
-      isBetaMember: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
-    });
-  },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Person');
-  },
-};
+The generated filename is prefixed with a UTC timestamp in `YYYY-MM-DDThh-mm-ss` format (e.g. `2026-04-12t14-30-00-create-users.ts`). Files are sorted alphabetically when run, so the timestamp ensures correct ordering.
+
+**SQL format** creates a directory with two files:
+
+```
+migrations/
+  2026-04-12t14-30-00-create-users/
+    up.sql      ← forward migration
+    down.sql    ← rollback migration
 ```
 
-The following is an example of a migration that performs two changes in the database,
-using an automatically managed transaction to ensure that all instructions are successfully executed or rolled back in case of failure:
+**All other formats** create a single file:
 
-```js
-const { DataTypes } = require('@sequelize/core');
-
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.sequelize.transaction(transaction => {
-      return Promise.all([
-        queryInterface.addColumn(
-          'Person',
-          'petName',
-          {
-            type: DataTypes.STRING,
-          },
-          { transaction },
-        ),
-        queryInterface.addColumn(
-          'Person',
-          'favoriteColor',
-          {
-            type: DataTypes.STRING,
-          },
-          { transaction },
-        ),
-      ]);
-    });
-  },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.sequelize.transaction(transaction => {
-      return Promise.all([
-        queryInterface.removeColumn('Person', 'petName', { transaction }),
-        queryInterface.removeColumn('Person', 'favoriteColor', { transaction }),
-      ]);
-    });
-  },
-};
+```
+migrations/
+  2026-04-12t14-30-00-create-users.ts   ← TypeScript
+  2026-04-12t14-30-00-create-users.mjs  ← ESM
+  2026-04-12t14-30-00-create-users.cjs  ← CommonJS
 ```
 
-The next example is of a migration that has a foreign key. You can use references to specify a foreign key:
+If you run the command in interactive mode without providing `--name`, you will be prompted for one.
 
-```js
-const { DataTypes } = require('@sequelize/core');
-
-module.exports = {
-  up: queryInterface => {
-    return queryInterface.createTable('Person', {
-      name: DataTypes.STRING,
-      isBetaMember: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
-      userId: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: {
-            tableName: 'users',
-            schema: 'schema',
-          },
-          key: 'id',
-        },
-        allowNull: false,
-      },
-    });
-  },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Person');
-  },
-};
-```
-
-The next example is of a migration that uses async/await where you create a unique index on a new column, with a manually-managed transaction:
-
-```js
-const { DataTypes } = require('@sequelize/core');
-
-module.exports = {
-  async up(queryInterface) {
-    const transaction = await queryInterface.sequelize.startUnmanagedTransaction();
-    try {
-      await queryInterface.addColumn(
-        'Person',
-        'petName',
-        {
-          type: DataTypes.STRING,
-        },
-        { transaction },
-      );
-      await queryInterface.addIndex('Person', 'petName', {
-        fields: 'petName',
-        unique: true,
-        transaction,
-      });
-      await transaction.commit();
-    } catch (err) {
-      await transaction.rollback();
-      throw err;
-    }
-  },
-  async down(queryInterface) {
-    const transaction = await queryInterface.sequelize.startUnmanagedTransaction();
-    try {
-      await queryInterface.removeColumn('Person', 'petName', { transaction });
-      await transaction.commit();
-    } catch (err) {
-      await transaction.rollback();
-      throw err;
-    }
-  },
-};
-```
-
-The next example is of a migration that creates a unique index composed of multiple fields with a condition, which allows a relation to exist multiple times but only one can satisfy the condition:
-
-```js
-const { DataTypes } = require('@sequelize/core');
-
-module.exports = {
-  up: queryInterface => {
-    queryInterface
-      .createTable('Person', {
-        name: DataTypes.STRING,
-        bool: {
-          type: DataTypes.BOOLEAN,
-          defaultValue: false,
-        },
-      })
-      .then((queryInterface, Sequelize) => {
-        queryInterface.addIndex('Person', ['name', 'bool'], {
-          type: 'UNIQUE',
-          where: { bool: 'true' },
-        });
-      });
-  },
-  down: queryInterface => {
-    return queryInterface.dropTable('Person');
-  },
-};
-```
-
-## Running Migrations
-
-Until this step, we haven't inserted anything into the database. We have just created the required model and migration files for our first model, `User`. Now to actually create that table in the database you need to run `db:migrate` command.
+#### JSON output
 
 ```bash
-# using npm
-npx sequelize-cli db:migrate
-# using yarn
-yarn sequelize-cli db:migrate
+npx sequelize migration generate --format=typescript --name=create-users --json
+# { "path": "/path/to/migrations/2026-04-12t14-30-00-create-users.ts" }
 ```
 
-This command will execute these steps:
+---
 
-- Will ensure a table called `SequelizeMeta` in the database. This table is used to record which migrations have run on the current database
-- Start looking for any migration files that haven't run yet. This is possible by checking `SequelizeMeta` table. In this case, it will run `XXXXXXXXXXXXXX-create-user.js` migration, which we created in the last step.
-- Creates a table called `Users` with all columns as specified in its migration file.
+### `migration run`
 
-## Undoing Migrations
-
-Now our table has been created and saved in the database. With migration, you can revert to the old state by just running a command.
-
-You can use `db:migrate:undo`, this command will revert the most recent migration.
+Runs all pending migrations (or a subset).
 
 ```bash
-# using npm
-npx sequelize-cli db:migrate:undo
-# using yarn
-yarn sequelize-cli db:migrate:undo
+npx sequelize migration run [--to=<name>] [--step=<n>]
 ```
 
-You can revert to the initial state by undoing all migrations with the `db:migrate:undo:all` command. You can also revert to a specific migration by passing its name with the `--to` option.
+**Flags:**
+
+| Flag     | Default | Description                                                |
+| -------- | ------- | ---------------------------------------------------------- |
+| `--to`   | —       | Run migrations up to and including the one with this name. |
+| `--step` | —       | Run only this many pending migrations.                     |
+
+Migration history is tracked in a `SequelizeMeta` table that the CLI creates automatically in your database.
+
+**Examples:**
 
 ```bash
-# using npm
-npx sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
-# using yarn
-yarn sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
+# Run all pending migrations
+npx sequelize migration run
+
+# Run only the next 2 pending migrations
+npx sequelize migration run --step=2
+
+# Run all pending migrations up to (and including) a specific one
+npx sequelize migration run --to=2026-01-02-create-posts
 ```
 
-### Creating the first Seed
-
-Suppose we want to insert some data into a few tables by default. If we follow up on the previous example we can consider creating a demo user for the `User` table.
-
-To manage all data migrations you can use seeders. Seed files are some changes in data that can be used to populate database tables with sample or test data.
-
-Let's create a seed file that will add a demo user to our `User` table.
+#### JSON output
 
 ```bash
-# using npm
-npx sequelize-cli seed:generate --name demo-user
-# using yarn
-yarn sequelize-cli seed:generate --name demo-user
+npx sequelize migration run --json
+# { "migrated": ["2026-01-01-create-users", "2026-01-02-create-posts"] }
 ```
 
-This command will create a seed file in `seeders` folder. The file name will look something like `XXXXXXXXXXXXXX-demo-user.js`. It follows the same `up / down` semantics as the migration files.
+---
 
-Now we should edit this file to insert the demo user to `User` table.
+### `migration undo`
 
-```js
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users', [
-      {
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'example@example.com',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ]);
-  },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Users', null, {});
-  },
-};
-```
-
-## Running Seeds
-
-In last step you created a seed file; however, it has not been committed to the database. To do that we run a simple command.
+Reverts executed migrations.
 
 ```bash
-# using npm
-npx sequelize-cli db:seed:all
-# using yarn
-yarn sequelize-cli db:seed:all
+npx sequelize migration undo [--step=<n>] [--all] [--to=<name>]
 ```
 
-This will execute that seed file and a demo user will be inserted into the `User` table.
+**Flags:**
 
-**Note:** _Seeder execution history is not stored anywhere, unlike migrations, which use the `SequelizeMeta` table. If you wish to change this behavior, please read the `Storage` section._
+| Flag     | Default | Description                                                                               |
+| -------- | ------- | ----------------------------------------------------------------------------------------- |
+| `--step` | `1`     | Number of migrations to revert. Cannot be combined with `--all` or `--to`.                |
+| `--all`  | `false` | Revert all executed migrations.                                                           |
+| `--to`   | —       | Revert migrations down to and including this migration. Cannot be combined with `--step`. |
 
-## Undoing Seeds
-
-Seeders can be undone if they are using any storage. There are two commands available for that:
-
-If you wish to undo the most recent seed:
+**Examples:**
 
 ```bash
-# using npm
-npx sequelize-cli db:seed:undo
-# using yarn
-yarn sequelize-cli db:seed:undo
+# Revert the last executed migration
+npx sequelize migration undo
+
+# Revert the last 3 executed migrations
+npx sequelize migration undo --step=3
+
+# Revert all executed migrations
+npx sequelize migration undo --all
+
+# Revert down to (and including) a specific migration
+npx sequelize migration undo --to=2026-01-02-create-posts
 ```
 
-If you wish to undo a specific seed:
+#### JSON output
 
 ```bash
-# using npm
-npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
-# using yarn
-yarn sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
+npx sequelize migration undo --json
+# { "reverted": ["2026-01-03-create-comments"] }
 ```
 
-If you wish to undo all seeds:
+---
+
+### `migration status`
+
+Shows which migrations have been executed and which are pending.
 
 ```bash
-# using npm
-npx sequelize-cli db:seed:undo:all
-# using yarn
-yarn sequelize-cli db:seed:undo:all
+npx sequelize migration status
 ```
 
-### The `.sequelizerc` file
+**Example output:**
 
-This is a special configuration file. It lets you specify the following options that you would usually pass as arguments to CLI:
+```
+Executed migrations:
+  ✔ 2026-01-01-create-users
+  ✔ 2026-01-02-create-posts
 
-- `env`: The environment to run the command in
-- `config`: The path to the config file
-- `options-path`: The path to a JSON file with additional options
-- `migrations-path`: The path to the migrations folder
-- `seeders-path`: The path to the seeders folder
-- `models-path`: The path to the models folder
-- `url`: The database connection string to use. Alternative to using --config files
-- `debug`: When available show various debug information
-
-Some scenarios where you can use it:
-
-- You want to override default path to `migrations`, `models`, `seeders` or `config` folder.
-- You want to rename `config.json` to something else like `database.json`
-
-And a whole lot more. Let's see how you can use this file for custom configuration.
-
-To begin, let's create the `.sequelizerc` file in the root directory of your project, with the following content:
-
-```js
-// .sequelizerc
-
-const path = require('path');
-
-module.exports = {
-  config: path.resolve('config', 'database.json'),
-  'models-path': path.resolve('db', 'models'),
-  'seeders-path': path.resolve('db', 'seeders'),
-  'migrations-path': path.resolve('db', 'migrations'),
-};
+Pending migrations:
+  ○ 2026-01-03-create-comments
 ```
 
-With this config, you are telling the CLI to:
-
-- Use `config/database.json` file for config settings;
-- Use `db/models` as models folder;
-- Use `db/seeders` as seeders folder;
-- Use `db/migrations` as the migrations folder.
-
-### Dynamic configuration
-
-The configuration file is by default a JSON file called `config.json`. But sometimes you need a dynamic configuration, for example, to access environment variables or execute some other code to determine the configuration.
-
-Thankfully, the Sequelize CLI can read from both `.json` and `.js` files. This can be set up with `.sequelizerc` file. You just have to provide the path to your `.js` file as the `config` option of your exported object:
-
-```js
-const path = require('path');
-
-module.exports = {
-  config: path.resolve('config', 'config.js'),
-};
-```
-
-Now the Sequelize CLI will load `config/config.js` for getting configuration options.
-
-An example of `config/config.js` file:
-
-```js
-const fs = require('fs');
-
-module.exports = {
-  development: {
-    username: 'database_dev',
-    password: 'database_dev',
-    database: 'database_dev',
-    host: '127.0.0.1',
-    port: 3306,
-    dialect: 'mysql',
-    dialectOptions: {
-      bigNumberStrings: true,
-    },
-  },
-  test: {
-    username: process.env.CI_DB_USERNAME,
-    password: process.env.CI_DB_PASSWORD,
-    database: process.env.CI_DB_NAME,
-    host: '127.0.0.1',
-    port: 3306,
-    dialect: 'mysql',
-    dialectOptions: {
-      bigNumberStrings: true,
-    },
-  },
-  production: {
-    username: process.env.PROD_DB_USERNAME,
-    password: process.env.PROD_DB_PASSWORD,
-    database: process.env.PROD_DB_NAME,
-    host: process.env.PROD_DB_HOSTNAME,
-    port: process.env.PROD_DB_PORT,
-    dialect: 'mysql',
-    dialectOptions: {
-      bigNumberStrings: true,
-      ssl: {
-        ca: fs.readFileSync(__dirname + '/mysql-ca-main.crt'),
-      },
-    },
-  },
-};
-```
-
-The example above also shows how to add custom dialect options to the configuration.
-
-### Using Babel
-
-To enable more modern constructions in your migrations and seeders, you can simply install `babel-register` and require it at the beginning of `.sequelizerc`:
+#### JSON output
 
 ```bash
-# using npm
-npm i --save-dev babel-register
-# using yarn
-yarn add babel-register --dev
+npx sequelize migration status --json
+# { "migrated": ["2026-01-01-create-users", "2026-01-02-create-posts"], "pending": ["2026-01-03-create-comments"] }
 ```
 
-```js
-// .sequelizerc
+---
 
-require('babel-register');
+## Writing migrations
 
-const path = require('path');
+Each migration must export an `up` function (to apply the change) and an optional `down` function (to revert it). The `down` function is only required if you use `migration undo`.
 
-module.exports = {
-  config: path.resolve('config', 'config.json'),
-  'models-path': path.resolve('models'),
-  'seeders-path': path.resolve('seeders'),
-  'migrations-path': path.resolve('migrations'),
-};
-```
+JavaScript migration functions receive a context object containing a `sequelize` instance.
 
-Of course, the outcome will depend upon your babel configuration (such as in a `.babelrc` file). Learn more at [babeljs.io](https://babeljs.io).
+The main tools for writing JavaScript migrations are the methods available on [`sequelize.queryInterface`](./other-topics/query-interface.md),
+which provides a dialect-agnostic API for modifying the database schema and data.
+You can also execute raw SQL queries with [`sequelize.query`](./querying/raw-queries.mdx).
 
-### Security tip
+:::danger
 
-Use environment variables for config settings. This is because secrets such as passwords should never be part of the source code (and especially not committed to version control).
+Never use Models inside migrations, as they do not reflect the current state of the database.
 
-### Storage
+:::
 
-There are three types of storage that you can use: `sequelize`, `json`, and `none`.
+### TypeScript
 
-- `sequelize` : stores migrations and seeds in a table on the sequelize database
-- `json` : stores migrations and seeds on a json file
-- `none` : does not store any migration/seed
+```ts title="migrations/2026-01-01t00-00-00-create-users.ts"
+import type { UmzugContext } from '@sequelize/cli';
 
-#### Migration Storage
+export async function up({ sequelize }: UmzugContext): Promise<void> {
+  await sequelize.queryInterface.createTable('users', {
+    id: { type: 'INTEGER', primaryKey: true, autoIncrement: true },
+    name: { type: 'VARCHAR(255)', allowNull: false },
+    email: { type: 'VARCHAR(255)', allowNull: false, unique: true },
+  });
+}
 
-By default, the CLI will create a table in your database called `SequelizeMeta` containing an entry for each executed migration. To change this behavior, there are three options you can add to the configuration file. Using `migrationStorage`, you can choose the type of storage to be used for migrations. If you choose `json`, you can specify the path of the file using `migrationStoragePath` or the CLI will write to the file `sequelize-meta.json`. If you want to keep the information in the database, using `sequelize`, but want to use a different table, you can change the table name using `migrationStorageTableName`. Also, you can define a different schema for the `SequelizeMeta` table by providing the `migrationStorageTableSchema` property.
-
-```json
-{
-  "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-
-    // Use a different storage type. Default: sequelize
-    "migrationStorage": "json",
-
-    // Use a different file name. Default: sequelize-meta.json
-    "migrationStoragePath": "sequelizeMeta.json",
-
-    // Use a different table name. Default: SequelizeMeta
-    "migrationStorageTableName": "sequelize_meta",
-
-    // Use a different schema for the SequelizeMeta table
-    "migrationStorageTableSchema": "custom_schema"
-  }
+export async function down({ sequelize }: UmzugContext): Promise<void> {
+  await sequelize.queryInterface.dropTable('users');
 }
 ```
 
-**Note:** _The `none` storage is not recommended as a migration storage. If you decide to use it, be aware of the implications of having no record of what migrations did or didn't run._
+### ESM (`.mjs`)
 
-#### Seed Storage
+```js title="migrations/2026-01-01t00-00-00-create-users.mjs"
+/** @type {import('@sequelize/cli').MigrationFunction} */
+export async function up({ sequelize }) {
+  await sequelize.queryInterface.createTable('users', {
+    id: { type: 'INTEGER', primaryKey: true, autoIncrement: true },
+    name: { type: 'VARCHAR(255)', allowNull: false },
+    email: { type: 'VARCHAR(255)', allowNull: false, unique: true },
+  });
+}
 
-By default, the CLI will not save any seed that is executed. If you choose to change this behavior (!), you can use `seederStorage` in the configuration file to change the storage type. If you choose `json`, you can specify the path of the file using `seederStoragePath` or the CLI will write to the file `sequelize-data.json`. If you want to keep the information in the database, using `sequelize`, you can specify the table name using `seederStorageTableName`, or it will default to `SequelizeData`.
-
-```json
-{
-  "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    // Use a different storage. Default: none
-    "seederStorage": "json",
-    // Use a different file name. Default: sequelize-data.json
-    "seederStoragePath": "sequelizeData.json",
-    // Use a different table name. Default: SequelizeData
-    "seederStorageTableName": "sequelize_data"
-  }
+/** @type {import('@sequelize/cli').MigrationFunction} */
+export async function down({ sequelize }) {
+  await sequelize.queryInterface.dropTable('users');
 }
 ```
 
-### Configuration Connection String
+### CommonJS (`.cjs`)
 
-As an alternative to the `--config` option with configuration files defining your database, you can use the `--url` option to pass in a connection string. For example:
+```js title="migrations/2026-01-01t00-00-00-create-users.cjs"
+'use strict';
+
+module.exports = {
+  /** @type {import('@sequelize/cli').MigrationFunction} */
+  async up({ sequelize }) {
+    await sequelize.queryInterface.createTable('users', {
+      id: { type: 'INTEGER', primaryKey: true, autoIncrement: true },
+      name: { type: 'VARCHAR(255)', allowNull: false },
+      email: { type: 'VARCHAR(255)', allowNull: false, unique: true },
+    });
+  },
+
+  /** @type {import('@sequelize/cli').MigrationFunction} */
+  async down({ sequelize }) {
+    await sequelize.queryInterface.dropTable('users');
+  },
+};
+```
+
+### SQL
+
+SQL migrations are directories containing an `up.sql` file and optionally a `down.sql` file. Both files contain raw SQL that is executed directly against the database.
+
+```sql title="migrations/2026-01-01t00-00-00-create-users/up.sql"
+CREATE TABLE users (
+   id    INTEGER PRIMARY KEY AUTOINCREMENT,
+   name  VARCHAR(255) NOT NULL,
+   email VARCHAR(255) NOT NULL UNIQUE
+);
+```
+
+```sql title="migrations/2026-01-01t00-00-00-create-users/down.sql"
+DROP TABLE users;
+```
+
+If there is no `down.sql` file, `migration undo` will throw an error for that migration.
+
+:::tip
+
+The CLI also supports flat `.sql` files (e.g. `migrations/2026-01-01t00-00-00-create-users.sql`) as up-only migrations. These cannot be reverted.
+
+:::
+
+---
+
+## Seed commands
+
+Seeds are files used to populate your database with sample or test data. The CLI can generate seed file scaffolds in the same formats as migrations.
+
+:::note
+
+The CLI currently only provides a `seed generate` command. Running and reverting seeds is not yet built into the CLI.
+
+:::
+
+### `seed generate`
+
+Generates a new seed file in the configured `seedFolder`.
 
 ```bash
-# using npm
-npx sequelize-cli db:migrate --url 'mysql://root:password@mysql_host.com/database_name'
-# using yarn
-yarn sequelize-cli db:migrate --url 'mysql://root:password@mysql_host.com/database_name'
+npx sequelize seed generate --format=<sql|typescript|cjs|esm> [--name=<name>]
 ```
 
-If utilizing `package.json` scripts with npm, make sure to use the extra `--` in your command when using flags.
-For example:
+**Flags:**
+
+| Flag       | Required | Default     | Description                                             |
+| ---------- | -------- | ----------- | ------------------------------------------------------- |
+| `--format` | Yes      | —           | File format: `sql`, `typescript`, `cjs`, or `esm`.      |
+| `--name`   | No       | `"unnamed"` | A short descriptive name, used as part of the filename. |
+
+**Examples:**
+
+```bash
+npx sequelize seed generate --format=typescript --name=demo-users
+npx sequelize seed generate --format=sql --name=demo-users
+```
+
+#### JSON output
+
+```bash
+npx sequelize seed generate --format=typescript --name=demo-users --json
+# { "path": "/path/to/seeds/2026-04-12t14-30-00-demo-users.ts" }
+```
+
+---
+
+## Writing seeds
+
+Seed files follow the same structure as migration files: they export `up` and `down` functions.
+
+### TypeScript
+
+```ts title="seeds/2026-01-01t00-00-00-demo-users.ts"
+import type { UmzugContext } from '@sequelize/cli';
+
+export async function up({ sequelize }: UmzugContext): Promise<void> {
+  await sequelize.queryInterface.bulkInsert('users', [
+    { name: 'Alice', email: 'alice@example.com' },
+    { name: 'Bob', email: 'bob@example.com' },
+  ]);
+}
+
+export async function down({ sequelize }: UmzugContext): Promise<void> {
+  await sequelize.queryInterface.bulkDelete('users', {});
+}
+```
+
+### SQL
+
+```sql title="seeds/2026-01-01t00-00-00-demo-users/up.sql"
+INSERT INTO users (name, email) VALUES
+  ('Alice', 'alice@example.com'),
+  ('Bob',   'bob@example.com');
+```
+
+```sql title="seeds/2026-01-01t00-00-00-demo-users/down.sql"
+DELETE FROM users WHERE email IN ('alice@example.com', 'bob@example.com');
+```
+
+---
+
+## Interactive mode
+
+By default, the CLI runs in interactive mode. When a required flag is not provided on the command line, you will be prompted to enter it.
+
+To disable interactive prompts (e.g. in CI), pass `--no-interactive`:
+
+```bash
+npx sequelize migration generate --format=typescript --name=create-users --no-interactive
+```
+
+---
+
+## JSON output
+
+All commands support a `--json` flag that outputs the result as machine-readable JSON instead of human-readable text. This is useful for scripting or programmatic integration.
+
+```bash
+npx sequelize migration run --json
+npx sequelize migration undo --json
+npx sequelize migration status --json
+npx sequelize migration generate --format=sql --name=create-users --json
+npx sequelize seed generate --format=typescript --name=demo-users --json
+```
+
+When a command fails, the JSON output will contain an `error` object:
 
 ```json
-// package.json
-
-...
-  "scripts": {
-    "migrate:up": "npx sequelize-cli db:migrate",
-    "migrate:undo": "npx sequelize-cli db:migrate:undo"
-  },
-...
+{ "error": { "message": "Migration folder not found at path \"/app/migrations\"" } }
 ```
 
-Use the command like so: `npm run migrate:up -- --url <url>`
+---
 
-### Programmatic usage
+## Programmatic API
 
-Sequelize has a sister library called [umzug](https://github.com/sequelize/umzug) for programmatically handling execution and logging of migration tasks.
+All CLI functionality is also available as a Node.js API exported from `@sequelize/cli`. This allows you to integrate Sequelize migrations directly into your application code or custom scripts.
+
+```ts
+import {
+  runMigrations,
+  undoMigrations,
+  getMigrationStatus,
+  generateMigration,
+  generateSeed,
+} from '@sequelize/cli';
+
+// Run all pending migrations
+const applied = await runMigrations();
+
+// Run up to a specific migration
+await runMigrations({ to: '2026-01-02-create-posts' });
+
+// Run only 1 pending migration
+await runMigrations({ step: 1 });
+
+// Undo the last migration (default)
+await undoMigrations();
+
+// Undo the last 3 migrations
+await undoMigrations({ step: 3 });
+
+// Undo all migrations
+await undoMigrations({ to: 0 });
+
+// Undo down to (and including) a specific migration
+await undoMigrations({ to: '2026-01-02-create-posts' });
+
+// Check migration status
+const { executed, pending } = await getMigrationStatus();
+
+// Generate a new migration file
+const migrationPath = await generateMigration({
+  format: 'typescript',
+  migrationName: 'create-users',
+  migrationFolder: '/app/migrations',
+});
+
+// Generate a new seed file
+const seedPath = await generateSeed({
+  format: 'typescript',
+  seedName: 'demo-users',
+  seedFolder: '/app/seeds',
+});
+```

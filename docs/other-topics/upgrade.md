@@ -752,6 +752,38 @@ Because generated foreign key names are inferred from the association name,
 this means that foreign keys are now in camelCase by default too.  
 For instance, the association `Project.belongsTo(User)` now has the name `user` and the generated foreign key is `userId`.
 
+### The CLI has been completely rewritten
+
+The Sequelize CLI has been completely rewritten from scratch for v7 and is now published as `@sequelize/cli` (replacing the old `sequelize-cli` package).
+
+Key changes at a glance:
+
+- **New package name:** `@sequelize/cli` (install with `npm install --save-dev @sequelize/cli`)
+- **New binary name:** `sequelize` (was `sequelize-cli`)
+- **New commands:** command names have changed — see the table below
+- **New config format:** replaces `config/config.json` with a `sequelize.config.js` (or `.sequelizerc`) file discovered via [cosmiconfig](https://github.com/cosmiconfig/cosmiconfig)
+- **New migration signature:** migration functions now receive `{ sequelize }` instead of `(queryInterface, Sequelize)`
+- **Multiple file formats:** migrations and seeds can be written in TypeScript (`.ts`), ESM (`.mjs`), CommonJS (`.cjs`), or raw SQL (directory with `up.sql` / `down.sql`)
+- **`--json` flag:** all commands support structured JSON output for scripting
+- **Programmatic API:** all commands are exposed as importable functions from `@sequelize/cli`
+
+**Command mapping from v6 to v7:**
+
+| v6 (`sequelize-cli`)                | v7 (`@sequelize/cli`)                            |
+| ----------------------------------- | ------------------------------------------------ |
+| `sequelize-cli db:migrate`          | `sequelize migration run`                        |
+| `sequelize-cli db:migrate:undo`     | `sequelize migration undo`                       |
+| `sequelize-cli db:migrate:undo:all` | `sequelize migration undo --all`                 |
+| `sequelize-cli migration:generate`  | `sequelize migration generate --format=<format>` |
+| `sequelize-cli seed:generate`       | `sequelize seed generate --format=<format>`      |
+| `sequelize-cli db:seed:all`         | _(not yet available)_                            |
+| `sequelize-cli db:seed:undo`        | _(not yet available)_                            |
+| `sequelize-cli init`                | _(removed)_                                      |
+| `sequelize-cli model:generate`      | _(removed)_                                      |
+| `sequelize-cli db:create`           | _(removed)_                                      |
+
+See the [CLI documentation](../cli.md) for full details.
+
 ## Minor Breaking changes
 
 These are less likely to impact you, but you should still be aware of them.
