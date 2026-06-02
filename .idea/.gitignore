@@ -1,0 +1,6 @@
+*
+!.gitignore
+!prettier.xml
+!jsLinters
+jsLinters/*
+!jsLinters/eslint.xml

@@ -51,9 +51,7 @@ Index hints [override the default behavior of the MySQL query optimizer](https:/
 ```js
 import { IndexHints } from '@sequelize/core';
 Project.findAll({
-  indexHints: [
-    { type: IndexHints.USE, values: ['index_project_on_name'] },
-  ],
+  indexHints: [{ type: IndexHints.USE, values: ['index_project_on_name'] }],
   where: {
     id: {
       [Op.gt]: 623,

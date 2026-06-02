@@ -3,9 +3,9 @@ sidebar_position: 9
 title: Paranoid
 ---
 
-Sequelize supports the concept of *paranoid* tables. A *paranoid* table is one that, when told to delete a record, it will not truly delete it. Instead, a special column called `deletedAt` will have its value set to the timestamp of that deletion request.
+Sequelize supports the concept of _paranoid_ tables. A _paranoid_ table is one that, when told to delete a record, it will not truly delete it. Instead, a special column called `deletedAt` will have its value set to the timestamp of that deletion request.
 
-This means that paranoid tables perform a *soft-deletion* of records, instead of a *hard-deletion*.
+This means that paranoid tables perform a _soft-deletion_ of records, instead of a _hard-deletion_.
 
 ## Defining a model as paranoid
 
@@ -15,13 +15,18 @@ You can also change the default column name (which is `deletedAt`) to something 
 
 ```js
 class Post extends Model {}
-Post.init({ /* attributes here */ }, {
-  sequelize,
-  paranoid: true,
+Post.init(
+  {
+    /* attributes here */
+  },
+  {
+    sequelize,
+    paranoid: true,
 
-  // If you want to give a custom name to the deletedAt column
-  deletedAt: 'destroyTime'
-});
+    // If you want to give a custom name to the deletedAt column
+    deletedAt: 'destroyTime',
+  },
+);
 ```
 
 ## Deleting
@@ -31,8 +36,8 @@ When you call the `destroy` method, a soft-deletion will happen:
 ```js
 await Post.destroy({
   where: {
-    id: 1
-  }
+    id: 1,
+  },
 });
 // UPDATE "posts" SET "deletedAt"=[timestamp] WHERE "deletedAt" IS NULL AND "id" = 1
 ```
@@ -42,9 +47,9 @@ If you really want a hard-deletion and your model is paranoid, you can force it 
 ```js
 await Post.destroy({
   where: {
-    id: 1
+    id: 1,
   },
-  force: true
+  force: true,
 });
 // DELETE FROM "posts" WHERE "id" = 1
 ```
@@ -77,9 +82,9 @@ console.log('restored!');
 await Post.restore({
   where: {
     likes: {
-      [Op.gt]: 100
-    }
-  }
+      [Op.gt]: 100,
+    },
+  },
 });
 ```
 
@@ -98,11 +103,11 @@ await Post.findByPk(123); // This will return `null` if the record of id 123 is 
 await Post.findByPk(123, { paranoid: false }); // This will retrieve the record
 
 await Post.findAll({
-  where: { foo: 'bar' }
+  where: { foo: 'bar' },
 }); // This will not retrieve soft-deleted records
 
 await Post.findAll({
   where: { foo: 'bar' },
-  paranoid: false
+  paranoid: false,
 }); // This will also retrieve soft-deleted records
 ```

@@ -5,7 +5,7 @@ sidebar_position: 7
 
 Model inheritance is a way to share common attributes and methods between models.
 
-Sequelize supports a style of inheritance called __Concrete Table Inheritance__. This means that each [non-abstract](#abstract-models)
+Sequelize supports a style of inheritance called **Concrete Table Inheritance**. This means that each [non-abstract](#abstract-models)
 model in the hierarchy has its own table in the database:
 
 <figure>
@@ -24,7 +24,10 @@ import { Attribute, Default, PrimaryKey, NotNull } from '@sequelize/core/decorat
 import { SqliteDialect } from '@sequelize/sqlite3';
 
 @Table.Abstract
-class Player<M extends Player = Player> extends Model<InferAttributes<M>, InferCreationAttributes<M>> {
+class Player<M extends Player = Player> extends Model<
+  InferAttributes<M>,
+  InferCreationAttributes<M>
+> {
   @Attribute(DataTypes.STRING)
   @NotNull
   declare name: string;
@@ -77,7 +80,7 @@ as these options cannot be inherited.
 You cannot define [`@HasOne`](../associations/has-one.md), [`@HasMany`](../associations/has-many.md), or [`@BelongsToMany`](../associations/belongs-to-many.md)
 associations on inherited models (the parent model).
 
-This limitation is due to the fact that these associations declare a foreign key on the target model. 
+This limitation is due to the fact that these associations declare a foreign key on the target model.
 Having multiple models attempting to declare the same foreign key is not possible, as a foreign key can only point to a single model.
 
 Similarly, you cannot use the `inverse` option on [`@BelongsTo`](../associations/belongs-to.md) associations on inherited models,

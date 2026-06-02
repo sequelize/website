@@ -5,8 +5,8 @@ title: Getters, Setters & Virtuals
 
 Sequelize allows you to define custom getters and setters for the attributes of your models.
 
-Sequelize also allows you to specify the so-called [*virtual attributes*](#virtual-attributes), 
-which are attributes on the Sequelize Model that doesn't really exist in the underlying SQL table, but instead are populated automatically by Sequelize. 
+Sequelize also allows you to specify the so-called [_virtual attributes_](#virtual-attributes),
+which are attributes on the Sequelize Model that doesn't really exist in the underlying SQL table, but instead are populated automatically by Sequelize.
 They are very useful to create custom attributes which also could simplify your code.
 
 ## Attribute Getters & Setters
@@ -16,7 +16,7 @@ The main advantage is that Sequelize will call these getters and setters automat
 
 You must decorate your getter or setter with [attribute decorators](defining-models.mdx), just like you would with any other attribute.
 
-Unlike the standard JavaScript getters & setters, __you do not need to define both a getter and a setter for the same attribute__.
+Unlike the standard JavaScript getters & setters, **you do not need to define both a getter and a setter for the same attribute**.
 Sequelize will automatically create a setter for you if you only define a getter, and vice versa. You can of course define
 both if you need to.
 
@@ -94,11 +94,14 @@ class User extends Model {
 
 // This will insert the value as-is, without calling the setter,
 // so it will not be converted to uppercase
-await User.update({
-  username: 'ephys',
-}, {
-  where: { id: 1 },
-});
+await User.update(
+  {
+    username: 'ephys',
+  },
+  {
+    where: { id: 1 },
+  },
+);
 ```
 
 :::
@@ -108,7 +111,7 @@ await User.update({
 While it is possible for a setter to use the value of another attribute,
 be aware that the setter will not be called again if the other attribute changes.
 
-The setter is only called when the value of the attribute is set, and is called immediately. Accessing the value 
+The setter is only called when the value of the attribute is set, and is called immediately. Accessing the value
 of another attribute inside the setter can lead to unexpected results depending on the order of operations.
 
 ```ts
@@ -116,7 +119,7 @@ class User extends Model {
   @Attribute(DataTypes.STRING)
   @NotNull
   declare username: string;
-  
+
   @Attribute(DataTypes.STRING)
   @NotNull
   set password(value: string) {
@@ -134,7 +137,7 @@ class User extends Model {
 Virtual attributes are attributes that Sequelize populates under the hood, but in reality they don't even exist in the database.
 
 For example, let's say we have a User model with `firstName` and `lastName`[^1] attributes.  
-We could decide to add a model getter to obtain the *full name* directly:
+We could decide to add a model getter to obtain the _full name_ directly:
 
 ```ts
 class User extends Model {
@@ -208,4 +211,4 @@ const users = await User.findAll({
 
 :::
 
-[^1]: Did you know? Not everyone's name can be neatly separated into [first name & last name](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/). 
+[^1]: Did you know? Not everyone's name can be neatly separated into [first name & last name](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/).

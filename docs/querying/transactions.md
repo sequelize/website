@@ -16,10 +16,10 @@ With managed transactions, Sequelize handles committing or rolling back transact
 Managed transactions are started using [`sequelize.transaction`].
 a method which accepts an async callback. This method works like this:
 
-* Sequelize will start a transaction
-* Then, Sequelize will execute the callback you provided
-* If your callback throws, Sequelize will automatically rollback the transaction
-* If your callback finishes successfully, Sequelize will automatically commit the transaction
+- Sequelize will start a transaction
+- Then, Sequelize will execute the callback you provided
+- If your callback throws, Sequelize will automatically rollback the transaction
+- If your callback finishes successfully, Sequelize will automatically commit the transaction
 
 ```ts
 try {
@@ -27,12 +27,12 @@ try {
     // both of these queries will run in the transaction
     const user = await User.create({
       firstName: 'Abraham',
-      lastName: 'Lincoln'
+      lastName: 'Lincoln',
     });
 
     await user.setShooter({
       firstName: 'John',
-      lastName: 'Boothe'
+      lastName: 'Boothe',
     });
 
     return user;
@@ -40,7 +40,6 @@ try {
 
   // If the execution reaches this line, the transaction has been committed successfully
   // `result` is whatever was returned from the transaction callback (the `user`, in this case)
-
 } catch {
   // If the execution reaches this line, an error occurred.
   // The transaction has already been rolled back automatically by Sequelize!
@@ -49,7 +48,7 @@ try {
 
 ### Nested Transactions
 
-Nesting transactions is the act of calling [`sequelize.transaction`] inside a transaction callback. 
+Nesting transactions is the act of calling [`sequelize.transaction`] inside a transaction callback.
 This concept is exclusive to managed transactions.
 
 Sequelize supports 3 behaviors for nested transactions:
@@ -62,8 +61,7 @@ This option can be set by passing the `nestMode` option to [`sequelize.transacti
 
 ```ts
 await sequelize.transaction(async () => {
-  await sequelize.transaction({ nestMode: TransactionNestMode.savepoint }, async () => {
-  });
+  await sequelize.transaction({ nestMode: TransactionNestMode.savepoint }, async () => {});
 });
 ```
 
@@ -83,16 +81,16 @@ If you [disabled CLS](#disabling-cls), you must pass the parent transaction obje
 If you don't, the child block will not be aware of the parent transaction, and will always create a new transaction instead.
 
 ```ts
-await sequelize.transaction(async (parentTransaction) => {
+await sequelize.transaction(async parentTransaction => {
   // a transaction has been created here
 
   await sequelize.transaction(
-    { 
+    {
       nestMode: TransactionNestMode.savepoint,
       // highlight-next-line
       transaction: parentTransaction,
-    }, 
-    async (childTransaction) => {
+    },
+    async childTransaction => {
       // a save point has been created here
     },
   );
@@ -105,7 +103,7 @@ await sequelize.transaction(async (parentTransaction) => {
 
 ### Savepoints
 
-If `nestMode` is set to `TransactionNestMode.savepoint`, a save point will be created inside the parent transaction, 
+If `nestMode` is set to `TransactionNestMode.savepoint`, a save point will be created inside the parent transaction,
 and the child block will use this save point.
 
 If the child block throws an error, the save point will be rolled back, but the parent transaction will continue.  
@@ -137,8 +135,8 @@ Concurrent transactions are transactions that run concurrently with each other.
 This can be done by starting multiple transactions at the same time, then specifying which transaction each query must use.
 
 ```ts
-sequelize.transaction((t1) => {
-  return sequelize.transaction({ nestMode: TransactionNestMode.separate }, (t2) => {
+sequelize.transaction(t1 => {
+  return sequelize.transaction({ nestMode: TransactionNestMode.separate }, t2 => {
     // Queries in this block will use the transaction t2 by default,
     // but you can specify which transaction must be used
     // by using the `transaction` option.
@@ -178,7 +176,7 @@ If you need to access the current transaction object, [`sequelize.transaction`] 
 the transaction object to your callback. You can also access it by calling [`sequelize.getCurrentClsTransaction`]
 
 ```ts
-const result = await sequelize.transaction(async (transaction) => {
+const result = await sequelize.transaction(async transaction => {
   // true
   console.log(sequelize.getCurrentClsTransaction() === transaction);
 });
@@ -203,23 +201,26 @@ const sequelize = new Sequelize({
 });
 
 const result = await sequelize.transaction(async transaction => {
-  return User.create({
-    firstName: 'Abraham',
-    lastName: 'Lincoln',
-  }, {
-    // You must specify this option when disableClsTransactions is true, or 
-    // this query will run outside of the transaction
-    // highlight-next-line
-    transaction,
-  });
+  return User.create(
+    {
+      firstName: 'Abraham',
+      lastName: 'Lincoln',
+    },
+    {
+      // You must specify this option when disableClsTransactions is true, or
+      // this query will run outside of the transaction
+      // highlight-next-line
+      transaction,
+    },
+  );
 });
 ```
 
 :::info
 
-The `transaction` object proposes the [`commit`] and [`rollback`] methods, 
+The `transaction` object proposes the [`commit`] and [`rollback`] methods,
 which are designed to be used with [unmanaged transactions](#unmanaged-transactions).  
-These methods *must not* be used in [managed transactions](#managed-transactions-recommended).
+These methods _must not_ be used in [managed transactions](#managed-transactions-recommended).
 
 :::
 
@@ -235,21 +236,26 @@ const transaction = await sequelize.startUnmanagedTransaction();
 try {
   // Then, we do some calls passing this transaction as an option:
 
-  const user = await User.create({
-    firstName: 'Bart',
-    lastName: 'Simpson'
-  }, { transaction });
+  const user = await User.create(
+    {
+      firstName: 'Bart',
+      lastName: 'Simpson',
+    },
+    { transaction },
+  );
 
-  await user.addSibling({
-    firstName: 'Lisa',
-    lastName: 'Simpson'
-  }, { transaction });
+  await user.addSibling(
+    {
+      firstName: 'Lisa',
+      lastName: 'Simpson',
+    },
+    { transaction },
+  );
 
   // If the execution reaches this line, no errors were thrown.
   // We commit the transaction.
   await t.commit();
 } catch (error) {
-
   // If the execution reaches this line, an error was thrown.
   // We rollback the transaction.
   await t.rollback();
@@ -280,23 +286,26 @@ The possible isolation levels to use when starting a transaction:
 import { IsolationLevel } from '@sequelize/core';
 
 // The following are valid isolation levels:
-IsolationLevel.READ_UNCOMMITTED
-IsolationLevel.READ_COMMITTED
-IsolationLevel.REPEATABLE_READ
-IsolationLevel.SERIALIZABLE
+IsolationLevel.READ_UNCOMMITTED;
+IsolationLevel.READ_COMMITTED;
+IsolationLevel.REPEATABLE_READ;
+IsolationLevel.SERIALIZABLE;
 ```
 
-By default, sequelize uses the isolation level of the database. 
+By default, sequelize uses the isolation level of the database.
 If you want to use a different isolation level, pass in the desired level as the first argument:
 
 ```ts
 import { IsolationLevel } from '@sequelize/core';
 
-await sequelize.transaction({
-  isolationLevel: IsolationLevel.SERIALIZABLE
-}, async (t) => {
-  // Your code
-});
+await sequelize.transaction(
+  {
+    isolationLevel: IsolationLevel.SERIALIZABLE,
+  },
+  async t => {
+    // Your code
+  },
+);
 ```
 
 You can also change the default `isolationLevel` globally by setting the option in the Sequelize constructor:
@@ -322,11 +331,14 @@ In Sequelize, you can enable this behavior by setting the `constraintChecking` o
 ```ts
 import { ConstraintChecking } from '@sequelize/core';
 
-await sequelize.transaction({
-  constraintChecking: ConstraintChecking.DEFERRED
-}, async (t) => {
-  // Your code
-});
+await sequelize.transaction(
+  {
+    constraintChecking: ConstraintChecking.DEFERRED,
+  },
+  async t => {
+    // Your code
+  },
+);
 ```
 
 You can also specify which constraints to defer by passing an array of constraint names:
@@ -334,11 +346,14 @@ You can also specify which constraints to defer by passing an array of constrain
 ```ts
 import { ConstraintChecking } from '@sequelize/core';
 
-await sequelize.transaction({
-  constraintChecking: ConstraintChecking.DEFERRED(['project_owner_fk'])
-}, async (t) => {
-  // Your code
-});
+await sequelize.transaction(
+  {
+    constraintChecking: ConstraintChecking.DEFERRED(['project_owner_fk']),
+  },
+  async t => {
+    // Your code
+  },
+);
 ```
 
 ### Read replication
@@ -349,11 +364,14 @@ you can let Sequelize know whether the transaction is _only_ going to be used fo
 This will cause Sequelize to open the transaction against a read replica instead of the primary server.
 
 ```ts
-await sequelize.transaction({
-  readOnly: true
-}, async (t) => {
-  // Your code
-});
+await sequelize.transaction(
+  {
+    readOnly: true,
+  },
+  async t => {
+    // Your code
+  },
+);
 ```
 
 ## Transaction Hooks
@@ -366,7 +384,7 @@ This hook is supported by both managed and unmanaged transaction objects:
 
 ```js
 // Managed transaction:
-await sequelize.transaction(async (t) => {
+await sequelize.transaction(async t => {
   t.afterCommit(() => {
     // Your logic
   });
@@ -382,13 +400,13 @@ await t.commit();
 
 The callback passed to `afterCommit` can be `async`. In this case:
 
-* For a managed transaction: the [`sequelize.transaction`] call will wait for it before settling;
-* For an unmanaged transaction: the [`commit`] call will wait for it before settling.
+- For a managed transaction: the [`sequelize.transaction`] call will wait for it before settling;
+- For an unmanaged transaction: the [`commit`] call will wait for it before settling.
 
 Notes:
 
-* The `afterCommit` hook is not called if the transaction is rolled back.
-* Unlike most hooks, the `afterCommit` hook does not allow modifying the return value of the transaction.
+- The `afterCommit` hook is not called if the transaction is rolled back.
+- Unlike most hooks, the `afterCommit` hook does not allow modifying the return value of the transaction.
 
 You can use the `afterCommit` hook in conjunction with model hooks to know when an instance is saved and available outside a transaction
 
@@ -397,7 +415,9 @@ User.hooks.addListener('afterSave', (instance, options) => {
   if (options.transaction) {
     // Save done within a transaction, wait until transaction is committed to
     // notify listeners the instance has been saved
-    options.transaction.afterCommit(() => { /* Your Logic */ })
+    options.transaction.afterCommit(() => {
+      /* Your Logic */
+    });
     return;
   }
   // Save done outside a transaction, safe for callers to fetch the updated model
@@ -407,10 +427,10 @@ User.hooks.addListener('afterSave', (instance, options) => {
 
 ### The `afterRollback` hook
 
-The [`afterRollback`](pathname:///api/v7/classes/_sequelize_core.index.Transaction.html#afterRollback) 
+The [`afterRollback`](pathname:///api/v7/classes/_sequelize_core.index.Transaction.html#afterRollback)
 hook can be used to execute code immediately after the transaction has been rolled back.
 
-It works the same way as the [`afterCommit`](#the-aftercommit-hook) hook, 
+It works the same way as the [`afterCommit`](#the-aftercommit-hook) hook,
 except that it is called when the transaction is rolled back.
 
 ### The `afterTransaction` hook
@@ -429,7 +449,7 @@ Queries within a `transaction` can be performed with locks:
 return User.findAll({
   limit: 1,
   lock: true,
-  transaction: t1
+  transaction: t1,
 });
 ```
 
@@ -440,7 +460,7 @@ return User.findAll({
   limit: 1,
   lock: true,
   skipLocked: true,
-  transaction: t2
+  transaction: t2,
 });
 ```
 

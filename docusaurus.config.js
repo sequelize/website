@@ -12,12 +12,14 @@ const config = {
   url: 'https://sequelize.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   organizationName: 'sequelize',
   trailingSlash: true,
   projectName: 'sequelize',
   plugins: ['docusaurus-plugin-sass'],
   markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
     mermaid: true,
   },
   themes: ['@docusaurus/theme-mermaid'],
@@ -27,9 +29,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
-          remarkPlugins: [
-            [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
-          ],
+          remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/sequelize/website/tree/main/',
           showLastUpdateAuthor: true,

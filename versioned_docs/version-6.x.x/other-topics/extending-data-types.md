@@ -18,16 +18,15 @@ createTheNewDataType();
 const sequelize = new Sequelize('sqlite::memory:');
 
 function createTheNewDataType() {
-
   class SOMETYPE extends DataTypes.ABSTRACT {
     // Mandatory: complete definition of the new type in the database
     toSql() {
-      return 'INTEGER(11) UNSIGNED ZEROFILL'
+      return 'INTEGER(11) UNSIGNED ZEROFILL';
     }
 
     // Optional: validator function
     validate(value, options) {
-      return (typeof value === 'number') && (!Number.isNaN(value));
+      return typeof value === 'number' && !Number.isNaN(value);
     }
 
     // Optional: sanitizer
@@ -56,7 +55,6 @@ function createTheNewDataType() {
 
   // Optional: disable escaping after stringifier. Do this at your own risk, since this opens opportunity for SQL injections.
   // DataTypes.SOMETYPE.escape = false;
-
 }
 ```
 

@@ -41,6 +41,7 @@ Each dialect supports a different set of options. Follow the links below to see 
 - [DB2 for LUW](./databases/db2.mdx)
 - [DB2 for IBM i](./databases/ibmi.mdx)
 - [Snowflake](./databases/snowflake.mdx)
+- [Oracle](./databases/oracle.mdx)
 
 If your database is not listed above, Sequelize does not support it out of the box.
 However, Sequelize is extensible, and you can create your own dialect, or find a community-maintained one.
@@ -98,6 +99,18 @@ Sequelize provides built-in TypeScript support.
 Head to the [Version Policy page](/releases) to know which versions of TypeScript are supported,
 and make sure that the [`@types/node`](https://www.npmjs.com/package/@types/node) package corresponding to your Node.js version is installed
 in your project.
+
+:::info
+
+Sequelize makes use of the the [`exports`](https://nodejs.org/api/packages.html#exports) `package.json` field.
+You may need to update your `tsconfig.json` configuration to make sure TypeScript's module resolution supports it.
+
+At time of writing (TS 5.4), this can be done in two ways:
+
+- Set [`moduleResolution`](https://www.typescriptlang.org/tsconfig#moduleResolution) to `node16`, `nodenext`, or `bundler`,
+- or set [`resolvePackageJsonExports`](https://www.typescriptlang.org/tsconfig#resolvePackageJsonExports) to `true`.
+
+:::
 
 ## CommonJS or ESM?
 

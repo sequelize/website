@@ -31,11 +31,11 @@ import ConnectionOptions from './_connection-options.md';
 
 The following options are accepted by the SQLite dialect:
 
-| Option     | Description                                                                                                                                                                                                                                                                                                                                                                                                                              |
-|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `storage`  | Path to the SQLite database file.                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Option     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `storage`  | Path to the SQLite database file.                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `mode`     | An integer bit flag that represents the mode to open the database connection with.<br /><br />The mode can be a union (using `\|`) of `OPEN_READONLY`, `OPEN_READWRITE`, `OPEN_CREATE`, `OPEN_FULLMUTEX`, `OPEN_URI`, `OPEN_SHAREDCACHE`, `OPEN_PRIVATECACHE`, each of which are exposed by `@sequelize/sqlite`.<br/><br />Refer to the [SQLite documentation](https://www.sqlite.org/c3ref/open.html) to learn what each of these flags do. |
-| `password` | The "PRAGMA KEY" password to use for the connection, if using plugins like `sqlcipher`.                                                                                                                                                                                                                                                                                                                                                  |
+| `password` | The "PRAGMA KEY" password to use for the connection, if using plugins like `sqlcipher`.                                                                                                                                                                                                                                                                                                                                                      |
 
 ### Temporary Storages
 
@@ -60,5 +60,5 @@ const sequelize = new Sequelize({
 The following options are also available for SQLite:
 
 | Option        | Description                                            |
-|---------------|--------------------------------------------------------|
+| ------------- | ------------------------------------------------------ |
 | `foreignKeys` | If set to false, SQLite will not enforce foreign keys. |

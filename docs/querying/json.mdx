@@ -218,7 +218,7 @@ User.findAll({
   where: {
     jsonAttribute: {
       age: 18,
-      '[0]': '1'
+      '[0]': '1',
     },
   },
 });
@@ -499,14 +499,14 @@ SELECT * FROM "Users" WHERE JSON_EXTRACT(`jsonAttribute`, '$.name') IS NULL OR J
 Comparing against the JSON `null` and the SQL `NULL` gives different results based on the scenario.
 The exact behavior depends on the dialect you're using, but the following examples list common behaviors.
 
-|   | Comparing `x`                | `x IS NULL` (sql) | `x = 'null'` (json) |
-|---|------------------------------|-------------------|---------------------|
-| 1 | `NULL`                       | `true`            | `false`             |
-| 2 | `'null'`                     | `false`           | `true`              |
-| 3 | `'"null"'`                   | `false`           | `false`             |
-| 4 | `'{"name": "Alyx"}'->'name'` | `false`           | `false`             |
-| 5 | `'{"name": "Alyx"}'->'age'`  | `true`            | `false`             |
-| 6 | `'{"name": null}'->'name'`   | `false`           | `true`              |
+|     | Comparing `x`                | `x IS NULL` (sql) | `x = 'null'` (json) |
+| --- | ---------------------------- | ----------------- | ------------------- |
+| 1   | `NULL`                       | `true`            | `false`             |
+| 2   | `'null'`                     | `false`           | `true`              |
+| 3   | `'"null"'`                   | `false`           | `false`             |
+| 4   | `'{"name": "Alyx"}'->'name'` | `false`           | `false`             |
+| 5   | `'{"name": "Alyx"}'->'age'`  | `true`            | `false`             |
+| 6   | `'{"name": null}'->'name'`   | `false`           | `true`              |
 
 1. When the column contains the SQL `NULL`, it can be compared against the SQL `NULL`.
 2. When the column contains the JSON `null`, it can be compared against the JSON `null`.
@@ -514,4 +514,3 @@ The exact behavior depends on the dialect you're using, but the following exampl
 4. This example accesses a non-null property. Neither comparison would match this, as returned value is the JSON string `"Alyx"`.
 5. This example tries to access the `age` property, which does not exist. The SQL `NULL` is returned instead and can be compared against the SQL `NULL`.
 6. This example accesses the `name` property, which is set to the JSON `null`. It can be compared against the JSON `null`.
-

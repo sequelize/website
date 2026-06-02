@@ -26,8 +26,8 @@ queryInterface.createTable('Person', {
   isBetaMember: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 ```
 
@@ -60,7 +60,7 @@ ALTER TABLE `Person` ADD `petName` VARCHAR(255);
 queryInterface.changeColumn('Person', 'foo', {
   type: DataTypes.FLOAT,
   defaultValue: 3.14,
-  allowNull: false
+  allowNull: false,
 });
 ```
 
@@ -73,7 +73,9 @@ ALTER TABLE `Person` CHANGE `foo` `foo` FLOAT NOT NULL DEFAULT 3.14;
 ## Removing a column
 
 ```js
-queryInterface.removeColumn('Person', 'petName', { /* query options */ });
+queryInterface.removeColumn('Person', 'petName', {
+  /* query options */
+});
 ```
 
 Generated SQL (using PostgreSQL):
@@ -95,17 +97,17 @@ queryInterface.createTable('Person', {
   isBetaMember: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
-    allowNull: false
+    allowNull: false,
   },
   petName: DataTypes.STRING,
-  foo: DataTypes.INTEGER
+  foo: DataTypes.INTEGER,
 });
 
 // And we change a column:
 queryInterface.changeColumn('Person', 'foo', {
   type: DataTypes.FLOAT,
   defaultValue: 3.14,
-  allowNull: false
+  allowNull: false,
 });
 ```
 

@@ -18,10 +18,10 @@ $brand-primary-dark: #2e3b69;
 // using fluid will scale a pixel value based on the screen size, with a lower and upper bound.
 // it's brilliant for responsive design.
 @function fluid($min-vw, $max-vw, $min-size, $max-size) {
-  $u1: unit($min-vw);
-  $u2: unit($max-vw);
-  $u3: unit($min-size);
-  $u4: unit($max-size);
+  $u1: math.unit($min-vw);
+  $u2: math.unit($max-vw);
+  $u3: math.unit($min-size);
+  $u4: math.unit($max-size);
 
   @if $u1 == $u2 and $u3 == $u4 {
     @return max(
