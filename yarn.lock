@@ -10788,6 +10788,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"docusaurus-plugin-copy-page-button@npm:^0.8.1":
+  version: 0.8.1
+  resolution: "docusaurus-plugin-copy-page-button@npm:0.8.1"
+  peerDependencies:
+    "@docusaurus/core": ^3.0.0
+    react: ^18.0.0 || ^19.0.0
+  checksum: 10c0/be9a9206f2035069416d8b4d7d98adc2ecece0bee7be629becf0644b5efda65949b7ad2afdf169b9db105d26f847bbfa638204a5981a198e9f50bdeffafc8692
+  languageName: node
+  linkType: hard
+
 "docusaurus-plugin-sass@npm:0.2.6":
   version: 0.2.6
   resolution: "docusaurus-plugin-sass@npm:0.2.6"
@@ -20739,6 +20749,7 @@ __metadata:
     "@sequelize/utils": "npm:7.0.0-alpha.48"
     clsx: "npm:2.1.1"
     concurrently: "npm:9.2.1"
+    docusaurus-plugin-copy-page-button: "npm:^0.8.1"
     docusaurus-plugin-sass: "npm:0.2.6"
     eslint: "npm:9.39.4"
     eslint-plugin-jsx-a11y: "npm:6.10.2"

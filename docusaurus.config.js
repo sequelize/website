@@ -15,7 +15,7 @@ const config = {
   organizationName: 'sequelize',
   trailingSlash: true,
   projectName: 'sequelize',
-  plugins: ['docusaurus-plugin-sass'],
+  plugins: ['docusaurus-plugin-sass', 'docusaurus-plugin-copy-page-button'],
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: 'warn',

@@ -30,6 +30,7 @@
     "@react-hookz/web": "25.2.0",
     "@sequelize/utils": "7.0.0-alpha.48",
     "clsx": "2.1.1",
+    "docusaurus-plugin-copy-page-button": "^0.8.1",
     "docusaurus-plugin-sass": "0.2.6",
     "prism-react-renderer": "2.4.1",
     "raw-loader": "4.0.2",
