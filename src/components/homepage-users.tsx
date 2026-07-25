@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import type { ReactElement } from 'react';
 import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import styles from './homepage-users.module.scss';
@@ -59,7 +60,7 @@ const users: User[] = [
   },
 ];
 
-export function HomepageUsers(): JSX.Element {
+export function HomepageUsers(): ReactElement {
   const [activeUser, setActiveUser] = useState<User>(users[0]);
   const [width, setWidth] = useState<number>(window.innerWidth);
 

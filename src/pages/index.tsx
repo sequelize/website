@@ -4,6 +4,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import clsx from 'clsx';
+import type { ReactElement } from 'react';
 import React from 'react';
 import { HomepageFeatures } from '../components/homepage-features';
 import { HomepageUsage } from '../components/homepage-usage';
@@ -58,7 +59,7 @@ function HomepageHeader() {
   );
 }
 
-export default function Home(): JSX.Element {
+export default function Home(): ReactElement {
   const { siteConfig } = useDocusaurusContext();
 
   return (

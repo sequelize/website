@@ -1,0 +1,1088 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <base data-ice="baseUrl" href="../../" />
+    <title data-ice="title">FLOAT | Sequelize</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+    <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css" />
+    <script src="script/prettify/prettify.js"></script>
+    <script src="script/manual.js"></script>
+    <link rel="stylesheet" href="./inject/css/0-style.css" />
+    <link rel="stylesheet" href="./inject/css/0-theme.css" />
+    <meta name="description" content="An easy-to-use multi SQL dialect ORM for Node.js" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:title" content="Sequelize" />
+    <meta
+      property="twitter:description"
+      content="An easy-to-use multi SQL dialect ORM for Node.js" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="layout-container" data-ice="rootContainer">
+    <header>
+      <a href="./" style="display: flex; align-items: center"
+        ><img src="./image/brand_logo.png" style="width: 34px"
+      /></a>
+      <a href="/docs/v6/intro/" data-ice="manualHeaderLink" class="api-reference-link">Guides</a>
+      <a href="identifiers.html">Reference</a>
+      <a href="source.html">Source</a>
+
+      <div class="search-box">
+        <span>
+          <img src="./image/search.png" />
+          <span class="search-input-edge"></span><input class="search-input" /><span
+            class="search-input-edge"></span>
+        </span>
+        <ul class="search-result"></ul>
+      </div>
+      <a style="position: relative; top: 3px" href="https://github.com/sequelize/sequelize"
+        ><img width="30px" src="./image/github.png" style="width: 30px"
+      /></a>
+    </header>
+
+    <nav class="navigation" data-ice="nav">
+      <button id="navigationHamburger" class="hamburger" type="button">
+        <span class="line"></span><span class="line"></span><span class="line"></span>
+      </button>
+      <div>
+        <ul>
+          <li data-ice="doc" style="margin-top: 15px">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/model.js~Model.html">Model</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/sequelize.js~Sequelize.html">Sequelize</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/transaction.js~Transaction.html">Transaction</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-function">F</span
+            ><span data-ice="name"
+              ><span><a href="function/index.html#static-function-format">format</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-function">F</span
+            ><span data-ice="name"
+              ><span
+                ><a href="function/index.html#static-function-formatNamedParameters"
+                  >formatNamedParameters</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-function">F</span
+            ><span data-ice="name"
+              ><span
+                ><a href="function/index.html#static-function-safeStringifyJson"
+                  >safeStringifyJson</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-variable">V</span
+            ><span data-ice="name"
+              ><span
+                ><a href="variable/index.html#static-variable-DataTypes">DataTypes</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-variable">V</span
+            ><span data-ice="name"
+              ><span
+                ><a href="variable/index.html#static-variable-Deferrable">Deferrable</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-variable">V</span
+            ><span data-ice="name"
+              ><span
+                ><a href="variable/index.html#static-variable-IndexHints">IndexHints</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-variable">V</span
+            ><span data-ice="name"
+              ><span
+                ><a href="variable/index.html#static-variable-QueryTypes">QueryTypes</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-variable">V</span
+            ><span data-ice="name"
+              ><span
+                ><a href="variable/index.html#static-variable-TableHints">TableHints</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#associations"
+              >associations</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/associations/base.js~Association.html">Association</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/associations/belongs-to-many.js~BelongsToMany.html"
+                  >BelongsToMany</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/associations/belongs-to.js~BelongsTo.html">BelongsTo</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/associations/has-many.js~HasMany.html">HasMany</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/associations/has-one.js~HasOne.html">HasOne</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-abstract"
+              >dialects/abstract</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/dialects/abstract/query-interface.js~QueryInterface.html"
+                  >QueryInterface</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-variable">V</span
+            ><span data-ice="name"
+              ><span
+                ><a href="variable/index.html#static-variable-ALLOWED_CAST_TYPES"
+                  >ALLOWED_CAST_TYPES</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-db2"
+              >dialects/db2</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/dialects/db2/query-interface.js~Db2QueryInterface.html"
+                  >Db2QueryInterface</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-mssql"
+              >dialects/mssql</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/dialects/mssql/async-queue.ts~AsyncQueueError.html"
+                  >AsyncQueueError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/dialects/mssql/query-interface.js~MSSqlQueryInterface.html"
+                  >MSSqlQueryInterface</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-mysql"
+              >dialects/mysql</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/dialects/mysql/query-interface.js~MySQLQueryInterface.html"
+                  >MySQLQueryInterface</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-oracle"
+              >dialects/oracle</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/dialects/oracle/query-interface.js~OracleQueryInterface.html"
+                  >OracleQueryInterface</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-postgres"
+              >dialects/postgres</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/dialects/postgres/query-interface.js~PostgresQueryInterface.html"
+                  >PostgresQueryInterface</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-snowflake"
+              >dialects/snowflake</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/dialects/snowflake/query-interface.js~SnowflakeQueryInterface.html"
+                  >SnowflakeQueryInterface</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#dialects-sqlite"
+              >dialects/sqlite</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/dialects/sqlite/query-interface.js~SQLiteQueryInterface.html"
+                  >SQLiteQueryInterface</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/aggregate-error.ts~AggregateError.html"
+                  >AggregateError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/association-error.ts~AssociationError.html"
+                  >AssociationError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/base-error.ts~BaseError.html">BaseError</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/bulk-record-error.ts~BulkRecordError.html"
+                  >BulkRecordError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/connection-error.ts~ConnectionError.html"
+                  >ConnectionError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/database-error.ts~DatabaseError.html"
+                  >DatabaseError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/eager-loading-error.ts~EagerLoadingError.html"
+                  >EagerLoadingError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/empty-result-error.ts~EmptyResultError.html"
+                  >EmptyResultError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/instance-error.ts~InstanceError.html"
+                  >InstanceError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/optimistic-lock-error.ts~OptimisticLockError.html"
+                  >OptimisticLockError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/query-error.ts~QueryError.html">QueryError</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/sequelize-scope-error.ts~SequelizeScopeError.html"
+                  >SequelizeScopeError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/validation-error.ts~ValidationError.html"
+                  >ValidationError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/validation-error.ts~ValidationErrorItem.html"
+                  >ValidationErrorItem</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-variable">V</span
+            ><span data-ice="name"
+              ><span
+                ><a href="variable/index.html#static-variable-ValidationErrorItemOrigin"
+                  >ValidationErrorItemOrigin</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-variable">V</span
+            ><span data-ice="name"
+              ><span
+                ><a href="variable/index.html#static-variable-ValidationErrorItemType"
+                  >ValidationErrorItemType</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-connection"
+              >errors/connection</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/connection/access-denied-error.ts~AccessDeniedError.html"
+                  >AccessDeniedError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/errors/connection/connection-acquire-timeout-error.ts~ConnectionAcquireTimeoutError.html"
+                  >ConnectionAcquireTimeoutError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/errors/connection/connection-refused-error.ts~ConnectionRefusedError.html"
+                  >ConnectionRefusedError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/errors/connection/connection-timed-out-error.ts~ConnectionTimedOutError.html"
+                  >ConnectionTimedOutError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/errors/connection/host-not-found-error.ts~HostNotFoundError.html"
+                  >HostNotFoundError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/errors/connection/host-not-reachable-error.ts~HostNotReachableError.html"
+                  >HostNotReachableError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/errors/connection/invalid-connection-error.ts~InvalidConnectionError.html"
+                  >InvalidConnectionError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-database"
+              >errors/database</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/errors/database/exclusion-constraint-error.ts~ExclusionConstraintError.html"
+                  >ExclusionConstraintError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/errors/database/foreign-key-constraint-error.ts~ForeignKeyConstraintError.html"
+                  >ForeignKeyConstraintError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/errors/database/timeout-error.ts~TimeoutError.html"
+                  >TimeoutError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/errors/database/unknown-constraint-error.ts~UnknownConstraintError.html"
+                  >UnknownConstraintError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors-validation"
+              >errors/validation</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a
+                  href="class/src/errors/validation/unique-constraint-error.ts~UniqueConstraintError.html"
+                  >UniqueConstraintError</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a
+            ><span data-ice="kind" class="kind-function">F</span
+            ><span data-ice="name"
+              ><span
+                ><a href="function/index.html#static-function-injectReplacements"
+                  >injectReplacements</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <a
+              data-ice="dirPath"
+              class="nav-dir-path"
+              href="variable/index.html#static-variable-DataTypes"
+              >datatypes</a
+            ><span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~ARRAY.html">ARRAY</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~VIRTUAL.html">VIRTUAL</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~UUIDV4.html">UUIDV4</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~UUIDV1.html">UUIDV1</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~UUID.html">UUID</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~TSVECTOR.html">TSVECTOR</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~TINYINT.html">TINYINT</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~TIME.html">TIME</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~TEXT.html">TEXT</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~STRING.html">STRING</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~SMALLINT.html">SMALLINT</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~REAL.html">REAL</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~RANGE.html">RANGE</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~NUMBER.html">NUMBER</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~NOW.html">NOW</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~MEDIUMINT.html">MEDIUMINT</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~MACADDR.html">MACADDR</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~JSONTYPE.html">JSONTYPE</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~JSONB.html">JSONB</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~INTEGER.html">INTEGER</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~INET.html">INET</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~HSTORE.html">HSTORE</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~GEOMETRY.html">GEOMETRY</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~GEOGRAPHY.html">GEOGRAPHY</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~FLOAT.html">FLOAT</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~ENUM.html">ENUM</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~DOUBLE.html">DOUBLE</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~DECIMAL.html">DECIMAL</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~DATEONLY.html">DATEONLY</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~DATE.html">DATE</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~CITEXT.html">CITEXT</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~CIDR.html">CIDR</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~CHAR.html">CHAR</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~BOOLEAN.html">BOOLEAN</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~BLOB.html">BLOB</a></span></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span><a href="class/src/data-types.js~BIGINT.html">BIGINT</a></span></span
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="content" data-ice="content">
+      <div class="header-notice">
+        <div data-ice="importPath" class="import-path">
+          <pre class="prettyprint"><code data-ice="importPathCode"></code></pre>
+        </div>
+        <span data-ice="access">public</span>
+        <span data-ice="kind">class</span>
+
+        <span data-ice="source"
+          >| <span><a href="file/src/data-types.js.html#lineNumber283">source</a></span></span
+        >
+      </div>
+
+      <div class="self-detail detail">
+        <h1 data-ice="name">FLOAT</h1>
+
+        <div class="flat-list" data-ice="extendsChain">
+          <h4>Extends:</h4>
+          <div>
+            <span>src/data-types.js~ABSTRACT</span> →
+            <span><a href="class/src/data-types.js~NUMBER.html">NUMBER</a></span> → FLOAT
+          </div>
+        </div>
+
+        <div class="description" data-ice="description">
+          <p>Floating point number (4-byte precision).</p>
+        </div>
+      </div>
+
+      <div data-ice="constructorSummary">
+        <h2>Constructor Summary</h2>
+        <table class="summary" data-ice="summary">
+          <thead>
+            <tr>
+              <td data-ice="title" colspan="3">Public Constructor</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ice="target">
+              <td>
+                <span class="access" data-ice="access">public</span>
+
+                <span class="override" data-ice="override"></span>
+              </td>
+              <td>
+                <div>
+                  <p>
+                    <span class="code" data-ice="name"
+                      ><span
+                        ><a
+                          href="class/src/data-types.js~FLOAT.html#instance-constructor-constructor"
+                          >constructor</a
+                        ></span
+                      ></span
+                    ><span class="code" data-ice="signature"
+                      >(length:
+                      <span
+                        ><a
+                          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String"
+                          >string</a
+                        ></span
+                      >
+                      |
+                      <span
+                        ><a
+                          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                          >number</a
+                        ></span
+                      >, decimals:
+                      <span
+                        ><a
+                          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String"
+                          >string</a
+                        ></span
+                      >
+                      |
+                      <span
+                        ><a
+                          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                          >number</a
+                        ></span
+                      >)</span
+                    >
+                  </p>
+                </div>
+                <div></div>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div data-ice="constructorDetails">
+        <h2 data-ice="title">Public Constructors</h2>
+
+        <div class="detail" data-ice="detail">
+          <h3 data-ice="anchor" id="instance-constructor-constructor">
+            <span class="access" data-ice="access">public</span>
+
+            <span class="code" data-ice="name">constructor</span
+            ><span class="code" data-ice="signature"
+              >(length:
+              <span
+                ><a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String"
+                  >string</a
+                ></span
+              >
+              |
+              <span
+                ><a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                  >number</a
+                ></span
+              >, decimals:
+              <span
+                ><a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String"
+                  >string</a
+                ></span
+              >
+              |
+              <span
+                ><a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                  >number</a
+                ></span
+              >)</span
+            >
+            <span class="right-info">
+              <span data-ice="source"
+                ><span><a href="file/src/data-types.js.html#lineNumber288">source</a></span></span
+              >
+            </span>
+          </h3>
+
+          <div data-ice="override">
+            <h4>Override:</h4>
+            <span
+              ><a href="class/src/data-types.js~NUMBER.html#instance-constructor-constructor"
+                >NUMBER#constructor</a
+              ></span
+            >
+          </div>
+
+          <div data-ice="properties">
+            <div data-ice="properties">
+              <h4 data-ice="title">Params:</h4>
+              <table class="params">
+                <thead>
+                  <tr>
+                    <td>Name</td>
+                    <td>Type</td>
+                    <td>Attribute</td>
+                    <td>Description</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-ice="property" data-depth="0">
+                    <td data-ice="name" class="code" data-depth="0">length</td>
+                    <td data-ice="type" class="code">
+                      <span
+                        ><a
+                          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String"
+                          >string</a
+                        ></span
+                      >
+                      |
+                      <span
+                        ><a
+                          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                          >number</a
+                        ></span
+                      >
+                    </td>
+                    <td data-ice="appendix">
+                      <ul>
+                        <li>optional</li>
+                      </ul>
+                    </td>
+                    <td data-ice="description">
+                      <p>length of type, like <code>FLOAT(4)</code></p>
+                    </td>
+                  </tr>
+                  <tr data-ice="property" data-depth="0">
+                    <td data-ice="name" class="code" data-depth="0">decimals</td>
+                    <td data-ice="type" class="code">
+                      <span
+                        ><a
+                          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String"
+                          >string</a
+                        ></span
+                      >
+                      |
+                      <span
+                        ><a
+                          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                          >number</a
+                        ></span
+                      >
+                    </td>
+                    <td data-ice="appendix">
+                      <ul>
+                        <li>optional</li>
+                      </ul>
+                    </td>
+                    <td data-ice="description">
+                      <p>number of decimal points, used with length <code>FLOAT(5, 4)</code></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      Generated by
+      <a href="https://esdoc.org"
+        >ESDoc<span data-ice="esdocVersion">(1.1.0)</span
+        ><img src="./image/esdoc-logo-mini-black.png"
+      /></a>
+    </footer>
+
+    <script src="script/search_index.js"></script>
+    <script src="script/search.js"></script>
+    <script src="script/pretty-print.js"></script>
+    <script src="script/inherited-summary.js"></script>
+    <script src="script/test-summary.js"></script>
+    <script src="script/inner-link.js"></script>
+    <script src="script/patch-for-local.js"></script>
+
+    <script>
+      'use strict';
+
+      (() => {
+        function toggleNavigationBar() {
+          const navigationElements = document.getElementsByClassName('navigation');
+          for (let i = 0; i < navigationElements.length; ++i) {
+            const navigationElement = navigationElements[i];
+            navigationElement.classList.toggle('open');
+          }
+        }
+
+        // Hamburger button - toggles the navigation bar
+        const hamburger = document.getElementById('navigationHamburger');
+        hamburger.addEventListener('click', () => {
+          toggleNavigationBar();
+        });
+
+        // Each link in the navigation bar - closes the navigation bar
+        const navigationLinks = document.querySelectorAll('.navigation a');
+        for (let i = 0; i < navigationLinks.length; ++i) {
+          const linkElement = navigationLinks[i];
+          linkElement.addEventListener('click', () => {
+            toggleNavigationBar();
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

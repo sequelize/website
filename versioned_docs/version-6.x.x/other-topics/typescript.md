@@ -106,7 +106,7 @@ You only need to use `CreationOptional` & `NonAttribute` on class instance field
 Example of a minimal TypeScript project with strict type-checking for attributes:
 
 import CodeBlock from '@theme/CodeBlock';
-import modelInitExample from '!!raw-loader!@site/.sequelize/v6/test/types/typescriptDocs/ModelInit.ts';
+import modelInitExample from '!!raw-loader!./\_snippets/model-init.txt';
 
 <CodeBlock className="language-typescript">
   {modelInitExample}
@@ -186,7 +186,7 @@ Some attributes don't actually need to be passed to `Model.init`, this is how yo
 The typings for Sequelize v5 allowed you to define models without specifying types for the attributes.
 This is still possible for backwards compatibility and for cases where you feel strict typing for attributes isn't worth it.
 
-import modelInitNoAttributesExample from '!!raw-loader!@site/.sequelize/v6/test/types/typescriptDocs/ModelInitNoAttributes.ts';
+import modelInitNoAttributesExample from '!!raw-loader!./\_snippets/model-init-no-attributes.txt';
 
 <CodeBlock className="language-typescript">
   {modelInitNoAttributesExample}
@@ -197,7 +197,7 @@ import modelInitNoAttributesExample from '!!raw-loader!@site/.sequelize/v6/test/
 In Sequelize versions before v5, the default way of defining a model involved using `Sequelize#define`.
 It's still possible to define models with that, and you can also add typings to these models using interfaces.
 
-import defineExample from '!!raw-loader!@site/.sequelize/v6/test/types/typescriptDocs/Define.ts';
+import defineExample from '!!raw-loader!./\_snippets/define.txt';
 
 <CodeBlock className="language-typescript">
   {defineExample}

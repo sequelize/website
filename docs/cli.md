@@ -645,7 +645,7 @@ For example:
 ...
 ```
 
-Use the command like so: `npm run migrage:up -- --url <url>`
+Use the command like so: `npm run migrate:up -- --url <url>`
 
 ### Programmatic usage
 

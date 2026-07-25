@@ -1,13 +1,14 @@
 import Link from '@docusaurus/Link';
 import CodeBlock from '@theme/CodeBlock';
 import clsx from 'clsx';
+import type { ReactElement } from 'react';
 import React from 'react';
 import { trim } from '../models/string';
 import styles from './homepage-features.module.scss';
 
 type FeatureItem = {
   code: string;
-  description: JSX.Element;
+  description: ReactElement;
   title: string;
 };
 
@@ -82,7 +83,7 @@ function Feature({ title, description, code }: FeatureItem) {
   );
 }
 
-export function HomepageFeatures(): JSX.Element {
+export function HomepageFeatures(): ReactElement {
   return (
     <section className={styles.features}>
       <div className="container">
