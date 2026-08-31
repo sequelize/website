@@ -1046,27 +1046,134 @@ You can now write the following:
 sql.where(sql.attribute('firstName'), Op.like, 'foo');
 ```
 
-### Changes to empty `OR` & `NOT` operators
+### Empty `OR` & `NOT` operators match no rows
 
-_Pull Request [#15598]_
+_Pull Requests [#15598] & [#18324]_
 
-Both `Op.or` and `Op.not` used to produce `'0=1'` if their object or array was empty. Both of them are now completely ignored instead:
+In Sequelize 6, both `Op.or` and `Op.not` produced `0 = 1` if their object or array was empty.
+Sequelize 7 alphas `7.0.0-alpha.24` through `7.0.0-alpha.48` ignored them entirely instead, producing no condition at
+all — which silently widened the query to _every_ row, including for `Model.update` and `Model.destroy`, where it
+defeated the safeguard that refuses to run those methods without a `where` option.
+
+Sequelize 7 goes back to producing a false condition. An empty disjunction is false, so all of the following match
+no rows:
 
 ```ts
-User.findAll({
-  where: or([]),
-});
+User.findAll({ where: { [Op.or]: [] } });
+User.findAll({ where: { [Op.or]: {} } });
+User.findAll({ where: { [Op.not]: [] } });
+User.findAll({ where: { [Op.not]: {} } });
+User.findAll({ where: or([]) });
+User.findAll({ where: or({}) });
 
-User.findAll({
-  where: not({}),
-});
+// Including when the operator is used on an attribute:
+User.findAll({ where: { firstName: { [Op.or]: [] } } });
+
+// And when the empty operator is nested inside another condition:
+User.findAll({ where: { [Op.and]: [{ firstName: 'zoe' }, { [Op.or]: [] }] } });
 ```
 
-Both produce the following query:
+Sequelize 6 produced `0 = 1` for the top-level forms, but dropped the attribute-level one
+(`{ firstName: { [Op.or]: [] } }`) entirely, matching every row. That form is fixed here too, so this is not purely a
+return to the Sequelize 6 behavior.
 
-```sql
-SELECT * FROM "users"
+An `Op.or` that is _empty_ is not the same as an `Op.or` with an empty _member_. A member that carries no condition
+contributes nothing to the disjunction, rather than satisfying it, so building an `Op.or` from optional parts still
+works:
+
+```ts
+// `0 = 1` — the disjunction has no members at all
+User.findAll({ where: { [Op.or]: [] } });
+
+// `"tenantId" = 1` — the empty member is not a condition, so only the other member applies
+User.findAll({ where: { [Op.or]: [{}, { tenantId: 1 }] } });
 ```
+
+:::info
+
+`Op.and` is not affected. An empty conjunction is vacuously true — it is the identity of `AND` — so `{ [Op.and]: [] }`
+still produces no condition, which is the correct SQL translation.
+
+:::
+
+### Empty `IN` & `NOT IN` operators
+
+_Pull Requests [#18250] & [#18324]_
+
+`{ [Op.in]: [] }` produced `IN (NULL)` in Sequelize 6 and in every Sequelize 7 alpha. In SQL three-valued logic that
+is `UNKNOWN`, not `FALSE`, and while the
+two are indistinguishable at the top level of a `WHERE` clause, `NOT (UNKNOWN)` is still `UNKNOWN` — so negating an
+empty `Op.in` matched no rows, where it should match every row.
+
+Membership of the empty set is false for every value, `NULL` included, so its negation is true for every value.
+Both operators now produce a constant:
+
+```ts
+User.findAll({ where: { age: { [Op.in]: [] } } }); // 0 = 1 — matches no rows
+User.findAll({ where: { age: { [Op.notIn]: [] } } }); // 1 = 1 — matches every row
+
+// The negations are now the opposite of those, as they should be:
+User.findAll({ where: { [Op.not]: { age: { [Op.in]: [] } } } }); // 1 = 1
+User.findAll({ where: { [Op.not]: { age: { [Op.notIn]: [] } } } }); // 0 = 1
+```
+
+An array value is inferred as `Op.in`, so `{ [Op.not]: { age: [] } }` behaves the same way as the third line above.
+
+The emitted SQL for a bare `{ [Op.in]: [] }` changes from `IN (NULL)` to `0 = 1`. The two are equivalent inside a
+top-level `WHERE`, but code asserting on the exact generated SQL will see a difference.
+
+### `null` inside an `IN` or `NOT IN` list
+
+_Pull Request [#18324]_
+
+`x NOT IN (1, NULL)` is `UNKNOWN` for every row, so it matched nothing at all, and `x IN (1, NULL)` never matched a
+`NULL` value. Sequelize already rewrites `{ age: null }` to `age IS NULL` rather than emitting `age = NULL`; a `null`
+inside a list is now compared the same way, and means "or is null":
+
+```ts
+User.findAll({ where: { age: { [Op.in]: [1, null] } } });
+// "age" IN (1) OR "age" IS NULL
+
+User.findAll({ where: { age: { [Op.notIn]: [1, null] } } });
+// "age" NOT IN (1) AND "age" IS NOT NULL
+
+User.findAll({ where: { age: { [Op.in]: [null] } } });
+// "age" IS NULL
+```
+
+If you were relying on the `null` being passed through to SQL as a list element, remove it from the list.
+
+### Statements that modify rows reject a `where` that matches every row
+
+_Pull Request [#18324]_
+
+`Model.update`, `Model.destroy`, `Model.increment` and `Model.decrement` only checked that a `where` option was
+_passed_, not what it meant. A condition built from a list that turned out to be empty therefore compiled to a
+condition that is true for every row, and the statement rewrote the whole table:
+
+```ts
+// Before: UPDATE "users" SET ... WHERE 1 = 1 — every row updated
+// Now: throws
+await User.update({ isActive: false }, { where: { id: { [Op.notIn]: excludedIds } } });
+```
+
+These methods now throw when the `where` you pass is true for every row on its own. Conditions Sequelize adds itself,
+such as a scope or the `deletedAt` clause of a paranoid model, are not counted, so a real filter of your own alongside
+an empty list still runs:
+
+```ts
+// Runs: the tenant filter is a real restriction
+await User.destroy({ where: { tenantId: 5, id: { [Op.notIn]: [] } } });
+```
+
+To affect every row deliberately, pass a condition that says so — which is the same value `Model.destroy` already
+suggests when no `where` is given at all:
+
+```ts
+await User.destroy({ where: sql`1 = 1` });
+```
+
+Reads are unaffected: `Model.findAll({ where: { id: { [Op.notIn]: [] } } })` returns every row, as it always has.
 
 ### Removed support for raw SQL in `json()`
 
@@ -1186,3 +1293,5 @@ stop working in a future major release.
 [#15292]: https://github.com/sequelize/sequelize/pull/15292
 [#15598]: https://github.com/sequelize/sequelize/pull/15598
 [#16514]: https://github.com/sequelize/sequelize/pull/16514
+[#18250]: https://github.com/sequelize/sequelize/pull/18250
+[#18324]: https://github.com/sequelize/sequelize/pull/18324
