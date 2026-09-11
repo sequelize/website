@@ -33,6 +33,10 @@ A curated list of awesome projects surrounding Sequelize.
 - [sequelize-mig](https://github.com/MRVMV/sequelize-mig) - Sequelize migration generator
 - [sequelizemm](https://github.com/hasinoorit/sequelizemm) - CLI tool to generate a migration script from models
 
+## Managed databases
+
+- [Appwrite managed PostgreSQL](https://appwrite.io/docs/products/databases/postgresql/integrations/sequelize) - Guide for connecting Sequelize to Appwrite managed Postgres (standard postgres dialect, TLS).
+
 ## Miscellaneous
 
 - [sequelize-pg-utilities](https://github.com/davesag/sequelize-pg-utilities) - Opinionated set of database utilities.
