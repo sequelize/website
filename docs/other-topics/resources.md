@@ -35,7 +35,7 @@ A curated list of awesome projects surrounding Sequelize.
 
 ## Managed databases
 
-- [Appwrite managed PostgreSQL](https://appwrite.io/docs/products/databases/postgresql/integrations/drivers) - Node.js driver guide for Appwrite managed Postgres; Sequelize connects through the standard `postgres` dialect (node-postgres) with TLS.
+- [Appwrite managed PostgreSQL](https://appwrite.io/docs/products/databases/postgresql/integrations/sequelize) - Sequelize guide for Appwrite managed Postgres (standard `postgres` dialect, TLS). Examples use Sequelize 6; v7 alphas use the same connection URLs.
 
 ## Miscellaneous
 
