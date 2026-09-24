@@ -446,7 +446,7 @@ User.findAll({
       association: User.associations.posts,
       where: sql.where(
         // highlight-next-line
-        sql.attribute('$user$.name'),
+        sql.attribute('$user.name$'),
         Op.eq,
         'Zoe',
       ),
