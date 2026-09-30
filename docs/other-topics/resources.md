@@ -32,6 +32,7 @@ A curated list of awesome projects surrounding Sequelize.
 - [sequelize-cli](https://github.com/sequelize/cli) - The Sequelize Command Line Interface. Includes umzug-based migrations.
 - [sequelize-mig](https://github.com/MRVMV/sequelize-mig) - Sequelize migration generator
 - [sequelizemm](https://github.com/hasinoorit/sequelizemm) - CLI tool to generate a migration script from models
+- [pgfence](https://github.com/flvmnt/pgfence) - PostgreSQL migration analyzer with Sequelize support, lock-risk checks, and safe rewrite suggestions.
 
 ## Miscellaneous
 
