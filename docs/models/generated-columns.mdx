@@ -1,0 +1,250 @@
+---
+sidebar_position: 6
+title: Generated Columns
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { DialectTableFilter } from '@site/src/components/dialect-table-filter.tsx';
+
+# Generated Columns
+
+A generated column is a column whose value the database computes from an SQL expression, using the other columns of the same row.
+Sequelize never writes to a generated column, but you can read, filter, sort and index it like any other column.
+
+Use a generated column when you need a derived value in the database itself, for instance to query or index it.
+If you only need the value in JavaScript, a [virtual attribute](./getters-setters-virtuals.md#virtual-attributes) is simpler.
+
+## Defining a generated column
+
+Add the [`@GeneratedAs`] decorator to an attribute, and pass it the SQL expression the database computes the value from.
+The attribute still needs [`@Attribute`] to declare its data type.
+
+<Tabs groupId="ts-js">
+<TabItem value="ts" label="TypeScript">
+
+```ts
+import {
+  DataTypes,
+  Model,
+  sql,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from '@sequelize/core';
+import { Attribute, GeneratedAs, NotNull } from '@sequelize/core/decorators-legacy';
+
+class LineItem extends Model<InferAttributes<LineItem>, InferCreationAttributes<LineItem>> {
+  @Attribute(DataTypes.INTEGER)
+  @NotNull
+  declare unitPrice: number;
+
+  @Attribute(DataTypes.INTEGER)
+  @NotNull
+  declare quantity: number;
+
+  @Attribute(DataTypes.INTEGER)
+  // highlight-next-line
+  @GeneratedAs(sql`${sql.attribute('unitPrice')} * ${sql.attribute('quantity')}`)
+  declare total: CreationOptional<number>;
+}
+```
+
+:::info `CreationOptional`
+
+The database computes the value of a generated column, so it is never passed to methods such as `LineItem.create`.
+Use the [`CreationOptional`] type to let TypeScript know about it.
+
+:::
+
+</TabItem>
+<TabItem value="js" label="JavaScript">
+
+```js
+import { DataTypes, Model, sql } from '@sequelize/core';
+import { Attribute, GeneratedAs, NotNull } from '@sequelize/core/decorators-legacy';
+
+class LineItem extends Model {
+  @Attribute(DataTypes.INTEGER)
+  @NotNull
+  unitPrice;
+
+  @Attribute(DataTypes.INTEGER)
+  @NotNull
+  quantity;
+
+  @Attribute(DataTypes.INTEGER)
+  // highlight-next-line
+  @GeneratedAs(sql`${sql.attribute('unitPrice')} * ${sql.attribute('quantity')}`)
+  total;
+}
+```
+
+</TabItem>
+</Tabs>
+
+In PostgreSQL, the `total` column is created like this:
+
+```sql
+"total" INTEGER GENERATED ALWAYS AS ("unitPrice" * "quantity") STORED
+```
+
+Without decorators, use the `generatedAs` attribute option, which accepts the same value as the decorator:
+
+```ts
+const LineItem = sequelize.define('LineItem', {
+  unitPrice: { type: DataTypes.INTEGER, allowNull: false },
+  quantity: { type: DataTypes.INTEGER, allowNull: false },
+  total: {
+    type: DataTypes.INTEGER,
+    // highlight-next-line
+    generatedAs: sql`${sql.attribute('unitPrice')} * ${sql.attribute('quantity')}`,
+  },
+});
+```
+
+### Writing the expression
+
+The expression must be an SQL expression built with the [`sql`] tag, or with functions like `sql.fn`.
+Plain strings are rejected, because Sequelize would escape them as a string value.
+
+`sql.attribute()` resolves to the name of the column, so the expression keeps working if you rename columns
+with [`@ColumnName`] or a [naming strategy](./naming-strategies.mdx).
+
+The rest of the rules come from your database, and are roughly the same in every dialect:
+
+- The expression can only read columns of the same row. Subqueries are not allowed.
+- It can only call deterministic functions, such as `lower()` or `abs()`, but not `now()` or `random()`.
+- A generated column cannot have a default value, and cannot be auto-incremented.
+
+:::caution Values from other tables
+
+A generated column cannot depend on another table, for instance to pick "the current customer of this location" from a join table.
+Even through a function, the database only recomputes a stored value when its own row changes, not when the other table does.
+
+For values like these, use a database view, or a regular column kept up to date by a trigger.
+
+:::
+
+## Stored and virtual columns
+
+Generated columns come in two kinds:
+
+- **Stored** columns are computed when the row is written, and saved on disk. This is the default.
+- **Virtual** columns are computed every time the row is read, and take no space.
+
+To create a virtual column, pass an object with `stored: false` instead of the expression:
+
+```ts
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare email: string;
+
+  @Attribute(DataTypes.STRING)
+  // highlight-next-line
+  @GeneratedAs({ expression: sql`lower(${sql.attribute('email')})`, stored: false })
+  declare normalizedEmail: CreationOptional<string>;
+}
+```
+
+Not every database supports both kinds:
+
+<DialectTableFilter>
+
+|         | PostgreSQL | MariaDB | MySQL | MSSQL             | SQLite | Snowflake | db2 | ibmi | Oracle        |
+| ------- | ---------- | ------- | ----- | ----------------- | ------ | --------- | --- | ---- | ------------- |
+| Stored  | v12+       | Yes     | Yes   | Yes (`PERSISTED`) | Yes    | No        | Yes | No   | No            |
+| Virtual | v18+       | Yes     | Yes   | Yes               | Yes    | No        | No  | No   | Yes (default) |
+
+</DialectTableFilter>
+
+In Oracle, which only supports virtual columns, `@GeneratedAs` creates a virtual column by default.
+Requesting a kind of generated column your dialect does not support throws an error.
+
+## Reading and writing
+
+Sequelize leaves generated columns out of every `INSERT` and `UPDATE`.
+Values you set on a generated attribute are ignored, and validation skips generated attributes.
+
+After you save an instance, for instance through `create`, `save` or `instance.update`, the instance holds the value the database computed:
+
+```ts
+const item = await LineItem.create({ unitPrice: 3, quantity: 2 });
+console.log(item.total); // 6
+
+await item.update({ quantity: 5 });
+console.log(item.total); // 15
+```
+
+PostgreSQL, SQLite and MSSQL return the new values as part of the write.
+The other dialects read them back with one extra query, which only happens for models that have generated columns.
+
+:::note
+
+After `Model.bulkCreate` in MySQL, MariaDB, Oracle and db2, and after static methods such as
+`Model.update` and `Model.increment`, call `instance.reload()` or query the rows again to get the new values.
+
+:::
+
+## Indexes, unique constraints & foreign keys
+
+A generated column can be [indexed](./indexes.md) or marked unique like any other attribute.
+PostgreSQL is the exception: it cannot index virtual generated columns.
+
+A generated column can also be a foreign key, including the foreign key of an association:
+
+```ts
+class Delivery extends Model<InferAttributes<Delivery>, InferCreationAttributes<Delivery>> {
+  @Attribute(DataTypes.INTEGER)
+  declare billToCustomerId: number | null;
+
+  @Attribute(DataTypes.INTEGER)
+  @NotNull
+  declare ownerId: number;
+
+  // the customer who pays: the bill-to customer if there is one, otherwise the owner
+  @Attribute(DataTypes.INTEGER)
+  @GeneratedAs(sql`COALESCE(${sql.attribute('billToCustomerId')}, ${sql.attribute('ownerId')})`)
+  declare payerId: CreationOptional<number>;
+
+  // highlight-next-line
+  @BelongsTo(() => Customer, 'payerId')
+  declare payer?: NonAttribute<Customer>;
+}
+
+// the payer is a regular association, it can be included and filtered on
+const deliveries = await Delivery.findAll({ include: ['payer'] });
+```
+
+Databases do not allow `ON DELETE SET NULL` or `ON UPDATE CASCADE` on generated columns,
+so Sequelize does not add these default actions to generated foreign keys. You can still set `onDelete: 'CASCADE'` yourself.
+Association setters such as `delivery.setPayer()` cannot change a generated foreign key: change the columns it is computed from instead.
+
+Other tables can also reference a generated column, as long as it is unique, by using it as the `targetKey` of a [`@BelongsTo`] association.
+
+## Synchronization & migrations
+
+[`sync()`](./model-synchronization.md) creates generated columns along with the table.
+
+`sync({ alter: true })` adds generated columns that are missing from the table, but never alters existing ones,
+nor the columns their expression reads: most databases refuse to change a column that a generated column depends on.
+To change the expression of a generated column, use a [migration](./migrations.md) that removes the column and adds it back.
+For instance, to subtract a `discount` column from the total:
+
+```ts
+await queryInterface.removeColumn('LineItems', 'total');
+await queryInterface.addColumn('LineItems', 'total', {
+  type: DataTypes.INTEGER,
+  generatedAs: sql`${sql.identifier('unitPrice')} * ${sql.identifier('quantity')} - ${sql.identifier('discount')}`,
+});
+```
+
+Migrations are not tied to a model, so use `sql.identifier()` with the column names instead of `sql.attribute()`.
+
+[`@GeneratedAs`]: pathname:///api/v7/variables/_sequelize_core.decorators_legacy.GeneratedAs.html
+[`@Attribute`]: pathname:///api/v7/functions/_sequelize_core.decorators_legacy.Attribute.html
+[`@ColumnName`]: pathname:///api/v7/variables/_sequelize_core.decorators_legacy.ColumnName.html
+[`@BelongsTo`]: pathname:///api/v7/functions/_sequelize_core.decorators_legacy.BelongsTo.html
+[`CreationOptional`]: pathname:///api/v7/types/_sequelize_core.index.CreationOptional.html
+[`sql`]: pathname:///api/v7/variables/_sequelize_core.index.sql.html
