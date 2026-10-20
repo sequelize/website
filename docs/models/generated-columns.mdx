@@ -113,16 +113,67 @@ with [`@ColumnName`] or a [naming strategy](./naming-strategies.mdx).
 
 The rest of the rules come from your database, and are roughly the same in every dialect:
 
-- The expression can only read columns of the same row. Subqueries are not allowed.
+- The expression can only read columns of the same row, so subqueries are not allowed. In PostgreSQL, [`dependsOn`](#reading-other-tables) lifts this limit.
 - It can only call deterministic functions, such as `lower()` or `abs()`, but not `now()` or `random()`.
 - A generated column cannot have a default value, and cannot be auto-incremented.
 
-:::caution Values from other tables
+## Reading other tables
 
-A generated column cannot depend on another table, for instance to pick "the current customer of this location" from a join table.
-Even through a function, the database only recomputes a stored value when its own row changes, not when the other table does.
+Databases only compute a generated column from its own row. In PostgreSQL, Sequelize also supports expressions
+that read other tables, such as "the current fuel customer of this location", picked from a join table.
+List the associations whose tables the expression reads in `dependsOn`:
 
-For values like these, use a database view, or a regular column kept up to date by a trigger.
+```ts
+class Location extends Model<InferAttributes<Location>, InferCreationAttributes<Location>> {
+  // the newest active link of type 'fuel', whose customer is not deleted
+  @Attribute(DataTypes.INTEGER)
+  @GeneratedAs({
+    expression: sql`(
+      SELECT link."customerId" FROM "CustomerLocations" AS link
+        JOIN customers ON customers.id = link."customerId" AND customers."deletedAt" IS NULL
+       WHERE link."locationId" = ${sql.attribute('id')} AND link."endAt" IS NULL AND link.type = 'fuel'
+       ORDER BY link.id DESC
+       LIMIT 1
+    )`,
+    // highlight-next-line
+    dependsOn: ['customers'],
+  })
+  declare fuelCustomerId: CreationOptional<number | null>;
+
+  @BelongsTo(() => Customer, { foreignKey: 'fuelCustomerId', foreignKeyConstraints: false })
+  declare fuelCustomer?: NonAttribute<Customer>;
+
+  @BelongsToMany(() => Customer, { through: () => CustomerLocation })
+  declare customers?: NonAttribute<Customer[]>;
+}
+```
+
+The column is then a regular column that Sequelize keeps up to date with triggers it generates from the definition:
+
+- When a row of the model is written, a trigger computes the column for that row.
+- When rows of the tables of the associations change, other triggers recompute the column for the rows they affect,
+  found through the keys of the association. For `customers`, a `belongsToMany`, these tables are both the
+  `CustomerLocations` join table and `customers`. They only write the rows whose value changes.
+- When the triggers are created, the column is computed for the existing rows.
+
+Inside the expression, `sql.attribute()` refers to the columns of the model's table, even within a subquery that
+has columns with the same name.
+
+[`sync()`](./model-synchronization.md) creates, replaces and drops the triggers. In [migrations](./migrations.md),
+add the column, then call `syncGeneratedColumnTriggers` with the model:
+
+```ts
+await queryInterface.addColumn('atu', 'fuelCustomerId', { type: DataTypes.INTEGER });
+await queryInterface.syncGeneratedColumnTriggers(sequelize.models.getOrThrow('Location'));
+```
+
+It only maintains the columns that already exist, so a migration that adds another column later calls it again.
+It also drops the triggers of columns that no longer use `dependsOn`.
+
+:::note
+
+These columns are always stored. `TRUNCATE` does not run triggers, so truncating a table the expression reads
+leaves the column as it was.
 
 :::
 
