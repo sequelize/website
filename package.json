@@ -22,39 +22,39 @@
     "write-translations": "docusaurus write-translations"
   },
   "dependencies": {
-    "@docusaurus/core": "3.10.0",
-    "@docusaurus/preset-classic": "3.10.0",
-    "@docusaurus/remark-plugin-npm2yarn": "^3.9.2",
-    "@docusaurus/theme-mermaid": "3.10.0",
+    "@docusaurus/core": "3.10.2",
+    "@docusaurus/preset-classic": "3.10.2",
+    "@docusaurus/remark-plugin-npm2yarn": "3.10.2",
+    "@docusaurus/theme-mermaid": "3.10.2",
     "@mdx-js/react": "3.1.1",
-    "@react-hookz/web": "25.2.0",
+    "@react-hookz/web": "26.1.0",
     "@sequelize/utils": "7.0.0-alpha.48",
     "clsx": "2.1.1",
-    "docusaurus-plugin-sass": "0.2.6",
+    "docusaurus-plugin-sass": "0.2.7",
     "prism-react-renderer": "2.4.1",
     "raw-loader": "4.0.2",
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "react-feather": "2.0.10",
     "react-responsive-carousel": "3.2.23",
-    "sass": "1.99.0"
+    "sass": "1.106.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.10.0",
-    "@docusaurus/tsconfig": "3.10.0",
+    "@docusaurus/module-type-aliases": "3.10.2",
+    "@docusaurus/tsconfig": "3.10.2",
     "@ephys/eslint-config-typescript": "21.0.1",
     "@rushstack/eslint-patch": "1.16.1",
-    "concurrently": "9.2.1",
-    "eslint": "9.39.4",
+    "concurrently": "10.0.6",
+    "eslint": "9.39.5",
     "eslint-plugin-jsx-a11y": "6.10.2",
-    "eslint-plugin-mdx": "3.7.0",
+    "eslint-plugin-mdx": "3.8.2",
     "eslint-plugin-react": "7.37.5",
-    "eslint-plugin-react-hooks": "7.0.1",
+    "eslint-plugin-react-hooks": "7.1.1",
     "husky": "9.1.7",
-    "lint-staged": "16.4.0",
-    "netlify-cli": "24.11.1",
-    "prettier": "3.8.2",
-    "typescript": "6.0.2"
+    "lint-staged": "17.6.0",
+    "netlify-cli": "27.14.2",
+    "prettier": "3.9.10",
+    "typescript": "6.0.3"
   },
   "browserslist": {
     "production": [
@@ -72,5 +72,11 @@
     "*.{js,mjs,cjs,ts,mts,cts}": "eslint --fix --report-unused-disable-directives",
     "*": "prettier --write --ignore-unknown"
   },
-  "packageManager": "yarn@4.13.0"
+  "packageManager": "yarn@4.18.1",
+  "resolutions": {
+    "postcss-selector-parser": "^7.1.7",
+    "serialize-javascript": "^7.1.4",
+    "sockjs/uuid": "^11.1.1",
+    "tinypool": "^2.2.0"
+  }
 }
