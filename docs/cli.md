@@ -30,7 +30,7 @@ It searches for a `sequelize` configuration in the following places:
 
 - A `sequelize` key in `package.json`.
 - A `.sequelizerc.json` or `.config/sequelizerc.json` file (can also be yml, js, mjs, cjs).
-- A `sequelize.config.js`, `sequelize.config.cjs`, or `sequelize.config.mjs` file (recommended).
+- A `sequelize.config.js`, `sequelize.config.ts`, `sequelize.config.cjs`, or `sequelize.config.mjs` file (recommended).
 
 The configuration file must export (or contain) an object with the following properties:
 
@@ -105,6 +105,7 @@ Examples of import-path strings (not exhaustive):
 | SQLite     | `"@sequelize/sqlite3#SqliteDialect"`      |
 | MSSQL      | `"@sequelize/mssql#MsSqlDialect"`         |
 | DB2        | `"@sequelize/db2#Db2Dialect"`             |
+| Oracle     | `"@sequelize/oracle#OracleDialect"`       |
 | Snowflake  | `"@sequelize/snowflake#SnowflakeDialect"` |
 
 :::warning
@@ -131,7 +132,7 @@ npx sequelize migration generate --format=<sql|typescript|cjs|esm> [--name=<name
 | `--format` | Yes      | —           | File format: `sql`, `typescript`, `cjs`, or `esm`.      |
 | `--name`   | No       | `"unnamed"` | A short descriptive name, used as part of the filename. |
 
-The generated filename is prefixed with a UTC timestamp in `YYYY-MM-DDThh-mm-ss` format (e.g. `2026-04-12t14-30-00-create-users.ts`). Files are sorted alphabetically when run, so the timestamp ensures correct ordering.
+The generated filename is prefixed with a UTC timestamp in `YYYY-MM-DDthh-mm-ss` format (e.g. `2026-04-12t14-30-00-create-users.ts`). Files are sorted alphabetically when run, so the timestamp ensures correct ordering.
 
 **SQL format** creates a directory with two files:
 
@@ -151,7 +152,7 @@ migrations/
   2026-04-12t14-30-00-create-users.cjs  ← CommonJS
 ```
 
-If you run the command in interactive mode without providing `--name`, you will be prompted for one.
+If `--name` is not provided, the file is named `unnamed` (e.g. `2026-04-12t14-30-00-unnamed.ts`).
 
 #### JSON output
 
@@ -178,6 +179,8 @@ npx sequelize migration run [--to=<name>] [--step=<n>]
 | `--step` | —       | Run only this many pending migrations.                     |
 
 Migration history is tracked in a `SequelizeMeta` table that the CLI creates automatically in your database.
+
+The name of a migration is its file name, including the extension for JavaScript and TypeScript migrations (e.g. `2026-01-02t00-00-00-create-posts.ts`). SQL migrations are directories, so their name has no extension (e.g. `2026-01-02t00-00-00-create-posts`). Use these names with `--to`.
 
 **Examples:**
 
