@@ -8,7 +8,7 @@ const lightCodeTheme = require('prism-react-renderer').themes.github;
 const config = {
   title: 'Sequelize',
   tagline:
-    'Sequelize is a modern TypeScript and Node.js ORM for Oracle, Postgres, MySQL, MariaDB, SQLite and SQL Server, and more. Featuring solid transaction support, relations, eager and lazy loading, read replication and more.',
+    'Sequelize is a modern TypeScript and Node.js ORM for Oracle, Postgres, MySQL, MariaDB, SQLite, SQL Server and SAP HANA, and more. Featuring solid transaction support, relations, eager and lazy loading, read replication and more.',
   url: 'https://sequelize.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',

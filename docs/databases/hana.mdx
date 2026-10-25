@@ -1,0 +1,59 @@
+---
+title: SAP HANA
+sidebar_position: 1
+---
+
+# Sequelize for SAP HANA
+
+:::info Version Compatibility
+
+See [Releases](/releases#sap-hana-support-table) to see which versions of SAP HANA are supported.
+
+:::
+
+To use Sequelize with SAP HANA, you need to install the `@sequelize/hana` dialect package:
+
+```bash npm2yarn
+npm i @sequelize/hana
+```
+
+Then use the `HanaDialect` class as the dialect option in the Sequelize constructor:
+
+```ts
+import { Sequelize } from '@sequelize/core';
+import { HanaDialect } from '@sequelize/hana';
+
+const sequelize = new Sequelize({
+  dialect: HanaDialect,
+  database: 'mydb',
+  user: 'myuser',
+  password: 'mypass',
+  host: 'localhost',
+  port: 443,
+});
+```
+
+## Connection Options
+
+import ConnectionOptions from './_connection-options.md';
+
+<ConnectionOptions />
+
+The following options are accepted by the SAP HANA dialect:
+
+| Option          | Description                                                              |
+| --------------- | ------------------------------------------------------------------------ |
+| `host`          | Specifies the name of the host to connect to.                            |
+| `port`          | Specifies the port number to connect to.                                 |
+| `database`      | Specifies the name of the database to connect to.                        |
+| `user`          | Specifies the name of an SAP HANA database user.                         |
+| `password`      | Specifies the password for the SAP HANA database user.                   |
+| `currentSchema` | Sets the current schema, which is used for identifiers without a schema. |
+
+:::info
+
+Sequelize uses the [`@sap/hana-client`](https://www.npmjs.com/package/@sap/hana-client) package to connect to SAP HANA.
+Most of the above options are provided as-is to the `@sap/hana-client` package,
+and you can find more information about them in the [@sap/hana-client documentation](https://help.sap.com/docs/SAP_HANA_CLIENT/f1b440ded6144a54ada97ff95dac7adf/4fe9978ebac44f35b9369ef5a4a26f4c.html).
+
+:::

@@ -8,4 +8,5 @@ export const SUPPORTED_DIALECTS = new Set([
   'db2',
   'ibmi',
   'Oracle',
+  'hana',
 ]);
