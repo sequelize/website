@@ -176,9 +176,7 @@ For instance, if `YourModel` was initialized as such:
 
 ```js
 YourModel.init(
-  {
-    /* attributes */
-  },
+  {/* attributes */},
   {
     // ... other init options
     whereMergeStrategy: 'and',

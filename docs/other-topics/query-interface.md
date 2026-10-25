@@ -73,9 +73,7 @@ ALTER TABLE `Person` CHANGE `foo` `foo` FLOAT NOT NULL DEFAULT 3.14;
 ## Removing a column
 
 ```js
-queryInterface.removeColumn('Person', 'petName', {
-  /* query options */
-});
+queryInterface.removeColumn('Person', 'petName', {/* query options */});
 ```
 
 Generated SQL (using PostgreSQL):

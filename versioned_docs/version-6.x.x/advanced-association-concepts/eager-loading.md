@@ -430,9 +430,7 @@ Foo.findAll({
     {
       model: Bar,
       through: {
-        attributes: [
-          /* list the wanted attributes here */
-        ],
+        attributes: [/* list the wanted attributes here */],
       },
     },
   ],
@@ -616,9 +614,7 @@ const users = await User.findAll({
     as: 'Instruments',
     include: {
       model: Teacher,
-      include: [
-        /* etc */
-      ],
+      include: [/* etc */],
     },
   },
 });

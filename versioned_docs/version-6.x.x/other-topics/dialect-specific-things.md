@@ -313,9 +313,7 @@ You can change the engine for a model with the `engine` option (e.g., to MyISAM)
 ```js
 const Person = sequelize.define(
   'person',
-  {
-    /* attributes */
-  },
+  {/* attributes */},
   {
     engine: 'MYISAM',
   },
@@ -337,9 +335,7 @@ You can specify a comment for a table when defining the model:
 ```js
 class Person extends Model {}
 Person.init(
-  {
-    /* attributes */
-  },
+  {/* attributes */},
   {
     comment: "I'm a table comment!",
     sequelize,

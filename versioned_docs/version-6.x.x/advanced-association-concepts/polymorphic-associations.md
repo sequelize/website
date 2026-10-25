@@ -190,9 +190,7 @@ Now, we want to perform a polymorphic eager loading of the associated commentabl
 
 ```js
 const comment = await Comment.findOne({
-  include: [
-    /* What to put here? */
-  ],
+  include: [/* What to put here? */],
 });
 console.log(comment.commentable); // This is our goal
 ```
