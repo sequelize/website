@@ -66,6 +66,7 @@ title: Resources
 
 - [umzug](https://github.com/sequelize/umzug)
 - [sequelizemm](https://github.com/hasinoorit/sequelizemm) - CLI tool to generate a migration script from models
+- [pgfence](https://github.com/flvmnt/pgfence) - PostgreSQL migration analyzer with Sequelize support, lock-risk checks, and safe rewrite suggestions.
 
 ### Slugification
 
