@@ -13,3 +13,4 @@ If you're here, you might be looking for these topics:
   - [Associations](../core-concepts/assocs.md)
 - **Other Topics**
   - [Dialect-Specific Things](../other-topics/dialect-specific-things.md)
+  - [Query Builder](../other-topics/query-builder.md)
