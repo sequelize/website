@@ -1118,6 +1118,47 @@ The `sql` tag automatically escapes values, so you don't need to worry about SQL
 - For Snowflake, it is now called `snowflakeSdkModule` and expects a module compatible with the `snowflake-sdk` package.
 - For SQLite, it is now called `sqlite3Module` and expects a module compatible with the `sqlite3` package.
 
+### `queryInterface.changeColumn` and the `unique` option
+
+_Pull Request [#18540]_
+
+In Sequelize 6, `queryInterface.changeColumn` with `unique: true` added `UNIQUE` to the `ALTER` query.
+In most dialects, this added a new unique constraint every time it was called, even if the column was already unique.
+In others, `unique` was ignored, or produced an invalid query.
+
+In Sequelize 7, `changeColumn` only adds a unique key if the table does not have one on exactly that column yet
+(a unique constraint, a unique index, or the primary key), in every dialect:
+
+```ts
+// Adds a unique key on the first call, and nothing on the next ones
+await queryInterface.changeColumn('users', 'email', {
+  type: DataTypes.STRING,
+  unique: true,
+});
+```
+
+Only `unique: true` is accepted. Use `queryInterface.addConstraint` to add a named or composite unique key:
+
+```ts
+// Throws in Sequelize 7
+await queryInterface.changeColumn('users', 'firstName', {
+  type: DataTypes.STRING,
+  unique: 'full_name',
+});
+
+// Use this instead
+await queryInterface.addConstraint('users', {
+  type: 'UNIQUE',
+  fields: ['firstName', 'lastName'],
+  name: 'full_name',
+});
+```
+
+Setting `unique` to `false` does not remove existing unique keys. Use `queryInterface.removeConstraint` or `queryInterface.removeIndex` for that.
+
+In Db2, adding the unique key can require reorganizing the table (`REORG TABLE`), which commits the current transaction.
+If that is the case, `changeColumn` throws instead when it is called inside a transaction.
+
 ## Deprecations & Removals
 
 ### Removal of previously deprecated APIs
@@ -1186,3 +1227,4 @@ stop working in a future major release.
 [#15292]: https://github.com/sequelize/sequelize/pull/15292
 [#15598]: https://github.com/sequelize/sequelize/pull/15598
 [#16514]: https://github.com/sequelize/sequelize/pull/16514
+[#18540]: https://github.com/sequelize/sequelize/pull/18540
