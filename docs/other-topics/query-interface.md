@@ -2,26 +2,96 @@
 title: Query Interface
 ---
 
-An instance of Sequelize uses something called **Query Interface** to communicate to the database in a dialect-agnostic way. Most of the methods you've learned in this manual are implemented with the help of several methods from the query interface.
+The **Query Interface** is a low-level API that Sequelize uses internally to communicate with the database in a dialect-agnostic way.
+It is primarily useful in contexts where models are not available, such as database migrations.
 
-The methods from the query interface are therefore lower-level methods; you should use them only if you do not find another way to do it with higher-level APIs from Sequelize. They are, of course, still higher-level than running raw queries directly (i.e., writing SQL by hand).
+The Query Interface can be considered as the step between model methods and raw SQL queries.
 
-This guide shows a few examples, but for the full list of what it can do, and for detailed usage of each method, check the [QueryInterface API](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html).
+:::note
+
+Only APIs that are considered stable and well-designed for end users are documented here.
+Other APIs are being progressively redesigned and will be documented as they become ready.
+
+:::
 
 ## Obtaining the query interface
 
-From now on, we will call `queryInterface` the singleton instance of the [QueryInterface](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html) class, which is available on your Sequelize instance:
+The query interface is available on your Sequelize instance:
 
 ```js
-import { Sequelize, DataTypes } from '@sequelize/core';
+import { Sequelize } from '@sequelize/core';
+
 const sequelize = new Sequelize(/* ... */);
-const queryInterface = sequelize.getQueryInterface();
+const queryInterface = sequelize.queryInterface;
 ```
 
-## Creating a table
+For the full API reference, see the [QueryInterface API](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html).
+
+## Database management
+
+These methods let you create and manage databases.
+They are dialect-specific and not all methods are supported by every dialect.
+
+Relevant API:
+[`createDatabase`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#createdatabase),
+[`dropDatabase`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#dropdatabase),
+[`listDatabases`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#listdatabases),
 
 ```js
-queryInterface.createTable('Person', {
+// Create a database
+await queryInterface.createDatabase('mydb', { charset: 'utf8mb4' });
+
+// Drop a database
+await queryInterface.dropDatabase('mydb');
+
+// List all databases
+const databases = await queryInterface.listDatabases();
+// => [{ name: 'mydb' }, ...]
+```
+
+## Schema management
+
+Schemas are namespaces that can contain tables (what MySQL/MariaDB call "databases").
+
+Relevant API:
+[`createSchema`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#createschema),
+[`dropSchema`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#dropschema),
+[`listSchemas`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#listschemas),
+[`dropAllSchemas`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#dropallschemas)
+
+```js
+// Create a schema
+await queryInterface.createSchema('myschema');
+
+// Drop a schema
+await queryInterface.dropSchema('myschema');
+
+// List all schemas
+const schemas = await queryInterface.listSchemas();
+// => ['public', 'myschema']
+
+// Drop all schemas (use with care!)
+await queryInterface.dropAllSchemas({
+  // optionally skip certain schemas
+  skip: ['public'],
+});
+```
+
+## Table management
+
+### Creating a table
+
+Relevant API: [`createTable`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#createtable)
+
+```js
+import { DataTypes } from '@sequelize/core';
+
+await queryInterface.createTable('people', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
   name: DataTypes.STRING,
   isBetaMember: {
     type: DataTypes.BOOLEAN,
@@ -33,33 +103,139 @@ queryInterface.createTable('Person', {
 
 Generated SQL (using SQLite):
 
-```SQL
-CREATE TABLE IF NOT EXISTS `Person` (
+```sql
+CREATE TABLE IF NOT EXISTS `people` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `name` VARCHAR(255),
   `isBetaMember` TINYINT(1) NOT NULL DEFAULT 0
 );
 ```
 
-**Note:** Consider defining a Model instead and calling `YourModel.sync()` instead, which is a higher-level approach.
+### Listing and checking tables
 
-## Adding a column to a table
+Relevant API:
+[`listTables`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#listtables),
+[`tableExists`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#tableexists)
 
 ```js
-queryInterface.addColumn('Person', 'petName', { type: DataTypes.STRING });
+// List all tables in the current schema
+const tables = await queryInterface.listTables();
+// => [{ tableName: 'people', schema: 'public' }, ...]
+
+// Check whether a table exists
+const exists = await queryInterface.tableExists('people');
+// => true
+```
+
+### Describing a table
+
+Relevant API: [`describeTable`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#describetable)
+
+Returns the full column definitions for a table:
+
+```js
+const columns = await queryInterface.describeTable('people');
+```
+
+Example output:
+
+```js
+{
+  id: {
+    type: 'INTEGER',
+    allowNull: false,
+    defaultValue: null,
+    primaryKey: true,
+    autoIncrement: true,
+    comment: null,
+  },
+  name: {
+    type: 'VARCHAR(255)',
+    allowNull: true,
+    defaultValue: null,
+    primaryKey: false,
+    autoIncrement: false,
+    comment: null,
+  },
+}
+```
+
+### Renaming a table
+
+Relevant API: [`renameTable`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#renametable)
+
+```js
+await queryInterface.renameTable('people', 'User');
+```
+
+### Dropping tables
+
+Relevant API:
+[`dropTable`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#droptable),
+[`dropAllTables`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#dropalltables)
+
+```js
+// Drop a single table
+await queryInterface.dropTable('people');
+
+// Drop all tables in the current schema (use with care!)
+await queryInterface.dropAllTables({
+  // optionally skip certain tables
+  skip: ['migrations'],
+});
+```
+
+### Truncating a table
+
+Relevant API: [`truncate`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#truncate)
+
+Deletes all rows but keeps the table structure:
+
+```js
+await queryInterface.truncate('people');
+```
+
+## Column management
+
+### Adding a column
+
+Relevant API: [`addColumn`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#addcolumn)
+
+```js
+await queryInterface.addColumn('people', 'petName', {
+  type: DataTypes.STRING,
+  allowNull: true,
+});
 ```
 
 Generated SQL (using SQLite):
 
 ```sql
-ALTER TABLE `Person` ADD `petName` VARCHAR(255);
+ALTER TABLE `people` ADD `petName` VARCHAR(255);
 ```
 
-## Changing the datatype of a column
+### Removing a column
+
+Relevant API: [`removeColumn`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#removecolumn)
 
 ```js
-queryInterface.changeColumn('Person', 'foo', {
+await queryInterface.removeColumn('people', 'petName');
+```
+
+Generated SQL (using PostgreSQL):
+
+```sql
+ALTER TABLE "public"."people" DROP COLUMN "petName";
+```
+
+### Changing a column
+
+Relevant API: [`changeColumn`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#changecolumn)
+
+```js
+await queryInterface.changeColumn('people', 'age', {
   type: DataTypes.FLOAT,
-  defaultValue: 3.14,
+  defaultValue: 0,
   allowNull: false,
 });
 ```
@@ -67,90 +243,217 @@ queryInterface.changeColumn('Person', 'foo', {
 Generated SQL (using MySQL):
 
 ```sql
-ALTER TABLE `Person` CHANGE `foo` `foo` FLOAT NOT NULL DEFAULT 3.14;
+ALTER TABLE `people` CHANGE `age` `age` FLOAT NOT NULL DEFAULT 0;
 ```
 
-## Removing a column
+### Renaming a column
+
+Relevant API: [`renameColumn`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#renamecolumn)
 
 ```js
-queryInterface.removeColumn('Person', 'petName', {
-  /* query options */
+await queryInterface.renameColumn('people', 'petName', 'animalName');
+```
+
+:::note SQLite limitations
+
+SQLite does not natively support altering or removing columns. Sequelize works around this by recreating the whole table using a temporary backup table, inspired by [the SQLite documentation](https://www.sqlite.org/lang_altertable.html#otheralter).
+
+:::
+
+## Index management
+
+### Adding an index
+
+Relevant API: [`addIndex`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#addindex)
+
+```js
+// Simple index
+await queryInterface.addIndex('people', ['name']);
+
+// Unique index with a custom name
+await queryInterface.addIndex('people', {
+  fields: ['email'],
+  unique: true,
+  name: 'people_email_unique',
+});
+
+// Partial index (PostgreSQL)
+await queryInterface.addIndex('people', {
+  fields: ['email'],
+  unique: true,
+  where: { active: true },
 });
 ```
 
-Generated SQL (using PostgreSQL):
+### Removing an index
 
-```SQL
-ALTER TABLE "public"."Person" DROP COLUMN "petName";
-```
-
-## Changing and removing columns in SQLite
-
-SQLite does not support directly altering and removing columns. However, Sequelize will try to work around this by recreating the whole table with the help of a backup table, inspired by [these instructions](https://www.sqlite.org/lang_altertable.html#otheralter).
-
-For example:
+Relevant API: [`removeIndex`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#removeindex)
 
 ```js
-// Assuming we have a table in SQLite created as follows:
-queryInterface.createTable('Person', {
-  name: DataTypes.STRING,
-  isBetaMember: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-    allowNull: false,
+// By index name
+await queryInterface.removeIndex('people', 'people_email_unique');
+
+// By column list (Sequelize will infer the index name)
+await queryInterface.removeIndex('people', ['email']);
+```
+
+### Listing indexes
+
+Relevant API: [`showIndex`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#showindex)
+
+```js
+const indexes = await queryInterface.showIndex('people');
+```
+
+Example output:
+
+```js
+[
+  {
+    name: 'people_email_unique',
+    unique: true,
+    primary: false,
+    fields: [{ attribute: 'email', order: 'ASC', length: undefined, collate: undefined }],
+    includes: undefined,
+    tableName: 'people',
+    type: undefined,
   },
-  petName: DataTypes.STRING,
-  foo: DataTypes.INTEGER,
+];
+```
+
+## Constraint management
+
+### Adding a constraint
+
+Relevant API: [`addConstraint`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#addconstraint)
+
+```js
+// UNIQUE constraint
+await queryInterface.addConstraint('people', {
+  fields: ['email'],
+  type: 'UNIQUE',
+  name: 'people_email_unique',
 });
 
-// And we change a column:
-queryInterface.changeColumn('Person', 'foo', {
-  type: DataTypes.FLOAT,
-  defaultValue: 3.14,
-  allowNull: false,
+// CHECK constraint (not supported by MySQL)
+await queryInterface.addConstraint('people', {
+  fields: ['age'],
+  type: 'CHECK',
+  where: { age: { [Op.gte]: 0 } },
+  name: 'people_age_positive',
+});
+
+// PRIMARY KEY constraint
+await queryInterface.addConstraint('people', {
+  fields: ['id'],
+  type: 'PRIMARY KEY',
+  name: 'people_pk',
+});
+
+// FOREIGN KEY constraint
+await queryInterface.addConstraint('posts', {
+  fields: ['userId'],
+  type: 'FOREIGN KEY',
+  name: 'post_user_fkey',
+  references: {
+    table: 'people',
+    field: 'id',
+  },
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
 });
 ```
 
-The following SQL calls are generated for SQLite:
+### Listing constraints
 
-```sql
-PRAGMA TABLE_INFO(`Person`);
+Relevant API: [`showConstraints`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#showconstraints)
 
-CREATE TABLE IF NOT EXISTS `Person_backup` (
-  `name` VARCHAR(255),
-  `isBetaMember` TINYINT(1) NOT NULL DEFAULT 0,
-  `foo` FLOAT NOT NULL DEFAULT '3.14',
-  `petName` VARCHAR(255)
-);
-
-INSERT INTO `Person_backup`
-  SELECT
-    `name`,
-    `isBetaMember`,
-    `foo`,
-    `petName`
-  FROM `Person`;
-
-DROP TABLE `Person`;
-
-CREATE TABLE IF NOT EXISTS `Person` (
-  `name` VARCHAR(255),
-  `isBetaMember` TINYINT(1) NOT NULL DEFAULT 0,
-  `foo` FLOAT NOT NULL DEFAULT '3.14',
-  `petName` VARCHAR(255)
-);
-
-INSERT INTO `Person`
-  SELECT
-    `name`,
-    `isBetaMember`,
-    `foo`,
-    `petName`
-  FROM `Person_backup`;
-
-DROP TABLE `Person_backup`;
+```js
+const constraints = await queryInterface.showConstraints('people');
 ```
 
-## Other
+Example output:
 
-As mentioned in the beginning of this guide, there is a lot more to the Query Interface available in Sequelize! Check the [QueryInterface API](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html) for a full list of what can be done.
+```js
+[
+  {
+    constraintName: 'people_email_unique',
+    constraintType: 'UNIQUE',
+    tableName: 'people',
+    tableSchema: 'public',
+    constraintSchema: 'public',
+    columnNames: ['email'],
+  },
+];
+```
+
+You can filter by constraint type or column:
+
+```js
+// Only foreign key constraints
+const fks = await queryInterface.showConstraints('posts', {
+  constraintType: 'FOREIGN KEY',
+});
+
+// Constraints on a specific column
+const colConstraints = await queryInterface.showConstraints('people', {
+  columnName: 'email',
+});
+```
+
+### Removing a constraint
+
+Relevant API: [`removeConstraint`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#removeconstraint)
+
+```js
+await queryInterface.removeConstraint('people', 'people_email_unique');
+```
+
+### Deferring constraints
+
+Relevant API: [`deferConstraints`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#deferconstraints)
+
+For dialects that support deferrable constraints, you can defer constraint checking within a transaction:
+
+```js
+import { ConstraintChecking } from '@sequelize/core';
+
+// Defer all constraints until the end of the transaction
+await sequelize.transaction(async () => {
+  await queryInterface.deferConstraints(ConstraintChecking.DEFERRED());
+
+  // ... perform operations that would temporarily violate constraints
+});
+
+// Or defer only specific named constraints:
+await sequelize.transaction(async () => {
+  await queryInterface.deferConstraints(ConstraintChecking.DEFERRED(['post_user_fkey']));
+});
+```
+
+## Miscellaneous
+
+### Disabling foreign key checks
+
+Relevant API: [`withoutForeignKeyChecks`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#withoutforeignkeychecks)
+
+Use `withoutForeignKeyChecks` to safely perform bulk operations (such as truncating tables) that would otherwise violate foreign key constraints. Sequelize will automatically re-enable foreign key checks after the callback completes, even if it throws.
+
+```js
+await queryInterface.withoutForeignKeyChecks(async connection => {
+  await queryInterface.truncate('posts', { connection });
+  await queryInterface.truncate('people', { connection });
+});
+```
+
+You must use the provided `connection` for all queries inside the callback to ensure they run on the same database connection (foreign key checks are connection-scoped in most databases).
+
+### Getting the server version
+
+Relevant API: [`fetchDatabaseVersion`](pathname:///api/v7/classes/_sequelize_core.index.AbstractQueryInterface.html#fetchdatabaseversion)
+
+```ts
+// Get the database server version
+const version = await queryInterface.fetchDatabaseVersion();
+// => '8.0.32'
+```
