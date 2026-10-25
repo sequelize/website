@@ -33,9 +33,10 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          DEPLOY_MESSAGE: ${{ github.event.commits[0].message }}
         shell: bash
         run: |
-          yarn netlify deploy --dir build --json --message '${{ github.event.commits[0].message }}' > log.tmp.txt 2>&1
+          yarn netlify deploy --dir build --json --message "$DEPLOY_MESSAGE" > log.tmp.txt 2>&1
           cat log.tmp.txt | jq -r '"🚀 [Website draft URL](\(.deploy_url))\n📋 [Deployment logs](\(.logs))"' > log.txt
       - name: Read deployment log
         if: ${{ !github.event.pull_request.head.repo.fork && !startsWith(github.ref, 'refs/heads/renovate') }}
