@@ -42,3 +42,41 @@ Sequelize uses a pool to manage connections to your replicas. Internally Sequeli
 If you want to modify these, you can pass pool as an options when instantiating Sequelize, as shown above.
 
 Each `write` or `useMaster: true` query will use write pool. For `SELECT` read pool will be used. Read replica are switched using a basic round robin scheduling.
+
+If you want to set read master as default , you can do like this:
+
+```js
+const sequelize = new Sequelize('database', null, null, {
+  dialect: 'mysql',
+  port: 3306,
+  replication: {
+    read: [
+      { host: '8.8.8.8', username: 'read-1-username', password: process.env.READ_DB_1_PW },
+      { host: '9.9.9.9', username: 'read-2-username', password: process.env.READ_DB_2_PW }
+    ],
+    write: { host: '1.1.1.1', username: 'write-username', password: process.env.WRITE_DB_PW }
+  },
+  pool: { // If you want to override the options used for the read/write pool you can do so here
+    max: 20,
+    idle: 30000
+  },
+   query: {
+    useMaster: true 
+  },
+})
+
+// table set read replica as default
+const User = sequelize.define(
+  'user',
+  {
+    username: DataTypes.STRING,
+    points: DataTypes.INTEGER
+  },
+  {
+    defaultScope: {
+      // default read the replica DB
+      useMaster: false
+    }
+  }
+);
+```
