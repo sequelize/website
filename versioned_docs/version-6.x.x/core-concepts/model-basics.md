@@ -293,9 +293,7 @@ It is also possible to enable only one of `createdAt`/`updatedAt`, and to provid
 ```js
 class Foo extends Model {}
 Foo.init(
-  {
-    /* attributes */
-  },
+  {/* attributes */},
   {
     sequelize,
 

@@ -7,9 +7,7 @@ Sequelize supports adding indexes to the model definition which will be created 
 ```js
 const User = sequelize.define(
   'User',
-  {
-    /* attributes */
-  },
+  {/* attributes */},
   {
     indexes: [
       // Create a unique index on email
