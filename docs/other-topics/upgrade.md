@@ -843,21 +843,25 @@ You'll likely find many tiny differences which however should be easy to fix.
 
 ### Attribute names cannot use syntax reserved by Sequelize
 
-_Attributes cannot start or end with `$`, include `.`, include `::`, or include `->`. Column names are not impacted._
+_Attribute names cannot include the characters `$`, `.`, `:`, `[`, `]`, control characters, or the character sequence `->`. Column names are not impacted._
 
-`$attribute$` & `$nested.attribute$` is a special syntax used to reference nested attributes in Queries.  
-The `.` character also has special meaning, being used to reference nested JSON object keys,
-the `$nested.attribute$` syntax, and in output names of eager-loaded associations in SQL queries.
+Attribute names are used as keys in `where` objects and in `sql.attribute()`, where some characters have a special meaning:
+
+- `$` delimits references to attributes of included associations: `$association.attribute$`.
+- `.` accesses nested JSON keys: `json.key`. It is also used in the `$association.attribute$` syntax, and in the output names of eager-loaded associations.
+- `:` introduces casts and modifiers: `attribute::integer`, `json.key:unquote`.
+- `[` and `]` access JSON array indexes: `json[0]`.
+- Control characters (U+0000 to U+001F, and U+007F) are never valid in this syntax.
 
 The `->` character sequence is [used internally to reference nested associations](https://github.com/sequelize/sequelize/pull/14181#issuecomment-1053591214).
 
-Finally, the `::` character sequence has special meaning in queries as it allows you to tell sequelize to cast an attribute.
+In Sequelize 6, it was possible to create an attribute whose name matched these special syntaxes, leading to subtle bugs.  
+Starting with Sequelize 7, these characters are reserved: defining an attribute whose name includes any of them throws an error.
 
-In Sequelize 6, it was possible to create an attribute that matched these special syntaxes, leading to subtle bugs.  
-Starting with Sequelize 7, this is now considered reserved syntax, and it is no longer possible to
-use a string that both starts or ends with a `$` as the attribute name, includes the `.` character, or includes `::`.
+Any other character is allowed in an attribute name, including dashes, spaces, quotes and non-ASCII characters (e.g. `first-name`, `café`, `名前`),
+because attribute names are always quoted in the SQL that Sequelize generates. Such attributes can be used in `where` objects and in `sql.attribute()` like any other attribute.
 
-This only affects the attribute name, it is still possible to do this for the column name.
+This only affects the attribute name, it is still possible to use these characters in the column name.
 
 Instead of doing this:
 
@@ -873,7 +877,7 @@ class User extends Model {
 User.init(
   {
     // this key sets the JavaScript name.
-    // It's not allowed to start or end with $ anymore.
+    // It's not allowed to include $ anymore.
     $myAttribute$: {
       type: DataTypes.STRING,
       columnName: '$myAttribute$',
@@ -883,7 +887,7 @@ User.init(
       type: DataTypes.STRING,
       columnName: 'another.attribute',
     },
-    // The JavaScript name is not allowed to include '::' anymore.
+    // The JavaScript name is not allowed to include ':' anymore.
     'other::attribute': {
       type: DataTypes.STRING,
       columnName: 'other::attribute',
