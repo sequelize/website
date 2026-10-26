@@ -57,9 +57,9 @@ Project.init(
           },
         };
       },
-      sequelize,
-      modelName: 'project',
     },
+    sequelize,
+    modelName: 'project',
   },
 );
 ```

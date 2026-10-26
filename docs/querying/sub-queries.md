@@ -21,6 +21,7 @@ import {
   DataTypes,
   InferCreationAttributes,
   InferAttributes,
+  NonAttribute,
 } from '@sequelize/core';
 import {
   Attribute,
@@ -28,7 +29,7 @@ import {
   PrimaryKey,
   NotNull,
   HasMany,
-} from '@sequelize/decorators-legacy';
+} from '@sequelize/core/decorators-legacy';
 import { SqliteDialect } from '@sequelize/sqlite3';
 
 class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
@@ -70,6 +71,7 @@ class Reaction extends Model {
 const sequelize = new Sequelize({
   dialect: SqliteDialect,
   storage: ':memory:',
+  pool: { max: 1, idle: Infinity, maxUses: Infinity },
   models: [Post, Reaction],
 });
 ```
@@ -84,11 +86,11 @@ import { sql, Op } from '@sequelize/core';
 Post.findAll({
   where: {
     id: {
-      [Op.in]: sql`
+      [Op.in]: sql`(
         SELECT DISTINCT "postId"
         FROM "reactions" AS "reaction"
         WHERE "reaction"."type" = 'Laugh'
-      `,
+      )`,
     },
   },
 });
@@ -102,11 +104,11 @@ import { sql, Op } from '@sequelize/core';
 function postHasReactionOfType(type: ReactionType) {
   return {
     id: {
-      [Op.in]: sql`
+      [Op.in]: sql`(
         SELECT DISTINCT "postId"
         FROM "reactions" AS "reaction"
         WHERE "reaction"."type" = ${type}
-      `,
+      )`,
     },
   };
 }
