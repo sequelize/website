@@ -81,7 +81,7 @@ we use the `[]` syntax for array index access, and `.` for object property acces
 ```ts
 User.findAll({
   where: {
-    'gameData.passwords[0]': 0451,
+    'gameData.passwords[0]': '0451',
   },
 });
 ```
@@ -94,10 +94,10 @@ produces
 -- when accessing array indexes in postgres,
 -- as Sequelize can sometimes use the "->" operator instead of "#>" for performance,
 -- which uses a different syntax for indexes & keys
-"gameData"#>ARRAY['passwords','0'] = '0451';
+"gameData"#>ARRAY['passwords','0'] = '"0451"';
 
 -- mysql & friends
-JSON_EXTRACT(`gameData`, '$.passwords[0]') = '0451';
+JSON_EXTRACT(`gameData`, '$.passwords[0]') = '"0451"';
 ```
 
 ## Comparing JSON values
@@ -228,10 +228,10 @@ produces
 
 ```sql
 -- postgres
-"jsonAttribute"->'age' = 18 AND "jsonAttribute"->0 = '"1"';
+"jsonAttribute"->'age' = '18' AND "jsonAttribute"->0 = '"1"';
 
 -- mysql & friends
-JSON_EXTRACT(`jsonAttribute`, '$.age') = 18 AND JSON_EXTRACT(`jsonAttribute`, '$[0]') = '"1"';
+JSON_EXTRACT(`jsonAttribute`, '$.age') = '18' AND JSON_EXTRACT(`jsonAttribute`, '$[0]') = '"1"';
 ```
 
 ## Path Segment Escaping
@@ -491,7 +491,7 @@ User.findAll({
 SELECT * FROM "Users" WHERE "jsonAttribute"->'name' IS NULL OR "jsonAttribute"->'name' = 'null';
 
 -- mysql & friends
-SELECT * FROM "Users" WHERE JSON_EXTRACT(`jsonAttribute`, '$.name') IS NULL OR JSON_EXTRACT(`jsonAttribute`, '$.name') = '"null"';
+SELECT * FROM "Users" WHERE JSON_EXTRACT(`jsonAttribute`, '$.name') IS NULL OR JSON_EXTRACT(`jsonAttribute`, '$.name') = 'null';
 ```
 
 #### When to compare against either JSON `null` or SQL `NULL`

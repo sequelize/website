@@ -586,7 +586,7 @@ User.findAll({
 });
 ```
 
-You can remove that subquery, and revert back to a plain JOIN, by using the `subquery: false` option:
+You can remove that subquery, and revert back to a plain JOIN, by using the `subQuery: false` option:
 
 ```ts
 User.findAll({
@@ -596,7 +596,7 @@ User.findAll({
   },
   limit: 2,
   // highlight-next-line
-  subquery: false,
+  subQuery: false,
 });
 ```
 
@@ -617,7 +617,7 @@ User.findAll({
   where: {
     id: {
       [Op.in]: sql`
-        SELECT DISTINCT "projects"."authorId" WHERE "projects"."name" = 'Project 1'
+        (SELECT DISTINCT "projects"."authorId" FROM "projects" WHERE "projects"."name" = 'Project 1')
       `,
     },
   },
@@ -649,7 +649,7 @@ const author = await Author.findOne({
   include: ['books'],
 });
 
-console.log(JSON.stringify(author[0]));
+console.log(JSON.stringify(author));
 ```
 
 Console output:
