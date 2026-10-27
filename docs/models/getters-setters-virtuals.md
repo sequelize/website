@@ -211,4 +211,7 @@ const users = await User.findAll({
 
 :::
 
+If you need to filter, sort or index on a computed value, use a [generated column](./generated-columns.mdx) instead:
+the database computes it, and it can be used anywhere in a query.
+
 [^1]: Did you know? Not everyone's name can be neatly separated into [first name & last name](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/).
