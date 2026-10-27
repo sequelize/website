@@ -16,9 +16,7 @@ You can also change the default column name (which is `deletedAt`) to something 
 ```js
 class Post extends Model {}
 Post.init(
-  {
-    /* attributes here */
-  },
+  {/* attributes here */},
   {
     sequelize,
     paranoid: true,

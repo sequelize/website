@@ -400,9 +400,7 @@ Here is an example of how to use this option:
 ```ts
 import { Model } from 'sequelize';
 
-const sequelize = new Sequelize({
-  /* options */
-});
+const sequelize = new Sequelize({/* options */});
 
 class User extends Model {}
 

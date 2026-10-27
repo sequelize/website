@@ -167,7 +167,8 @@
     }
     function V(a) {
       for (var d = void 0, f = a.firstChild; f; f = f.nextSibling)
-        var b = f.nodeType, d = 1 === b ? (d ? a : f) : 3 === b ? (W.test(f.nodeValue) ? a : d) : d;
+        var b = f.nodeType,
+          d = 1 === b ? (d ? a : f) : 3 === b ? (W.test(f.nodeValue) ? a : d) : d;
       return d === a ? void 0 : d;
     }
     function G(a, d) {
@@ -226,7 +227,7 @@
         for (var f = a.concat(d), l = [], m = {}, c = 0, p = f.length; c < p; ++c) {
           var w = f[c],
             r = w[3];
-          if (r) for (var e = r.length; 0 <= --e; ) b[r.charAt(e)] = w;
+          if (r) for (var e = r.length; 0 <= --e;) b[r.charAt(e)] = w;
           w = w[1];
           r = '' + w;
           m.hasOwnProperty(r) || (l.push(w), (m[r] = null));
@@ -352,9 +353,9 @@
           }
           return d;
         }
-        for (; !a.nextSibling; ) if (((a = a.parentNode), !a)) return;
+        for (; !a.nextSibling;) if (((a = a.parentNode), !a)) return;
         a = b(a.nextSibling, 0);
-        for (var d; (d = a.parentNode) && 1 === d.nodeType; ) a = d;
+        for (var d; (d = a.parentNode) && 1 === d.nodeType;) a = d;
         c.push(a);
       }
       for (
@@ -378,7 +379,7 @@
       a.appendChild(w);
     }
     function t(a, d) {
-      for (var f = d.length; 0 <= --f; ) {
+      for (var f = d.length; 0 <= --f;) {
         var b = d[f];
         I.hasOwnProperty(b)
           ? E.console && console.warn('cannot override language handler %s', b)
@@ -412,11 +413,11 @@
           w = 0;
         c[p] = n;
         var r, e;
-        for (e = r = 0; e < p; )
+        for (e = r = 0; e < p;)
           c[e] !== c[e + 2] ? ((c[r++] = c[e++]), (c[r++] = c[e++])) : (e += 2);
         p = r;
-        for (e = r = 0; e < p; ) {
-          for (var t = c[e], z = c[e + 1], q = e + 2; q + 2 <= p && c[q + 1] === z; ) q += 2;
+        for (e = r = 0; e < p;) {
+          for (var t = c[e], z = c[e + 1], q = e + 2; q + 2 <= p && c[q + 1] === z;) q += 2;
           c[r++] = t;
           c[r++] = z;
           e = q;
@@ -426,7 +427,7 @@
         a = '';
         g && ((a = g.style.display), (g.style.display = 'none'));
         try {
-          for (; b < m; ) {
+          for (; b < m;) {
             var h = l[b + 2] || n,
               k = c[w + 2] || n,
               q = Math.min(h, k),
@@ -633,7 +634,7 @@
               p < t.length && c.now() < b;
               p++
             ) {
-              for (var d = t[p], l = g, m = d; (m = m.previousSibling); ) {
+              for (var d = t[p], l = g, m = d; (m = m.previousSibling);) {
                 var n = m.nodeType,
                   u = (7 === n || 8 === n) && m.nodeValue;
                 if (u ? !/^\??prettify\b/.test(u) : 3 !== n || /\S/.test(m.nodeValue)) break;

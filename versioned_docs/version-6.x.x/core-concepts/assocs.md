@@ -31,15 +31,9 @@ A.belongsToMany(B, { through: 'C' }); // A BelongsToMany B through the junction 
 They all accept an options object as a second parameter (optional for the first three, mandatory for `belongsToMany` containing at least the `through` property):
 
 ```js
-A.hasOne(B, {
-  /* options */
-});
-A.belongsTo(B, {
-  /* options */
-});
-A.hasMany(B, {
-  /* options */
-});
+A.hasOne(B, {/* options */});
+A.belongsTo(B, {/* options */});
+A.hasMany(B, {/* options */});
 A.belongsToMany(B, { through: 'C' /* options */ });
 ```
 

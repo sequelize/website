@@ -29,12 +29,7 @@ function getEventTarget(storage: Storage) {
 export type StorageSetValue<T> = (newValue: T | undefined | ((oldValue: T) => T)) => void;
 
 export type JsonSerializable =
-  | number
-  | boolean
-  | string
-  | null
-  | JsonSerializable[]
-  | { [key: string]: JsonSerializable };
+  number | boolean | string | null | JsonSerializable[] | { [key: string]: JsonSerializable };
 
 type StorageHook = <T extends JsonSerializable>(
   key: string,

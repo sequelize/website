@@ -139,9 +139,7 @@ If you know that a model will always use the same alias in associations, you can
 ```js
 const User = sequelize.define(
   'user',
-  {
-    /* ... */
-  },
+  {/* ... */},
   {
     name: {
       singular: 'líder',

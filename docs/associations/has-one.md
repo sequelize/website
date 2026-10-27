@@ -218,9 +218,7 @@ class Person extends Model<InferAttributes<Person>, InferCreationAttributes<Pers
 // ...
 
 const person = await Person.findByPk(1);
-const drivingLicense = await DrivingLicense.create({
-  /* ... */
-});
+const drivingLicense = await DrivingLicense.create({/* ... */});
 
 // highlight-start
 // Note: If the driving license already has an owner, it will be replaced by the new owner.
